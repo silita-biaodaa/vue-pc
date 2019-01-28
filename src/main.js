@@ -11,6 +11,8 @@ Vue.prototype.$moment = moment;
 import router from './router'
 
 Vue.config.productionTip = false
+import  navPage  from '@/components/paging';
+Vue.component('nav-page', navPage)
 
 /* eslint-disable no-new */
 new Vue({

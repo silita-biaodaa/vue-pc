@@ -35,6 +35,32 @@ axios.interceptors.request.use(function (config) {
 //   return Promise.reject(error)
 // })
 
+
+export const getJsonData = (url, params) => {
+  return new Promise((resolve, reject) => {
+    // let token = localStorage.getItem("Authorization")
+    let token = 'biaodaaTestToken'
+    if (params != null) {
+      axios.post(url, params, {
+        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+      }).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    } else {
+      axios.post(url, null, {
+        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+      }).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    }
+  })
+
+}
+
 export const foundation = params => {
   return axios.post('foundation/listBannerImage', params).then(res => res.data)
 }
@@ -45,4 +71,12 @@ export const queryList = params => {
 
 export const companyList = params => {
   return axios.post('company/host', params).then(res => res.data)
+}
+
+export const filter = params => {
+  return axios.get('company/filter', params).then(res => res.data)
+}
+
+export const details = params => {
+  return axios.post('/notice/detail/1938725', params).then(res => res.data)
 }
