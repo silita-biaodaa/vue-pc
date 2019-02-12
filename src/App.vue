@@ -7,7 +7,7 @@
                您好,欢迎来到标大大
              </p>
              <p class="left">
-               <i class="iconfont icon-dianhua1 left"></i>
+               <i class="iconfont icon-dianhua1 left calling"></i>
                 0731-85076077
              </p>
              <p class="left">
@@ -15,7 +15,7 @@
                 下载APP
              </p>
              <p class="left">
-               <i class="iconfont icon-lianxiren left"></i>
+               <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
              </p>
           </div>
@@ -33,15 +33,16 @@
        </div>
     </div>
     <div class="nav">
-        <ul id="hd" >
-            <li v-for="(el, i) of navlist" :key="i"  :class="i==tabNo?'current':''">
+        <ul  >
+            <li v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''">
                   <div>
-                    <i class="iconfont" :class="el.className"></i>
-                    <span>{{el.name}}</span> 
+                    <img :src="el.url" >
+                    <span class="left">{{el.name}}</span> 
                   </div>
             </li>
         </ul>
     </div>
+
     <div class="content">
          <router-view/>
     </div>
@@ -51,36 +52,44 @@
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
-                    <div>
-                       联系我们
+                    <div class="left">
+                      <img src="./assets/img/pic-erweima.png" alt="">
+                      <div class="Qrcode">扫一扫，下载APP</div>                      
                     </div>
-                    <div class="left f-call f-right">
+                    <div class="left ma-16">
+                      <img src="./assets/img/pic-erweima.png" alt="">
+                      <div class="Qrcode">关注公众号</div>                      
+                    </div>
+                    <div class="left f-call ma-29">
                         <p>
                           <i class="iconfont icon-dianhua"></i>
                            <span>联系电话：0731-85076077</span>
                         </p>
                         <p>
-                          <i class="iconfont icon-shijian"></i>
+                          <i class="iconfont icon-linedesign-04"></i>
                            <span>服务时间：9：00-17：00</span>
                         </p>
-                    </div>
-                     <div class="left f-call">
                         <p>
                           <i class="iconfont icon-youxiang"></i>
                            <span>邮箱：hnsilita@163.com</span>
                         </p>
                         <p>
                           <i class="iconfont icon-dizhi"></i>
-                           <span>地址：长沙市岳麓区杜鹃路768号</span>
+                           <span>地址：湖南省长沙市岳麓区杜鹃路768号金峰壹号院</span>
                         </p>
                     </div>
-                    <div class="file">
+                    <!-- <div class="file">
                        © 2017 思利他, Inc. All rights reserved  . 湘ICP备17019911号-1
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="f-true right">
-
+              <div class="logo">
+                <img src="./assets/img/logo.png" class="right">
+              </div>
+              <p class="right top-60">
+                © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
+              </p>
             </div>
         </div>
     </div>
@@ -96,27 +105,27 @@ export default {
        navlist:[
         {
            name:'首页',
-           className:'icon-qiyeguanli',
-          to:'/'
+           url:require('./assets/img/icon-shouy.png'),
+           to:'/'
         },
         {
            name:'中标',
-           className:'icon-zhaobiaofei',
+           url:require('./assets/img/icon-zhongb.png'),
            to:'zhong',
         },
         {
            name:'招标',
-           className:'icon-zhongbiao',
+           url:require('./assets/img/icon-zhaob.png'),
            to:'zhao',
         },
         {
            name:'企业',
-           className:'icon-qiye',
+           url:require('./assets/img/icon-qiy.png'),
            to:'qi',
         },
         {
            name:'诚信',
-           className:'icon-chengxinfuwu',
+           url:require('./assets/img/icon-chengx.png'),
            to:'chen',
         }
      ]
@@ -137,6 +146,7 @@ export default {
 <style lang="less">
 @import './style/common';
 @import './assets/iconfont.css';
+@import './assets/font/iconfont.css';
 #app {
   background-color: #FAFAFA;
   .content {
@@ -150,7 +160,7 @@ export default {
     display: flex;
      .contact {
         height: 33px;
-        width: 1120px;
+        width: 960px;
         display: flex;
         justify-content: space-between;
         font-size: 11px;
@@ -158,12 +168,20 @@ export default {
         font-weight: 400;
         .contact-l {
           p {
-            margin-right: 30px;
+            margin-right: 25px;
+            color: #666;
             i {
               margin-right: 6px;
             }
             .l-mobile {
-              font-size: 18px;
+              font-size: 16px;
+            }
+            .calling {
+              font-size: 20px;
+            }
+            .person {
+              font-size: 17px;
+              font-weight: 700;
             }
           }
         }
@@ -173,7 +191,7 @@ export default {
           align-items: center; 
           flex-direction:row-reverse;
           .line {
-            width: 2px;
+            width: 1px;
             height: 12px;
             background-color: #939392;
             margin: 0 15px;
@@ -181,14 +199,16 @@ export default {
         }
      }
   }
+ 
   .nav {
     background-color: #EC7522;
     height: 50px;
     justify-content: center; 
     display: flex;
     align-items: center; 
+    
     ul {
-      width: 1120px;
+      width: 960px;
       li {
         box-sizing: border-box;
         width: 20%;
@@ -209,9 +229,8 @@ export default {
           display: flex;
           align-items: center; 
           justify-content: center; 
-          i {
-            color:#fff;
-            margin-right: 14px; 
+          img {
+            margin-right: 9px;
           }
           span {
             font-size: 18px;
@@ -223,12 +242,9 @@ export default {
       }
       li:hover,
       li:hover div {
-        background-color: #F49C17;
+        background-color: #FF8400;
         border: none;
       }
-      // div:hover {
-      //   border: none;
-      // }
       .current {
          background-color: #F49C17;
          div {
@@ -238,48 +254,48 @@ export default {
     }
   }
   .footer {
-    height: 230px;
+    height: 195px;
     width: 100%;
-    // position: fixed;
-    // z-index: 999;
-    // bottom: 0;
-    // left: 0;
     background-color: #666666;
     display: flex;
     justify-content: center; 
     .f-content {
-       width: 1120px;
-      //  border: 1px solid red;
+       width: 960px;
        height: 100%;
        box-sizing: border-box;
-       padding-top: 24px;
+       padding-top: 26px;
        .f-detail {
            width: 60%;
            height: 100%;
-           border: 1px solid red;
            .f-we {
-             padding-top: 23px;
              overflow: hidden;
-            //  padding-bottom: 20px;
              font-size: 18px;
              color:#fff;
+             .Qrcode {
+               font-size: 12px;
+               color: #FE6603;
+               text-align: center;
+             }
+             .ma-16 {
+               margin-left: 16px;
+             }
              p {
                display: flex;
                align-items: center;
                margin-bottom: 11px;
                i {
-                 font-size: 20px;
+                 font-size: 16px;
                  margin-right: 10px;
                }
                span {
-                 font-size: 14px;
+                 font-size: 12px;
                }
              }
              .f-call {
-               margin-top: 15px;
+               margin-top: 12px;
              }
-             .f-right {
-               margin-right: 92px;
+             .ma-29 {
+               margin-left: 29px;
              }
              .file {
                margin-top: 108px;
@@ -288,9 +304,17 @@ export default {
            }         
        }
        .f-true {
-         width: 30%;
+         width: 39%;
          height: 100%;
-         border: 1px solid red;
+         box-sizing: border-box;
+         .logo {
+           margin-top: 14px;
+         }
+         .top-60 {
+           margin-top: 60px;
+           font-size: 12px;
+           color: #eee;
+         }
        }
     }
   }

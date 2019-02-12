@@ -6,6 +6,7 @@
                 <div class="logo left">
 
                 </div>
+                <!-- 地区选择 -->
                 <div class="left h-top">
                    {{area}}  
                    <i class="iconfont icon-xiabiao h-area"  @click="shArea">
@@ -26,14 +27,13 @@
                           </el-row>
                        </div>
                    </i>
-                  
                 </div>
             </div>
         </el-col>
         <el-col :span="17">
            <div class="bor over">
                <ul class="search">
-                  <li class="left" v-for="(el,i) of selects " :key="i">
+                  <li class="left" v-for="(el,i) of selects " :key="i"  @click="seaI(el)" :class=" i == rank ? 'ranks' : ''">
                       {{el.name}}  
                   </li>
                </ul>
@@ -49,7 +49,6 @@
       <div class="carousel">
           <el-carousel >
             <el-carousel-item v-for="item in imgs" :key="item.id">
-              <!-- <h3>{{ item }}</h3> -->
               <img :src="item.imagesrc" alt="">
             </el-carousel-item>
           </el-carousel>
@@ -60,7 +59,7 @@
               <p>               
                  最新招标
               </p>
-              <span>
+              <span class="right-20">
                 查看更多>
               </span>
           </div>
@@ -85,7 +84,7 @@
               <p>               
                  最新中标
               </p>
-              <span>
+              <span class="right-20">
                 查看更多>
               </span>
           </div>
@@ -110,7 +109,7 @@
               <p>               
                  热门企业
               </p>
-              <span>
+              <span class="right-20">
                 查看更多>
               </span>
           </div>
@@ -275,29 +274,37 @@ export default {
        selects:[
          {
            name:'招标',
-           to:''
+           to:'',
+           i: 0
          },
          {
            name:'中标',
-           to:''
+           to:'',
+           i: 1
          },
          {
            name:'企业',
-           to:''
+           to:'',
+           i: 2
          },
          {
            name:'诚信',
-           to:''
+           to:'',
+           i: 3
          },
        ],
        select:'',
        imgs:[],
        queryLists:[],
        biddings:[],
-       companys:[]
+       companys:[],
+       rank:0
     }
   },
   methods: {
+    seaI(el) {
+      this.rank = el.i
+    },
     shArea() {
        this.provinces = !this.provinces
     },
@@ -358,15 +365,18 @@ export default {
 </script>
 <style lang="less" >
 .home {
-   width: 1120px;
+   width: 960px;
    height: 2000px;
    .over {
      overflow: hidden;
    }
+   .right-20 {
+    margin-right: 18px;
+    cursor: pointer;
+  }
    .bor {
      height: 149px;
      clear: both;
-    //  overflow: hidden;
      .el-input-group{
        width: 588px;
        font-size: 16px;
@@ -380,21 +390,24 @@ export default {
        }
      }
      .logo {
+       background: url(../assets/img/logo.png) no-repeat;
        margin-top: 66px;
-       border: 1px solid red;
        height: 47px;
        width: 158px;
        margin-right: 21px;
      }
      .search {
        margin-top: 50px;
-      //  box-sizing: border-box;
        margin-bottom: 10px;
        font-size: 16px;
        width: 648px;
        overflow: hidden;
+       .ranks {
+         color: #FE6603;
+       }
        li {
-         width: 20%;
+         width: 18%;
+         cursor: pointer;
        }
      }
      .h-top {
@@ -435,11 +448,10 @@ export default {
    .b-content {
        margin-top: 10px;
        height: 362px;
-       width: 1120px;
+       width: 960px;
        clear: both;
        background: #fff;
        padding-bottom: 35px;
-      //  border: 1px solid red;
        .title {
          height: 63px;
          display: flex;
@@ -464,7 +476,7 @@ export default {
          ul {
            li {
              width: 20%;
-             margin-left: 72px;
+             margin-left: 62px;
              box-sizing: border-box;
              margin-bottom: 52px;
              p {
@@ -502,7 +514,9 @@ export default {
     height: 446px;
     margin-bottom: 19px;
     overflow: hidden;
-    // border: 1px solid red;
+    img {
+      width: 100%;
+    }
   }
   .el-carousel__container {
     height: 446px;
@@ -516,13 +530,13 @@ export default {
     padding: 10px 6px;
   }
   .el-carousel__indicators {
-    bottom: 20px;
+    bottom: 70px;
   }
   .el-carousel__button {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    opacity:0.35;
+    opacity:0.5;
   }
 }
 </style>

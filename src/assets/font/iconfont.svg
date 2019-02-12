@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="linedesign-04" unicode="&#58990;" d="M510.2592 819.2a432.6144 432.6144 0 0 1-288-109.6448 38.3744 38.3744 0 1 1 51.0464-57.3696A355.84 355.84 0 0 0 510.2592 742.4c196.9408 0 357.1968-160.768 357.1968-358.4s-160.256-358.4-357.1968-358.4S153.0624 186.368 153.0624 384c0 40.9856 6.8352 81.152 20.3008 119.424a38.4256 38.4256 0 0 1-72.448 25.4976A435.5072 435.5072 0 0 1 76.2624 384c0-239.9744 194.688-435.2 433.9968-435.2s433.9968 195.2256 433.9968 435.2S749.5424 819.2 510.2592 819.2zM510.2592 697.5232a38.4 38.4 0 0 1-38.4-38.4V384a38.4 38.4 0 0 1 38.4-38.4H782.592a38.4 38.4 0 1 1 0 76.8h-233.9584V659.1232a38.4 38.4 0 0 1-38.3744 38.4z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>
