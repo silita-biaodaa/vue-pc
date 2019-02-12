@@ -116,7 +116,7 @@ export default {
   data () {
     return {
       select:'',
-      area:'router-link ',
+      area:' ',
       areas:[],
       queryLists:[],
       projectTypes:[

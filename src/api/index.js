@@ -77,6 +77,7 @@ export const filter = params => {
   return axios.get('company/filter', params).then(res => res.data)
 }
 
-export const details = params => {
-  return axios.post('/notice/detail/1938725', params).then(res => res.data)
+export const companys = params => {
+  return axios.post('company/query/filter', params).then(res => res.data)
 }
+
