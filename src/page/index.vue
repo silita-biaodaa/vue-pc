@@ -7,7 +7,7 @@
 
                 </div>
                 <!-- 地区选择 -->
-                <div class="left h-top">
+                <!-- <div class="left h-top">
                    {{area}}  
                    <i class="iconfont icon-xiabiao h-area"  @click="shArea">
                        <div class="h-areas" v-show="provinces" >
@@ -27,7 +27,7 @@
                           </el-row>
                        </div>
                    </i>
-                </div>
+                </div> -->
             </div>
         </el-col>
         <el-col :span="17">
@@ -59,13 +59,13 @@
               <p>               
                  最新招标
               </p>
-              <span class="right-20">
+              <router-link class="right-20" to="/bid" tag="span">
                 查看更多>
-              </span>
+              </router-link>
           </div>
           <div class="matter"> 
               <ul>
-                 <li class="left" v-for="el of queryLists" :key="el.id">
+                 <router-link class="left" v-for="el of queryLists" :key="el.id" tag="li" :to="{path:'/article',query:{id:el.id} }" >
                     <p>
                       {{el.title}}
                     </p>
@@ -74,7 +74,7 @@
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
-                 </li>
+                 </router-link>
               </ul>
           </div>
       </div>
@@ -84,9 +84,9 @@
               <p>               
                  最新中标
               </p>
-              <span class="right-20">
+              <router-link class="right-20" to="/tender" tag="span">
                 查看更多>
-              </span>
+              </router-link>
           </div>
           <div class="matter"> 
               <ul>
@@ -109,9 +109,9 @@
               <p>               
                  热门企业
               </p>
-              <span class="right-20">
+              <router-link class="right-20" to="/company" tag="span">
                 查看更多>
-              </span>
+              </router-link>
           </div>
           <div class="matter"> 
               <ul>

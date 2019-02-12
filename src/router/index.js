@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/page/index'
 import Bid from '@/page/bid'
+import Tender from '@/page/tender'
+import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
 
@@ -24,7 +26,18 @@ export default new Router({
     {
       path:'/bid',
       name:'bid',
-      component:Bid
+      component:Bid,
+      meta: {
+        tabNo: 2
+      }
+    },
+    {
+      path: '/tender',
+      name: 'tender',
+      component: Tender,
+      meta: {
+        tabNo: 1
+      }
     },
     {
       path: '/article',
@@ -34,7 +47,18 @@ export default new Router({
     {
       path: '/company',
       name: 'company',
-      component: Company
+      component: Company,
+      meta: {
+        tabNo: 3
+      }
+    },
+    {
+      path: '/faith',
+      name: 'faith',
+      component: Faith,
+      meta: {
+        tabNo: 4
+      }
     }
   ]
 })

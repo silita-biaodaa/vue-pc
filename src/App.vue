@@ -34,12 +34,12 @@
     </div>
     <div class="nav">
         <ul  >
-            <li v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''">
+            <router-link v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
                   <div>
                     <img :src="el.url" >
                     <span class="left">{{el.name}}</span> 
                   </div>
-            </li>
+            </router-link>
         </ul>
     </div>
 
@@ -111,22 +111,22 @@ export default {
         {
            name:'中标',
            url:require('./assets/img/icon-zhongb.png'),
-           to:'zhong',
+           to:'tender',
         },
         {
            name:'招标',
            url:require('./assets/img/icon-zhaob.png'),
-           to:'zhao',
+           to:'bid',
         },
         {
            name:'企业',
            url:require('./assets/img/icon-qiy.png'),
-           to:'qi',
+           to:'company',
         },
         {
            name:'诚信',
            url:require('./assets/img/icon-chengx.png'),
-           to:'chen',
+           to:'faith',
         }
      ]
     }
@@ -146,7 +146,6 @@ export default {
 <style lang="less">
 @import './style/common';
 @import './assets/iconfont.css';
-@import './assets/font/iconfont.css';
 #app {
   background-color: #FAFAFA;
   .content {
@@ -177,11 +176,11 @@ export default {
               font-size: 16px;
             }
             .calling {
-              font-size: 20px;
+              font-size: 16px;
             }
             .person {
-              font-size: 17px;
-              font-weight: 700;
+              font-size: 14px;
+              font-weight: 600;
             }
           }
         }
