@@ -434,51 +434,6 @@ export default {
    width: 100%;
    display: flex;
    flex-direction: column;
-     .app-fff {
-    width: 100%;
-    background-color: #fff;
-  }
-  .app-search {
-     width: 960px;
-     margin: 0 auto;
-  }
-  .bor {
-     height: 149px;
-     clear: both;
-     .el-input-group{
-       width: 588px;
-       font-size: 16px;
-       .el-input-group__append, .el-input-group__prepend {
-         width: 113px ;
-         padding: 0;
-         background-color: #EC7522;
-         text-align: center;
-         color:#fff;
-         border: 1px solid #EC7522;
-       }
-     }
-     .logo {
-       background: url(../assets/img/logo.png) no-repeat;
-       margin-top: 75px;
-       height: 47px;
-       width: 158px;
-       margin-right: 21px;
-     }
-     .search {
-       margin-top: 50px;
-       margin-bottom: 10px;
-       font-size: 16px;
-       width: 648px;
-       overflow: hidden;
-       .ranks {
-         color: #FE6603;
-       }
-       li {
-         width: 18%;
-         cursor: pointer;
-       }
-     }
-   }
    .options {
      margin: 0 auto;
      width: 960px;

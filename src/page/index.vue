@@ -23,8 +23,10 @@
           <div class="matter"> 
               <ul>
                  <router-link class="left" v-for="el of queryLists" :key="el.id" tag="li" :to="{path:'/article',query:{id:el.id} }" >
-                    <p>
+                    <p class="t-line">
                       {{el.title}}
+                      <a class="t-p">
+                      </a>
                     </p>
                     <div class="m-detail">
                        <p>资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
@@ -48,8 +50,10 @@
           <div class="matter"> 
               <ul>
                  <li class="left" v-for="el of biddings" :key="el.id">
-                    <p>
+                    <p class="t-line">
                       {{el.title}}
+                      <a class="t-p">
+                      </a>
                     </p>
                     <div class="m-detail">
                        <p>资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
@@ -73,8 +77,10 @@
           <div class="matter"> 
               <ul>
                  <li class="left" v-for="el of companys" :key="el.id">
-                    <p>
+                    <p class="t-line">
                       {{el.comName}}
+                      <a class="t-p">
+                      </a>
                     </p>
                     <div class="m-detail">
                        <p>法人:&nbsp&nbsp{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
@@ -318,6 +324,7 @@ export default {
        padding-bottom: 35px;
        .title {
          height: 63px;
+         padding-left: 15px;
          display: flex;
          justify-content: space-between;
          align-items: center;
@@ -328,7 +335,7 @@ export default {
            font-weight: 500;
            height: 28px;
            position: relative;
-           border-left: 2px solid #FF6000;
+           border-left: 3px solid #FF6000;
          }
          span {
            color: #999;
@@ -337,6 +344,23 @@ export default {
        }
        .matter {
          padding: 15px 15px 0;
+         p {
+          font-family:"SourceHanSansCN-Regular";
+          font-weight: 550;
+          color:#333;
+         }
+         .t-line {
+           position: relative;
+           padding: 5px 0;
+          .t-p {
+            height: 2px;
+            width: 56px;
+            position: absolute;
+            background-color: #EC7522;
+            left: 0;
+            bottom: 0;
+          }
+         }
          ul {
            li {
              width: 20%;
@@ -349,7 +373,7 @@ export default {
                overflow: hidden;
                white-space: nowrap;
                padding: 4px 0;
-               
+               cursor: pointer;
              }
              .m-detail {
                margin-top: 19px;

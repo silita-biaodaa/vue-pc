@@ -18,7 +18,7 @@
                 </ul>
                 <div>
                    <el-input placeholder="请输入关键字搜索" v-model="select" class="input-with-select">
-                     <el-button slot="append" @click="engine" >搜素</el-button>
+                     <el-button slot="append" @click="engine" >搜索</el-button>
                    </el-input>
                  </div>
              </div>
@@ -102,7 +102,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .l-search {
   .app-fff {
     width: 100%;
@@ -117,14 +117,19 @@ export default {
      clear: both;
      .el-input-group{
        width: 588px;
-       font-size: 16px;
+       font-size: 18px;
        .el-input-group__append, .el-input-group__prepend {
          width: 113px ;
          padding: 0;
          background-color: #EC7522;
          text-align: center;
          color:#fff;
+        //  font-family:Tahoma,Arial,"Helvetica Neue","Hiragino Sans GB",Simsun,sans-self;
          border: 1px solid #EC7522;
+         font-weight: 500;
+         .el-button {
+           font-family:Tahoma,Arial,"Helvetica Neue","Hiragino Sans GB",Simsun,sans-self !important;
+         }
        }
      }
      .logo {
