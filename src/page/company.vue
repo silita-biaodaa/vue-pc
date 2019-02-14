@@ -1,16 +1,18 @@
 <template>
 <div class="company">
-  <div class="bid-search">
+  <!-- <div class="bid-search">
         <div class="b-logo left">
 
         </div>
         <div class="b-search left">
-           <!-- <p>首页/<span>企业</span></p> -->
+           <p>首页/<span>企业</span></p>
            <el-input placeholder="请输入招标名或企业名" class="input-with-select"    >
                       <el-button slot="append"   >搜索</el-button>
            </el-input>
         </div>
-  </div>
+  </div> -->
+   <en-search></en-search>
+
 
   <div class="select">
      <div class="option">

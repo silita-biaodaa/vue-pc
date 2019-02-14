@@ -1,50 +1,50 @@
 <template>
-   <div class="bid">
-     <div class="bid-search">
-          <div class="b-logo left">
+   <div class="bid"> 
 
-        </div>
-        <div class="b-search left">
-           <p>首页/<span>招标</span></p>
-           <el-input placeholder="请输入招标名或企业名" v-model="select" class="input-with-select" @change='gainQueryList' >
-                      <el-button slot="append"  @click='gainQueryList' >搜索</el-button>
-           </el-input>
-        </div>
-     </div>
-      
+      <en-search
+      @vague='entitle'
+      >        
+      </en-search>
       <div class="options">
         <div class="select">
-           选择地区:&nbsp
-           <el-select v-model="area" placeholder="请选择省份" @change='gainQueryList'>
-              <el-option
-                v-for="item in areas"
-                :key="item.name"
-                :label="item.name"
-                :value="item.name">
-              </el-option>
-            </el-select>
+          <el-row>
+             <el-col :span='2'>
+                省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
+             </el-col>
+             <el-col :span='22' >
+               <ul class='pro' >
+                 <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)' >
+                    {{el.name}}
+                 </li>
+               </ul>
+             </el-col>
+          </el-row>
         </div>
         <div class="select">
-           选择类型:&nbsp
-           <el-select v-model="projectType" placeholder="请选择类型" @change='gainQueryList'>
-              <el-option
-                v-for="item in projectTypes"
-                :key="item.name"
-                :label="item.name"
-                :value="item.key">
-              </el-option>
-            </el-select>
+            <el-row>
+                <el-col :span='2'>
+                  类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型:
+                </el-col>
+                <el-col :span='22'>
+                    <ul class='left pro' >
+                      <li v-for='(el,i) in projectTypes' :key='i' class='left' :class="el.key == projectType ? 'current':''"  @click='evalclass(el)' >
+                         {{el.name}}
+                      </li>
+                    </ul>
+                </el-col>
+            </el-row>
         </div>
         <div class="select">
-           评标办法:&nbsp
-           <el-select v-model="pbMode" placeholder="请选择评标办法" @change='gainQueryList'>
-              <el-option
-                v-for="item in pbModes"
-                :key="item.standardName"
-                :label="item.standardName"
-                :value="item.standardName">
-              </el-option>
-            </el-select>
+            <el-row>
+               <el-col :span='2'>
+                  评标办法:
+               </el-col>
+               <el-col :span='22'> 
+                  <el-checkbox-group v-model="pbMode" @change='means' >
+                    <el-checkbox-button v-for="el in pbModes" :label="el.key" :key="el.key"  >{{el.name}}</el-checkbox-button>
+                  </el-checkbox-group>
+               </el-col>
+            </el-row>
         </div>
         <div class="select">
            资质要求:&nbsp
@@ -115,30 +115,127 @@ import { queryList,filter } from '@/api/index';
 export default {
   data () {
     return {
-      select:'',
-      area:' ',
-      areas:[],
+      area:'湖南',
+      areas:[
+        {
+          name:'北京'
+        },
+        {
+          name:'天津'
+        },
+        {
+          name:'河北'
+        },
+        {
+          name:'山西'
+        },
+        {
+          name:'内蒙古'
+        },
+        {
+          name:'辽宁'
+        },
+        {
+          name:'吉林'
+        },
+        {
+          name:'黑龙江'
+        },
+        {
+          name:'上海'
+        },
+        {
+          name:'江苏'
+        },
+        {
+          name:'浙江'
+        },
+        {
+          name:'安徽'
+        },
+        {
+          name:'福建'
+        },
+        {
+          name:'江西'
+        },
+        {
+          name:'山东'
+        },
+        {
+          name:'河南'
+        },
+        {
+          name:'湖北'
+        },
+        {
+          name:'湖南'
+        },
+        {
+          name:'广西'
+        },
+        {
+          name:'海南'
+        },
+        {
+          name:'重庆'
+        },
+        {
+          name:'四川'
+        },
+        {
+          name:'贵州'
+        },
+        {
+          name:'云南'
+        },
+        {
+          name:'西藏'
+        },
+        {
+          name:'陕西'
+        },
+        {
+          name:'甘肃'
+        },
+        {
+          name:'青海'
+        },
+        {
+          name:'宁夏'
+        },
+        {
+          name:'新疆'
+        },
+        {
+          name:'广东'
+        },
+      ],
       queryLists:[],
       projectTypes:[
         {
+          name:'全国',
+          key:''
+        },
+        {
           name:'施工',
-          key:0
+          key:'0'
         },
         {
           name:'监理',
-          key:2
+          key:'2'
         },
         {
           name:'采购',
-          key:3
+          key:'3'
         },
         {
           name:'设计',
-          key:1
+          key:'1'
         },
         {
           name:'勘察',
-          key:4
+          key:'4'
         },
         {
           name:'其他',
@@ -146,8 +243,50 @@ export default {
         }
       ],
       projectType:'',
-      pbMode:'',
-      pbModes:[],
+      pbMode:[''],
+      pbModess:'',
+      pbModes:[
+        {
+          name:'全部',
+          key:''
+        },
+        {
+          name:"综合评估法Ⅱ",
+          key:"综合评估法Ⅱ"
+        },
+        {
+          name:"综合评估法Ⅰ",
+          key:"综合评估法Ⅰ"
+        },
+        {
+          name:"固定标价评分法",
+          key:"固定标价评分法"
+        },
+        {
+          name:"合理定价抽取法",
+          key:"合理定价抽取法"
+        },
+        {
+          name:"技术评分最低标价法",
+          key:"技术评分最低标价法"
+        },
+        {
+          name:"合理低价法",
+          key:"合理低价法"
+        },
+        {
+          name:"经评审最低报价法",
+          key:"经评审最低报价法"
+        },
+        {
+          name:"百分制综合评分法",
+          key:"百分制综合评分法"
+        },
+        {
+          name:"其他",
+          key:"其他"
+        }
+      ],
       companyQual:'',
       companyQuals:[],
       major:'',
@@ -158,6 +297,30 @@ export default {
       zType:[],
       total:0,
       current:1,
+      title:'',
+      selects:[
+         {
+           name:'招标',
+           to:'/bid',
+           i: 0
+         },
+         {
+           name:'中标',
+           to:'/tender',
+           i: 1
+         },
+         {
+           name:'企业',
+           to:'/company',
+           i: 2
+         },
+         {
+           name:'诚信',
+           to:'/faith',
+           i: 3
+         },
+       ],
+       select:''
     }
   },
   watch: {
@@ -169,8 +332,7 @@ export default {
          if(el.code == val ) {
             this.majors = el.list
          }
-      });
-      
+      });      
     },
     major(val) {
       this.zType = []
@@ -185,19 +347,47 @@ export default {
     grade(val) {
       this.zType = []
     },
+    area(val) {
+      this.gainQueryList()
+    },
+    projectType(val) {
+      this.gainQueryList()
+    }
   },
   methods: {
     gainQueryList() {
-                         // 评标办法                         省份            资质类型                   标题
-       queryList({pageNo:this.current,pbModes:this.pbMode,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.select}).then( res => {
+                    //  页号              评标办法                   页面显示条数      地区              资质类型                类型
+       queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
          if(res.code == 1 ) {
            this.total = res.total 
            this.queryLists = res.data
          }
        })
     },
+    means() {
+       if(this.pbMode.length == 0) {
+          this.pbMode = ['']
+          // console.log('出现')
+       }
+      console.log(this.pbMode,1)
+      if(this.pbMode.length > 1 ) {
+         if(this.pbMode[this.pbMode.length - 1] == '' ) {
+            this.pbMode = ['']
+         } else {
+            if(this.pbMode.indexOf('') == 0) {
+                this.pbMode.splice(0,1)
+            }
+         }
+      }
+      this.pbModess = this.pbMode.join('||')
+      this.gainQueryList()
+    },
     Goto(val) {
       this.current = val.cur
+      this.gainQueryList()
+    },
+    entitle(val) {
+      this.title = val.cur
       this.gainQueryList()
     },
     Splice() {
@@ -217,12 +407,19 @@ export default {
     gainFilter() {
       filter({}).then( res => {
          if(res.code == 1 ) {
-            this.areas = res.data.area
-            this.pbModes = res.data.pbMode
             this.companyQuals = res.data.companyQual
          }
       })
-    } 
+    },
+    eval(el) {
+      this.area = el.name
+    },
+    evalclass(el) {
+      this.projectType = el.key
+    },
+    evalway(el) {
+      this.pbMode = el.key
+    }  
   },
   created () {
     this.gainQueryList()
@@ -232,50 +429,61 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
  .bid {
-   width: 1120px;
-   .bid-search {
-     width: 1120px;
-     overflow: hidden;
-   }
-   .b-logo {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+     .app-fff {
+    width: 100%;
+    background-color: #fff;
+  }
+  .app-search {
+     width: 960px;
+     margin: 0 auto;
+  }
+  .bor {
+     height: 149px;
      clear: both;
-     width: 112px;
-     margin: 66px 112px 40px 71px;
-     height: 47px;
-     width: 158px;
-     border: 1px solid red;
-   }
-   .b-search {
-     overflow: hidden;
-     margin-top: 48px;
-     color:#666;
-     font-size: 18px;
-     width: 588px;
-     p {
-       margin-bottom: 9px;
-        span {
-        color:#EC7522;
-      }
+     .el-input-group{
+       width: 588px;
+       font-size: 16px;
+       .el-input-group__append, .el-input-group__prepend {
+         width: 113px ;
+         padding: 0;
+         background-color: #EC7522;
+         text-align: center;
+         color:#fff;
+         border: 1px solid #EC7522;
+       }
      }
-    .el-input-group--append .el-input__inner, .el-input-group__prepend {
-      border-color: #EC7522;
-    }
-     .el-input-group__append button.el-button, .el-input-group__append div.el-select .el-input__inner, .el-input-group__append div.el-select:hover .el-input__inner, .el-input-group__prepend button.el-button, .el-input-group__prepend div.el-select .el-input__inner, .el-input-group__prepend div.el-select:hover .el-input__inner {
-       width: 113px;
-       background: #EC7522;
-       border-radius: 0;
-       color: #fff;
-       border: 1px solid #EC7522;
+     .logo {
+       background: url(../assets/img/logo.png) no-repeat;
+       margin-top: 75px;
+       height: 47px;
+       width: 158px;
+       margin-right: 21px;
      }
-     .el-input-group__append .el-button, .el-input-group__append .el-select, .el-input-group__prepend .el-button, .el-input-group__prepend .el-select {
-       margin: -9px -20px;
+     .search {
+       margin-top: 50px;
+       margin-bottom: 10px;
+       font-size: 16px;
+       width: 648px;
+       overflow: hidden;
+       .ranks {
+         color: #FE6603;
+       }
+       li {
+         width: 18%;
+         cursor: pointer;
+       }
      }
    }
    .options {
-     width: 1120px;
-     height: 246px;
+     margin: 0 auto;
+     width: 960px;
+     margin-top: 40px;
+     height: 295px;
      background: #fff;
      padding: 21px 0 0 21px;
      margin-bottom: 20px;
@@ -283,14 +491,44 @@ export default {
      .select {
        font-size: 16px;
        margin-bottom: 12px;
+       .pro {
+         li {
+           padding: 2px 9px;
+           height: 20px;
+           text-align: center;
+           line-height: 20px;
+           margin-bottom: 10px;
+           cursor: pointer;
+         }
+         .current {
+           background-color: #FE6603;
+         }
+       }
       .el-select {
         width: 225px;
         margin-right: 10px;
       }
+      .el-checkbox-button__inner {
+        border: none;
+        margin-bottom: 12px;
+        font-size: 15px;
+        padding: 5px 10px;
+        color:#000;
+      }
+      .el-checkbox-button.is-checked .el-checkbox-button__inner {
+        color:#000;
+        background-color: #FE6603;
+        border-color: #FE6603;
+        box-shadow: -1px 0 0 0 #fff; 
+      }
+      .el-checkbox-button:first-child .el-checkbox-button__inner {
+        border-radius: 0;
+      }
      }
    }
    .bid-content {
-     width: 1120px;
+     margin: 0 auto;
+     width: 960px;
      box-sizing: border-box;
      background: #fff;
      font-size: 16px;
@@ -300,6 +538,9 @@ export default {
        padding-top: 95px;
        display: flex;
        justify-content: center;
+       li {
+         height: 41px;
+       }
      }
      ul {
        li {

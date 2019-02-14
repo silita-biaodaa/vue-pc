@@ -11,6 +11,10 @@ import Company from '@/page/company'
 
 
 
+
+
+
+
 Vue.use(Router)
 
 export default new Router({

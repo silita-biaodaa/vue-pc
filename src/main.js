@@ -12,7 +12,10 @@ import router from './router'
 
 Vue.config.productionTip = false
 import  navPage  from '@/components/paging';
+import  enSearch from '@/components/home'
 Vue.component('nav-page', navPage)
+Vue.component('en-search', enSearch)
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,50 +1,7 @@
 <template>
    <div class="home">
-     <el-row> 
-        <el-col :span="7">
-            <div class="bor">
-                <div class="logo left">
 
-                </div>
-                <!-- 地区选择 -->
-                <!-- <div class="left h-top">
-                   {{area}}  
-                   <i class="iconfont icon-xiabiao h-area"  @click="shArea">
-                       <div class="h-areas" v-show="provinces" >
-                          <el-row class="a-line" v-for="(el,i) of areas" :key='i'>
-                            <el-col :span="4" >
-                               <div>
-                                  {{el.region}}:
-                               </div>
-                            </el-col>
-                            <el-col :span="20">
-                               <ul>
-                                  <li class="left" v-for="(e,i) of el.chidren" :key="i" @click='changes(e)'>
-                                    {{e.province}}
-                                  </li>
-                               </ul>
-                            </el-col>
-                          </el-row>
-                       </div>
-                   </i>
-                </div> -->
-            </div>
-        </el-col>
-        <el-col :span="17">
-           <div class="bor over">
-               <ul class="search">
-                  <li class="left" v-for="(el,i) of selects " :key="i"  @click="seaI(el)" :class=" i == rank ? 'ranks' : ''">
-                      {{el.name}}  
-                  </li>
-               </ul>
-               <div>
-                  <el-input placeholder="请输入关键字搜索" v-model="select" class="input-with-select">
-                    <el-button slot="append"  >搜索</el-button>
-                  </el-input>
-                </div>
-            </div>
-        </el-col>
-      </el-row>
+      <en-search></en-search>
 
       <div class="carousel">
           <el-carousel >
@@ -271,34 +228,11 @@ export default {
        ],
        provinces:false,
        province:'hunan',
-       selects:[
-         {
-           name:'招标',
-           to:'',
-           i: 0
-         },
-         {
-           name:'中标',
-           to:'',
-           i: 1
-         },
-         {
-           name:'企业',
-           to:'',
-           i: 2
-         },
-         {
-           name:'诚信',
-           to:'',
-           i: 3
-         },
-       ],
        select:'',
        imgs:[],
        queryLists:[],
        biddings:[],
        companys:[],
-       rank:0
     }
   },
   methods: {
@@ -365,7 +299,7 @@ export default {
 </script>
 <style lang="less" >
 .home {
-   width: 960px;
+   width: 100%;
    height: 2000px;
    .over {
      overflow: hidden;
@@ -374,81 +308,11 @@ export default {
     margin-right: 18px;
     cursor: pointer;
   }
-   .bor {
-     height: 149px;
-     clear: both;
-     .el-input-group{
-       width: 588px;
-       font-size: 16px;
-       .el-input-group__append, .el-input-group__prepend {
-         width: 113px ;
-         padding: 0;
-         background-color: #EC7522;
-         text-align: center;
-         color:#fff;
-         border: 1px solid #EC7522;
-       }
-     }
-     .logo {
-       background: url(../assets/img/logo.png) no-repeat;
-       margin-top: 66px;
-       height: 47px;
-       width: 158px;
-       margin-right: 21px;
-     }
-     .search {
-       margin-top: 50px;
-       margin-bottom: 10px;
-       font-size: 16px;
-       width: 648px;
-       overflow: hidden;
-       .ranks {
-         color: #FE6603;
-       }
-       li {
-         width: 18%;
-         cursor: pointer;
-       }
-     }
-     .h-top {
-       margin-top: 81px;
-       font-size: 14px;
-       color:#333;
-       .h-area {
-          position: relative;
-         .h-areas {
-            position: absolute;
-            bottom: -330px;
-            width: 500px;
-            z-index: 9999;
-            height: 300px;
-            background: #f5f5f5;
-            box-sizing: border-box;
-            padding-left: 10px;
-          .a-line {
-             height: 50px;
-             width: 100%;
-             line-height: 50px;
-             ul {
-
-               li {
-                 width: 20%;
-                 text-align: center;
-               }
-               li:hover {
-                 background-color: #F49C17;
-               }
-             }
-          }
-         }  
-       }
-     }
-     
-   }
    .b-content {
        margin-top: 10px;
        height: 362px;
        width: 960px;
+       margin: 0 auto;
        clear: both;
        background: #fff;
        padding-bottom: 35px;
@@ -510,7 +374,8 @@ export default {
        }
      }
   .carousel {
-    width: 100%;
+    width: 960px;
+    margin: 0 auto;
     height: 446px;
     margin-bottom: 19px;
     overflow: hidden;
