@@ -1,6 +1,5 @@
 <template>
 <div class="faith">
-  诚信网站
   <en-search></en-search>
 
 </div>
@@ -17,4 +16,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.faith {
+  width: 100%;
+}
 </style>

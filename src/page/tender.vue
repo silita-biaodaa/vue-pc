@@ -1,6 +1,5 @@
 <template>
 <div class="tender">
-    中标页面
     <en-search></en-search>
 </div>
 </template>
@@ -16,4 +15,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.tender {
+  width: 100%;
+}
 </style>

@@ -9,6 +9,7 @@ Vue.use(ElementUI);
 import moment from 'moment'
 Vue.prototype.$moment = moment;
 import router from './router'
+import 'babel-polyfill'
 
 Vue.config.productionTip = false
 import  navPage  from '@/components/paging';

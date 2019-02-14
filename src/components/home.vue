@@ -18,7 +18,7 @@
                 </ul>
                 <div>
                    <el-input placeholder="请输入关键字搜索" v-model="select" class="input-with-select">
-                     <el-button slot="append" @click="engine" >搜索</el-button>
+                     <el-button slot="append" @click="engine" >搜素</el-button>
                    </el-input>
                  </div>
              </div>
@@ -62,7 +62,6 @@ export default {
     seaI(el) {
       this.rank = el.i
       this.way = el.to
-      // console.log(this.way,1)
     },
     engine() {
       if(this.$route.path == this.way) {
