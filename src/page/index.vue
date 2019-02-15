@@ -22,7 +22,7 @@
           </div>
           <div class="matter"> 
               <ul>
-                 <router-link class="left" v-for="el of queryLists" :key="el.id" tag="li" :to="{path:'/article',query:{id:el.id} }" >
+                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="li" :to="{path:'/article',query:{id:el.id} }"  >
                     <p class="t-line">
                       {{el.title}}
                       <a class="t-p">
@@ -49,7 +49,7 @@
           </div>
           <div class="matter"> 
               <ul>
-                 <li class="left" v-for="el of biddings" :key="el.id">
+                 <router-link class="left" v-for="el of biddings" :key="el.id" tag="li" :to="{path:'/notice',query:{id:el.id} }" >
                     <p class="t-line">
                       {{el.title}}
                       <a class="t-p">
@@ -60,7 +60,7 @@
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
-                 </li>
+                 </router-link>
               </ul>
           </div>
       </div>
@@ -233,7 +233,7 @@ export default {
           
        ],
        provinces:false,
-       province:'hunan',
+       province:'湖南',
        select:'',
        imgs:[],
        queryLists:[],
@@ -258,6 +258,9 @@ export default {
            this.imgs = res.data
          }
       })
+    },
+    text() {
+      console.log(111)
     },
     gainqueryList() {
       queryList({pageNo:1,type:'0',pageSize:8,regions:this.province}).then(res => {

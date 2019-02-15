@@ -6,6 +6,7 @@ import Tender from '@/page/tender'
 import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
+import Notice from '@/page/notice'
 
 
 Vue.use(Router)
@@ -56,6 +57,11 @@ export default new Router({
       meta: {
         tabNo: 4
       }
+    },
+    {
+      path:'/notice',
+      name:'notice',
+      component:Notice
     }
   ]
 })

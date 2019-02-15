@@ -214,7 +214,7 @@ export default {
       queryLists:[],
       projectTypes:[
         {
-          name:'全国',
+          name:'全部',
           key:''
         },
         {
