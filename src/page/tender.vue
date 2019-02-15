@@ -69,8 +69,7 @@
     </div>
 
     <div class="t-list">
-        <ul>
-         <router-link tag='li'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }"  @click="qqqq" >
+         <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }" target='_blank'  >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}
@@ -93,7 +92,6 @@
              </p>
            </div>
          </router-link >
-       </ul>
        <div class="t-page">
           <nav-page 
           :all='total'
@@ -420,17 +418,21 @@ export default {
        padding-top: 95px;
        display: flex;
        justify-content: center;
-       li {
-         height: 41px;
-       }
+      //  li {
+      //    height: 41px;
+      //  }
      }
-    ul {
-       li {
+       a {
          height: 80px;
          box-sizing: border-box;
-         padding: 23px 22px 0 20px;
+         padding: 20px 22px 0 20px;
          border-bottom: 2px solid #f2f2f2;
+         overflow: hidden;
+         display: block;
          cursor:pointer;
+         text-decoration:none;
+         out-line: none;
+         color: #333;
          .m-rg {
            margin-top: 2px;
            width: 23px;
@@ -458,7 +460,6 @@ export default {
            }
          }
        }
-     }
   }
 }
 </style>

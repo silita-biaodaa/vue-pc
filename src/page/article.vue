@@ -24,7 +24,7 @@
         </span>
       </div>
       <div>
-        符合资质要求企业：{{relCompanySize ? relCompanySize : 0 }}
+        符合资质要求企业：<span class="a-color">{{relCompanySize ? relCompanySize + '家>' : 0 }}</span> 
       </div>
    </div>
    
@@ -48,14 +48,15 @@ export default {
       id:'',
       articles:{},
       clickCount:0,
-      relCompanySize:0
+      relCompanySize:0,
+      source:''
     }
   },
   methods: {
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'0',
-          source:'hunan'
+          source:this.source
         });
         getJsonData( "/notice/detail/" +  this.id , dataParam).then(res => {
             if(res.code == 1) {
@@ -71,6 +72,7 @@ export default {
   },
   created () {
     this.id = this.$route.query.id;
+    this.source = this.$route.query.source;
     this.gainDetail()
   },
   components: {
@@ -82,14 +84,13 @@ export default {
    width: 1190px;
    padding-top: 40px;
    background: #FAFAFA;
+   .a-color {
+     color:#EC7522;
+   }
    .title {
      width: 1190px;
-    //  height: 100px;
      background: #fff;
-    //  display: flex;
-    //  justify-content: center;
      padding-top: 27px;
-     border-bottom: 1px solid #F2F2F2;
      p {
        font-size: 30px;
        text-align: center;
@@ -102,7 +103,7 @@ export default {
        justify-content: space-between;
        width: 575px;
        font-size: 18px;
-       margin-bottom: 10px;
+      //  margin-bottom: 10px;
        i {
          color:#EC7522;
        }
@@ -114,13 +115,15 @@ export default {
      width: 1190px;
      height: 133px;
      margin-bottom: 11px;
-     padding: 25px 19px 0;
+     padding: 15px 19px 0;
      .area {
-      width: 100%;
+       width: 100%;
        display: flex;
        justify-content: space-between;
        font-size: 18px;
-       margin-bottom: 35px;
+       margin-bottom: 20px;
+       padding-bottom: 30px;
+       border-bottom: 1px solid #F2F2F2;
      }
    }
    .conten {

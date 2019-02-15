@@ -8,8 +8,10 @@
           <span class="right">点击数: <i>{{clickCount}}</i></span>
        </p>
        <p class="n-thp">
-         <span class="left">第一候选人：{{articles.oneName}}</span>
-         <span class="right">中标金额：{{articles.oneOffer}}万</span>
+         <span class="left" v-if="articles.oneName" >第一候选人：{{articles.oneName}}</span>
+         <span v-else class="left">详见原文</span>
+         <span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
+         <span class="right" v-else >详见原文</span>
        </p>
    </div>
    <div class="n-detail fa">
@@ -45,7 +47,6 @@ export default {
             if(res.code == 1) {
                this.articles = res.data[0]
                this.clickCount = res.clickCount
-              //  this.relCompanySize = res.relCompanySize
             }
         });
     },

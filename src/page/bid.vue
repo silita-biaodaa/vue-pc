@@ -77,8 +77,8 @@
 
 
      <div class="bid-content">
-       <ul>
-         <router-link tag='li'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id} }">
+       <!-- <ul> -->
+         <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}
@@ -99,7 +99,7 @@
              </p>
            </div>
          </router-link >
-       </ul>
+       <!-- </ul> -->
        <div class="page">
           <nav-page 
           :all='total'
@@ -493,17 +493,19 @@ export default {
        padding-top: 95px;
        display: flex;
        justify-content: center;
-       li {
-         height: 41px;
-       }
+      //  li {
+      //    height: 41px;
+      //  }
      }
-     ul {
-       li {
+    //  ul {
+       a {
          height: 80px;
          box-sizing: border-box;
          padding: 23px 22px 0 20px;
          border-bottom: 2px solid #f2f2f2;
          cursor:pointer;
+         display: block;
+         color:#333;
          .m-rg {
            margin-right: 26px;
            width: 20px;
@@ -526,11 +528,11 @@ export default {
              text-overflow: ellipsis;
              overflow: hidden;
              white-space: nowrap;
-             width: 60px;
+             width: 200px;
            }
          }
        }
-     }
+    //  }
    }
  }
 </style>
