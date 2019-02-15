@@ -91,7 +91,7 @@
               </p>
            </div>
            <div class="aptitude">
-             <p class="left surplus">
+             <p class="left surplus" :title='el.certificate' >
                 {{el.certificate ? el.certificate : '详见原文' }}
              </p>
              <p class="right">
@@ -422,8 +422,14 @@ export default {
     }  
   },
   created () {
+    this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.gainQueryList()
     this.gainFilter()
+  },
+  destroyed () {
+    // localStorage.removeItem('title')
+    // console.log('执行');
+    
   },
   components:{
   }

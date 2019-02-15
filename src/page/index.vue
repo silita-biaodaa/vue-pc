@@ -21,8 +21,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-              <ul>
-                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="li" :to="{path:'/article',query:{id:el.id} }"  >
+                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="a" :to="{path:'/article',query:{id:el.id} }"  >
                     <p class="t-line">
                       {{el.title}}
                       <a class="t-p">
@@ -34,7 +33,6 @@
                        <p>发布时间：{{el.date}}</p>
                     </div>
                  </router-link>
-              </ul>
           </div>
       </div>
 
@@ -48,12 +46,11 @@
               </router-link>
           </div>
           <div class="matter"> 
-              <ul>
-                 <router-link class="left" v-for="el of biddings" :key="el.id" tag="li" :to="{path:'/notice',query:{id:el.id} }" >
+                 <router-link class="left" v-for="el of biddings" :key="el.id" tag="a" :to="{path:'/notice',query:{id:el.id} }"  target='_blank' >
                     <p class="t-line">
                       {{el.title}}
-                      <a class="t-p">
-                      </a>
+                      <i class="t-p">
+                      </i>
                     </p>
                     <div class="m-detail">
                        <p>资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
@@ -61,7 +58,7 @@
                        <p>发布时间：{{el.date}}</p>
                     </div>
                  </router-link>
-              </ul>
+
           </div>
       </div>
 
@@ -75,8 +72,8 @@
               </router-link>
           </div>
           <div class="matter"> 
-              <ul>
-                 <li class="left" v-for="el of companys" :key="el.id">
+              <!-- <ul> -->
+                 <a class="left" v-for="el of companys" :key="el.id">
                     <p class="t-line">
                       {{el.comName}}
                       <a class="t-p">
@@ -87,8 +84,8 @@
                        <p>电话：<span>{{el.phone ? el.phone : '暂无' }}</span></p>
                        <p>地址：{{el.comAddress}}</p>
                     </div>
-                 </li>
-              </ul>
+                 </a>
+              <!-- </ul> -->
           </div>
       </div>
 
@@ -364,10 +361,10 @@ export default {
             bottom: 0;
           }
          }
-         ul {
-           li {
+           a {
              width: 20%;
              margin-left: 62px;
+             display: block;
              box-sizing: border-box;
              margin-bottom: 52px;
              p {
@@ -391,13 +388,12 @@ export default {
                }
              }
            }
-           li:first-child {
+           a:first-child {
              margin-left: 0;
            }
-           li:nth-child(5) {
+           a:nth-child(5) {
              margin-left: 0;
            }
-         }
        }
      }
   .carousel {

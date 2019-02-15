@@ -60,18 +60,23 @@ export default {
   },
   methods: {
     seaI(el) {
+      this.select = ''
       this.rank = el.i
       this.way = el.to
     },
     engine() {
+      localStorage.removeItem('title')
+      localStorage.removeItem('way')  
       if(this.$route.path == this.way) {
         this.$emit('vague',{cur:this.select});
       } else { 
+        localStorage.setItem('title',this.select)
+        localStorage.setItem('way',this.way)  
         this.$router.push({path:this.way})
       }
     },
     paths() {
-       if(this.$route.path == '/' || this.$route.path == '/bid') {
+       if(this.$route.path == '/' || this.$route.path == '/bid' ) {
           this.rank = 0
        } else if (this.$route.path == '/tender') {
           this.rank = 1
@@ -81,8 +86,18 @@ export default {
          this.rank = 3
        }
     },
+    reloca() {
+      
+      if(this.$route.path == localStorage.getItem('way')) {
+         this.select = localStorage.getItem('title')
+      } else {
+         localStorage.removeItem('title')
+         this.select = ''
+      }
+    }
   },
   created () {
+    this.reloca() 
     this.paths()
   },
   watch: {

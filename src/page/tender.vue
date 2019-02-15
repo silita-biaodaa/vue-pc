@@ -83,7 +83,7 @@
            </div>
            <div class="aptitude">
              <p class="left surplus">
-                <span v-if="el.oneName">第一候选人:{{el.oneName }}</span>
+                <span v-if="el.oneName" :title='el.oneName' >第一候选人:{{el.oneName }}</span>
                 <span v-else >详见原文</span>
              </p>
              <p class="right">
