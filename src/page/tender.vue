@@ -74,7 +74,7 @@
               <p class="left m-rg">
                 {{i +1 }}
               </p>
-              <p class="left super">
+              <p class="left super" :title="el.title" >
                 {{el.title}}         
               </p>
               <p class="right">

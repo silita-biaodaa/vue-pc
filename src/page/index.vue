@@ -21,14 +21,14 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="a" :to="{path:'/article',query:{id:el.id} }"  >
-                    <p class="t-line">
+                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="a" :to="{path:'/article',query:{id:el.id} }"  target='_blank' >
+                    <p class="t-line" :title='el.title' >
                       {{el.title}}
-                      <a class="t-p">
-                      </a>
+                      <i class="t-p">
+                      </i>
                     </p>
                     <div class="m-detail">
-                       <p>资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
+                       <p :title='el.certificate' >资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
@@ -47,14 +47,14 @@
           </div>
           <div class="matter"> 
                  <router-link class="left" v-for="el of biddings" :key="el.id" tag="a" :to="{path:'/notice',query:{id:el.id} }"  target='_blank' >
-                    <p class="t-line">
+                    <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
                       </i>
                     </p>
                     <div class="m-detail">
-                       <p>资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
-                       <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
+                       <p :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文'}}</p>
+                       <p>中标金额：<span>{{el.projSum ? el.projSum : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
                  </router-link>
@@ -76,8 +76,8 @@
                  <a class="left" v-for="el of companys" :key="el.id">
                     <p class="t-line">
                       {{el.comName}}
-                      <a class="t-p">
-                      </a>
+                      <i class="t-p">
+                      </i>
                     </p>
                     <div class="m-detail">
                        <p>法人:&nbsp&nbsp{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>

@@ -12,16 +12,17 @@
    </div>
 
    <div class="detail">
-      <div class="area">
+      <div class="area a-f">
         <span>
             项目地区：{{articles.projDq}}
         </span>
-         <span>
-        评标办法：{{articles.pbMode}}
+        <span class="m-d">
+           评标办法：{{articles.pbMode}}
         </span>
-        <span>
+        
+      </div>
+      <div class="a-t a-f" >
           资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
-        </span>
       </div>
       <div>
         符合资质要求企业：<span class="a-color">{{relCompanySize ? relCompanySize + '家>' : 0 }}</span> 
@@ -113,17 +114,30 @@ export default {
      background: #fff;
      box-sizing: border-box;
      width: 1190px;
-     height: 133px;
+     height: 163px;
      margin-bottom: 11px;
      padding: 15px 19px 0;
      .area {
        width: 100%;
-       display: flex;
-       justify-content: space-between;
+      //  display: flex;
+      //  justify-content: space-between;
        font-size: 18px;
-       margin-bottom: 20px;
-       padding-bottom: 30px;
+      //  margin-bottom: 20px;
+       padding-bottom: 15px;
+      //  border-bottom: 1px solid #F2F2F2;
+     }
+     .m-d {
+       margin-left: 320px;
+     }
+     .a-t {
+       padding-bottom: 20px;
        border-bottom: 1px solid #F2F2F2;
+       margin-bottom: 20px;
+     }
+     .a-f {
+       color:#666;
+       font-size: 14px;
+       font-weight: 550;
      }
    }
    .conten {

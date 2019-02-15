@@ -83,7 +83,7 @@
               <p class="left m-rg">
                 {{i +1 }}
               </p>
-              <p class="left super">
+              <p class="left super" :title='el.title' >
                 {{el.title}}         
               </p>
               <p class="right">
@@ -425,11 +425,6 @@ export default {
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.gainQueryList()
     this.gainFilter()
-  },
-  destroyed () {
-    // localStorage.removeItem('title')
-    // console.log('执行');
-    
   },
   components:{
   }
