@@ -48,7 +48,7 @@
         </div>
         <div class="select">
            资质要求:&nbsp
-           <el-select v-model="companyQual" placeholder="选择资质类型"  @change='Splice' >
+           <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' >
               <el-option
                 v-for="item in companyQuals"
                 :key="item.name"
@@ -56,7 +56,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="major" placeholder="请选择"  @change='spliceo' >
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo' >
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -64,7 +64,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择"   @change='splicet' >
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' >
               <el-option
                 v-for="item in grades"
                 :key="item.name"

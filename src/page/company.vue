@@ -1,7 +1,10 @@
 <template>
 <div class="company">
  
-   <en-search></en-search>
+   <en-search
+    @vague='entitle'
+    :current='present'
+   ></en-search>
 
    <div class="c-search">
       <div class="select">
@@ -50,7 +53,7 @@
         </div>
         <div class="select"  >
            资质要求:&nbsp
-           <el-select v-model="companyQual" placeholder="选择资质类型"  @change='first'  >
+           <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='first'  >
               <el-option
                 v-for="item in companyQuals"
                 :key="item.name"
@@ -58,7 +61,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="major" placeholder="请选择" @change = 'firsts' >
+             <el-select v-model="major" placeholder="请选择" clearable @change = 'firsts' >
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -66,7 +69,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" @change = 'firstss'   >
+             <el-select v-model="grade" placeholder="请选择" clearable  @change = 'firstss'   >
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -77,7 +80,7 @@
         </div>
          <div class="select" v-show='two' >
            <span class='op-c' >资质要求:</span>&nbsp&nbsp
-           <el-select v-model="twoQual" placeholder="选择资质类型" @change = 'twoq'  >
+           <el-select v-model="twoQual" placeholder="选择资质类型"  clearable @change = 'twoq'  >
               <el-option
                 v-for="item in companyQuals"
                 :key="item.name"
@@ -85,7 +88,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twot" placeholder="请选择" @change = 'twoqs' >
+             <el-select v-model="twot" placeholder="请选择" clearable  @change = 'twoqs' >
               <el-option
                 v-for="item in twots"
                 :key="item.name"
@@ -93,7 +96,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twott" placeholder="请选择"  @change = 'twoqss'  >
+             <el-select v-model="twott" placeholder="请选择" clearable  @change = 'twoqss'  >
               <el-option
                 v-for="item in twotts"
                 :key="item.name"
@@ -105,7 +108,7 @@
         </div>
          <div class="select" v-show='three' >
            <span class='op-c' >资质要求:</span>&nbsp&nbsp
-           <el-select v-model="threeQual" placeholder="选择资质类型"  @change = 'threeq' >
+           <el-select v-model="threeQual" placeholder="选择资质类型" clearable  @change = 'threeq' >
               <el-option
                 v-for="item in companyQuals"
                 :key="item.name"
@@ -113,7 +116,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threet" placeholder="请选择"  @change = 'threeqs' >
+             <el-select v-model="threet" placeholder="请选择" clearable  @change = 'threeqs' >
               <el-option
                 v-for="item in threets"
                 :key="item.name"
@@ -121,7 +124,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threett" placeholder="请选择"  @change = 'threeqss' >
+             <el-select v-model="threett" placeholder="请选择" clearable  @change = 'threeqss' >
               <el-option
                 v-for="item in threetts"
                 :key="item.name"
@@ -131,15 +134,6 @@
             </el-select>
             <span class='sty-del' @click='threef' >删除</span>
         </div>
-        <div class='select m-20'>
-           <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
-           <div class='left c-btn' @click='transt' >
-              <i class='el-icon-plus'></i>增加条件
-           </div>
-           <div class='left c-btn' @click='again' >
-              确定
-           </div>
-        </div>  
         <div class="select" v-show='five'>
            <el-row>
              <el-col :span="2" class="t-5">
@@ -151,7 +145,17 @@
                 </div>
              </el-col>
            </el-row>
-        </div>       
+        </div>  
+        <div class='select m-20'>
+           <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
+           <div class='left c-btn' @click='transt' >
+              <i class='el-icon-plus'></i>增加条件
+           </div>
+           <div class='left c-btn' @click='again' >
+              确定
+           </div>
+        </div>  
+             
    </div>
    
 
@@ -189,10 +193,10 @@
                {{el.legalPerson}}
            </div>
              <div class="left" style="width:180px;">
-              {{el.regisCapital}}
+              {{el.regisCapital ? el.regisCapital : '暂无'}}
            </div>
              <div class="left" style="width:200px;">
-              {{el.phone ? el.phone : '详见原文'}}
+              {{el.phone ? el.phone : '暂无'}}
            </div>
              <div class="left" style="width:140px;">
               {{el.regisAddress}}
@@ -388,6 +392,8 @@ export default {
        five:false,
        total:0,
        current:1,
+       title:'',
+       present:1
     }
   },
   watch: {
@@ -455,8 +461,9 @@ export default {
       })
     },
     gainCompany() {
-      companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType}).then(res => {
+      companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
+         this.present = res.pageNo
       })
     },
     again() {
@@ -464,9 +471,10 @@ export default {
        if(this.rank == 0 ) {
          this.gainCompany()
        } else {
-         companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType}).then(res => {
+         companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
          this.total = res.total
+         this.present = res.pageNo
         })
        }
     },
@@ -479,7 +487,7 @@ export default {
     },
     eval(el) {
       this.area = el.name
-      this.gainCompany()
+      this.again()
     },
     evalsum(el) {
       this.rank = 0 
@@ -487,7 +495,7 @@ export default {
       this.high = '',
       this.start = el.s,
       this.end = el.e 
-      this.gainCompany()
+      this.again()
     },
     transt() {
       this.five = true
@@ -635,6 +643,14 @@ export default {
     },
     Goto(val) {
       this.current = val.cur
+      this.again()
+    },
+    entitle(val) {
+      console.log(val.cur);
+      
+      this.title = val.cur
+      console.log(this.title);      
+
       this.again()
     },
   },

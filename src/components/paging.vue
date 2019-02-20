@@ -11,7 +11,7 @@
 	        <li class="borderNone" v-if="ellEnd">&hellip;</li>
 	        <!-- <li v-if="ellEnd" @click="btnClick(allNum)">{{allNum}}</li> -->
 	        <li class="btn " @click="jumpD" >下一页</li>
-          <li  @click="btnlast(allNum)" >尾页</li>
+          <li  @click="btnlast(30,1)" >尾页</li>
 	        <!-- <li class="borderNone">
 	        	到
 	        	<input type="number" v-model="num"/>
@@ -27,7 +27,7 @@ export default {
     data() {
         return {
             // 数据模型
-        	current:1,//当前页码
+        	// current:1,//当前页码
         	// num:'',
         	ellEnd:false,
           ellStart:false,
@@ -41,7 +41,11 @@ export default {
     	'all':{//总条数
     		type:Number,
     		default:1
-    	},
+        },
+        'current':{
+            type:Number,
+            default:1
+        },
     	'pageSize':{
     		type:Number,
     		default:20
@@ -65,11 +69,20 @@ export default {
                 }
                 this.$emit('skip',{cur:data});
         },
-        btnlast(data) {
+        btnlast(data,i) {
            if(this.current == this.total ) {
               return 
            }
-           this.$emit('skip',{cur:data});
+           if (i == 1 ) {
+             if(this.allNum <= 30 )  {
+                 this.$emit('skip',{cur:this.allNum});
+             } else {
+                 this.$emit('skip',{cur:data});
+             }
+           } else {
+             this.$emit('skip',{cur:data});
+           }
+           
         },
         next(val) {
           if(this.current == val) {
@@ -119,7 +132,7 @@ export default {
     computed: {
       allNum(){  //  当前总页数
         this.total = Math.ceil(this.all/this.pageSize)
-    		return Math.ceil(this.all/this.pageSize)
+    		return Math.ceil(this.all/this.pageSize) + 1
     	},
     	// show(){
     	// 	if(this.all>=this.pageSize){

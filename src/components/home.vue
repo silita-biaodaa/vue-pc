@@ -64,6 +64,13 @@ export default {
       this.rank = el.i
       this.way = el.to
     },
+    mapping() {
+      this.selects.forEach(el => {
+         if(this.$route.path == el.to) {
+           this.way = el.to
+         }
+      })
+    },
     engine() {
       localStorage.removeItem('title')
       localStorage.removeItem('way')  
@@ -86,8 +93,7 @@ export default {
          this.rank = 3
        }
     },
-    reloca() {
-      
+    reloca() {      
       if(this.$route.path == localStorage.getItem('way')) {
          this.select = localStorage.getItem('title')
       } else {
@@ -99,6 +105,7 @@ export default {
   created () {
     this.reloca() 
     this.paths()
+    this.mapping()
   },
   watch: {
       $route(to,form) {
