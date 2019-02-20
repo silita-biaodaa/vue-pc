@@ -3,7 +3,7 @@
  
    <en-search
     @vague='entitle'
-    :current='present'
+
     :all='total'
    ></en-search>
 

@@ -11,7 +11,7 @@
 	        <li class="borderNone" v-if="ellEnd">&hellip;</li>
 	        <!-- <li v-if="ellEnd" @click="btnClick(allNum)">{{allNum}}</li> -->
 	        <li class="btn " @click="jumpD" >下一页</li>
-          <li  @click="btnlast(30,1)" >尾页</li>
+          <li  @click="btnlast(30)" >尾页</li>
 	        <!-- <li class="borderNone">
 	        	到
 	        	<input type="number" v-model="num"/>
@@ -27,7 +27,7 @@ export default {
     data() {
         return {
             // 数据模型
-        	// current:1,//当前页码
+          current:1,//当前页码
         	// num:'',
           ellEnd:false,
           ellStart:false,
@@ -36,24 +36,20 @@ export default {
     },
     watch: {
         // 监控集合
+        // $route() {
+            
+        // }
     },
     props:{
     	'all':{//总条数
     		type:Number,
     		default:1
         },
-        'current':{
-            type:Number,
-            default:1
-        },
     	'pageSize':{
     		type:Number,
     		default:20
     	},
-//  	'current':{
-//  		type:Number,
-//  		default:30
-//  	}
+
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
@@ -67,27 +63,28 @@ export default {
                 if(this.current == 1) {
                    return 
                 }
+                this.current = data
                 this.$emit('skip',{cur:data});
         },
-        btnlast(data,i) {
+        btnlast(data) {
            if(this.current == this.total ) {
               return 
            }
-           if (i == 1 ) {
              if(this.allNum <= 30 )  {
                  this.$emit('skip',{cur:this.allNum});
+                 this.current = this.allNum;
              } else {
                  this.$emit('skip',{cur:data});
+                 this.current = data
              }
-           } else {
-             this.$emit('skip',{cur:data});
-           }
+
            
         },
         next(val) {
           if(this.current == val) {
             return
           }
+
           this.current = val
            this.$emit('skip',{cur:val});
         },
@@ -99,7 +96,7 @@ export default {
         // 		this.num=''
         // 	}
 		// },
-		// 需要改进
+        // 需要改进
         jumpFn(str){//上一页，下一页
          if(this.current == 1 || this.current == this.total) {
            return
@@ -142,7 +139,7 @@ export default {
     	// 	}
     	// },
         indexsList:function(){
-        	let arr=[],  // 指向indexsLiist 渲染数组 
+        	   let arr=[],  // 指向indexsLiist 渲染数组 
         		min=1,   // 第一页 
         		max=this.allNum;  // 当前总页数
         	if(this.allNum>5){
@@ -161,14 +158,16 @@ export default {
         			// if(this.current>=3){
         			// 	this.ellStart=true;
         			// }
-        		}
+        		} else {
+                    this.ellEnd=false;
+                }
         	}
         	while (min <= max){
             	arr.push(min)
             	min ++
           }
           console.log(arr)
-        	return arr
+        	return arr  
         },
          
     }
