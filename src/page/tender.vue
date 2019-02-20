@@ -418,9 +418,6 @@ export default {
        padding-top: 95px;
        display: flex;
        justify-content: center;
-      //  li {
-      //    height: 41px;
-      //  }
      }
        a {
          height: 80px;

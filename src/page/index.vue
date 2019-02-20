@@ -54,7 +54,7 @@
                     </p>
                     <div class="m-detail">
                        <p :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文'}}</p>
-                       <p>中标金额：<span>{{el.projSum ? el.projSum : '详见原文'}}</span></p>
+                       <p>中标金额：<span>{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
                  </router-link>

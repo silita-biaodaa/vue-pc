@@ -17,7 +17,7 @@
             项目地区：{{articles.projDq}}
         </span>
         <span class="m-d">
-           评标办法：{{articles.pbMode}}
+           评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
         </span>
         
       </div>
@@ -119,12 +119,8 @@ export default {
      padding: 15px 19px 0;
      .area {
        width: 100%;
-      //  display: flex;
-      //  justify-content: space-between;
        font-size: 18px;
-      //  margin-bottom: 20px;
        padding-bottom: 15px;
-      //  border-bottom: 1px solid #F2F2F2;
      }
      .m-d {
        margin-left: 320px;
