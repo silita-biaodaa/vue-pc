@@ -4,6 +4,7 @@
    <en-search
     @vague='entitle'
     :current='present'
+    :all='total'
    ></en-search>
 
    <div class="c-search">
@@ -463,7 +464,8 @@ export default {
     gainCompany() {
       companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
-         this.present = res.pageNo
+         this.present = res.pageNum
+          this.total = res.total
       })
     },
     again() {
@@ -474,7 +476,7 @@ export default {
          companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
          this.total = res.total
-         this.present = res.pageNo
+         this.present = res.pageNum
         })
        }
     },
@@ -754,6 +756,7 @@ export default {
       }
       .current {
            background-color: #FE6603 !important;
+           color:#fff;
        }
       .c-btn {
         color: #FE6603;

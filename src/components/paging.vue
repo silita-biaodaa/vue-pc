@@ -29,7 +29,7 @@ export default {
             // 数据模型
         	// current:1,//当前页码
         	// num:'',
-        	ellEnd:false,
+          ellEnd:false,
           ellStart:false,
           total:0
         }
