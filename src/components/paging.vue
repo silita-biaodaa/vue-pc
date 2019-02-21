@@ -11,13 +11,14 @@
 	        <li class="borderNone" v-if="ellEnd">&hellip;</li>
 	        <!-- <li v-if="ellEnd" @click="btnClick(allNum)">{{allNum}}</li> -->
 	        <li class="btn " @click="jumpD" >下一页</li>
-          <li  @click="btnlast(30)" >尾页</li>
+            <li  @click="btnlast(30)" >尾页</li>
 	        <!-- <li class="borderNone">
 	        	到
 	        	<input type="number" v-model="num"/>
 	        	页
 	        </li>
 	        <li @click="jump">跳转</li>  -->
+            
 	    </ul>
     </div>
 </template>
@@ -31,26 +32,35 @@ export default {
         	// num:'',
           ellEnd:false,
           ellStart:false,
-          total:0
+          total:0,
+          newc:this.currents
         }
     },
     watch: {
         // 监控集合
-        // $route() {
-            
-        // }
-    },
+        currents(val) {
+           if(val == 1) {
+               this.current = 1
+           }
+        }
+     },
     props:{
+        'currents':{
+            type:Number,
+            default:1
+        },
     	'all':{//总条数
     		type:Number,
     		default:1
         },
-    	'pageSize':{
+       'pageSize':{
     		type:Number,
     		default:20
     	},
-
     },
+    // updated () {
+    //   console.log('子：'+this.$parent.present)  
+    // },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
@@ -128,9 +138,13 @@ export default {
     },
     computed: {
       allNum(){  //  当前总页数
-        this.total = Math.ceil(this.all/this.pageSize)
-    		return Math.ceil(this.all/this.pageSize) + 1
-    	},
+        this.total = Math.ceil(this.all/this.pageSize) 
+    		return Math.ceil(this.all/this.pageSize) >= 30 ? 30 : (Math.ceil(this.all/this.pageSize) == 0 ? 1 : Math.ceil(this.all/this.pageSize)) ;
+        },
+        newcc:function () {
+           console.log(111)
+           return this.currents
+        },
     	// show(){
     	// 	if(this.all>=this.pageSize){
     	// 		return true
@@ -158,9 +172,10 @@ export default {
         			// if(this.current>=3){
         			// 	this.ellStart=true;
         			// }
-        		} else {
-                    this.ellEnd=false;
-                }
+                } 
+                // else {
+                //     this.ellEnd=false;
+                // }
         	}
         	while (min <= max){
             	arr.push(min)

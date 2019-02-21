@@ -16,9 +16,9 @@
                        {{el.name}}  
                    </li>
                 </ul>
-                <div>
-                   <el-input placeholder="请输入关键字搜索" v-model="select" class="input-with-select">
-                     <el-button slot="append" @click="engine" >搜索</el-button>
+                <div  >
+                   <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' class="input-with-select">
+                      <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
                  </div>
              </div>
@@ -71,6 +71,9 @@ export default {
          }
       })
     },
+    text() {
+      console.log(11111)
+    },
     engine() {
       localStorage.removeItem('title')
       localStorage.removeItem('way')  
@@ -107,6 +110,20 @@ export default {
     this.paths()
     this.mapping()
   },
+  // mounted () {
+  //   Window.addEventListener('keydown', () => {
+  //     if(event.keyCode == 13) {
+  //        console.log(222)
+  //     }
+  //   })
+  // },
+  // beforeDestroy () {
+  //   Window.removeEventListener('keydown', () => {
+  //     if(event.keyCode == 13) {
+  //        console.log(222)
+  //     }
+  //   })
+  // },
   watch: {
       $route(to,form) {
         if(to.path == "/tender") {
@@ -151,6 +168,7 @@ export default {
          font-weight: 500;
          .el-button {
            font-family:Tahoma,Arial,"Helvetica Neue","Hiragino Sans GB",Simsun,sans-self !important;
+           width: 100%;
          }
        }
      }

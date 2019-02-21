@@ -3,7 +3,7 @@
  
    <en-search
     @vague='entitle'
-
+   
     :all='total'
    ></en-search>
 
@@ -208,6 +208,7 @@
   <div class="c-page">
           <nav-page 
           :all='total'
+          :currents='present'
           @skip='Goto'
           ></nav-page>
   </div>
@@ -394,7 +395,7 @@ export default {
        total:0,
        current:1,
        title:'',
-       present:1
+       present:9
     }
   },
   watch: {
@@ -465,7 +466,8 @@ export default {
       companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
          this.present = res.pageNum
-          this.total = res.total
+         console.log(this.present,1)
+        this.total = res.total
       })
     },
     again() {
@@ -488,6 +490,7 @@ export default {
 
     },
     eval(el) {
+      this.current = 1
       this.area = el.name
       this.again()
     },
@@ -497,6 +500,7 @@ export default {
       this.high = '',
       this.start = el.s,
       this.end = el.e 
+      this.current = 1
       this.again()
     },
     transt() {
@@ -536,7 +540,6 @@ export default {
       this.firstarr.push(val)
       this.firststr = this.firstarr.join('||')
       this.fisrtpush()
-      console.log(this.allarr);
     },
     firsts(val) {
       this.allarr = []
@@ -647,12 +650,9 @@ export default {
       this.current = val.cur
       this.again()
     },
-    entitle(val) {
-      console.log(val.cur);
-      
+    entitle(val) {      
       this.title = val.cur
-      console.log(this.title);      
-
+      this.current = 1
       this.again()
     },
   },

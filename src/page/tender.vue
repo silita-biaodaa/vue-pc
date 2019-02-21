@@ -95,6 +95,7 @@
        <div class="t-page">
           <nav-page 
           :all='total'
+          :currents='present'
           @skip='Goto'
           ></nav-page>
        </div>
@@ -274,12 +275,13 @@ export default {
       pageNo:1,
       title:'',
       total:0,
+      present:0
     }
   },
   methods: {
     Goto(val) {
       this.pageNo = val.cur
-      this.gainQueryList()
+      this.gainList()
     },
     eval(el) {
       this.area = el.name
@@ -299,12 +301,16 @@ export default {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,region:this.area}).then( res => {
                if(res.code == 1 ) {
                   this.queryLists = res.data
+                  this.present = res.pageNo
+                  this.total = res.total
                }
           })
        } else {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,region:this.area}).then( res => {
                if(res.code == 1 ) {
                   this.queryLists = res.data
+                  this.present = res.pageNo
+                  this.total = res.total
                }
           })
        }
@@ -314,6 +320,7 @@ export default {
     },
     entitle(val) {
       this.title = val.cur
+      this.pageNo = 1
       this.gainList()
     },
     fade() {
@@ -324,9 +331,11 @@ export default {
   },
   watch: {
     area() {
+      this.pageNo = 1
       this.gainList()
     },
     projectType() {
+      this.pageNo = 1
       this.gainList()
     }
   },

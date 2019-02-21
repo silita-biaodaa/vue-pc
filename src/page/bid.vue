@@ -103,6 +103,7 @@
        <div class="page">
           <nav-page 
           :all='total'
+          :currents='current'
           @skip='Goto'
           ></nav-page>
        </div>
@@ -320,7 +321,8 @@ export default {
            i: 3
          },
        ],
-       select:''
+       select:'',
+       present:0
     }
   },
   watch: {
@@ -348,9 +350,11 @@ export default {
       this.zType = []
     },
     area(val) {
+      this.current = 1
       this.gainQueryList()
     },
     projectType(val) {
+      this.current = 1
       this.gainQueryList()
     }
   },
@@ -361,15 +365,14 @@ export default {
          if(res.code == 1 ) {
            this.total = res.total 
            this.queryLists = res.data
+           this.present = res.pageNo
          }
        })
     },
     means() {
        if(this.pbMode.length == 0) {
           this.pbMode = ['']
-          // console.log('出现')
        }
-      console.log(this.pbMode,1)
       if(this.pbMode.length > 1 ) {
          if(this.pbMode[this.pbMode.length - 1] == '' ) {
             this.pbMode = ['']
@@ -380,6 +383,7 @@ export default {
          }
       }
       this.pbModess = this.pbMode.join('||')
+      this.current = 1
       this.gainQueryList()
     },
     Goto(val) {
@@ -388,20 +392,24 @@ export default {
     },
     entitle(val) {
       this.title = val.cur
+      this.current = 1
       this.gainQueryList()
     },
     Splice() {
        this.zzType = this.companyQual
+      this.current = 1
        this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
       this.zzType = this.zType.join('||')
+      this.current = 1
        this.gainQueryList()
     },
     splicet() {
       this.zType.push(this.companyQual,this.major,this.grade)
       this.zzType = this.zType.join('||')
+      this.current = 1
       this.gainQueryList()
     },
     gainFilter() {

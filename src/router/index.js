@@ -7,6 +7,8 @@ import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
 import Notice from '@/page/notice'
+import Sea from '@/components/home'
+
 
 
 Vue.use(Router)
@@ -62,6 +64,11 @@ export default new Router({
       path:'/notice',
       name:'notice',
       component:Notice
+    },
+    {
+      path:'/sea',
+      name:'sea',
+      component:Sea
     }
   ]
 })

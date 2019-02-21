@@ -235,16 +235,14 @@ export default {
     justify-content: center; 
     display: flex;
     align-items: center; 
-    
     ul {
-      width: 960px;
+      width: 1020px;
       li {
         box-sizing: border-box;
         width: 20%;
         height: 50px;
         line-height: 50px;
         float: left;
-        text-align: center;
         color: #fff;
         display: flex;
         align-items: center; 
@@ -253,13 +251,13 @@ export default {
           border-right: 1px solid #fff;
           font-size: 26px;
           width: 100%;
-          height: 30px;
-          line-height: 30px;
+          height: 35px;
+          line-height: 35px;
           display: flex;
           align-items: center; 
-          justify-content: center; 
+          justify-content: center;
           img {
-            margin-right: 9px;
+            margin-right: 10px;
           }
           span {
             font-size: 18px;

@@ -351,14 +351,16 @@ export default {
          }
          .t-line {
            position: relative;
+           box-sizing: border-box;
            padding: 5px 0;
+           border-bottom: 2px solid #F2F2F2;
           .t-p {
             height: 2px;
             width: 56px;
             position: absolute;
             background-color: #EC7522;
             left: 0;
-            bottom: 0;
+            bottom: -1px;
           }
          }
            a {
