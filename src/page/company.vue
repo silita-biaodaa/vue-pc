@@ -49,6 +49,9 @@
                   @change="fade"
                   clearable>
                 </el-input>
+                <!-- <div class="t-btn" @click='gainList' >
+                    确定
+                </div> -->
              </el-col>
            </el-row>
         </div>
@@ -135,6 +138,15 @@
             </el-select>
             <span class='sty-del' @click='threef' >删除</span>
         </div>
+        <div class='select m-20'>
+         <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
+         <div class='left c-btn' @click='transt' >
+            <i class='el-icon-plus'></i>增加条件
+         </div>
+         <div class='left c-btn' @click='again' >
+            查询
+         </div>
+        </div>  
         <div class="select" v-show='five'>
            <el-row>
              <el-col :span="2" class="t-5">
@@ -147,15 +159,7 @@
              </el-col>
            </el-row>
         </div>  
-        <div class='select m-20'>
-           <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
-           <div class='left c-btn' @click='transt' >
-              <i class='el-icon-plus'></i>增加条件
-           </div>
-           <div class='left c-btn' @click='again' >
-              确定
-           </div>
-        </div>  
+      
              
    </div>
    
@@ -503,6 +507,10 @@ export default {
       this.current = 1
       this.again()
     },
+    gainList() {
+      this.current = 1
+      this.again()
+    },
     transt() {
       this.five = true
        if(this.two) {
@@ -527,6 +535,8 @@ export default {
       this.rank = 1
       this.start = ''
       this.end = '' 
+      this.current = 1 
+      this.again()
     },
     ftwo() {
       this.two = false

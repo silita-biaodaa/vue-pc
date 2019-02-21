@@ -12,8 +12,8 @@
                </el-col>
                <el-col :span="22">
                   <ul class='pro' >
-                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'  >
-                       {{el.name}}
+                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'>
+                      {{el.name}}
                     </li>
                   </ul>
                </el-col>
@@ -60,9 +60,6 @@
                   @change="fade"
                   clearable>
                 </el-input>
-                <div class="t-btn">
-                    确定
-                </div>
              </el-col>
            </el-row>
         </div>      
@@ -285,9 +282,13 @@ export default {
     },
     eval(el) {
       this.area = el.name
+      this.pageNo = 1
+      this.gainList()
     },
     evalclass(el) {
       this.projectType = el.key
+      this.pageNo = 1
+      this.gainList()
     },
     evalsum(el) {
       this.rank = 0 
@@ -295,6 +296,8 @@ export default {
       this.high = '',
       this.start = el.s,
       this.end = el.e 
+      this.pageNo = 1
+      this.gainList()
     },
     gainList() {
        if(this.rank == 0) {
@@ -315,9 +318,6 @@ export default {
           })
        }
     },
-    qqqq() {
-      console.log(11111)
-    },
     entitle(val) {
       this.title = val.cur
       this.pageNo = 1
@@ -327,6 +327,8 @@ export default {
       this.rank = 1
       this.start = ''
       this.end = '' 
+      this.pageNo = 1 
+      this.gainList()
     }
   },
   watch: {
@@ -396,7 +398,6 @@ export default {
          li {
            padding: 2px 9px;
            height: 20px;
-           text-align: center;
            line-height: 20px;
            margin-bottom: 10px;
            cursor: pointer;
@@ -406,6 +407,7 @@ export default {
          }
          .current {
            background-color: #FE6603;
+           color: #fff;
          }
        }
       .el-select {

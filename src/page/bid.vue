@@ -13,7 +13,7 @@
              </el-col>
              <el-col :span='22' >
                <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)' >
+                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.name==area? 'current':''"  @click='eval(el)' >
                     {{el.name}}
                  </li>
                </ul>
@@ -445,11 +445,11 @@ export default {
    flex-direction: column;
    .options {
      margin: 0 auto;
-     width: 960px;
+     width: 1020px;
      margin-top: 40px;
      height: 295px;
      background: #fff;
-     padding: 21px 0 0 21px;
+     padding: 21px;
      margin-bottom: 20px;
      box-sizing: border-box;
      .select {
@@ -464,8 +464,12 @@ export default {
            margin-bottom: 10px;
            cursor: pointer;
          }
+         .bid-p {
+           padding: 2px 12px;
+         }
          .current {
            background-color: #FE6603;
+           color:#fff;
          }
        }
       .el-select {
@@ -480,7 +484,7 @@ export default {
         color:#000;
       }
       .el-checkbox-button.is-checked .el-checkbox-button__inner {
-        color:#000;
+        color:#fff;
         background-color: #FE6603;
         border-color: #FE6603;
         box-shadow: -1px 0 0 0 #fff; 
@@ -492,7 +496,7 @@ export default {
    }
    .bid-content {
      margin: 0 auto;
-     width: 960px;
+     width: 1020px;
      box-sizing: border-box;
      background: #fff;
      font-size: 16px;

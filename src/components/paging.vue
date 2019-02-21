@@ -41,6 +41,8 @@ export default {
         currents(val) {
            if(val == 1) {
                this.current = 1
+           } else if(val == 0 ) {
+               this.current = 1 
            }
         }
      },
@@ -173,15 +175,13 @@ export default {
         			// 	this.ellStart=true;
         			// }
                 } 
-                // else {
-                //     this.ellEnd=false;
-                // }
-        	}
+        	} else {
+                    this.ellEnd=false;
+                }
         	while (min <= max){
             	arr.push(min)
             	min ++
           }
-          console.log(arr)
         	return arr  
         },
          
