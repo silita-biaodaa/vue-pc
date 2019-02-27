@@ -81,3 +81,10 @@ export const companys = params => {
   return axios.post('company/query/filter', params).then(res => res.data)
 }
 
+export const CQdetails = params => {
+  return axios.post('company/detail', params).then(res => res.data)
+}
+
+export const Branch = params => {
+  return axios.post('company/branchCompany', params).then(res => res.data)
+}

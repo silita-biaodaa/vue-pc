@@ -1,4 +1,4 @@
-<template>
+ <template>
    <div class="bid"> 
 
       <en-search

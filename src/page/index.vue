@@ -26,6 +26,8 @@
                       {{el.title}}
                       <i class="t-p">
                       </i>
+                      <i class="t-in">
+                      </i>
                     </p>
                     <div class="m-detail">
                        <p :title='el.certificate' >资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
@@ -50,6 +52,8 @@
                     <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
+                      </i>
+                      <i class="t-in">
                       </i>
                     </p>
                     <div class="m-detail">
@@ -77,6 +81,8 @@
                     <p class="t-line">
                       {{el.comName}}
                       <i class="t-p">
+                      </i>
+                      <i class="t-in">
                       </i>
                     </p>
                     <div class="m-detail">
@@ -316,12 +322,12 @@ export default {
   }
    .b-content {
        margin-top: 10px;
-       height: 362px;
        width: 960px;
        margin: 0 auto;
        clear: both;
        background: #fff;
-       padding-bottom: 35px;
+       overflow: hidden;
+       margin-bottom: 35px;
        .title {
          height: 63px;
          padding-left: 15px;
@@ -353,12 +359,21 @@ export default {
            position: relative;
            box-sizing: border-box;
            padding: 5px 0;
-           border-bottom: 2px solid #F2F2F2;
+          //  border-bottom: 2px solid #F2F2F2;
           .t-p {
-            height: 2px;
+            height: 3px;
             width: 56px;
             position: absolute;
             background-color: #EC7522;
+            left: 0;
+            bottom: -1px;
+            z-index: 999;
+          }
+          .t-in {
+            height: 3px;
+            width: 100%;
+            position: absolute;
+            background-color: #F2F2F2;
             left: 0;
             bottom: -1px;
           }
@@ -368,7 +383,7 @@ export default {
              margin-left: 62px;
              display: block;
              box-sizing: border-box;
-             margin-bottom: 52px;
+             margin-bottom: 45px;
              p {
                font-size: 14px;
                text-overflow: ellipsis;
@@ -378,7 +393,7 @@ export default {
                cursor: pointer;
              }
              .m-detail {
-               margin-top: 19px;
+               margin-top: 18px;
                width: 90%;
                p {
                  padding-bottom: 4px;

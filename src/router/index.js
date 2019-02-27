@@ -7,7 +7,17 @@ import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
 import Notice from '@/page/notice'
-import Sea from '@/components/home'
+import Introduce from '@/page/introduce'
+import Icbc from '@/page/companys/icbc'
+import Personnel from '@/page/companys/personnel'
+import Intell from '@/page/companys/intelligence'
+import Law from '@/page/companys/law'
+import Good from '@/page/companys/good'
+import Centre from '@/page/companys/centre'
+import Achievement from '@/page/companys/achievement'
+
+
+
 
 
 
@@ -66,9 +76,48 @@ export default new Router({
       component:Notice
     },
     {
-      path:'/sea',
-      name:'sea',
-      component:Sea
+      path:'/introduce',
+      name:'introduce',
+      component: Introduce,
+      redirect: '/introduce/icbc',
+      children:[
+        {
+          path:'icbc',
+          name:'icbc',
+          component: Icbc
+        },
+        {
+          path: 'personnel',
+          name: 'personnel',
+          component: Personnel
+        },
+        {
+          path: 'intell',
+          name: 'intell',
+          component: Intell
+        },
+        {
+          path: 'law',
+          name: 'law',
+          component: Law
+        },
+        {
+          path: 'good',
+          name: 'good',
+          component: Good
+        },
+        {
+          path: 'centre',
+          name: 'centre',
+          component: Centre
+        },
+        {
+          path: 'achievement',
+          name: 'achievement',
+          component: Achievement
+        }
+
+      ]
     }
   ]
 })
