@@ -506,7 +506,6 @@ export default {
        padding-top: 95px;
        display: flex;
        justify-content: center;
-
      }
     //  ul {
        a {

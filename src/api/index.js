@@ -88,3 +88,15 @@ export const CQdetails = params => {
 export const Branch = params => {
   return axios.post('company/branchCompany', params).then(res => res.data)
 }
+
+export const Law = params => {
+  return axios.post('law/list', params).then(res => res.data)
+}
+
+export const Person = params => {
+  return axios.post('company/person', params).then(res => res.data)
+}
+
+export const Project = params => {
+  return axios.post('project/company/list', params).then(res => res.data)
+}

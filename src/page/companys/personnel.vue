@@ -1,21 +1,180 @@
 <template>
-<div class="personnel">
-    人员
+<div class="law">
+   <div class="law-search"> 
+     <div class="left law-wei" >
+       注册人员（{{this.total}}）
+     </div>
+     <div class="law-year left">
+       <el-select v-model="mold" clearable placeholder="请选择" @change="newList" >
+          <el-option
+            v-for="item in options"
+            :key="item.category"
+            :label="item.category"
+            :value="item.category">
+          </el-option>
+        </el-select>
+     </div>
+     <div class="right law-w">
+        <el-input
+          placeholder="请输入人员姓名"
+          suffix-icon="el-icon-search"
+          @change="newList"
+          @keyup.enter="newList"
+          v-model="search">
+        </el-input>
+     </div>
+   </div>
+   <div class="law-list">
+      <div class="law-nav">
+        <div class="left" style="width:52px"> 
+           序号
+        </div>
+        <div class="left" style="width:150px"> 
+           姓名
+        </div>
+        <div class="left" style="width:150px"> 
+           注册类别
+        </div>
+        <div class="left" style="width:160px"> 
+            执业印章号
+        </div>
+        <div class="left" style="width:160px"> 
+            专业
+        </div>
+        <div class="left" style="width:100px"> 
+            有效日期
+        </div>
+      </div>
+      <div class="law-text" v-for="(el,i) in lawList" :key="i" >
+         <div class="left" style="width:52px"> 
+           {{i+1}}
+        </div>
+        <div class="left" style="width:150px"> 
+          {{el.name}}
+        </div>
+        <div class="left" style="width:150px"> 
+            {{el.category}}
+        </div>
+        <div class="left" style="width:160px"> 
+            {{el.sealNo}}
+        </div>
+        <div class="left" style="width:160px"> 
+            {{el.major}}
+        </div>
+        <div class="left" style="width:100px"> 
+             {{el.validDate}}
+        </div>
+      </div>
+   </div>
+   <div class="law-page">
+       <nav-page 
+          :all='total'
+          :currents='current'
+          @skip='Goto'
+       ></nav-page>
+   </div>
 </div>
 </template>
 <script>
+import { Person,getJsonData } from '@/api/index'
 export default {
   data () {
     return {
-
+      mold:'',
+      search:'',
+      lawList:[],
+      total:0,
+      current:1,
+      options:[]
     }
+  },
+  methods: {
+    gainList() {
+      Person({keyWord:this.search,comId:'d82be405069001616cefd448d5bf83a1',category:this.mold,pageNo:this.current,pageSize:20,province:'hunan'}).then(res => {
+         if(res.code == 1) {
+            this.lawList = res.data
+            this.current = res.pageNum
+            this.total = res.total
+         }
+      })
+    },
+    Goto(val) {
+    this.current = val.cur
+    this.gainList()
+    },
+    gainCategory() {
+      let dataParam = JSON.stringify({
+          
+        });
+        getJsonData( "/company/personCategory/" + 'd82be405069001616cefd448d5bf83a1' ).then(res => {
+            if(res.code == 1) {
+              this.options = res.data
+            }
+        });
+    },
+    newList() {
+      this.current = 1 
+      this.gainList()
+    }
+  },
+  created () {
+    this.gainList()
+    this.gainCategory()
   },
   components: {
   }
 }
 </script>
 <style lang="less" scoped>
-.personnel {
-  
+.law {
+  background-color: #fff;
+  padding: 0 9px;
+  .law-search {
+    height: 56px;
+    line-height: 56px;
+    padding: 0 12px;
+    font-size: 14px;
+    color:#333;
+    .law-wei {
+      font-weight: 550;
+      margin-right: 25px;
+    }
+    .law-year {
+    }
+
+  }
+  .law-list {
+    border: 1px solid #f2f2f2;
+    .law-nav {
+      height: 40px;
+      border-bottom: 1px solid #f2f2f2;
+      line-height: 40px;
+      font-size: 12px;
+      color:#333;
+      text-align: center;
+      font-weight: 550;
+    }
+    .law-text {
+      min-height: 40px;
+      border-bottom: 1px solid #f2f2f2;
+      font-size: 12px;
+      color:#333;
+      text-align: center;
+      font-weight: 550;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      .law-pdd {
+        padding: 10px 20px; 
+        box-sizing: border-box;
+      }
+    }
+  }
+  .law-page {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+  }
 }
 </style>

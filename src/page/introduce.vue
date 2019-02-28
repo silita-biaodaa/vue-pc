@@ -111,11 +111,17 @@ export default {
               this.details = res.data
             }
         });
-       
-    }
+    },
+    gainNav() {
+      var is = this.$route.meta.i
+      this.name = this.navs[is].name
+      this.navs[0].show = false
+      this.navs[is].show = true
+    },
   },
   created () {
     this.gainDetail()
+    this.gainNav()
   },
   components: {
   }
@@ -124,6 +130,7 @@ export default {
 <style lang="less" scoped>
 .introduce {
   width: 1020px;
+  // height: 100%;
   .com-title {
     width: 100%;
     // height: 200px;
@@ -182,8 +189,8 @@ export default {
   }
   .anchor {
     width: 1020px;
+    overflow: hidden;
     margin-top: 16px;
-    height: 500px;
     box-sizing: border-box;
     margin-bottom: 200px;
     .i-nav {
@@ -223,8 +230,6 @@ export default {
     }
     .standby {
       width: 794px;
-      height: 500px;
-      
     }
   }
   

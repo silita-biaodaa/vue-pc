@@ -84,37 +84,58 @@ export default new Router({
         {
           path:'icbc',
           name:'icbc',
-          component: Icbc
+          component: Icbc,
+          meta: { 
+            i:0
+           }
         },
         {
           path: 'personnel',
           name: 'personnel',
-          component: Personnel
+          component: Personnel,
+          meta: {
+            i: 3
+          }
         },
         {
           path: 'intell',
           name: 'intell',
-          component: Intell
+          component: Intell,
+          meta: {
+            i: 2
+          }
         },
         {
           path: 'law',
           name: 'law',
-          component: Law
+          component: Law,
+          meta: {
+            i: 1
+          }
         },
         {
           path: 'good',
           name: 'good',
-          component: Good
+          component: Good,
+          meta: {
+            i: 6
+          }
         },
         {
           path: 'centre',
           name: 'centre',
-          component: Centre
+          component: Centre,
+          meta: {
+            i: 4
+          }
         },
         {
           path: 'achievement',
           name: 'achievement',
-          component: Achievement
+          component: Achievement,
+          meta: {
+            i: 5
+          }
         }
 
       ]

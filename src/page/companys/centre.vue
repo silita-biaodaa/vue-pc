@@ -1,21 +1,108 @@
 <template>
-<div class="centre">
-    业绩
+<div class="intell">
+    <div class="in-nav">
+      <span class="left in-po current"  >全部</span>
+     
+    </div>
+    <div class="in-table">
+      <div class="law-nav">
+        <div class="left" style="width:54px">
+            序号
+        </div>
+        <div class="left" style="width:260px">
+            项目名称
+        </div>
+        <div class="left" style="width:120px">
+            项目类型
+        </div>
+        <div class="left" style="width:90px">
+            项目属地
+        </div>
+        <div class="left" style="width:250px">
+           建筑单位
+        </div>
+      </div>
+      <div class="law-nav" v-for="(el,i) in showArr" :key="i">
+        <div class="left" style="width:54px">
+            {{i+1}}
+        </div>
+        <div class="left" style="width:260px">
+            {{el.proName ? el.proName: '--'}}
+        </div>
+        <div class="left" style="width:120px">
+            {{el.proType ? el.proType: '--'}}
+        </div>
+        <div class="left" style="width:90px">
+            {{el.province ? el.province: '--'}}
+        </div>
+        <div class="left" style="width:250px">
+            {{el.proOrg ? el.proOrg: '--'}}
+        </div>
+      </div>
+    </div>
 </div>
 </template>
 <script>
+import { Project } from '@/api/index'
 export default {
   data () {
     return {
-
+      showArr:[],
     }
+  },
+  methods: {
+    gainList() {
+       Project({comId:'d82be405069001616cefd448d5bf83a1'}).then( res => {
+          console.log(res)
+          if(res.code == 1) {
+             this.showArr = res.data
+          }
+       }) 
+    },
+  },
+  created () {
+    this.gainList()
   },
   components: {
   }
 }
 </script>
 <style lang="less" scoped>
-.centre {
-  
+.intell {
+  background-color: #fff;
+  padding-bottom: 50px;
+  .current {
+    color:#333;
+  }  
+  .in-nav {
+    font-size: 14px;
+    color:#999;
+    height: 44px;
+    line-height: 44px;
+    padding-left: 22px;
+    font-weight: 550;
+    .in-pdd {
+      padding: 0 5px;
+    }
+    .in-po {
+      cursor: pointer;
+    }
+  }
+  .in-table {
+    margin: 0 9px;
+    border: 1px solid #f2f2f2;
+    font-size: 12px;
+    color:#333;
+     .law-nav {
+      height: 40px;
+      border-bottom: 1px solid #f2f2f2;
+      line-height: 40px;
+      font-size: 12px;
+      color:#333;
+      text-align: center;
+      font-weight: 550;
+    }
+  }
 }
+
 </style>
