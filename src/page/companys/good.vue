@@ -42,6 +42,9 @@
                {{el.years}}
              </div>
          </div>
+         <div class="no-search" v-show="result">
+              <img src="../../assets/img/card.png" alt="" >
+         </div> 
      </div>
 
      <div v-show="badness">
@@ -72,7 +75,8 @@
              <div class="left" style="width:200px" >
                {{el.years}}
              </div>
-          </div> 
+          </div>
+          
      </div>
 
    </div>
@@ -91,7 +95,8 @@ export default {
       prize:true,
       badness:false,
       name:'获奖信息',
-      id:''
+      id:'',
+      result: false
     }
   },
   methods: {
@@ -110,7 +115,13 @@ export default {
                  })
               })
             }
+             if(this.allList.length == 0) {
+               this.result = true
+             } else {
+               this.result = false
+             }
             this.total = this.allList.length
+           
         });
     },
     gainBad() {
@@ -179,6 +190,14 @@ export default {
       text-align: center;
       border-bottom: 1px solid #f2f2f2;
     }
+  }
+  .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

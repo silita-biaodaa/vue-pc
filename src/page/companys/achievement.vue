@@ -14,7 +14,7 @@
      </div>
   </div>
   <div class="e-table">
-    <div class="e-list" v-for="(el,i) in bidList" :key="i">
+    <div class="e-list" v-for="(el,i) in bidList" :key="i" v-show="!result">
       <div e-title >
         <div class="e-title">
             <div class="left">
@@ -38,8 +38,11 @@
         
       </div>
     </div>
+    <div class="no-search" v-show="result">
+        <img src="../../assets/img/card.png" alt="" >
+    </div>
   </div>
-  <div class="e-page">
+  <div class="e-page" v-show="!result">
       <nav-page 
        :all='total'
        :currents='current'
@@ -57,18 +60,21 @@ export default {
       bidList:[],
       current:1,
       total:0,
-      name:''
+      name:'',
+      result:false
     }
   },
   methods: {
     gainList() {
       this.name = localStorage.getItem('name')
-      queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search}).then(res => {
-        console.log(res)
+      queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
            this.current = res.pageNo
            this.total = res.total
+           if(this.bidList.length ==0 ) {
+             this.result = true
+           }
         }
       })
     },
@@ -138,6 +144,14 @@ export default {
     display: flex;
     justify-content: center;
     height: 150px;
+  }
+  .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

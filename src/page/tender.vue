@@ -104,7 +104,7 @@ import { queryList } from '@/api/index';
 export default {
   data () {
     return {
-      area:'湖南省||',
+      area:'湖南',
       areas:[
         {
           name:'北京',
@@ -158,7 +158,7 @@ export default {
           name:'湖北',
         },
         {
-          name:'湖南省||',
+          name:'湖南',
         },
         {
           name:'广西',
@@ -301,7 +301,7 @@ export default {
     },
     gainList() {
        if(this.rank == 0) {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area}).then( res => {
+          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
                  console.log(res)
                   this.queryLists = res.data
@@ -310,7 +310,7 @@ export default {
                }
           })
        } else {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.area}).then( res => {
+          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
                   this.queryLists = res.data
                   this.present = res.pageNo

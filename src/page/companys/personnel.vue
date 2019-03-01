@@ -92,7 +92,7 @@ export default {
   methods: {
     gainList() {
       this.id = localStorage.getItem('id')
-      Person({keyWord:this.search,comId:this.id,category:this.mold,pageNo:this.current,pageSize:20,province:'hunan'}).then(res => {
+      Person({keyWord:this.search,comId:this.id,category:this.mold,pageNo:this.current,pageSize:20,province:'湖南'}).then(res => {
          if(res.code == 1) {
             this.lawList = res.data
             this.current = res.pageNum

@@ -2,8 +2,9 @@
 <div class="introduce">
 
   <div class="com-title">
-    <!-- <div class="com-img left">
-    </div> -->
+    <div class="com-img left">
+      <img src="../assets/img/company.png" alt="">
+    </div>
     <div class="com-detail left" >
       <p class="c-name">
         {{details.comName}}
@@ -143,7 +144,6 @@ export default {
       width: 75px;
       border-radius: 5px;
       margin-right: 25px;
-      border: 1px solid red;
       overflow: hidden;
     }
     .com-detail {

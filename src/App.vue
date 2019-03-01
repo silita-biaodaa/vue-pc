@@ -26,7 +26,7 @@
             <p class="line">
              </p>
              <p>
-                请登录
+              请登录
              </p>
              
           </div>
@@ -215,7 +215,7 @@ export default {
           }
         }
         .contact-r {
-          width: 500px;
+          width: 400px;
           display: flex;
           align-items: center; 
           flex-direction:row-reverse;
