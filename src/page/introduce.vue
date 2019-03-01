@@ -91,22 +91,23 @@ export default {
          }
        ],
        name:'工商信息',
-       details:{}
+       details:{},
+       id:''
      }
   },
   methods: {
     anchor(el) {
       this.name = el.name
-      this.navs.forEach(el => {
+      this.navs.forEach( el => {
          el.show = false
       })
       el.show = true
     },
     gainDetail() {
+     this.id = localStorage.getItem('id')
        let dataParam = JSON.stringify({
-          
         });
-        getJsonData( "/company/" + 'd82be405069001616cefd448d5bf83a1' ).then(res => {
+        getJsonData( "/company/" + this.id ).then( res => {
             if(res.code == 1) {
               this.details = res.data
             }
@@ -130,10 +131,8 @@ export default {
 <style lang="less" scoped>
 .introduce {
   width: 1020px;
-  // height: 100%;
   .com-title {
     width: 100%;
-    // height: 200px;
     padding: 17px 0 20px 20px;
     margin-top: 40px;
     overflow: hidden;

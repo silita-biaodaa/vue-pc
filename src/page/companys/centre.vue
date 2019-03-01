@@ -22,7 +22,7 @@
            建筑单位
         </div>
       </div>
-      <div class="law-nav" v-for="(el,i) in showArr" :key="i">
+      <div class="law-text" v-for="(el,i) in showArr" :key="i" v-show="result">
         <div class="left" style="width:54px">
             {{i+1}}
         </div>
@@ -39,6 +39,9 @@
             {{el.proOrg ? el.proOrg: '--'}}
         </div>
       </div>
+      <div class="no-search" v-show="!result">
+        <img src="../../assets/img/card.png" alt="" >
+      </div>
     </div>
 </div>
 </template>
@@ -48,14 +51,19 @@ export default {
   data () {
     return {
       showArr:[],
+      id:'',
+      result:true
     }
   },
   methods: {
     gainList() {
-       Project({comId:'d82be405069001616cefd448d5bf83a1'}).then( res => {
-          console.log(res)
+      this.id = localStorage.getItem('id')
+       Project({comId:this.id}).then( res => {
           if(res.code == 1) {
              this.showArr = res.data
+             if(this.showArr.length ==0 ) {
+                this.result = false
+             }
           }
        }) 
     },
@@ -102,6 +110,24 @@ export default {
       text-align: center;
       font-weight: 550;
     }
+    .law-text {
+      min-height: 40px;
+      border-bottom: 1px solid #f2f2f2;
+      font-size: 12px;
+      color:#333;
+      font-weight: 550;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

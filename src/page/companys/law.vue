@@ -37,7 +37,7 @@
             时间
         </div>
       </div>
-      <div class="law-text" v-for="(el,i) in lawList" :key="i" >
+      <div class="law-text" v-for="(el,i) in lawList" :key="i" v-show="!result" >
         <div class="left" style="width:72px"> 
             {{i+1}}
         </div>
@@ -54,8 +54,11 @@
             {{el.dateStr}}
         </div>
       </div>
+      <div class="no-search" v-show="result">
+        <img src="../../assets/img/card.png" alt="" >
+      </div>
    </div>
-   <div class="law-page">
+   <div class="law-page" v-show="!result">
        <nav-page 
           :all='total'
           :currents='current'
@@ -73,19 +76,24 @@ export default {
       search:'',
       lawList:[],
       total:0,
-      current:1
+      current:1,
+      name:'',
+      result:false,
+      
     }
   },
   methods: {
     gainList() {
+      this.name = localStorage.getItem('name')
       var years = this.year == '' ? null : this.year
-      Law({pageNo:this.current,pageSize:20,keyWord:this.search,comName:'湖南耀邦建设有限公司',start:years,end:null}).then(res => {
+      Law({pageNo:this.current,pageSize:20,keyWord:this.search,comName:this.name,start:years,end:null}).then(res => {
          if(res.code == 1) {
-           console.log(res)
            this.lawList = res.data
            this.total = res.total
            this.current = res.pageNum
-
+            if(this.lawList.length == 0 ) {
+               this.result  = true
+            }
          }
       }) 
     },
@@ -154,6 +162,14 @@ export default {
     display: flex;
     justify-content: center;
     padding-top: 50px;
+  }
+  .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

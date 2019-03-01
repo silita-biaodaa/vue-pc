@@ -56,12 +56,14 @@ export default {
       search:'',
       bidList:[],
       current:1,
-      total:0
+      total:0,
+      name:''
     }
   },
   methods: {
     gainList() {
-      queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:'湖南耀邦建设有限公司',title:this.search}).then(res => {
+      this.name = localStorage.getItem('name')
+      queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search}).then(res => {
         console.log(res)
         if(res.code == 1) {
            this.bidList = res.data

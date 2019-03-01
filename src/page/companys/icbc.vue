@@ -109,7 +109,8 @@ export default {
       branch:false,
       list:[],
       length:'',
-      details:{}
+      details:{},
+      id:''
     }
   },
   methods: {
@@ -127,17 +128,18 @@ export default {
       this.branch = true
     },
     gainList() {
+      this.id = localStorage.getItem('id')
        let dataParam = JSON.stringify({
           
         });
-        getJsonData( "/company/" + 'd82be405069001616cefd448d5bf83a1' ).then(res => {
+        getJsonData( "/company/" + this.id ).then(res => {
             if(res.code == 1) {
               this.details = res.data
             }
         });
     },
     gainBranch() {
-      Branch({comId:'d82be405069001616cefd448d5bf83a1'}).then(res => {
+      Branch({comId:this.id}).then(res => {
          if(res.code == 1) {
            this.list = res.data
            this.length = res.data.length

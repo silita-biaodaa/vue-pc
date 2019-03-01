@@ -25,7 +25,7 @@
             有效日期
         </div>
       </div>
-      <div class="law-nav" v-for="(el,i) in showArr" :key="i">
+      <div class="law-nav" v-for="(el,i) in showArr" :key="i" v-show="!result">
         <div class="left" style="width:74px">
             {{i+1}}
         </div>
@@ -42,6 +42,9 @@
             {{el.certDate ? el.certDate: '--'}}
         </div>
       </div>
+      <div class="no-search" v-show="result">
+        <img src="../../assets/img/card.png" alt="" >
+      </div>
     </div>
 </div>
 </template>
@@ -53,31 +56,46 @@ export default {
       allList:[],
       allArr:[],
       showArr:[],
-      name:'全部'
+      name:'全部',
+      id:'',
+      result:false
     }
   },
   methods: {
     gainList() {
+      this.id = localStorage.getItem('id')
        let dataParam = JSON.stringify({          
-        });
-        getJsonData( "/company/qual/" + 'd82be405069001616cefd448d5bf83a1' ).then(res => {
+       });
+        getJsonData( "/company/qual/" + this.id ).then(res => {
             if(res.code == 1) {
               this.allList = res.data
               this.allList.forEach((el,i) => {
                  this.allArr.push.apply(this.allArr, el.list)
               })
               this.showArr = this.allArr
+              if(this.showArr.length == 0 ) {
+                this.result = true
+              }
             }
         });
     },
     changeList(el) {
       this.name = el.qualType
       this.showArr = el.list
+      if(this.showArr.length == 0 ) {
+          this.result = true
+      }
     },
     allshow() {
       this.name = '全部'
       this.showArr = this.allArr
+      if(this.showArr.length == 0 ) {
+          this.result = true
+      }
     }
+  },
+  computed: {
+    
   },
   created () {
     this.gainList()
@@ -121,6 +139,14 @@ export default {
       text-align: center;
       font-weight: 550;
     }
+  }
+   .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

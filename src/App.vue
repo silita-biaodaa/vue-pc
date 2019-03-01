@@ -110,22 +110,22 @@ export default {
         {
            name:'中标',
            url:require('./assets/img/icon-zhongb.png'),
-           to:'tender',
+           to:'/tender',
         },
         {
            name:'招标',
            url:require('./assets/img/icon-zhaob.png'),
-           to:'bid',
+           to:'/bid',
         },
         {
            name:'企业',
            url:require('./assets/img/icon-qiy.png'),
-           to:'company',
+           to:'/company',
         },
         {
            name:'诚信',
            url:require('./assets/img/icon-chengx.png'),
-           to:'faith',
+           to:'/faith',
         }
      ],
      rank:0,

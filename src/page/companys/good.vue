@@ -90,14 +90,16 @@ export default {
       bad:0,
       prize:true,
       badness:false,
-      name:'获奖信息'
+      name:'获奖信息',
+      id:''
     }
   },
   methods: {
     gainList() {
+      this.id = localStorage.getItem('id')
        let dataParam = JSON.stringify({          
         });
-        getJsonData( "/company/reputation/" + '5d86f82e66452e2db067e42ca327c629' ).then(res => {
+        getJsonData( "/company/reputation/" + this.id ).then(res => {
             if(res.code == 1) {
               this.gooDlist =  res.data.reputation
               this.gooDlist.forEach(el => {
@@ -114,7 +116,7 @@ export default {
     gainBad() {
         let dataParam = JSON.stringify({          
         });
-        getJsonData( "/company/undesirable/" + '5d86f82e66452e2db067e42ca327c629' ).then(res => {
+        getJsonData( "/company/undesirable/" + this.id ).then(res => {
           console.log(res);
             if(res.code == 1) {
               this.badList = res.data.undesirable
@@ -128,6 +130,9 @@ export default {
       this.badness = false
     },
     showt() {
+      if(this.bad == 0) {
+         return 
+      }
       this.name = '不良记录'
       this.prize = false
       this.badness = true
@@ -173,7 +178,6 @@ export default {
       align-items: center;
       text-align: center;
       border-bottom: 1px solid #f2f2f2;
-
     }
   }
 }

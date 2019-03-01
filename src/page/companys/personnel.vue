@@ -85,12 +85,14 @@ export default {
       lawList:[],
       total:0,
       current:1,
-      options:[]
+      options:[],
+      id:''
     }
   },
   methods: {
     gainList() {
-      Person({keyWord:this.search,comId:'d82be405069001616cefd448d5bf83a1',category:this.mold,pageNo:this.current,pageSize:20,province:'hunan'}).then(res => {
+      this.id = localStorage.getItem('id')
+      Person({keyWord:this.search,comId:this.id,category:this.mold,pageNo:this.current,pageSize:20,province:'hunan'}).then(res => {
          if(res.code == 1) {
             this.lawList = res.data
             this.current = res.pageNum
@@ -106,7 +108,7 @@ export default {
       let dataParam = JSON.stringify({
           
         });
-        getJsonData( "/company/personCategory/" + 'd82be405069001616cefd448d5bf83a1' ).then(res => {
+        getJsonData( "/company/personCategory/" + this.id ).then(res => {
             if(res.code == 1) {
               this.options = res.data
             }

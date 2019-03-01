@@ -104,7 +104,7 @@ import { queryList } from '@/api/index';
 export default {
   data () {
     return {
-      area:'湖南',
+      area:'湖南省||',
       areas:[
         {
           name:'北京',
@@ -158,7 +158,7 @@ export default {
           name:'湖北',
         },
         {
-          name:'湖南',
+          name:'湖南省||',
         },
         {
           name:'广西',

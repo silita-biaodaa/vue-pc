@@ -166,8 +166,8 @@
 
 
   <div class="firm">
-      <ul>
-        <li>
+      <div class='firm-ul'>  
+        <div>
            <div class="left t-size" style="width:80px;">
               序号
            </div>
@@ -186,13 +186,14 @@
              <div class="left t-size" style="width:140px;">
               所属地区
            </div>
-        </li>
-        <li v-for='(el,i) in companylisy' :key='i' >
+        </div>    
+          
+        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce'}" target='_blank' @click.native='store(el)'  >
             <div class="left " style="width:80px;">
               {{i+1}}
            </div>
              <div class="left" style="width:300px;">
-              {{el.comName}}
+               <span class='c-col' >{{el.comName}}</span>
            </div>
              <div class="left" style="width:120px;">
                {{el.legalPerson}}
@@ -206,8 +207,8 @@
              <div class="left" style="width:140px;">
               {{el.regisAddress}}
            </div>
-        </li>
-      </ul>
+        </router-link>
+      </div>
   </div>
   <div class="c-page">
           <nav-page 
@@ -665,6 +666,12 @@ export default {
       this.current = 1
       this.again()
     },
+    store(el) {
+      localStorage.removeItem('id')
+      localStorage.removeItem('name')
+      localStorage.setItem('id',el.comId)
+      localStorage.setItem('name',el.comName)
+    }
   },
   created () {
     this.gainFilter()
@@ -801,17 +808,22 @@ export default {
      width: 1020px;
      background: #fff;
      margin: 0 auto;
-     ul {
-    
-       li {
+     overflow: hidden;
+     .firm-ul {
+       
+       div,a {
          height: 70px;
          line-height: 70px;
          border-bottom: 1px solid #f2f2f2;
          text-align: center;
          overflow: hidden;
+         color:#999;
          .t-size {
            font-size: 14px;
-           
+           color:#000;           
+         }
+         .c-col {
+           color:#FE6603;
          }
        }
      }
