@@ -33,6 +33,16 @@ export default {
 
     }
   },
+  methods: {
+    gain() {
+      console.log(window.screen.deviceXDPI)
+      console.log(document.body.clientHeight)
+      console.log(window)
+    }
+  },
+  created () {
+    this.gain()
+  },
   components: {
   }
 }
@@ -54,44 +64,127 @@ export default {
       margin-right: 30px;
     }
   }
-  .d-c {
-    width: 100%;
-    background: url(../assets/img/do.png) no-repeat;
-    height: 400px;
-    background-size: 100%;
-    position: relative;
-    .d-img {
-      width: 168px;
-      height: 230px;
-      position: absolute;
-      top: 50px;
-      left: 243px;
-    }
-    .d-size {
-      height: 300px;
-      position: absolute;
-      top: 50px;
-      left: 40%;
-      p {
-        font-size: 46px;
-        color:#fff;
-        .d-small {
-          font-size: 32px;
-        }
-      }
-      .d-text{
+  @media screen and (max-device-width:1920px){
+      .d-c {
         width: 100%;
-        font-size: 16px;
-        color: #fff;
-        margin-top: 10px;
-      }
-      .d-logo {
-        background: url(../assets/img/pic-erweima.png) no-repeat;
-        height: 113px;
-        margin-top: 20px;
-      }
+        background: url(../assets/img/do.png) no-repeat;
+        height: 400px;
+        background-size: 100%;
+        position: relative;
+        .d-img {
+          width: 168px;
+          height: 230px;
+          position: absolute;
+          top: 50px;
+          left: 243px;
+        }
+        .d-size {
+          height: 300px;
+          position: absolute;
+          top: 50px;
+          left: 40%;
+          p {
+            font-size: 46px;
+            color:#fff;
+            .d-small {
+              font-size: 32px;
+            }
+          }
+          .d-text{
+            width: 100%;
+            font-size: 16px;
+            color: #fff;
+            margin-top: 10px;
+          }
+          .d-logo {
+            background: url(../assets/img/pic-erweima.png) no-repeat;
+            height: 113px;
+            margin-top: 20px;
+          }
+        }
+      }  
     }
-  }  
+
+    /*分辨率高于1440，采用下面的样式*/
+  @media screen and (min-device-width: 1920px){
+       .d-c {
+        width: 100%;
+        background: url(../assets/img/do.png) no-repeat;
+        height: 600px;
+        background-size: 100%;
+        position: relative;
+        .d-img {
+          width: 168px;
+          height: 230px;
+          position: absolute;
+          top: 50px;
+          left: 243px;
+        }
+        .d-size {
+          height: 300px;
+          position: absolute;
+          top: 50px;
+          left: 40%;
+          p {
+            font-size: 46px;
+            color:#fff;
+            .d-small {
+              font-size: 32px;
+            }
+          }
+          .d-text{
+            width: 100%;
+            font-size: 16px;
+            color: #fff;
+            margin-top: 10px;
+          }
+          .d-logo {
+            background: url(../assets/img/pic-erweima.png) no-repeat;
+            height: 113px;
+            margin-top: 20px;
+          }
+        }
+      }  
+       
+  }
+  // .d-c {
+  //   width: 100%;
+  //   background: url(../assets/img/do.png) no-repeat;
+  //   height: 400px;
+  //   background-size: 100%;
+  //   position: relative;
+  //   .d-img {
+  //     width: 168px;
+  //     height: 230px;
+  //     position: absolute;
+  //     top: 50px;
+  //     left: 243px;
+  //   }
+  //   .d-size {
+  //     height: 300px;
+  //     position: absolute;
+  //     top: 50px;
+  //     left: 40%;
+  //     p {
+  //       font-size: 46px;
+  //       color:#fff;
+  //       .d-small {
+  //         font-size: 32px;
+  //       }
+  //     }
+  //     .d-text{
+  //       width: 100%;
+  //       font-size: 16px;
+  //       color: #fff;
+  //       margin-top: 10px;
+  //     }
+  //     .d-logo {
+  //       background: url(../assets/img/pic-erweima.png) no-repeat;
+  //       height: 113px;
+  //       margin-top: 20px;
+  //     }
+  //   }
+  // }  
   .d-bto {
     width: 100%;
     text-align: center;
