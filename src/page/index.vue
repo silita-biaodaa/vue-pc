@@ -256,7 +256,7 @@ export default {
       this.province = val.key
     },
     gainfoundation() {
-      foundation({type:0,showType:3}).then(res => {
+      foundation({type:4,showType:3}).then(res => {
          if(res.code == 1) {
            this.imgs = res.data
          }
