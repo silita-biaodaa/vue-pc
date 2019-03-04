@@ -5,10 +5,10 @@
     <div>APP下载</div>
 </div>
 <div class="d-c">
-  <div class="d-img">
+  <!-- <div class="d-img">
      <img src="../assets/img/shouji.png" alt="">
-  </div>
-  <div class="d-size">
+  </div> -->
+  <!-- <div class="d-size">
       <p>查<span class="d-small">企业 · </span>查<span class="d-small">项目 · </span>查<span class="d-small">人员</span></p>
       <div class="d-text">
         建筑领域招投标专家，全面、精准、及时的大数据产品 
@@ -19,7 +19,7 @@
       <div class="d-logo">
 
       </div>
-  </div>
+  </div> -->
 </div>
 <div class="d-bto">
 © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
@@ -67,8 +67,8 @@ export default {
   @media screen and (max-device-width:1920px){
       .d-c {
         width: 100%;
-        background: url(../assets/img/do.png) no-repeat;
-        height: 400px;
+        background: url(../assets/img/do1.png) no-repeat;
+        height: 600px;
         background-size: 100%;
         position: relative;
         .d-img {
@@ -109,7 +109,7 @@ export default {
   @media screen and (min-device-width: 1920px){
        .d-c {
         width: 100%;
-        background: url(../assets/img/do.png) no-repeat;
+        background: url(../assets/img/do1.png) no-repeat;
         height: 600px;
         background-size: 100%;
         position: relative;
