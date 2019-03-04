@@ -49,9 +49,9 @@
                   @change="fade"
                   clearable>
                 </el-input>
-                <!-- <div class="t-btn" @click='gainList' >
+                <div class="t-btn" @click='gainList' >
                     确定
-                </div> -->
+                </div>
              </el-col>
            </el-row>
         </div>
@@ -143,9 +143,11 @@
          <div class='left c-btn' @click='transt' >
             <i class='el-icon-plus'></i>增加条件
          </div>
-         <div class='left c-btn' @click='again' >
-            查询
-         </div>
+         
+        </div>
+        <div class='select m-20 c-red' v-show='five' >
+          <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
+          资质最多只可添加3条
         </div>  
         <div class="select" v-show='five'>
            <el-row>
@@ -159,13 +161,22 @@
              </el-col>
            </el-row>
         </div>  
-      
+
+        <div class="select cc-btn" >
+          <div class='left c-sure' @click='again' >
+            查询
+          </div>
+        </div>
              
    </div>
-   
+
+    <div class="total">
+        共搜索到<span>{{total}}</span>条中标公告
+    </div>
 
 
-  <div class="firm">
+
+  <div class="firm" v-show="!Snone">
       <div class='firm-ul'>  
         <div>
            <div class="left t-size" style="width:80px;">
@@ -210,12 +221,15 @@
         </router-link>
       </div>
   </div>
-  <div class="c-page">
+  <div class="c-page" v-show="!Snone">
           <nav-page 
           :all='total'
           :currents='present'
           @skip='Goto'
           ></nav-page>
+  </div>
+  <div class="noneS" v-show="Snone">
+      <img src="../assets/img/card.png" alt="">
   </div>
 
 </div>
@@ -226,6 +240,7 @@ export default {
   data () {
     return {
        area:'湖南',
+       Snone:true,
       areas:[
         {
           name:'北京'
@@ -471,8 +486,12 @@ export default {
       companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
          this.present = res.pageNum
-         console.log(this.present,1)
         this.total = res.total
+        if(this.total == 0 ) {
+           this.Snone = true
+         } else {
+           this.Snone = false
+         }
       })
     },
     again() {
@@ -484,6 +503,11 @@ export default {
          this.companylisy = res.data
          this.total = res.total
          this.present = res.pageNum
+         if(this.total == 0 ) {
+            this.Snone = true
+          } else {
+            this.Snone = false
+          }
         })
        }
     },
@@ -497,6 +521,8 @@ export default {
     eval(el) {
       this.current = 1
       this.area = el.name
+      this.companylisy = []
+      this.total = 0
       this.again()
     },
     evalsum(el) {
@@ -506,10 +532,17 @@ export default {
       this.start = el.s,
       this.end = el.e 
       this.current = 1
+      this.companylisy = []
+      this.total = 0
       this.again()
     },
     gainList() {
       this.current = 1
+      this.rank = 1
+      this.start = ''
+      this.end = '' 
+      this.companylisy = []
+      this.total = 0
       this.again()
     },
     transt() {
@@ -537,7 +570,7 @@ export default {
       this.start = ''
       this.end = '' 
       this.current = 1 
-      this.again()
+      // this.again()
     },
     ftwo() {
       this.two = false
@@ -659,11 +692,15 @@ export default {
     },
     Goto(val) {
       this.current = val.cur
+      this.companylisy = []
+      this.total = 0
       this.again()
     },
     entitle(val) {      
       this.title = val.cur
       this.current = 1
+      this.companylisy = []
+      this.total = 0
       this.again()
     },
     store(el) {
@@ -685,10 +722,47 @@ export default {
 .company {
   background: #FAFAFA;
   width: 100%;
+  .total {
+    width: 1020px;
+    margin: 14px auto;
+    span {
+      color:#EC7522;
+    }
+  }
+  .noneS {
+    width: 1020px;
+    margin: 0 auto;
+    background-color: #fff;
+    height: 582px;
+    margin-bottom: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .c-red {
+    color:#FE0303;
+    font-size: 12px;
+  }
+  .cc-btn {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .c-sure {
+      text-align: center;
+      width: 154px;
+      height: 46px;
+      line-height: 46px;
+      background-color: #EC7522;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 5px;
+    }
+  }
   .c-search {
      width: 1020px;
      background-color: #fff;
-     margin: 40px auto 40px;
+     margin: 40px auto 0;
      padding: 28px 20px 30px 20px;
      box-sizing: border-box;
      font-size: 16px;

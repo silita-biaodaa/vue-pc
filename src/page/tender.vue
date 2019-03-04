@@ -19,7 +19,7 @@
                </el-col>
             </el-row>
         </div>
-        <div class="select">
+        <!-- <div class="select">
            <el-row>
               <el-col :span="2">
                 类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型:
@@ -32,7 +32,7 @@
                   </ul>
               </el-col>
            </el-row>
-        </div>
+        </div> -->
         <div class="select">
            <el-row>
              <el-col :span="2" class="t-5">
@@ -64,8 +64,10 @@
            </el-row>
         </div>      
     </div>
-
-    <div class="t-list">
+    <div class="total">
+      共搜索到<span>{{total}}</span>条中标公告
+    </div>
+    <div class="t-list" v-show="!Snone">
          <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }" target='_blank'  >
            <div class="m-bt">
               <p class="left m-rg">
@@ -97,6 +99,9 @@
           ></nav-page>
        </div>
     </div>
+    <div class="noneS" v-show="Snone">
+      <img src="../assets/img/card.png" alt="">
+    </div>
 </div>
 </template>
 <script>
@@ -105,6 +110,7 @@ export default {
   data () {
     return {
       area:'湖南',
+      Snone:true,
       areas:[
         {
           name:'北京',
@@ -278,19 +284,27 @@ export default {
   methods: {
     Goto(val) {
       this.pageNo = val.cur
+      this.queryLists = []
+      this.total = 0
       this.gainList()
     },
     eval(el) {
+      this.queryLists = []
+      this.total = 0
       this.area = el.name
       this.pageNo = 1
       this.gainList()
     },
     evalclass(el) {
+      this.queryLists = []
+      this.total = 0
       this.projectType = el.key
       this.pageNo = 1
       this.gainList()
     },
     evalsum(el) {
+      this.queryLists = []
+      this.total = 0
       this.rank = 0 
       this.low = '',
       this.high = '',
@@ -303,10 +317,14 @@ export default {
        if(this.rank == 0) {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
-                 console.log(res)
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
+                   if(this.total == 0 ) {
+                     this.Snone = true
+                   } else {
+                     this.Snone = false
+                   }
                }
           })
        } else {
@@ -315,6 +333,11 @@ export default {
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
+                   if(this.total == 0 ) {
+                     this.Snone = false
+                   } else {
+                     this.Snone = true
+                   }
                }
           })
        }
@@ -322,6 +345,8 @@ export default {
     entitle(val) {
       this.title = val.cur
       this.pageNo = 1
+      this.queryLists = []
+      this.total = 0
       this.gainList()
     },
     fade() {
@@ -329,16 +354,22 @@ export default {
       this.start = ''
       this.end = '' 
       this.pageNo = 1 
+      this.queryLists = []
+      this.total = 0
       this.gainList()
     }
   },
   watch: {
     area() {
       this.pageNo = 1
+      this.queryLists = []
+      this.total = 0
       this.gainList()
     },
     projectType() {
       this.pageNo = 1
+      this.queryLists = []
+      this.total = 0
       this.gainList()
     }
   },
@@ -352,10 +383,27 @@ export default {
 <style lang="less" >
 .tender {
   width: 100%;
+  .total {
+    width: 1020px;
+    margin: 14px auto;
+    span {
+      color:#EC7522;
+    }
+  }
+  .noneS {
+    width: 1020px;
+    margin: 0 auto;
+    background-color: #fff;
+    height: 582px;
+    margin-bottom: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .t-options {
     width: 1020px;
     margin: 0 auto;
-    height: 200px;
+    height: 180px;
     box-sizing: border-box;
     background-color: #fff;
     margin-top: 40px;
@@ -422,7 +470,6 @@ export default {
     margin: 0 auto;
     background-color: #fff;
     box-sizing: border-box;
-    margin-top: 40px;
     margin-bottom: 210px;
     font-size: 16px;
     .t-page {

@@ -25,7 +25,7 @@
           资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
       </div>
       <div>
-        符合资质要求企业：<span class="a-color">{{relCompanySize ? relCompanySize + '家>' : 0 }}</span> 
+        符合资质要求企业：<router-link class="a-color" tag="a" target='_blank' :to="{path:'/conform',query:{source:this.source,id:this.id} }" >{{relCompanySize ? relCompanySize + '家>' : 0 }}</router-link> 
       </div>
    </div>
    

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="app-header">
+    <div class="app-header" v-show="exploit">
        <div class="contact">
           <div class="contact-l">
              <p class="left">
@@ -10,16 +10,17 @@
                <i class="iconfont icon-dianhua1 left calling"></i>
                 0731-85076077
              </p>
-             <p class="left">
+             <router-link :to="{path:'/download'}" tag="a" target='_blank' class="left">
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
-             </p>
+             </router-link>
              <p class="left">
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
              </p>
           </div>
-          <div class="contact-r">
+          <!-- <div class="contact-r">
+            
             <p>
               免费注册
             </p>
@@ -28,11 +29,15 @@
              <p>
               请登录
              </p>
+             <p class="area">
+               <i class="iconfont icon-dizhi"></i>
+              湖南
+             </p>
              
-          </div>
+          </div> -->
        </div>
     </div>
-    <div class="nav">
+    <div class="nav"  v-show="exploit">
         <ul  >
             <router-link v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
                   <div>
@@ -49,7 +54,7 @@
          <router-view/>
     </div>
 
-    <div class="footer">
+    <div class="footer"  v-show="exploit">
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
@@ -162,12 +167,20 @@ export default {
   },
 
   created () {
-
+    this.judge()
   },
   computed: {
     tabNo(){
       let t=this.$route.meta.tabNo;
       return t
+    },
+    exploit() {
+      console.log(111)
+      if(this.$route.name == 'download') {
+        return false
+      } else {
+        return true
+      }
     }
   },
 }
@@ -192,11 +205,12 @@ export default {
         width: 960px;
         display: flex;
         justify-content: space-between;
-        font-size: 11px;
-        line-height: 33px;
+        align-items: center;
+        font-size: 12px;
+        // line-height: 33px;
         font-weight: 400;
         .contact-l {
-          p {
+          a,p {
             margin-right: 25px;
             color: #666;
             i {
@@ -217,13 +231,24 @@ export default {
         .contact-r {
           width: 400px;
           display: flex;
-          align-items: center; 
+          // align-items: center; 
           flex-direction:row-reverse;
           .line {
             width: 1px;
             height: 12px;
             background-color: #939392;
             margin: 0 15px;
+          }
+          .area{
+            margin-right: 20px;
+            color:#FE6603;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            i {
+              font-size: 16px;
+              font-weight: 600;
+            }
           }
         }
      }
@@ -236,7 +261,8 @@ export default {
     display: flex;
     align-items: center; 
     ul {
-      width: 1020px;
+      min-width: 1020px;
+      box-sizing: border-box;
       li {
         box-sizing: border-box;
         width: 20%;

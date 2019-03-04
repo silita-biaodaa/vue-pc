@@ -77,7 +77,7 @@
           </div>
           <div class="matter"> 
               <!-- <ul> -->
-                 <a class="left" v-for="el of companys" :key="el.id">
+                 <router-link class="left" v-for="el of companys" :key="el.id" tag="a" target='_blank' :to="{path:'/introduce'}" @click.native='store(el)'  >
                     <p class="t-line">
                       {{el.comName}}
                       <i class="t-p">
@@ -90,7 +90,7 @@
                        <p>电话：<span>{{el.phone ? el.phone : '暂无' }}</span></p>
                        <p>地址：{{el.comAddress}}</p>
                     </div>
-                 </a>
+                 </router-link>
               <!-- </ul> -->
           </div>
       </div>
@@ -297,6 +297,12 @@ export default {
             this.companys = res.data
          }
       })
+    },
+     store(el) {
+      localStorage.removeItem('id')
+      localStorage.removeItem('name')
+      localStorage.setItem('id',el.comId)
+      localStorage.setItem('name',el.comName)
     }
   },
   created () {

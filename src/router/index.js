@@ -15,6 +15,12 @@ import Law from '@/page/companys/law'
 import Good from '@/page/companys/good'
 import Centre from '@/page/companys/centre'
 import Achievement from '@/page/companys/achievement'
+import Conform from '@/page/conform'
+import Download from '@/page/Download'
+import Logo from '@/page/Logo'
+
+
+
 
 
 
@@ -139,6 +145,16 @@ export default new Router({
         }
 
       ]
+    },
+    {
+      path: '/conform',
+      name: 'conform',
+      component: Conform
+    },
+    {
+      path: '/download', 
+      component: Download,
+      name: 'download' 
     }
   ]
 })
