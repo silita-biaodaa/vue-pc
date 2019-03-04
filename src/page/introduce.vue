@@ -14,11 +14,11 @@
       </div>
       <div class="c-all">
         <div class="left">
-          <p>电话：{{details.phone ? details.phone : '--'}}</p>
-          <p>网址：{{details.email ? details.email : '--' }}</p>
+          <p>电话：{{details.phone ? details.phone : '--'}} 更多号码请下载APP</p>
+          <p>邮箱：{{details.email ? details.email : '--' }}</p>
         </div>
         <div class="left">
-          <p>邮箱：{{details.url ? details.url : '--'}}</p>
+          <p>网址：{{details.url ? details.url : '--'}}</p>
           <p>地址：{{details.comAddress ? details.comAddress : '--' }}</p>
         </div>
       </div>
@@ -111,6 +111,11 @@ export default {
         getJsonData( "/company/" + this.id ).then( res => {
             if(res.code == 1) {
               this.details = res.data
+              var arr = []
+              if(this.details.phone) {
+                arr = this.details.phone.split(';')
+                this.details.phone = arr[0]
+              }
             }
         });
     },
