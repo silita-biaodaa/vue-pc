@@ -111,7 +111,7 @@ export default {
         width: 100%;
         background: url(../assets/img/do1.png) no-repeat ;
         background-position-x: center;
-        height: 800px;
+        height: 700px;
         background-size: auto;
         position: relative;
         .d-img {
