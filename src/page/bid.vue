@@ -76,10 +76,10 @@
      </div> 
 
       <div class="total" >
-        共搜索到<span>{{total}}</span>条中标公告
+        共搜索到<span>{{total}}</span>条招标公告
       </div>
 
-     <div class="bid-content" v-show="!Snone">
+     <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
        <!-- <ul> -->
          <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' >
            <div class="m-bt">
@@ -125,6 +125,7 @@ export default {
     return {
       area:'湖南',
       Snone:true,
+      loading:false,
       areas:[
         {
           name:'北京'
@@ -375,6 +376,7 @@ export default {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
        queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
          if(res.code == 1 ) {
+           this.loading = false
            this.total = res.total 
            this.queryLists = res.data
            this.present = res.pageNo
@@ -387,6 +389,7 @@ export default {
        })
     },
     means() {
+      this.loading = true
        if(this.pbMode.length == 0) {
           this.pbMode = ['']
        }
@@ -401,44 +404,37 @@ export default {
       }
       this.pbModess = this.pbMode.join('||')
       this.current = 1
-      this.total = 0
-      this.queryLists = []
       this.gainQueryList()
     },
     Goto(val) {
       this.current = val.cur
-      this.total = 0
-      this.queryLists = []
+      this.loading = true      
       this.gainQueryList()
     },
     entitle(val) {
       this.title = val.cur
       this.current = 1
-      this.total = 0
-      this.queryLists = []
+      this.loading = true      
       this.gainQueryList()
     },
     Splice() {
        this.zzType = this.companyQual
       this.current = 1
-      this.total = 0
-      this.queryLists = []
+      this.loading = true      
        this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
       this.zzType = this.zType.join('||')
       this.current = 1
-      this.total = 0
-      this.queryLists = []
+      this.loading = true      
        this.gainQueryList()
     },
     splicet() {
       this.zType.push(this.companyQual,this.major,this.grade)
       this.zzType = this.zType.join('||')
       this.current = 1
-      this.total = 0
-      this.queryLists = []
+      this.loading = true      
       this.gainQueryList()
     },
     gainFilter() {
@@ -478,6 +474,15 @@ export default {
     span {
       color:#EC7522;
     }
+  }
+  .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner {
+    top: 10%;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }
    .noneS {
     width: 1020px;

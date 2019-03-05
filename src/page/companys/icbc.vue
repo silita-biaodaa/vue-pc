@@ -128,7 +128,7 @@ export default {
       this.branch = true
     },
     gainList() {
-      this.id = localStorage.getItem('id')
+      this.id = this.$route.query.id
        let dataParam = JSON.stringify({
           
         });
@@ -142,6 +142,16 @@ export default {
       Branch({comId:this.id}).then(res => {
          if(res.code == 1) {
            this.list = res.data
+           var iar = []
+           this.list.forEach( el => {
+               if(el.phone) {
+                  iar = el.phone.split(';')
+                  el.phone = iar[0]
+                  iar = []
+               } else {
+                 return
+               }           
+           })
            this.length = res.data.length
          }
       })

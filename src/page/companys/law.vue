@@ -1,5 +1,5 @@
 <template>
-<div class="law">
+<div class="law" v-loading="loading" element-loading-text="拼命加载中">
    <div class="law-search"> 
      <div class="left law-wei" >
        裁判文书（{{this.total}}）
@@ -8,6 +8,8 @@
         <el-date-picker
           v-model="year"
           type="year"
+          value-format='yyyy'
+          @change='gainlod'
           placeholder="请选择年份">
         </el-date-picker>
      </div>
@@ -15,6 +17,7 @@
         <el-input
           placeholder="请输入人员姓名"
           suffix-icon="el-icon-search"
+          @change="gainlod"
           v-model="search">
         </el-input>
      </div>
@@ -79,15 +82,16 @@ export default {
       current:1,
       name:'',
       result:false,
-      
+      loading:true
     }
   },
   methods: {
     gainList() {
-      this.name = localStorage.getItem('name')
+      this.name = this.$route.query.name
       var years = this.year == '' ? null : this.year
       Law({pageNo:this.current,pageSize:20,keyWord:this.search,comName:this.name,start:years,end:null}).then(res => {
          if(res.code == 1) {
+           this.loading = false
            this.lawList = res.data
            this.total = res.total
            this.current = res.pageNum
@@ -97,10 +101,17 @@ export default {
          }
       }) 
     },
+    gainlod() {
+      this.loading = true
+      this.gainList()
+    },
     Goto(val) {
     this.current = val.cur
     this.gainList()
     },
+    text() {
+      console.log('变化')
+    }
   },
   created () {
     this.gainList()
@@ -109,10 +120,19 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .law {
   background-color: #fff;
   padding: 0 9px;
+  .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner {
+    top: 10%;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
+  }
   .law-search {
     height: 56px;
     line-height: 56px;

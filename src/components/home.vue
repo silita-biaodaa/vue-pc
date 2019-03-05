@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     seaI(el) {
-      this.select = ''
       this.rank = el.i
       this.way = el.to
     },
@@ -70,9 +69,6 @@ export default {
            this.way = el.to
          }
       })
-    },
-    text() {
-      console.log(11111)
     },
     engine() {
       localStorage.removeItem('title')
@@ -163,7 +159,6 @@ export default {
          background-color: #EC7522;
          text-align: center;
          color:#fff;
-        //  font-family:Tahoma,Arial,"Helvetica Neue","Hiragino Sans GB",Simsun,sans-self;
          border: 1px solid #EC7522;
          font-weight: 500;
          .el-button {

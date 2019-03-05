@@ -14,7 +14,7 @@
       </div>
       <div class="c-all">
         <div class="left">
-          <p>电话：{{details.phone ? details.phone : '--'}} 更多号码请下载APP</p>
+          <p>电话：{{details.phone ? details.phone : '--'}}  <span>更多号码请下载APP</span></p>
           <p>邮箱：{{details.email ? details.email : '--' }}</p>
         </div>
         <div class="left">
@@ -23,15 +23,12 @@
         </div>
       </div>
     </div>
-    <!-- <div class="right c-over">
-         浏览量：{{details.subsist}}次
-    </div> -->
   </div>
 
 
   <div class="anchor">
     <div class="i-nav left">
-       <router-link v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" :to='el.to' tag='div'  @click.native="anchor(el)"  >
+       <router-link v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" :to="{path:el.to,query:{id:el.id,name:title}}" tag='div'  @click.native="anchor(el)"  >
          {{el.name}}
          <div class="nav-rim" v-show="el.show" >
            <div class="triangle">
@@ -57,7 +54,8 @@ export default {
            name:'工商信息',
            i:0,
            show:true,
-           to:'icbc'
+           to:'icbc',
+           id:1
          },
          {
            name:'法务信息',
@@ -93,7 +91,8 @@ export default {
        ],
        name:'工商信息',
        details:{},
-       id:''
+       id:'',
+       title:''
      }
   },
   methods: {
@@ -105,7 +104,8 @@ export default {
       el.show = true
     },
     gainDetail() {
-     this.id = localStorage.getItem('id')
+      console.log(this.$route)
+     this.id = this.$route.query.id
        let dataParam = JSON.stringify({
         });
         getJsonData( "/company/" + this.id ).then( res => {
@@ -125,10 +125,18 @@ export default {
       this.navs[0].show = false
       this.navs[is].show = true
     },
+    deploy() {
+      this.navs.forEach( el => {
+        el.id = this.id
+        el.title = this.title
+      })
+    }
   },
   created () {
+    this.title = this.$route.query.name
     this.gainDetail()
     this.gainNav()
+    this.deploy()
   },
   components: {
   }
@@ -179,6 +187,9 @@ export default {
             overflow: hidden;
             white-space: nowrap;
             cursor: pointer;
+            span {
+              color:#FE6603;
+            }
           }
         }
       }

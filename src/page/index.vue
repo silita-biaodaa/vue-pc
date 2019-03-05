@@ -76,9 +76,8 @@
               </router-link>
           </div>
           <div class="matter"> 
-              <!-- <ul> -->
                  <router-link class="left" v-for="el of companys" :key="el.id" tag="a" target='_blank' :to="{path:'/introduce'}" @click.native='store(el)'  >
-                    <p class="t-line">
+                    <p class="t-line" :title='el.comName'>
                       {{el.comName}}
                       <i class="t-p">
                       </i>
@@ -88,10 +87,9 @@
                     <div class="m-detail">
                        <p>法人:&nbsp&nbsp{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
                        <p>电话：<span>{{el.phone ? el.phone : '暂无' }}</span></p>
-                       <p>地址：{{el.comAddress}}</p>
+                       <p :title='el.comAddress' >地址：{{el.comAddress}}</p>
                     </div>
                  </router-link>
-              <!-- </ul> -->
           </div>
       </div>
 
@@ -271,7 +269,6 @@ export default {
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
              el.date = moment(date).format('YYYY年MM月DD日')
-
           });
             this.queryLists = res.data
          }

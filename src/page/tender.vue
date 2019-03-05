@@ -49,7 +49,6 @@
                 <el-input
                   placeholder="最低价"
                   v-model="low"
-                  @change="fade"
                   clearable>
                 </el-input>
                 <div class="in-line">
@@ -57,9 +56,11 @@
                 <el-input
                   placeholder="最高价"
                   v-model="high"
-                  @change="fade"
                   clearable>
                 </el-input>
+                <div class="t-btn" @click='fade' >
+                    确定
+                </div>
              </el-col>
            </el-row>
         </div>      
@@ -67,7 +68,7 @@
     <div class="total">
       共搜索到<span>{{total}}</span>条中标公告
     </div>
-    <div class="t-list" v-show="!Snone">
+    <div class="t-list" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中">
          <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }" target='_blank'  >
            <div class="m-bt">
               <p class="left m-rg">
@@ -99,7 +100,7 @@
           ></nav-page>
        </div>
     </div>
-    <div class="noneS" v-show="Snone">
+    <div class="noneS" v-show="Snone" >
       <img src="../assets/img/card.png" alt="">
     </div>
 </div>
@@ -110,6 +111,8 @@ export default {
   data () {
     return {
       area:'湖南',
+      loading:false,
+      Stroke:true,
       Snone:true,
       areas:[
         {
@@ -285,26 +288,37 @@ export default {
     Goto(val) {
       this.pageNo = val.cur
       this.queryLists = []
-      this.total = 0
+      // this.total = 0
       this.gainList()
     },
     eval(el) {
+      if(this.Stroke) {
+        this.Stroke = false
+      } else {
+        return
+      }
       this.queryLists = []
-      this.total = 0
       this.area = el.name
       this.pageNo = 1
       this.gainList()
+      setTimeout(() => {
+        this.Stroke = true
+      }, 1000);
     },
     evalclass(el) {
       this.queryLists = []
-      this.total = 0
       this.projectType = el.key
       this.pageNo = 1
       this.gainList()
     },
     evalsum(el) {
+      if(this.Stroke) {
+        this.Stroke = false
+      } else {
+        return
+      }
+      this.loading = true
       this.queryLists = []
-      this.total = 0
       this.rank = 0 
       this.low = '',
       this.high = '',
@@ -312,6 +326,9 @@ export default {
       this.end = el.e 
       this.pageNo = 1
       this.gainList()
+      setTimeout(() => {
+        this.Stroke = true
+      }, 500);
     },
     gainList() {
        if(this.rank == 0) {
@@ -320,6 +337,7 @@ export default {
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
+                  this.loading = false
                    if(this.total == 0 ) {
                      this.Snone = true
                    } else {
@@ -330,13 +348,15 @@ export default {
        } else {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
+               
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
+                  this.loading = false
                    if(this.total == 0 ) {
-                     this.Snone = false
-                   } else {
                      this.Snone = true
+                   } else {
+                     this.Snone = false
                    }
                }
           })
@@ -346,16 +366,15 @@ export default {
       this.title = val.cur
       this.pageNo = 1
       this.queryLists = []
-      this.total = 0
+      // this.total = 0
       this.gainList()
     },
     fade() {
+      this.loading = true
       this.rank = 1
       this.start = ''
       this.end = '' 
       this.pageNo = 1 
-      this.queryLists = []
-      this.total = 0
       this.gainList()
     }
   },
@@ -363,13 +382,13 @@ export default {
     area() {
       this.pageNo = 1
       this.queryLists = []
-      this.total = 0
+      // this.total = 0
       this.gainList()
     },
     projectType() {
       this.pageNo = 1
       this.queryLists = []
-      this.total = 0
+      // this.total = 0
       this.gainList()
     }
   },
@@ -383,6 +402,15 @@ export default {
 <style lang="less" >
 .tender {
   width: 100%;
+  .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner {
+    top: 10%;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
+  }
   .total {
     width: 1020px;
     margin: 14px auto;
@@ -390,6 +418,18 @@ export default {
       color:#EC7522;
     }
   }
+  .t-btn {
+           width: 50px;
+           height: 26px;
+           text-align: center;
+           line-height: 26px;
+           margin-left: 30px;
+           background-color: #FE6603;
+           font-size: 14px;
+           color: #fff;
+           border-radius: 5px;
+           margin-top: 2px;
+         }
   .noneS {
     width: 1020px;
     margin: 0 auto;

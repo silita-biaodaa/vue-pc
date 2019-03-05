@@ -175,7 +175,7 @@
     </div>
 
 
-
+<div v-loading="loading" element-loading-text="拼命加载中" >
   <div class="firm" v-show="!Snone">
       <div class='firm-ul'>  
         <div>
@@ -199,7 +199,7 @@
            </div>
         </div>    
           
-        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce'}" target='_blank' @click.native='store(el)'  >
+        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName}}" target='_blank'   >
             <div class="left " style="width:80px;">
               {{i+1}}
            </div>
@@ -228,6 +228,7 @@
           @skip='Goto'
           ></nav-page>
   </div>
+</div>  
   <div class="noneS" v-show="Snone">
       <img src="../assets/img/card.png" alt="">
   </div>
@@ -241,6 +242,7 @@ export default {
     return {
        area:'湖南',
        Snone:true,
+       loading:false,
       areas:[
         {
           name:'北京'
@@ -487,6 +489,7 @@ export default {
          this.companylisy = res.data
          this.present = res.pageNum
         this.total = res.total
+        this.loading = false
         if(this.total == 0 ) {
            this.Snone = true
          } else {
@@ -502,6 +505,7 @@ export default {
          companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
          this.companylisy = res.data
          this.total = res.total
+         this.loading = false
          this.present = res.pageNum
          if(this.total == 0 ) {
             this.Snone = true
@@ -519,21 +523,25 @@ export default {
 
     },
     eval(el) {
+      if(this.loading) {
+        return
+      }
       this.current = 1
       this.area = el.name
-      this.companylisy = []
-      this.total = 0
+      this.loading = true
       this.again()
     },
     evalsum(el) {
+      if(this.loading) {
+        return
+      }
       this.rank = 0 
       this.low = '',
       this.high = '',
       this.start = el.s,
       this.end = el.e 
       this.current = 1
-      this.companylisy = []
-      this.total = 0
+      this.loading = true
       this.again()
     },
     gainList() {
@@ -541,8 +549,7 @@ export default {
       this.rank = 1
       this.start = ''
       this.end = '' 
-      this.companylisy = []
-      this.total = 0
+      this.loading = true
       this.again()
     },
     transt() {
@@ -692,15 +699,13 @@ export default {
     },
     Goto(val) {
       this.current = val.cur
-      this.companylisy = []
-      this.total = 0
+      this.loading = true
       this.again()
     },
     entitle(val) {      
       this.title = val.cur
       this.current = 1
-      this.companylisy = []
-      this.total = 0
+      this.loading = true
       this.again()
     },
     store(el) {
@@ -728,6 +733,15 @@ export default {
     span {
       color:#EC7522;
     }
+  }
+  .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner {
+    top: 10%;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }
   .noneS {
     width: 1020px;
