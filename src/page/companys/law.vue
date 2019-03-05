@@ -15,9 +15,10 @@
      </div>
      <div class="right law-w">
         <el-input
-          placeholder="请输入人员姓名"
+          placeholder="请输入关键字"
           suffix-icon="el-icon-search"
-          @change="gainlod"
+          @change='gainlod'
+          @keyup.enter="gainlod"
           v-model="search">
         </el-input>
      </div>
@@ -89,7 +90,7 @@ export default {
     gainList() {
       this.name = this.$route.query.name
       var years = this.year == '' ? null : this.year
-      Law({pageNo:this.current,pageSize:20,keyWord:this.search,comName:this.name,start:years,end:null}).then(res => {
+      Law({pageNo:this.current,pageSize:20,keyWord:this.search,comName:this.name,start:years,end:years}).then(res => {
          if(res.code == 1) {
            this.loading = false
            this.lawList = res.data
@@ -97,6 +98,8 @@ export default {
            this.current = res.pageNum
             if(this.lawList.length == 0 ) {
                this.result  = true
+            } else {
+               this.result = false
             }
          }
       }) 

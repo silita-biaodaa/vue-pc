@@ -199,7 +199,7 @@
            </div>
         </div>    
           
-        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName}}" target='_blank'   >
+        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   >
             <div class="left " style="width:80px;">
               {{i+1}}
            </div>

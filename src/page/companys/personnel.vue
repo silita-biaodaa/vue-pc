@@ -24,7 +24,8 @@
         </el-input>
      </div>
    </div>
-   <div class="law-list">
+  <div v-show="!result" >
+    <div class="law-list">
       <div class="law-nav">
         <div class="left" style="width:52px"> 
            序号
@@ -65,13 +66,17 @@
              {{el.validDate}}
         </div>
       </div>
-   </div>
-   <div class="law-page">
+    </div>
+    <div class="law-page">
        <nav-page 
           :all='total'
           :currents='current'
           @skip='Goto'
        ></nav-page>
+    </div>
+  </div>  
+   <div class="no-search" v-show="result">
+        <img src="../../assets/img/card.png" alt="" >
    </div>
 </div>
 </template>
@@ -86,7 +91,8 @@ export default {
       total:0,
       current:1,
       options:[],
-      id:''
+      id:'',
+      result:false
     }
   },
   methods: {
@@ -97,6 +103,11 @@ export default {
             this.lawList = res.data
             this.current = res.pageNum
             this.total = res.total
+            if(this.lawList.length == 0 ) {
+              this.result = true 
+            } else {
+              this.result = false
+            }
          }
       })
     },
@@ -131,6 +142,14 @@ export default {
 .law {
   background-color: #fff;
   padding: 0 9px;
+  .no-search {
+    width: 100%;
+    height: 500px;
+    border-top-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .law-search {
     height: 56px;
     line-height: 56px;

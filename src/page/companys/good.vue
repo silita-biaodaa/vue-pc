@@ -9,12 +9,12 @@
        /
      </span>
      <span @click="showt" :class="this.name == '不良记录' ? 'current' : ''" >
-       不良记录 ({{bad}})
+       不良记录 ({{bad ? bad : 0}})
      </span>
    </div>
    <div class="g-table">
      <div v-show="prize">
-         <div class="nav-top">
+         <div class="nav-top" v-show="!result">
              <div class="left" style="width:72px" >
                序号
              </div>
@@ -101,26 +101,33 @@ export default {
   },
   methods: {
     gainList() {
-      this.id = localStorage.getItem('id')
+      this.id = this.$route.query.id
        let dataParam = JSON.stringify({          
         });
         getJsonData( "/company/reputation/" + this.id ).then(res => {
             if(res.code == 1) {
               this.gooDlist =  res.data.reputation
-              this.gooDlist.forEach(el => {
-                 el.list.forEach(el => {
-                    el.list.forEach(el=> {
-                       this.allList.push(el)
-                    })
-                 })
-              })
+              if(this.gooDlist) {
+                  this.gooDlist.forEach(el => {
+                     el.list.forEach(el => {
+                        el.list.forEach(el=> {
+                           this.allList.push(el)
+                        })
+                     })
+                  })
+                  if(this.allList.length == 0) {
+                     this.result = true
+                   } else {
+                     this.result = false
+                   }
+                  this.total = this.allList.length
+              } else {
+                  this.total = 0 
+                  this.result = true
+              }
+                 
             }
-             if(this.allList.length == 0) {
-               this.result = true
-             } else {
-               this.result = false
-             }
-            this.total = this.allList.length
+           
            
         });
     },

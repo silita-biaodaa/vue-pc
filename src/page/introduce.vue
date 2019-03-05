@@ -28,7 +28,7 @@
 
   <div class="anchor">
     <div class="i-nav left">
-       <router-link v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" :to="{path:el.to,query:{id:el.id,name:title}}" tag='div'  @click.native="anchor(el)"  >
+       <router-link v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" :to="{path:el.to,query:{id:el.id,name:el.title,source:el.source}}" tag='div'  @click.native="anchor(el)"  >
          {{el.name}}
          <div class="nav-rim" v-show="el.show" >
            <div class="triangle">
@@ -92,7 +92,8 @@ export default {
        name:'工商信息',
        details:{},
        id:'',
-       title:''
+       title:'',
+       source:''
      }
   },
   methods: {
@@ -104,7 +105,6 @@ export default {
       el.show = true
     },
     gainDetail() {
-      console.log(this.$route)
      this.id = this.$route.query.id
        let dataParam = JSON.stringify({
         });
@@ -129,10 +129,12 @@ export default {
       this.navs.forEach( el => {
         el.id = this.id
         el.title = this.title
+        el.source = this.source
       })
     }
   },
   created () {
+    this.source = this.$route.query.source
     this.title = this.$route.query.name
     this.gainDetail()
     this.gainNav()

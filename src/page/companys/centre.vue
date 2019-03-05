@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     gainList() {
-      this.id = localStorage.getItem('id')
+      this.id = this.$route.query.id
        Project({comId:this.id}).then( res => {
           if(res.code == 1) {
              this.showArr = res.data

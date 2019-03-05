@@ -26,7 +26,6 @@ export default {
 .faith {
   width: 100%;
   height: calc(~"100% - 278px");
-  // min-height: 550px;
   background-color: #fff;
   .f-img {
     width: 277px;

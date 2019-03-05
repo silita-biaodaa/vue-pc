@@ -61,12 +61,13 @@ export default {
       current:1,
       total:0,
       name:'',
-      result:false
+      result:false,
+      source:''
     }
   },
   methods: {
     gainList() {
-      this.name = localStorage.getItem('name')
+      this.name = this.$route.query.name
       queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
@@ -88,6 +89,7 @@ export default {
     }
   },
   created () {
+    this.source = this.$route.query.source
     this.gainList()
   },
   components: {
