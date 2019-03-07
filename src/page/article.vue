@@ -25,7 +25,7 @@
           资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
       </div>
       <div>
-        符合资质要求企业：<router-link class="a-color" tag="a" target='_blank' :to="{path:'/conform',query:{source:this.source,id:this.id} }" >{{relCompanySize ? relCompanySize + '家>' : 0 }}</router-link> 
+        符合资质要求企业：<a class="a-color"  @click="breakto" >{{relCompanySize ? relCompanySize + '家>' : 0 }}</a> 
       </div>
    </div>
    
@@ -69,6 +69,17 @@ export default {
     },
     text() {
        window.open(this.articles.url, "_blank")
+    },
+    breakto() {
+      if(this.relCompanySize == null) {
+        return 
+      } else {
+         const { href } = this.$router.resolve({
+          path:'/conform',query:{source:this.source,id:this.id} 
+        })
+        window.open(href, '_blank', )
+      }
+     
     }
   },
   created () {
@@ -87,6 +98,7 @@ export default {
    background: #FAFAFA;
    .a-color {
      color:#EC7522;
+     cursor: pointer;
    }
    .title {
      width: 1190px;
