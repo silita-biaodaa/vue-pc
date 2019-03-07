@@ -76,6 +76,8 @@ export default {
            this.total = res.total
            if(this.bidList.length ==0 ) {
              this.result = true
+           } else {
+             this.result = false
            }
         }
       })

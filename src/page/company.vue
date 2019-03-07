@@ -832,6 +832,7 @@ export default {
            color: #fff;
            border-radius: 5px;
            margin-top: 2px;
+           cursor: pointer;
          }
        }
        .pro {
