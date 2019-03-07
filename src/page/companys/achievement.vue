@@ -9,6 +9,7 @@
           placeholder="请输入关键字搜索"
           suffix-icon="el-icon-search"
           @keyup.enter="searchBid"
+           @change="searchBid"
           v-model="search">
         </el-input>
      </div>

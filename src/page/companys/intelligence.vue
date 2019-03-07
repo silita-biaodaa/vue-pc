@@ -26,19 +26,19 @@
         </div>
       </div>
       <div class="law-nav" v-for="(el,i) in showArr" :key="i" v-show="!result">
-        <div class="left" style="width:74px">
+        <div class="left law-row" style="width:74px">
             {{i+1}}
         </div>
-        <div class="left" style="width:200px">
+        <div class="left law-row" style="width:200px">
             {{el.qualName ? el.qualName: '--'}}
         </div>
-        <div class="left" style="width:150px">
+        <div class="left law-row" style="width:150px">
             {{el.certNo ? el.certNo: '--'}}
         </div>
-        <div class="left" style="width:250px">
+        <div class="left law-row" style="width:250px">
             {{el.certOrg ? el.certOrg: '--'}}
         </div>
-        <div class="left" style="width:100px">
+        <div class="left law-row" style="width:100px">
             {{el.certDate ? el.certDate: '--'}}
         </div>
       </div>
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     gainList() {
-      this.id = localStorage.getItem('id')
+      this.id = this.$route.query.id
        let dataParam = JSON.stringify({          
        });
         getJsonData( "/company/qual/" + this.id ).then(res => {
@@ -131,13 +131,18 @@ export default {
     font-size: 12px;
     color:#333;
      .law-nav {
-      height: 40px;
+      min-height: 40px;
       border-bottom: 1px solid #f2f2f2;
-      line-height: 40px;
       font-size: 12px;
       color:#333;
-      text-align: center;
       font-weight: 550;
+      text-align: center;
+      .law-row {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
    .no-search {

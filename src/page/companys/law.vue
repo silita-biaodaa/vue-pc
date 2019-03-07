@@ -105,6 +105,7 @@ export default {
       }) 
     },
     gainlod() {
+      this.current = 1
       this.loading = true
       this.gainList()
     },
@@ -148,7 +149,7 @@ export default {
     }
     .law-year {
       .el-date-editor.el-input, .el-date-editor.el-input__inner {
-        width: 120px;
+        width: 140px;
       }
     }
 
