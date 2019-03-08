@@ -15,7 +15,7 @@
      </div>
   </div>
   <div class="e-table">
-    <div class="e-list" v-for="(el,i) in bidList" :key="i" v-show="!result">
+    <div class="e-list" v-for="(el,i) in bidList" :key="i" v-show="!result" @click="jump(el)" >
       <div e-title >
         <div class="e-title">
             <div class="left">
@@ -39,6 +39,8 @@
         
       </div>
     </div>
+
+    
     <div class="no-search" v-show="result">
         <img src="../../assets/img/card.png" alt="" >
     </div>
@@ -72,6 +74,7 @@ export default {
       queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
+           console.log(this.bidList)
            this.current = res.pageNo
            this.total = res.total
            if(this.bidList.length ==0 ) {
@@ -89,6 +92,10 @@ export default {
     searchBid() {
       this.current = 1
       this.gainList()
+    },
+    jump(el) {
+       const { href } = this.$router.resolve({path:'/notice',query:{id:el.id,source:el.source} })
+        window.open(href, '_blank')
     }
   },
   created () {

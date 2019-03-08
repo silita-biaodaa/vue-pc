@@ -112,15 +112,15 @@ export default {
            url:require('./assets/img/icon-shouy.png'),
            to:'/'
         },
+         {
+           name:'招标',
+           url:require('./assets/img/icon-zhaob.png'),
+           to:'/bid',
+        },
         {
            name:'中标',
            url:require('./assets/img/icon-zhongb.png'),
            to:'/tender',
-        },
-        {
-           name:'招标',
-           url:require('./assets/img/icon-zhaob.png'),
-           to:'/bid',
         },
         {
            name:'企业',

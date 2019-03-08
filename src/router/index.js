@@ -44,7 +44,7 @@ export default new Router({
       name:'bid',
       component:Bid,
       meta: {
-        tabNo: 2
+        tabNo: 1
       }
     },
     {
@@ -52,7 +52,7 @@ export default new Router({
       name: 'tender',
       component: Tender,
       meta: {
-        tabNo: 1
+        tabNo: 2
       }
     },
     {

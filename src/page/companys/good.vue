@@ -174,6 +174,7 @@ export default {
     color:#999;
     font-weight: 550;
     padding-left: 22px;
+    cursor: pointer;
   }
   .current {
     color:#333;

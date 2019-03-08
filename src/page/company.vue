@@ -3,7 +3,6 @@
  
    <en-search
     @vague='entitle'
-   
     :all='total'
    ></en-search>
 
@@ -763,6 +762,7 @@ export default {
     justify-content: center;
     align-items: center;
     .c-sure {
+      cursor: pointer;
       text-align: center;
       width: 154px;
       height: 46px;

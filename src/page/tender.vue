@@ -548,7 +548,7 @@ export default {
          .aptitude {
            color: #EC7522;
            font-size: 14px;
-           margin-left: 47px;
+           margin-left: 50px;
            .surplus {
              text-overflow: ellipsis;
              overflow: hidden;

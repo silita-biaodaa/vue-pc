@@ -76,7 +76,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <router-link class="left" v-for="el of companys" :key="el.id" tag="a" target='_blank' :to="{path:'/introduce'}" @click.native='store(el)'  >
+                 <router-link class="left" v-for="el of companys" :key="el.id" tag="a" target='_blank' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" @click.native='store(el)'  >
                     <p class="t-line" :title='el.comName'>
                       {{el.comName}}
                       <i class="t-p">

@@ -187,7 +187,7 @@ export default {
       color:#333;
       font-weight: 550;
       min-height: 40px;
-      // line-height: 40px;
+      // background-color: #FAFDFF;
       display: flex;
       align-items: center;
       border-bottom: 1px solid #f2f2f2;
@@ -211,6 +211,7 @@ export default {
         background-color: #FAFDFF;
         padding-left: 19px;
         min-height: 40px;
+        height: auto;
         box-sizing: border-box;
       }
       .line-r {

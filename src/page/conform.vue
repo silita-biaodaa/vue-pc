@@ -120,6 +120,7 @@ export default {
       align-items: center;
       text-align: center;
       border-bottom: 1px solid #f2f2f2;
+      color:#999;
     }
     .con-c {
       color: #333;

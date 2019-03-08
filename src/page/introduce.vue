@@ -1,6 +1,10 @@
 <template>
 <div class="introduce">
 
+  <div class="i-nav">
+    首页 > 企业 > {{title}} > {{name}}
+  </div>
+
   <div class="com-title">
     <div class="com-img left">
       <img src="../assets/img/company.png" alt="">
@@ -14,12 +18,12 @@
       </div>
       <div class="c-all">
         <div class="left">
-          <p>电话：{{details.phone ? details.phone : '--'}}  <span>更多号码请下载APP</span></p>
-          <p>邮箱：{{details.email ? details.email : '--' }}</p>
+          <p>电话：{{!details.phone == 'NULL-' ? details.phone : ''}}  <span>更多号码请下载APP</span></p>
+          <p>邮箱：{{!details.email == '(NULL)' ? details.email : '--' }}</p>
         </div>
         <div class="left">
-          <p>网址：{{details.url ? details.url : '--'}}</p>
-          <p>地址：{{details.comAddress ? details.comAddress : '--' }}</p>
+          <p :title="details.url" @click="jump" >网址：{{details.url ? details.url : '--'}}</p>
+          <p :title="details.comAddress" >地址：{{details.comAddress ? details.comAddress : '--' }}</p>
         </div>
       </div>
     </div>
@@ -111,11 +115,13 @@ export default {
         getJsonData( "/company/" + this.id ).then( res => {
             if(res.code == 1) {
               this.details = res.data
+              
               var arr = []
               if(this.details.phone) {
                 arr = this.details.phone.split(';')
                 this.details.phone = arr[0]
               }
+              console.log(this.details)
             }
         });
     },
@@ -131,6 +137,9 @@ export default {
         el.title = this.title
         el.source = this.source
       })
+    },
+    jump() {
+      window.open(this.details.url)
     }
   },
   created () {
@@ -147,10 +156,14 @@ export default {
 <style lang="less" scoped>
 .introduce {
   width: 1020px;
+  .i-nav {
+    font-size: 12px;
+    color:#666;
+    margin: 13px 0;
+  }
   .com-title {
     width: 100%;
     padding: 17px 0 20px 20px;
-    margin-top: 40px;
     overflow: hidden;
     background-color: #fff;
     box-sizing: border-box;

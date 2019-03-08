@@ -72,12 +72,9 @@ export default {
     background-color: #fff;
   }
   .n-title {
-    height: 153px;
-    // display: flex;
-    // justify-content: center;
     margin-top: 40px;
     box-sizing: border-box;
-    padding: 32px 20px 0;
+    padding: 32px 20px 20px;
     .n-fp {
        color: #333;
        font-size: 24px;

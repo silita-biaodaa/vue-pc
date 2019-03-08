@@ -19,6 +19,7 @@
           placeholder="请输入人员姓名"
           suffix-icon="el-icon-search"
           @change="newList"
+          clearable
           @keyup.enter="newList"
           v-model="search">
         </el-input>

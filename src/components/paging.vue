@@ -140,11 +140,10 @@ export default {
     },
     computed: {
       allNum(){  //  当前总页数
-        this.total = Math.ceil(this.all/this.pageSize) 
+        this.total = Math.ceil(this.all/this.pageSize) >= 30 ? 30 : Math.ceil(this.all/this.pageSize);
     		return Math.ceil(this.all/this.pageSize) >= 30 ? 30 : (Math.ceil(this.all/this.pageSize) == 0 ? 1 : Math.ceil(this.all/this.pageSize)) ;
         },
         newcc:function () {
-           console.log(111)
            return this.currents
         },
     	// show(){
@@ -196,7 +195,7 @@ export default {
     margin-top:40px;
     ul {
           li{
-          padding: 12px 16px;
+          padding: 12px 14px;
           color: #EC7522;
           border: 1px solid #EC7522;
           border-radius:5px;
