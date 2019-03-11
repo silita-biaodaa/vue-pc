@@ -331,6 +331,7 @@ export default {
       }, 500);
     },
     gainList() {
+
        if(this.rank == 0) {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
@@ -376,6 +377,10 @@ export default {
       this.end = '' 
       this.pageNo = 1 
       this.gainList()
+    },
+    toTop() {
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }
   },
   watch: {
@@ -393,6 +398,8 @@ export default {
     }
   },
   created () {
+    this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
+    this.toTop()
     this.gainList()
   },
   components: {

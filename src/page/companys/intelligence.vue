@@ -9,7 +9,7 @@
     </div>
     <div class="in-table">
       <div class="law-nav">
-        <div class="left" style="width:74px">
+        <div class="left law-hei" style="width:74px">
             序号
         </div>
         <div class="left" style="width:200px">
@@ -133,6 +133,8 @@ export default {
      .law-nav {
       min-height: 40px;
       border-bottom: 1px solid #f2f2f2;
+      display: flex;
+      align-items: center;
       font-size: 12px;
       color:#333;
       font-weight: 550;

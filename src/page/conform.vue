@@ -24,7 +24,7 @@
          所属地区
        </div>
      </div>
-      <router-link class="con-top" v-for="(el,i) in list" :key="i" :to="{path:'/introduce'}" target='_blank' @click.native='store(el)' >
+      <router-link class="con-top" v-for="(el,i) in list" :key="i" :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank' @click.native='store(el)' >
         <div class="left" style="width:70px">
           {{i+1}}
         </div>

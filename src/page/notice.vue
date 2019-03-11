@@ -9,9 +9,9 @@
        </p>
        <p class="n-thp">
          <span class="left" v-if="articles.oneName" >第一候选人：{{articles.oneName}}</span>
-         <span v-else class="left">详见原文</span>
+         <span v-else class="left">第一候选人:详见原文</span>
          <span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
-         <span class="right" v-else >详见原文</span>
+         <span class="right" v-else >中标金额：详见原文</span>
        </p>
    </div>
    <div class="n-detail fa">

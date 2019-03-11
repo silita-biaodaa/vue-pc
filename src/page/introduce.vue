@@ -18,11 +18,11 @@
       </div>
       <div class="c-all">
         <div class="left">
-          <p>电话：{{!details.phone == 'NULL-' ? details.phone : ''}}  <span>更多号码请下载APP</span></p>
-          <p>邮箱：{{!details.email == '(NULL)' ? details.email : '--' }}</p>
+          <p>电话：{{details.phone == 'NULL-' ? '' : details.phone}}  <span>更多号码请下载APP</span></p>
+          <p>邮箱：{{ details.email == '(NULL)' || 'null' ? '--' : details.email }}</p>
         </div>
         <div class="left">
-          <p :title="details.url" @click="jump" >网址：{{details.url ? details.url : '--'}}</p>
+          <p :title="details.comUrl" @click="jump" >网址：{{details.comUrl ? details.comUrl : '--'}}</p>
           <p :title="details.comAddress" >地址：{{details.comAddress ? details.comAddress : '--' }}</p>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default {
       })
     },
     jump() {
-      window.open(this.details.url)
+      window.open(this.details.comUrl)
     }
   },
   created () {

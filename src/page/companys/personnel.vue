@@ -93,13 +93,15 @@ export default {
       current:1,
       options:[],
       id:'',
-      result:false
+      result:false,
+      source:''
     }
   },
   methods: {
     gainList() {
-      this.id = localStorage.getItem('id')
-      Person({keyWord:this.search,comId:this.id,category:this.mold,pageNo:this.current,pageSize:20,province:'湖南'}).then(res => {
+      this.id = this.$route.query.id
+      this.source = this.$route.query.source
+      Person({keyWord:this.search,comId:this.id,category:this.mold,pageNo:this.current,pageSize:20,province:this.source}).then(res => {
          if(res.code == 1) {
             this.lawList = res.data
             this.current = res.pageNum

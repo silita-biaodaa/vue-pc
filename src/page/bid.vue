@@ -452,10 +452,15 @@ export default {
     },
     evalway(el) {
       this.pbMode = el.key
+    },
+     toTop() {
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }  
   },
   created () {
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    this.toTop()
     this.gainQueryList()
     this.gainFilter()
   },

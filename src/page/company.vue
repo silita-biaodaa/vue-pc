@@ -170,7 +170,7 @@
    </div>
 
     <div class="total">
-        共搜索到<span>{{total}}</span>条中标公告
+        共搜索到<span>{{total}}</span>家企业
     </div>
 
 
@@ -712,9 +712,15 @@ export default {
       localStorage.removeItem('name')
       localStorage.setItem('id',el.comId)
       localStorage.setItem('name',el.comName)
+    },
+    toTop() {
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }
   },
   created () {
+    this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
+    this.toTop()
     this.gainFilter()
     this.gainCompany()
   },

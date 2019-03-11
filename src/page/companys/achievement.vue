@@ -33,7 +33,7 @@
              {{el.oneName ? '第一候选人:' + el.oneName : '详见原文'}}
            </p>
            <div>
-             {{el.projSum ? "中标金额:" + el.projSum + "万" : '详见原文'}}
+             {{el.oneOffer ? "中标金额:" + el.oneOffer + "万" : '详见原文'}}
            </div>
         </div>
         
@@ -74,7 +74,7 @@ export default {
       queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
-           console.log(this.bidList)
+           console.log(this.bidList,1)
            this.current = res.pageNo
            this.total = res.total
            if(this.bidList.length ==0 ) {
