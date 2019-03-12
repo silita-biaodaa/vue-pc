@@ -24,7 +24,7 @@
         <div class="select">
            <el-row>
              <el-col :span="2" class="t-5">
-                中标金额:
+                注册资金:
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >

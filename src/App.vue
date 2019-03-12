@@ -63,7 +63,7 @@
                       <div class="Qrcode">扫一扫，下载APP</div>                      
                     </div>
                     <div class="left ma-16">
-                      <img src="./assets/img/pic-erweima.png" alt="">
+                      <img src="./assets/img/accounts.png" alt="">
                       <div class="Qrcode">关注公众号</div>                      
                     </div>
                     <div class="left f-call ma-29">

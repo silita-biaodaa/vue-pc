@@ -139,7 +139,14 @@ export default {
       })
     },
     jump() {
-      window.open(this.details.comUrl)
+      if(!this.details.comUrl) {
+        return
+      }
+    if(this.details.comUrl.indexOf('http://') == -1) {
+      window.open( 'http://' +  this.details.comUrl)
+    } else {
+       window.open( this.details.comUrl)
+    }            
     }
   },
   created () {
