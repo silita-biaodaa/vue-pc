@@ -1,8 +1,5 @@
 <template>
   <div class="appp">
-    <div class="app-f">
-        中标列表
-    </div>
     <div class="app-time">
       请选择日期:&nbsp&nbsp&nbsp
        <el-date-picker
@@ -48,6 +45,7 @@
 
 <script>
 import { queryList } from "@/api/index";
+let moment = require("moment");
 export default {
   data() {
     return {
@@ -67,6 +65,10 @@ export default {
         }
       })
     },
+    gainTime() {
+      // this.value1 = new Date().getTime()
+     this.value1 =   moment(new Date().getTime()).format('YYYY-MM-DD')
+    },
     handleCurrentChange(val) {
       this.current = val
       this.gainlist()
@@ -85,6 +87,7 @@ export default {
     }
   },
   created () {
+    this.gainTime()
     this.gainlist()
   },
  
@@ -94,13 +97,6 @@ export default {
 <style lang='less'>
 .appp {
   background-color: #f5f5f5;
- .app-f {
-   font-size: 44px;
-   color:#FE6603;
-   font-weight: 550;
-   margin-top: 20px;
-   text-align: center;
- }
  .app-time {
    display: flex;
    justify-content: center;

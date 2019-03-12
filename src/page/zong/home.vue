@@ -62,7 +62,7 @@ export default {
     exportexcel(){
           exportX({name:this.name},{responseType: 'blob'}).then(res=> {
                const blob = new Blob([res]);
-                const fileName = '中标.txt';
+                const fileName = this.name + '通讯录.txt';
                 const elink = document.createElement('a');
                 elink.download = fileName;
                 elink.style.display = 'none';
@@ -95,6 +95,7 @@ export default {
     width: 80px;
     height: 40px;
     text-align: center;
+    color:#fff;
     line-height: 40px;
     background-color: #FE6603;
     border-radius: 5px;
