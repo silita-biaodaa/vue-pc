@@ -1,8 +1,11 @@
 <template>
 <div class="inde">
-  <div class="btn" @click="exportexcel" >
+  <div class="i-btn">
+    <div class="btn" @click="exportexcel" >
     导出数据
+    </div>
   </div>
+  
   <div class="title">
        <el-table
       :data="articles"
@@ -95,9 +98,11 @@ export default {
     line-height: 40px;
     background-color: #FE6603;
     border-radius: 5px;
-    margin: 0 auto;
+    cursor: pointer;
+  }
+  .i-btn {
+    width: 960px;
     margin-bottom: 20px;
-
   }
  
 }
