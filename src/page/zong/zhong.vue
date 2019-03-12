@@ -75,6 +75,9 @@ export default {
       this.gainlist()
     },
     junmp(el) {
+      if(!el.oneName) {
+        return 
+      }
       const { href } = this.$router.resolve({
          path:'/dalist',query:{name:el.oneName}
         })
