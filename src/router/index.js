@@ -17,7 +17,9 @@ import Centre from '@/page/companys/centre'
 import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
 import Download from '@/page/Download'
-import Logo from '@/page/Logo'
+import zhong from '@/page/zong/zhong'
+import hlist from '@/page/zong/home'
+
 
 
 
@@ -35,14 +37,14 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      meta: { 
+      meta: {
         tabNo: 0
-       }
+      }
     },
     {
-      path:'/bid',
-      name:'bid',
-      component:Bid,
+      path: '/bid',
+      name: 'bid',
+      component: Bid,
       meta: {
         tabNo: 1
       }
@@ -77,23 +79,23 @@ export default new Router({
       }
     },
     {
-      path:'/notice',
-      name:'notice',
-      component:Notice
+      path: '/notice',
+      name: 'notice',
+      component: Notice
     },
     {
-      path:'/introduce',
-      name:'introduce',
+      path: '/introduce',
+      name: 'introduce',
       component: Introduce,
       redirect: '/introduce/icbc',
-      children:[
+      children: [
         {
-          path:'icbc',
-          name:'icbc',
+          path: 'icbc',
+          name: 'icbc',
           component: Icbc,
-          meta: { 
-            i:0
-           }
+          meta: {
+            i: 0
+          }
         },
         {
           path: 'personnel',
@@ -152,9 +154,19 @@ export default new Router({
       component: Conform
     },
     {
-      path: '/download', 
+      path: '/download',
       component: Download,
-      name: 'download' 
+      name: 'download'
+    },
+    {
+      path: '/zhong',
+      component: zhong,
+      name: 'zhong'
+    },
+    {
+      path: '/dalist',
+      component: hlist,
+      name: 'dalist'
     }
   ]
 })
