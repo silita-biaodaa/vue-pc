@@ -86,7 +86,7 @@
                 <span  :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
              </p>
              <p class="right">
-                <span >中标金额:{{el.oneOffer ? el.oneOffer : '详见原文'}}万</span>
+                <span >中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
              </p>
            </div>
          </router-link >
