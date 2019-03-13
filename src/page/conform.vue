@@ -104,6 +104,7 @@ export default {
 <style lang="less" scoped>
 .conform {
   width: 1020px;
+  padding-top: 86px;
   .con-nav {
     font-size: 12px;
     font-weight: 500;

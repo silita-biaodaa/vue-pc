@@ -204,7 +204,6 @@ export default {
 @import './assets/iconfont.css';
 #app {
   background-color: #FAFAFA;
-  padding-top: 86px;
   .content {
     width: 100%;
     display: flex;

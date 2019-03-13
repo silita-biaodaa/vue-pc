@@ -316,6 +316,7 @@ export default {
 .home {
    width: 100%;
    height: 2000px;
+  padding-top: 86px;
    .over {
      overflow: hidden;
    }

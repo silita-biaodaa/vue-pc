@@ -474,6 +474,7 @@ export default {
    width: 100%;
    display: flex;
    flex-direction: column;
+   padding-top: 86px;
    .total {
     width: 1020px;
     color:#666;

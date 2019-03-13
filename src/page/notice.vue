@@ -66,6 +66,7 @@ export default {
 <style lang="less" scoped>
 .notice {
   width: 100%;
+  padding-top: 86px;
   .fa {
     width: 1020px;
     margin: 0 auto;

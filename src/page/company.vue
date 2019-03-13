@@ -732,6 +732,7 @@ export default {
 .company {
   background: #FAFAFA;
   width: 100%;
+  padding-top: 86px;
   .total {
     width: 1020px;
     color:#666;

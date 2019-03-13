@@ -96,7 +96,7 @@ export default {
 <style lang="less" scoped>
 .article {
    width: 1190px;
-   padding-top: 40px;
+   padding-top: 126px;
    background: #FAFAFA;
    .a-color {
      color:#EC7522;
