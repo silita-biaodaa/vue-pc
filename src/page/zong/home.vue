@@ -62,7 +62,7 @@ export default {
     exportexcel(){
           exportX({name:this.name},{responseType: 'blob'}).then(res=> {
                const blob = new Blob([res]);
-                const fileName = this.name + '通讯录.txt';
+                const fileName = this.name + '通讯录.xlsx';
                 const elink = document.createElement('a');
                 elink.download = fileName;
                 elink.style.display = 'none';

@@ -221,6 +221,7 @@ export default {
     width: 100%;
     justify-content: center; 
     display: flex;
+    // cursor: pointer;
     background-color: #fff;
      .contact {
         height: 33px;
@@ -282,6 +283,7 @@ export default {
     height: 50px;
     justify-content: center; 
     display: flex;
+    cursor: pointer;
     align-items: center; 
     ul {
       min-width: 1020px;

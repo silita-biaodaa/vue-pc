@@ -70,12 +70,13 @@ export default {
       this.id = this.$route.query.id
        Project({comId:this.id,type:'page',pageNo:this.current,pageSize:10}).then( res => {
           if(res.code == 1) {
-            console.log(res,25);
             this.total = res.total
              this.showArr = res.data
-             if(this.showArr.length ==0 ) {
+             
+             if(this.showArr.length == 0 ) {
                 this.result = false
              }
+
              if(this.total > 10) {
                this.allnu = true
              } else {
