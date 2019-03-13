@@ -67,7 +67,7 @@
                {{i+1}}
              </div>
              <div class="left" style="width:350px" >
-               {{el.badBehaviorContent}}
+               {{el.projectName}}
              </div>
              <div class="left" style="width:150px" >
                {{el.publishSite}}
