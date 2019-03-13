@@ -42,6 +42,13 @@
       <div class="no-search" v-show="!result">
         <img src="../../assets/img/card.png" alt="" >
       </div>
+      <div class="e-page" v-show="allnu" >
+          <nav-page 
+           :all='total'
+           :currents='current'
+           @skip='Goto'
+          ></nav-page>
+      </div>
     </div>
 </div>
 </template>
@@ -52,20 +59,34 @@ export default {
     return {
       showArr:[],
       id:'',
-      result:true
+      result:true,
+      total:0,
+      current:1,
+      allnu:false
     }
   },
   methods: {
     gainList() {
       this.id = this.$route.query.id
-       Project({comId:this.id}).then( res => {
+       Project({comId:this.id,type:'page',pageNo:this.current,pageSize:10}).then( res => {
           if(res.code == 1) {
+            console.log(res,25);
+            this.total = res.total
              this.showArr = res.data
              if(this.showArr.length ==0 ) {
                 this.result = false
              }
+             if(this.total > 10) {
+               this.allnu = true
+             } else {
+               this.allnu = false
+             }
           }
        }) 
+    },
+    Goto(val) {
+      this.current = val.cur
+      this.gainList()
     },
   },
   created () {
@@ -95,6 +116,11 @@ export default {
     .in-po {
       cursor: pointer;
     }
+  }
+   .e-page {
+    display: flex;
+    justify-content: center;
+    height: 150px;
   }
   .in-table {
     margin: 0 9px;

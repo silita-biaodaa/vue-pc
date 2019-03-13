@@ -209,7 +209,6 @@ export default {
       .h-auto {
         display: flex;
         align-items: center;
-        flex: 1;
         min-width: 150px;
         padding-left: 19px;
         min-height: 40px;

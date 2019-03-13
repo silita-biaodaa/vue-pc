@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div class="app-header" v-show="exploit">
+    <div class="fixation" >
+      <div class="app-header" v-show="exploit">
        <div class="contact">
           <div class="contact-l">
              <p class="left">
@@ -36,8 +37,8 @@
              
           </div> -->
        </div>
-    </div>
-    <div class="nav"  v-show="exploit">
+        </div>
+        <div class="nav"  v-show="exploit">
         <ul  >
             <router-link v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
                   <div>
@@ -53,7 +54,9 @@
               </div>
             </li>
         </ul>
+        </div>
     </div>
+    
 
 
 
@@ -201,15 +204,24 @@ export default {
 @import './assets/iconfont.css';
 #app {
   background-color: #FAFAFA;
+  padding-top: 86px;
   .content {
     width: 100%;
     display: flex;
     justify-content: center; 
   }
+  .fixation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+  }
   .app-header { 
     width: 100%;
     justify-content: center; 
     display: flex;
+    background-color: #fff;
      .contact {
         height: 33px;
         width: 960px;
@@ -217,6 +229,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         font-size: 12px;
+        background-color: #fff;
         // line-height: 33px;
         font-weight: 400;
         .contact-l {

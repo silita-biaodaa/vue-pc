@@ -1,7 +1,7 @@
 <template>
 <div class="introduce">
 
-  <div class="i-nav">
+  <div class="i-nav m-15">
     首页 > 企业 > {{title}} > {{name}}
   </div>
 
@@ -18,7 +18,7 @@
       </div>
       <div class="c-all">
         <div class="left">
-          <p>电话：{{details.phone == 'NULL-' ? '' : details.phone}}  <span>更多号码请下载APP</span></p>
+          <p>电话：{{details.phone == 'NULL-' ? '' : details.phone}}  <span @click="jumpapp" >更多号码请下载APP</span></p>
           <p>邮箱：{{ details.email == '(NULL)' || 'null' ? '--' : details.email }}</p>
         </div>
         <div class="left">
@@ -147,6 +147,12 @@ export default {
     } else {
        window.open( this.details.comUrl)
     }            
+    },
+    jumpapp() {
+       const { href } = this.$router.resolve({
+         path:'/download'
+        })
+        window.open(href, '_blank')
     }
   },
   created () {
@@ -200,6 +206,9 @@ export default {
         color:#666666;
         padding: 13px 0 0 10px;
         width: 700px;
+        overflow: hidden;
+        background-color: #F5FAFF;
+        margin-top: 5px;
         div {
           width: 50%;
           p {
@@ -267,6 +276,9 @@ export default {
     .standby {
       width: 794px;
     }
+  }
+  .m-15 {
+    margin: 10px 0;
   }
   
 }
