@@ -14,7 +14,7 @@
         {{details.comName}}
       </p>
       <div class="c-state">
-        {{details.subsist}}
+        {{details.subsist}}&nbsp
       </div>
       <div class="c-all">
         <div class="left">
@@ -192,7 +192,7 @@ export default {
         font-weight: 550;
       }
       .c-state {
-        width: 30px;
+        width: 32px;
         height: 16px;
         background-color: #E4FFF0;
         margin-left: 5px;

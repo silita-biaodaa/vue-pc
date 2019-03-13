@@ -871,7 +871,7 @@ export default {
       }
       .current {
            background-color: #FE6603 !important;
-           color:#fff;
+           color:#fff !important;
        }
       .c-btn {
         color: #FE6603;

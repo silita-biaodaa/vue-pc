@@ -68,7 +68,7 @@
     <div class="total">
       共搜索到<span>{{total}}</span>条中标公告
     </div>
-    <div class="t-list" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中">
+    <div class="t-list" v-show="Snone" v-loading="loading" element-loading-text="拼命加载中">
          <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }" target='_blank'  >
            <div class="m-bt">
               <p class="left m-rg">
@@ -98,7 +98,7 @@
           ></nav-page>
        </div>
     </div>
-    <div class="noneS" v-show="Snone" >
+    <div class="noneS" v-show="!Snone" >
       <img src="../assets/img/card.png" alt="">
     </div>
 </div>
@@ -338,9 +338,9 @@ export default {
                   this.total = res.total
                   this.loading = false
                    if(this.total == 0 ) {
-                     this.Snone = true
-                   } else {
                      this.Snone = false
+                   } else {
+                     this.Snone = true
                    }
                }
           })
@@ -353,9 +353,9 @@ export default {
                   this.total = res.total
                   this.loading = false
                    if(this.total == 0 ) {
-                     this.Snone = true
-                   } else {
                      this.Snone = false
+                   } else {
+                     this.Snone = true
                    }
                }
           })
