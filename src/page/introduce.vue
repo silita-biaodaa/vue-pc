@@ -166,7 +166,6 @@ export default {
   .i-nav {
     font-size: 12px;
     color:#666;
-    margin: 13px 0;
   }
   .com-title {
     width: 100%;

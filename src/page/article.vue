@@ -24,7 +24,7 @@
       <div class="a-t a-f" >
           资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
       </div>
-      <div>
+      <div class="a-f" >
         符合资质要求企业：<a class="a-color"  @click="breakto" >{{relCompanySize ? relCompanySize + '家>' : 0 }}</a> 
       </div>
    </div>

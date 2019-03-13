@@ -734,6 +734,8 @@ export default {
   width: 100%;
   .total {
     width: 1020px;
+    color:#666;
+    font-size: 14px;
     margin: 14px auto;
     span {
       color:#EC7522;
@@ -926,9 +928,9 @@ export default {
    .c-page {
        width:1020px;
        margin: 0 auto 210px;
-       height: 280px;
+       height: 210px;
        background-color:#fff;
-       padding-top: 95px;
+       padding-top: 70px;
        display: flex;
        justify-content: center;
 

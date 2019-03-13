@@ -62,18 +62,18 @@
                发布日期
              </div>
           </div> 
-           <div class="nav-text" v-for="(el,i) in allList" :key="i">
+           <div class="nav-text" v-for="(el,i) in badList" :key="i">
              <div class="left" style="width:72px" >
                {{i+1}}
              </div>
              <div class="left" style="width:350px" >
-               {{el.projName}}
+               {{el.badBehaviorContent}}
              </div>
              <div class="left" style="width:150px" >
-               {{el.mateName}}
+               {{el.publishSite}}
              </div>
              <div class="left" style="width:200px" >
-               {{el.years}}
+               {{el.publishDate}}
              </div>
           </div>
           
@@ -135,9 +135,13 @@ export default {
         let dataParam = JSON.stringify({          
         });
         getJsonData( "/company/undesirable/" + this.id ).then(res => {
-          console.log(res);
             if(res.code == 1) {
-              this.badList = res.data.undesirable
+              res.data.undesirable.forEach(el => {
+                el.list.forEach(el => {
+                   this.badList.push(el)
+                   console.log(el);
+                })  
+              })
             }
             this.bad = res.data.allNum
         });

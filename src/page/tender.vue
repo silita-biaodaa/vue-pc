@@ -83,12 +83,10 @@
            </div>
            <div class="aptitude">
              <p class="left surplus">
-                <span v-if="el.oneName" :title='el.oneName' >第一候选人:{{el.oneName }}</span>
-                <span v-else >详见原文</span>
+                <span  :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
              </p>
              <p class="right">
-                <span v-if="el.oneOffer">中标金额:{{el.oneOffer}}万</span>
-                <span v-else >详见原文</span>
+                <span >中标金额:{{el.oneOffer ? el.oneOffer : '详见原文'}}万</span>
              </p>
            </div>
          </router-link >
@@ -420,6 +418,8 @@ export default {
   }
   .total {
     width: 1020px;
+    color:#666;
+    font-size: 14px;
     margin: 14px auto;
     span {
       color:#EC7522;
@@ -521,8 +521,8 @@ export default {
     margin-bottom: 210px;
     font-size: 16px;
     .t-page {
-       height: 280px;
-       padding-top: 95px;
+       height: 210px;
+       padding-top: 70px;
        display: flex;
        justify-content: center;
      }

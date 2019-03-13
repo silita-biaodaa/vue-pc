@@ -4,7 +4,7 @@
        <div class="contact">
           <div class="contact-l">
              <p class="left">
-               您好,欢迎来到标大大
+               您好,欢迎来到标大大!
              </p>
              <p class="left">
                <i class="iconfont icon-dianhua1 left calling"></i>
@@ -45,6 +45,13 @@
                     <span class="left">{{el.name}}</span> 
                   </div>
             </router-link>
+            <li>
+              <div @click="jumpto" >
+                <span>
+                  旧版本
+                </span>
+              </div>
+            </li>
         </ul>
     </div>
 
@@ -126,12 +133,12 @@ export default {
            name:'企业',
            url:require('./assets/img/icon-qiy.png'),
            to:'/company',
-        },
-        {
-           name:'诚信',
-           url:require('./assets/img/icon-chengx.png'),
-           to:'/faith',
         }
+        // {
+        //    name:'诚信',
+        //    url:require('./assets/img/icon-chengx.png'),
+        //    to:'/faith',
+        // }
      ],
      rank:0,
      way:'/bid',
@@ -164,6 +171,9 @@ export default {
     judge(){
       console.log(this.$route,1)
     },
+    jumpto() {
+      window.open('http://www.biaodaa.com/','_bleak')
+    }
   },
 
   created () {

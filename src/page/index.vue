@@ -330,7 +330,7 @@ export default {
        clear: both;
        background: #fff;
        overflow: hidden;
-       margin-bottom: 35px;
+       margin-bottom: 20px;
        .title {
          height: 63px;
          padding-left: 15px;
@@ -419,15 +419,15 @@ export default {
   .carousel {
     width: 960px;
     margin: 0 auto;
-    height: 446px;
-    margin-bottom: 19px;
+    height: 390px;
+    margin-bottom: 16px;
     overflow: hidden;
     img {
       width: 100%;
     }
   }
   .el-carousel__container {
-    height: 446px;
+    height: 390px;
   }
   .el-carousel__arrow {
     height: 56px;
@@ -438,7 +438,7 @@ export default {
     padding: 10px 6px;
   }
   .el-carousel__indicators {
-    bottom: 70px;
+    bottom: 30px;
   }
   .el-carousel__button {
     width: 14px;

@@ -95,10 +95,10 @@
            </div>
            <div class="aptitude">
              <p class="left surplus" :title='el.certificate' >
-                {{el.certificate ? el.certificate : '详见原文' }}
+                 资质要求:{{el.certificate ? el.certificate : '详见原文' }}
              </p>
              <p class="right">
-                {{el.pbMode}}
+                评标办法:{{el.pbMode}}
              </p>
            </div>
          </router-link >
@@ -475,6 +475,8 @@ export default {
    flex-direction: column;
    .total {
     width: 1020px;
+    color:#666;
+    font-size: 14px;
     margin: 14px auto;
     span {
       color:#EC7522;
@@ -557,8 +559,8 @@ export default {
      font-size: 16px;
      margin-bottom: 185px;
      .page {
-       height: 280px;
-       padding-top: 95px;
+       height: 210px;
+       padding-top: 70px;
        display: flex;
        justify-content: center;
      }

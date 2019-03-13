@@ -7,7 +7,7 @@
         <div class="left line-f">
            法定代表人
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
            {{details.legalPerson}}
         </div>  
       </div>
@@ -15,7 +15,7 @@
         <div class="left line-f">
            注册资本
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
            {{details.regisCapital}}
         </div>  
       </div>
@@ -23,7 +23,7 @@
         <div class="left line-f">
            注册号
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
            {{details.businessNum}}
         </div>  
       </div>
@@ -31,7 +31,7 @@
         <div class="left line-f">
           企业类型
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
            {{details.economicType}}
         </div>  
       </div>
@@ -39,7 +39,7 @@
         <div class="left line-f">
            安许证号
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
           {{details.certNo}}
         </div>  
       </div>
@@ -47,7 +47,7 @@
         <div class="left line-f">
            安许期至
         </div>
-        <div class="left line-r">
+        <div class="left f-color line-r">
           {{details.validDate}}
         </div>  
       </div>
@@ -55,7 +55,7 @@
         <div class="left h-auto">
            经营范围
         </div>
-        <div class="left  min-h">
+        <div class="left f-color min-h">
            {{details.comRange}}
         </div>  
       </div>
@@ -174,6 +174,7 @@ export default {
     color:#999;
     margin: 15px 0 14px 23px;
     cursor: pointer;
+    font-weight: 550;
   }
   .ic-dark {
     color:#333;
@@ -187,9 +188,10 @@ export default {
       color:#333;
       font-weight: 550;
       min-height: 40px;
-      // background-color: #FAFDFF;
+      background-color: #FAFDFF;
       display: flex;
       align-items: center;
+
       border-bottom: 1px solid #f2f2f2;
       overflow: hidden;
       .line-f {
@@ -207,15 +209,17 @@ export default {
       .h-auto {
         display: flex;
         align-items: center;
+        flex: 1;
         min-width: 150px;
-        background-color: #FAFDFF;
         padding-left: 19px;
         min-height: 40px;
-        height: auto;
         box-sizing: border-box;
       }
       .line-r {
         padding-left: 40px;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
       }
       .min-h {
         min-height: 40px;
@@ -243,6 +247,10 @@ export default {
       padding: 5px 0;
       box-sizing: border-box; 
     }
+  }
+  .f-color {
+    background-color: #fff;
+    
   }
   
 }

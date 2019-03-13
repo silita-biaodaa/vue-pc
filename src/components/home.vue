@@ -46,12 +46,12 @@ export default {
            name:'企业',
            to:'/company',
            i: 2
-         },
-         {
-           name:'诚信',
-           to:'/faith',
-           i: 3
-         },
+         }
+        //  {
+        //    name:'诚信',
+        //    to:'/faith',
+        //    i: 3
+        //  },
        ],
      select:'',
      rank:0,
