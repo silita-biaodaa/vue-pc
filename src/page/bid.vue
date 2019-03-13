@@ -477,7 +477,7 @@ export default {
     width: 1020px;
     color:#666;
     font-size: 14px;
-    margin: 14px auto;
+    margin: 10px auto;
     span {
       color:#EC7522;
     }
@@ -504,10 +504,10 @@ export default {
    .options {
      margin: 0 auto;
      width: 1020px;
-     margin-top: 40px;
-     height: 295px;
+     margin-top: 20px;
+     height: 270px;
      background: #fff;
-     padding: 21px;
+     padding: 15px;
      box-sizing: border-box;
      .select {
        font-size: 16px;
@@ -518,11 +518,13 @@ export default {
            height: 20px;
            text-align: center;
            line-height: 20px;
-           margin-bottom: 10px;
+           margin-bottom: 6px;
            cursor: pointer;
+           color:#666;
          }
          .bid-p {
-           padding: 2px 12px;
+           padding: 2px 11px;
+           color:#666;
          }
          .current {
            background-color: #FE6603;
@@ -538,7 +540,7 @@ export default {
         margin-bottom: 12px;
         font-size: 15px;
         padding: 5px 10px;
-        color:#000;
+        color:#666;
       }
       .el-checkbox-button.is-checked .el-checkbox-button__inner {
         color:#fff;
@@ -569,7 +571,7 @@ export default {
          height: 80px;
          box-sizing: border-box;
          padding: 23px 22px 0 20px;
-         border-bottom: 2px solid #f2f2f2;
+         border-bottom: 1px solid #f2f2f2;
          cursor:pointer;
          display: block;
          color:#333;

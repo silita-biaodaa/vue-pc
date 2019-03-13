@@ -451,12 +451,12 @@ export default {
   .t-options {
     width: 1020px;
     margin: 0 auto;
-    height: 180px;
+    height: 140px;
     box-sizing: border-box;
     background-color: #fff;
-    margin-top: 40px;
+    margin-top: 20px;
     font-size: 14px;
-    padding: 27px 20px 0;
+    padding: 15px 10px 0;
     .select {
        font-size: 16px;
        margin-bottom: 12px;
@@ -498,6 +498,7 @@ export default {
            line-height: 20px;
            margin-bottom: 10px;
            cursor: pointer;
+           color:#666;
          }
          .l-30 {
            margin-top: 5px;       
@@ -530,7 +531,7 @@ export default {
          height: 80px;
          box-sizing: border-box;
          padding: 20px 22px 0 20px;
-         border-bottom: 2px solid #f2f2f2;
+         border-bottom: 1px solid #f2f2f2;
          overflow: hidden;
          display: block;
          cursor:pointer;

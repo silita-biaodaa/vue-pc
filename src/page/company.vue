@@ -736,7 +736,7 @@ export default {
     width: 1020px;
     color:#666;
     font-size: 14px;
-    margin: 14px auto;
+    margin: 10px auto;
     span {
       color:#EC7522;
     }
@@ -765,7 +765,7 @@ export default {
     font-size: 12px;
   }
   .cc-btn {
-    height: 100px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -784,13 +784,13 @@ export default {
   .c-search {
      width: 1020px;
      background-color: #fff;
-     margin: 40px auto 0;
-     padding: 28px 20px 30px 20px;
+     margin: 20px auto 0;
+     padding: 15px 15px 0px 15px;
      box-sizing: border-box;
      font-size: 16px;
      .select {
        font-size: 16px;
-       margin-bottom: 12px;
+       margin-bottom: 10px;
        .el-select {
         width: 225px;
         margin-right: 10px;
@@ -850,6 +850,7 @@ export default {
            text-align: center;
            line-height: 20px;
            margin-bottom: 10px;
+           color:#666;  
            cursor: pointer;
          }
          .l-30 {

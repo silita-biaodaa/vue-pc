@@ -9,8 +9,8 @@
                  </div>
              </div>
          </el-col>
-         <el-col :span="17">
-            <div class="bor over">
+         <el-col :span="16">
+            <div class="bor">
                 <ul class="search">
                    <li class="left" v-for="(el,i) of selects " :key="i"  @click="seaI(el)" :class=" i == rank ? 'ranks' : ''">
                        {{el.name}}  
@@ -148,8 +148,9 @@ export default {
      margin: 0 auto;
   }
   .bor {
+     overflow: hidden;
      height: 149px;
-     clear: both;
+    //  clear: both;
      .el-input-group{
        width: 588px;
        font-size: 18px;
