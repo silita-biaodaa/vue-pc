@@ -240,7 +240,7 @@ export default {
   data () {
     return {
        area:'湖南',
-       Snone:true,
+       Snone:false,
        loading:false,
       areas:[
         {
@@ -498,6 +498,7 @@ export default {
     },
     again() {
        this.allstr = this.allarr.join(",")
+       this.loading = true
        if(this.rank == 0 ) {
          this.gainCompany()
        } else {
