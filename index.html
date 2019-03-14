@@ -26,7 +26,7 @@
                 /*苹果、谷歌内核*/
                 // gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
                 /*火狐内核*/
-                // mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/),
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/),
                 /*是否为移动终端*/
                 ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
                 /*ios终端*/
@@ -41,7 +41,7 @@
                 /*是否web应该程序，没有头部与底部*/
                 // weixin: u.toLowerCase().indexOf('micromessenger') > -1,
                 /*是否是微信*/
-                // dingtalk: u.toLowerCase().indexOf('dingtalk') > -1,
+                dingtalk: u.toLowerCase().indexOf('dingtalk') > -1,
                 /*是否是顶顶*/
                 // qq: u.toLowerCase().match(/QQ/i) == "qq",
                 /*qq*/
@@ -54,8 +54,9 @@
           };
           
           function pandun() {
-            
-            if( browser.versions.ios || browser.versions.android || browser.versions.swidth) {
+            // console.log(browser.versions,1)
+            // alert(browser.versions.dingtalk)
+            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
                 window.location.href = 'http://pre-mobile.biaodaa.com/#/'
             } 
             // else {
