@@ -80,7 +80,6 @@
       </div>
 
      <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
-       <!-- <ul> -->
          <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' >
            <div class="m-bt">
               <p class="left m-rg">
@@ -102,7 +101,6 @@
              </p>
            </div>
          </router-link >
-       <!-- </ul> -->
        <div class="page">
           <nav-page 
           :all='total'
@@ -124,8 +122,8 @@ export default {
   data () {
     return {
       area:'湖南',
-      Snone:true,
-      loading:false,
+      Snone:false,
+      loading:true,
       areas:[
         {
           name:'北京'
@@ -362,13 +360,13 @@ export default {
     area(val) {
       this.current = 1
       this.total = 0
-      this.queryLists = []
+      this.loading = true 
       this.gainQueryList()
     },
     projectType(val) {
       this.current = 1
       this.total = 0
-      this.queryLists = []
+      this.loading = true 
       this.gainQueryList()
     }
   },
