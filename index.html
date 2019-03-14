@@ -11,6 +11,7 @@
         //   var area = returnCitySN['cname'].slice(0,2)
         //  localStorage.setItem('area',area)
         window.onload = function () {
+           pandun()
              window.browser = {
             /*判断访问终端*/
             versions: function () {
@@ -35,7 +36,7 @@
                 /*是否为iPhone或者QQHD浏览器*/
                 // iPad: u.indexOf('iPad') > -1,
                 /*是否iPad*/
-                swidth: window.screen.width  >= 768,
+                swidth: window.screen.width  <= 768,
                 // webApp: u.indexOf('Safari') == -1,
                 /*是否web应该程序，没有头部与底部*/
                 weixin: u.toLowerCase().indexOf('micromessenger') > -1,
@@ -53,15 +54,15 @@
           };
 
           function pandun() {
-            alert(111)
-            alert(window.screen.width)
+            // alert(111)
+            // alert(window.screen.width)
             if(browser.versions.mobile || browser.versions.ios || browser.versions.android || browser.versions.swidth) {
                 window.location.href = 'http://pre-mobile.biaodaa.com/#/'
             } else {
                window.location.href = 'http://pre-new.biaodaa.com/#/'
             }
           }
-          pandun()
+         
         }
 
     </script>
