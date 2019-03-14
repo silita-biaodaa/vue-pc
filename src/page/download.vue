@@ -53,7 +53,7 @@ export default {
   @media screen and (max-device-width:1920px){
       .d-c {
         width: 100%;
-        background: url(../assets/img/do1.png) no-repeat center;
+        background: url(../assets/img/do2.png) no-repeat center;
         height: 550px;
         background-size: auto;
         position: relative;
@@ -65,7 +65,7 @@ export default {
   @media screen and (min-device-width: 1920px){
        .d-c {
         width: 100%;
-        background: url(../assets/img/do1.png) no-repeat ;
+        background: url(../assets/img/do2.png) no-repeat ;
         background-position-x: center;
         height: 700px;
         background-size: auto;
