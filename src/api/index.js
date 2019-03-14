@@ -112,3 +112,7 @@ export const exportX = form => {
     }
   }).then(res => res.data)
 }
+
+export const apiL = params => {
+  return axios.post('api/list', params).then(res => res.data)
+}

@@ -40,7 +40,7 @@
 </div>
 </template>
 <script>
-import { getJsonData,exportX } from '@/api/index'
+import { getJsonData,exportX,apiL } from '@/api/index'
 export default {
   data () {
     return {
@@ -50,18 +50,25 @@ export default {
   },
   methods: {
     gainDetail() {
-      let dataParam = JSON.stringify({
-          name:this.name
-        });
-        getJsonData( "/api/list", dataParam).then(res => {
+      // let dataParam = JSON.stringify({
+      //     name:this.name
+      //   });
+      //   getJsonData( "/api/list", dataParam).then(res => {
+      //       if(res.code == 1) {
+      //         console.log(res,1)
+      //          this.articles = res.data
+      //       }
+      //   });
+        apiL({name:this.name}).then( res => {
             if(res.code == 1) {
+              console.log(res,1)
                this.articles = res.data
             }
-        });
+        })
     },
     exportexcel(){
           exportX({name:this.name},{responseType: 'blob'}).then(res=> {
-               const blob = new Blob([res]);
+                const blob = new Blob([res]);
                 const fileName = this.name + '通讯录.xlsx';
                 const elink = document.createElement('a');
                 elink.download = fileName;
@@ -85,7 +92,7 @@ export default {
 <style lang="less" scoped>
 .inde {
   background-color: #f5f5f5;
-  padding-top: 50px;
+  padding-top: 150px;
   .title {
     background-color: #fff;
     width: 960px;

@@ -97,6 +97,7 @@ export default {
 <style lang='less'>
 .appp {
   background-color: #f5f5f5;
+  padding-top: 100px;
  .app-time {
    display: flex;
    justify-content: center;
