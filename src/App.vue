@@ -68,8 +68,8 @@
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
-                    <div class="left">
-                      <img src="./assets/img/pic-erweima.png" alt="">
+                    <div class="left ">
+                      <img src="./assets/img/pic-erweima.png" alt="" class="new-img">
                       <div class="Qrcode">扫一扫，下载APP</div>                      
                     </div>
                     <div class="left ma-16">
@@ -348,6 +348,10 @@ export default {
              overflow: hidden;
              font-size: 18px;
              color:#fff;
+             .new-img {
+               width: 113px;
+               height: 113px;
+             }
              .Qrcode {
                font-size: 12px;
                color: #FE6603;

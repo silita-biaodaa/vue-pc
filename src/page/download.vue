@@ -2,24 +2,10 @@
 <div class="download">
 <div class="d-top">
     <img src="../assets/img/logo2.png" alt="">
+    <!-- <img src="" alt=""> -->
     <div>APP下载</div>
 </div>
 <div class="d-c">
-  <!-- <div class="d-img">
-     <img src="../assets/img/shouji.png" alt="">
-  </div> -->
-  <!-- <div class="d-size">
-      <p>查<span class="d-small">企业 · </span>查<span class="d-small">项目 · </span>查<span class="d-small">人员</span></p>
-      <div class="d-text">
-        建筑领域招投标专家，全面、精准、及时的大数据产品 
-      </div>
-      <div class="d-text">
-        下载APP，随时随地找到你想要的数据信息
-      </div>
-      <div class="d-logo">
-
-      </div>
-  </div> -->
 </div>
 <div class="d-bto">
 © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
@@ -71,37 +57,7 @@ export default {
         height: 550px;
         background-size: auto;
         position: relative;
-        .d-img {
-          width: 168px;
-          height: 230px;
-          position: absolute;
-          top: 50px;
-          left: 243px;
-        }
-        .d-size {
-          height: 300px;
-          position: absolute;
-          top: 50px;
-          left: 40%;
-          p {
-            font-size: 46px;
-            color:#fff;
-            .d-small {
-              font-size: 32px;
-            }
-          }
-          .d-text{
-            width: 100%;
-            font-size: 16px;
-            color: #fff;
-            margin-top: 10px;
-          }
-          .d-logo {
-            background: url(../assets/img/pic-erweima.png) no-repeat;
-            height: 113px;
-            margin-top: 20px;
-          }
-        }
+        
       }  
     }
 
@@ -114,78 +70,10 @@ export default {
         height: 700px;
         background-size: auto;
         position: relative;
-        .d-img {
-          width: 168px;
-          height: 230px;
-          position: absolute;
-          top: 50px;
-          left: 243px;
-        }
-        .d-size {
-          height: 300px;
-          position: absolute;
-          top: 50px;
-          left: 40%;
-          p {
-            font-size: 46px;
-            color:#fff;
-            .d-small {
-              font-size: 32px;
-            }
-          }
-          .d-text{
-            width: 100%;
-            font-size: 16px;
-            color: #fff;
-            margin-top: 10px;
-          }
-          .d-logo {
-            background: url(../assets/img/pic-erweima.png) no-repeat;
-            height: 113px;
-            margin-top: 20px;
-          }
-        }
       }  
        
   }
-  // .d-c {
-  //   width: 100%;
-  //   background: url(../assets/img/do.png) no-repeat;
-  //   height: 400px;
-  //   background-size: 100%;
-  //   position: relative;
-  //   .d-img {
-  //     width: 168px;
-  //     height: 230px;
-  //     position: absolute;
-  //     top: 50px;
-  //     left: 243px;
-  //   }
-  //   .d-size {
-  //     height: 300px;
-  //     position: absolute;
-  //     top: 50px;
-  //     left: 40%;
-  //     p {
-  //       font-size: 46px;
-  //       color:#fff;
-  //       .d-small {
-  //         font-size: 32px;
-  //       }
-  //     }
-  //     .d-text{
-  //       width: 100%;
-  //       font-size: 16px;
-  //       color: #fff;
-  //       margin-top: 10px;
-  //     }
-  //     .d-logo {
-  //       background: url(../assets/img/pic-erweima.png) no-repeat;
-  //       height: 113px;
-  //       margin-top: 20px;
-  //     }
-  //   }
-  // }  
+
   .d-bto {
     width: 100%;
     text-align: center;
