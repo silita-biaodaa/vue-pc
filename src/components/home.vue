@@ -17,7 +17,7 @@
                    </li>
                 </ul>
                 <div  >
-                   <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' class="input-with-select">
+                   <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
                       <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
                  </div>

@@ -285,8 +285,7 @@ export default {
   methods: {
     Goto(val) {
       this.pageNo = val.cur
-      this.queryLists = []
-      // this.total = 0
+      this.loading = true
       this.gainList()
     },
     eval(el) {
@@ -295,20 +294,20 @@ export default {
       } else {
         return
       }
-      this.queryLists = []
       this.area = el.name
       this.pageNo = 1
+      this.loading = true
       this.gainList()
       setTimeout(() => {
         this.Stroke = true
       }, 1000);
     },
-    evalclass(el) {
-      this.queryLists = []
-      this.projectType = el.key
-      this.pageNo = 1
-      this.gainList()
-    },
+    // evalclass(el) {
+    //   this.queryLists = []
+    //   this.projectType = el.key
+    //   this.pageNo = 1
+    //   this.gainList()
+    // },
     evalsum(el) {
       if(this.Stroke) {
         this.Stroke = false
@@ -316,7 +315,7 @@ export default {
         return
       }
       this.loading = true
-      this.queryLists = []
+      // this.queryLists = []
       this.rank = 0 
       this.low = '',
       this.high = '',
@@ -364,8 +363,8 @@ export default {
     entitle(val) {
       this.title = val.cur
       this.pageNo = 1
-      this.queryLists = []
-      // this.total = 0
+      this.loading = true
+      // this.queryLists = []
       this.gainList()
     },
     fade() {
@@ -384,13 +383,15 @@ export default {
   watch: {
     area() {
       this.pageNo = 1
-      this.queryLists = []
+      this.loading = true
+      // this.queryLists = []
       // this.total = 0
       this.gainList()
     },
     projectType() {
       this.pageNo = 1
-      this.queryLists = []
+      // this.queryLists = []
+      this.loading = true
       // this.total = 0
       this.gainList()
     }
