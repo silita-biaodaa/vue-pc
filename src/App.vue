@@ -175,7 +175,7 @@ export default {
       console.log(this.$route,1)
     },
     jumpto() {
-      window.open('http://www.biaodaa.com/','_bleak')
+      window.open('http://old.biaodaa.com','_bleak')
     }
   },
 
