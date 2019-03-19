@@ -144,7 +144,7 @@ export default {
     background-color: #fff;
   }
   .app-search {
-     width: 960px;
+     width: 1020px;
      margin: 0 auto;
   }
   .bor {

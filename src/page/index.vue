@@ -242,6 +242,15 @@ export default {
        companys:[],
     }
   },
+  props: {
+    state:''
+  },
+  watch: {
+    state(val) {
+      console.log(val)
+      console.log(this.state,1)
+    }
+  },
   methods: {
     seaI(el) {
       this.rank = el.i
@@ -326,7 +335,7 @@ export default {
   }
    .b-content {
        margin-top: 10px;
-       width: 960px;
+       width: 1020px;
        margin: 0 auto;
        clear: both;
        background: #fff;
@@ -418,7 +427,7 @@ export default {
        }
      }
   .carousel {
-    width: 960px;
+    width: 1020px;
     margin: 0 auto;
     height: 390px;
     margin-bottom: 16px;

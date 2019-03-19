@@ -61,7 +61,7 @@
 
 
     <div class="content">
-         <router-view/>
+         <router-view :state='source' />
     </div>
 
     <div class="footer"  v-show="exploit">
@@ -145,6 +145,7 @@ export default {
      ],
      rank:0,
      way:'/bid',
+     source:'湖南',
      selects:[
          {
            name:'招标',
@@ -224,7 +225,7 @@ export default {
     background-color: #fff;
      .contact {
         height: 33px;
-        width: 960px;
+        width: 1020px;
         display: flex;
         justify-content: space-between;
         align-items: center;
