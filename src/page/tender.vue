@@ -495,7 +495,7 @@ export default {
        }
        .pro {
          li {
-           padding: 2px 9px;
+           padding: 2px 7px;
            height: 20px;
            line-height: 20px;
            margin-bottom: 10px;

@@ -1,5 +1,5 @@
 <template>
-<div class="intell">
+<div class="intell" v-loading="loading" element-loading-text="拼命加载中" >
     <div class="in-nav">
       <span class="left in-po current"  >全部</span>
      
@@ -62,7 +62,8 @@ export default {
       result:true,
       total:0,
       current:1,
-      allnu:false
+      allnu:false,
+      loading:true
     }
   },
   methods: {
@@ -76,7 +77,7 @@ export default {
              if(this.showArr.length == 0 ) {
                 this.result = false
              }
-
+             this.loading = false
              if(this.total > 10) {
                this.allnu = true
              } else {
@@ -97,12 +98,18 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .intell {
   background-color: #fff;
   padding-bottom: 50px;
   .current {
     color:#333;
+  }
+    .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }  
   .in-nav {
     font-size: 14px;

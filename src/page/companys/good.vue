@@ -1,6 +1,6 @@
 
 <template>
-<div class="good">
+<div class="good" v-loading="loading" element-loading-text="拼命加载中" >
    <div class="g-nav">
      <span @click="show" :class="this.name == '获奖信息' ? 'current' : ''" >
        获奖信息 ({{total}}) 
@@ -96,7 +96,8 @@ export default {
       badness:false,
       name:'获奖信息',
       id:'',
-      result: false
+      result: false,
+      loading:false
     }
   },
   methods: {
@@ -115,6 +116,7 @@ export default {
                         })
                      })
                   })
+                  this.loading = false
                   if(this.allList.length == 0) {
                      this.result = true
                    } else {
@@ -168,7 +170,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .good {
   background-color: #fff;
   .g-nav {
@@ -179,6 +181,12 @@ export default {
     font-weight: 550;
     padding-left: 22px;
     cursor: pointer;
+  }
+  .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }
   .current {
     color:#333;

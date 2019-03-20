@@ -1,5 +1,5 @@
 <template>
-<div class="intell">
+<div class="intell" v-loading="loading" element-loading-text="拼命加载中" >
     <div class="in-nav">
       <span class="left in-po"  :class="this.name == '全部' ? 'current' : ''" @click="allshow" >全部</span>
       <div class="left" v-for="(el,i) in allList" :key="i">
@@ -58,7 +58,8 @@ export default {
       showArr:[],
       name:'全部',
       id:'',
-      result:false
+      result:false,
+      loading:true
     }
   },
   methods: {
@@ -76,6 +77,7 @@ export default {
               if(this.showArr.length == 0 ) {
                 this.result = true
               }
+              this.loading = false
             }
         });
     },
@@ -104,12 +106,18 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .intell {
   background-color: #fff;
   padding-bottom: 50px;
   .current {
     color:#333;
+  }
+   .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }  
   .in-nav {
     font-size: 14px;

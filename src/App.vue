@@ -231,7 +231,6 @@ export default {
         align-items: center;
         font-size: 12px;
         background-color: #fff;
-        // line-height: 33px;
         font-weight: 400;
         .contact-l {
           a,p {

@@ -1,5 +1,5 @@
 <template>
-<div class="achievement">
+<div class="achievement" v-loading="loading" element-loading-text="拼命加载中" >
   <div class="e-nav">
      <span class="e-wei">
        中标公告({{total}})
@@ -65,7 +65,8 @@ export default {
       total:0,
       name:'',
       result:false,
-      source:''
+      source:'',
+      loading:true
     }
   },
   methods: {
@@ -82,6 +83,7 @@ export default {
            } else {
              this.result = false
            }
+           this.loading = false
         }
       })
     },
@@ -106,9 +108,15 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .achievement {
   background-color: #fff;
+   .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
+  }
   .e-nav {
     font-size: 14px;
     color:#333;

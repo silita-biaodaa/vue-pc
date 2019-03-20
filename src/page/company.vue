@@ -847,7 +847,7 @@ export default {
        }
        .pro {
          li {
-           padding: 2px 9px;
+           padding: 2px 7px;
            height: 20px;
            text-align: center;
            line-height: 20px;

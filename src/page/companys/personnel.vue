@@ -1,5 +1,5 @@
 <template>
-<div class="law">
+<div class="law" v-loading="loading" element-loading-text="拼命加载中" >
    <div class="law-search"> 
      <div class="left law-wei" >
        注册人员（{{this.total}}）
@@ -94,7 +94,8 @@ export default {
       options:[],
       id:'',
       result:false,
-      source:''
+      source:'',
+      loading:true
     }
   },
   methods: {
@@ -111,6 +112,7 @@ export default {
             } else {
               this.result = false
             }
+            this.loading = false
          }
       })
     },
@@ -141,7 +143,7 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 .law {
   background-color: #fff;
   padding: 0 9px;
@@ -152,6 +154,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+   .el-loading-spinner .path {
+    stroke: #FE6603;
+  }
+  .el-loading-spinner .el-loading-text {
+    color:#FE6603;
   }
   .law-search {
     height: 56px;

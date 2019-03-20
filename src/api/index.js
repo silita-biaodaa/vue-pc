@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-const baseURL = 'http://api.biaodaa.com/'
-// const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
+const baseURL = 'http://pre.biaodaa.com/'
 
 
 
