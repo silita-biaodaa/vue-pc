@@ -57,7 +57,6 @@ export default {
         height: 550px;
         background-size: auto;
         position: relative;
-        
       }  
     }
 

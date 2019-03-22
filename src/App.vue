@@ -337,7 +337,7 @@ export default {
     display: flex;
     justify-content: center; 
     .f-content {
-       width: 960px;
+       width: 1020px;
        height: 100%;
        box-sizing: border-box;
        padding-top: 26px;
