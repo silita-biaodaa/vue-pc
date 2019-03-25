@@ -22,7 +22,7 @@ const _hmt = _hmt || [];
 window._hmt = _hmt || [];
 (function () {
   var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?2e5b2583c49b3e3f1ff0b2f78d8e75b3";
+  hm.src = "https://hm.baidu.com/hm.js?610e6c0550c79cf8f254f46b0e5c2434";
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
