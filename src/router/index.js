@@ -19,6 +19,8 @@ import Conform from '@/page/conform'
 import Download from '@/page/Download'
 import zhong from '@/page/zong/zhong'
 import hlist from '@/page/zong/home'
+import logo from '@/page/logo'
+
 
 
 
@@ -171,6 +173,11 @@ export default new Router({
       path: '/dalist',
       component: hlist,
       name: 'dalist'
+    },
+    {
+      path:'/logo',
+      name:logo,
+      component:logo
     }
   ]
 })

@@ -19,7 +19,7 @@ Vue.component('en-search', enSearch)
 
 
 const _hmt = _hmt || [];
-window._hmt = _hmt || [];
+window._hmt = _hmt;
 (function () {
   const hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?313616fb1dea0773694f4c657830d6cd";
