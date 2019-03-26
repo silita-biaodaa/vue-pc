@@ -21,9 +21,9 @@ Vue.component('en-search', enSearch)
 const _hmt = _hmt || [];
 window._hmt = _hmt || [];
 (function () {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?610e6c0550c79cf8f254f46b0e5c2434";
-  var s = document.getElementsByTagName("script")[0];
+  const hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?313616fb1dea0773694f4c657830d6cd";
+  const s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
 
