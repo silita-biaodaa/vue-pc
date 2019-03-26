@@ -1,7 +1,5 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/x-icon href=static/favicon.ico><script src="http://pv.sohu.com/cityjson?ie=utf-8"></script><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><title>标大大</title><script type=text/javascript>//   var area = returnCitySN['cname'].slice(0,2)
-        //  localStorage.setItem('area',area)
-        !(function () {
-          
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/x-icon href=static/favicon.ico><title>标大大</title><script type=text/javascript>// console.log('进入');
+                  
              window.browser = {
             /*判断访问终端*/
             versions: function () {
@@ -42,12 +40,28 @@
             }(),
             // language: (navigator.browserLanguage || navigator.language).toLowerCase()
           };
-          
-          function pandun() {          
-            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
-                window.location.href = 'http://mobile.biaodaa.com'
-            } 
-          }
           pandun()
-
-      })</script><link href=/static/css/app.40fd0dd4dfbf326a2c76050e36e5c240.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.330ae33e57c4e195d7d4.js></script><script type=text/javascript src=/static/js/app.61768334035ed3fe02e8.js></script></body></html>
+          function pandun() {
+             var url = window.location.href;
+             var letter = false
+              if(url.indexOf('introduce') >= 0 ) {
+                  var is = url.indexOf('?') 
+                  var strs = url.substr(is) || '';
+                  console.log(strs);
+                  letter = true
+              } else {
+                  var i = url.indexOf('/#/') 
+                  var str = url.substr(i) || '';
+                  console.log(str);
+              }
+             
+              
+            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
+                if(!letter) {
+                  window.location.href = 'http://pre-mobile.biaodaa.com' + str
+                } else {
+                  window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
+                }
+                 
+            } 
+          }</script><link href=/static/css/app.40fd0dd4dfbf326a2c76050e36e5c240.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.330ae33e57c4e195d7d4.js></script><script type=text/javascript src=/static/js/app.61768334035ed3fe02e8.js></script></body></html>

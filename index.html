@@ -4,14 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico">
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <title>标大大</title>
-    <script type="text/javascript">
-        //   var area = returnCitySN['cname'].slice(0,2)
-        //  localStorage.setItem('area',area)
-        !(function () {
-          
+    <script type="text/javascript">     
+              // console.log('进入');
+                  
              window.browser = {
             /*判断访问终端*/
             versions: function () {
@@ -52,15 +48,33 @@
             }(),
             // language: (navigator.browserLanguage || navigator.language).toLowerCase()
           };
-          
-          function pandun() {          
+          pandun()
+          function pandun() {
+             var url = window.location.href;
+             var letter = false
+              if(url.indexOf('introduce') >= 0 ) {
+                  var is = url.indexOf('?') 
+                  var strs = url.substr(is) || '';
+                  console.log(strs);
+                  letter = true
+              } else {
+                  var i = url.indexOf('/#/') 
+                  var str = url.substr(i) || '';
+                  console.log(str);
+              }
+             
+              
             if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
-                window.location.href = 'http://mobile.biaodaa.com'
+                if(!letter) {
+                  window.location.href = 'http://pre-mobile.biaodaa.com' + str
+                } else {
+                  window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
+                }
+                 
             } 
           }
-          pandun()
+          
 
-      })
          
 
     </script>
