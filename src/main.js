@@ -8,14 +8,19 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 import moment from 'moment'
 Vue.prototype.$moment = moment;
+import sha1 from 'sha1'
+Vue.prototype.$sha1 = sha1;
 import router from './router'
 import 'babel-polyfill'
 
 Vue.config.productionTip = false
 import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
+import  logoNav from '@/components/logoNav'
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
+Vue.component('logo-Nav', logoNav)
+
 
 
 const _hmt = _hmt || [];

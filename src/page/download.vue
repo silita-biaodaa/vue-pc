@@ -8,7 +8,7 @@
 <div class="d-c">
 </div>
 <div class="d-bto">
-© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
+  © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
 </div>
 </div>
 </template>
@@ -65,20 +65,12 @@ export default {
        .d-c {
         width: 100%;
         background: url(../assets/img/do1.png) no-repeat ;
-        background-position-x: center;
-        height: 700px;
+        background-position-x: 100%;
+        height: 850px;
         background-size: auto;
         position: relative;
       }  
        
-  }
-
-  .d-bto {
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    color:#999;
-    margin-top: 15px;
   }
 }
 </style>

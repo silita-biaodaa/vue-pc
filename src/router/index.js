@@ -20,7 +20,8 @@ import Download from '@/page/Download'
 import zhong from '@/page/zong/zhong'
 import hlist from '@/page/zong/home'
 import logo from '@/page/logo'
-
+import enroll from '@/page/enroll'
+import Pop from '@/components/Pop'
 
 
 
@@ -176,8 +177,20 @@ export default new Router({
     },
     {
       path:'/logo',
-      name:logo,
+      name: 'logo',
       component:logo
+    },
+    {
+      path:'/enroll',
+      name:'enroll',
+      component: enroll
     }
   ]
 })
+
+// 模板
+//  {
+//    path:'/',
+//    name:'',
+//    component:
+//  }

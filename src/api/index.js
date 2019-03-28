@@ -116,3 +116,15 @@ export const exportX = form => {
 export const apiL = params => {
   return axios.post('api/list', params).then(res => res.data)
 }
+
+export const authorize = params => {
+  return axios.post('authorize/memberLogin', params).then(res => res.data)
+} 
+
+export const getVerifyCode = params => {
+  return axios.post('authorize/getVerifyCode', params).then(res => res.data)
+}
+
+export const memberRegister = params => {
+  return axios.post('authorize/memberRegister', params).then(res => res.data)
+} 

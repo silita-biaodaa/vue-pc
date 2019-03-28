@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div class="fixation" >
-      <div class="app-header" v-show="exploit">
+    <div class="fixation" v-show="excom" >
+      <div class="app-header">
        <div class="contact">
           <div class="contact-l">
              <p class="left">
@@ -20,25 +20,25 @@
                 关于我们
              </p>
           </div>
-          <!-- <div class="contact-r">
+          <div class="contact-r">
             
-            <p>
+            <p @click="jumpen">
               免费注册
             </p>
             <p class="line">
              </p>
-             <p>
-              请登录
+             <p @click="jumpl">
+             {{name}}
              </p>
-             <p class="area">
+             <!-- <p class="area">
                <i class="iconfont icon-dizhi"></i>
               湖南
-             </p>
+             </p> -->
              
-          </div> -->
+          </div>
        </div>
         </div>
-        <div class="nav"  v-show="exploit">
+        <div class="nav" >
         <ul  >
             <router-link v-for="(el, i) in navlist" :key="i"  :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
                   <div>
@@ -58,13 +58,11 @@
     </div>
     
 
-
-
     <div class="content">
          <router-view :state='source' />
     </div>
 
-    <div class="footer"  v-show="exploit">
+    <div class="footer "  v-show="exploit">
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
@@ -116,6 +114,7 @@ export default {
   data() {
     return {
       show:true,
+      // rear:true,
        navlist:[
         {
            name:'首页',
@@ -177,6 +176,14 @@ export default {
     },
     jumpto() {
       window.open('http://old.biaodaa.com','_bleak')
+    },
+    jumpl() {
+      if(this.name == '请登录') {
+         this.$router.push('/logo')
+      }
+    },
+    jumpen() {
+        this.$router.push('/enroll')
     }
   },
 
@@ -188,12 +195,26 @@ export default {
       let t=this.$route.meta.tabNo;
       return t
     },
+    // 底部是否消失
     exploit() {
-      console.log(111)
-      if(this.$route.name == 'download') {
+      if(this.$route.name == 'download' ||  this.$route.name == 'logo' || this.$route.name == 'enroll' ) {
         return false
       } else {
         return true
+      }
+    },
+    excom() {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll') {
+        return false
+      } else {
+        return true
+      }
+    },
+    name() {
+      if(localStorage.getItem('Bname')) {
+        return localStorage.getItem('Bname')
+      } else {
+        return '请登录'
       }
     }
   },
@@ -207,6 +228,13 @@ export default {
   background-color: #FAFAFA;
   .content {
     width: 100%;
+    // position: absolute;
+    // position: absolute ;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
+    // height: calc(~"100% - 195px");
     display: flex;
     justify-content: center; 
   }
@@ -254,8 +282,11 @@ export default {
         .contact-r {
           width: 400px;
           display: flex;
-          // align-items: center; 
+          align-items: center; 
           flex-direction:row-reverse;
+          p {
+            cursor: pointer;
+          }
           .line {
             width: 1px;
             height: 12px;
@@ -329,6 +360,11 @@ export default {
          }
       }
     }
+  }
+  .f-btt {
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
   .footer {
     height: 195px;

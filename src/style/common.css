@@ -76,3 +76,85 @@ figcaption:focus {
 .right {
   float: right;
 }
+.logo .e-ipt .el-input__inner {
+  border: none;
+  padding: 0 20px;
+}
+.logo .e-ipt .el-input {
+  width: 86%;
+}
+.logo .e-my .el-input {
+  width: 50%;
+}
+.logo .el-button:hover {
+  color: #fff;
+  border-color: #FFA317;
+  background-color: #FFA317;
+}
+.logo .el-button:focus {
+  color: #fff;
+  border-color: #FE6603;
+  background-color: #FE6603;
+}
+.logo .el-checkbox__input.is-checked .el-checkbox__inner,
+.logo .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #E17226;
+  border-color: #E17226;
+}
+.logo .el-checkbox__input.is-checked + .el-checkbox__label {
+  color: #E17226;
+}
+.logo .el-checkbox__label {
+  color: #999;
+  padding-left: 5px;
+  font-size: 12px;
+}
+.d-bto {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 15px;
+}
+.logo-center {
+  width: 1020px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 58px;
+}
+.e-btn {
+  width: 100%;
+  background-color: #FE6603;
+  color: #fff;
+}
+.logo-img {
+  width: 100%;
+  background: url(../assets/img/logoB.png) no-repeat;
+  background-position-x: center;
+  height: 523px;
+  position: relative;
+  overflow: hidden;
+}
+.e-enroll {
+  margin-top: 75px;
+  text-align: center;
+  font-size: 16px;
+  color: #999;
+  cursor: pointer;
+}
+.logo-code {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo-code .code-img {
+  width: 167px;
+  margin-bottom: 26px;
+}
+.l-error {
+  font-size: 11px;
+  margin: 4px 0;
+  color: #FF0000;
+}
