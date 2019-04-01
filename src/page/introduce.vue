@@ -175,6 +175,7 @@ export default {
 .introduce {
   width: 1020px;
   padding-top: 86px;
+  margin: 0 auto;
   .i-nav {
     font-size: 12px;
     color:#666;

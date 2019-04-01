@@ -22,14 +22,14 @@
           </div>
           <div class="contact-r">
             
-            <p @click="jumpen">
+            <!-- <p @click="jumpen">
               免费注册
             </p>
             <p class="line">
              </p>
              <p @click="jumpl">
              {{name}}
-             </p>
+             </p> -->
              <!-- <p class="area">
                <i class="iconfont icon-dizhi"></i>
               湖南
@@ -62,7 +62,7 @@
          <router-view :state='source' />
     </div>
 
-    <div class="footer "  v-show="exploit">
+    <div class="footer "  v-show="exploit"  >
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
@@ -197,20 +197,29 @@ export default {
     },
     // 底部是否消失
     exploit() {
-      if(this.$route.name == 'download' ||  this.$route.name == 'logo' || this.$route.name == 'enroll' ) {
+      if(this.$route.name == 'download' ||  this.$route.name == 'logo' || this.$route.name == 'enroll'  ) {
         return false
       } else {
         return true
       }
     },
+    // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll') {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'user') {
         return false
       } else {
         return true
       }
     },
-    name() {
+    // 底部是否固定再底部
+    // fixed() {
+    //   if(this.$route.name == 'find') {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
+     name() {
       if(localStorage.getItem('Bname')) {
         return localStorage.getItem('Bname')
       } else {
@@ -235,8 +244,8 @@ export default {
     // right: 0;
     // bottom: 0;
     // height: calc(~"100% - 195px");
-    display: flex;
-    justify-content: center; 
+    // display: flex;
+    // justify-content: center; 
   }
   .fixation {
     position: fixed;

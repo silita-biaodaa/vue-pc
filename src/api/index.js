@@ -2,7 +2,9 @@ import axios from 'axios'
 
 
 // const baseURL = 'http://api.biaodaa.com/'
-const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://pre.biaodaa.com/'
+const baseURL = '/'
+
 
 
 
@@ -127,4 +129,8 @@ export const getVerifyCode = params => {
 
 export const memberRegister = params => {
   return axios.post('authorize/memberRegister', params).then(res => res.data)
+}
+
+export const updatePwd = params => {
+  return axios.post('userCenter/updatePwd', params).then(res => res.data)
 } 

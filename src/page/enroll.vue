@@ -38,7 +38,7 @@
             
             <div class="e-forget">
               <div>
-                 <el-checkbox v-model="checked">我已经仔细阅读并接受<span class="e-color">《标大大用户协议》</span></el-checkbox>
+                 <el-checkbox v-model="checked">我已经仔细阅读并接受<span class="e-color" @click="junm" >《标大大用户协议》</span></el-checkbox>
               </div>
             </div>
             <el-button class="e-btn" @click="register" >立即注册</el-button>
@@ -113,7 +113,7 @@ export default {
           offset: 100   
          });
       }
-      if(!this.Message  == '获取验证') {
+      if(!(this.Message  == '获取验证') && !(this.Message  == '重新发送')  ) {
         return
       } else {
         
@@ -145,6 +145,12 @@ export default {
     },
     jump() {
       this.$router.push('/logo')
+    },
+    junm() {
+        const { href } = this.$router.resolve({
+          path:'/protocol'
+        })
+        window.open(href, '_blank', )
     }
   },
   components: {

@@ -83,6 +83,9 @@ figcaption:focus {
 .logo .e-ipt .el-input {
   width: 86%;
 }
+.logo .l-find .el-input {
+  width: 65%;
+}
 .logo .e-my .el-input {
   width: 50%;
 }
@@ -157,4 +160,12 @@ figcaption:focus {
   font-size: 11px;
   margin: 4px 0;
   color: #FF0000;
+}
+.el-dropdown-link {
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+}
+.el-dropdown-link i {
+  margin-left: 14px;
 }

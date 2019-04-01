@@ -45,21 +45,19 @@
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
                   var strs = url.substr(is) || '';
-                  console.log(strs);
                   letter = true
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                  console.log(str);
               }
              
               
             if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
                 if(!letter) {
-                  window.location.href = 'http://pre-mobile.biaodaa.com' + str
+                  window.location.href = 'http://mobile.biaodaa.com/#/' + str
                 } else {
-                  window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
+                  window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
                 }
                  
             } 
-          }</script><link href=/static/css/app.d740594b5c7d06236e3d397439cbd502.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.fabceb12cb43e4309455.js></script><script type=text/javascript src=/static/js/app.8b8291f9ac443dcd9dae.js></script></body></html>
+          }</script><link href=/static/css/app.1c30000b694720539545454025b3ac3e.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.fabceb12cb43e4309455.js></script><script type=text/javascript src=/static/js/app.4fa2937631e8008cab4d.js></script></body></html>

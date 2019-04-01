@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     logoBc() {
-      if(this.$route.name == 'logo') {
+      if(this.$route.name == 'logo' || this.$route.name == 'find' ) {
         return 1
       } else {
         return 2

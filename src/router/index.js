@@ -21,7 +21,10 @@ import zhong from '@/page/zong/zhong'
 import hlist from '@/page/zong/home'
 import logo from '@/page/logo'
 import enroll from '@/page/enroll'
-import Pop from '@/components/Pop'
+import protocol from '@/page/protocol'
+import find from '@/page/user/find'
+import user from '@/page/user/user'
+
 
 
 
@@ -67,7 +70,10 @@ export default new Router({
     {
       path: '/article',
       name: 'article',
-      component: Article
+      component: Article,
+      meta: {
+        tabNo: 1
+      }
     },
     {
       path: '/company',
@@ -88,7 +94,10 @@ export default new Router({
     {
       path: '/notice',
       name: 'notice',
-      component: Notice
+      component: Notice,
+      meta: {
+        tabNo: 2
+      }
     },
     {
       path: '/introduce',
@@ -153,7 +162,10 @@ export default new Router({
           }
         }
 
-      ]
+      ],
+      meta: {
+        tabNo: 3
+      }
     },
     {
       path: '/conform',
@@ -175,16 +187,31 @@ export default new Router({
       component: hlist,
       name: 'dalist'
     },
-    {
-      path:'/logo',
-      name: 'logo',
-      component:logo
-    },
-    {
-      path:'/enroll',
-      name:'enroll',
-      component: enroll
-    }
+    // {
+    //   path:'/logo',
+    //   name: 'logo',
+    //   component:logo
+    // },
+    // {
+    //   path:'/enroll',
+    //   name:'enroll',
+    //   component: enroll
+    // },
+    // {
+    //   path: '/protocol',
+    //   name: 'protocol',
+    //   component: protocol
+    // },
+    //  {
+    //    path:'/find',
+    //    name:'find',
+    //    component: find
+    //  },
+    //   {
+    //     path:'/user',
+    //     name:'user',
+    //     component: user
+    //   }
   ]
 })
 
