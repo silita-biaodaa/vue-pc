@@ -80,7 +80,8 @@
       </div>
 
      <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
-         <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' >
+         <!-- <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' > -->
+         <a   v-for="(el,i ) of queryLists" :key="i" @click='decide'  >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}
@@ -100,7 +101,7 @@
                 评标办法:{{el.pbMode}}
              </p>
            </div>
-         </router-link >
+         </a>
        <div class="page">
           <nav-page 
           :all='total'
@@ -455,6 +456,24 @@ export default {
      toTop() {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
+    },
+    decide() {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/article',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
     }  
   },
   created () {

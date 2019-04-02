@@ -30,7 +30,7 @@
               <div>
                  <el-checkbox v-model="checked">15天免登录</el-checkbox>
               </div>
-              <div class="e-color">
+              <div class="e-color e-cu"  @click="forget" >
                 忘记密码？
               </div>
             </div>
@@ -79,6 +79,7 @@ export default {
               sessionStorage.setItem('xtoken',token)
               localStorage.removeItem('Authorization')
             }
+            
             this.$router.push('/home')
          } else {
            this.$notify({
@@ -93,6 +94,9 @@ export default {
     },
     jump() {
       this.$router.push('/enroll')
+    },
+    forget() {
+       this.$router.push('/find')
     }
   },
   components: {
@@ -151,6 +155,9 @@ export default {
           padding-top: 10px;
           margin-bottom: 8px;
         }
+      }
+      .e-cu {
+        cursor: pointer;
       }
 }
 </style>

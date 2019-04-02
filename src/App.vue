@@ -22,14 +22,17 @@
           </div>
           <div class="contact-r">
             
-            <!-- <p @click="jumpen">
+            <p @click="jumpen">
               免费注册
             </p>
             <p class="line">
              </p>
-             <p @click="jumpl">
-             {{name}}
-             </p> -->
+             <p @click="jumpl" v-if="names" >
+               请登录
+             </p>
+             <p v-else @click="touser" >
+               {{name}}
+             </p>
              <!-- <p class="area">
                <i class="iconfont icon-dizhi"></i>
               湖南
@@ -115,6 +118,7 @@ export default {
     return {
       show:true,
       // rear:true,
+        names:true,
        navlist:[
         {
            name:'首页',
@@ -167,7 +171,8 @@ export default {
            i: 3
          },
        ],
-     select:''
+     select:'',
+     name:'?'
     }
   },
   methods: {
@@ -178,17 +183,39 @@ export default {
       window.open('http://old.biaodaa.com','_bleak')
     },
     jumpl() {
-      if(this.name == '请登录') {
          this.$router.push('/logo')
-      }
     },
     jumpen() {
         this.$router.push('/enroll')
+    },
+    judges() {
+       if(localStorage.getItem('Bname')) {
+        this.name = localStorage.getItem('Bname')
+        this.names = false
+      } else {     
+        this.names = true
+      }
+    },
+    touser() {
+      this.$router.push('/user')
     }
   },
-
   created () {
+    this.judges()
     this.judge()
+  },
+  watch: {
+    $route:{
+      handler: function(val, oldVal){
+          if(localStorage.getItem('Bname')) {
+           this.name = localStorage.getItem('Bname')
+           this.names = false
+         } else {     
+           this.names = true
+         }
+      },
+    deep: true
+    }
   },
   computed: {
     tabNo(){
@@ -211,21 +238,6 @@ export default {
         return true
       }
     },
-    // 底部是否固定再底部
-    // fixed() {
-    //   if(this.$route.name == 'find') {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    // },
-     name() {
-      if(localStorage.getItem('Bname')) {
-        return localStorage.getItem('Bname')
-      } else {
-        return '请登录'
-      }
-    }
   },
 }
 </script>

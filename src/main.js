@@ -17,9 +17,12 @@ Vue.config.productionTip = false
 import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
 import  logoNav from '@/components/logoNav'
+import pDet from '@/components/pdet'
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
+Vue.component('p-Det', pDet)
+
 
 
 
@@ -33,8 +36,15 @@ window._hmt = _hmt;
 })();
 
 router.beforeEach((to, from, next) => {
+  // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
+  //     alert(1111)
+  //  }
+  
   if (to.path) {
+      console.log(1111111111);
+      
     _hmt.push(['_trackPageview', '/#' + to.fullPath]);
+    
   }
   next();
 })

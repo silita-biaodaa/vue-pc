@@ -187,31 +187,31 @@ export default new Router({
       component: hlist,
       name: 'dalist'
     },
-    // {
-    //   path:'/logo',
-    //   name: 'logo',
-    //   component:logo
-    // },
-    // {
-    //   path:'/enroll',
-    //   name:'enroll',
-    //   component: enroll
-    // },
-    // {
-    //   path: '/protocol',
-    //   name: 'protocol',
-    //   component: protocol
-    // },
-    //  {
-    //    path:'/find',
-    //    name:'find',
-    //    component: find
-    //  },
-    //   {
-    //     path:'/user',
-    //     name:'user',
-    //     component: user
-    //   }
+    {
+      path:'/logo',
+      name: 'logo',
+      component:logo
+    },
+    {
+      path:'/enroll',
+      name:'enroll',
+      component: enroll
+    },
+    {
+      path: '/protocol',
+      name: 'protocol',
+      component: protocol
+    },
+     {
+       path:'/find',
+       name:'find',
+       component: find
+     },
+      {
+        path:'/user',
+        name:'user',
+        component: user
+      }
   ]
 })
 

@@ -169,3 +169,9 @@ figcaption:focus {
 .el-dropdown-link i {
   margin-left: 14px;
 }
+.p-color {
+  color: #FE6603;
+}
+.pdet .el-select {
+  display: block;
+}

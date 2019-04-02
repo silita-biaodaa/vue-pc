@@ -198,7 +198,9 @@
            </div>
         </div>    
           
-        <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   >
+        
+        <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
+        <a v-for='(el,i) in companylisy' :key='i' @click='decide'  >
             <div class="left " style="width:80px;">
               {{i+1}}
            </div>
@@ -217,7 +219,7 @@
              <div class="left" style="width:140px;">
               {{el.regisAddress}}
            </div>
-        </router-link>
+        </a>
       </div>
   </div>
   <div class="c-page" v-show="!Snone">
@@ -717,6 +719,24 @@ export default {
     toTop() {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
+    },
+    decide() {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
     }
   },
   created () {

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 
-const baseURL = 'http://api.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
 // const baseURL = 'http://pre.biaodaa.com/'
-// const baseURL = '/' 
+const baseURL = '/' 
 
 
 
@@ -12,8 +12,8 @@ axios.defaults.baseURL = baseURL
 
 axios.interceptors.request.use(function (config) {
   // 将token给到一个前后台约定好的key中，作为请求发送
-  // let token = localStorage.getItem('Authorization')
-  let token = 'biaodaaTestToken'
+  let token = sessionStorage.getItem('xtoken') ? sessionStorage.getItem('xtoken') : (localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '' );
+  // let token = 'biaodaaTestToken'
 
 
   if (token) {
@@ -21,7 +21,6 @@ axios.interceptors.request.use(function (config) {
   }
   return config
 }, function (error) {
-  // Do something with request error
   return Promise.reject(error)
 })
 
@@ -133,4 +132,12 @@ export const memberRegister = params => {
 
 export const updatePwd = params => {
   return axios.post('userCenter/updatePwd', params).then(res => res.data)
+} 
+
+export const updateUserTemp = params => {
+  return axios.post('userCenter/updateUserInfo', params).then(res => res.data)
+} 
+
+export const getUserTemp = params => {
+  return axios.post('userCenter/refreshUserInfo', params).then(res => res.data)
 } 

@@ -69,7 +69,7 @@
       共搜索到<span>{{total}}</span>条中标公告
     </div>
     <div class="t-list" v-show="Snone" v-loading="loading" element-loading-text="拼命加载中">
-         <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/notice',query:{id:el.id,source:el.source} }" target='_blank'  >
+         <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide" >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}
@@ -89,7 +89,7 @@
                 <span >中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
              </p>
            </div>
-         </router-link >
+         </a >
        <div class="t-page">
           <nav-page 
           :all='total'
@@ -378,6 +378,24 @@ export default {
     toTop() {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
+    },
+    decide() {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/notice',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
     }
   },
   watch: {
