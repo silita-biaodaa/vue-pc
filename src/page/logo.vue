@@ -155,6 +155,11 @@ export default {
           padding-top: 10px;
           margin-bottom: 8px;
         }
+         .e-btn {
+            width: 100%;
+            background-color: #FE6603;
+            color:#fff;
+          }
       }
       .e-cu {
         cursor: pointer;

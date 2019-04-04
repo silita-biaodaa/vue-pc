@@ -43,7 +43,7 @@
             </div>
             <el-button class="e-btn" @click="register" >立即注册</el-button>
             <div class="e-enroll">
-                已有帐号，<span class="e-color" @click="jump" >返回登陆</span> 
+                已有帐号，<span class="e-color" @click="jump" >返回登录</span> 
             </div>
         </div>
     </div>
@@ -223,10 +223,11 @@ export default {
           padding-top: 10px;
           margin-bottom: 8px;
         }
-        .e-btn {
-           background-color: #fe6603;
-
-        }
+         .e-btn {
+            width: 100%;
+            background-color: #FE6603;
+            color:#fff;
+          }
       }
 }
 </style>

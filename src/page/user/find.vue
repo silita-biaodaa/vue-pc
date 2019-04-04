@@ -29,7 +29,7 @@
             <el-button class="e-btn" @click="register" >确定</el-button>
 
             <div class="e-color e-mb" @click="jump" >
-              返回登陆
+              返回登录
             </div>
         </div>
 </div>
@@ -158,6 +158,11 @@ export default {
           .e-co {
             color:#999;
           }
+        }
+         .e-btn {
+          width: 100%;
+          background-color: #FE6603;
+          color:#fff;
         }
       }
 }
