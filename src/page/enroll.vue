@@ -223,6 +223,10 @@ export default {
           padding-top: 10px;
           margin-bottom: 8px;
         }
+        .e-btn {
+           background-color: #fe6603;
+
+        }
       }
 }
 </style>
