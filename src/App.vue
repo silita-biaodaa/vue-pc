@@ -22,17 +22,27 @@
           </div>
           <div class="contact-r">
             
-            <p @click="jumpen">
+            <p @click="jumpen" v-if="names"  >
               免费注册
             </p>
-            <p class="line">
+            <p class="line" v-if="names" >
              </p>
              <p @click="jumpl" v-if="names" >
                请登录
              </p>
-             <p v-else @click="touser" >
-               {{name}}
-             </p>
+             <!-- <p @click="touser" >
+               
+             </p> -->
+              <el-dropdown  v-else >
+                 <span class="el-dropdown-link">
+                   {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+                 </span>
+                 <el-dropdown-menu slot="dropdown">
+                   <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
+                   <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+                   <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
+                 </el-dropdown-menu>
+               </el-dropdown>
              <!-- <p class="area">
                <i class="iconfont icon-dizhi"></i>
               湖南
@@ -117,6 +127,7 @@ export default {
   data() {
     return {
       show:true,
+      isshow:true,
       // rear:true,
         names:true,
        navlist:[
@@ -198,6 +209,23 @@ export default {
     },
     touser() {
       this.$router.push('/user')
+    },
+    amend() {
+      this.$router.push('/find')
+    },
+    quit() {
+        sessionStorage.removeItem('xtoken')
+        localStorage.removeItem('Bname')
+        localStorage.removeItem('Authorization')
+          this.$router.replace({
+           path: '/home',
+           query: {
+             t: Date.now()
+           }
+          })
+    },
+    user() {
+      this.$router.push('/user')
     }
   },
   created () {
@@ -263,7 +291,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 9999;
+    z-index: 99;
     width: 100%;
   }
   .app-header { 

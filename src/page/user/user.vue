@@ -3,15 +3,14 @@
   <div class="user-nav">
      <div class="in-nav">
        <img src="../../assets/img/logo2.png" alt="" @click="jump">
-       <el-dropdown>
+       <el-dropdown >
          <span class="el-dropdown-link">
            用户中心<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
          </span>
          <el-dropdown-menu slot="dropdown">
            <el-dropdown-item>个人设置</el-dropdown-item>
-           <el-dropdown-item>我得关注</el-dropdown-item>
-           <el-dropdown-item>修改密码</el-dropdown-item>
-           <el-dropdown-item>退出登录</el-dropdown-item>
+           <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+           <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
          </el-dropdown-menu>
         </el-dropdown>
      </div>
@@ -59,13 +58,12 @@ export default {
         {
           name:'个人信息',
           i: true
-        },{
-          name:'我得关注',
-          i:false
-        },{
+        }
+        ,{
           name:'修改密码',
           i:false
-        },{
+        }
+        ,{
           name:'退出登录',
           i:false
         }
@@ -101,8 +99,17 @@ export default {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Authorization')
-         this.$router.push('/home')
+        this.$router.push('/home')
       }
+    },
+    amend() {
+      this.$router.push('/find')
+    },
+    quit() {
+        sessionStorage.removeItem('xtoken')
+        localStorage.removeItem('Bname')
+        localStorage.removeItem('Authorization')
+        this.$router.push('/home')
     }
   },
   created () {

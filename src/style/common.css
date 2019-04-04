@@ -175,3 +175,6 @@ figcaption:focus {
 .pdet .el-select {
   display: block;
 }
+.logo .el-checkbox__input.is-checked + .el-checkbox__label {
+  color: #999;
+}

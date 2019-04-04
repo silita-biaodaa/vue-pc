@@ -33,7 +33,7 @@
               <div class="e-i">
                 <i class="iconfont icon-gongwenbao" ></i>
               </div>
-              <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
+              <el-input v-model="password" type="password" placeholder="请输入8-20位字母数字组合密码"></el-input>
             </div>
             
             <div class="e-forget">
