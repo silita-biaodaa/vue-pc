@@ -24,9 +24,13 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) { // ①10010 token过期（30天） ②10011 token无效
   console.log(response,'查看');
   if (response.data.code == 401 ) {
-    console.log('进来');
     localStorage.removeItem('Authorization')
     sessionStorage.removeItem('xtoken')
+    this.$notify({
+      title: '提示',
+      message: '用户信息失效,请重新登录',
+      offset: 100
+    });
     window.location.href = "http://pre-new.biaodaa.com/#/logo";
   }
   return response
