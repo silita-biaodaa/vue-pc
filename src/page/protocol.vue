@@ -45,14 +45,13 @@ export default {
   padding-top: 200px;
   padding-bottom: 200px;
   .pr-content {
-    
     margin: 0 auto;
-    
   }
   .p-text {
     padding: 50px;
     background-color: #fff;
     width: 1020px;
+     margin: 0 auto;
     box-sizing: border-box;
   }
 }

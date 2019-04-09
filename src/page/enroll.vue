@@ -18,13 +18,13 @@
               <div class="e-i">
                 <i class="iconfont icon-ren111" ></i>
               </div>
-              <el-input v-model="mobile"  placeholder="请输入您的手机号" autocomplete = "off" ></el-input>
+              <el-input v-model="mobile"  placeholder="请输入您的手机号"  autocomplete="new-password" ></el-input>
             </div>
             <div class="e-ipt e-my">
               <div class="e-i">
                 <i class="iconfont icon-mn_dunpai" ></i>
               </div>
-              <el-input v-model="note"  placeholder="短信验证码" autocomplete = "off" ></el-input>
+              <el-input v-model="note"  placeholder="短信验证码"  autocomplete="new-password" ></el-input>
               <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
                 {{Message}}
               </div>
@@ -33,7 +33,7 @@
               <div class="e-i">
                 <i class="iconfont icon-gongwenbao" ></i>
               </div>
-              <el-input v-model="password" type="password" autocomplete = "off"  placeholder="请设置密码(不低于8位)"></el-input>
+              <el-input v-model="password" type="password"  autocomplete="new-password"  placeholder="请设置密码(不低于8位)"></el-input>
             </div>
             
             <div class="e-forget">

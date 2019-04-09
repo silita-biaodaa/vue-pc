@@ -5,26 +5,26 @@
             <div class="e-title e-color">
               找回密码
             </div>
-             <div class="l-error" v-show="error" >
+             <div class="l-error" v-show="error" >      
               提示：{{msg}}
             </div>
             <!-- <div class="l-error" v-show="erro" >
               提示：请确保两次密码一致
             </div> -->
             <div class="e-ipt ">
-              <el-input v-model="mobile"  placeholder="请输入您的手机号" autocomplete = "off" ></el-input>
+              <el-input v-model="mobile"  placeholder="请输入您的手机号"  autocomplete="new-password" ></el-input>
             </div>
             <div class="e-ipt l-find">
-              <el-input v-model="note" autocomplete="off"        placeholder="短信验证码" ></el-input>
+              <el-input v-model="note" autocomplete="new-password"  type='text'  placeholder="短信验证码" ></el-input>
               <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
                 {{Message}}
               </div>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password" type="password" placeholder="请设置密码(不低于8位)" autocomplete = "off" ></el-input>
+              <el-input v-model="password" type="password" placeholder="请设置密码(不低于8位)"  autocomplete="new-password"></el-input>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password1" type="password" placeholder="再次确认密码" autocomplete = "off" ></el-input>
+              <el-input v-model="password1" type="password" placeholder="再次确认密码"  autocomplete="new-password" ></el-input>
             </div>
             <el-button class="e-btn" @click="register" >确定</el-button>
 
