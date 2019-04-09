@@ -7,9 +7,9 @@
          <span class="el-dropdown-link">
            用户中心<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
          </span>
-         <el-dropdown-menu slot="dropdown">
+         <el-dropdown-menu slot="dropdown" trigger="click" >
            <el-dropdown-item>个人设置</el-dropdown-item>
-           <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+           <!-- <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item> -->
            <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
          </el-dropdown-menu>
         </el-dropdown>
@@ -59,10 +59,10 @@ export default {
           name:'个人信息',
           i: true
         }
-        ,{
-          name:'修改密码',
-          i:false
-        }
+        // ,{
+        //   name:'修改密码',
+        //   i:false
+        // }
         ,{
           name:'退出登录',
           i:false

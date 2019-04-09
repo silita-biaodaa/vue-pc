@@ -103,7 +103,7 @@ export default {
           }
         })
       } else {
-        if(!this.this.checked) {
+        if(!this.checked) {
             this.error = true
             this.msg = '请查阅并同意用户协议'
         }  

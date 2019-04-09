@@ -59,13 +59,13 @@
                     <span class="left">{{el.name}}</span> 
                   </div>
             </router-link>
-            <li>
+            <!-- <li>
               <div @click="jumpto" >
                 <span>
                   旧版本
                 </span>
               </div>
-            </li>
+            </li> -->
         </ul>
         </div>
     </div>
@@ -377,7 +377,7 @@ export default {
       box-sizing: border-box;
       li {
         box-sizing: border-box;
-        width: 20%;
+        width: 25%;
         height: 50px;
         line-height: 50px;
         float: left;
