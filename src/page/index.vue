@@ -21,7 +21,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <router-link class="left h-i" v-for="el of queryLists" :key="el.title" tag="a" :to="{path:'/article',query:{id:el.id} }"  target='_blank' >
+                 <a class="left h-i" v-for="el of queryLists" :key="el.title" @click='bidto(el)' >
                     <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
@@ -34,7 +34,7 @@
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
-                 </router-link>
+                 </a>
           </div>
       </div>
 
@@ -48,7 +48,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <router-link class="left" v-for="el of biddings" :key="el.id" tag="a" :to="{path:'/notice',query:{id:el.id} }"  target='_blank' >
+                 <a class="left" v-for="el of biddings" :key="el.id"  @click='decide(el)' >
                     <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
@@ -61,7 +61,7 @@
                        <p>中标金额：<span>{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
-                 </router-link>
+                 </a>
 
           </div>
       </div>
@@ -76,7 +76,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <router-link class="left" v-for="el of companys" :key="el.id" tag="a" target='_blank' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" @click.native='store(el)'  >
+                 <a class="left" v-for="el of companys" :key="el.id"  @click='comto(el)'  >
                     <p class="t-line" :title='el.comName'>
                       {{el.comName}}
                       <i class="t-p">
@@ -89,7 +89,7 @@
                        <p>电话：<span>{{el.phone ? el.phone : '暂无' }}</span></p>
                        <p :title='el.comAddress' >地址：{{el.comAddress}}</p>
                     </div>
-                 </router-link>
+                 </a>
           </div>
       </div>
 
@@ -252,6 +252,60 @@ export default {
     }
   },
   methods: {
+    comto(el) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+    },
+    bidto(el) {
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/article',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+    },
+    decide(el){
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+          const { href } = this.$router.resolve({
+          path:'/notice',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+    },
     seaI(el) {
       this.rank = el.i
     },

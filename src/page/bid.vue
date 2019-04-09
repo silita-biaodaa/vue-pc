@@ -81,7 +81,7 @@
 
      <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
          <!-- <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' > -->
-         <a   v-for="(el,i ) of queryLists" :key="i" @click='decide'  >
+         <a   v-for="(el,i ) of queryLists" :key="i" @click='decide(el)'  >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}

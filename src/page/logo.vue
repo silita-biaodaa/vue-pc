@@ -12,7 +12,7 @@
               用户登录  
             </div>
             <div class="l-error" v-show="error" >
-              提示：请重新输入正确手机号码格式和密码
+              提示：{{msg}}
             </div>
             <div class="e-ipt">
               <div class="e-i">
@@ -56,7 +56,8 @@ export default {
       mobile:'',
       password:'',
       checked:false,
-      error:false
+      error:false,
+      msg:'请重新输入正确手机号码格式和密码'
     }
   },
   methods: {
@@ -79,14 +80,9 @@ export default {
               sessionStorage.setItem('xtoken',token)
               localStorage.removeItem('Authorization')
             }
-            
             this.$router.push('/home')
          } else {
-           this.$notify({
-            title: '提醒',
-            message: res.msg,
-            offset: 100   
-          });
+            this.msg = res.msg
          }
       })
 

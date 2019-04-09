@@ -200,7 +200,7 @@
           
         
         <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
-        <a v-for='(el,i) in companylisy' :key='i' @click='decide'  >
+        <a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'  >
             <div class="left " style="width:80px;">
               {{i+1}}
            </div>
@@ -720,7 +720,7 @@ export default {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
     },
-    decide() {
+    decide(el) {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
           const { href } = this.$router.resolve({
           path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 

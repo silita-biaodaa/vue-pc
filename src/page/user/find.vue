@@ -6,25 +6,25 @@
               找回密码
             </div>
              <div class="l-error" v-show="error" >
-              提示：请重新输入正确手机号码格式和密码,短信验证码
+              提示：{{msg}}
             </div>
-            <div class="l-error" v-show="erro" >
+            <!-- <div class="l-error" v-show="erro" >
               提示：请确保两次密码一致
-            </div>
+            </div> -->
             <div class="e-ipt ">
               <el-input v-model="mobile"  placeholder="请输入您的手机号" autocomplete = "off" ></el-input>
             </div>
             <div class="e-ipt l-find">
-              <el-input v-model="note"  placeholder="短信验证码" autocomplete = "off" ></el-input>
+              <el-input v-model="note" autocomplete="off"        placeholder="短信验证码" ></el-input>
               <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
                 {{Message}}
               </div>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password" type="password" placeholder="请输入新密码" autocomplete = "off" ></el-input>
+              <el-input v-model="password" type="password" placeholder="请设置密码(不低于8位)" autocomplete = "off" ></el-input>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password1" type="password" placeholder="确认密码" autocomplete = "off" ></el-input>
+              <el-input v-model="password1" type="password" placeholder="再次确认密码" autocomplete = "off" ></el-input>
             </div>
             <el-button class="e-btn" @click="register" >确定</el-button>
 
@@ -46,7 +46,8 @@ export default {
       mobile:'',
       note:'',
       password:'',
-      password1:''
+      password1:'',
+      msg:'请重新输入正确手机号码格式和密码,短信验证码',
     }
   },
   methods: {
@@ -60,44 +61,40 @@ export default {
       if(this.note.trim() == '') {
          return this.error = true
       } 
-      if(this.password.trim() == '' || this.password1.trim() =='') {
+      if(this.password.trim() == '' || this.password1.trim() =='' || !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
+        this.msg = '请设置密码(不低于8位)'
          return this.error = true
+
       }else if(this.password.trim() !== this.password1.trim()) {
-        this.error = false
-        return this.erro = true
+        this.error = true
+        return this.msg = '请确保两次密码一致'
       }
       updatePwd({loginPwd:sha1(this.password1.trim()),verifyCode:this.note.trim(),phoneNo:this.mobile.trim(),channel:'1003'}).then( res => {
         if(res.code == 1) {
-           this.$notify({
-           title: '提醒',
-           message: '密码修改成功',
-           offset: 100   
-          });
+           this.error = true
+           this.msg = res.msg
            this.$router.push('/logo')
+        } else {
+          this.error = true
+          this.msg = res.msg
         }
       })
     },
       gainCode() {
       if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.mobile.trim()))) {
-         return this.$notify({
-          title: '提醒',
-          message: '请输入正确的手机号码',
-          offset: 100   
-         });
+         this.error = true
+         this.msg = '请输入正确的手机号码'
+         return false
       }
       if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {
         return
       } else {
-        
         getVerifyCode({type:2,invitationPhone:this.mobile.trim()}).then( res => {
           if(res.code == 1) {
             
           } else {
-             this.$notify({
-               title: '提醒',
-               message: res.msg,
-               offset: 100   
-              });
+              this.error = true
+              this.msg =  res.msg
           }
            this.Message = 60
             var myVar = setInterval(() =>{
@@ -120,6 +117,11 @@ export default {
 <style lang="less" scoped>
 .find {
   background-color: #FAFAFA;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
     .l-enter {
         width: 350px;
         height: 436px;

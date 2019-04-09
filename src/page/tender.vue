@@ -69,7 +69,7 @@
       共搜索到<span>{{total}}</span>条中标公告
     </div>
     <div class="t-list" v-show="Snone" v-loading="loading" element-loading-text="拼命加载中">
-         <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide" >
+         <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide(el)" >
            <div class="m-bt">
               <p class="left m-rg">
                 {{i +1 }}

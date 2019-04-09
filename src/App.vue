@@ -75,7 +75,7 @@
          <router-view :state='source' />
     </div>
 
-    <div class="footer "  v-show="exploit"  >
+    <div class="footer "  v-show="exploit" :class=" judbt ? 'f-btt' : '' "  >
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">
@@ -266,6 +266,14 @@ export default {
         return true
       }
     },
+    // 是否固定在底部
+    judbt() {
+      if(this.$route.name == 'find') {
+        return true
+      } else {
+        return false
+      }
+    }
   },
 }
 </script>
