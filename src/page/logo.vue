@@ -18,7 +18,7 @@
               <div class="e-i">
                 <i class="iconfont icon-ren111" ></i>
               </div>
-              <el-input v-model="mobile"  placeholder="请输入您的手机号"></el-input>
+              <el-input v-model="mobile"  placeholder="请输入您的手机号"  ></el-input>
             </div>
             <div class="e-ipt">
               <div class="e-i">

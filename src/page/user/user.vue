@@ -29,7 +29,7 @@
             <div class="user-day">
               剩余天数: <span class="p-color" >{{day}}</span>天
             </div>
-            <div class="user-btn">会员续费
+            <div class="user-btn" @click="jumpapp" >会员续费
             </div>
          </div>
          <div class="user-tab" >
@@ -82,7 +82,7 @@ export default {
        if(res.code ==1 ) {
          this.userData = res.data
          let gap = new Date(this.userData.expiredDate).getTime() - new Date().getTime()
-         this.day = Math.ceil(gap/3600/24/1000);
+         this.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0;
           if(this.userData.roleName == '会员用户') {
             this.state = '会员'
           } else {
@@ -101,6 +101,9 @@ export default {
         localStorage.removeItem('Authorization')
         this.$router.push('/home')
       }
+    },
+    jumpapp() {
+       this.$router.push('/download')
     },
     amend() {
       this.$router.push('/find')
@@ -192,6 +195,7 @@ export default {
        font-size: 16px;
        color:#FE6603; 
        font-weight: 550;
+       cursor: pointer;
      }
      .user-tab {
        width: 262px;

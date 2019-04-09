@@ -14,18 +14,21 @@
              <div class="l-error" v-show="error" >
               提示：请重新输入正确手机号码格式和密码,短信验证码
             </div>
+             <div class="l-error" v-show="erpass" >
+              提示：请输入8-16位包含字母或数字的密码
+            </div>
             <div class="e-ipt ">
               <div class="e-i">
                 <i class="iconfont icon-ren111" ></i>
               </div>
-              <el-input v-model="mobile"  placeholder="请输入您的手机号"></el-input>
+              <el-input v-model="mobile"  placeholder="请输入您的手机号" autocomplete = "off" ></el-input>
             </div>
             <div class="e-ipt e-my">
               <div class="e-i">
                 <i class="iconfont icon-mn_dunpai" ></i>
               </div>
-              <el-input v-model="note"  placeholder="短信验证码"></el-input>
-              <div class="e-code" @click="gainCode" :class="Message == '获取验证' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
+              <el-input v-model="note"  placeholder="短信验证码" autocomplete = "off" ></el-input>
+              <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
                 {{Message}}
               </div>
             </div>
@@ -33,7 +36,7 @@
               <div class="e-i">
                 <i class="iconfont icon-gongwenbao" ></i>
               </div>
-              <el-input v-model="password" type="password" placeholder="请输入8-20位字母数字组合密码"></el-input>
+              <el-input v-model="password" type="password" autocomplete = "off"  placeholder="请输入8-16位包含字母或数字的密码"></el-input>
             </div>
             
             <div class="e-forget">
@@ -64,43 +67,58 @@ export default {
       password:'',
       checked:true,
       note:'',
-      Message:'获取验证',
-      error:false
+      Message:'获取验证码',
+      error:false,
+      erpass:false,
+      pass: true
     }
   },
   methods: {
     register() {
+      this.pass = true
       if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.mobile.trim()))) {
+         this.pass = false
          return this.error = true
       }
        if(this.note.trim() == '') {
+         this.pass = false
          return this.error = true
       }
-       if(this.password.trim() == '') {
-         return this.error = true
+       if( this.password.trim() == '' || !(/[0-9A-Za-z]{8,16}$/.test(this.password)))  {
+   
+         this.pass = false
+         this.erpass = true
+         return this.error = false
       }
-      if(this.checked) {
+      if(this.checked && this.pass ) {
          memberRegister({verifyCode:this.note.trim(),phoneNo:this.mobile.trim(),channel:'1003',clientVersion:'3.0',loginPwd:sha1(this.password.trim())}).then( res => {
           if(res.code == 1) {
+            this.$notify({
+            title: '提醒',
+            message: '注册成功',
+            offset: 100   
+          });
             let token = res.data.xtoken
             let name = res.data.nikeName
             localStorage.setItem('Bname',name)
             localStorage.setItem('Authorization',token)
             this.$router.push('/home')
           } else {
-             this.$notify({
-              title: '提醒',
-              message: res.msg,
-              offset: 100   
-            });
+                 this.$notify({
+                title: '提醒',
+                message: res.msg,
+                offset: 100   
+              });
           }
         })
       } else {
-         this.$notify({
-            title: '提醒',
-            message: '请查阅并同意用户协议',
-            offset: 100   
-          });
+        if(!this.this.checked) {
+          this.$notify({
+             title: '提醒',
+             message: '请查阅并同意用户协议',
+             offset: 100   
+           });
+        }  
       }
      
 
@@ -113,7 +131,7 @@ export default {
           offset: 100   
          });
       }
-      if(!(this.Message  == '获取验证') && !(this.Message  == '重新发送')  ) {
+      if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {
         return
       } else {
         

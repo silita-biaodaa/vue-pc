@@ -33,7 +33,7 @@
              <!-- <p @click="touser" >
                
              </p> -->
-              <el-dropdown  v-else >
+              <el-dropdown  v-else trigger="click" >
                  <span class="el-dropdown-link">
                    {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
                  </span>

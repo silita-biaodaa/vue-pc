@@ -9,22 +9,22 @@
               提示：请重新输入正确手机号码格式和密码,短信验证码
             </div>
             <div class="l-error" v-show="erro" >
-              提示：请确保两次密码
+              提示：请确保两次密码一致
             </div>
             <div class="e-ipt ">
-              <el-input v-model="mobile"  placeholder="请输入您的手机号"></el-input>
+              <el-input v-model="mobile"  placeholder="请输入您的手机号" autocomplete = "off" ></el-input>
             </div>
             <div class="e-ipt l-find">
-              <el-input v-model="note"  placeholder="短信验证码"></el-input>
+              <el-input v-model="note"  placeholder="短信验证码" autocomplete = "off" ></el-input>
               <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
                 {{Message}}
               </div>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password" type="password" placeholder="请输入新密码"></el-input>
+              <el-input v-model="password" type="password" placeholder="请输入新密码" autocomplete = "off" ></el-input>
             </div>
             <div class="e-ipt">
-              <el-input v-model="password1" type="password" placeholder="确认密码"></el-input>
+              <el-input v-model="password1" type="password" placeholder="确认密码" autocomplete = "off" ></el-input>
             </div>
             <el-button class="e-btn" @click="register" >确定</el-button>
 
@@ -36,6 +36,7 @@
 </template>
 <script>
 import { getVerifyCode,updatePwd } from '@/api/index'
+let sha1 = require("sha1");
 export default {
   data () {
     return {
@@ -65,10 +66,14 @@ export default {
         this.error = false
         return this.erro = true
       }
-      updatePwd({loginPwd:this.password1.trim(),verifyCode:this.note.trim(),phoneNo:this.mobile.trim(),channel:'1003'}).then( res => {
-        console.log(res)
+      updatePwd({loginPwd:sha1(this.password1.trim()),verifyCode:this.note.trim(),phoneNo:this.mobile.trim(),channel:'1003'}).then( res => {
         if(res.code == 1) {
-          
+           this.$notify({
+           title: '提醒',
+           message: '密码修改成功',
+           offset: 100   
+          });
+           this.$router.push('/logo')
         }
       })
     },
@@ -85,7 +90,6 @@ export default {
       } else {
         
         getVerifyCode({type:2,invitationPhone:this.mobile.trim()}).then( res => {
-          console.log(res)
           if(res.code == 1) {
             
           } else {
