@@ -13,9 +13,6 @@ axios.defaults.baseURL = baseURL
 axios.interceptors.request.use(function (config) {
   // 将token给到一个前后台约定好的key中，作为请求发送
   let token = sessionStorage.getItem('xtoken') ? sessionStorage.getItem('xtoken') : (localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '' );
-  // let token = 'biaodaaTestToken'
-
-
   if (token) {
     config.headers['X-TOKEN'] = token
   }
@@ -25,12 +22,12 @@ axios.interceptors.request.use(function (config) {
 })
 
 axios.interceptors.response.use(function (response) { // ①10010 token过期（30天） ②10011 token无效
-  if (response.data.code === 401 ) {
+  console.log(response,'查看');
+  if (response.data.code == 401 ) {
+    console.log('进来');
     localStorage.removeItem('Authorization')
     sessionStorage.removeItem('xtoken')
-    this.$router.replace({
-      path: '/logo' // 到登录页重新获取token
-    })
+    window.location.href = "http://pre-new.biaodaa.com/#/logo";
   }
   return response
 }, function (error) {

@@ -379,7 +379,7 @@ export default {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
     },
-    decide() {
+    decide(el) {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
           const { href } = this.$router.resolve({
           path:'/notice',query:{id:el.id,source:el.source} 

@@ -6,7 +6,7 @@
   <div class="det-put">
     <div>
       <div class="put-l ">
-        <div class="put-w m-r">账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号:</div><el-input  v-model="account" placeholder="请输入账号" ></el-input>
+        <div class="put-w m-r">账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号:</div><el-input  v-model="account" disabled placeholder="请输入账号" ></el-input>
       </div>
       <div class="put-l ">
         <div class="put-w m-r">昵&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp称:</div><el-input  v-model="nickname" placeholder="请输入昵称" ></el-input>

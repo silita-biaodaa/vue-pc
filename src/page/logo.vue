@@ -82,6 +82,7 @@ export default {
             }
             this.$router.push('/home')
          } else {
+            this.error = true
             this.msg = res.msg
          }
       })

@@ -166,9 +166,14 @@ export default {
        margin-bottom: 14px;
      }
      .user-name {
+       max-width: 180px;
        font-size: 18px;
        font-weight: 500;
        margin-right: 14px;
+       text-align: center;
+       text-overflow: ellipsis;
+       overflow: hidden;
+       white-space: nowrap;
      }
      .user-state {
        padding: 0 10px;
