@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-// const baseURL = 'http://api.biaodaa.com/'
-const baseURL = 'http://pre.biaodaa.com/'
+const baseURL = 'http://api.biaodaa.com/'
+// const baseURL = 'http://pre.biaodaa.com/'
 // const baseURL = '/' 
 
 
@@ -27,7 +27,7 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
     localStorage.removeItem('Authorization')
     sessionStorage.removeItem('xtoken')
     alert('用户信息失效，请重新登录')
-    window.location.href = "http://pre-new.biaodaa.com/#/logo";
+    window.location.href = "http://www.biaodaa.com/#/logo";
   }
   return response
 }, function (error) {
