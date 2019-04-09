@@ -39,7 +39,7 @@
                  </span>
                  <el-dropdown-menu slot="dropdown">
                    <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
-                   <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+                   <!-- <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item> -->
                    <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
                  </el-dropdown-menu>
                </el-dropdown>
