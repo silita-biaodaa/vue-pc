@@ -11,7 +11,7 @@
           </el-carousel>
       </div> 
 
-      <div class="b-content">
+      <div class="b-content" v-show="biding" >
           <div class="title">
               <p>               
                  最新招标
@@ -38,7 +38,7 @@
           </div>
       </div>
 
-      <div class="b-content">
+      <div class="b-content" v-show="tendering">
           <div class="title">
               <p>               
                  最新中标
@@ -240,6 +240,8 @@ export default {
        queryLists:[],
        biddings:[],
        companys:[],
+       biding:true,
+       tendering:true
     }
   },
   props: {
@@ -247,8 +249,8 @@ export default {
   },
   watch: {
     state(val) {
-      console.log(val)
-      console.log(this.state,1)
+      this.gainqueryList()
+      this.gainten()
     }
   },
   methods: {
@@ -324,19 +326,28 @@ export default {
       })
     },
     text() {
-      console.log(111)
     },
     gainqueryList() {
-      queryList({pageNo:1,type:'0',pageSize:8,regions:this.province}).then(res => {
+      queryList({pageNo:1,type:'0',pageSize:8,regions:this.state}).then(res => {
+        console.log(res);
          if(res.code == 1 ) {
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
              el.date = moment(date).format('YYYY年MM月DD日')
           });
             this.queryLists = res.data
+            if( this.queryLists.length == 0) {
+              this.biding  = false
+            } else {
+              this.biding  = true
+            }
          }
       })
-      queryList({pageNo:1,type:'2',pageSize:8,regions:this.province}).then(res => {
+     
+    },
+    gainten() {
+       queryList({pageNo:1,type:'2',pageSize:8,regions:this.state}).then(res => {
+        console.log(res);
          if(res.code == 1 ) {
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
@@ -344,6 +355,11 @@ export default {
 
           });
             this.biddings = res.data
+             if( this.queryLists.length == 0) {
+              this.tendering  = false
+            } else {
+              this.tendering  = true
+            }
          }
       })
     },
@@ -369,6 +385,7 @@ export default {
     this.area = localStorage.getItem('area') 
     this.gainfoundation()
     this.gainqueryList()
+    this.gainten()
     this.gainCompany()
   },
   components: {
@@ -434,7 +451,7 @@ export default {
             background-color: #EC7522;
             left: 0;
             bottom: -1px;
-            z-index: 999;
+            z-index: 9;
           }
           .t-in {
             height: 3px;

@@ -70,6 +70,7 @@ export default {
       updateUserTemp({inCompany:this.firm.trim(),sex:this.sex,nikeName:this.nickname.trim(),position:this.duty.trim(),userName:this.name.trim()}).then(res => {
         console.log(res);
         if(res.code == 1) {
+            localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',this.nickname.trim())
            if(sessionStorage.getItem('xtoken')) {
              sessionStorage.setItem('xtoken',res.data.xtoken)

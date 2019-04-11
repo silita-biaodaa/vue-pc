@@ -9,7 +9,7 @@
          </span>
          <el-dropdown-menu slot="dropdown" trigger="click" >
            <el-dropdown-item>个人设置</el-dropdown-item>
-           <!-- <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item> -->
+           <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
            <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
          </el-dropdown-menu>
         </el-dropdown>
@@ -44,7 +44,9 @@
          </div>
       </div>
       <div class="text-right">
-        <p-Det></p-Det>
+        <p-Det v-if="this.name == '个人信息'"></p-Det>
+        <p-root v-else-if="this.name == '修改密码'" ></p-root>
+        <f-coll v-else-if="this.name == '我的关注'"  ></f-coll>
       </div>
    </div>
 </div>
@@ -58,16 +60,21 @@ export default {
         {
           name:'个人信息',
           i: true
+        },
+        {
+          name:'我的关注',
+          i:false
         }
-        // ,{
-        //   name:'修改密码',
-        //   i:false
-        // }
+        ,{
+          name:'修改密码',
+          i:false
+        }
         ,{
           name:'退出登录',
           i:false
         }
       ],
+      name:'个人信息',
       userData:{},
       day:0,
       state:''
@@ -93,13 +100,18 @@ export default {
       })
     },
     jumpto(el) {
-      if(el.name == '修改密码') {
-         this.$router.push('/find')
-      } else if(el.name == '退出登录') {
+     if(el.name == '退出登录') {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Authorization')
+         localStorage.removeItem('permissions')
         this.$router.push('/home')
+      } else {
+        this.name = el.name
+        this.tab.forEach( li => {
+           li.i = false 
+        })
+        el.i = true
       }
     },
     jumpapp() {
@@ -112,6 +124,7 @@ export default {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Authorization')
+         localStorage.removeItem('permissions')
         this.$router.push('/home')
     }
   },
@@ -241,7 +254,6 @@ export default {
    }
    .text-right {
      width: 100%;
-     background-color: #fff;
      margin-left: 29px;
      margin-bottom: 150px;
    }

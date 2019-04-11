@@ -233,7 +233,7 @@
   <div class="noneS" v-show="Snone">
       <img src="../assets/img/card.png" alt="">
   </div>
-
+<f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -241,7 +241,8 @@ import { filter,companys } from '@/api/index'
 export default {
   data () {
     return {
-       area:'湖南',
+       svip:false,
+       area:'',
        Snone:false,
        loading:false,
       areas:[
@@ -421,6 +422,9 @@ export default {
        present:9
     }
   },
+   props: {
+    state:''
+  },
   watch: {
     companyQual(val) {
       this.major = ''
@@ -476,8 +480,17 @@ export default {
          }
       });
     },
+     state(val) {
+      this.area = val
+      this.current = 1
+      this.loading = true
+      this.again()
+    }
   },
   methods: {
+    closeload(val) {
+      this.svip = val.cur
+    },
     gainFilter() {
       filter({}).then( res => {
          if(res.code == 1 ) {
@@ -499,23 +512,41 @@ export default {
       })
     },
     again() {
-       this.allstr = this.allarr.join(",")
-       this.loading = true
-       if(this.rank == 0 ) {
-         this.gainCompany()
-       } else {
-         companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-         this.companylisy = res.data
-         this.total = res.total
-         this.loading = false
-         this.present = res.pageNum
-         if(this.total == 0 ) {
-            this.Snone = true
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
           } else {
-            this.Snone = false
+             this.allstr = this.allarr.join(",")
+             this.loading = true
+             if(this.rank == 0 ) {
+               this.gainCompany()
+             } else {
+               companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
+               this.companylisy = res.data
+               this.total = res.total
+               this.loading = false
+               this.present = res.pageNum
+               if(this.total == 0 ) {
+                  this.Snone = true
+                } else {
+                  this.Snone = false
+                }
+              })
+             }
           }
-        })
-       }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+      }
+     
     },
     add() {
       if(this.two) {
@@ -525,34 +556,89 @@ export default {
 
     },
     eval(el) {
-      if(this.loading) {
-        return
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+             if(this.loading) {
+                return
+              }
+              this.current = 1
+              this.area = el.name
+              this.loading = true
+              this.again()
+          }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
       }
-      this.current = 1
-      this.area = el.name
-      this.loading = true
-      this.again()
+
+     
     },
     evalsum(el) {
-      if(this.loading) {
-        return
-      }
-      this.rank = 0 
-      this.low = '',
-      this.high = '',
-      this.start = el.s,
-      this.end = el.e 
-      this.current = 1
-      this.loading = true
-      this.again()
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+            if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
+              this.svip = true
+              this.modalHelper.afterOpen();
+            } else {
+              if(this.loading) {
+                return
+              }
+              this.rank = 0 
+              this.low = '',
+              this.high = '',
+              this.start = el.s,
+              this.end = el.e 
+              this.current = 1
+              this.loading = true
+              this.again()
+            }
+        } else {
+              this.$confirm('暂无权限，请先登录', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$router.push('/logo')
+            }).catch(() => {
+
+            });
+        }
+
+
     },
     gainList() {
-      this.current = 1
-      this.rank = 1
-      this.start = ''
-      this.end = '' 
-      this.loading = true
-      this.again()
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+            if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
+              this.svip = true
+              this.modalHelper.afterOpen();
+            } else {
+                this.current = 1
+                this.rank = 1
+                this.start = ''
+                this.end = '' 
+                this.loading = true
+                this.again()
+            }
+        } else {
+              this.$confirm('暂无权限，请先登录', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$router.push('/logo')
+            }).catch(() => {
+
+            });
+        }
     },
     transt() {
       this.five = true
@@ -740,6 +826,7 @@ export default {
     }
   },
   created () {
+    this.area = this.state
     this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainFilter()

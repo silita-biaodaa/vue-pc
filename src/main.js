@@ -18,10 +18,43 @@ import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
 import  logoNav from '@/components/logoNav'
 import pDet from '@/components/pdet'
+import root from '@/components/root'
+import fvip from '@/components/fvip'
+import fcoll from '@/components/collect'
+import bidlist from '@/components/bidlist'
+import tenlist from '@/components/tenlist'
+import qylist from '@/components/qylist'
+
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
 Vue.component('p-Det', pDet)
+Vue.component('p-root', root)
+Vue.component('f-vip', fvip)
+Vue.component('f-coll', fcoll)
+Vue.component('ten-list', tenlist)
+Vue.component('bid-list', bidlist)
+Vue.component('qy-list', qylist)
+
+
+
+
+Vue.prototype.modalHelper = (function () {
+  var scrollTop;
+  return {
+    afterOpen: function () {
+      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      document.body.style.cssText += 'position:fixed;width:100%;top:-' + scrollTop + 'px;';
+    },
+    beforeClose: function () {
+      var body = document.body;
+      body.style.position = '';
+      var top = body.style.top;
+      document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+      body.style.top = '';
+    }
+  };
+})();
 
 
 

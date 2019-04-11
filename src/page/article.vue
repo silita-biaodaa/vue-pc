@@ -7,7 +7,13 @@
       </p>
       <div class="date">
         <span>{{articles.opendate}}</span>
-        <span>点击数：<i>{{clickCount}}</i></span>
+        <div>
+          <span class="left">点击数：<i>{{clickCount}}</i></span>
+          <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+            <i class="el-icon-plus"></i>{{collect}}
+          </div>
+        </div>
+        
       </div>
    </div>
 
@@ -42,7 +48,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { getJsonData } from '@/api/index'
+import { getJsonData,collectionNotice,nocollectionNotice } from '@/api/index'
 export default {
   data () {
     return {
@@ -50,10 +56,13 @@ export default {
       articles:{},
       clickCount:0,
       relCompanySize:0,
-      source:''
+      source:'',
+      iscollect:true,
+      collect:'关注',
     }
   },
   methods: {
+    
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'0',
@@ -66,6 +75,12 @@ export default {
                this.articles = res.data[0]
                this.clickCount = res.clickCount
                this.relCompanySize = res.relCompanySize
+               this.iscollect = res.data[0].collected
+               if(this.iscollect) {
+                 this.collect = '已关注'
+               } else {
+                 this.collect = '关注'
+               }
             }
         });
     },
@@ -82,6 +97,24 @@ export default {
         window.open(href, '_blank', )
       }
      
+    },
+    gaincollect() {
+      if(this.iscollect) {
+        nocollectionNotice({noticeid:this.id,source:this.source}).then(res => {
+          if(res.code = 1) {
+            this.iscollect = false
+            this.collect = '关注'
+          }
+        })
+      } else {
+        collectionNotice({noticeid:this.id,type:'0',source:this.source}).then(res => {
+          if(res.code = 1) {
+            this.iscollect = true
+            this.collect = '已关注'
+          }
+        })
+      }
+    
     }
   },
   created () {
@@ -122,6 +155,27 @@ export default {
       //  margin-bottom: 10px;
        i {
          color:#EC7522;
+       }
+       .attention {
+         margin-left: 20px;
+         width: 62px;
+         line-height: 22px;
+         border: 1px solid #FE6603;
+         text-align: center;
+         font-size: 14px;
+         border-radius: 5px;
+         color:#FE6603;
+         cursor: pointer;
+         i {
+           font-size: 12px;
+         }
+       }
+       .collect {
+         color:#fff;
+         background-color: #FE6603;
+         i {
+           color:#fff;
+         }
        }
      }
    }

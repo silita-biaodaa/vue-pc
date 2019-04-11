@@ -27,29 +27,33 @@
         </div>
       </div>
     </div>
+    <div class="right attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+         <i class="el-icon-plus"></i>{{collect}}
+    </div>
   </div>
 
 
   <div class="anchor">
     <div class="i-nav left">
-       <router-link v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" :to="{path:el.to,query:{id:el.id,name:el.title,source:el.source}}" tag='div'  @click.native="anchor(el)"  >
+       <div v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''"  @click="anchor(el)"  >
          {{el.name}}
          <div class="nav-rim" v-show="el.show" >
            <div class="triangle">
 
            </div>
          </div>
-       </router-link>
+       </div>
     </div>
     <div class="right standby">
        <router-view/>
     </div>
   </div>  
+  <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 
 </div>
 </template>
 <script>
-import { CQdetails,getJsonData } from '@/api/index'
+import { CQdetails,getJsonData,collectionCompany,nocollectionCompany } from '@/api/index'
 export default {
   data () {
      return {
@@ -93,20 +97,72 @@ export default {
            to:'good'
          }
        ],
+       svip:false,
        name:'工商信息',
        details:{},
        id:'',
        title:'',
-       source:''
+       source:'',
+       collect:'关注',
+       iscollect:false
      }
   },
   methods: {
+    gaincollect() {
+      if(this.iscollect) {
+        nocollectionCompany({companyid:this.id}).then(res => {
+          console.log(res);
+          
+          if(res.code = 1) {
+            this.iscollect = false
+            this.collect = '关注'
+          }
+        })
+      } else {
+        collectionCompany({companyid:this.id}).then(res => {
+           console.log(res);
+          if(res.code = 1) {
+            this.iscollect = true
+            this.collect = '已关注'
+          }
+        })
+      }
+    },
+     closeload(val) {
+      this.svip = val.cur
+    },
     anchor(el) {
-      this.name = el.name
-      this.navs.forEach( el => {
-         el.show = false
-      })
-      el.show = true
+      if(el.name == '法务信息'  ) {
+        if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comLaw') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+            return 
+        }  
+      } else if ( el.name == '业绩信息') {
+         if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPerformance') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+            return 
+          }  
+      } 
+        this.name = el.name
+        this.navs.forEach( el => {
+           el.show = false
+        })
+        el.show = true
+        this.$router.push({path:el.to,query:{id:el.id,name:el.title,source:el.source}})
+    },
+    resetPhone(phone) {
+          var str = String(phone)
+          var len = str.length;
+          if (len >= 7) {
+              var reg = str.slice(-7, -3)
+              return str.replace(reg, "****")
+          } else if (len < 7 && len >= 6) {
+              //1234567
+              var reg = str.slice(-4, -2)
+              return str.replace(reg, "**")
+          }
     },
     gainDetail() {
      this.id = this.$route.query.id
@@ -115,13 +171,21 @@ export default {
         getJsonData( "/company/" + this.id ).then( res => {
             if(res.code == 1) {
               this.details = res.data
-              
+               this.iscollect = res.data.collected
+               if(this.iscollect) {
+                 this.collect = '已关注'
+               } else {
+                 this.collect = '关注'
+               }
               var arr = []
               if(this.details.phone) {
                 arr = this.details.phone.split(';')
-                this.details.phone = arr[0]
+                if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                  this.details.phone = this.resetPhone(arr[0])
+                } else {
+                  this.details.phone = arr[0]
+                }
               }
-              console.log(this.details)
             }
         });
     },
@@ -186,6 +250,27 @@ export default {
     overflow: hidden;
     background-color: #fff;
     box-sizing: border-box;
+    .attention {
+         margin-right: 30px;
+         width: 62px;
+         line-height: 22px;
+         border: 1px solid #FE6603;
+         text-align: center;
+         font-size: 14px;
+         border-radius: 5px;
+         color:#FE6603;
+         cursor: pointer;
+         i {
+           font-size: 12px;
+         }
+       }
+    .collect {
+      color:#fff;
+      background-color: #FE6603;
+      i {
+        color:#fff;
+      }
+    }
     .com-img {
       height: 75px;
       width: 75px;

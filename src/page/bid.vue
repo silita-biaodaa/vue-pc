@@ -48,7 +48,7 @@
         </div>
         <div class="select">
            资质要求:&nbsp
-           <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' >
+           <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @focus='judvip' >
               <el-option
                 v-for="item in companyQuals"
                 :key="item.name"
@@ -114,7 +114,7 @@
      <div class="noneS" v-show="Snone">
       <img src="../assets/img/card.png" alt="">
     </div>
-
+    <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
    </div>
 </template>
 <script>
@@ -122,7 +122,8 @@ import { queryList,filter } from '@/api/index';
 export default {
   data () {
     return {
-      area:'湖南',
+      svip:false,
+      area:'',
       Snone:false,
       loading:true,
       areas:[
@@ -334,6 +335,9 @@ export default {
        present:0
     }
   },
+   props: {
+    state:''
+  },
   watch: {
     companyQual(val) {
       this.zType = []
@@ -369,9 +373,15 @@ export default {
       this.total = 0
       this.loading = true 
       this.gainQueryList()
+    },
+    state(val) {
+      this.area = val
     }
   },
   methods: {
+    closeload(val) {
+      this.svip = val.cur
+    },
     gainQueryList() {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
        queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
@@ -389,22 +399,42 @@ export default {
        })
     },
     means() {
-      this.loading = true
-       if(this.pbMode.length == 0) {
-          this.pbMode = ['']
-       }
-      if(this.pbMode.length > 1 ) {
-         if(this.pbMode[this.pbMode.length - 1] == '' ) {
-            this.pbMode = ['']
-         } else {
-            if(this.pbMode.indexOf('') == 0) {
-                this.pbMode.splice(0,1)
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+            this.pbMode = [""]
+          } else {
+            this.loading = true
+             if(this.pbMode.length == 0) {
+                this.pbMode = ['']
+             }
+            if(this.pbMode.length > 1 ) {
+               if(this.pbMode[this.pbMode.length - 1] == '' ) {
+                  this.pbMode = ['']
+               } else {
+                  if(this.pbMode.indexOf('') == 0) {
+                      this.pbMode.splice(0,1)
+                  }
+               }
             }
-         }
+            this.pbModess = this.pbMode.join('||')
+            this.current = 1
+            this.gainQueryList()
+        }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
       }
-      this.pbModess = this.pbMode.join('||')
-      this.current = 1
-      this.gainQueryList()
+
+    
     },
     Goto(val) {
       this.current = val.cur
@@ -418,10 +448,10 @@ export default {
       this.gainQueryList()
     },
     Splice() {
-       this.zzType = this.companyQual
+      this.zzType = this.companyQual
       this.current = 1
       this.loading = true      
-       this.gainQueryList()
+      this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
@@ -429,6 +459,25 @@ export default {
       this.current = 1
       this.loading = true      
        this.gainQueryList()
+    },
+    judvip() {
+         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+            this.pbMode = [""]
+          }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+      }
     },
     splicet() {
       this.zType.push(this.companyQual,this.major,this.grade)
@@ -445,10 +494,46 @@ export default {
       })
     },
     eval(el) {
-      this.area = el.name
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+            this.area = el.name
+          }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+      }
+      
     },
     evalclass(el) {
-      this.projectType = el.key
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+            if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+              this.svip = true
+              this.modalHelper.afterOpen();
+            } else {
+             this.projectType = el.key
+            }
+        } else {
+              this.$confirm('暂无权限，请先登录', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$router.push('/logo')
+            }).catch(() => {
+
+            });
+        }
+      
     },
     evalway(el) {
       this.pbMode = el.key
@@ -477,6 +562,7 @@ export default {
     }  
   },
   created () {
+    this.area = this.state
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.toTop()
     this.gainQueryList()
@@ -616,7 +702,7 @@ export default {
              text-overflow: ellipsis;
              overflow: hidden;
              white-space: nowrap;
-             width: 200px;
+             width: 250px;
            }
          }
        }

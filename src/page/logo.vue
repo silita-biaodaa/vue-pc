@@ -72,6 +72,7 @@ export default {
          if(res.code == 1) {
             let token = res.data.xtoken
             let name = res.data.nikeName
+            localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
             if(this.checked) {
               localStorage.setItem('Authorization',token)

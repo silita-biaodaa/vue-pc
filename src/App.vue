@@ -30,9 +30,6 @@
              <p @click="jumpl" v-if="names" >
                请登录
              </p>
-             <!-- <p @click="touser" >
-               
-             </p> -->
               <el-dropdown  v-else trigger="click" >
                  <span class="el-dropdown-link">
                    {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
@@ -43,10 +40,22 @@
                    <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
                  </el-dropdown-menu>
                </el-dropdown>
-             <!-- <p class="area">
+             <div class="area">
                <i class="iconfont icon-dizhi"></i>
-              湖南
-             </p> -->
+               <span @click="selfa" >{{source}}</span>
+               <div class="se-area" v-show="isarea" >
+                  <div class="a-line" v-for="(el,i) in allcity" :key="i"  >
+                    <div class="allcity left" >
+                      {{el.name}}:
+                    </div>
+                    <div class="left ">
+                      <div class="district left" v-for="(el,i) in el.next" :key="i" @click="selarea(el)" >
+                        {{el.name}}
+                      </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
              
           </div>
        </div>
@@ -59,13 +68,6 @@
                     <span class="left">{{el.name}}</span> 
                   </div>
             </router-link>
-            <!-- <li>
-              <div @click="jumpto" >
-                <span>
-                  旧版本
-                </span>
-              </div>
-            </li> -->
         </ul>
         </div>
     </div>
@@ -122,14 +124,14 @@
 </template>
 
 <script>
+import { address } from '@/api/index';
 export default {
   name: 'App',
   data() {
     return {
       show:true,
       isshow:true,
-      // rear:true,
-        names:true,
+      names:true,
        navlist:[
         {
            name:'首页',
@@ -183,10 +185,50 @@ export default {
          },
        ],
      select:'',
-     name:'?'
+     name:'?',
+     isarea:false,
+     allcity:[
+       {
+         name:'华东',
+         next:[{name:'上海'},{name:'江苏'},{name:'浙江'},{name:'安徽'},{name:'福建'},{name:'江西'},{name:'山东'}]
+       },
+       {
+         name:'东北',
+         next:[{name:'辽宁'},{name:'吉林'},{name:'黑龙江'}]
+       }, 
+        {
+         name:'华北',
+         next:[{name:'河南'},{name:'湖北'},{name:'湖南'}]
+       },{
+         name:'华北',
+         next:[{name:'北京'},{name:'天津'},{name:'河北'},{name:'山西'},{name:'内蒙古'}]
+       },
+       {
+         name:'华南',
+         next:[{name:'陕西'},{name:'甘肃'},{name:'青海'},{name:'宁夏'},{name:'新疆'}]
+       },
+       {
+         name:'西南',
+         next:[{name:'重庆'},{name:'四川'},{name:'贵州'},{name:'云南'},{name:'西藏'}]
+       },
+     ]
     }
   },
   methods: {
+    gainaddress() {
+      address({}).then(res => {
+         if(res.code =1 ) {
+           this.source = res.data.region
+         }
+      })
+    },
+    selfa() {
+       this.isarea = !this.isarea
+    },
+    selarea(el) {
+      this.source = el.name 
+      this.isarea = false
+    },
     judge(){
       console.log(this.$route,1)
     },
@@ -217,6 +259,7 @@ export default {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Authorization')
+        localStorage.removeItem('permissions')
           this.$router.replace({
            path: '/home',
            query: {
@@ -231,6 +274,7 @@ export default {
   created () {
     this.judges()
     this.judge()
+    this.gainaddress()
   },
   watch: {
     $route:{
@@ -285,15 +329,6 @@ export default {
   background-color: #FAFAFA;
   .content {
     width: 100%;
-    // position: absolute;
-    // position: absolute ;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // bottom: 0;
-    // height: calc(~"100% - 195px");
-    // display: flex;
-    // justify-content: center; 
   }
   .fixation {
     position: fixed;
@@ -356,9 +391,41 @@ export default {
             font-weight: 500;
             display: flex;
             align-items: center;
+            position: relative;
+            cursor: pointer;
             i {
               font-size: 16px;
               font-weight: 600;
+              padding-top: 4px;
+            }
+            .se-area {
+              width: 330px;
+              height: 300px;
+              position: absolute;
+              bottom: -320px;
+              left: -150px;
+              background-color: #fff;
+              z-index: 999999;
+              border-radius: 8px;
+              border: 1px solid #F49C17;
+              box-sizing: border-box;
+              padding: 10px;
+              color:#000;
+              .a-line {
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #f2f3f8;
+                .allcity {
+                  font-weight: 550;
+                  font-size: 15px;
+                  padding-right: 10px;
+                }
+                .district {
+                  color:#646464;
+                  padding: 0 5px;
+                  cursor: pointer;
+                }
+              }
             }
           }
         }
@@ -381,7 +448,7 @@ export default {
         height: 50px;
         line-height: 50px;
         float: left;
-        color: #fff;
+        color: #fff !important;
         display: flex;
         align-items: center; 
         justify-content: center; 

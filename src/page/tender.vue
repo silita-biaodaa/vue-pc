@@ -101,6 +101,7 @@
     <div class="noneS" v-show="!Snone" >
       <img src="../assets/img/card.png" alt="">
     </div>
+    <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -108,7 +109,8 @@ import { queryList } from '@/api/index';
 export default {
   data () {
     return {
-      area:'湖南',
+      svip:false,
+      area:'',
       loading:false,
       Stroke:true,
       Snone:true,
@@ -283,24 +285,47 @@ export default {
     }
   },
   methods: {
+    closeload(val) {
+      this.svip = val.cur
+    },
     Goto(val) {
       this.pageNo = val.cur
       this.loading = true
       this.gainList()
     },
     eval(el) {
-      if(this.Stroke) {
-        this.Stroke = false
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+             if(this.Stroke) {
+                this.Stroke = false
+              } else {
+                return
+              }
+              this.area = el.name
+              this.pageNo = 1
+              this.loading = true
+              this.gainList()
+              setTimeout(() => {
+                this.Stroke = true
+              }, 1000);
+          }
       } else {
-        return
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
       }
-      this.area = el.name
-      this.pageNo = 1
-      this.loading = true
-      this.gainList()
-      setTimeout(() => {
-        this.Stroke = true
-      }, 1000);
+
+
+   
     },
     // evalclass(el) {
     //   this.queryLists = []
@@ -309,23 +334,40 @@ export default {
     //   this.gainList()
     // },
     evalsum(el) {
-      if(this.Stroke) {
-        this.Stroke = false
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+                if(this.Stroke) {
+                    this.Stroke = false
+                  } else {
+                    return
+                  }
+                  this.loading = true
+                  this.rank = 0 
+                  this.low = '',
+                  this.high = '',
+                  this.start = el.s,
+                  this.end = el.e 
+                  this.pageNo = 1
+                  this.gainList()
+                  setTimeout(() => {
+                    this.Stroke = true
+                  }, 500);
+          }
       } else {
-        return
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
       }
-      this.loading = true
-      // this.queryLists = []
-      this.rank = 0 
-      this.low = '',
-      this.high = '',
-      this.start = el.s,
-      this.end = el.e 
-      this.pageNo = 1
-      this.gainList()
-      setTimeout(() => {
-        this.Stroke = true
-      }, 500);
+   
     },
     gainList() {
 
@@ -368,12 +410,29 @@ export default {
       this.gainList()
     },
     fade() {
-      this.loading = true
-      this.rank = 1
-      this.start = ''
-      this.end = '' 
-      this.pageNo = 1 
-      this.gainList()
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+              this.loading = true
+              this.rank = 1
+              this.start = ''
+              this.end = '' 
+              this.pageNo = 1 
+              this.gainList()
+          }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+      }
     },
     toTop() {
       document.body.scrollTop = 0
@@ -412,9 +471,16 @@ export default {
       this.loading = true
       // this.total = 0
       this.gainList()
+    },
+    state(val) {
+      this.area = val
     }
   },
+  props: {
+    state:''
+  },
   created () {
+    this.area = this.state
     this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainList()
@@ -581,7 +647,7 @@ export default {
              text-overflow: ellipsis;
              overflow: hidden;
              white-space: nowrap;
-             width: 240px;
+             width: 260px;
            }
          }
        }
