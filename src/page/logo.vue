@@ -84,7 +84,7 @@ export default {
       }
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
          if(res.code == 1) {
-            let name = res.data.nikeName
+            let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
             localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
             if(this.checked) {
@@ -113,7 +113,7 @@ export default {
     },
     towechat() {
       let appid='wxcfaea301018d9721';
-      let url=encodeURIComponent('http://pre-new.biaodaa.com/#/home');
+      let url=encodeURIComponent('http://www.biaodaa.com/#/home');
       let uri=this.weixinauth(appid,url);
       window.open(uri)
     },

@@ -15,10 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <p class="left">
+             <!-- <p class="left">
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p>
+             </p> -->
           </div>
           <div class="contact-r">
             
@@ -232,8 +232,9 @@ export default {
           this.$router.push('/logo')
         } else {
           getUserTemp({}).then( res => {
+             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
              localStorage.setItem('Xtoken',res.data.xtoken)
-             localStorage.setItem('Bname',res.data.nikeName)
+             localStorage.setItem('Bname',name)
              localStorage.setItem('permissions',res.data.permissions)                          
           })
         } 
