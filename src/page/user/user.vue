@@ -45,10 +45,7 @@
          </div>
       </div>
       <div class="text-right">
-        <!-- <p-Det v-if="this.name == '个人信息'"></p-Det>
-        <p-root v-else-if="this.name == '修改密码'" ></p-root>
-        <f-coll v-else-if="this.name == '我的关注'"  ></f-coll> -->
-         <router-view/>
+         <router-view @refresh='rename' />
       </div>
    </div>
 </div>
@@ -86,6 +83,9 @@ export default {
     }
   },
   methods: {
+    rename(val) {
+      this.userData.nikeName = localStorage.getItem('Bname')
+    },
      jump() {
       this.$router.push('/')
     },

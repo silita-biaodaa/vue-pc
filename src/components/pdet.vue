@@ -82,7 +82,7 @@ export default {
             message: '用户信息更新成功',
             offset: 100   
           });
-           this.getUser()
+          this.$emit('refresh', {cur:true}) 
         }
       })
     },

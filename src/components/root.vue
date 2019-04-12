@@ -128,6 +128,12 @@ export default {
               message: res.msg,
               offset: 100   
             });
+          }else {
+             this.$notify({
+              title: '提示',
+              message: res.msg,
+              offset: 100   
+            });
           } 
        })
     }
