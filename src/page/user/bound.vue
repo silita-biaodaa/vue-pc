@@ -87,9 +87,14 @@ export default {
           channel:'1003',
         }
         binding(data).then( res => {
-          localStorage.setItem('xtoken',resd.data.xtoken);
-          localStorage.setItem('Bname',resd.data.nikeName);
-          localStorage.setItem('permissions',res.data.permissions)
+          if(res.data){
+            localStorage.setItem('xtoken',res.data.xtoken);
+            localStorage.setItem('Bname',res.data.nikeName);
+            localStorage.setItem('permissions',res.data.permissions)
+          }else{
+            alert(res.data.msg)
+          }
+          
         })
     },
       gainCode() {
