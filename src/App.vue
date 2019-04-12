@@ -275,9 +275,13 @@ export default {
     }
   },
   created () {
-    this.judges()
     this.judge()
     this.gainaddress()
+  },
+  mounted(){
+    this.$nextTick(function(){
+      this.judges()
+    })
   },
   watch: {
     $route:{
