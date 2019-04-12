@@ -103,12 +103,12 @@ router.beforeEach((to, from, next) => {
   //  }
   if (to.path) {
      if(to.path=='/home'){
-        alert(getCode('code'));
         if(getCode('code')){
           getOpenid({
             code:getCode('code')
           }).then(function(res){
-              console.log(res)
+              localStorage.setItem('wxOpenId',res.data.openid);
+              localStorage.setItem('wxUnionId',res.data.unionid);
               ThirdLogin({
                 wxOpenId:res.data.openid,
                 wxUnionId:res.data.unionid,

@@ -77,9 +77,20 @@ export default {
       //   }
       // })
       // 第三方绑定手机  上面代码留着借鉴，之后再删
-        // binding({}).then( res => {
-
-        // })
+        let data={
+          wxOpenId:localStorage.getItem('wxOpenId'),
+          qqOpenId:'',
+          wxUnionId:localStorage.getItem('wxUnionId'),
+          loginPwd:this.password,
+          verifyCode:this.note,
+          phoneNo:this.mobile,
+          channel:'1003',
+        }
+        binding(data).then( res => {
+          localStorage.setItem('xtoken',resd.data.xtoken);
+          localStorage.setItem('Bname',resd.data.nikeName);
+          localStorage.setItem('permissions',res.data.permissions)
+        })
     },
       gainCode() {
       if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.mobile.trim()))) {
