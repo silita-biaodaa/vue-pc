@@ -108,7 +108,7 @@ export default {
      if(el.name == '退出登录') {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
-        localStorage.removeItem('Authorization')
+        localStorage.removeItem('Xtoken')
          localStorage.removeItem('permissions')
         this.$router.push('/home')
       } else {
@@ -132,7 +132,7 @@ export default {
     quit() {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
-        localStorage.removeItem('Authorization')
+        localStorage.removeItem('Xtoken')
          localStorage.removeItem('permissions')
         this.$router.push('/home')
     },

@@ -75,7 +75,7 @@ export default {
            if(sessionStorage.getItem('xtoken')) {
              sessionStorage.setItem('xtoken',res.data.xtoken)
            } else {
-             localStorage.setItem('Authorization',res.data.xtoken)
+             localStorage.setItem('Xtoken',res.data.xtoken)
            }
             this.$notify({
             title: '提示',

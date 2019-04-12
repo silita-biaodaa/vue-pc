@@ -223,6 +223,18 @@ export default {
          }
       })
     },
+    valley() {
+      console.log(localStorage.getItem('Xtoken'),5);
+      if(localStorage.getItem('Xtoken')) {
+        let today = new Date().getTime() - localStorage.getItem('valid')
+         console.log(Math.ceil(today/3600/24/1000),3);
+        if(Math.ceil(today/3600/24/1000) >= 15) {
+         
+          
+        }
+
+      }
+    },
     selfa() {
        this.isarea = !this.isarea
     },
@@ -242,7 +254,7 @@ export default {
         this.$router.push('/enroll')
     },
     judges() {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('xtoken')) {
         this.name = localStorage.getItem('Bname')
         this.names = false
       } else {     
@@ -261,7 +273,7 @@ export default {
     quit() {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
-        localStorage.removeItem('Authorization')
+        localStorage.removeItem('Xtoken')
         localStorage.removeItem('permissions')
           this.$router.replace({
            path: '/home',
@@ -275,6 +287,7 @@ export default {
     }
   },
   created () {
+    this.valley()
     this.judges()
     this.judge()
     this.gainaddress()
@@ -282,7 +295,7 @@ export default {
   watch: {
     $route:{
       handler: function(val, oldVal){
-          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
            this.name = localStorage.getItem('Bname')
            this.names = false
          } else {     

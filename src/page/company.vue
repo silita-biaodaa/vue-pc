@@ -512,7 +512,7 @@ export default {
       })
     },
     again() {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
@@ -580,7 +580,7 @@ export default {
          }
     },
     evalsum(el) {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
             if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
               this.svip = true
               this.modalHelper.afterOpen();
@@ -612,7 +612,7 @@ export default {
 
     },
     gainList() {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
             if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
               this.svip = true
               this.modalHelper.afterOpen();
@@ -819,7 +819,7 @@ export default {
       document.documentElement.scrollTop = 0
     },
     decide(el) {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 
         })

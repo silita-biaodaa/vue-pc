@@ -101,13 +101,7 @@ router.beforeEach((to, from, next) => {
   // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
   //     alert(1111)
   //  }
-  if(localStorage.getItem('Authorization')){
-    refresh({}).then(res=>{
-      localStorage.setItem('permissions',res.data.permissions)
-      localStorage.setItem('Bname',res.data.nikeName)
-      localStorage.setItem('Authorization',res.data.token)
-    })
-  }
+
   if (to.path) {
      if(to.path=='/home'){
         if(getCode('code')){

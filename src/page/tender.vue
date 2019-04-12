@@ -314,7 +314,7 @@ export default {
     //   this.gainList()
     // },
     evalsum(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
@@ -390,7 +390,7 @@ export default {
       this.gainList()
     },
     fade() {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
@@ -419,7 +419,7 @@ export default {
       document.documentElement.scrollTop = 0
     },
     decide(el) {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/notice',query:{id:el.id,source:el.source} 
         })

@@ -399,7 +399,7 @@ export default {
        })
     },
     means() {
-        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
@@ -461,7 +461,7 @@ export default {
        this.gainQueryList()
     },
     judvip() {
-         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
@@ -497,7 +497,7 @@ export default {
         this.area = el.name
     },
     evalclass(el) {
-        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
             if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
               this.svip = true
               this.modalHelper.afterOpen();
@@ -525,7 +525,7 @@ export default {
       document.documentElement.scrollTop = 0
     },
     decide(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/article',query:{id:el.id,source:el.source} 
         })

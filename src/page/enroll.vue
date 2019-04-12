@@ -95,7 +95,7 @@ export default {
             let token = res.data.xtoken
             let name = res.data.nikeName
             localStorage.setItem('Bname',name)
-            localStorage.setItem('Authorization',token)
+            localStorage.setItem('Xtoken',token)
             this.$router.push('/home')
           } else {
               this.error = true

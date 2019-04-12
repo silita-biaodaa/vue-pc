@@ -84,16 +84,19 @@ export default {
       }
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
          if(res.code == 1) {
-            let token = res.data.xtoken
             let name = res.data.nikeName
             localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
+            console.log(this.checked);
+            
             if(this.checked) {
-              localStorage.setItem('Authorization',token)
+              localStorage.setItem('Xtoken',res.data.xtoken)
+              let time = new Date().getTime()
+              localStorage.setItem('valid',time)
               sessionStorage.removeItem('xtoken')
             } else {
-              sessionStorage.setItem('xtoken',token)
-              localStorage.removeItem('Authorization')
+              sessionStorage.setItem('xtoken',res.data.xtoken)
+              localStorage.removeItem('Xtoken')
             }
             this.$router.push('/home')
          } else {

@@ -256,7 +256,7 @@ export default {
   },
   methods: {
     comto(el) {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 
         })
@@ -274,7 +274,7 @@ export default {
       }
     },
     bidto(el) {
-        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/article',query:{id:el.id,source:el.source} 
         })
@@ -292,7 +292,7 @@ export default {
       }
     },
     decide(el){
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization') ) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
           const { href } = this.$router.resolve({
           path:'/notice',query:{id:el.id,source:el.source} 
         })
