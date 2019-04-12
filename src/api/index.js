@@ -176,3 +176,6 @@ export const ThirdLogin=params => {
 export const binding = params => {
     return axios.post('authorize/thirdPartyBinding', params).then(res => res.data)
 }
+export const refresh = params => {
+  return axios.post('/userCenter/refreshUserInfo', params).then(res => res.data)
+}

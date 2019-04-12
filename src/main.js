@@ -24,7 +24,7 @@ import fcoll from '@/components/collect'
 import bidlist from '@/components/bidlist'
 import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
-import {getOpenid,ThirdLogin} from "@/api/index"
+import {getOpenid,ThirdLogin,refresh} from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
@@ -101,6 +101,13 @@ router.beforeEach((to, from, next) => {
   // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
   //     alert(1111)
   //  }
+  if(localStorage.getItem('Authorization')){
+    refresh({}).then(res=>{
+      localStorage.setItem('permissions',res.data.permissions)
+      localStorage.setItem('Bname',res.data.nikeName)
+      localStorage.setItem('Authorization',res.data.token)
+    })
+  }
   if (to.path) {
      if(to.path=='/home'){
         if(getCode('code')){
