@@ -150,6 +150,7 @@ export default {
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Xtoken')
+        localStorage.removeItem('valid')
          localStorage.removeItem('permissions')
         this.$router.push('/home')
     },

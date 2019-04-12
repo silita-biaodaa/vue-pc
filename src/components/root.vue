@@ -41,7 +41,7 @@
       <div class="put-l m-t">
         <div class="put-w m-r"></div>
         <div class="put-btn" @click="transfer"  >
-          保存
+          确定
         </div>
       </div>
     </div>
@@ -128,7 +128,11 @@ export default {
               message: res.msg,
               offset: 100   
             });
-          }else {
+             this.iphone=''
+             this.newpass=''
+             this.chancepass=''
+             this.note=''
+          } else {
              this.$notify({
               title: '提示',
               message: res.msg,

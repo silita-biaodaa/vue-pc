@@ -74,7 +74,10 @@ export default {
            this.error = true
            this.msg = res.msg
            this.$router.push('/logo')
-        } else {
+        } else if (res.code ==202) {
+            this.error = true
+             this.msg = res.msg 
+        } else  {
           this.error = true
           this.msg = res.msg
         }

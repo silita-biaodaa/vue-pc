@@ -92,7 +92,10 @@ export default {
             localStorage.setItem('Bname',res.data.nikeName);
             localStorage.setItem('permissions',res.data.permissions);
             this.$router.push('/home');
-          }else{
+          }else if(res.code == 202) {
+            this.msg = '手机验证码不对'
+            this.error = true
+          } else {
             alert(res.msg)
           }
           

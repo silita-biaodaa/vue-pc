@@ -94,9 +94,14 @@ export default {
            this.msg = '注册成功'
             let token = res.data.xtoken
             let name = res.data.nikeName
+            let time = new Date().getTime()
+            localStorage.setItem('valid',time)
             localStorage.setItem('Bname',name)
             localStorage.setItem('Xtoken',token)
             this.$router.push('/home')
+          } else if( res.code == 202) {
+              this.error = true
+              this.msg = res.msg
           } else {
               this.error = true
               this.msg = res.msg
