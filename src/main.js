@@ -81,7 +81,8 @@ router.beforeEach((to, from, next) => {
   // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
   //     alert(1111)
   //  }
-  
+  alert(to.path);
+  console.log(to);
   if (to.path) {
      if(to.path=='home'){
         if(getParam('code')){
