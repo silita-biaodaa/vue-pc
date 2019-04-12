@@ -9,8 +9,8 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i"  @click="bjump(el)" >
-       <div class="left project">
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i"   >
+       <div class="left project" @click="bjump(el)" >
          <div>
           <p class="list-til">{{el.title}}</p>
           <p class="list-z">资质要求：{{el.pbMode ? el.pbMode : '详见原文'}}</p>       

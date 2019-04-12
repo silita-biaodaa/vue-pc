@@ -44,7 +44,9 @@
               </div>
             </template>
             <div class="wechat">
+              <img src="../assets/img/icon-qie.png@2x.png"  class="iqq" alt="">
               <img src="../assets/img/icon-weixin.png@2x.png" alt=""  @click="towechat" >
+              
             </div>
             <div class="e-enroll">
                 没有账号，<span class="e-color" @click="jump">马上注册</span> 
@@ -197,6 +199,12 @@ export default {
               width: 24px;
               height: 20px;
               float: right;
+            }
+            .iqq {
+              width: 18px;
+              height: 21px;
+              float: right;
+              margin-left: 15px;
             }
           }
       }
