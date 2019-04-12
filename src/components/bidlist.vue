@@ -9,7 +9,7 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i" >
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i"  @click="bjump(el)" >
        <div class="left project">
          <div>
           <p class="list-til">{{el.title}}</p>
@@ -79,7 +79,14 @@ export default {
           this.gainbid()
         }
       })
+    },
+    bjump(el) {
+       const { href } = this.$router.resolve({
+          path:'/article',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
     }
+
   },
   created () {
     this.gainbid()
@@ -116,6 +123,7 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
     .list-til {
       font-size: 12px;
       text-overflow: ellipsis;

@@ -9,7 +9,7 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i" >
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i" @click="tjump(el)" >
        <div class="left project">
          <div>
           <p class="list-til">{{el.title}}</p>
@@ -79,6 +79,12 @@ export default {
           this.gainbid()
         }
       })
+    },
+    tjump(el) {
+         const { href } = this.$router.resolve({
+          path:'/notice',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
     }
   },
   created () {

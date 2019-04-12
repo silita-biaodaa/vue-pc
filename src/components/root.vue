@@ -50,6 +50,7 @@
 </template>
 <script>
 import { getVerifyCode,updatePwd } from '@/api/index'
+let sha1 = require("sha1");
 export default {
   data () {
     return {
@@ -120,7 +121,7 @@ export default {
          this.erip = false
          return 
        }
-       updatePwd({loginPwd:this.chancepass,verifyCode:this.note,phoneNo:this.iphone,channel:'1003'}).then( res => {
+       updatePwd({loginPwd:sha1(this.chancepass),verifyCode:this.note,phoneNo:this.iphone,channel:'1003'}).then( res => {
           if(res.code == 1) {
               this.$notify({
               title: '提示',
