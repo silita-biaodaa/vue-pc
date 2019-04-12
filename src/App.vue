@@ -242,8 +242,6 @@ export default {
         this.$router.push('/enroll')
     },
     judges() {
-      alert('sess1:'+sessionStorage.getItem('xtoken'));
-      alert('lo1:'+localStorage.getItem('Authorization'));
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
         this.name = localStorage.getItem('Bname')
         this.names = false
@@ -277,19 +275,17 @@ export default {
     }
   },
   created () {
+    if(this.$router.params.name){
+      this.name = this.$router.params.name
+      this.names = false
+    }
     this.judge()
+    this.judges()
     this.gainaddress()
-  },
-  mounted(){
-    this.$nextTick(function(){
-      this.judges()
-    })
   },
   watch: {
     $route:{
       handler: function(val, oldVal){
-          alert('sess2:'+sessionStorage.getItem('xtoken'));
-          alert('lo2:'+localStorage.getItem('Authorization'));
           if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
            this.name = localStorage.getItem('Bname')
            this.names = false
