@@ -164,3 +164,13 @@ export const collectlist = params => {
 export const qytlist = params => {
   return axios.post('userCenter/listCollectionCompany', params).then(res => res.data)
 }
+
+
+export default getWxUser={
+  getOpenid:params => {
+    return axios.post('/authorize/openid', params).then(res => res.data)
+  },
+  ThirdLogin:params => {
+    return axios.post('/authorize/memberThirdLogin', params).then(res => res.data)
+  },
+}
