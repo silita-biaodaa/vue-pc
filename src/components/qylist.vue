@@ -1,6 +1,6 @@
 <template>
 <div class="bidlist">
-  <div  class="bid-bor">  
+  <div  class="bid-bor" v-show="ishow" >  
     <div class="list-top">
       <div  class="left project ">
         企业名称
@@ -9,7 +9,7 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i" >
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i" @click="qjump(el)" >
        <div class="left project">
          <div>
           <p class="list-til">{{el.comName}}</p>
@@ -25,13 +25,18 @@
     </div>
   </div>
   
-  <div class="page">
+  <div class="page" v-show="ishow">
     <nav-page 
     :all='total'
     :currents='pageNo'
     :pageSize = 'pageSize'
     @skip='Goto'
     ></nav-page>
+  </div>
+
+   <div v-show="!ishow" class="no-toast" >
+    <img src="../assets/img/bank_card @2x.png" alt="">
+    <span>您还木有关注任何企业信息呦</span>
   </div>
 </div>
 </template>
@@ -43,7 +48,8 @@ export default {
       pageNo:1,
       bidlists:[],
       total:0,
-      pageSize:15
+      pageSize:15,
+      ishow:true
     }
   },
   methods: {
@@ -57,6 +63,11 @@ export default {
           console.log(res);
           this.total = res.total
           this.bidlists = res.data
+          if(this.bidlists.length == 0) {
+            this.ishow = false
+          } else {
+            this.ishow = true
+          }
         }
       })
     },
@@ -71,6 +82,12 @@ export default {
           this.gainbid()
         }
       })
+    },
+    qjump(el) {
+        const { href } = this.$router.resolve({
+          path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress} 
+        })
+        window.open(href, '_blank', )
     }
   },
   created () {

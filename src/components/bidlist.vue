@@ -1,6 +1,6 @@
 <template>
 <div class="bidlist">
-  <div  class="bid-bor">  
+  <div  class="bid-bor" v-show="ishow" >  
     <div class="list-top">
       <div  class="left project ">
         项目名称
@@ -9,7 +9,7 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i" >
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i"  @click="bjump(el)" >
        <div class="left project">
          <div>
           <p class="list-til">{{el.title}}</p>
@@ -24,13 +24,17 @@
     </div>
   </div>
   
-  <div class="page">
+  <div class="page" v-show="ishow" >
     <nav-page 
     :all='total'
     :currents='pageNo'
     :pageSize = 'pageSize'
     @skip='Goto'
     ></nav-page>
+  </div>
+  <div v-show="!ishow" class="no-toast" >
+    <img src="../assets/img/bank_card @2x.png" alt="">
+    <span>您还木有关注任何招标信息呦</span>
   </div>
 </div>
 </template>
@@ -42,7 +46,8 @@ export default {
       pageNo:1,
       bidlists:[],
       total:0,
-      pageSize:15
+      pageSize:15,
+      ishow:true
     }
   },
   methods: {
@@ -53,9 +58,13 @@ export default {
     gainbid() {
       collectlist({type:'0',pageNo:this.pageNo,pageSize:15}).then(res => {
         if(res.code = 1 ) {
-          console.log(res.total);
           this.total = res.total
           this.bidlists = res.data
+          if(this.bidlists.length == 0) {
+            this.ishow = false
+          } else {
+            this.ishow = true
+          }
         }
       })
     },
@@ -70,7 +79,14 @@ export default {
           this.gainbid()
         }
       })
+    },
+    bjump(el) {
+       const { href } = this.$router.resolve({
+          path:'/article',query:{id:el.id,source:el.source} 
+        })
+        window.open(href, '_blank', )
     }
+
   },
   created () {
     this.gainbid()
@@ -107,6 +123,7 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
     .list-til {
       font-size: 12px;
       text-overflow: ellipsis;

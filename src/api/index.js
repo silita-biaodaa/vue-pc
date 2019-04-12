@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import Vue from 'vue'
+import { Message } from 'element-ui';
 
 // const baseURL = 'http://api.biaodaa.com/'
 const baseURL = 'http://pre.biaodaa.com/'
@@ -25,7 +26,7 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
   if (response.data.code == 401 ) {
     localStorage.removeItem('Authorization')
     sessionStorage.removeItem('xtoken')
-    return window.location.href = "http://www.biaodaa.com/#/logo";
+    window.location.href = "http://pre-new.biaodaa.com/#/logo?id=1";
   }
   return response
 }, function (error) {
@@ -166,11 +167,14 @@ export const qytlist = params => {
 }
 
 
-export default getWxUser={
+export const getWxUser={
   getOpenid:params => {
     return axios.post('/authorize/openid', params).then(res => res.data)
   },
   ThirdLogin:params => {
     return axios.post('/authorize/memberThirdLogin', params).then(res => res.data)
   },
+}
+export const binding = params => {
+    return axios.post('authorize/thirdPartyBinding', params).then(res => res.data)
 }

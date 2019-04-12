@@ -40,7 +40,7 @@ export default {
     height: 489px;
     left: 50%;
     transform: translateX(-50%);
-    top: 120px;
+    top: 90px;
        i {
       position: absolute;
       left: 50%;

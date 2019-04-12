@@ -364,7 +364,7 @@ export default {
       })
     },
     gainCompany() {
-      companyList({regisAddress:'湖南',limit:8}).then( res => {
+      companyList({regisAddress:this.state,limit:8}).then( res => {
          if(res.code == 1) {
             res.data.splice(8,22)
             // res.data.forEach(el => {

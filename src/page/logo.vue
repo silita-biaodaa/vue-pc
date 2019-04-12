@@ -119,6 +119,14 @@ export default {
       let str = 'https://open.weixin.qq.com/connect/qrconnect?appid='+appid+'&redirect_uri='+url+'&response_type=code&scope=snsapi_login&state=biaodaaPC#wechat_redirect'
       return str
     },
+    efficacy() {
+     if(this.$route.query.id == 1) {
+       alert('用户信息失效，请重新登陆')
+     } 
+    }
+  },
+  created () {
+    this.efficacy()
   },
   components: {
   }
