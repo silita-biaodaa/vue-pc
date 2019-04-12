@@ -282,7 +282,7 @@ export default {
   watch: {
     $route:{
       handler: function(val, oldVal){
-          if(localStorage.getItem('Bname')) {
+          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
            this.name = localStorage.getItem('Bname')
            this.names = false
          } else {     
