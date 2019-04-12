@@ -119,7 +119,13 @@ router.beforeEach((to, from, next) => {
                 if(resd.data){
                   sessionStorage.setItem('xtoken',resd.data.xtoken);
                   localStorage.setItem('Bname',resd.data.nikeName);
-                  localStorage.setItem('permissions',res.data.permissions)
+                  localStorage.setItem('permissions',res.data.permissions);
+                  next({
+                    name:'home',
+                    params:{
+                      name:resd.data.nikeName
+                    }
+                  })
                 }else{
                   next({
                     name:'bound',

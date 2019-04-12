@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { address } from '@/api/index';
+import { address,getUserTemp } from '@/api/index';
 export default {
   name: 'App',
   data() {
@@ -224,14 +224,13 @@ export default {
       })
     },
     valley() {
-      console.log(localStorage.getItem('Xtoken'),5);
       if(localStorage.getItem('Xtoken')) {
         let today = new Date().getTime() - localStorage.getItem('valid')
          console.log(Math.ceil(today/3600/24/1000),3);
-        if(Math.ceil(today/3600/24/1000) >= 15) {
-         
-          
-        }
+        if(Math.ceil(today/3600/24/1000) >= 15 ) {
+          alert('用户信息已失效，请重新登录')
+          this.$router.push('/logo')
+        } 
 
       }
     },
@@ -254,7 +253,7 @@ export default {
         this.$router.push('/enroll')
     },
     judges() {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('xtoken')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
         this.name = localStorage.getItem('Bname')
         this.names = false
       } else {     
@@ -289,6 +288,12 @@ export default {
   created () {
     this.valley()
     this.judges()
+    if(this.$router.params!=undefined){
+      this.name = this.$router.params.name
+      this.names = false
+    }else{
+      this.judges()
+    }
     this.judge()
     this.gainaddress()
   },
@@ -566,6 +571,7 @@ export default {
          box-sizing: border-box;
          .logo {
            margin-top: 14px;
+           cursor: pointer;
          }
          .top-60 {
            margin-top: 60px;

@@ -87,8 +87,6 @@ export default {
             let name = res.data.nikeName
             localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
-            console.log(this.checked);
-            
             if(this.checked) {
               localStorage.setItem('Xtoken',res.data.xtoken)
               let time = new Date().getTime()

@@ -1,7 +1,7 @@
 <template>
 <div class="download">
 <div class="d-top">
-    <img src="../assets/img/logo2.png" alt="">
+    <img src="../assets/img/logo2.png" alt="" @click="$router.push('/home')" style="cursor: pointer;">
     <!-- <img src="" alt=""> -->
     <div>APP下载</div>
 </div>

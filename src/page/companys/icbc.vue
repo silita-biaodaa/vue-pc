@@ -245,6 +245,7 @@ export default {
       font-size: 12px;
       padding: 5px 0;
       box-sizing: border-box; 
+      border-bottom: 1px solid #f2f2f2
     }
   }
   .f-color {

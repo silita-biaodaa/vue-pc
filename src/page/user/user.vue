@@ -2,7 +2,7 @@
 <div class="user">
   <div class="user-nav">
      <div class="in-nav">
-       <img src="../../assets/img/logo2.png" alt="" @click="jump">
+       <img src="../../assets/img/logo2.png" alt="" @click="jump" style="cursor: pointer;">
        <el-dropdown >
          <span class="el-dropdown-link">
            用户中心<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
@@ -124,12 +124,22 @@ export default {
        this.$router.push('/download')
     },
     amend() {
+      this.tab.forEach( li => {
+          li.i = false 
+      })
+      this.tab[2].i=true;
       this.$router.push('/user/root')
     },
     tocol( ) {
+      this.tab.forEach( li => {
+          li.i = false 
+      })
+      this.tab[1].i=true;
       this.$router.push('/user/fcoll')
+
     },
     quit() {
+
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Xtoken')
