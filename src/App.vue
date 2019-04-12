@@ -230,6 +230,11 @@ export default {
         if(Math.ceil(today/3600/24/1000) >= 15 ) {
           alert('用户信息已失效，请重新登录')
           this.$router.push('/logo')
+        } else {
+          getUserTemp({}).then( res => {
+             localStorage.setItem('Xtoken',res.data.xtoken)
+             localStorage.setItem('Bname',res.data.nikeName)                          
+          })
         } 
 
       }
