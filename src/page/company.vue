@@ -794,7 +794,23 @@ export default {
       this.title = val.cur
       this.current = 1
       this.loading = true
-      this.again()
+      this.allstr = this.allarr.join(",")
+      this.loading = true
+      if(this.rank == 0 ) {
+        this.gainCompany()
+      } else {
+        companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
+        this.companylisy = res.data
+        this.total = res.total
+        this.loading = false
+        this.present = res.pageNum
+        if(this.total == 0 ) {
+           this.Snone = true
+         } else {
+           this.Snone = false
+         }
+       })
+      }
     },
     store(el) {
       localStorage.removeItem('id')

@@ -38,9 +38,9 @@ export default {
     position: absolute;
     width: 441px;
     height: 489px;
-    left: 40%;
+    left: 50%;
     transform: translateX(-50%);
-    top: 120px;
+    top: 90px;
        i {
       position: absolute;
       left: 50%;

@@ -178,3 +178,12 @@ figcaption:focus {
 .logo .el-checkbox__input.is-checked + .el-checkbox__label {
   color: #999;
 }
+.no-toast {
+  padding-top: 100px;
+  height: 400px;
+  color: #999;
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
