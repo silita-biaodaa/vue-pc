@@ -116,7 +116,7 @@ router.beforeEach((to, from, next) => {
               }).then(function(resd){
                 console.log(resd)
                 if(resd.data){
-                  localStorage.setItem('xtoken',resd.data.xtoken);
+                  sessionStorage.setItem('xtoken',resd.data.xtoken);
                   localStorage.setItem('Bname',resd.data.nikeName);
                   localStorage.setItem('permissions',res.data.permissions)
                 }else{

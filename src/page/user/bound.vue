@@ -88,7 +88,7 @@ export default {
         }
         binding(data).then( res => {
           if(res.data){
-            localStorage.setItem('xtoken',res.data.xtoken);
+            sessionStorage.setItem('xtoken',res.data.xtoken);
             localStorage.setItem('Bname',res.data.nikeName);
             localStorage.setItem('permissions',res.data.permissions)
           }else{
