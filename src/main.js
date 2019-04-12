@@ -24,7 +24,7 @@ import fcoll from '@/components/collect'
 import bidlist from '@/components/bidlist'
 import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
-import getWxUser from "@/api/index"
+import {getOpenid,ThirdLogin} from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
@@ -105,11 +105,11 @@ router.beforeEach((to, from, next) => {
      if(to.path=='/home'){
         alert(getCode('code'));
         if(getCode('code')){
-          getWxUser.getOpenid({
+          getOpenid({
             code:getCode('code')
           }).then(function(res){
               console.log(res)
-              getWxUser.ThirdLogin({
+              ThirdLogin({
                 wxOpenId:res.data.openid,
                 wxUnionId:res.data.unionid,
                 channel:'1003'
