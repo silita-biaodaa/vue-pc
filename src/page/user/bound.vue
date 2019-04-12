@@ -93,7 +93,7 @@ export default {
             localStorage.setItem('permissions',res.data.permissions);
             this.$router.push('/home');
           }else{
-            alert(res.data.msg)
+            alert(res.msg)
           }
           
         })
