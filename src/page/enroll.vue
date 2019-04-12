@@ -121,7 +121,6 @@ export default {
       } else {
         
         getVerifyCode({type:1,invitationPhone:this.mobile.trim()}).then( res => {
-          console.log(res)
           if(res.code == 1) {
             
           } else {

@@ -329,7 +329,6 @@ export default {
     },
     gainqueryList() {
       queryList({pageNo:1,type:'0',pageSize:8,regions:this.state}).then(res => {
-        console.log(res);
          if(res.code == 1 ) {
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
@@ -347,7 +346,6 @@ export default {
     },
     gainten() {
        queryList({pageNo:1,type:'2',pageSize:8,regions:this.state}).then(res => {
-        console.log(res);
          if(res.code == 1 ) {
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));

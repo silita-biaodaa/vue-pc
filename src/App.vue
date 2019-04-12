@@ -231,7 +231,6 @@ export default {
       this.isarea = false
     },
     judge(){
-      console.log(this.$route,1)
     },
     jumpto() {
       window.open('http://old.biaodaa.com','_bleak')

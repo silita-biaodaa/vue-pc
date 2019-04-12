@@ -21,9 +21,6 @@ export default {
   },
   methods: {
     gain() {
-      console.log(window.screen.deviceXDPI)
-      console.log(document.body.clientHeight)
-      console.log(window)
     }
   },
   created () {

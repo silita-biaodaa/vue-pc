@@ -111,7 +111,6 @@ export default {
     gaincollect() {
       if(this.iscollect) {
         nocollectionCompany({companyid:this.id}).then(res => {
-          console.log(res);
           
           if(res.code = 1) {
             this.iscollect = false
@@ -120,7 +119,6 @@ export default {
         })
       } else {
         collectionCompany({companyid:this.id}).then(res => {
-           console.log(res);
           if(res.code = 1) {
             this.iscollect = true
             this.collect = '已关注'
