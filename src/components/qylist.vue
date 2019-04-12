@@ -9,8 +9,8 @@
         操作
       </div>
     </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i" @click="qjump(el)" >
-       <div class="left project">
+    <div class="list-text" v-for="(el,i) in bidlists" :key="i"  >
+       <div class="left project" @click="qjump(el)" >
          <div>
           <p class="list-til">{{el.comName}}</p>
           <p class="list-z">法定代表：{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
@@ -125,6 +125,7 @@ export default {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #F2F2F2;
+    cursor: pointer;
     .list-til {
       font-size: 12px;
       text-overflow: ellipsis;

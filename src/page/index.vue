@@ -251,6 +251,7 @@ export default {
     state(val) {
       this.gainqueryList()
       this.gainten()
+      this.gainCompany()
     }
   },
   methods: {
