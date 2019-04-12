@@ -494,25 +494,7 @@ export default {
       })
     },
     eval(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
-          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-            this.svip = true
-            this.modalHelper.afterOpen();
-          } else {
-            this.area = el.name
-          }
-      } else {
-            this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          }).catch(() => {
-
-          });
-      }
-      
+        this.area = el.name
     },
     evalclass(el) {
         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {

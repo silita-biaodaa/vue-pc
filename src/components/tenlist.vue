@@ -34,7 +34,7 @@
   </div>
   <div v-show="!ishow" class="no-toast" >
     <img src="../assets/img/bank_card @2x.png" alt="">
-    <span>您还木有关注任何中标信息呦</span>
+    <span>暂无关注的中标公告</span>
   </div>
 </div>
 </template>

@@ -556,32 +556,28 @@ export default {
 
     },
     eval(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
-          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
-            this.svip = true
-            this.modalHelper.afterOpen();
-          } else {
-             if(this.loading) {
-                return
-              }
-              this.current = 1
-              this.area = el.name
-              this.loading = true
-              this.again()
-          }
-      } else {
-            this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          }).catch(() => {
-
-          });
-      }
-
-     
+      if(this.loading) {
+         return
+       }
+       this.current = 1
+       this.area = el.name
+       this.loading = true
+       this.allstr = this.allarr.join(",")
+         if(this.rank == 0 ) {
+           this.gainCompany()
+         } else {
+           companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
+           this.companylisy = res.data
+           this.total = res.total
+           this.loading = false
+           this.present = res.pageNum
+           if(this.total == 0 ) {
+              this.Snone = true
+            } else {
+              this.Snone = false
+            }
+          })
+         }
     },
     evalsum(el) {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {

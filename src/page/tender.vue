@@ -294,38 +294,18 @@ export default {
       this.gainList()
     },
     eval(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
-          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
-            this.svip = true
-            this.modalHelper.afterOpen();
-          } else {
-             if(this.Stroke) {
-                this.Stroke = false
-              } else {
-                return
-              }
-              this.area = el.name
-              this.pageNo = 1
-              this.loading = true
-              this.gainList()
-              setTimeout(() => {
-                this.Stroke = true
-              }, 1000);
-          }
-      } else {
-            this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          }).catch(() => {
-
-          });
-      }
-
-
-   
+        if(this.Stroke) {
+           this.Stroke = false
+         } else {
+           return
+         }
+         this.area = el.name
+         this.pageNo = 1
+         this.loading = true
+         this.gainList()
+         setTimeout(() => {
+           this.Stroke = true
+         }, 1000);
     },
     // evalclass(el) {
     //   this.queryLists = []
