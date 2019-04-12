@@ -81,7 +81,7 @@ export default {
        if(this.password.trim() == '') {
          return this.error = true
       }
-      authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1004',clientVersion:'3.0'}).then(res => {
+      authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
          if(res.code == 1) {
             let token = res.data.xtoken
             let name = res.data.nikeName

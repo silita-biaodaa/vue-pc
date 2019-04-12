@@ -82,20 +82,20 @@ router.beforeEach((to, from, next) => {
   //     alert(1111)
   //  }
   if (to.path) {
-    alert(1);
      if(to.path=='/home'){
-        alert(111)
+        alert(getParam('code'))
         if(getParam('code')){
+          alert(1);
           getWxUser.getOpenid({
             code:getParam('code')
           }).then(function(res){
-              console.log('getUnionId:'+res)
+              console.log(res)
               getWxUser.ThirdLogin({
                 wxOpenId:res.data.openid,
                 wxUnionId:res.data.unionid,
-                channel:'1004'
+                channel:'1003'
               }).then(function(resd){
-                console.log('getUser:'+resd)
+                console.log(resd)
                 if(resd.data){
                   localStorage.setItem('xtoken',resd.data.xtoken);
                   localStorage.setItem('Bname',resd.data.nikeName);
