@@ -83,18 +83,18 @@ router.beforeEach((to, from, next) => {
   //  }
   
   if (to.path) {
-     if(to.path=='home'){
-        if(getParam('code')){
-          getWxUser.getOpenid({
-            code:getParam('code')
+     if(to.path=='/home'){
+        if(getCode('code')){
+          getOpenid({
+            code:getCode('code')
           }).then(function(res){
-              console.log('getUnionId:'+res)
-              getWxUser.ThirdLogin({
+              localStorage.setItem('wxOpenId',res.data.openid);
+              localStorage.setItem('wxUnionId',res.data.unionid);
+              ThirdLogin({
                 wxOpenId:res.data.openid,
                 wxUnionId:res.data.unionid,
                 channel:'1004'
               }).then(function(resd){
-                console.log('getUser:'+resd)
                 if(resd.data){
                   localStorage.setItem('xtoken',resd.data.xtoken);
                   localStorage.setItem('permissions',res.data.permissions)
