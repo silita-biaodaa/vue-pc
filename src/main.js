@@ -82,7 +82,9 @@ router.beforeEach((to, from, next) => {
   //     alert(1111)
   //  }
   if (to.path) {
+    alert(1);
      if(to.path=='/home'){
+        alert(111)
         if(getParam('code')){
           getWxUser.getOpenid({
             code:getParam('code')
@@ -96,6 +98,7 @@ router.beforeEach((to, from, next) => {
                 console.log('getUser:'+resd)
                 if(resd.data){
                   localStorage.setItem('xtoken',resd.data.xtoken);
+                  localStorage.setItem('Bname',resd.data.nikeName);
                   localStorage.setItem('permissions',res.data.permissions)
                 }else{
                   next({
