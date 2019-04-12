@@ -1043,6 +1043,7 @@ export default {
          }
          .c-col {
            color:#FE6603;
+            cursor:pointer;
          }
        }
      }

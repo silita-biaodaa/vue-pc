@@ -558,6 +558,7 @@ export default {
          box-sizing: border-box;
          .logo {
            margin-top: 14px;
+           cursor: pointer;
          }
          .top-60 {
            margin-top: 60px;

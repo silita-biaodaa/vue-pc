@@ -4,7 +4,7 @@
         <el-row class="app-search"> 
          <el-col :span="7">
              <div class="bor">
-                 <div class="logo left">
+                 <div class="logo left" @click="$router.push('/home')">
 
                  </div>
              </div>
@@ -174,6 +174,7 @@ export default {
        height: 47px;
        width: 158px;
        margin-right: 21px;
+       cursor: pointer;
      }
      .search {
        margin-top: 50px;
