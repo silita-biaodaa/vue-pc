@@ -702,7 +702,7 @@ export default {
              text-overflow: ellipsis;
              overflow: hidden;
              white-space: nowrap;
-             width: 250px;
+             width: 300px;
            }
          }
        }

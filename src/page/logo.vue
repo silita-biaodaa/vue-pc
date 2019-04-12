@@ -35,6 +35,9 @@
               </div>
             </div>
             <el-button class="e-btn" @click="register" >立即登录</el-button>
+            <div class="wechat">
+              <img src="../assets/img/icon-weixin.png@2x.png" alt=""  @click="towechat" >
+            </div>
             <div class="e-enroll">
                 没有账号，<span class="e-color" @click="jump">马上注册</span> 
             </div>
@@ -95,6 +98,10 @@ export default {
     },
     forget() {
        this.$router.push('/find')
+    },
+    towechat() {
+      console.log(111);
+      
     }
   },
   components: {
@@ -157,6 +164,16 @@ export default {
             width: 100%;
             background-color: #FE6603;
             color:#fff;
+          }
+          .wechat {
+            margin-top: 9px;
+            width: 100%;
+            overflow: hidden;
+            img {
+              width: 24px;
+              height: 20px;
+              float: right;
+            }
           }
       }
       .e-cu {

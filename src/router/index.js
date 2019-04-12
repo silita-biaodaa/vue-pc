@@ -24,7 +24,9 @@ import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
 import find from '@/page/user/find'
 import user from '@/page/user/user'
-
+import pDet from '@/components/pdet'
+import root from '@/components/root'
+import fcoll from '@/components/collect'
 
 
 
@@ -210,7 +212,34 @@ export default new Router({
       {
         path:'/user',
         name:'user',
-        component: user
+        component: user,
+        redirect: '/user/pDet',
+        children: [
+          {
+            path: 'pDet',
+            name: 'pDet',
+            component: pDet,
+            meta: {
+              i: 0
+            }
+          },
+          {
+            path: 'root',
+            name: 'root',
+            component: root,
+            meta: {
+              i: 2
+            }
+          },
+          {
+            path: 'fcoll',
+            name: 'fcoll',
+            component: fcoll,
+            meta: {
+              i: 1
+            }
+          },
+        ] 
       }
   ]
 })

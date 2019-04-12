@@ -36,7 +36,8 @@
                  </span>
                  <el-dropdown-menu slot="dropdown">
                    <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
-                   <!-- <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item> -->
+                   <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
+                   <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
                    <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
                  </el-dropdown-menu>
                </el-dropdown>
@@ -252,8 +253,11 @@ export default {
     touser() {
       this.$router.push('/user')
     },
+    tocol() {
+      this.$router.push('/user/fcoll')
+    },
     amend() {
-      this.$router.push('/find')
+      this.$router.push('/user/root')
     },
     quit() {
         sessionStorage.removeItem('xtoken')
@@ -304,7 +308,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'user') {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' ) {
         return false
       } else {
         return true

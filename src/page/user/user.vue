@@ -9,6 +9,7 @@
          </span>
          <el-dropdown-menu slot="dropdown" trigger="click" >
            <el-dropdown-item>个人设置</el-dropdown-item>
+           <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
            <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
            <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
          </el-dropdown-menu>
@@ -44,9 +45,10 @@
          </div>
       </div>
       <div class="text-right">
-        <p-Det v-if="this.name == '个人信息'"></p-Det>
+        <!-- <p-Det v-if="this.name == '个人信息'"></p-Det>
         <p-root v-else-if="this.name == '修改密码'" ></p-root>
-        <f-coll v-else-if="this.name == '我的关注'"  ></f-coll>
+        <f-coll v-else-if="this.name == '我的关注'"  ></f-coll> -->
+         <router-view/>
       </div>
    </div>
 </div>
@@ -59,14 +61,17 @@ export default {
       tab: [
         {
           name:'个人信息',
+          to:'pDet',
           i: true
         },
         {
           name:'我的关注',
+          to:'fcoll',
           i:false
         }
         ,{
           name:'修改密码',
+           to:'root',
           i:false
         }
         ,{
@@ -112,13 +117,17 @@ export default {
            li.i = false 
         })
         el.i = true
+        this.$router.push({path:el.to})
       }
     },
     jumpapp() {
        this.$router.push('/download')
     },
     amend() {
-      this.$router.push('/find')
+      this.$router.push('/user/root')
+    },
+    tocol( ) {
+      this.$router.push('/user/fcoll')
     },
     quit() {
         sessionStorage.removeItem('xtoken')
@@ -126,9 +135,17 @@ export default {
         localStorage.removeItem('Authorization')
          localStorage.removeItem('permissions')
         this.$router.push('/home')
+    },
+    isroot() {
+      this.name = this.tab[this.$route.meta.i].name
+       this.tab.forEach( li => {
+           li.i = false 
+        })
+        this.tab[this.$route.meta.i].i = true
     }
   },
   created () {
+    this.isroot()
     this.getUser()
   },
   components: {
@@ -139,6 +156,7 @@ export default {
 .user {
  width: 100%;
  background-color: #fafafa;
+//  padding-top: 100px;
  .user-nav {
    width: 100%;
    height: 60px;
