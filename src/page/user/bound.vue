@@ -81,7 +81,7 @@ export default {
           wxOpenId:localStorage.getItem('wxOpenId'),
           qqOpenId:'',
           wxUnionId:localStorage.getItem('wxUnionId'),
-          loginPwd:this.password,
+          loginPwd:sha1(this.password),
           verifyCode:this.note,
           phoneNo:this.mobile,
           channel:'1003',
