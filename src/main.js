@@ -103,6 +103,7 @@ router.beforeEach((to, from, next) => {
   //  }
   if (to.path) {
      if(to.path=='/home'){
+        alert(getCode('code'));
         if(getCode('code')){
           getWxUser.getOpenid({
             code:getCode('code')
