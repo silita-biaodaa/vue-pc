@@ -23,6 +23,8 @@ import logo from '@/page/logo'
 import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
 import find from '@/page/user/find'
+import bound from '@/page/user/bound'
+
 import user from '@/page/user/user'
 import pDet from '@/components/pdet'
 import root from '@/components/root'
@@ -209,6 +211,11 @@ export default new Router({
        name:'find',
        component: find
      },
+      {
+        path: '/bound',
+        name: 'bound',
+        component: bound
+      },
       {
         path:'/user',
         name:'user',

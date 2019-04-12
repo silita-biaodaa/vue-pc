@@ -243,7 +243,7 @@ export default {
         this.$router.push('/enroll')
     },
     judges() {
-       if(localStorage.getItem('Bname')) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Authorization')) {
         this.name = localStorage.getItem('Bname')
         this.names = false
       } else {     
@@ -308,7 +308,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' ) {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound') {
         return false
       } else {
         return true

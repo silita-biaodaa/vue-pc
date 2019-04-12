@@ -101,8 +101,16 @@ export default {
     },
     towechat() {
       console.log(111);
+    },
+    efficacy() {
+     if(this.$route.query.id == 1) {
+       alert('用户信息失效，请重新登陆')
+     } 
       
     }
+  },
+  created () {
+    this.efficacy()
   },
   components: {
   }
