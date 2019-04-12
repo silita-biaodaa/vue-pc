@@ -278,9 +278,10 @@ export default {
     if(this.$router.params.name){
       this.name = this.$router.params.name
       this.names = false
+    }else{
+      this.judges()
     }
     this.judge()
-    this.judges()
     this.gainaddress()
   },
   watch: {
