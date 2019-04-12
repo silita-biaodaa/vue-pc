@@ -275,7 +275,7 @@ export default {
     }
   },
   created () {
-    if(this.$router.params==undefined){
+    if(this.$router.params!=undefined){
       this.name = this.$router.params.name
       this.names = false
     }else{
