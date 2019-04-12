@@ -87,13 +87,13 @@ export default {
           channel:'1003',
         }
         binding(data).then( res => {
-          if(res.data){
+          if(res.code==1){
             sessionStorage.setItem('xtoken',res.data.xtoken);
             localStorage.setItem('Bname',res.data.nikeName);
             localStorage.setItem('permissions',res.data.permissions);
             this.$router.push('/home');
           }else{
-            alert(res.data.msg)
+            alert(res.msg)
           }
           
         })
