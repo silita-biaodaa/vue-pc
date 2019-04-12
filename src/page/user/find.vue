@@ -76,7 +76,7 @@ export default {
            this.$router.push('/logo')
         } else if (res.code ==202) {
             this.error = true
-             this.msg = res.msg 
+             this.msg = '验证码失效或错误' 
         } else  {
           this.error = true
           this.msg = res.msg

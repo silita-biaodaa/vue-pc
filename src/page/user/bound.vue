@@ -93,7 +93,7 @@ export default {
             localStorage.setItem('permissions',res.data.permissions);
             this.$router.push('/home');
           }else if(res.code == 202) {
-            this.msg = '手机验证码不对'
+            this.msg = '验证码失效或错误'
             this.error = true
           } else {
             alert(res.msg)
