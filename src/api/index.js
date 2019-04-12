@@ -178,3 +178,6 @@ export const getWxUser={
 export const binding = params => {
     return axios.post('authorize/thirdPartyBinding', params).then(res => res.data)
 }
+
+
+export default{}

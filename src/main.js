@@ -67,6 +67,26 @@ const getParam=function(name){  //获取参数
 }
 
 
+const getCode=function(code) {
+  var locations = location + ""; 
+  // if (locations.indexOf('/?#/') > 0) {//处理在支付页面授权时，获取code失败
+  // 	locations = locations.replace('/?#/', '/#/')
+  // }
+  if (locations.indexOf("?") == -1) {
+    return false
+  }
+  var params = locations.split("?");
+  var queryArr = params[1].split("&");
+  var queryMap = {};
+  for (var index in queryArr) {
+    var k = queryArr[index].split("=")[0];
+    var v = queryArr[index].split("=")[1];
+    var s =v.split("#");
+    queryMap[k] = s[0];
+  }
+  return queryMap[code];
+};
+
 const _hmt = _hmt || [];
 window._hmt = _hmt;
 (function () {
@@ -83,11 +103,9 @@ router.beforeEach((to, from, next) => {
   //  }
   if (to.path) {
      if(to.path=='/home'){
-        alert(getParam('code'))
-        if(getParam('code')){
-          alert(1);
+        if(getCode('code')){
           getWxUser.getOpenid({
-            code:getParam('code')
+            code:getCode('code')
           }).then(function(res){
               console.log(res)
               getWxUser.ThirdLogin({
