@@ -233,7 +233,8 @@ export default {
         } else {
           getUserTemp({}).then( res => {
              localStorage.setItem('Xtoken',res.data.xtoken)
-             localStorage.setItem('Bname',res.data.nikeName)                          
+             localStorage.setItem('Bname',res.data.nikeName)
+             localStorage.setItem('permissions',res.data.permissions)                          
           })
         } 
 
