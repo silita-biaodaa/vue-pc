@@ -8,33 +8,41 @@
            <img src="../assets/img/logofont.png" alt="">
         </div>
         <div class="l-enter">
-            <div class="e-title e-color">
-              用户登录  
-            </div>
-            <div class="l-error" v-show="error" >
-              提示：{{msg}}
-            </div>
-            <div class="e-ipt">
-              <div class="e-i">
-                <i class="iconfont icon-ren111" ></i>
+            <template v-if="!isWx">
+              <div class="e-title e-color">
+                用户登录  
               </div>
-              <el-input v-model="mobile"  placeholder="请输入您的手机号"  ></el-input>
-            </div>
-            <div class="e-ipt">
-              <div class="e-i">
-                <i class="iconfont icon-gongwenbao" ></i>
+              <div class="l-error" v-show="error" >
+                提示：{{msg}}
               </div>
-              <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
-            </div>
-            <div class="e-forget">
-              <div>
-                 <el-checkbox v-model="checked">15天免登录</el-checkbox>
+              <div class="e-ipt">
+                <div class="e-i">
+                  <i class="iconfont icon-ren111" ></i>
+                </div>
+                <el-input v-model="mobile"  placeholder="请输入您的手机号"  ></el-input>
               </div>
-              <div class="e-color e-cu"  @click="forget" >
-                忘记密码？
+              <div class="e-ipt">
+                <div class="e-i">
+                  <i class="iconfont icon-gongwenbao" ></i>
+                </div>
+                <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
               </div>
-            </div>
-            <el-button class="e-btn" @click="register" >立即登录</el-button>
+              <div class="e-forget">
+                <div>
+                  <el-checkbox v-model="checked">15天免登录</el-checkbox>
+                </div>
+                <div class="e-color e-cu"  @click="forget" >
+                  忘记密码？
+                </div>
+              </div>
+              <el-button class="e-btn" @click="register" >立即登录</el-button>
+            </template>          
+            <template v-else>
+              <div class="e-title e-color">微信扫一扫登录</div>
+              <div class="qrcode-box">
+                <div id="qrcode" class="qrcode" ref="qr"></div>
+              </div>
+            </template>
             <div class="wechat">
               <img src="../assets/img/icon-weixin.png@2x.png" alt=""  @click="towechat" >
             </div>
@@ -52,6 +60,7 @@
 </template>
 <script>
 import { authorize } from '@/api/index'
+import QRCode from 'qrcodejs2'
 let sha1 = require("sha1");
 export default {
   data () {
@@ -60,7 +69,8 @@ export default {
       password:'',
       checked:false,
       error:false,
-      msg:'请重新输入正确手机号码格式和密码'
+      msg:'请重新输入正确手机号码格式和密码',
+      isWx:false
     }
   },
   methods: {
@@ -71,7 +81,7 @@ export default {
        if(this.password.trim() == '') {
          return this.error = true
       }
-      authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
+      authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1004',clientVersion:'3.0'}).then(res => {
          if(res.code == 1) {
             let token = res.data.xtoken
             let name = res.data.nikeName
@@ -100,13 +110,19 @@ export default {
        this.$router.push('/find')
     },
     towechat() {
-      console.log(111);
+      let appid='wxcfaea301018d9721';
+      let url=encodeURIComponent('http://pre-new.biaodaa.com/#/home');
+      let uri=this.weixinauth(appid,url);
+      window.open(uri)
+    },
+    weixinauth (appid,url) {
+      let str = 'https://open.weixin.qq.com/connect/qrconnect?appid='+appid+'&redirect_uri='+url+'&response_type=code&scope=snsapi_login&state=biaodaaPC#wechat_redirect'
+      return str
     },
     efficacy() {
      if(this.$route.query.id == 1) {
        alert('用户信息失效，请重新登陆')
      } 
-      
     }
   },
   created () {

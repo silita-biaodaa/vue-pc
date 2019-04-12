@@ -24,7 +24,7 @@ import fcoll from '@/components/collect'
 import bidlist from '@/components/bidlist'
 import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
-
+import getWxUser from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
@@ -56,7 +56,15 @@ Vue.prototype.modalHelper = (function () {
   };
 })();
 
-
+//获取url参数
+const getParam=function(name){  //获取参数
+  var url=window.location.search;  //获取问号之后的字0符
+  var reg=new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+  if(url!=null && url.toString().length>1){ 
+    var r=url.substr(1).match(reg);
+    if(r!=null)return unescape(r[2]); return null;
+  }
+}
 
 
 const _hmt = _hmt || [];
@@ -67,15 +75,39 @@ window._hmt = _hmt;
   const s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
-
+const appid='wxcfaea301018d9721';
+const appSecret='7c78697663f917d606fe6356185d8726';
 router.beforeEach((to, from, next) => {
   // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
   //     alert(1111)
   //  }
   
   if (to.path) {
-      console.log(1111111111);
-      
+     if(to.path=='home'){
+        if(getParam('code')){
+          getWxUser.getOpenid({
+            code:getParam('code')
+          }).then(function(res){
+              console.log('getUnionId:'+res)
+              getWxUser.ThirdLogin({
+                wxOpenId:res.data.openid,
+                wxUnionId:res.data.unionid,
+                channel:'1004'
+              }).then(function(resd){
+                console.log('getUser:'+resd)
+                if(resd.data){
+                  localStorage.setItem('xtoken',resd.data.xtoken);
+                  localStorage.setItem('permissions',res.data.permissions)
+                }else{
+                  next({
+                    name:'bound',
+                    replace:true
+                  })
+                }
+              })
+          })
+        }
+     } 
     _hmt.push(['_trackPageview', '/#' + to.fullPath]);
     
   }

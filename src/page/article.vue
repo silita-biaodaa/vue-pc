@@ -70,7 +70,6 @@ export default {
         });
         getJsonData( "/notice/detail/" +  this.id , dataParam).then(res => {
             if(res.code == 1) {
-              console.log(res);
               
                this.articles = res.data[0]
                this.clickCount = res.clickCount

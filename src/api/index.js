@@ -166,6 +166,15 @@ export const qytlist = params => {
   return axios.post('userCenter/listCollectionCompany', params).then(res => res.data)
 }
 
+
+export const getWxUser={
+  getOpenid:params => {
+    return axios.post('/authorize/openid', params).then(res => res.data)
+  },
+  ThirdLogin:params => {
+    return axios.post('/authorize/memberThirdLogin', params).then(res => res.data)
+  },
+}
 export const binding = params => {
     return axios.post('authorize/thirdPartyBinding', params).then(res => res.data)
 }
