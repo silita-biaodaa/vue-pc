@@ -198,14 +198,17 @@ export default {
          next:[{name:'辽宁'},{name:'吉林'},{name:'黑龙江'}]
        }, 
         {
-         name:'华北',
+         name:'华中',
          next:[{name:'河南'},{name:'湖北'},{name:'湖南'}]
        },{
          name:'华北',
          next:[{name:'北京'},{name:'天津'},{name:'河北'},{name:'山西'},{name:'内蒙古'}]
+       },{
+          name:'华南',
+          next:[{name:'广东'},{name:'广西'},{name:'海南'}]
        },
        {
-         name:'华南',
+         name:'西北',
          next:[{name:'陕西'},{name:'甘肃'},{name:'青海'},{name:'宁夏'},{name:'新疆'}]
        },
        {
