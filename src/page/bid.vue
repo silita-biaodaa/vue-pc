@@ -86,7 +86,7 @@
          <a  v-for="(el,i ) of queryLists" :key="i" @click='decide(el)'  >
            <div class="m-bt">
               <p class="left m-rg">
-                {{i +1 }}
+                {{(current-1)*20+(i+1)}}
               </p>
               <p class="left super" :title='el.title' >
                 {{el.title}}         
@@ -612,7 +612,12 @@ export default {
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.toTop()
     this.gainQueryList()
-    this.gainFilter()
+    this.gainFilter();
+    if( localStorage.getItem('permissions') != ''&&localStorage.getItem('permissions').indexOf('bidFilter') != -1  ){
+      this.isCompanyQual=false;
+      this.isMajor=false;
+      this.isGrade=false;
+    }
   },
   components:{
   }
