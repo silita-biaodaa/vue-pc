@@ -497,7 +497,8 @@ export default {
     
     // },
     Goto(val) {
-      this.current = val.cur
+      this.current = val.cur;
+      this.queryLists=[];
       this.loading = true      
       this.gainQueryList()
     },
@@ -641,9 +642,9 @@ export default {
   .el-loading-spinner .path {
     stroke: #FE6603;
   }
-  .el-loading-spinner {
-    top: 10%;
-  }
+  // .el-loading-spinner {
+  //   top: 10%;
+  // }
   .el-loading-spinner .el-loading-text {
     color:#FE6603;
   }
