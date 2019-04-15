@@ -40,22 +40,24 @@
                   评标办法:
                </el-col>
                <el-col :span='22'> 
-                  <el-checkbox-group v-model="pbMode" @change='means' >
+                  <span class="pb-bf" v-for="(el,i) in pbModes" :key="i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
+                  <!-- <el-checkbox-group v-model="pbMode" @change='means' >
                     <el-checkbox-button v-for="el in pbModes" :label="el.key" :key="el.key"  >{{el.name}}</el-checkbox-button>
-                  </el-checkbox-group>
+                  </el-checkbox-group> -->
                </el-col>
             </el-row>
         </div>
         <div class="select">
            资质要求:&nbsp
-           <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @focus='judvip' >
-              <el-option
-                v-for="item in companyQuals"
-                :key="item.name"
-                :label="item.name"
-                :value="item.code">
-              </el-option>
-            </el-select>
+              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @click.native="judvip">
+                <el-option
+                  v-for="item in companyQuals"
+                  :key="item.name"
+                  :label="item.name"
+                  :value="item.code">
+                </el-option>
+              </el-select>
+           
              <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo' >
               <el-option
                 v-for="item in majors"
@@ -253,49 +255,59 @@ export default {
         }
       ],
       projectType:'',
-      pbMode:[''],
+      pbMode:[],
       pbModess:'',
       pbModes:[
         {
           name:'全部',
-          key:''
+          key:'',
+          active:true,
         },
          {
           name:"综合评估法Ⅰ",
-          key:"综合评估法Ⅰ"
+          key:"综合评估法Ⅰ",
+          active:false,
         },
         {
           name:"综合评估法Ⅱ",
-          key:"综合评估法Ⅱ"
+          key:"综合评估法Ⅱ",
+          active:false,
         },
        
         {
           name:"固定标价评分法",
-          key:"固定标价评分法"
+          key:"固定标价评分法",
+          active:false,
         },
         {
           name:"合理定价抽取法",
-          key:"合理定价抽取法"
+          key:"合理定价抽取法",
+          active:false,
         },
         {
           name:"技术评分最低标价法",
-          key:"技术评分最低标价法"
+          key:"技术评分最低标价法",
+          active:false,
         },
         {
           name:"合理低价法",
-          key:"合理低价法"
+          key:"合理低价法",
+          active:false,
         },
         {
           name:"经评审最低报价法",
-          key:"经评审最低报价法"
+          key:"经评审最低报价法",
+          active:false,
         },
         {
           name:"百分制综合评分法",
-          key:"百分制综合评分法"
+          key:"百分制综合评分法",
+          active:false,
         },
         {
           name:"其他",
-          key:"其他"
+          key:"其他",
+          active:false,
         }
       ],
       companyQual:'',
@@ -398,44 +410,83 @@ export default {
          }
        })
     },
-    means() {
-        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-            this.svip = true
-            this.modalHelper.afterOpen();
-            this.pbMode = [""]
-          } else {
-            this.loading = true
-             if(this.pbMode.length == 0) {
-                this.pbMode = ['']
-             }
-            if(this.pbMode.length > 1 ) {
-               if(this.pbMode[this.pbMode.length - 1] == '' ) {
-                  this.pbMode = ['']
-               } else {
-                  if(this.pbMode.indexOf('') == 0) {
-                      this.pbMode.splice(0,1)
-                  }
-               }
-            }
-            this.pbModess = this.pbMode.join('||')
-            this.current = 1
-            this.gainQueryList()
+    pbmodeFn(i){
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        this.pbMode=[];
+        this.pbModess='';
+        let l=this.pbModes;
+        if(i==0){
+          for(let x of l){
+            x.active=false
+          }
+          this.pbModes[0].active=true;
+        }else{
+          this.pbModes[0].active=false;
+          this.pbModes[i].active=true;
         }
-      } else {
-            this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          }).catch(() => {
+        for(let x of l){
+          if(x.active){
+            this.pbMode.push(x.key)
+          }
+        }
+        this.pbModess = this.pbMode.join('||');
+        if(i==0){
+          this.pbModess=''
+        }
+        this.current = 1
+        this.gainQueryList()
+      }else{
+        this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
 
-          });
+        });
+        return false
       }
+      
+    },
+    // means() {
+    //     if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+    //       if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+    //         this.svip = true
+    //         this.modalHelper.afterOpen();
+    //         this.pbMode = [""]
+    //       } else {
+    //         this.loading = true
+    //          if(this.pbMode.length == 0) {
+    //             this.pbMode = ['']
+    //          }
+    //         if(this.pbMode.length > 1 ) {
+    //            if(this.pbMode[this.pbMode.length - 1] == '' ) {
+    //               this.pbMode = ['']
+    //            } else {
+    //               if(this.pbMode.indexOf('') == 0) {
+    //                   this.pbMode.splice(0,1)
+    //               }
+    //            }
+    //         }
+    //         this.pbModess = this.pbMode.join('||')
+    //         this.current = 1
+    //         this.gainQueryList()
+    //     }
+    //   } else {
+    //         this.$confirm('暂无权限，请先登录', '提示', {
+    //         confirmButtonText: '确定',
+    //         cancelButtonText: '取消',
+    //         type: 'warning'
+    //       }).then(() => {
+    //         this.$router.push('/logo')
+    //       }).catch(() => {
+
+    //       });
+    //   }
 
     
-    },
+    // },
     Goto(val) {
       this.current = val.cur
       this.loading = true      
@@ -690,5 +741,19 @@ export default {
        }
     //  }
    }
+ }
+ .pb-bf{
+    margin-bottom: 12px;
+    font-size: 15px;
+    padding: 5px 10px;
+    color:#666;
+    cursor: pointer;
+    display: inline-block;
+ }
+ .pb-bf.active{
+    color:#fff;
+    background-color: #FE6603;
+    border-color: #FE6603;
+    box-shadow: -1px 0 0 0 #fff; 
  }
 </style>
