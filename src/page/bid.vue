@@ -49,7 +49,7 @@
         </div>
         <div class="select">
            资质要求:&nbsp
-              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @click.native="judvip">
+              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @click.native="judvip" :disabled="isCompanyQual">
                 <el-option
                   v-for="item in companyQuals"
                   :key="item.name"
@@ -58,7 +58,7 @@
                 </el-option>
               </el-select>
            
-             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo' >
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'  @click.native="judvip" :disabled="isMajor">
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -66,7 +66,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' >
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet'  @click.native="judvip" :disabled="isGrade">
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -128,6 +128,9 @@ export default {
       area:'',
       Snone:false,
       loading:true,
+      isCompanyQual:true,
+      isMajor:true,
+      isGrade:true,
       areas:[
         {
           name:'北京'
@@ -412,6 +415,12 @@ export default {
     },
     pbmodeFn(i){
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+          this.svip = true
+          this.modalHelper.afterOpen();
+          this.pbMode = [];
+          return false
+        }
         this.pbMode=[];
         this.pbModess='';
         let l=this.pbModes;
@@ -516,7 +525,11 @@ export default {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
-            this.pbMode = [""]
+            // this.pbMode = [""]
+          }else{
+            this.isCompanyQual=false;
+            this.isMajor=false;
+            this.isGrade=false;
           }
       } else {
             this.$confirm('暂无权限，请先登录', '提示', {
