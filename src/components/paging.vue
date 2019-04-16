@@ -67,6 +67,7 @@ export default {
     // },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
+        this.current=this.currents
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
         });
