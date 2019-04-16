@@ -12,14 +12,15 @@
 	        <!-- <li v-if="ellEnd" @click="btnClick(allNum)">{{allNum}}</li> -->
 	        <li class="btn " @click="jumpD" >下一页</li>
             <li  @click="btnlast(30)" >尾页</li>
-	        <!-- <li class="borderNone">
+	        <li class="borderNone put-p ">
 	        	到
-	        	<input type="number" v-model="num"/>
+	        	<input  v-model="num"   class="put-jump" >
 	        	页
 	        </li>
-	        <li @click="jump">跳转</li>  -->
+	        <li  @click="jump" >跳转</li> 
             
 	    </ul>
+
     </div>
 </template>
 <script>
@@ -33,6 +34,7 @@ export default {
           ellEnd:false,
           ellStart:false,
           total:0,
+          num:null,
           newc:this.currents
         }
     },
@@ -100,14 +102,14 @@ export default {
           this.current = val
            this.$emit('skip',{cur:val});
         },
-        // jump(){//跳转
-        // 	if(this.num!=''&&this.num<=this.allNum&&this.num>=1){
-        // 		this.current=(this.num)*1;
-        // 		this.$emit('current',{cur:this.current});
-        // 	}else{
-        // 		this.num=''
-        // 	}
-		// },
+        jump(){//跳转
+        	if(this.num!=''&&this.num<=30&&this.num>=1&&this.num<=this.total){
+        		this.current=(this.num)*1;
+        		this.$emit('skip',{cur:this.current});
+        	}else{
+        		this.num=''
+        	}
+		},
         // 需要改进
         jumpFn(str){//上一页，下一页
          if(this.current == 1 || this.current == this.total) {
@@ -195,18 +197,20 @@ export default {
     margin-top:40px;
     ul {
           li{
-          padding: 12px 14px;
+          padding: 0 14px;
+          height: 40px;
+          line-height: 40px;
           color: #EC7522;
           border: 1px solid #EC7522;
           border-radius:5px;
-        	margin-right: 10px;
-        	font-size: 14px;
-        	display: inline-block;
+          margin-right: 10px;
+          font-size: 14px;
+          display: inline-block;
           cursor: pointer;
           
         }
         .btn {
-            padding: 12px 10px;
+            padding: 0 10px;
         }
         .borderNone {
           border: none;
@@ -223,6 +227,19 @@ export default {
         	border: none;
         	background: #EC7522;
         	color: #fff;
+        }
+        .put-jump {
+           border: 1px solid #EC7522;
+           height: 40px;
+           line-height: 40px;
+           width: 40px;
+           border-radius:5px;
+           padding-left: 10px;
+           box-sizing: border-box;
+           color: #EC7522;
+        }
+        .put-p {
+          padding: 0 5px;
         }
     }
 }
