@@ -687,8 +687,18 @@ export default {
       this.allarr = []
       this.firstarr.length = 2 ,
       this.firstarr.push(val)      
-      this.firststr = this.firstarr.join('||')  
-      this.fisrtpush()
+      this.firststr = this.firstarr.join('||')
+      if( this.firststr == this.twostr ||  this.firststr == this.threestr ) {
+        this.companyQual = ''
+         this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+      } else {
+         this.fisrtpush()
+      }
+     
     },
     fisrtpush() {
       if(this.twostr) {
@@ -725,7 +735,18 @@ export default {
       this.allarr = []
       this.twoarr.push(val)
       this.twostr = this.twoarr.join("||")
-      this.twopush()
+        if( this.twostr == this.firststr ||  this.twostr == this.threestr ) {
+        this.twoQual = ''
+         this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+      } else {
+         this.twopush()
+      }
+      
+     
     },
     twopush() {
       if(this.firststr) {
@@ -742,26 +763,36 @@ export default {
         }
       }
     },
-    threeq(){
+    threeq(val){
       this.threearr = []
       this.allarr = []
       this.threearr.push(val)
       this.threestr = this.threearr.join("||")
       this.threepush()
     },
-    threeqs(){
+    threeqs(val){
       this.threearr.length = 1
       this.allarr = []
       this.threearr.push(val)
       this.threestr = this.threearr.join("||")
       this.threepush()
     },
-    threeqss(){
+    threeqss(val){
       this.threearr.length = 2
       this.allarr = []
       this.threearr.push(val)
       this.threestr = this.threearr.join("||")
-      this.threepush()
+       if( this.threestr == this.twostr ||  this.firststr == this.threestr ) {
+        this.threeQual = ''
+         this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+      } else {
+          this.threepush()
+      }
+     
     },
     threepush(){
       if(this.firststr) {
@@ -884,23 +915,7 @@ export default {
     color:#FE0303;
     font-size: 12px;
   }
-  .cc-btn {
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .c-sure {
-      cursor: pointer;
-      text-align: center;
-      width: 154px;
-      height: 46px;
-      line-height: 46px;
-      background-color: #EC7522;
-      color: #fff;
-      font-size: 18px;
-      border-radius: 5px;
-    }
-  }
+ 
   .c-search {
      width: 1020px;
      background-color: #fff;

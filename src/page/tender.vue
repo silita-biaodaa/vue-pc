@@ -64,6 +64,11 @@
              </el-col>
            </el-row>
         </div>      
+        <div class="select cc-btn ">
+          <div class="c-sure"  @click="gainList" >
+             查询
+          </div>
+        </div>
     </div>
     <div class="total">
       共搜索到<span>{{total}}</span>条中标公告
@@ -303,8 +308,6 @@ export default {
          }
          this.area = el.name
          this.pageNo = 1
-         this.loading = true
-         this.gainList()
          setTimeout(() => {
            this.Stroke = true
          }, 1000);
@@ -326,14 +329,12 @@ export default {
                   } else {
                     return
                   }
-                  this.loading = true
                   this.rank = 0 
                   this.low = '',
                   this.high = '',
                   this.start = el.s,
                   this.end = el.e 
                   this.pageNo = 1
-                  this.gainList()
                   setTimeout(() => {
                     this.Stroke = true
                   }, 500);
@@ -349,7 +350,6 @@ export default {
 
           });
       }
-   
     },
     gainList() {
 
@@ -440,13 +440,6 @@ export default {
     }
   },
   watch: {
-    area() {
-      this.pageNo = 1
-      this.loading = true
-      // this.queryLists = []
-      // this.total = 0
-      this.gainList()
-    },
     projectType() {
       this.pageNo = 1
       // this.queryLists = []
@@ -516,7 +509,7 @@ export default {
   .t-options {
     width: 1020px;
     margin: 0 auto;
-    height: 140px;
+    height: 240px;
     box-sizing: border-box;
     background-color: #fff;
     margin-top: 20px;

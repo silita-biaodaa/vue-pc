@@ -187,3 +187,20 @@ figcaption:focus {
   align-items: center;
   flex-direction: column;
 }
+.cc-btn {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cc-btn .c-sure {
+  cursor: pointer;
+  text-align: center;
+  width: 154px;
+  height: 46px;
+  line-height: 46px;
+  background-color: #EC7522;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 5px;
+}
