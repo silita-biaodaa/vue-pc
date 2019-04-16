@@ -146,7 +146,13 @@ export default {
            this.list.forEach( el => {
                if(el.phone) {
                   iar = el.phone.split(';')
-                  el.phone = iar[0]
+                   if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                       el.phone = this.resetPhone(iar[0])
+                   } else {
+                       el.phone = iar[0]
+                   }
+                
+
                   iar = []
                } else {
                  return
@@ -155,7 +161,19 @@ export default {
            this.length = res.data.length
          }
       })
-    }
+    },
+    resetPhone(phone) {
+          var str = String(phone)
+          var len = str.length;
+          if (len >= 7) {
+              var reg = str.slice(-7, -3)
+              return str.replace(reg, "****")
+          } else if (len < 7 && len >= 6) {
+              //1234567
+              var reg = str.slice(-4, -2)
+              return str.replace(reg, "**")
+          }
+    },
   },
   created () {
     this.gainList()

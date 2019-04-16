@@ -41,9 +41,6 @@
                </el-col>
                <el-col :span='22'> 
                   <span class="pb-bf" v-for="(el,i) in pbModes" :key="i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
-                  <!-- <el-checkbox-group v-model="pbMode" @change='means' >
-                    <el-checkbox-button v-for="el in pbModes" :label="el.key" :key="el.key"  >{{el.name}}</el-checkbox-button>
-                  </el-checkbox-group> -->
                </el-col>
             </el-row>
         </div>
@@ -75,6 +72,11 @@
               </el-option>
             </el-select>
         </div>
+        <div class='select cc-btn' >
+          <div class='c-sure'>
+            查询
+          </div>
+        </div>
      </div> 
 
       <div class="total" >
@@ -86,7 +88,7 @@
          <a  v-for="(el,i ) of queryLists" :key="i" @click='decide(el)'  >
            <div class="m-bt">
               <p class="left m-rg">
-                {{(current-1)*20+(i+1)}}
+                {{(present-1)*20+(i+1)}}
               </p>
               <p class="left super" :title='el.title' >
                 {{el.title}}         
@@ -377,18 +379,18 @@ export default {
     grade(val) {
       this.zType = []
     },
-    area(val) {
-      this.current = 1
-      this.total = 0
-      this.loading = true 
-      this.gainQueryList()
-    },
-    projectType(val) {
-      this.current = 1
-      this.total = 0
-      this.loading = true 
-      this.gainQueryList()
-    },
+    // area(val) {
+    //   this.current = 1
+    //   this.total = 0
+    //   this.loading = true 
+    //   this.gainQueryList()
+    // },
+    // projectType(val) {
+    //   this.current = 1
+    //   this.total = 0
+    //   this.loading = true 
+    //   this.gainQueryList()
+    // },
     state(val) {
       this.area = val
     }
@@ -663,7 +665,7 @@ export default {
      margin: 0 auto;
      width: 1020px;
      margin-top: 20px;
-     height: 270px;
+     height: 360px;
      background: #fff;
      padding: 15px;
      box-sizing: border-box;
