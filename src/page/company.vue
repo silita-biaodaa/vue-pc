@@ -814,6 +814,7 @@ export default {
     },
     Goto(val) {
       this.current = val.cur;
+      sessionStorage.setItem('pageNo',val.cur);
       document.documentElement.scrollTo(0,0);
       this.companylisy=[];
       this.loading = true
@@ -872,6 +873,9 @@ export default {
   },
   created () {
     this.area = this.state
+    if(sessionStorage.getItem('pageNo')){
+      this.current=sessionStorage.getItem('pageNo')*1;
+    }
     this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainFilter()

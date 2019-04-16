@@ -513,6 +513,7 @@ export default {
     // },
     Goto(val) {
       this.current = val.cur;
+      sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
       document.documentElement.scrollTo(0,0);
       this.loading = true      
@@ -625,6 +626,9 @@ export default {
     }  
   },
   created () {
+    if(sessionStorage.getItem('pageNo')){
+      this.current=sessionStorage.getItem('pageNo')*1;
+    }
     this.area = this.state
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.toTop()
