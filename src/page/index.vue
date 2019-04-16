@@ -21,7 +21,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <a class="left h-i" v-for="el of queryLists" :key="el.title" @click='bidto(el)' >
+                 <a class="left h-i" v-for="el of queryLists" :key="'zb'+el.id" @click='bidto(el)' >
                     <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
@@ -30,7 +30,7 @@
                       </i>
                     </p>
                     <div class="m-detail">
-                       <p :title='el.certificate' >资质要求:&nbsp&nbsp{{el.certificate ? el.certificate : '详见原文'}}</p>
+                       <p :title='el.certificate' >资质要求:  {{el.certificate ? el.certificate : '详见原文'}}</p>
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
                        <p>发布时间：{{el.date}}</p>
                     </div>
@@ -48,7 +48,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <a class="left" v-for="el of biddings" :key="el.id"  @click='decide(el)' >
+                 <a class="left" v-for="el of biddings" :key="'zhongb'+el.id"  @click='decide(el)' >
                     <p class="t-line" :title='el.title' >
                       {{el.title}}
                       <i class="t-p">
@@ -76,7 +76,7 @@
               </router-link>
           </div>
           <div class="matter"> 
-                 <a class="left" v-for="el of companys" :key="el.id"  @click='comto(el)'  >
+                 <a class="left" v-for="el of companys" :key="'com'+el.comId"  @click='comto(el)'  >
                     <p class="t-line" :title='el.comName'>
                       {{el.comName}}
                       <i class="t-p">
@@ -85,7 +85,7 @@
                       </i>
                     </p>
                     <div class="m-detail">
-                       <p>法人:&nbsp&nbsp{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
+                       <p>法人:  {{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
                        <p>电话：<span>{{el.phone ? el.phone : '暂无' }}</span></p>
                        <p :title='el.comAddress' >地址：{{el.comAddress}}</p>
                     </div>

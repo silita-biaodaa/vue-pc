@@ -402,7 +402,14 @@ export default {
        queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
          if(res.code == 1 ) {
            this.loading = false
-           this.total = res.total 
+           this.total = res.total
+
+           for(let x of res.data){
+            if(x.certificate){
+              x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+            }
+           } 
+           
            this.queryLists = res.data
            this.present = res.pageNo
            if(this.total == 0 ) {
@@ -430,8 +437,14 @@ export default {
           }
           this.pbModes[0].active=true;
         }else{
-          this.pbModes[0].active=false;
-          this.pbModes[i].active=true;
+          
+          if(this.pbModes[i].active){
+            this.pbModes[0].active=false;
+            this.pbModes[i].active=true;
+          }else{
+            // this.pbModes[0].active=false;
+            this.pbModes[i].active=false;
+          }
         }
         for(let x of l){
           if(x.active){
