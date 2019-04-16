@@ -782,7 +782,9 @@ export default {
       this.rangeType = el.key
     },
     Goto(val) {
-      this.current = val.cur
+      this.current = val.cur;
+      document.documentElement.scrollTo(0,0);
+      this.companylisy=[];
       this.loading = true
       this.again()
     },

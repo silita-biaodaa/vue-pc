@@ -289,7 +289,9 @@ export default {
       this.svip = val.cur
     },
     Goto(val) {
-      this.pageNo = val.cur
+      this.pageNo = val.cur;
+      document.documentElement.scrollTo(0,0);
+      this.queryLists=[];
       this.loading = true
       this.gainList()
     },

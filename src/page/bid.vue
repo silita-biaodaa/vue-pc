@@ -437,7 +437,9 @@ export default {
     
     },
     Goto(val) {
-      this.current = val.cur
+      this.current = val.cur;
+      this.queryLists=[];
+      document.documentElement.scrollTo(0,0);
       this.loading = true      
       this.gainQueryList()
     },
