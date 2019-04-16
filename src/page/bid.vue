@@ -615,7 +615,7 @@ export default {
     this.toTop()
     this.gainQueryList()
     this.gainFilter();
-    if( localStorage.getItem('permissions') != ''&&localStorage.getItem('permissions').indexOf('bidFilter') != -1  ){
+    if((sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken'))&& localStorage.getItem('permissions') != ''&&localStorage.getItem('permissions').indexOf('bidFilter') != -1  ){
       this.isCompanyQual=false;
       this.isMajor=false;
       this.isGrade=false;
