@@ -96,7 +96,13 @@ export default {
               sessionStorage.setItem('xtoken',res.data.xtoken)
               localStorage.removeItem('Xtoken')
             }
-            this.$router.push('/home')
+            if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){
+              let uri=sessionStorage.getItem('path');
+              this.$router.replace(uri)
+            }else{
+              this.$router.replace('home')
+            }
+            
          } else {
             this.error = true
             this.msg = res.msg

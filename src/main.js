@@ -101,43 +101,53 @@ router.beforeEach((to, from, next) => {
   // if (to.name == 'icbc' || to.name == 'notice' || to.name == 'article' ) {
   //     alert(1111)
   //  }
-
   if (to.path) {
-     if(to.path=='/home'){
-        if(getCode('code')){
-          getOpenid({
-            code:getCode('code')
-          }).then(function(res){
-              localStorage.setItem('wxOpenId',res.data.openid);
-              localStorage.setItem('wxUnionId',res.data.unionid);
-              ThirdLogin({
-                wxOpenId:res.data.openid,
-                wxUnionId:res.data.unionid,
-                channel:'1003'
-              }).then(function(resd){
-                console.log(resd)
-                if(resd.data){
-                  sessionStorage.setItem('xtoken',resd.data.xtoken);
-                  localStorage.setItem('Bname',resd.data.nikeName);
-                  localStorage.setItem('permissions',res.data.permissions);
-                  next({
-                    name:'home',
-                    params:{
-                      name:resd.data.nikeName
-                    }
-                  })
-                }else{
-                  next({
-                    name:'bound',
-                    replace:true
-                  })
-                }
-              })
-          })
-        }
-     } 
+    // if(from.fullPath=='/logo'){
+    //   let uri=sessionStorage.getItem('path');
+    //   next({
+    //     replace:true,
+    //     name:uri
+    //   })
+    //   return false
+    // }
+    //首页
+    if(to.path=='/home'){
+      if(getCode('code')){
+        getOpenid({
+          code:getCode('code')
+        }).then(function(res){
+            localStorage.setItem('wxOpenId',res.data.openid);
+            localStorage.setItem('wxUnionId',res.data.unionid);
+            ThirdLogin({
+              wxOpenId:res.data.openid,
+              wxUnionId:res.data.unionid,
+              channel:'1003'
+            }).then(function(resd){
+              console.log(resd)
+              if(resd.data){
+                sessionStorage.setItem('xtoken',resd.data.xtoken);
+                localStorage.setItem('Bname',resd.data.nikeName);
+                localStorage.setItem('permissions',res.data.permissions);
+                next({
+                  name:'home',
+                  params:{
+                    name:resd.data.nikeName
+                  }
+                })
+              }else{
+                next({
+                  name:'bound',
+                  replace:true
+                })
+              }
+            })
+        })
+      }
+    }
+    if(to.fullPath=='/logo'){
+      sessionStorage.setItem('path',from.name);
+    }
     _hmt.push(['_trackPageview', '/#' + to.fullPath]);
-    
   }
   next();
 })
