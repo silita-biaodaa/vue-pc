@@ -73,7 +73,7 @@
             </el-select>
         </div>
         <div class='select cc-btn' >
-          <div class='c-sure'>
+          <div class='c-sure'  @click='gainlist' >
             查询
           </div>
         </div>
@@ -379,18 +379,6 @@ export default {
     grade(val) {
       this.zType = []
     },
-    // area(val) {
-    //   this.current = 1
-    //   this.total = 0
-    //   this.loading = true 
-    //   this.gainQueryList()
-    // },
-    // projectType(val) {
-    //   this.current = 1
-    //   this.total = 0
-    //   this.loading = true 
-    //   this.gainQueryList()
-    // },
     state(val) {
       this.area = val
     }
@@ -399,18 +387,30 @@ export default {
     closeload(val) {
       this.svip = val.cur
     },
+    gainlist() {
+      this.current = 1
+      this.loading = true 
+      this.gainQueryList()
+    },
     gainQueryList() {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
        queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
          if(res.code == 1 ) {
            this.loading = false
            this.total = res.total
-
-           for(let x of res.data){
-            if(x.certificate){
-              x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+           console.log( localStorage.getItem('permissions'))
+           
+           if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+                for(let x of res.data){
+                   if(x.certificate){
+                     x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                    
+                   }
+                    x.pbMode = '****'
+                  } 
             }
-           } 
+         
+           console.log(res.data);
            
            this.queryLists = res.data
            this.present = res.pageNo
@@ -440,7 +440,7 @@ export default {
           this.pbModes[0].active=true;
         }else{
           
-          if(this.pbModes[i].active){
+          if(!this.pbModes[i].active){
             this.pbModes[0].active=false;
             this.pbModes[i].active=true;
           }else{
@@ -458,7 +458,7 @@ export default {
           this.pbModess=''
         }
         this.current = 1
-        this.gainQueryList()
+        // this.gainQueryList()
       }else{
         this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
@@ -528,15 +528,15 @@ export default {
     Splice() {
       this.zzType = this.companyQual
       this.current = 1
-      this.loading = true      
-      this.gainQueryList()
+      // this.loading = true      
+      // this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
       this.zzType = this.zType.join('||')
       this.current = 1
-      this.loading = true      
-       this.gainQueryList()
+      // this.loading = true      
+      //  this.gainQueryList()
     },
     judvip() {
          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -565,8 +565,8 @@ export default {
       this.zType.push(this.companyQual,this.major,this.grade)
       this.zzType = this.zType.join('||')
       this.current = 1
-      this.loading = true      
-      this.gainQueryList()
+      // this.loading = true      
+      // this.gainQueryList()
     },
     gainFilter() {
       filter({}).then( res => {
