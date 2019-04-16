@@ -398,12 +398,19 @@ export default {
          if(res.code == 1 ) {
            this.loading = false
            this.total = res.total
-
-           for(let x of res.data){
-            if(x.certificate){
-              x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+           console.log( localStorage.getItem('permissions'))
+           
+           if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+                for(let x of res.data){
+                   if(x.certificate){
+                     x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                    
+                   }
+                    x.pbMode = '****'
+                  } 
             }
-           } 
+         
+           console.log(res.data);
            
            this.queryLists = res.data
            this.present = res.pageNo
@@ -433,7 +440,7 @@ export default {
           this.pbModes[0].active=true;
         }else{
           
-          if(this.pbModes[i].active){
+          if(!this.pbModes[i].active){
             this.pbModes[0].active=false;
             this.pbModes[i].active=true;
           }else{

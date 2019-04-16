@@ -356,6 +356,21 @@ export default {
        if(this.rank == 0) {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
+                   if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                           res.data.forEach( el => {
+                             if(el.oneName)  {
+                                  if(el.oneName.indexOf('公司') == -1) {
+                                  el.oneName = '***********'
+                                } else {
+                                  el.oneName = '***********' + '公司'
+                                }
+                             } else {
+                               el.oneName = '***********'
+                             }
+                             el.oneOffer = '***'
+                             
+                            })
+                    }
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
@@ -371,6 +386,20 @@ export default {
           queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
                
+                    if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                           res.data.forEach( el => {
+                             if(el.oneName)  {
+                                  if(el.oneName.indexOf('公司') == -1) {
+                                  el.oneName = '***********'
+                                } else {
+                                  el.oneName = '***********' + '公司'
+                                }
+                             } else {
+                               el.oneName = '***********'
+                             }
+                            })
+                             el.oneOffer = '***'
+                    }
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
