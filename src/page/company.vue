@@ -202,7 +202,7 @@
         <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
         <a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'  >
             <div class="left " style="width:80px;">
-              {{i+1}}
+              {{(current-1)*20+(i+1)}}
            </div>
              <div class="left" style="width:300px;">
                <span class='c-col' >{{el.comName}}</span>
@@ -782,7 +782,9 @@ export default {
       this.rangeType = el.key
     },
     Goto(val) {
-      this.current = val.cur
+      this.current = val.cur;
+      document.documentElement.scrollTo(0,0);
+      this.companylisy=[];
       this.loading = true
       this.again()
     },
@@ -864,9 +866,6 @@ export default {
   }
   .el-loading-spinner .path {
     stroke: #FE6603;
-  }
-  .el-loading-spinner {
-    top: 10%;
   }
   .el-loading-spinner .el-loading-text {
     color:#FE6603;

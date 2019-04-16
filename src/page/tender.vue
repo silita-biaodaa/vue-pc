@@ -72,7 +72,7 @@
          <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide(el)" >
            <div class="m-bt">
               <p class="left m-rg">
-                {{i +1 }}
+                {{(pageNo-1)*20+(i+1)}}
               </p>
               <p class="left super" :title="el.title" >
                 {{el.title}}         
@@ -289,7 +289,9 @@ export default {
       this.svip = val.cur
     },
     Goto(val) {
-      this.pageNo = val.cur
+      this.pageNo = val.cur;
+      document.documentElement.scrollTo(0,0);
+      this.queryLists=[];
       this.loading = true
       this.gainList()
     },
@@ -475,9 +477,6 @@ export default {
   padding-top: 86px;
   .el-loading-spinner .path {
     stroke: #FE6603;
-  }
-  .el-loading-spinner {
-    top: 10%;
   }
   .el-loading-spinner .el-loading-text {
     color:#FE6603;
