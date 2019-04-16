@@ -15,10 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <p class="left">
+             <!-- <p class="left">
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p>
+             </p> -->
           </div>
           <div class="contact-r">
             
@@ -233,6 +233,13 @@ export default {
         if(Math.ceil(today/3600/24/1000) >= 15 ) {
           alert('用户信息已失效，请重新登录')
           this.$router.push('/logo')
+        } else {
+          getUserTemp({}).then( res => {
+             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
+             localStorage.setItem('Xtoken',res.data.xtoken)
+             localStorage.setItem('Bname',name)
+             localStorage.setItem('permissions',res.data.permissions)                          
+          })
         } 
 
       }
