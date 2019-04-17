@@ -687,7 +687,11 @@ export default {
       this.fisrtpush()
     },
     firstss(val) {
-      if( this.grade == this.twott ||  this.grade == this.threett ) {
+        this.allarr = []
+         this.firstarr.length = 2 ,
+         this.firstarr.push(val)      
+         this.firststr = this.firstarr.join('||')
+      if( this.firststr == this.twostr ||  this.firststr == this.threestr ) {
         this.grade = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           type: 'warning',
@@ -695,10 +699,6 @@ export default {
           showConfirmButton:false
         })
       } else {
-         this.allarr = []
-         this.firstarr.length = 2 ,
-         this.firstarr.push(val)      
-         this.firststr = this.firstarr.join('||')
          this.fisrtpush()
       }
      
@@ -734,7 +734,11 @@ export default {
 
     },
     twoqss(val) {
-      if( this.twott == this.grade ||  this.twott == this.threett ) {
+         this.twoarr.length = 2
+         this.allarr = []
+         this.twoarr.push(val)
+         this.twostr = this.twoarr.join("||")
+      if( this.twostr == this.firststr ||  this.twostr == this.threestr ) {
         this.twott = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           type: 'warning',
@@ -742,10 +746,6 @@ export default {
           showConfirmButton:false
         })
       } else {
-         this.twoarr.length = 2
-         this.allarr = []
-         this.twoarr.push(val)
-         this.twostr = this.twoarr.join("||")
          this.twopush()
       }
       

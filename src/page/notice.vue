@@ -69,7 +69,13 @@ export default {
                                   this.articles.oneName = '***********' + '公司'
                                 }
                              }
-                             this.articles.oneOffer = '***'
+                             if(this.articles.oneOffer) {
+                                let mm  = this.articles.oneOffer.length
+                                this.articles.oneOffer = '*'   
+                                for (var i = 1; i<mm; i++ ) {
+                                  this.articles.oneOffer = this.articles.oneOffer + '*'
+                                }
+                             } 
                     } 
             }
         });

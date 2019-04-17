@@ -84,9 +84,15 @@ export default {
                    if(this.articles.zzRank){
                      this.articles.zzRank=this.articles.zzRank.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
                    }
-      
+                     if( this.articles.pbMode) {
+                      let xin  = this.articles.pbMode.length
+                      this.articles.pbMode = '*'   
+                      for (var i = 1; i<xin; i++ ) {
+                        this.articles.pbMode = this.articles.pbMode + '*'
+                      }
+                    } 
                    
-                    this.articles.pbMode = '****'
+                    // this.articles.pbMode = '****'
 
                 } 
             }
