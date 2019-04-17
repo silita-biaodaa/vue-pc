@@ -815,7 +815,7 @@ export default {
     Goto(val) {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
-      document.documentElement.scrollTo(0,0);
+      document.documentElement.scrollTo(0,492);
       this.companylisy=[];
       this.loading = true
       this.again()
