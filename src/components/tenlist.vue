@@ -13,7 +13,7 @@
        <div class="left project" @click="tjump(el)" >
          <div>
           <p class="list-til">{{el.title}}</p>
-          <p class="list-z">资质要求：{{el.pbMode ? el.pbMode : '详见原文'}}</p>       
+          <p class="list-z">第一候选人：{{el.oneName ? el.oneName : '详见原文'}}</p>       
          </div>
        </div>
        <div class="left operate  ">
@@ -65,6 +65,19 @@ export default {
           } else {
             this.ishow = true
           }
+           if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                           this.bidlists.forEach( el => {
+                             if(el.oneName)  {
+                                  if(el.oneName.indexOf('公司') == -1) {
+                                  el.oneName = '***********'
+                                } else {
+                                  el.oneName = '***********' + '公司'
+                                }
+                             } else {
+                               el.oneName = '***********'
+                             }
+                            })
+                    }
         }
       })
     },

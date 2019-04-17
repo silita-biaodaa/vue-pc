@@ -309,9 +309,11 @@ export default {
          }
          this.area = el.name
          this.pageNo = 1
+         this.gainList()
          setTimeout(() => {
            this.Stroke = true
          }, 1000);
+
     },
     // evalclass(el) {
     //   this.queryLists = []
@@ -630,18 +632,19 @@ export default {
          out-line: none;
          color: #333;
          .m-rg {
-           margin-top: 2px;
-           width: 23px;
+           width: 34px;
          }
          .m-bt {
            margin-bottom: 5px;
            overflow: hidden;
+           height: 25px;
+           line-height: 25px;
          }
          .super {
            width: 750px;
            text-overflow: ellipsis;
            overflow: hidden;
-           margin-left: 23px;
+           margin-left: 10px;
            white-space: nowrap;
          }
          .aptitude {

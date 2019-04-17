@@ -204,3 +204,6 @@ figcaption:focus {
   font-size: 18px;
   border-radius: 5px;
 }
+.el-dropdown-menu {
+  z-index: 2050 !important;
+}

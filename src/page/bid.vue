@@ -46,7 +46,7 @@
         </div>
         <div class="select">
            资质要求:&nbsp
-              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' @click.native="judvip" :disabled="isCompanyQual">
+              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' >
                 <el-option
                   v-for="item in companyQuals"
                   :key="item.name"
@@ -55,7 +55,7 @@
                 </el-option>
               </el-select>
            
-             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'  @click.native="judvip" :disabled="isMajor">
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'  >
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -63,7 +63,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet'  @click.native="judvip" :disabled="isGrade">
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet'   >
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -130,9 +130,6 @@ export default {
       area:'',
       Snone:false,
       loading:true,
-      isCompanyQual:true,
-      isMajor:true,
-      isGrade:true,
       areas:[
         {
           name:'北京'
@@ -388,9 +385,27 @@ export default {
       this.svip = val.cur
     },
     gainlist() {
-      this.current = 1
-      this.loading = true 
-      this.gainQueryList()
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+            this.current = 1
+            this.loading = true 
+            this.gainQueryList()
+          }
+      } else {
+            this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+      }
+      
     },
     gainQueryList() {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
@@ -544,11 +559,12 @@ export default {
             this.svip = true
             this.modalHelper.afterOpen();
             // this.pbMode = [""]
-          }else{
-            this.isCompanyQual=false;
-            this.isMajor=false;
-            this.isGrade=false;
           }
+          // else{
+          //   // this.isCompanyQual=false;
+          //   // this.isMajor=false;
+          //   // this.isGrade=false;
+          // }
       } else {
             this.$confirm('暂无权限，请先登录', '提示', {
             confirmButtonText: '确定',
@@ -747,18 +763,20 @@ export default {
        a {
          height: 80px;
          box-sizing: border-box;
-         padding: 23px 22px 0 20px;
+         padding: 20px 22px 0 20px;
          border-bottom: 1px solid #f2f2f2;
          cursor:pointer;
          display: block;
          color:#333;
          .m-rg {
-           margin-right: 26px;
-           width: 20px;
+           margin-right: 12px;
+           width: 34px;
          }
          .m-bt {
            margin-bottom: 5px;
            overflow: hidden;
+           height: 25px;
+           line-height: 25px;
          }
          .super {
            width: 750px;

@@ -13,7 +13,7 @@
        <div class="left project" @click="bjump(el)" >
          <div>
           <p class="list-til">{{el.title}}</p>
-          <p class="list-z">资质要求：{{el.pbMode ? el.pbMode : '详见原文'}}</p>       
+          <p class="list-z">资质要求：{{el.certificate ? el.certificate : '详见原文'}}</p>       
          </div>
        </div>
        <div class="left operate  ">
@@ -64,6 +64,15 @@ export default {
             this.ishow = false
           } else {
             this.ishow = true
+          }
+         if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+              for(let x of this.bidlists){
+                 if(x.certificate){
+                   x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                 } else {
+                   x.certificate = '********'
+                 }
+                } 
           }
         }
       })

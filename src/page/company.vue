@@ -734,9 +734,9 @@ export default {
       if( this.twott == this.grade ||  this.twott == this.threett ) {
         this.twott = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
         })
       } else {
          this.twoarr.length = 2

@@ -30,11 +30,11 @@
              <p @click="jumpl" v-if="names" >
                请登录
              </p>
-              <el-dropdown  v-else trigger="click" >
+              <el-dropdown  v-else trigger="click"   >
                  <span class="el-dropdown-link">
                    {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
                  </span>
-                 <el-dropdown-menu slot="dropdown">
+                 <el-dropdown-menu slot="dropdown" style="z-index:2050" >
                    <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
                    <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
                    <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
@@ -367,7 +367,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 99;
+    z-index: 2010;
     width: 100%;
   }
   .app-header { 
