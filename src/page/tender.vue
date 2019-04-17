@@ -98,7 +98,7 @@
        <div class="t-page">
           <nav-page 
           :all='total'
-          :currents='present'
+          :currents='pageNo'
           @skip='Goto'
           ></nav-page>
        </div>

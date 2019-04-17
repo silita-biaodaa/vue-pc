@@ -225,7 +225,7 @@
   <div class="c-page" v-show="!Snone">
           <nav-page 
           :all='total'
-          :currents='present'
+          :currents='current'
           @skip='Goto'
           ></nav-page>
   </div>
