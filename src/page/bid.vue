@@ -79,7 +79,7 @@
         </div>
      </div> 
 
-      <div class="total" >
+      <div class="total">
         共搜索到<span>{{total}}</span>条招标公告
       </div>
 
@@ -515,7 +515,7 @@ export default {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
-      document.documentElement.scrollTo(0,0);
+      document.documentElement.scrollTo(0,530);
       this.loading = true      
       this.gainQueryList()
     },
