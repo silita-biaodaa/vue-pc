@@ -80,6 +80,9 @@
                 :value="item.code">
               </el-option>
             </el-select>
+            <div class='right com-btn' @click='again' >
+               资质查询
+            </div>
         </div>
          <div class="select" v-show='two' >
            <span class='op-c' >资质要求:</span>&nbsp&nbsp
@@ -161,11 +164,11 @@
            </el-row>
         </div>  
 
-        <div class="select cc-btn" >
-          <div class='left c-sure' @click='again' >
-            查询
-          </div>
-        </div>
+         <!-- <div class="select cc-btn" >
+        //   <div class='left c-sure'  >
+        //     查询
+        //   </div>
+        // </div> -->
              
    </div>
 
@@ -939,7 +942,7 @@ export default {
      width: 1020px;
      background-color: #fff;
      margin: 20px auto 0;
-     padding: 15px 15px 0px 15px;
+     padding: 15px;
      box-sizing: border-box;
      font-size: 16px;
      .select {
@@ -1015,6 +1018,15 @@ export default {
       .el-select {
         width: 225px;
         margin-right: 10px;
+      }
+      .com-btn {
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        background-color: #FE6603;
+        width: 100px;
+        text-align: center;
+        border-radius: 8px;
       }
       .op-c{
          color:#fff;

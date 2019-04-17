@@ -33,7 +33,7 @@
              {{el.oneName ? '第一候选人:' + el.oneName : '详见原文'}}
            </p>
            <div>
-             {{el.oneOffer ? "中标金额:" + el.oneOffer + "万" : '详见原文'}}
+            中标金额:{{el.oneOffer ?   el.oneOffer + "万" : '详见原文'}}
            </div>
         </div>
         
@@ -164,6 +164,20 @@ export default {
     display: flex;
     justify-content: center;
     height: 150px;
+      .paging {
+     ul {
+       li {
+         height: 30px;
+         line-height: 30px ;
+         padding: 0 8px;
+         margin-right: 5px;
+       }
+       .put-jump {
+          height: 30px;
+         line-height: 30px ;
+       }
+     }
+   }
   }
   .no-search {
     width: 100%;

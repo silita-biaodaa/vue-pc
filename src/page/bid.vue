@@ -46,7 +46,7 @@
         </div>
         <div class="select">
            资质要求:&nbsp
-              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice' >
+              <el-select v-model="companyQual" placeholder="选择资质类型" clearable  @change='Splice'  @click.native='judvip' >
                 <el-option
                   v-for="item in companyQuals"
                   :key="item.name"
@@ -55,7 +55,7 @@
                 </el-option>
               </el-select>
            
-             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'  >
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'   >
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -72,11 +72,11 @@
               </el-option>
             </el-select>
         </div>
-        <div class='select cc-btn' >
+        <!-- <div class='select cc-btn' >
           <div class='c-sure'  @click='gainlist' >
             查询
           </div>
-        </div>
+        </div> -->
      </div> 
 
       <div class="total">
@@ -413,8 +413,6 @@ export default {
          if(res.code == 1 ) {
            this.loading = false
            this.total = res.total
-           console.log( localStorage.getItem('permissions'))
-           
            if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
                 for(let x of res.data){
                    if(x.certificate){
@@ -424,9 +422,6 @@ export default {
                     x.pbMode = '****'
                   } 
             }
-         
-           console.log(res.data);
-           
            this.queryLists = res.data
            this.present = res.pageNo
            if(this.total == 0 ) {
@@ -473,7 +468,7 @@ export default {
           this.pbModess=''
         }
         this.current = 1
-        // this.gainQueryList()
+        this.gainQueryList()
       }else{
         this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
@@ -543,15 +538,15 @@ export default {
     Splice() {
       this.zzType = this.companyQual
       this.current = 1
-      // this.loading = true      
-      // this.gainQueryList()
+      this.loading = true      
+      this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
       this.zzType = this.zType.join('||')
       this.current = 1
-      // this.loading = true      
-      //  this.gainQueryList()
+      this.loading = true      
+       this.gainQueryList()
     },
     judvip() {
          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -560,11 +555,6 @@ export default {
             this.modalHelper.afterOpen();
             // this.pbMode = [""]
           }
-          // else{
-          //   // this.isCompanyQual=false;
-          //   // this.isMajor=false;
-          //   // this.isGrade=false;
-          // }
       } else {
             this.$confirm('暂无权限，请先登录', '提示', {
             confirmButtonText: '确定',
@@ -581,8 +571,8 @@ export default {
       this.zType.push(this.companyQual,this.major,this.grade)
       this.zzType = this.zType.join('||')
       this.current = 1
-      // this.loading = true      
-      // this.gainQueryList()
+      this.loading = true      
+      this.gainQueryList()
     },
     gainFilter() {
       filter({}).then( res => {
@@ -593,6 +583,9 @@ export default {
     },
     eval(el) {
         this.area = el.name
+        this.current = 1
+        this.loading = true      
+        this.gainQueryList()
     },
     evalclass(el) {
         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -601,6 +594,9 @@ export default {
               this.modalHelper.afterOpen();
             } else {
              this.projectType = el.key
+             this.current = 1
+             this.loading = true 
+             this.gainQueryList()
             }
         } else {
               this.$confirm('暂无权限，请先登录', '提示', {
@@ -698,7 +694,7 @@ export default {
      margin: 0 auto;
      width: 1020px;
      margin-top: 20px;
-     height: 360px;
+     height: 290px;
      background: #fff;
      padding: 15px;
      box-sizing: border-box;

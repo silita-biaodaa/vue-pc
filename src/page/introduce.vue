@@ -371,5 +371,19 @@ export default {
     margin: 10px 0;
   }
   
+   .paging {
+     ul {
+       li {
+         height: 30px;
+         line-height: 30px ;
+         padding: 0 8px;
+         margin-right: 5px;
+       }
+       .put-jump {
+          height: 30px;
+         line-height: 30px ;
+       }
+     }
+   }
 }
 </style>

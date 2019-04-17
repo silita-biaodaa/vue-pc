@@ -64,11 +64,11 @@
              </el-col>
            </el-row>
         </div>      
-        <div class="select cc-btn ">
+        <!-- <div class="select cc-btn ">
           <div class="c-sure"  @click="gainList" >
              查询
           </div>
-        </div>
+        </div> -->
     </div>
     <div class="total">
       共搜索到<span>{{total}}</span>条中标公告
@@ -338,6 +338,8 @@ export default {
                   this.start = el.s,
                   this.end = el.e 
                   this.pageNo = 1
+                  this.loading = true
+                  this.gainList()
                   setTimeout(() => {
                     this.Stroke = true
                   }, 500);
@@ -544,7 +546,7 @@ export default {
   .t-options {
     width: 1020px;
     margin: 0 auto;
-    height: 240px;
+    height: 150px;
     box-sizing: border-box;
     background-color: #fff;
     margin-top: 20px;

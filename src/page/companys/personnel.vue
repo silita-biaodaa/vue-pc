@@ -207,6 +207,20 @@ export default {
     display: flex;
     justify-content: center;
     padding-top: 50px;
+      .paging {
+     ul {
+       li {
+         height: 30px;
+         line-height: 30px ;
+         padding: 0 8px;
+         margin-right: 5px;
+       }
+       .put-jump {
+          height: 30px;
+         line-height: 30px ;
+       }
+     }
+   }
   }
 }
 </style>

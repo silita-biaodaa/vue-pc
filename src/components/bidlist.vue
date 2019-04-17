@@ -69,9 +69,7 @@ export default {
               for(let x of this.bidlists){
                  if(x.certificate){
                    x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
-                 } else {
-                   x.certificate = '********'
-                 }
+                 } 
                 } 
           }
         }

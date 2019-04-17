@@ -73,9 +73,7 @@ export default {
                                 } else {
                                   el.oneName = '***********' + '公司'
                                 }
-                             } else {
-                               el.oneName = '***********'
-                             }
+                             } 
                             })
                     }
         }
