@@ -419,7 +419,14 @@ export default {
                      x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
                     
                    }
-                    x.pbMode = '****'
+                    if( x.pbMode) {
+                      let xin  = x.pbMode.length
+                      x.pbMode = '*'   
+                      for (var i = 1; i<xin; i++ ) {
+                        x.pbMode = x.pbMode + '*'
+                      }
+                    } 
+
                   } 
             }
            this.queryLists = res.data

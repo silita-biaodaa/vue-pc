@@ -68,8 +68,6 @@ export default {
                                 } else {
                                   this.articles.oneName = '***********' + '公司'
                                 }
-                             } else {
-                               this.articles.oneName = '***********'
                              }
                              this.articles.oneOffer = '***'
                     } 

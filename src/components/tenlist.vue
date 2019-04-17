@@ -67,12 +67,21 @@ export default {
           }
            if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
                            this.bidlists.forEach( el => {
-                             if(el.oneName)  {
+                               if(el.oneName)  {
                                   if(el.oneName.indexOf('公司') == -1) {
-                                  el.oneName = '***********'
-                                } else {
-                                  el.oneName = '***********' + '公司'
-                                }
+                                     let xin  = el.oneName.length
+                                      el.oneName = '*'   
+                                      for (var i = 1; i<xin; i++ ) {
+                                        el.oneName = el.oneName + '*'
+                                      }
+                                  } else {
+                                     let xin  = el.oneName.length
+                                      el.oneName = '*'   
+                                      for (var i = 1; i<xin; i++ ) {
+                                        el.oneName = el.oneName + '*'
+                                      }
+                                    el.oneName = el.oneName + '公司'
+                                  }
                              } 
                             })
                     }

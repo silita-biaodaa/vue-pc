@@ -324,6 +324,23 @@ export default {
              el.date = moment(date).format('YYYY年MM月DD日')
           });
             this.queryLists = res.data
+             if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+                for(let x of this.queryLists){
+                  if(x.certificate) {
+                      if(x.certificate){
+                           x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                         }
+                   }
+                    if( x.pbMode) {
+                        let xin  = x.pbMode.length
+                        x.pbMode = '*'   
+                        for (var i = 1; i<xin; i++ ) {
+                          x.pbMode = x.pbMode + '*'
+                        }
+                      } 
+                }     
+             }
+            
             if( this.queryLists.length == 0) {
               this.biding  = false
             } else {
@@ -347,6 +364,33 @@ export default {
             } else {
               this.tendering  = true
             }
+              if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                           this.biddings.forEach( el => {
+                             if(el.oneName)  {
+                                  if(el.oneName.indexOf('公司') == -1) {
+                                     let xin  = el.oneName.length
+                                      el.oneName = '*'   
+                                      for (var i = 1; i<xin; i++ ) {
+                                        el.oneName = el.oneName + '*'
+                                      }
+                                  } else {
+                                     let xin  = el.oneName.length
+                                      el.oneName = '*'   
+                                      for (var i = 1; i<xin; i++ ) {
+                                        el.oneName = el.oneName + '*'
+                                      }
+                                    el.oneName = el.oneName + '公司'
+                                  }
+                             } 
+                             if(el.oneOffer) {
+                                let mm  = el.oneOffer.length
+                                el.oneOffer = '*'   
+                                for (var i = 1; i<mm; i++ ) {
+                                  el.oneOffer = el.oneOffer + '*'
+                                }
+                             } 
+                            })
+                    }
          }
       })
     },

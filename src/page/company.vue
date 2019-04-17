@@ -690,9 +690,9 @@ export default {
       if( this.grade == this.twott ||  this.grade == this.threett ) {
         this.grade = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
         })
       } else {
          this.allarr = []
@@ -786,7 +786,9 @@ export default {
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
         })
       } else {
          this.threearr.length = 2

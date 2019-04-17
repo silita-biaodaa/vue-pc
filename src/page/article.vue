@@ -83,9 +83,8 @@ export default {
                 if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
                    if(this.articles.zzRank){
                      this.articles.zzRank=this.articles.zzRank.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
-                   } else {
-                      this.articles.zzRank = '****'
                    }
+      
                    
                     this.articles.pbMode = '****'
 

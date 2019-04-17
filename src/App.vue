@@ -15,10 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <p class="left">
+             <!-- <p class="left">
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p>
+             </p> -->
           </div>
           <div class="contact-r">
             
