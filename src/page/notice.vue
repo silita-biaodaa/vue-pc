@@ -61,6 +61,18 @@ export default {
                } else {
                  this.collect = '关注'
                }
+               if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                             if(this.articles.oneName)  {
+                                  if(this.articles.oneName.indexOf('公司') == -1) {
+                                  this.articles.oneName = '***********'
+                                } else {
+                                  this.articles.oneName = '***********' + '公司'
+                                }
+                             } else {
+                               this.articles.oneName = '***********'
+                             }
+                             this.articles.oneOffer = '***'
+                    } 
             }
         });
     },

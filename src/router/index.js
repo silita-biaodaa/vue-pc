@@ -29,6 +29,9 @@ import user from '@/page/user/user'
 import pDet from '@/components/pdet'
 import root from '@/components/root'
 import fcoll from '@/components/collect'
+ 
+import about from '@/page/About'    // 关于我们
+
 
 
 
@@ -215,6 +218,11 @@ export default new Router({
         path: '/bound',
         name: 'bound',
         component: bound
+      },
+      {
+        path: '/about',
+        name: 'about',
+        component: about
       },
       {
         path:'/user',

@@ -684,18 +684,18 @@ export default {
       this.fisrtpush()
     },
     firstss(val) {
-      this.allarr = []
-      this.firstarr.length = 2 ,
-      this.firstarr.push(val)      
-      this.firststr = this.firstarr.join('||')
-      if( this.firststr == this.twostr ||  this.firststr == this.threestr ) {
-        this.companyQual = ''
+      if( this.grade == this.twott ||  this.grade == this.threett ) {
+        this.grade = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
       } else {
+         this.allarr = []
+         this.firstarr.length = 2 ,
+         this.firstarr.push(val)      
+         this.firststr = this.firstarr.join('||')
          this.fisrtpush()
       }
      
@@ -731,18 +731,18 @@ export default {
 
     },
     twoqss(val) {
-      this.twoarr.length = 2
-      this.allarr = []
-      this.twoarr.push(val)
-      this.twostr = this.twoarr.join("||")
-        if( this.twostr == this.firststr ||  this.twostr == this.threestr ) {
-        this.twoQual = ''
+      if( this.twott == this.grade ||  this.twott == this.threett ) {
+        this.twott = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
       } else {
+         this.twoarr.length = 2
+         this.allarr = []
+         this.twoarr.push(val)
+         this.twostr = this.twoarr.join("||")
          this.twopush()
       }
       
@@ -778,19 +778,19 @@ export default {
       this.threepush()
     },
     threeqss(val){
-      this.threearr.length = 2
-      this.allarr = []
-      this.threearr.push(val)
-      this.threestr = this.threearr.join("||")
-       if( this.threestr == this.twostr ||  this.firststr == this.threestr ) {
-        this.threeQual = ''
+       if( this.threett == this.twott ||  this.threett == this.grade ) {
+        this.threett = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         })
       } else {
-          this.threepush()
+         this.threearr.length = 2
+         this.allarr = []
+         this.threearr.push(val)
+         this.threestr = this.threearr.join("||")
+         this.threepush()
       }
      
     },
@@ -818,7 +818,22 @@ export default {
       document.documentElement.scrollTo(0,0);
       this.companylisy=[];
       this.loading = true
-      this.again()
+         this.allstr = this.allarr.join(",")
+             if(this.rank == 0 ) {
+               this.gainCompany()
+             } else {
+               companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
+               this.companylisy = res.data
+               this.total = res.total
+               this.loading = false
+               this.present = res.pageNum
+               if(this.total == 0 ) {
+                  this.Snone = true
+                } else {
+                  this.Snone = false
+                }
+              })
+             }
     },
     entitle(val) {      
       this.title = val.cur
