@@ -23,11 +23,7 @@
           <div class="matter"> 
                  <a class="left h-i" v-for="el of queryLists" :key="'zb'+el.id" @click='bidto(el)' >
                     <p class="t-line" :title='el.title' >
-                      {{el.title}}
-                      <i class="t-p">
-                      </i>
-                      <i class="t-in">
-                      </i>
+                      <span>{{el.title}}</span>
                     </p>
                     <div class="m-detail">
                        <p :title='el.certificate' >资质要求:  {{el.certificate ? el.certificate : '详见原文'}}</p>
@@ -50,11 +46,7 @@
           <div class="matter"> 
                  <a class="left" v-for="el of biddings" :key="'zhongb'+el.id"  @click='decide(el)' >
                     <p class="t-line" :title='el.title' >
-                      {{el.title}}
-                      <i class="t-p">
-                      </i>
-                      <i class="t-in">
-                      </i>
+                      <span>{{el.title}}</span>
                     </p>
                     <div class="m-detail">
                        <p :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文'}}</p>
@@ -78,11 +70,7 @@
           <div class="matter"> 
                  <a class="left" v-for="el of companys" :key="'com'+el.comId"  @click='comto(el)'  >
                     <p class="t-line" :title='el.comName'>
-                      {{el.comName}}
-                      <i class="t-p">
-                      </i>
-                      <i class="t-in">
-                      </i>
+                      <span>{{el.comName}}</span>
                     </p>
                     <div class="m-detail">
                        <p>法人:  {{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
@@ -438,28 +426,46 @@ export default {
           font-weight: 550;
           color:#333;
          }
+         .t-line::after{
+           position: absolute;
+           content: '';
+           bottom: 0;
+           height: 3px;
+           background-color: #F2F2F2;
+           width: calc(100% - 56px);
+           right: 0;
+         }
+         .t-line::before{
+           position: absolute;
+           content: '';
+           bottom: 0;
+           height: 3px;
+           left: 0;
+           width: 56px;
+           background-color: #EC7522;
+         }
          .t-line {
            position: relative;
            box-sizing: border-box;
            padding: 5px 0;
           //  border-bottom: 2px solid #F2F2F2;
-          .t-p {
-            height: 3px;
-            width: 56px;
-            position: absolute;
-            background-color: #EC7522;
-            left: 0;
-            bottom: -1px;
-            z-index: 9;
-          }
-          .t-in {
-            height: 3px;
-            width: 100%;
-            position: absolute;
-            background-color: #F2F2F2;
-            left: 0;
-            bottom: -1px;
-          }
+          // .t-p {
+          //   height: 3px;
+          //   width: 56px;
+          //   position: absolute;
+          //   background-color: #EC7522;
+          //   left: 0;
+          //   bottom:0;
+          //   z-index: 9;
+          // }
+          // .t-in {
+          //   height: 3px;
+          //   width: calc(100% - 56px);
+          //   position: absolute;
+          //   background-color: #F2F2F2;
+          //   left: 0;
+          //   bottom: 0;
+          // }
          }
            a {
              width: 20%;
