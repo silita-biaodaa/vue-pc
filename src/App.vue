@@ -15,10 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <!-- <p class="left">
+             <p class="left">
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p> -->
+             </p>
           </div>
           <div class="contact-r">
             
@@ -337,7 +337,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound') {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about') {
         return false
       } else {
         return true
@@ -401,6 +401,7 @@ export default {
             .person {
               font-size: 14px;
               font-weight: 600;
+              cursor: pointer;
             }
           }
         }
