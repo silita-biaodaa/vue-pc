@@ -20,6 +20,9 @@
                    <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
                       <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
+                   <div class="right  syn" v-show="synth" >
+                      综合查询
+                   </div>
                  </div>
              </div>
          </el-col>
@@ -120,6 +123,15 @@ export default {
   //     }
   //   })
   // },
+  computed: {
+    synth() {
+      if(this.$route.name == 'company') {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   watch: {
       $route(to,form) {
         if(to.path == "/tender") {
@@ -190,6 +202,12 @@ export default {
          cursor: pointer;
        }
      }
+     .syn {
+       line-height: 40px;
+       font-size: 16px;
+       color:#FE6603;
+       cursor: pointer;
+     } 
    }
 }
 </style>

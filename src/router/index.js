@@ -32,6 +32,7 @@ import fcoll from '@/components/collect'
  
 import about from '@/page/About'    // 关于我们
 
+import synth from '@/page/synth/synth'    // 综合查询
 
 
 
@@ -255,9 +256,15 @@ export default new Router({
             }
           },
         ] 
-      }
+      },
+      {
+        path: '/synth',
+        name: 'synth',
+        component: synth
+      },
   ]
 })
+
 
 // 模板
 //  {
