@@ -24,6 +24,11 @@ import fcoll from '@/components/collect'
 import bidlist from '@/components/bidlist'
 import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
+import aptitude from '@/page/synth/aptitude'
+import query from '@/page/synth/query'
+import history from '@/page/synth/history'
+
+
 import {getOpenid,ThirdLogin,refresh} from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
@@ -35,6 +40,13 @@ Vue.component('f-coll', fcoll)
 Vue.component('ten-list', tenlist)
 Vue.component('bid-list', bidlist)
 Vue.component('qy-list', qylist)
+Vue.component('q-titu', aptitude)
+Vue.component('q-uery', query)
+Vue.component('h-is', history)
+
+
+
+
 
 
 

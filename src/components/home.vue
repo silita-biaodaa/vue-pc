@@ -20,7 +20,7 @@
                    <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
                       <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
-                   <div class="right  syn" v-show="synth" >
+                   <div class="right  syn" v-show="synth"  @click="jump" >
                       综合查询
                    </div>
                  </div>
@@ -72,6 +72,9 @@ export default {
            this.way = el.to
          }
       })
+    },
+    jump() {
+      this.$router.push('/synth')
     },
     engine() {
       localStorage.removeItem('title')

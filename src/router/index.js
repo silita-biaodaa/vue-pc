@@ -260,7 +260,10 @@ export default new Router({
       {
         path: '/synth',
         name: 'synth',
-        component: synth
+        component: synth,
+        meta: {
+          tabNo: 3
+        }
       },
   ]
 })

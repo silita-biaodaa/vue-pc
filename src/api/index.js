@@ -170,12 +170,23 @@ export const qytlist = params => {
 export const getOpenid=params => {
     return axios.post('/authorize/openid', params).then(res => res.data)
 }
+
 export const ThirdLogin=params => {
     return axios.post('/authorize/memberThirdLogin', params).then(res => res.data)
 }
+
 export const binding = params => {
     return axios.post('authorize/thirdPartyBinding', params).then(res => res.data)
 }
+
 export const refresh = params => {
   return axios.post('/userCenter/refreshUserInfo', params).then(res => res.data)
+}
+
+export const report = params => {
+  return axios.post('/report/query', params).then(res => res.data)
+}
+
+export const history = params => {
+  return axios.post('/report/history/list', params).then(res => res.data)
 }
