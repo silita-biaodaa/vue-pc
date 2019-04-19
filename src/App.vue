@@ -78,7 +78,7 @@
          <router-view :state='source' />
     </div>
 
-    <div class="footer "  v-show="exploit"   >
+    <div class="footer footer-b "  v-show="exploit"   >
         <div class="f-content">
             <div class="f-detail left">
                 <div class="f-we">

@@ -1,0 +1,79 @@
+<template>
+<div class="synth">
+  <div class="syn-top" >
+    <span :class="query ? 'current' : '' "  @click="changce" >综合查询</span>/<span :class="record ? 'current' : '' "  @click="changces" >历史记录</span>
+  </div>
+  <q-uery v-show="query" ></q-uery>
+  <h-is  v-show="record" >
+   
+  </h-is>
+</div>
+</template>
+<script>
+
+export default {
+  data () {
+    return {
+      query:false,
+      record:true,
+      allarr:[]
+    }
+  },
+  methods: {
+    changce() {
+      this.query = true
+      this.record = false
+    },
+    gainhistory() {
+      if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
+        return false
+     }
+     history({pageNo:1,pageSize:1000}).then(res => {
+       if(res.code == 1) {
+         this.allarr = res.data
+       }
+     })
+    },
+    changces() {
+    if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        })
+        return false
+     }
+      this.query = false
+      this.record = true
+    }
+  },
+  created () {
+    this.gainhistory()
+  },
+  components: {
+  }
+}
+</script>
+<style lang="less" scoped>
+.synth {
+  width: 1020px;
+  margin: 0 auto ;
+  padding-top: 80px;
+  .syn-top {
+    font-size: 16px;
+    color:#999;
+    margin: 20px 0 20px 0; 
+    font-weight: 550;
+    span {
+      cursor: pointer;
+    }
+    .current {
+      color:#333;
+    }
+  }
+
+}
+
+</style>

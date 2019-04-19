@@ -207,3 +207,33 @@ figcaption:focus {
 .el-dropdown-menu {
   z-index: 2050 !important;
 }
+.synth .el-input {
+  width: 300px;
+}
+.synth .el-date-editor--daterange.el-input,
+.synth .el-date-editor--daterange.el-input__inner,
+.synth .el-date-editor--timerange.el-input,
+.synth .el-date-editor--timerange.el-input__inner {
+  width: 300px;
+}
+.synth .el-input__inner::-webkit-input-placeholder {
+  color: #999;
+}
+.synth .el-range-input::-webkit-input-placeholder {
+  color: #999;
+}
+.synth .contract .el-input {
+  width: 130px;
+}
+.synth .contract .el-input__prefix {
+  left: 0;
+}
+.synth .contract .el-input--prefix .el-input__inner {
+  padding-left: 20px;
+}
+.synth .contract .el-input--suffix .el-input__inner {
+  padding-right: 15px;
+}
+.aptitude .el-input {
+  width: 245px;
+}
