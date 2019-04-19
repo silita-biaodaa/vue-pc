@@ -1,26 +1,26 @@
 <template>
 <div class="history">
-  <div class="inform" v-if="!pass" >
+  <div class="inform" v-if="!pass" v-for="(el,i) in history " :key="i" >
     <div class="inform-top">
       <div class="top-left" >
          <div class="top-title"> 
-           企业综合报告--¥50
+           企业综合查询报告--¥{{el.price}}
          </div>
          <div class="top-buy">
-           购买时间：2019年4月12日
+           购买时间：{{el.date}}
          </div>
          <div class="inform-f">
-           企业所在地：湖南省
+           企业所在地：{{el.reginAddress}}
          </div>
           <div class="inform-f">
-            资质要求：施工总承包-建筑工程施工总承包三级或施工总承包-建筑工程施工总承包三级
+            资质要求：{{el.qualName}}
          </div>
       </div>
       <div class="top-right" >
-         <div class="top-btn">
+         <div class="top-btn" :class=" el.pAth ? '' : 'no-path' " @click="jump(el)" >
             查看报告
          </div>
-         <div class="no-inform">
+         <div class="no-inform" v-show="!el.pAth" >
            报告生成中……
          </div>
       </div>
@@ -30,16 +30,16 @@
         业绩要求
       </div>
         <div class="inform-f">
-           业绩平台：全国建筑市场监督公共服务平台
+           业绩平台：{{el.projSource}}
         </div>
         <div class="inform-f">
-          项目名称关键词：土石方
+          项目名称关键词：{{el.projName}}
         </div>
         <div class="inform-f">
-          竣工时间：2016-4-10至2019-4-10
+          竣工时间：{{el.buildStart}}至{{el.buildEnd}}
         </div>
         <div class="inform-f">
-          合同金额：450万-1000万
+          合同金额：{{el.amountStart}}万-{{el.amountEnd}}万
         </div>
     </div>
   </div>
@@ -50,22 +50,48 @@
 </template>
 <script>
 import { history } from '@/api/index';
+let moment = require("moment");
 export default {
   data () {
     return {
-      pass:false
+      pass:false,
+      history:[],
+      pAth:true
     }
   },
   methods: {
     gainLisy() {
       history({pageNo:1,pageSize:1000}).then( res => {
+        console.log(res);
          if(res.code == 1) {
-          //  if(res.data.length == 0) {
-          //    this.pass = true
-          //  } 
+           if(res.data.length == 0) {
+             this.pass = true
+           } 
          }
-         
+         this.history = res.data
+          this.history.forEach( el => {
+            if(el.reportPath) {
+              el.pAth  = true
+            } else {
+              el.pAth  = false
+            }
+             var date = new Date(el.payDate.replace(/-/g, '/'));
+             el.date = moment(date).format('YYYY年MM月DD日')
+             if(el.projSource = 'project') {
+               el.projSource = '全国建筑市场监管公共服务平台'
+             } else if(el.projSource = 'shuili') {
+               el.projSource = '全国水利建设市场信用信息平台'
+             } else {
+               el.projSource = '全国公路建设市场信用信息管理系统'
+             }
+          })
       })
+    },
+    jump(el) {
+       if(!el.pAth ) {
+         return 
+       }
+        window.open(el.reportPath, '_blank', )
     }
   },
   created () {
@@ -123,6 +149,9 @@ export default {
           color:red;
           text-align: center;
           font-size: 12px;
+        }
+        .no-path {
+          background-color: #ccc;
         }
       }
     }

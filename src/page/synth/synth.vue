@@ -14,8 +14,8 @@
 export default {
   data () {
     return {
-      query:false,
-      record:true,
+      query:true,
+      record:false,
       allarr:[]
     }
   },
@@ -35,7 +35,10 @@ export default {
      })
     },
     changces() {
-    if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
+    if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
+        this.query = false
+       this.record = true
+     } else {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -45,8 +48,7 @@ export default {
         })
         return false
      }
-      this.query = false
-      this.record = true
+     
     }
   },
   created () {
