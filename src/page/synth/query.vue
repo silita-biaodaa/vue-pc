@@ -291,7 +291,7 @@ export default {
       }
     },
     query() {
-    if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
+    if(  !(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) ) {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -331,8 +331,14 @@ export default {
         }
       }
       this.allstr = this.all.join(',')
-      report({reginAddress:this.area,qualCode:this.allstr,rangType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}).then( res => {
-
+      let date = {reginAddress:this.area,qualCode:this.allstr,rangType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}
+      report(date).then( res => {
+        console.log(res);
+        if(res.code == 1) {
+          localStorage.setItem('query',JSON.stringify(date))
+          this.$router.push('/result')
+        }
+        
       })
     }
   },

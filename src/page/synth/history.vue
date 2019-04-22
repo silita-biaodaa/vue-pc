@@ -61,8 +61,14 @@ export default {
   },
   methods: {
     gainLisy() {
+      console.log(1);
+      
+    if(!(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) ) {
+        return false
+     }
       history({pageNo:1,pageSize:1000}).then( res => {
         console.log(res);
+        
          if(res.code == 1) {
            if(res.data.length == 0) {
              this.pass = true

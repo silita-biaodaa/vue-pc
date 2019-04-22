@@ -71,6 +71,11 @@ export default {
            to:'root',
           i:false
         }
+         ,{
+          name:'我的订单',
+           to:'order',
+          i:false
+        }
         ,{
           name:'退出登录',
           i:false

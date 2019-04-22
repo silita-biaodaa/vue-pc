@@ -237,3 +237,6 @@ figcaption:focus {
 .aptitude .el-input {
   width: 245px;
 }
+.order .el-input {
+  width: 115px;
+}
