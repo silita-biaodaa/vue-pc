@@ -319,11 +319,17 @@ export default {
     gainqueryList() {
       queryList({pageNo:1,type:'0',pageSize:8,regions:this.state}).then(res => {
          if(res.code == 1 ) {
+            this.queryLists = res.data
+            if( this.queryLists.length == 0) {
+              return this.biding  = false
+            } else {
+              this.biding  = true
+            }
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
              el.date = moment(date).format('YYYY年MM月DD日')
           });
-            this.queryLists = res.data
+           
              if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
                 for(let x of this.queryLists){
                   if(x.certificate) {
@@ -341,11 +347,7 @@ export default {
                 }     
              }
             
-            if( this.queryLists.length == 0) {
-              this.biding  = false
-            } else {
-              this.biding  = true
-            }
+          
          }
       })
      
@@ -353,17 +355,18 @@ export default {
     gainten() {
        queryList({pageNo:1,type:'2',pageSize:8,regions:this.state}).then(res => {
          if(res.code == 1 ) {
+             this.biddings = res.data
+             if( this.biddings.length == 0) {
+              this.tendering  = false
+            } else {
+              this.tendering  = true
+            }
           res.data.forEach( el => {
              var date = new Date(el.opendate.replace(/-/g, '/'));
              el.date = moment(date).format('YYYY年MM月DD日')
 
           });
-            this.biddings = res.data
-             if( this.queryLists.length == 0) {
-              this.tendering  = false
-            } else {
-              this.tendering  = true
-            }
+          
               if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
                            this.biddings.forEach( el => {
                              if(el.oneName)  {

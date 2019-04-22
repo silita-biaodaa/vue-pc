@@ -222,3 +222,21 @@ figcaption:focus {
 .synth .el-range-input::-webkit-input-placeholder {
   color: #999;
 }
+.synth .contract .el-input {
+  width: 130px;
+}
+.synth .contract .el-input__prefix {
+  left: 0;
+}
+.synth .contract .el-input--prefix .el-input__inner {
+  padding-left: 20px;
+}
+.synth .contract .el-input--suffix .el-input__inner {
+  padding-right: 15px;
+}
+.aptitude .el-input {
+  width: 245px;
+}
+.order .el-input {
+  width: 115px;
+}

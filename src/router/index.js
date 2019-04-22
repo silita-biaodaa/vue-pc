@@ -24,8 +24,11 @@ import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
 import find from '@/page/user/find'
 import bound from '@/page/user/bound'
+import buy from '@/page/user/buy'
+
 
 import user from '@/page/user/user'
+import order from '@/page/user/order'
 import pDet from '@/components/pdet'
 import root from '@/components/root'
 import fcoll from '@/components/collect'
@@ -33,6 +36,7 @@ import fcoll from '@/components/collect'
 import about from '@/page/About'    // 关于我们
 
 import synth from '@/page/synth/synth'    // 综合查询
+import result from '@/page/synth/result'    // 综合查询
 
 
 
@@ -255,13 +259,37 @@ export default new Router({
               i: 1
             }
           },
+          {
+            path: 'order',
+            name: 'order',
+            component: order,
+            meta: {
+              i: 3
+            }
+          }
         ] 
       },
       {
         path: '/synth',
         name: 'synth',
-        component: synth
+        component: synth,
+        meta: {
+          tabNo: 3
+        }
       },
+      {
+        path: '/result',
+        name: 'result',
+        component: result,
+        meta: {
+          tabNo: 3
+        }
+      },
+    {
+      path: '/buy',
+      name: 'buy',
+      component: buy,
+    },
   ]
 })
 
