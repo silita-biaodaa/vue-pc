@@ -61,6 +61,7 @@
         </el-row>
       </div>
      
+
     <span :class="query ? 'current' : '' "  @click="changce" >综合查询</span>/<span :class="record ? 'current' : '' "  @click="changces" >历史记录</span>
   </div>
   <q-uery v-show="query" ></q-uery>
