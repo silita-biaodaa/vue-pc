@@ -87,10 +87,10 @@
                             竣工时间:&nbsp&nbsp&nbsp&nbsp
                         </div>
                         <div class="contract">
-                            <el-date-picker v-model="stateDate" type="date" placeholder="请选择开始日期"  value-format="yyyy-MM-dd" > </el-date-picker>
+                            <el-date-picker v-model="stateDate" type="date" placeholder="起始时间"  value-format="yyyy-MM-dd" > </el-date-picker>
                             <!-- <input type="text" placeholder="最低金额(万)"  v-model="min"  class="contract-put" > -->
                             <span>至</span>
-                            <el-date-picker v-model="endDate" type="date" placeholder="请选择结束日期"  value-format="yyyy-MM-dd" > </el-date-picker>
+                            <el-date-picker v-model="endDate" type="date" placeholder="结束时间"  value-format="yyyy-MM-dd" > </el-date-picker>
                             <!-- <input type="text" placeholder="最高金额(万)"  v-model="max"  class="contract-put" > -->
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                  <div class="se-per right" >
                      <div class="m-17" >
                         项目名称:&nbsp&nbsp&nbsp
-                        <input type="text" placeholder="输入项目名称关键词，多个关键词用逗号"  v-model="name" class="name-put" >
+                        <input type="text" placeholder="输入项目名关键词，多个关键词用“，”隔开"  v-model="name" class="name-put" >
                     </div>
                     <div class="m-17 "  >
                         <div class="left se-center">

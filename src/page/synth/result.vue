@@ -11,14 +11,14 @@
            <div class="title">
              企业综合查询报告
            </div>
-           <div class="sample">
+           <div class="sample" @click="jump" >
              样本预览
            </div>  
       </div>
       <div style="fontSize:16px;marginBottom:15px;">
         企业综合查询报告-¥{{common.price}}，会员享受专享价¥{{vip.price}}元
       </div>
-      <div style="fontSize:16px;color:#FE6603;cursor: pointer;">
+      <div style="fontSize:16px;color:#FE6603;cursor: pointer;" @click="jumpvip" >
         开通会员 <i class="el-icon-arrow-right"></i>
       </div>
   </div>
@@ -169,6 +169,14 @@ export default {
       } else {
          this.ismail = false
       }
+    },
+    jump() {
+      window.open(this.detail.reportPath, '_blank', )
+    },
+    jumpvip() {
+      console.log(111);
+      
+      this.$router.push('/buy')
     }
   },
   created () {
@@ -211,6 +219,7 @@ export default {
            border: 1px dashed #FE6603;
            line-height: 24px;
            text-align: center;
+           cursor: pointer;
          }
        }
      }
