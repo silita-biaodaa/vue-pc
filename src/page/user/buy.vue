@@ -355,6 +355,12 @@ export default {
       }
     }
   }
+    @media screen and (min-device-width: 1920px){
+       .buy {
+        height: 350px !important;
+      }  
+       
+  }
   .buy-limit {
     width: 1020px;
     margin: 0 auto;
