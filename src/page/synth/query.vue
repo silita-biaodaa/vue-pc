@@ -20,6 +20,7 @@
                资质要求:
             </el-col>
             <el-col :span='22' >
+              <!-- 资质关系  aptitude.vue -->
                <q-titu @group='gainCo' ></q-titu>
             </el-col>
           </el-row>
@@ -31,6 +32,7 @@
                资质要求:
             </el-col>
             <el-col :span='19' >
+              <!-- 资质关系  aptitude.vue -->
                <q-titu @group='gainCode' :index ='i' ></q-titu>
             </el-col>
             <el-col :span='3' class="titu-line titu-del"  @click.native="delap(i)" >

@@ -3,7 +3,9 @@
   <div class="syn-top" >
     <span :class="query ? 'current' : '' "  @click="changce" >综合查询</span>/<span :class="record ? 'current' : '' "  @click="changces" >历史记录</span>
   </div>
-  <q-uery v-show="query" ></q-uery>
+  <!-- 综合查询筛选页面  query.vue  -->
+  <q-uery v-show="query" ></q-uery>   
+  <!-- 综合查询历史记录 页面 -->
   <h-is  v-show="record" >
    
   </h-is>
