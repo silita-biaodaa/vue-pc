@@ -29,7 +29,7 @@
        <div class="di-line" >
          企业所在地：{{detail.reginAddress}}
       </div>
-       <div class="di-line"  style="marginBottom:20px;" >
+       <div class="di-line"  style="marginBottom:20px;"  v-show="this.detail.qualName" >
         资质要求：{{detail.qualName}}
       </div>
       <div class="di-con" >
@@ -41,11 +41,13 @@
        <div class="di-line"  >
         项目名称关键词：{{detail.projName}}
       </div>
-      <div class="di-line"  >
-        竣工时间：{{detail.buildStart}}至{{detail.buildEnd}}
+      <div class="di-line"  v-show="isTime" >
+        竣工时间：{{detail.buildStart ? detail.buildStart : '之前' }} 至 {{detail.buildEnd ? detail.buildEnd : '至今' }}
       </div>
-      <div class="di-line" style="marginBottom:0;" >
-        合同金额：{{detail.amountStart}}万-{{detail.amountEnd}}万
+      <div class="di-line" style="marginBottom:0;" v-show="isMon"  >
+        <span v-show="isLow" >&nbsp合同金额：{{detail.amountStart}}万  - {{detail.amountEnd}}万</span>
+        <span v-show="isE" >&nbsp合同金额： {{detail.amountStart}}万<span style="fontSize:14px" >≥</span></span>
+        <span  v-show="isS" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{detail.amountEnd}}万</span>
       </div>
   </div>
   <div class="term">
@@ -84,7 +86,12 @@ export default {
       iphone:'',
       email:'',
       isshow:false,
-      ismail:false
+      ismail:false,
+      isTime:true,
+      isMon:true,
+      isLow: true,
+      isS: false,
+      isE: false 
     }
   },
   methods: {
@@ -103,13 +110,43 @@ export default {
                        res.data.projSource = '全国公路建设市场信用信息管理系统'
                      }
                     this.detail = res.data
+                    console.log(res.data);
+                    
                     if(this.detail.price[0].primeUnit == "普通用户") {
                       this.common = this.detail.price[0]
                       this.vip =  this.detail.price[1]
                     } else {
                       this.common = this.detail.price[1]
                       this.vip =  this.detail.price[0]
-
+                    }
+                    if(this.detail.buildStart == '' && this.detail.buildStart == '' ) {
+                      this.isTime = false
+                    } else {
+                      this.isTime = true
+                    }
+                    if(this.detail.amountEnd == '' && this.detail.amountStart == '' ) {
+                      this.isMon = false
+                    } else {
+                      this.isMon = true
+                      if(this.detail.amountEnd == '' || this.detail.amountStart == ''  ) {
+                        this.isLow = false
+                        if(this.detail.amountStart == '') {
+                          this.isS = true 
+                          this.isE = false
+                        } else {
+                          this.isE = true 
+                          this.isS = false
+                        }
+                      } else {
+                        this.isLow = true
+                      }
+                    }
+                    if(this.detail.rangType == 'and' ) {
+                      // this.detail.rangType = '和'
+                       this.detail.qualName=this.detail.qualName.replace(/,/g,'  和  ')
+                    } else {
+                      // this.detail.rangType = '或'
+                      this.detail.qualName=this.detail.qualName.replace(/,/g,'  或  ')
                     }
                   }
 

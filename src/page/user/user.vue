@@ -126,7 +126,7 @@ export default {
       }
     },
     jumpapp() {
-       this.$router.push('/download')
+       this.$router.push('/buy')
     },
     amend() {
       this.tab.forEach( li => {

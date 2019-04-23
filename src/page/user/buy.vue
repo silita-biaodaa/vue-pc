@@ -37,6 +37,7 @@
                    <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
                    <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
                    <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+                   <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
                    <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
                  </el-dropdown-menu>
                </el-dropdown>
@@ -61,9 +62,35 @@
      </div>
     <!--  -->
      <div class="buy-img" >
+       <div class="img-vip">
+         <img src="../../assets/img/pic-huiy.png@2x.png" alt="">
+         <div class="img-title">
+           V I P 会 员
+         </div>
+       </div>
      </div>
     
     <div class="buy-limit">
+        <div class="buy-vip">
+           <div class="buy-price" v-for="(el,i) in level" :key="i"   @click="how(el)" >
+             <div class="price" :class="price == el.price ? 'current' : ''" >
+                <span>{{el.price}}</span>/{{el.month}}月
+             </div>
+             <div >
+               <div class="rate left">
+                 {{el.rate}}折
+               </div>
+               <div class="right save">
+                 可节省{{el.save}}元
+               </div>
+             </div>
+           </div>
+
+          <div class="buy-btn">
+            立即开通
+          </div>
+
+        </div>
         <div class="buy-title">
             标大大会员 · 专享<span style="color:#FE0303" >8</span>大特权
         </div>
@@ -88,7 +115,7 @@
 
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >综合查询 <span style="color:#FE0303" >NEW</span></p>
+               <p class="p-color"  style="position:relative" >综合查询 <span class="buy-new" >NEW</span></p>
             </div>
             <div class="left buy-p" style="width:680px" >
               可根据资质、业绩等多重筛选条件，查找到符合条件的企业。
@@ -193,6 +220,33 @@ export default {
        },
      ],
      source:'湖南',
+     level:[
+       {
+         price:'318',
+         rate:'6.3',
+         save:'182',
+         month:'1'
+       },
+        {
+         price:'898',
+         rate:'6.0',
+         save:'602',
+         month:'3'
+       },
+        {
+         price:'1498',
+         rate:'5.0',
+         save:'1502',
+          month:'6'
+       },
+        {
+         price:'2298',
+         rate:'3.8',
+         save:'3702',
+         month:'12'
+       }
+     ],
+     price:'318'
     }
   },
   methods: {
@@ -202,14 +256,17 @@ export default {
      jumpl() {
          this.$router.push('/logo')
     },
-      touser() {
-      this.$router.push('/user')
+      user() {
+      this.$router.push('/user/pDet')
     },
     tocol() {
       this.$router.push('/user/fcoll')
     },
     amend() {
       this.$router.push('/user/root')
+    },
+    order() {
+      this.$router.push('/user/order')
     },
     quit() {
         sessionStorage.removeItem('xtoken')
@@ -231,7 +288,35 @@ export default {
     selfa() {
        this.isarea = !this.isarea
     },
+    how(el) {
+      this.price = el.price
+    },
+      judges() {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        this.name = localStorage.getItem('Bname')
+        this.names = false
+      } else {     
+        this.names = true
+      }
+    },
   },
+  created () {
+    this.judges()
+  },
+  //  watch: {
+  //   $route:{
+  //     handler: function(val, oldVal){
+  //       sessionStorage.setItem('pageNo',1)
+  //       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+  //         this.name = localStorage.getItem('Bname')
+  //         this.names = false
+  //       } else {     
+  //         this.names = true
+  //       }
+  //     },
+  //   deep: true
+  //   }
+  // },
   components: {
   }
 }
@@ -244,21 +329,103 @@ export default {
   }
   .buy-img {
     width: 100%;
-    height: 230px;
+    height: 250px;
     background: url(../../assets/img/pic-banner.png)  no-repeat;
     background-position: center;
-    background-size: 100%
+    background-size: 100%;
+    position: relative;
+    .img-vip {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 307px;
+      height: 78px;
+      border-top-right-radius: 8px;
+       border-top-left-radius: 8px;
+      background-color: #FE6603;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      img {
+        margin: 5px 0;
+      }
+      .img-title {
+        color: #fff;
+      }
+    }
   }
   .buy-limit {
     width: 1020px;
     margin: 0 auto;
     background-color: #fff;
-    // height: 500px;
     padding-bottom: 50px;
     margin-bottom: 200px;
     display: flex;
     align-items: center;
      flex-direction:column;
+     .buy-vip {
+       width: 307px;
+      //  height: 100px;
+       box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
+       border-bottom-right-radius: 8px;
+       border-bottom-left-radius: 8px;
+       padding: 10px 20px  30px;
+      //  padding-top: 10px;
+       box-sizing: border-box;
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: space-between;
+      //  height: 200px;
+       .buy-price {
+         cursor: pointer;
+         margin-bottom: 15px;
+         .price {
+           width:120px;
+           height:40px;
+           line-height: 40px;
+           text-align: center;
+           border:1px solid #F2F2F2;
+           border-radius:5px;
+           color: #999;
+           font-size: 14px;
+           margin-bottom: 5px;
+           span {
+             color:#FE0303;
+             font-size: 20px;
+           }
+         }
+          .current {
+         border: 1px solid #FE6603;
+          }
+         .rate {
+           width: 40px;
+           height: 14px;
+           background-color: #FE6603;
+           color:#fff;
+           font-size: 10px;
+           text-align: center;
+           border-radius: 2px;
+         }
+         .save {
+             color: #999;
+             font-size: 8px;
+         }
+       }
+      
+       .buy-btn {
+         cursor: pointer;
+         width: 200px;
+         line-height: 36px;
+         text-align: center;
+         color:#fff;
+         font-size: 16px;
+         background-color: #FE6603;
+         margin:  0 auto;
+         margin-top: 20px;
+         border-radius: 8px;
+       }
+     }
     .buy-title {
       font-size: 24px;
       color:#333;
@@ -283,13 +450,24 @@ export default {
         display: flex;
         align-items: center;
         border-bottom: 1px solid #F2F2F2;
-        text-align: center;
+        // text-align: center;
         .buy-bor {
           border-right: 1px solid #F2F2F2;
           height: 100%;
           display: flex;
           justify-content: center;
+          text-align: center;
           flex-direction:column;
+          position: relative;
+          .buy-new {
+            font-size: 11px;
+            color:#FE0303;
+            font-weight: 550;
+            position: absolute;
+            right: 35%;
+            transform: translateX(100%);
+            top: 0px;
+          }
           .buy-s {
           font-size: 12px;
         }

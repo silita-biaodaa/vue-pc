@@ -232,7 +232,7 @@ figcaption:focus {
   padding-left: 20px;
 }
 .synth .contract .el-input--suffix .el-input__inner {
-  padding-right: 15px;
+  padding-right: 5px;
 }
 .aptitude .el-input {
   width: 245px;
