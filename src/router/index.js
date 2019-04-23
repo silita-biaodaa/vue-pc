@@ -47,7 +47,6 @@ import result from '@/page/synth/result'    // 综合查询
 
 
 
-
 Vue.use(Router)
 
 export default new Router({

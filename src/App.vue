@@ -235,7 +235,6 @@ export default {
           this.$router.push('/logo')
         } else {
           getUserTemp({}).then( res => {
-            console.log(res,1);
              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
              localStorage.setItem('Xtoken',res.data.xtoken)
              localStorage.setItem('Bname',name)
