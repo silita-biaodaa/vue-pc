@@ -291,7 +291,9 @@ export default {
       }
     },
     query() {
-    if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
+      console.log(this.aptitude);
+      
+    if(  !(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) ) {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -326,13 +328,21 @@ export default {
       }
       this.all.push(this.first)
        for(var i = 0; i<this.aptitude.length;i++) {
-        if(this.aptitude[i].name) {
-           this.all.push(this.aptitude[i].name)
+        if(this.aptitude[i].value) {
+           this.all.push(this.aptitude[i].value)
         }
       }
+      console.log(this.all);
+      
       this.allstr = this.all.join(',')
-      report({reginAddress:this.area,qualCode:this.allstr,rangType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}).then( res => {
-
+      let date = {reginAddress:this.area,qualCode:this.allstr,rangType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}
+      report(date).then( res => {
+        console.log(res);
+        if(res.code == 1) {
+          localStorage.setItem('query',JSON.stringify(date))
+          this.$router.push('/result')
+        }
+        
       })
     }
   },

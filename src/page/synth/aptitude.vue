@@ -17,7 +17,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet'   >
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' :disabled='noLevel'  >
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -39,7 +39,8 @@ export default {
       majors:[],
       grades:[],
       zType:[],
-      i:0
+      i:0,
+      noLevel:false
     }
   },
   props: {
@@ -61,7 +62,31 @@ export default {
       }
     },
     spliceo() {
+       this.grade = ''
+       this.grades = []
+        this.majors.forEach(el => {
+         if(el.code == this.major ) {
+           console.log(2);
+           
+            if(el.list.length == 0  ) {
+              this.grade = '不分等级'
+               this.noLevel = true
+            } else {
+               this.noLevel = false
+               this.grades = el.list
+            }
+            
+         }
+      });
+      if(this.noLevel) {
+         this.zType = []
+          this.zType.push(this.companyQual,this.major)
+          this.zzType = this.zType.join('||')
+          this.$emit('group', {cur:this.zzType,em:false,i:this.i})
+      } else {
         this.$emit('group', {cur:'',em:true,i:this.i})
+      }
+        
     },
     splicet() {
        if(this.grade  == '') {
@@ -76,25 +101,21 @@ export default {
   },
   watch: {
      companyQual(val) {
-      // this.zType = []
       this.major = ''
       this.majors = []
+      this.grade = ''
+      this.grades = []
+      this.noLevel = false
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
             this.majors = el.list
          }
       });      
     },
-     major(val) {
-      // this.zType = []
-      this.grade = ''
-      this.grades = []
-      this.majors.forEach(el => {
-         if(el.code == val ) {
-            this.grades = el.list
-         }
-      });
-    },
+    //  major(val) {
+     
+    
+    // },
      grade(val) {
       this.zType = []
     },

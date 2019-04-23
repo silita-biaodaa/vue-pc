@@ -62,6 +62,7 @@ export default {
 .synth {
   width: 1020px;
   margin: 0 auto ;
+  min-height: calc(~'100vh - 450px');
   padding-top: 80px;
   .syn-top {
     font-size: 16px;

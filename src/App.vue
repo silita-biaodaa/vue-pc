@@ -235,10 +235,12 @@ export default {
           this.$router.push('/logo')
         } else {
           getUserTemp({}).then( res => {
+            console.log(res,1);
              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
              localStorage.setItem('Xtoken',res.data.xtoken)
              localStorage.setItem('Bname',name)
-             localStorage.setItem('permissions',res.data.permissions)                          
+             localStorage.setItem('permissions',res.data.permissions) 
+             localStorage.setItem('phoneNo',res.data.phoneNo)                         
           })
         } 
 
@@ -322,6 +324,9 @@ export default {
     deep: true
     }
   },
+  destroyed () {
+    localStorage.removeItem('permissions')
+  },
   computed: {
     tabNo(){
       let t=this.$route.meta.tabNo;
@@ -337,7 +342,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about') {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about'|| this.$route.name == 'order' || this.$route.name == 'buy' ) {
         return false
       } else {
         return true
@@ -355,7 +360,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" >
 @import './style/common';
 @import './assets/iconfont.css';
 #app {

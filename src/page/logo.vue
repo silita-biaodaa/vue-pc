@@ -84,7 +84,10 @@ export default {
       }
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
          if(res.code == 1) {
+           console.log(res);
+           
             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
+            localStorage.setItem('phoneNo',res.data.phoneNo)
             localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
             if(this.checked) {
