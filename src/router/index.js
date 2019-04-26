@@ -259,7 +259,7 @@ export default new Router({
               i: 1
             }
           },
-          {
+          {   // 订单页面
             path: 'order',
             name: 'order',
             component: order,
@@ -269,7 +269,7 @@ export default new Router({
           }
         ] 
       },
-      {
+      {   // 综合查询页面
         path: '/synth',
         name: 'synth',
         component: synth,
@@ -277,7 +277,7 @@ export default new Router({
           tabNo: 3
         }
       },
-      {
+      {   // 综合查询结果页面
         path: '/result',
         name: 'result',
         component: result,
@@ -285,7 +285,7 @@ export default new Router({
           tabNo: 3
         }
       },
-    {
+    {  //  会员购买页面
       path: '/buy',
       name: 'buy',
       component: buy,

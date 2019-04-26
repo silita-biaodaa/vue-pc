@@ -1,71 +1,14 @@
 <template>
 <div class="synth">
   <div class="syn-top" >
-    <span :class="query ? 'current' : '' " >综合查询</span>/<span :class="record ? 'current' : '' " >历史记录</span>
-  </div>
-  <div class="syn-query">
-      <div class="select" >
-        <el-row>
-             <el-col :span='2'>
-                省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
-             </el-col>
-             <el-col :span='22' >
-               <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.name==area? 'current':''" >{{el.name}}
-                 </li>
-               </ul>
-             </el-col>
-        </el-row>
-      </div>
-      <div class="select" >
-          <el-row>
-             <el-col :span='2' class="se-center" >
-                业绩要求:
-             </el-col>
-             <el-col :span='22' >
-                 <div class="se-per left" >
-                    <div class="m-17">
-                        业绩平台:&nbsp&nbsp&nbsp
-                         <el-select v-model="terrace" placeholder="请选择">
-                           <el-option
-                             v-for="item in options"
-                             :key="item.value"
-                             :label="item.label"
-                             :value="item.value">
-                           </el-option>
-                         </el-select>
-                    </div>
-                    <div>
-                        竣工时间:&nbsp&nbsp&nbsp
-                         <el-date-picker
-                           v-model="date"
-                           type="daterange"
-                            value-format="yyyy-MM-dd"
-                           range-separator="至"
-                           start-placeholder="开始日期"
-                           end-placeholder="结束日期">
-                         </el-date-picker>
-                    </div>
-                 </div>
-                 <div class="se-per right" >
-                     <div class="m-17" >
-                        项目名称:&nbsp&nbsp&nbsp
-                        <input type="text" placeholder="输入项目名称关键词，多个关键词用逗号"  v-model="name" class="name-put" >
-                    </div>
-                    <div class="m-17">
-                        合同金额:&nbsp&nbsp&nbsp
-                        <input type="text" placeholder="输入项目名称关键词，多个关键词用逗号"  v-model="name" >
-                    </div>
-                 </div>
-             </el-col>
-        </el-row>
-      </div>
-     
-
     <span :class="query ? 'current' : '' "  @click="changce" >综合查询</span>/<span :class="record ? 'current' : '' "  @click="changces" >历史记录</span>
-  </div>
-  <q-uery v-show="query" ></q-uery>
-  <h-is  v-show="record" ></h-is>
+  </div> 
+ <!-- 综合查询筛选页面  query.vue  -->
+  <q-uery v-show="query" ></q-uery>   
+  <!-- 综合查询历史记录 页面 -->
+  <h-is  v-show="record" >
+   
+  </h-is>
 </div>
 </template>
 <script>

@@ -9,7 +9,7 @@
             查询页面
           </div>
            <div class="title">
-             企业综合查询报告
+             企业资质·业绩查询报告
            </div>
            <div class="sample" @click="jump" >
              样本预览
