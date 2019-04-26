@@ -240,3 +240,6 @@ figcaption:focus {
 .order .el-input {
   width: 115px;
 }
+.about .el-dropdown-link {
+  color: #fff;
+}

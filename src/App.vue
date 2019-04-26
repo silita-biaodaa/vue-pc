@@ -15,10 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <!-- <p class="left">
+             <p class="left" style="cursor: pointer;" @click="towe"  >  
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p> -->
+             </p>
           </div>
           <div class="contact-r">
             
@@ -296,7 +296,11 @@ export default {
     },
     user() {
       this.$router.push('/user')
+    },
+    towe() {
+      this.$router.push('/about')
     }
+
   },
   created () {
     this.valley()
@@ -404,7 +408,7 @@ export default {
               font-size: 16px;
             }
             .person {
-              font-size: 14px;
+              font-size: 15px;
               font-weight: 600;
               cursor: pointer;
             }
