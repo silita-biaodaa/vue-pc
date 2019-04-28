@@ -14,10 +14,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
-             <!-- <p class="left">
+             <p class="left" style="cursor: pointer;" @click="towe" >
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
-             </p> -->
+             </p>
           </div>
           <div class="contact-r">
             
@@ -299,6 +299,9 @@ export default {
         this.names = true
       }
     },
+    towe() {
+      this.$router.push('/about')
+    }
   },
   created () {
     this.judges()
@@ -324,8 +327,8 @@ export default {
 <style lang="less" scoped>
 .buy {
   .se-area {
-    height: 340px !important;
-    bottom: -350px !important;
+    height: 310px !important;
+    bottom: -320px !important;
   }
   .buy-img {
     width: 100%;

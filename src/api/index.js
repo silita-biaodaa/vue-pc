@@ -190,3 +190,15 @@ export const report = params => {
 export const history = params => {
   return axios.post('/report/history/list', params).then(res => res.data)
 }
+
+export const orderList = params => {
+  return axios.post('/vip/queryOrderList', params).then(res => res.data)
+}
+
+export const send = params => {
+  return axios.post('/report/send/again', params).then(res => res.data)
+}
+
+export const wxPay = params => {
+  return axios.post('/wxPay/unifiedOrder', params).then(res => res.data)
+}

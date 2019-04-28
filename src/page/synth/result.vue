@@ -16,7 +16,7 @@
            </div>  
       </div>
       <div style="fontSize:16px;marginBottom:15px;">
-        企业综合查询报告-¥{{common.price}}，会员享受专享价¥{{vip.price}}元
+        限时折扣价¥{{common.price}}/会员专享价¥{{vip.price}}元
       </div>
       <div style="fontSize:16px;color:#FE6603;cursor: pointer;" @click="jumpvip" >
         开通会员 <i class="el-icon-arrow-right"></i>
@@ -30,7 +30,7 @@
          企业所在地：{{detail.reginAddress}}
       </div>
        <div class="di-line"  style="marginBottom:20px;"  v-show="this.detail.qualName" >
-        资质要求：{{detail.qualName}}
+        资质要求：<span v-html="detail.qualName"></span>
       </div>
       <div class="di-con" >
         业绩要求
@@ -69,14 +69,41 @@
        <div class="te-put" style="width:453px;">
         报告格式（默认）： PDF
       </div>
-      <div class="te-btn">
+      <div class="te-btn" @click="pay"    >
         立即支付
       </div>
+  </div>
+  <div class="re-puy" v-show="noShow" >
+    <div class="puy-title">
+       <span>企业综合查询报告</span>
+       <i class="el-icon-close" ></i>
+    </div>
+
+     <div class="puy-title" style="fontSize:14px;" >
+       <span>订单详情</span>
+    </div>
+
+    <div class="puy-detail">
+      <div class="puy-name"> 
+        <span>购买账号:</span>11111111111
+      </div>
+      <div class="puy-name"> 
+        <span>发送邮箱:</span>412690714@qq.com
+      </div>
+       <div class="puy-name"> 
+        <span>报告格式:</span>
+      </div>
+       <div class="puy-name"> 
+        <span>支付方式:</span>412690714@qq.com
+      </div>
+
+    </div>
+
   </div>
 </div>
 </template>
 <script>
-import { report } from '@/api/index';
+import { report,wxPay } from '@/api/index';
 export default {
   data () {
     return {
@@ -85,13 +112,15 @@ export default {
       vip:{},
       iphone:'',
       email:'',
+      price:'',
       isshow:false,
       ismail:false,
       isTime:true,
       isMon:true,
       isLow: true,
       isS: false,
-      isE: false 
+      isE: false,
+      noShow:false 
     }
   },
   methods: {
@@ -110,7 +139,7 @@ export default {
                        res.data.projSource = '全国公路建设市场信用信息管理系统'
                      }
                     this.detail = res.data
-                    console.log(res.data);
+                    // console.log(res.data);
                     
                     if(this.detail.price[0].primeUnit == "普通用户") {
                       this.common = this.detail.price[0]
@@ -143,10 +172,10 @@ export default {
                     }
                     if(this.detail.rangType == 'and' ) {
                       // this.detail.rangType = '和'
-                       this.detail.qualName=this.detail.qualName.replace(/,/g,'  和  ')
+                       this.detail.qualName=this.detail.qualName.replace(/,/g,'<span style="color:#FE6603" >和</span>')
                     } else {
                       // this.detail.rangType = '或'
-                      this.detail.qualName=this.detail.qualName.replace(/,/g,'  或  ')
+                      this.detail.qualName=this.detail.qualName.replace(/,/g,'<span style="color:#FE6603" >或</span>')
                     }
                   }
 
@@ -177,6 +206,15 @@ export default {
       console.log(111);
       
       this.$router.push('/buy')
+    },
+    pay() {
+      if(localStorage.getItem('permissions')) {
+        this.price = this.vip.price
+      } else {
+        this.price = this.common.price
+      }
+      this.noShow = true
+      // wxPay({channel:'1003',stdCode:this.price,tradeType:'Native'})
     }
   },
   created () {
@@ -191,6 +229,7 @@ export default {
    width: 1020px;
    margin: 0 auto ;
    padding-top: 80px;
+   position: relative;
    .re-nav {
      margin: 20px 0;
      font-size: 16px;
@@ -279,6 +318,41 @@ export default {
          font-size: 12px;
          color:red;
          margin-bottom: 5px;
+       }
+     }
+     .re-puy {
+       position: fixed;
+       left: 50%;
+       transform: translateX(-50%);
+       width: 550px;
+       height: 500px;
+       top: 200px;
+       background-color: #fff;
+       box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
+       border: 1px solid  rgba(242,242,242,1);
+       .puy-title {
+         height: 49px;
+         font-size: 16px;
+         border-bottom: 1px solid #F2F2F2;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 0 18px;
+         font-size: 16px;
+          i {
+           font-size: 24px;
+          }
+       }
+       .puy-detail {
+         padding: 18px;
+         font-size: 14px;   
+         .puy-name {
+            margin-bottom: 20px;
+           span {
+             font-weight: 550;
+             margin-right: 10px;
+           }
+         }
        }
      }
 }
