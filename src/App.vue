@@ -15,6 +15,10 @@
                <i class="iconfont icon-shouji left l-mobile"></i>
                 下载APP
              </router-link>
+              <p class="left" style="cursor: pointer;" @click="tovip"  >  
+               <i class="iconfont icon-VIP1 left person"></i>
+                会员服务
+             </p>
              <p class="left" style="cursor: pointer;" @click="towe"  >  
                <i class="iconfont icon-lianxiren left person"></i>
                 关于我们
@@ -298,8 +302,23 @@ export default {
     },
     towe() {
       this.$router.push('/about')
+    },
+    tovip() {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+           this.$router.push('/buy')
+      } else {     
+          this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+     
     }
-
   },
   created () {
     this.valley()
@@ -441,7 +460,7 @@ export default {
               padding-top: 4px;
             }
             .se-area {
-              width: 330px;
+              width: 340px;
               height: 300px;
               position: absolute;
               bottom: -320px;
