@@ -42,7 +42,7 @@
         项目名称关键词：{{detail.projName}}
       </div>
       <div class="di-line" >
-        <span  v-show="isTime" >竣工时间：{{detail.buildStart ? detail.buildStart : '之前' }} 至 {{detail.buildEnd ? detail.buildEnd : '至今' }}</span>
+        <span  v-show="isTime" >&nbsp竣工时间：{{detail.buildStart ? detail.buildStart : '之前' }} 至 {{detail.buildEnd ? detail.buildEnd : '至今' }}</span>
         <span  v-show="!isTime" >&nbsp竣工时间:未选择竣工时间</span>
       </div>
       <div class="di-line" style="marginBottom:0;" v-show="isMon"  >
