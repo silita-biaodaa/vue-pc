@@ -47,7 +47,7 @@
       </div>
       <div class="di-line" style="marginBottom:0;" v-show="isMon"  >
         <span v-show="isLow" >&nbsp合同金额：{{detail.amountStart}}万  - {{detail.amountEnd}}万</span>
-        <span v-show="isE" >&nbsp合同金额： {{detail.amountStart}}万<span style="fontSize:14px" >≥</span></span>
+        <span v-show="isE" >&nbsp合同金额： <span style="fontSize:14px" >≥</span>{{detail.amountStart}}万</span>
         <span  v-show="isS" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{detail.amountEnd}}万</span>
       </div>
       <div class="di-line" style="marginBottom:0;" v-show="!isMon"  >
