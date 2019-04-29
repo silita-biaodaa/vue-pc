@@ -183,7 +183,7 @@ export default {
         value:'',
         label:'全部'
       },{
-        value:'3',
+        value:'1',
         label:'未支付'
       },{
         value:'9',
@@ -253,7 +253,7 @@ export default {
       this.$router.push('/buy')
     },
     gainList() {
-      orderList({pageSize:'100',pageNo:'1',orderStatus:'3',channelNo:'1003'}).then( res => {
+      orderList({pageSize:'100',pageNo:'1',orderStatus:'1',channelNo:'1003'}).then( res => {
          if(res.code == 1) {
            this.feat = res.data
          } else {
@@ -450,7 +450,7 @@ export default {
         } else {
           if(this.value == '') {
             this.allList.forEach( el => {
-              if(el.orderStatus == '3') {
+              if(el.orderStatus == '1') {
                 arr1.push(el)
               }
             })
@@ -464,7 +464,7 @@ export default {
             }
           } else if (this.value == 'vip' ) {
               this.allList.forEach( el => {
-              if(el.orderStatus == '3' && el.report ==null ) {
+              if(el.orderStatus == '1' && el.report ==null ) {
                 arr1.push(el)
               }
             })
@@ -478,7 +478,7 @@ export default {
             }
           } else {
                this.allList.forEach( el => {
-              if(el.orderStatus == '3' && el.report ) {
+              if(el.orderStatus == '1' && el.report ) {
                 arr1.push(el)
               }
             })
