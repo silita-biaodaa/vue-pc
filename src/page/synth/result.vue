@@ -111,7 +111,9 @@
              </div>
           </div>
       </div>
-
+  <div class="hint" v-show="tohit" >
+      您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。
+  </div>
       
 </div>
 </template>
@@ -142,7 +144,8 @@ export default {
       cir:true,
       Noid:'',
       pkid:'',
-      toVip:true
+      toVip:true,
+      tohit:false
       // int:''
     }
   },
@@ -291,13 +294,11 @@ export default {
             nowxPay({orderNo:val,type:'report',pkid:this.pkid}).then( res => {
               
               if(res.trade_state == 'SUCCESS') {
-                 that.$message({
-                      message: '您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。',
-                      type: 'success'
-                    });
+                that.tohit = true
                  that.noShow = false
                   clearInterval(int)
                   setTimeout(() => {
+                     that.tohit = false
                      that.$router.push('/synth/query')
                   },3000)
                  
@@ -432,6 +433,18 @@ export default {
          color:red;
          margin-bottom: 5px;
        }
+     }
+     .hint {
+        position: fixed;
+        left: 50%;
+        top: 40%;
+        transform: translateX(-50%);
+        background-color: #000;
+        opacity: 0.5;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
      }
       .re-puy {
        position: fixed;
