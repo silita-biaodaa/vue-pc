@@ -37,19 +37,19 @@
 
   <div class="or-table" v-show="noShow" >
     <div class="ta-top">
-        <div class="left" style="width:230px;textAlign:left" >
+        <div style="width:230px;textAlign:left" >
           我的订单
         </div>
-        <div class="left" style="width:80px;" >
+        <div  style="width:80px;" >
           状态
         </div>
-        <div class="left" style="width:100px;" >
+        <div  style="width:100px;" >
           支付金额
         </div>
-        <div class="left" style="width:160px;" >
+        <div  style="width:160px;" >
           购买时间
         </div>
-        <div class="left" style="width:100px;" >
+        <div  style="width:100px;" >
           操作
         </div>
     </div>
@@ -502,11 +502,6 @@ export default {
       if(!el.report.reportPath){
         return false
       }
-      let email=el.report.email;
-      let name=prompt('请输入您的新邮箱','');
-      if(name!=null&&name!=''){
-        email=name;
-      }
       send({orderNo:el.orderNo,pkid:el.report.pkid,email:email}).then( res => {
          if(res.code == 1) {
            this.wsend = true
@@ -579,6 +574,7 @@ export default {
       padding: 0 29px;
     
     .ta-top {
+      display: flex;
       width: 100%;
       height: 29px;
       line-height: 29px;

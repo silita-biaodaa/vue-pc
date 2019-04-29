@@ -119,6 +119,10 @@
              </div>
           </div>
       </div>
+
+      <div class="hint" v-show="tohi" >
+        您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。
+      </div>
 </div>
 </template>
 <script>
@@ -127,6 +131,7 @@ import { report,wxPay,nowxPay } from '@/api/index';
 export default {
   data () {
     return {
+      tohi:false,
       detail:{},
       common:{},
       vip:{},
@@ -297,13 +302,11 @@ export default {
             nowxPay({orderNo:val,type:'report',pkid:this.pkid}).then( res => {
               
               if(res.trade_state == 'SUCCESS') {
-                 that.$message({
-                      message: '您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。',
-                      type: 'success'
-                    });
+                that.tohi = true
                  that.noShow = false
                   clearInterval(int)
                   setTimeout(() => {
+                     that.tohi = false
                      that.$router.push('/synth/query')
                   },3000)
                  
@@ -502,6 +505,18 @@ export default {
             margin-top: 10px;
           }
          }
+     }
+     .hint {
+       position: fixed;
+       left: 50%;
+       top: 50%;
+       transform: translateX(-50%);
+       padding: 5px 10px;
+       background-color: #000;
+       opacity: 0.5;
+       color:#fff;
+       font-size: 16px;
+       border-radius: 5px;
      }
 }
 </style>
