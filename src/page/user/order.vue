@@ -118,8 +118,8 @@
                      </div>
 
                      <div class="left" style="width:100px;">
-                         <div class="again" :class="{'noBtn':!el.report.reportPath}" @click="resend(el)" >
-                           重新发送
+                         <div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)" >
+                           {{el.orderStatus == '1' ? '立即购买' : '重新发送' }}
                          </div>
                      </div>
                 </div>
@@ -129,10 +129,10 @@
                          报告格式 PDF
                        </div>
                      </div>
-                      <div class="left" style="width:180px;" >
+                      <div class="left" style="width:180px;" v-show="el.orderStatus != '1'"  >
                        {{el.report.reportPath | nopath }}
-                     </div>
-                     <div  class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}">
+                      </div>
+                     <div  class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}"  v-show="el.orderStatus != '1'" >
                        <!-- <span @click='dowloadFn(el)'>下载</span> -->
                        <span @click="look(el)" >查看</span>
                        <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
@@ -151,13 +151,57 @@
     </div>
   </div>
   <div class="whint"  v-show="wsend" >
-    <i class="el-icon-success" ></i>&nbsp重新发送成功
+    <i class="el-icon-success" ></i>{{msg}}
   </div>
 
+    <div class="re-puy" v-if="egg"  >
+        <div class="puy-title">
+           <span>企业资质·业绩查询报告-体验版</span>
+           <i class="el-icon-close"  @click="close" ></i>
+        </div>
+
+         <div class="puy-title" style="fontSize:14px;" >
+           <span>订单详情</span>
+        </div>
+
+        <div class="puy-detail">
+          <div>
+            <div class="puy-name"> 
+              <span>发送邮箱:</span>{{aga.report.email}}
+            </div>
+              <div class="puy-name"> 
+                <span>报告格式:</span>PDF
+              </div>
+          </div>
+          <div class="puy-price" >
+               <div class="puy-name"> 
+                 <span>应付金额:</span><span class="price" >{{aga.fee/100}}</span>元
+               </div>
+          </div>  
+        </div>
+
+        <div class="puy-title" style="fontSize:14px;" >
+           <span>支付方式</span>
+        </div>
+
+         <div class="puy-code">
+             <div class="puy-img qrcode" id="qrcode"  >
+               <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
+             </div>  
+             <div class="puy-hint"  >
+                <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+             </div>
+          </div>
+      </div>
+      
+      <div class="loading"  v-if="egg" >
+
+      </div>
 </div>
 </template>
 <script>
-import { orderList,send } from '@/api/index'
+import QRCode from 'qrcodejs2'
+import { orderList,send,nowxPay } from '@/api/index'
 let moment = require("moment");
 export default {
   data () {
@@ -196,9 +240,12 @@ export default {
       feat:[],
       win:[],
       wsend:false,
+      msg:'',
       payshow:false,
       detail:{},
       iphone:'',
+      egg:false,
+      aga:{}
     }
   },
   filters: {
@@ -247,6 +294,9 @@ export default {
     }
   },
   methods: {
+    close() {
+      this.egg = false
+    },
     bill() {
        this.$confirm('如需开发票，请联系我们0731-85076077', '提示', {
           type: 'warning',
@@ -268,10 +318,17 @@ export default {
     },
     gainWin() {
        orderList({pageSize:'100',pageNo:'1',orderStatus:'9',channelNo:''}).then( res => {
-        console.log(res,2);
          if(res.code == 1) {
             this.win = res.data
-            this.allList = this.win.concat(this.feat)
+            setTimeout(() => {
+              this.allList = this.win.concat(this.feat)
+              if( this.allList.length == 0) {
+                this.noShow = false
+              } else {
+                this.noShow = true
+              }
+            }, 100);
+            
          } else {
            this.win = []
          }
@@ -356,7 +413,7 @@ export default {
             }
            } else {
                this.allList.forEach( el => {
-                 if(el.report == null && el.orderStatus == this.pattern  ) {
+                 if(el.report != null && el.orderStatus == this.pattern  ) {
                    arr.push(el)
                  }
              })
@@ -499,17 +556,74 @@ export default {
         }
     },
     resend(el) {
-      if(!el.report.reportPath){
-        return false
+      if(el.orderStatus == '1') {
+        console.log(el);
+        
+        this.aga = el
+        this.egg = true
+        setTimeout(() => {
+           let code = new QRCode("qrcode", {
+                  text: el.wxpayParam.codeUrl,
+                  width:180,
+                  height: 180,
+                  colorDark : "#000000",
+                  colorLight : "#ffffff",
+              });
+        }, 100);
+          this.gainstate(el)
+         
+      } else {
+          if(!el.report.reportPath){
+            return false
+          }
+          send({orderNo:el.orderNo,pkid:el.report.pkid,email:el.report.email}).then( res => {
+             if(res.code == 1) {
+               this.wsend = true
+               this.msg = '重新发送成功'
+               setTimeout(() => {
+                 this.wsend = false
+               }, 1500);
+             }
+          })
       }
-      send({orderNo:el.orderNo,pkid:el.report.pkid,email:email}).then( res => {
-         if(res.code == 1) {
-           this.wsend = true
-           setTimeout(() => {
-             this.wsend = false
-           }, 1500);
-         }
-      })
+    
+    },
+    gainstate(val){
+
+      let that  = this
+       let int = setInterval( function () {
+          
+            if(!that.egg) {
+              clearInterval(int)
+              return false
+            }
+            nowxPay({orderNo:val.orderNo,type:'report',pkid:val.report.pkid}).then( res => {
+              
+              if(res.trade_state == 'SUCCESS') {
+                  that.wsend = true
+                  that.msg = '支付成功'
+                  that.egg = false
+                  clearInterval(int)
+                  setTimeout(() => {
+                     that.wsend = false
+                     that.$router.go(0)
+                  },3000)
+                 
+              }else if(res.trade_state == 'ClOSED') {
+                 clearInterval(int)
+                 that.noShow = false
+              } else if(res.trade_state == 'REVOKED') {
+                that.noShow = false
+                clearInterval(int)
+              } else if(res.trade_state == 'PAYERROR') {
+                 that.noShow = false
+                 clearInterval(int)
+              }
+                
+                 
+            })
+        },2000)
+     
     },
     look(el) {
       if(el.report.reportPath) {
@@ -657,6 +771,80 @@ export default {
     border-radius: 5px;
     font-size: 14px;
   }
-  
+      .re-puy {
+       position: fixed;
+       z-index: 6000;
+       left: 50%;
+       transform: translateX(-50%);
+       width: 500px;
+      //  height: 500px;
+       top: 100px;
+       background-color: #fff;
+       box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
+       border: 1px solid  rgba(242,242,242,1);
+       .puy-title {
+         height: 45px;
+         font-size: 16px;
+         border-bottom: 1px solid #F2F2F2;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 0 18px;
+         font-size: 16px;
+          i {
+           font-size: 24px;
+           cursor: pointer;
+          }
+       }
+       .puy-detail {
+         padding: 18px 18px 15px;
+         font-size: 14px;   
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         border-bottom: 1px solid #F2F2F2;
+         .puy-name {
+            margin-bottom: 15px;
+           span {
+             font-weight: 550;
+             margin-right: 10px;
+           }
+           .price {
+             font-weight: 400;
+             font-size: 18px;
+             color:#FE6603;
+           }
+         }  
+       }
+        .puy-code {
+           margin-top: 15px;
+           display: flex;
+           align-items: center;
+           flex-direction: column;
+           overflow: hidden;
+           margin-bottom: 10px;
+           .puy-img {
+              // width: 180px;
+              // height: 180px;
+            }
+          .puy-hint {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #FE6603;
+            margin-top: 10px;
+          }
+         }
+     }
+     .loading {
+       position: fixed;
+       width: 100%;
+       height: 100%;
+       background-color: #000;
+       opacity: 0.5;
+       z-index: 5000;
+       top: 0;
+       left: 0;
+     }
 }
 </style>
