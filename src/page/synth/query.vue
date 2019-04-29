@@ -337,9 +337,8 @@ export default {
       console.log(this.all);
       
       this.allstr = this.all.join(',')
-      let date = {reginAddress:this.area,qualCode:this.allstr,rangType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}
+      let date = {regisAddress:this.area,qualCode:this.allstr,rangeType:this.rangeType,projSource:this.terrace,projName:this.name,buildStart:this.stateDate,buildEnd:this.endDate,amountStart:this.min,amountEnd:this.max}
       report(date).then( res => {
-        console.log(res);
         if(res.code == 1) {
           localStorage.setItem('query',JSON.stringify(date))
           this.$router.push('/result')

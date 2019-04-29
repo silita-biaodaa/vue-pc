@@ -29,7 +29,7 @@
       </el-select>
     </div>
     <div class="right orbtn" >
-     <div  class="or-btn">
+     <div  class="or-btn" @click="bill" >
        开发票
      </div>
     </div>
@@ -37,7 +37,7 @@
 
   <div class="or-table" v-show="noShow" >
     <div class="ta-top">
-        <div class="left" style="width:290px;textAlign:left" >
+        <div class="left" style="width:230px;textAlign:left" >
           我的订单
         </div>
         <div class="left" style="width:80px;" >
@@ -46,7 +46,7 @@
         <div class="left" style="width:100px;" >
           支付金额
         </div>
-        <div class="left" style="width:100px;" >
+        <div class="left" style="width:160px;" >
           购买时间
         </div>
         <div class="left" style="width:100px;" >
@@ -58,7 +58,7 @@
      
              <div class="ta-list"  v-if="el.report == null" >
                 <div class="list-vip">
-                    <div class="left" style="width:290px;textAlign:left" >
+                    <div class="left" style="width:230px;textAlign:left" >
                          <div style="fontSize:16px" class="m-6" >会员服务
                          </div>
                           <div style="fontSize:12px" class="m-6" >
@@ -74,10 +74,10 @@
                     </div>
 
                     <div class="left" style="width:100px;color:#FF0000" >
-                     {{el.fee}}元
+                     {{el.fee/100}}元
                     </div>
 
-                    <div class="left" style="width:100px;" >
+                    <div class="left" style="width:160px;" >
                      {{el.updateTime | times }}
                     </div>
 
@@ -91,49 +91,49 @@
              <div>
         
          
-              <div v-if="el.wxpayParam == null "  > 
+              <div v-if="el.report "  > 
                 <div class="ta-list">
                   <div class="list-vip">
-                     <div class="left" style="width:290px;textAlign:left" >
+                     <div class="left" style="width:230px;textAlign:left" >
                        <div style="fontSize:16px" class="m-6" >企业综合查询报告
                        </div>
                         <div style="fontSize:12px" class="m-6" >
-                         订单编号 1234567890435435354
+                         订单编号 {{el.orderNo}}
                        </div>
                         <div style="fontSize:12px" class="m-6" >
-                         发送邮箱 1225544@qq.com
+                         发送邮箱 {{el.report.email}}
                        </div>
                      </div>
 
                      <div class="left" style="width:80px;" >
-                       已支付
+                        {{el.orderStatus  | status  }}
                      </div>
 
                      <div class="left" style="width:100px;color:#FF0000" >
-                       8888元
+                       {{el.fee/100}}元
+                     </div>
+
+                     <div class="left" style="width:160px;" >
+                       {{el.updateTime | times }}
                      </div>
 
                      <div class="left" style="width:100px;" >
-                       2019-4-12
-                     </div>
-
-                     <div class="left" style="width:100px;" >
-                         <div class="again">
-                           再次购买
+                         <div class="again" @click="resend" >
+                           重新发送
                          </div>
                      </div>
                 </div>
                 <div class="ta-report" >
-                      <div class="left" style="width:290px;textAlign:left" >
+                      <div class="left" style="width:190px;textAlign:left" >
                         <div style="fontSize:12px"  >
                          报告格式 PDF
                        </div>
                      </div>
-                      <div class="left" style="width:80px;" >
-                       生产成功
+                      <div class="left" style="width:180px;" >
+                       {{el.report.reportPath | nopath }}
                      </div>
                      <div  class="left" style="width:300px;" >
-                       <span @click="downLode" >下载</span><span @click="look" >查看</span><span @click="resend" >重新发送</span>
+                       <span @click="downLode" >下载</span><span @click="look" >查看</span>
                      </div>
                 </div>
              </div>    
@@ -186,7 +186,9 @@ export default {
       allList:[],
       vipList:[],
       queryLsit:[],
-      showList:[]
+      showList:[],
+      feat:[],
+      win:[]
     }
   },
   filters: {
@@ -208,37 +210,51 @@ export default {
       } 
     },
     times(val) {
-      return moment(val).format('YYYY-MM-DD')
+      return moment(val).format('YYYY-MM-DD HH:mm:ss')
+    },
+    nopath(val) {
+      if(val ==null ) {
+        return '生成中'
+      } else {
+        return '生成成功'
+      }
     }
   },
   methods: {
+    bill() {
+       this.$confirm('如需开发票，请联系我们0731-85076077', '提示', {
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
+        })
+    },
     gainList() {
-      orderList({pageSize:'100',pageNo:'1',orderStatus:this.pattern,channelNo:'1003'}).then( res => {
-        console.log(res,1);
+      orderList({pageSize:'100',pageNo:'1',orderStatus:'3',channelNo:'1003'}).then( res => {
          if(res.code == 1) {
-           this.noShow = true
-            this.showList = res.data
-           this.allList.forEach( el => {
-              if(el.report == null ) {
-                this.vipList.push(el)
-              } else {
-                this.queryLsit.push(el)
-              }
-           })
-          if(this.value == 'vip') {
-            this.allList = this.vipList
-          } else if (this.value == 'query') {
-            this.allList = this.queryLsit
-          } else {
-            this.allList = this.showList
-          }
-          
+           this.feat = res.data
          } else {
-           this.allList = []
-           this.noShow = false
+           this.feat = []
          }
       })
     },
+    gainWin() {
+       orderList({pageSize:'100',pageNo:'1',orderStatus:'9',channelNo:''}).then( res => {
+        console.log(res,2);
+         if(res.code == 1) {
+            this.win = res.data
+            this.allList = this.win.concat(this.feat)
+            console.log( this.allList);
+            
+         } else {
+           this.win = []
+         }
+      })
+    },
+    // listcon() {
+      
+    //   console.log(this.allList,3);
+      
+    // },
     type(val) {
          if(this.value == 'vip') {
             this.allList = this.vipList
@@ -265,6 +281,8 @@ export default {
   },
   created () {
     this.gainList()
+    this.gainWin()
+    // this.listcon()
   },
   components: {
   }
@@ -304,6 +322,7 @@ export default {
     text-align: center;
     color: #fff;
     font-size: 12px;
+    cursor: pointer;
   }
   .or-table {
       padding: 0 29px;
