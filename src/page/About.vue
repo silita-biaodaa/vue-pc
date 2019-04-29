@@ -18,6 +18,7 @@
             <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
             <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
             <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
             <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -117,6 +118,9 @@ export default {
     jump() {
       this.$router.push('/')
     },
+    order() {
+      this.$router.push('/user/order')
+    },
     tologo() {
       this.$router.push('/logo')
     },
@@ -171,7 +175,6 @@ export default {
       justify-content: space-between;
       height: 40px;
       .top-left {
-        cursor: pointer;
         height: 40px;
         display: flex;
         align-items: center;

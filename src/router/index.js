@@ -37,8 +37,8 @@ import about from '@/page/About'    // 关于我们
 
 import synth from '@/page/synth/synth'    // 综合查询
 import result from '@/page/synth/result'    // 综合查询
-
-
+import query from '@/page/synth/query' 
+import hist from '@/page/synth/history' 
 
 
 
@@ -175,9 +175,7 @@ export default new Router({
         }
 
       ],
-      meta: {
-        tabNo: 3
-      }
+     
     },
     {
       path: '/conform',
@@ -273,9 +271,26 @@ export default new Router({
         path: '/synth',
         name: 'synth',
         component: synth,
-        meta: {
-          tabNo: 3
-        }
+        redirect: '/synth/query',
+        children: [
+          {
+            path: 'query',
+            name: 'query',
+            component: query,
+            meta: {
+              tabNo: 3
+            }
+          },
+          {
+            path: 'hist',
+            name: 'hist',
+            component: hist,
+            meta: {
+              tabNo: 3
+            }
+          }
+        ], 
+      
       },
       {   // 综合查询结果页面
         path: '/result',

@@ -74,7 +74,11 @@ export default {
       })
     },
     jump() {
-      this.$router.push('/synth')
+      // this.$router.push('/synth')
+      let url=this.$router.resolve({
+        path:'/synth'
+      })
+      window.open(url.href,'_blank')
     },
     engine() {
       localStorage.removeItem('title')

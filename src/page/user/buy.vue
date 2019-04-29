@@ -451,10 +451,10 @@ export default {
   }
   .buy-img {
     min-width: 1020px;
-    height: 200px;
+    height:368px;
     background: url(../../assets/img/pic-banner.png)  no-repeat;
     background-position: center;
-    background-size: 100%;
+    background-size:cover;
     position: relative;
     .img-vip {
       position: absolute;
