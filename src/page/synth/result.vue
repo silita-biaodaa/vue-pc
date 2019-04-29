@@ -27,10 +27,10 @@
         已选条件
       </div>
        <div class="di-line" >
-         企业所在地：{{detail.reginAddress}}省
+         企业所在地：{{detail.regisAddress}}省
       </div>
-       <div class="di-line"  style="marginBottom:20px;"  v-show="this.detail.qualName" >
-        资质要求：<span v-html="newqual"></span>
+       <div class="di-line"  style="marginBottom:20px;"  >
+        资质要求：<span v-html="newqual"  v-show="this.detail.qualName" ></span><span  v-show="!this.detail.qualName" >未选择资质要求</span>
       </div>
       <div class="di-con" >
         业绩要求
@@ -143,6 +143,7 @@ export default {
       payimg:1,
       cir:true,
       Noid:'',
+      pkid:''
       // int:''
     }
   },
@@ -152,7 +153,10 @@ export default {
           this.iphone = localStorage.getItem('phoneNo')
           let date  =  JSON.parse(localStorage.getItem('query'))
              report(date).then( res => {
+                  console.log(res);
+                  
                   if(res.code == 1) {
+                    this.pkid = res.pkid
                      if(res.data.projSource = 'project') {
                        res.data.projSource = '全国建筑市场监管公共服务平台'
                      } else if(res.data.projSource = 'shuili') {
@@ -169,7 +173,7 @@ export default {
                       this.common = this.detail.price[1]
                       this.vip =  this.detail.price[0]
                     }
-                    if(this.detail.buildStart == '' && this.detail.buildStart == '' ) {
+                    if(this.detail.buildStart == '' && this.detail.buildEnd == '' ) {
                       this.isTime = false
                     } else {
                       this.isTime = true
@@ -195,7 +199,7 @@ export default {
                         let setarr =  Array.from(new Set(this.detail.qualName.split(',')))
                         
                         this.newqual = setarr.join(',')
-                        if(this.detail.rangType == 'and' ) {
+                        if(this.detail.rangeType == 'and' ) {
                           this.newqual=this.newqual.replace(/,/g,'<span style="color:#FE6603" >和</span>')
                         } else {
                           this.newqual=this.newqual.replace(/,/g,'<span style="color:#FE6603" >或</span>')
@@ -282,7 +286,7 @@ export default {
               clearInterval(int)
               return false
             }
-            nowxPay({orderNo:val,type:'report'}).then( res => {
+            nowxPay({orderNo:val,type:'report',pkid:this.pkid}).then( res => {
               
               if(res.trade_state == 'SUCCESS') {
                  that.$message({
@@ -292,7 +296,7 @@ export default {
                  that.noShow = false
                   clearInterval(int)
                   setTimeout(() => {
-                     that.$router.push('/synth')
+                     that.$router.push('/synth/query')
                   },3000)
                  
               }else if(res.trade_state == 'ClOSED') {

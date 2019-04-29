@@ -4,9 +4,10 @@
     <span :class="query ? 'current' : '' "  @click="changce" >综合查询</span>/<span :class="record ? 'current' : '' "  @click="changces" >历史记录</span>
   </div>
   <!-- 综合查询筛选页面  query.vue  -->
-  <q-uery v-show="query" ></q-uery>   
+  <!-- <q-uery v-show="query" ></q-uery>    -->
   <!-- 综合查询历史记录 页面 -->
-  <h-is  v-show="record" >
+  <!-- <h-is  v-show="record" > -->
+    <router-view  />
    
   </h-is>
 </div>
@@ -25,6 +26,7 @@ export default {
     changce() {
       this.query = true
       this.record = false
+      this.$router.push('query')
     },
     gainhistory() {
       if(!sessionStorage.getItem('xtoken') || !localStorage.getItem('Xtoken') ) {
@@ -40,6 +42,7 @@ export default {
     if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
         this.query = false
        this.record = true
+       this.$router.push('hist')
      } else {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',

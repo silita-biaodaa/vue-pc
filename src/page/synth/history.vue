@@ -1,53 +1,53 @@
 <template>
 <div class="history">
+  <div class="inform" v-if="!pass" v-for="(el,i) in history " :key="i" >
+    <div class="inform-top">
+      <div class="top-left" >
+         <div class="top-title"> 
+          企业资质·业绩查询报告-体验版--¥{{el.price}}
+         </div>
+         <div class="top-buy">
+           购买时间：{{el.date}}
+         </div>
+         <div class="inform-f">
+           企业所在地：{{el.regisAddress}}省
+         </div>
+          <div class="inform-f"   >
+            资质要求：<span  v-show="el.qualName" v-html="el.newqual" ></span><span  v-show="!el.qualName" >未选择资质要求</span>
+         </div>
+      </div>
+      <div class="top-right" >
+         <div class="top-btn" :class=" el.pAth ? '' : 'no-path' " @click="jump(el)" >
+            查看报告
+         </div>
+         <div class="no-inform" v-show="!el.pAth" >
+           报告生成中……
+         </div>
+      </div>
+    </div>
+    <div class="inform-b">
+      <div class="b-in">
+        业绩要求
+      </div>
+        <div class="inform-f">
+           业绩平台：{{el.projSource}}
+        </div>
+        <div class="inform-f">
+          项目名称关键词：{{el.projName}}
+        </div>
+        <div class="inform-f" v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >
+          竣工时间：{{el.buildStart ? el.buildStart : '之前' }} 至 {{el.buildEnd ? el.buildEnd : '至今' }}
+        </div>
+        <div class="inform-f" v-show="!(el.amountStart ==''  && el.amountEnd == '' )"  >
+           <span v-show="(el.amountStart && el.amountEnd )" >&nbsp合同金额：{{el.amountStart}}万  - {{el.amountEnd}}万</span>
+        <span v-show="(el.amountStart && el.amountEnd == '')" >&nbsp合同金额： {{el.amountStart}}万<span style="fontSize:14px" >≥</span></span>
+        <span  v-show="(el.amountStart == '' && el.amountEnd )" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{el.amountEnd}}万</span>
+        </div>
+    </div>
+  </div>
   <div class="hi-img" v-if='pass' >
     <img src="../../assets/img/card.png" alt="">
   </div>
-  <template v-else>
-    <div class="inform" v-for="(el,i) in history " :key="i" >
-      <div class="inform-top">
-        <div class="top-left" >
-          <div class="top-title"> 
-            企业综合查询报告--¥{{el.price}}
-          </div>
-          <div class="top-buy">
-            购买时间：{{el.date}}
-          </div>
-          <div class="inform-f">
-            企业所在地：{{el.reginAddress}}
-          </div>
-            <div class="inform-f">
-              资质要求：{{el.qualName}}
-          </div>
-        </div>
-        <div class="top-right" >
-          <div class="top-btn" :class=" el.pAth ? '' : 'no-path' " @click="jump(el)" >
-              查看报告
-          </div>
-          <div class="no-inform" v-show="!el.pAth" >
-            报告生成中……
-          </div>
-        </div>
-      </div>
-      <div class="inform-b">
-        <div class="b-in">
-          业绩要求
-        </div>
-          <div class="inform-f">
-            业绩平台：{{el.projSource}}
-          </div>
-          <div class="inform-f">
-            项目名称关键词：{{el.projName}}
-          </div>
-          <div class="inform-f">
-            竣工时间：{{el.buildStart}}至{{el.buildEnd}}
-          </div>
-          <div class="inform-f">
-            合同金额：{{el.amountStart}}万-{{el.amountEnd}}万
-          </div>
-      </div>
-    </div>
-  </template>
 </div>
 </template>
 <script>
@@ -58,7 +58,9 @@ export default {
     return {
       pass:false,
       history:[],
-      pAth:true
+      pAth:true,
+      isTime:true,
+
     }
   },
   methods: {
@@ -93,6 +95,19 @@ export default {
                el.projSource = '全国公路建设市场信用信息管理系统'
              }
           })
+          this.history.forEach( el => {
+            if(el.qualName) {
+                 let setarr =  Array.from(new Set(el.qualName.split(',')))
+                        
+                 el.newqual = setarr.join(',')
+                 if(el.rangeType == 'and' ) {
+                   el.newqual=el.newqual.replace(/,/g,'<span style="color:#FE6603" >和</span>')
+                 } else {
+                   el.newqual=el.newqual.replace(/,/g,'<span style="color:#FE6603" >或</span>')
+                 }
+            }
+          })
+         
       })
     },
     jump(el) {
@@ -116,7 +131,7 @@ export default {
   min-height: calc(~'100vh - 450px');
   .inform {
     width: 100%;
-    height: 317px;
+    // height: 317px;
     margin-bottom: 20px;
     background-color: #fff;
     .inform-top {

@@ -348,31 +348,31 @@ export default {
     }
   },
   created () {
-    if(localStorage.getItem('query')){
-      let data=JSON.parse(localStorage.getItem('query'));
-      this.area=data.reginAddress;
-      let arr1=[];
-      let arr2=[];
-      let arr=data.qualCode.split(',');
-      this.first=arr[0];
-      for(let x in arr){
-        if(x>0){
-          let data={
-            blank:false,
-            value:arr[x]
-          }
-          this.aptitude.push(data)
-        }
-      }
-      this.allstr=data.qualCode;
-      this.rangeType=data.rangeType;
-      this.terrace=data.projSource;
-      this.name=data.projName;
-      this.stateDate=data.buildStart;
-      this.endDate=data.buildEnd;
-      this.min=data.amountStart;
-      this.max=data.amountEnd;
-    }
+    // if(localStorage.getItem('query')){
+    //   let data=JSON.parse(localStorage.getItem('query'));
+    //   this.area=data.regisAddress;
+    //   let arr1=[];
+    //   let arr2=[];
+    //   let arr=data.qualCode.split(',');
+    //   this.first=arr[0];
+    //   for(let x in arr){
+    //     if(x>0){
+    //       let data={
+    //         blank:false,
+    //         value:arr[x]
+    //       }
+    //       this.aptitude.push(data)
+    //     }
+    //   }
+    //   this.allstr=data.qualCode;
+    //   this.rangeType=data.rangeType;
+    //   this.terrace=data.projSource;
+    //   this.name=data.projName;
+    //   this.stateDate=data.buildStart;
+    //   this.endDate=data.buildEnd;
+    //   this.min=data.amountStart;
+    //   this.max=data.amountEnd;
+    // }
   },
   components: {
   }
