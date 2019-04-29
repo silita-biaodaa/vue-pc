@@ -19,10 +19,12 @@
                <i class="iconfont icon-VIP1 left person"></i>
                 会员服务
              </p>
-             <p class="left" style="cursor: pointer;" @click="towe"  >  
-               <i class="iconfont icon-lianxiren left person"></i>
-                关于我们
-             </p>
+             <router-link :to="{path:'/about'}" tag="a" target='_blank' class="left">
+              <p class="left" style="cursor: pointer;" >  
+                <i class="iconfont icon-lianxiren left person"></i>
+                  关于我们
+              </p>
+             </router-link>
           </div>
           <div class="contact-r">
             
@@ -307,12 +309,18 @@ export default {
     user() {
       this.$router.push('/user')
     },
-    towe() {
-      this.$router.push('/about')
-    },
+    // towe() {
+    //   let routeUrl = this.$router.resolve({
+    //     path: "/about",
+    //   });
+    //   window.open(routeUrl.href,'_blank');
+    // },
     tovip() {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-           this.$router.push('/buy')
+          let routeUrl = this.$router.resolve({
+            path: "/buy",
+          });
+          window.open(routeUrl.href, '_blank');
       } else {     
           this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',

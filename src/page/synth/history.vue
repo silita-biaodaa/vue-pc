@@ -26,23 +26,17 @@
       </div>
     </div>
     <div class="inform-b">
-      <div class="b-in">
-        业绩要求
-      </div>
-        <div class="inform-f">
-           业绩平台：{{el.projSource}}
-        </div>
-        <div class="inform-f">
-          项目名称关键词：{{el.projName}}
-        </div>
+      <div class="b-in">业绩要求</div>
+        <div class="inform-f">业绩平台：{{el.projSource}}</div>
+        <div class="inform-f">项目名称关键词：{{el.projName}}</div>
         <div class="inform-f"  >
-          <span v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >竣工时间：{{el.buildStart ? el.buildStart : '之前' }} 至 {{el.buildEnd ? el.buildEnd : '至今' }}</span>
-          <span v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >竣工时间：未选择竣工时间</span>
+          <span v-if="!(el.buildStart ==''  && el.buildEnd == '' )" >竣工时间：{{el.buildStart ? el.buildStart : '之前' }} 至 {{el.buildEnd ? el.buildEnd : '至今' }}</span>
+          <span v-else>竣工时间：未选择竣工时间</span>
         </div>
         <div class="inform-f" v-show="!(el.amountStart ==''  && el.amountEnd == '' )"  >
-           <span v-show="(el.amountStart && el.amountEnd )" >&nbsp合同金额：{{el.amountStart}}万  - {{el.amountEnd}}万</span>
-           <span v-show="(el.amountStart && el.amountEnd == '')" >&nbsp合同金额： {{el.amountStart}}万<span style="fontSize:14px" >≥</span></span>
-           <span  v-show="(el.amountStart == '' && el.amountEnd )" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{el.amountEnd}}万</span>
+           <span v-show="(el.amountStart && el.amountEnd )" >合同金额：{{el.amountStart}}万  - {{el.amountEnd}}万</span>
+           <span v-show="(el.amountStart && el.amountEnd == '')" >合同金额： {{el.amountStart}}万<span style="fontSize:14px" >≥</span></span>
+           <span  v-show="(el.amountStart == '' && el.amountEnd )" >合同金额：<span style="fontSize:14px" >≤</span>{{el.amountEnd}}万</span>
         </div>
         <div class="inform-f" v-show="(el.amountStart ==''  && el.amountEnd == '' )"  >
            <span>合同金额：未选择合同金额</span>

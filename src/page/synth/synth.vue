@@ -7,9 +7,7 @@
   <!-- <q-uery v-show="query" ></q-uery>    -->
   <!-- 综合查询历史记录 页面 -->
   <!-- <h-is  v-show="record" > -->
-    <router-view  />
-   
-  </h-is>
+    <router-view   :state='area'/>
 </div>
 </template>
 <script>
@@ -120,6 +118,14 @@ export default {
       date:'',
       name:'',
       allarr:[]
+    }
+  },
+  props: {
+    state:''
+  },
+  watch: {
+    state(val) {
+      this.area = val
     }
   },
   methods: {

@@ -99,14 +99,14 @@ const getCode=function(code) {
   return queryMap[code];
 };
 
-const _hmt = _hmt || [];
-window._hmt = _hmt;
-(function () {
-  const hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?313616fb1dea0773694f4c657830d6cd";
-  const s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
+// const _hmt = _hmt || [];
+// window._hmt = _hmt;
+// (function () {
+//   const hm = document.createElement("script");
+//   hm.src = "https://hm.baidu.com/hm.js?313616fb1dea0773694f4c657830d6cd";
+//   const s = document.getElementsByTagName("script")[0];
+//   s.parentNode.insertBefore(hm, s);
+// })();
 const appid='wxcfaea301018d9721';
 const appSecret='7c78697663f917d606fe6356185d8726';
 router.beforeEach((to, from, next) => {
@@ -159,7 +159,7 @@ router.beforeEach((to, from, next) => {
     if(to.fullPath=='/logo'){
       sessionStorage.setItem('path',from.name);
     }
-    _hmt.push(['_trackPageview', '/#' + to.fullPath]);
+    // _hmt.push(['_trackPageview', '/#' + to.fullPath]);
   }
   next();
 })
