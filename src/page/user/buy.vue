@@ -74,7 +74,7 @@
         <div class="buy-vip">
            <div class="buy-price" v-for="(el,i) in level" :key="i"   @click="how(el)" >
              <div class="price" :class="price == el.price ? 'current' : ''" >
-                <span>{{el.price}}</span>/{{el.stdDesc | month }}月
+                <span>{{el.price}}</span>/{{el.stdDesc | month }}个月
              </div>
              <div >
                <div class="rate left">

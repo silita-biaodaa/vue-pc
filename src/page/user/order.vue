@@ -65,7 +65,7 @@
                            订单编号 {{el.orderNo}}
                          </div>
                           <div style="fontSize:12px" class="m-6" >
-                           服务时长 {{el.vipDays}}
+                           服务时长 {{el.vipDays | months }}
                          </div>
                     </div>
 
@@ -118,7 +118,7 @@
                      </div>
 
                      <div class="left" style="width:100px;" >
-                         <div class="again" @click="resend" >
+                         <div class="again" @click="resend(el)" >
                            重新发送
                          </div>
                      </div>
@@ -133,7 +133,7 @@
                        {{el.report.reportPath | nopath }}
                      </div>
                      <div  class="left" style="width:300px;" >
-                       <span @click="downLode" >下载</span><span @click="look" >查看</span>
+                       <span @click='windown(el)' >下载</span><span @click="look(el)" >查看</span>
                      </div>
                 </div>
              </div>    
@@ -147,6 +147,9 @@
     <div>
       暂无已支付订单
     </div>
+  </div>
+  <div class="whint"  v-show="wsend" >
+    <i class="el-icon-success" ></i>&nbsp重新发送成功
   </div>
 </div>
 </template>
@@ -188,7 +191,8 @@ export default {
       queryLsit:[],
       showList:[],
       feat:[],
-      win:[]
+      win:[],
+      wsend:false
     }
   },
   filters: {
@@ -218,6 +222,17 @@ export default {
       } else {
         return '生成成功'
       }
+    },
+    months(val) {
+      if(val == 30) {
+        return '一个月'
+      } else if ( val == 90 )  {
+        return '三个月' 
+      } else if ( val == 180 )  {
+        return '六个月' 
+      } else {
+        return '十二个月'
+      }
     }
   },
   methods: {
@@ -243,12 +258,15 @@ export default {
          if(res.code == 1) {
             this.win = res.data
             this.allList = this.win.concat(this.feat)
-            console.log( this.allList);
-            
          } else {
            this.win = []
          }
       })
+    },
+    windown(el) {
+      if(el.report.reportPath) {
+        window.open(el.report.reportPath)
+      }
     },
     // listcon() {
       
@@ -264,13 +282,21 @@ export default {
             this.allList = this.showList
           }
     },
-    resend() {
-      // send({}).then( res => {
-
-      // })
+    resend(el) {
+      send({orderNo:el.orderNo,pkid:el.report.pkid,email:el.report.email}).then( res => {
+         if(res.code == 1) {
+           this.wsend = true
+           setTimeout(() => {
+             this.wsend = false
+           }, 1500);
+         }
+      })
     },
-    look() {
-      // window.open(this.detail.reportPath, '_blank', )
+    look(el) {
+      if(el.report.reportPath) {
+         window.open(el.report.reportPath, '_blank', )
+      } 
+     
     },
     downLode() {
       
@@ -293,6 +319,7 @@ export default {
    background-color: #fff;
    width: 100%;
    padding-bottom: 120px;
+   position: relative;
      .det-nav {
     line-height: 54px;
     padding: 0 29px;
@@ -384,6 +411,18 @@ export default {
      flex-direction: column;
      align-items: center;
      color: #999;
+  }
+  .whint {
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    background-color: #000;
+    opacity: 0.5;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
   }
 }
 </style>
