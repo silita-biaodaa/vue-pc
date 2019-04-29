@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span='19' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCode' :index ='i' ></q-titu>
+               <q-titu @group='gainCode' :index ='i' :clear='el.same' ></q-titu>
             </el-col>
             <el-col :span='3' class="titu-line titu-del"  @click.native="delap(i)" >
                删除
@@ -107,7 +107,7 @@
                             合同金额:&nbsp&nbsp&nbsp&nbsp
                         </div>
                         <div class="contract">
-                            <input type="text" placeholder="最低价万)"  v-model="min"  class="contract-put" >
+                            <input type="text" placeholder="最低价(万)"  v-model="min"  class="contract-put" >
                             <span>至</span>
                             <input type="text" placeholder="最高价(万)"  v-model="max"  class="contract-put" >
                         </div>
@@ -264,7 +264,7 @@ export default {
            key:'or'
          }
        ],
-       five:false
+       five:false,
     }
   },
   methods: {
@@ -278,12 +278,12 @@ export default {
       this.first = val.cur
       this.apfisrt = val.em
     },
-    gainCode(val) {
+    gainCode(val,i) {
        this.aptitude[val.i].value = val.cur
        this.aptitude[val.i].blank = val.em
     },
     addap() {
-      this.aptitude.push({ value:'',blank:false})
+      this.aptitude.push({value:'',blank:false})
       this.five = true
     },
     delap(i) {
@@ -480,6 +480,7 @@ export default {
             margin-top: 61px;
             margin-bottom: 72px;
             font-size: 16px;
+            cursor: pointer;
         }
     }
 }

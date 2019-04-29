@@ -9,10 +9,10 @@
             查询页面
           </div>
            <div class="title">
-             企业资质·业绩查询报告
+             企业资质·业绩查询报告-体验版 
            </div>
            <div class="sample" @click="jump" >
-             样本预览
+             报告样本
            </div>  
       </div>
       <div style="fontSize:16px;marginBottom:15px;">
@@ -30,7 +30,7 @@
          企业所在地：{{detail.reginAddress}}
       </div>
        <div class="di-line"  style="marginBottom:20px;"  v-show="this.detail.qualName" >
-        资质要求：<span v-html="detail.qualName"></span>
+        资质要求：<span v-html="newqual"></span>
       </div>
       <div class="di-con" >
         业绩要求
@@ -55,8 +55,8 @@
         收件人信息
       </div>
       <div class="te-hint" style="width:190px;" >
-        <span v-show="isshow" >请输入正确的手机号码格式</span>
-        <span v-show="ismail" >请输入正确的邮箱地址</span>
+        <span v-show="isshow" >{{msg}}</span>
+        <!-- <span v-show="ismail" >请输入正确的邮箱地址</span> -->
       </div>
       <div class="te-put">
         手机号码（必填）：
@@ -76,7 +76,7 @@
   <div class="re-puy" v-show="noShow" >
     <div class="puy-title">
        <span>企业综合查询报告</span>
-       <i class="el-icon-close" ></i>
+       <i class="el-icon-close"  @click="close" ></i>
     </div>
 
      <div class="puy-title" style="fontSize:14px;" >
@@ -85,25 +85,36 @@
 
     <div class="puy-detail">
       <div class="puy-name"> 
-        <span>购买账号:</span>11111111111
+        <span>购买账号:</span>{{this.iphone}}
       </div>
       <div class="puy-name"> 
-        <span>发送邮箱:</span>412690714@qq.com
+        <span>发送邮箱:</span>{{this.email}}
       </div>
        <div class="puy-name"> 
-        <span>报告格式:</span>
+        <span>报告格式:</span>PDF
       </div>
        <div class="puy-name"> 
-        <span>支付方式:</span>412690714@qq.com
+        <span>支付方式:</span>微信支付
       </div>
-
+       <div class="puy-name"> 
+        <span>应付金额:</span><span class="price" >{{price}}</span>元
+      </div>
+      <div class="puy-code">
+         <div class="puy-img" id="qrcode" >
+           <img :src="payimg" alt="">
+         </div>  
+         <div class="puy-hint"  >
+            <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+         </div>
+      </div>
     </div>
 
   </div>
 </div>
 </template>
 <script>
-import { report,wxPay } from '@/api/index';
+import QRCode from 'qrcodejs2'
+import { report,wxPay,nowxPay } from '@/api/index';
 export default {
   data () {
     return {
@@ -120,16 +131,22 @@ export default {
       isLow: true,
       isS: false,
       isE: false,
-      noShow:false 
+      noShow:false,
+      msg:'请输入正确的手机号码格式' ,
+      newqual:'',
+      code:'',
+      payimg:'',
+      cir:true,
+      Noid:'',
+      // int:''
     }
   },
   methods: {
      gainReport() {
       if(localStorage.getItem('query')) {
-        this.iphone = localStorage.getItem('phoneNo')
+          this.iphone = localStorage.getItem('phoneNo')
           let date  =  JSON.parse(localStorage.getItem('query'))
              report(date).then( res => {
-                  console.log(res);
                   if(res.code == 1) {
                      if(res.data.projSource = 'project') {
                        res.data.projSource = '全国建筑市场监管公共服务平台'
@@ -139,7 +156,6 @@ export default {
                        res.data.projSource = '全国公路建设市场信用信息管理系统'
                      }
                     this.detail = res.data
-                    // console.log(res.data);
                     
                     if(this.detail.price[0].primeUnit == "普通用户") {
                       this.common = this.detail.price[0]
@@ -170,13 +186,17 @@ export default {
                         this.isLow = true
                       }
                     }
-                    if(this.detail.rangType == 'and' ) {
-                      // this.detail.rangType = '和'
-                       this.detail.qualName=this.detail.qualName.replace(/,/g,'<span style="color:#FE6603" >和</span>')
-                    } else {
-                      // this.detail.rangType = '或'
-                      this.detail.qualName=this.detail.qualName.replace(/,/g,'<span style="color:#FE6603" >或</span>')
+                    if(this.detail.qualName) {
+                        let setarr =  Array.from(new Set(this.detail.qualName.split(',')))
+                        
+                        this.newqual = setarr.join(',')
+                        if(this.detail.rangType == 'and' ) {
+                          this.newqual=this.newqual.replace(/,/g,'<span style="color:#FE6603" >和</span>')
+                        } else {
+                          this.newqual=this.newqual.replace(/,/g,'<span style="color:#FE6603" >或</span>')
+                        }
                     }
+                 
                   }
 
                 })
@@ -187,6 +207,7 @@ export default {
     isphone() {
        if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.iphone.trim()))) {
          this.isshow =  true
+         this.msg = '请输入正确的手机号码格式'
       } else {
         this.isshow =  false
       }
@@ -194,27 +215,98 @@ export default {
     isemail() {
       var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
       if(!(reg.test(this.email))) {
-        this.ismail = true
+          this.isshow =  true
+          this.msg = '请输入正确的电子邮箱格式'
       } else {
-         this.ismail = false
+        this.isshow =  false
       }
     },
     jump() {
       window.open(this.detail.reportPath, '_blank', )
     },
     jumpvip() {
-      console.log(111);
-      
       this.$router.push('/buy')
     },
     pay() {
+      this.isphone()
+      this.isemail()
+      if(this.isshow) {
+          this.isshow =  true
+          this.msg = '请输入您的手机号码和电子邮箱'
+         return 
+      }
+      let ip = sessionStorage.getItem('ip')
+      let uip = localStorage.getItem('uip')
       if(localStorage.getItem('permissions')) {
         this.price = this.vip.price
+        this.code = this.vip.stdCode
       } else {
         this.price = this.common.price
+        this.code = this.common.stdCode
       }
+        wxPay({channel:'1003',stdCode:this.code,tradeType:'NATIVE',userId:ip,pkid:this.detail.pkid,email:this.email,phone:this.iphone,ip:uip}).then( res => {
+         if(res.code == 1) {
+           console.log(res);
+           this.Noid = res.orderNo
+           console.log(this.Noid);
+           
+             this.payimg = new QRCode("qrcode", {
+                text: res.data.codeUrl,
+                width:180,
+                height: 180,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+            });
+            this.gainstate(res.orderNo)
+         }
+        
+      } )
+      
       this.noShow = true
-      // wxPay({channel:'1003',stdCode:this.price,tradeType:'Native'})
+      
+    },
+    gainstate(val){
+
+      let that  = this
+       let int = setInterval( function () {
+          
+            if(!that.noShow) {
+              
+              clearInterval(int)
+              return false
+            }
+      //    console.log(4);
+            nowxPay({orderNo:val,type:'report'}).then( res => {
+              console.log(res);
+              
+              if(res.trade_state == 'SUCCESS') {
+                  that.$notify({
+                    title: '提示',
+                    message: '支付成功',
+                    type: 'success',
+                    position: 'bottom-left'
+                  });
+                 that.noShow = false
+                  clearInterval(int)
+                  that.$router.push('/synth')
+              }else if(res.trade_state == 'ClOSED') {
+                 clearInterval(int)
+                 that.noShow = false
+              } else if(res.trade_state == 'REVOKED') {
+                that.noShow = false
+                clearInterval(int)
+              } else if(res.trade_state == 'PAYERROR') {
+                 that.noShow = false
+                 clearInterval(int)
+              }
+                
+                 
+            })
+        },2000)
+     
+    },
+    close() {
+      this.noShow = false
     }
   },
   created () {
@@ -313,6 +405,7 @@ export default {
          font-weight: 550;
          text-align: center;
          margin: 97px 0;
+         cursor: pointer;
        }
        .te-hint {
          font-size: 12px;
@@ -324,9 +417,9 @@ export default {
        position: fixed;
        left: 50%;
        transform: translateX(-50%);
-       width: 550px;
-       height: 500px;
-       top: 200px;
+       width: 500px;
+      //  height: 500px;
+       top: 100px;
        background-color: #fff;
        box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
        border: 1px solid  rgba(242,242,242,1);
@@ -341,17 +434,41 @@ export default {
          font-size: 16px;
           i {
            font-size: 24px;
+           cursor: pointer;
           }
        }
        .puy-detail {
          padding: 18px;
          font-size: 14px;   
          .puy-name {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
            span {
              font-weight: 550;
              margin-right: 10px;
            }
+           .price {
+             font-weight: 400;
+             font-size: 18px;
+             color:#FE6603;
+           }
+         }
+         .puy-code {
+          //  margin-top: 10px;
+           display: flex;
+           align-items: center;
+           flex-direction: column;
+           overflow: hidden;
+           .puy-img {
+              // width: 180px;
+              // height: 180px;
+            }
+          .puy-hint {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #FE6603;
+            margin-top: 10px;
+          }
          }
        }
      }

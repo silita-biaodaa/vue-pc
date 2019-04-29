@@ -40,11 +40,13 @@ export default {
       grades:[],
       zType:[],
       i:0,
-      noLevel:false
+      noLevel:false,
+
     }
   },
   props: {
-    index:0
+    index:0,
+    clear:false
   },
   methods: {
      gainFilter() {
@@ -66,8 +68,6 @@ export default {
        this.grades = []
         this.majors.forEach(el => {
          if(el.code == this.major ) {
-           console.log(2);
-           
             if(el.list.length == 0  ) {
               this.grade = '不分等级'
                this.noLevel = true
@@ -79,7 +79,7 @@ export default {
          }
       });
       if(this.noLevel) {
-         this.zType = []
+          this.zType = []
           this.zType.push(this.companyQual,this.major)
           this.zzType = this.zType.join('||')
           this.$emit('group', {cur:this.zzType,em:false,i:this.i})
@@ -89,8 +89,9 @@ export default {
         
     },
     splicet() {
+      
        if(this.grade  == '') {
-           this.$emit('group', {cur:'',em:true,i:this.i})
+          this.$emit('group', {cur:'',em:true,i:this.i})
        } else {
           this.zType = []
           this.zType.push(this.companyQual,this.major,this.grade)
@@ -119,6 +120,12 @@ export default {
      grade(val) {
       this.zType = []
     },
+    clear(val) {
+      if(val) {
+         this.grade = ''
+      }
+     
+    }
   },
   created () {
     this.i = this.index

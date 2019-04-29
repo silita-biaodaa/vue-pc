@@ -159,6 +159,10 @@ export default {
       noShow:true,
       option:[
         {
+          label:'全部',
+          value:''
+        },
+        {
           label:'会员订单',
           value:'vip'
         },
@@ -170,14 +174,11 @@ export default {
       value:'',
       pattern:'',
       options:[{
-        value:'2',
-        label:'超时'
+        value:'',
+        label:'全部'
       },{
         value:'3',
         label:'支付失败'
-      },{
-        value:'4',
-        label:'支付取消'
       },{
         value:'9',
         label:'支付成功'
