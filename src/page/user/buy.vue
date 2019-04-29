@@ -200,7 +200,7 @@
           <span>手机号码:</span>{{iphone}}
         </div>
         <div class="puy-name"> 
-          <span>购买标大大{{this.all.stdDesc}}</span>
+          <span>标大大{{this.all.stdDesc}}</span>
         </div>
       </div>
       <div class="puy-price" >
