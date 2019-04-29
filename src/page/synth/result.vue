@@ -291,7 +291,10 @@ export default {
                     });
                  that.noShow = false
                   clearInterval(int)
-                  that.$router.push('/synth')
+                  setTimeout(() => {
+                     that.$router.push('/synth')
+                  },3000)
+                 
               }else if(res.trade_state == 'ClOSED') {
                  clearInterval(int)
                  that.noShow = false

@@ -11,6 +11,7 @@
            <el-dropdown-item @click.native="gotoUser()" >个人设置</el-dropdown-item>
            <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
            <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
+           <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
            <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
          </el-dropdown-menu>
         </el-dropdown>
@@ -152,6 +153,13 @@ export default {
       this.tab[1].i=true;
       this.$router.push('/user/fcoll')
 
+    },
+    order() {
+       this.tab.forEach( li => {
+          li.i = false 
+      })
+      this.tab[3].i=true;
+      this.$router.push('/user/order')
     },
     quit() {
 

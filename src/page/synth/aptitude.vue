@@ -46,7 +46,10 @@ export default {
   },
   props: {
     index:0,
-    clear:false
+    clear:false,
+    codeObj:{
+      default:''
+    }
   },
   methods: {
      gainFilter() {
@@ -102,6 +105,9 @@ export default {
   },
   watch: {
      companyQual(val) {
+       if(this.codeObj!=''){
+         return false
+       }
       this.major = ''
       this.majors = []
       this.grade = ''
@@ -130,6 +136,14 @@ export default {
   created () {
     this.i = this.index
     this.gainFilter()
+  },
+  mounted() {
+    if(this.codeObj!=''){
+      let arr=this.codeObj.split('||');
+      this.companyQual=arr[0];
+      this.major=arr[1];
+      this.grade=arr[2];
+    }
   },
   components: {
   }
