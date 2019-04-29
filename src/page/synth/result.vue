@@ -18,7 +18,7 @@
       <div style="fontSize:16px;marginBottom:15px;">
         限时折扣价¥{{common.price}}/会员专享价¥{{vip.price}}元
       </div>
-      <div style="fontSize:16px;color:#FE6603;cursor: pointer;" @click="jumpvip" >
+      <div style="fontSize:16px;color:#FE6603;cursor: pointer;" @click="jumpvip" v-show="toVip"  >
         开通会员 <i class="el-icon-arrow-right"></i>
       </div>
   </div>
@@ -27,7 +27,7 @@
         已选条件
       </div>
        <div class="di-line" >
-         企业所在地：{{detail.regisAddress}}省
+         企业所在地：{{detail.regisAddress}}
       </div>
        <div class="di-line"  style="marginBottom:20px;"  >
         资质要求：<span v-html="newqual"  v-show="this.detail.qualName" ></span><span  v-show="!this.detail.qualName" >未选择资质要求</span>
@@ -41,13 +41,17 @@
        <div class="di-line"  >
         项目名称关键词：{{detail.projName}}
       </div>
-      <div class="di-line"  v-show="isTime" >
-        竣工时间：{{detail.buildStart ? detail.buildStart : '之前' }} 至 {{detail.buildEnd ? detail.buildEnd : '至今' }}
+      <div class="di-line" >
+        <span  v-show="isTime" >竣工时间：{{detail.buildStart ? detail.buildStart : '之前' }} 至 {{detail.buildEnd ? detail.buildEnd : '至今' }}</span>
+        <span  v-show="!isTime" >&nbsp竣工时间:未选择竣工时间</span>
       </div>
       <div class="di-line" style="marginBottom:0;" v-show="isMon"  >
         <span v-show="isLow" >&nbsp合同金额：{{detail.amountStart}}万  - {{detail.amountEnd}}万</span>
         <span v-show="isE" >&nbsp合同金额： {{detail.amountStart}}万<span style="fontSize:14px" >≥</span></span>
         <span  v-show="isS" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{detail.amountEnd}}万</span>
+      </div>
+      <div class="di-line" style="marginBottom:0;" v-show="!isMon"  >
+         合同金额:未选择合同金额
       </div>
   </div>
   <div class="term">
@@ -143,7 +147,8 @@ export default {
       payimg:1,
       cir:true,
       Noid:'',
-      pkid:''
+      pkid:'',
+      toVip:true
       // int:''
     }
   },
@@ -317,10 +322,18 @@ export default {
     },
     close() {
       this.noShow = false
+    },
+    openV() {
+      if(localStorage.getItem('permissions')) {
+        this.toVip = false
+      } else {
+        this.toVip = true
+      }
     }
   },
   created () {
    this.gainReport()
+   this.openV()
   },
   components: {
   }

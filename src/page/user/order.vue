@@ -184,10 +184,10 @@ export default {
         label:'全部'
       },{
         value:'3',
-        label:'支付失败'
+        label:'未支付'
       },{
         value:'9',
-        label:'支付成功'
+        label:'已支付'
       }],
       allList:[],
       vipList:[],

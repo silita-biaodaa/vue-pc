@@ -175,6 +175,7 @@ export default {
       justify-content: space-between;
       height: 40px;
       .top-left {
+        cursor: pointer;
         height: 40px;
         display: flex;
         align-items: center;

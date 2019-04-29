@@ -4,13 +4,13 @@
     <div class="inform-top">
       <div class="top-left" >
          <div class="top-title"> 
-          企业资质·业绩查询报告-体验版--¥{{el.price}}
+          企业资质·业绩查询报告-体验版
          </div>
          <div class="top-buy">
            购买时间：{{el.date}}
          </div>
          <div class="inform-f">
-           企业所在地：{{el.regisAddress}}省
+           企业所在地：{{el.regisAddress}}
          </div>
           <div class="inform-f"   >
             资质要求：<span  v-show="el.qualName" v-html="el.newqual" ></span><span  v-show="!el.qualName" >未选择资质要求</span>
@@ -35,13 +35,17 @@
         <div class="inform-f">
           项目名称关键词：{{el.projName}}
         </div>
-        <div class="inform-f" v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >
-          竣工时间：{{el.buildStart ? el.buildStart : '之前' }} 至 {{el.buildEnd ? el.buildEnd : '至今' }}
+        <div class="inform-f"  >
+          <span v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >竣工时间：{{el.buildStart ? el.buildStart : '之前' }} 至 {{el.buildEnd ? el.buildEnd : '至今' }}</span>
+          <span v-show="!(el.buildStart ==''  && el.buildEnd == '' )" >竣工时间：未选择竣工时间</span>
         </div>
         <div class="inform-f" v-show="!(el.amountStart ==''  && el.amountEnd == '' )"  >
            <span v-show="(el.amountStart && el.amountEnd )" >&nbsp合同金额：{{el.amountStart}}万  - {{el.amountEnd}}万</span>
-        <span v-show="(el.amountStart && el.amountEnd == '')" >&nbsp合同金额： {{el.amountStart}}万<span style="fontSize:14px" >≥</span></span>
-        <span  v-show="(el.amountStart == '' && el.amountEnd )" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{el.amountEnd}}万</span>
+           <span v-show="(el.amountStart && el.amountEnd == '')" >&nbsp合同金额： {{el.amountStart}}万<span style="fontSize:14px" >≥</span></span>
+           <span  v-show="(el.amountStart == '' && el.amountEnd )" >&nbsp合同金额：<span style="fontSize:14px" >≤</span>{{el.amountEnd}}万</span>
+        </div>
+        <div class="inform-f" v-show="(el.amountStart ==''  && el.amountEnd == '' )"  >
+           <span>合同金额：未选择合同金额</span>
         </div>
     </div>
   </div>
