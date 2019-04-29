@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span='22' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCo' ></q-titu>
+               <q-titu @group='gainCo' :codeObj='first'></q-titu>
             </el-col>
           </el-row>
       </div>
@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span='19' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCode' :index ='i' :clear='el.same' ></q-titu>
+               <q-titu @group='gainCode' :index ='i' :clear='el.same' :codeObj='el.value'></q-titu>
             </el-col>
             <el-col :span='3' class="titu-line titu-del"  @click.native="delap(i)" >
                删除
@@ -349,7 +349,31 @@ export default {
     }
   },
   created () {
-    
+    if(localStorage.getItem('query')){
+      let data=JSON.parse(localStorage.getItem('query'));
+      this.area=data.reginAddress;
+      let arr1=[];
+      let arr2=[];
+      let arr=data.qualCode.split(',');
+      this.first=arr[0];
+      for(let x in arr){
+        if(x>0){
+          let data={
+            blank:false,
+            value:arr[x]
+          }
+          this.aptitude.push(data)
+        }
+      }
+      this.allstr=data.qualCode;
+      this.rangeType=data.rangeType;
+      this.terrace=data.projSource;
+      this.name=data.projName;
+      this.stateDate=data.buildStart;
+      this.endDate=data.buildEnd;
+      this.min=data.amountStart;
+      this.max=data.amountEnd;
+    }
   },
   components: {
   }
