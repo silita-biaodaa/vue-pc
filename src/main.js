@@ -159,7 +159,7 @@ router.beforeEach((to, from, next) => {
     if(to.fullPath=='/logo'){
       sessionStorage.setItem('path',from.name);
     }
-    _hmt.push(['_trackPageview', '/#' + to.fullPath]);
+    // _hmt.push(['_trackPageview', '/#' + to.fullPath]);
   }
   next();
 })
