@@ -100,8 +100,8 @@
         <span>应付金额:</span><span class="price" >{{price}}</span>元
       </div>
       <div class="puy-code">
-         <div class="puy-img" id="qrcode" >
-           <img :src="payimg" alt="">
+         <div class="puy-img" id="qrcode"  >
+           <!-- <img :src="payimg" alt=""> -->
          </div>  
          <div class="puy-hint"  >
             <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
@@ -135,7 +135,7 @@ export default {
       msg:'请输入正确的手机号码格式' ,
       newqual:'',
       code:'',
-      payimg:'',
+      payimg:1,
       cir:true,
       Noid:'',
       // int:''
@@ -246,17 +246,19 @@ export default {
       }
         wxPay({channel:'1003',stdCode:this.code,tradeType:'NATIVE',userId:ip,pkid:this.detail.pkid,email:this.email,phone:this.iphone,ip:uip}).then( res => {
          if(res.code == 1) {
-           console.log(res);
            this.Noid = res.orderNo
-           console.log(this.Noid);
+           this.url = res.data.codeUrl
+           if(this.payimg == 1) {
+                let code = new QRCode("qrcode", {
+                  text: res.data.codeUrl,
+                  width:180,
+                  height: 180,
+                  colorDark : "#000000",
+                  colorLight : "#ffffff",
+              });
+               this.payimg = this.payimg + 1
+           } 
            
-             this.payimg = new QRCode("qrcode", {
-                text: res.data.codeUrl,
-                width:180,
-                height: 180,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-            });
             this.gainstate(res.orderNo)
          }
         
@@ -275,9 +277,7 @@ export default {
               clearInterval(int)
               return false
             }
-      //    console.log(4);
             nowxPay({orderNo:val,type:'report'}).then( res => {
-              console.log(res);
               
               if(res.trade_state == 'SUCCESS') {
                   that.$notify({
