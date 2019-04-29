@@ -62,7 +62,7 @@
                          <div style="fontSize:16px" class="m-6" >会员服务
                          </div>
                           <div style="fontSize:12px" class="m-6" >
-                           订单编号：{{el.orderNo}}
+                           订单编号 {{el.orderNo}}
                          </div>
                           <div style="fontSize:12px" class="m-6" >
                            服务时长 {{el.vipDays | months }}
@@ -117,8 +117,8 @@
                        {{el.updateTime | times }}
                      </div>
 
-                     <div class="left" style="width:100px;"  v-if="el.report.reportPath">
-                         <div class="again" @click="resend(el)" >
+                     <div class="left" style="width:100px;">
+                         <div class="again" :class="{'noBtn':!el.report.reportPath}" @click="resend(el)" >
                            重新发送
                          </div>
                      </div>
@@ -132,7 +132,7 @@
                       <div class="left" style="width:180px;" >
                        {{el.report.reportPath | nopath }}
                      </div>
-                     <div  class="left" style="width:300px;" v-if="el.report.reportPath">
+                     <div  class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}">
                        <!-- <span @click='dowloadFn(el)'>下载</span> -->
                        <span @click="look(el)" >查看</span>
                        <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
@@ -494,6 +494,9 @@ export default {
         }
     },
     resend(el) {
+      if(!el.report.reportPath){
+        return false
+      }
       let email=el.report.email;
       let name=prompt('请输入您的新邮箱','');
       if(name!=null&&name!=''){
@@ -591,6 +594,7 @@ export default {
       .m-6{
         margin-bottom: 6px;
       }
+      
       .again {
         width:70px;
         height:23px;
@@ -602,6 +606,12 @@ export default {
         font-size: 12px;
         text-align: center;
         line-height: 23px;
+        
+      }
+      .noBtn{
+        border-color: #999;
+        color: #999;
+         cursor: default;
       }
       .ta-report {
         height: 32px;
@@ -610,6 +620,12 @@ export default {
         color:#999;
         font-size: 12px;
         text-align: center;
+        .noBtn{
+          span{
+            color: #999;
+            cursor: default;
+          }
+        }
         span {
           color:#FE6603;
           margin-left: 40px;
@@ -640,5 +656,6 @@ export default {
     border-radius: 5px;
     font-size: 14px;
   }
+  
 }
 </style>
