@@ -267,6 +267,14 @@ export default {
        five:false,
     }
   },
+  props: {
+    state:''
+  },
+  watch: {
+    state(val) {
+      this.area = val
+    }
+  },
   methods: {
     charea(el) {
       this.area = el.name
