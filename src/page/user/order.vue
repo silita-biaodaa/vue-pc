@@ -19,7 +19,7 @@
     </div>
     <div class="left"  style="color:#666">
       支付状态
-       <el-select v-model="pattern"  clearable  placeholder="请选择"  @change="gainList" >
+       <el-select v-model="pattern"  clearable  placeholder="请选择"  @change="Ctype" >
          <el-option
            v-for="item in options"
            :key="item.value"
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="left" style="width:100px;" >
-                     <div class="again">
+                     <div class="again" @click="again(el)" >
                        再次购买
                      </div>
                     </div>
@@ -152,6 +152,7 @@
   <div class="whint"  v-show="wsend" >
     <i class="el-icon-success" ></i>&nbsp重新发送成功
   </div>
+
 </div>
 </template>
 <script>
@@ -193,7 +194,10 @@ export default {
       showList:[],
       feat:[],
       win:[],
-      wsend:false
+      wsend:false,
+      payshow:false,
+      detail:{},
+      iphone:''
     }
   },
   filters: {
@@ -244,6 +248,9 @@ export default {
           showConfirmButton:false
         })
     },
+    again() {
+      this.$router.push('/buy')
+    },
     gainList() {
       orderList({pageSize:'100',pageNo:'1',orderStatus:'3',channelNo:'1003'}).then( res => {
          if(res.code == 1) {
@@ -269,19 +276,221 @@ export default {
         window.open(el.report.reportPath)
       }
     },
-    // listcon() {
-      
-    //   console.log(this.allList,3);
-      
-    // },
     type(val) {
-         if(this.value == 'vip') {
-            this.allList = this.vipList
-          } else if (this.value == 'query') {
-            this.allList = this.queryLsit
+      this.allList = []
+      this.allList = this.win.concat(this.feat)
+      let arr = []
+        if(val == '') {
+          if(this.pattern == '') {
+            this.allList = []
+            this.allList = this.win.concat(this.feat)
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
           } else {
-            this.allList = this.showList
+            this.allList.forEach( el =>{
+              if(el.orderStatus == this.pattern) {
+                arr.push(el)
+              }
+            })
+            this.allList = []
+            this.allList = arr
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+
           }
+
+        } else if (val == 'vip'  )  {
+           if(this.pattern == '') {
+             this.allList.forEach( el => {
+                 if(el.report == null ) {
+                   arr.push(el)
+                 }
+             })
+             this.allList = []
+             this.allList = arr
+           if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+           } else {
+               this.allList.forEach( el => {
+                 if(el.report == null && el.orderStatus == this.pattern  ) {
+                   arr.push(el)
+                 }
+             })
+              this.allList = []
+             this.allList = arr
+            if( this.allList.length == 0) {
+               this.noShow = false
+             } else {
+               this.noShow = true
+             }
+           }
+        } else {
+           if(this.pattern == '') {
+             this.allList.forEach( el => {
+                 if(el.report) {
+                   arr.push(el)
+                 }
+             })
+             this.allList = []
+             this.allList = arr
+           if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+           } else {
+               this.allList.forEach( el => {
+                 if(el.report == null && el.orderStatus == this.pattern  ) {
+                   arr.push(el)
+                 }
+             })
+              this.allList = []
+             this.allList = arr
+            if( this.allList.length == 0) {
+               this.noShow = false
+             } else {
+               this.noShow = true
+             }
+           }
+        }
+    },
+    Ctype(val) {
+      this.allList = []
+      this.allList = this.win.concat(this.feat)
+      let arr1 =[]
+      if(val == '') {
+          if(this.value == '') {
+            this.allList = []
+            this.allList = this.win.concat(this.feat)
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          } else {
+            if(this.value == 'vip') {
+              this.allList.forEach(el => {
+                if(el.report == null) {
+                  arr1.push(el)
+                }
+              })
+            } else {
+               this.allList.forEach(el => {
+                if(el.report) {
+                  arr1.push(el)
+                }
+              })
+            }
+            this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+
+          }
+
+        }  else if( val == '9') {
+          if(this.value == '') {
+            this.allList.forEach( el => {
+              if(el.orderStatus == '9') {
+                arr1.push(el)
+              }
+            })
+            this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          } else if (this.value == 'vip' ) {
+              this.allList.forEach( el => {
+              if(el.orderStatus == '9' && el.report ==null ) {
+                arr1.push(el)
+              }
+            })
+             this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          } else {
+               this.allList.forEach( el => {
+              if(el.orderStatus == '9' && el.report ) {
+                arr1.push(el)
+              }
+            })
+             this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          }
+        } else {
+          if(this.value == '') {
+            this.allList.forEach( el => {
+              if(el.orderStatus == '3') {
+                arr1.push(el)
+              }
+            })
+            this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          } else if (this.value == 'vip' ) {
+              this.allList.forEach( el => {
+              if(el.orderStatus == '3' && el.report ==null ) {
+                arr1.push(el)
+              }
+            })
+             this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          } else {
+               this.allList.forEach( el => {
+              if(el.orderStatus == '3' && el.report ) {
+                arr1.push(el)
+              }
+            })
+             this.allList = []
+            this.allList = arr1
+            
+            if( this.allList.length == 0) {
+              this.noShow = false
+            } else {
+              this.noShow = true
+            }
+          }
+        }
     },
     resend(el) {
       send({orderNo:el.orderNo,pkid:el.report.pkid,email:el.report.email}).then( res => {
