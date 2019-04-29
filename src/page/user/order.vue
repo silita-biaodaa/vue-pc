@@ -251,7 +251,7 @@ export default {
   filters: {
     status(val){
       if(val == 1) {
-        return '已支付'
+        return '未支付'
       } else if ( val == 2 )  {
         return '超时' 
       } else if ( val == 3 )  {
@@ -259,7 +259,7 @@ export default {
       } else if ( val == 4 )  {
         return '支付取消' 
       } else if ( val == 9 )  {
-        return '未支付' 
+        return '已支付' 
       } else if ( val == 99 )  {
         return '支付其他异常' 
       } else if ( val == 11 )  {
@@ -754,9 +754,10 @@ export default {
   }
   .noList {
      padding-top: 100px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
+    //  display: flex;
+    //  flex-direction: column;
+    //  align-items: center;
+     text-align: center;
      color: #999;
   }
   .whint {
