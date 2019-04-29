@@ -62,7 +62,7 @@
                          <div style="fontSize:16px" class="m-6" >会员服务
                          </div>
                           <div style="fontSize:12px" class="m-6" >
-                           订单编号 {{el.orderNo}}
+                           订单编号：{{el.orderNo}}
                          </div>
                           <div style="fontSize:12px" class="m-6" >
                            服务时长 {{el.vipDays | months }}
