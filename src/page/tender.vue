@@ -495,6 +495,8 @@ export default {
     },
     state(val) {
       this.area = val
+       this.pageNo = 1
+       this.gainList()
     }
   },
   props: {

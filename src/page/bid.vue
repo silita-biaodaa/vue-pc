@@ -378,6 +378,10 @@ export default {
     },
     state(val) {
       this.area = val
+      this.current = 1
+      this.loading = true      
+      this.gainQueryList()
+      
     }
   },
   methods: {

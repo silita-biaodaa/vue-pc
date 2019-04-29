@@ -91,8 +91,8 @@
           </div>
 
         </div>
-        <div class="buy-title">
-            标大大会员 · 专享<span style="color:#FE0303" >8</span>大特权
+        <div class="buy-title" style="display: flex;align-items: center;">
+            标大大会员 <i class="bigDian"></i> 专享<span style="color:#FE0303" >8</span>大特权
         </div>
         <div class="buy-table">
           <div class="table-top">
@@ -670,5 +670,13 @@ export default {
           }
          }
      }
+}
+.bigDian{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000;
+  display: inline-block;
+  margin: 0 5px;
 }
 </style>
