@@ -74,19 +74,19 @@
         <div class="buy-vip">
            <div class="buy-price" v-for="(el,i) in level" :key="i"   @click="how(el)" >
              <div class="price" :class="price == el.price ? 'current' : ''" >
-                <span>{{el.price}}</span>/{{el.month}}月
+                <span>{{el.price}}</span>/{{el.stdDesc | month }}月
              </div>
              <div >
                <div class="rate left">
-                 {{el.rate}}折
+                 {{el.altInfo}}
                </div>
                <div class="right save">
-                 可节省{{el.save}}元
+                 可节省{{el.primePrice - el.price }}元
                </div>
              </div>
            </div>
 
-          <div class="buy-btn">
+          <div class="buy-btn" @click="openV" >
             立即开通
           </div>
 
@@ -158,7 +158,7 @@
                <p class="buy-s" >(限APP查看)</p>
             </div>
             <div class="left buy-p" style="width:680px" >
-              包含全国住建部、交通部、水利部业绩，可根据地区、合同金额、日期、关键词快速查找业绩信息
+              包含全国住建部、交通部、水利部业绩，可根据地区、合同金额、日期、关键词快速查找业绩信息。
             </div>
           </div>  
 
@@ -167,7 +167,7 @@
                <p class="p-color" >更多企业信息</p>
             </div>
             <div class="left buy-p" style="width:680px" >
-              提供建筑业企业的工商、法务、资质、人员、业绩、中标项目、诚信等信息
+              提供建筑业企业的工商、法务、资质、人员、业绩、中标项目、诚信等信息。
             </div>
           </div>  
 
@@ -177,15 +177,58 @@
                <p class="buy-s" >(限APP查看)</p>
             </div>
             <div class="left buy-p" style="width:680px" >
-              提供注册人员的押证项目、证书信息、个人业绩、变更记录、不良记录等信息，查找信息更加快速精准
+              提供注册人员的押证项目、证书信息、个人业绩、变更记录、不良记录等信息，查找信息更加快速精准。
             </div>
           </div>  
 
         </div>
     </div>
+
+  <div class="re-puy" v-if="noShow"  >
+    <div class="puy-title">
+       <span>会员支付</span>
+       <i class="el-icon-close"  @click="close" ></i>
+    </div>
+
+     <div class="puy-title" style="fontSize:14px;" >
+       <span>订单详情</span>
+    </div>
+
+    <div class="puy-detail">
+      <div>
+        <div class="puy-name"> 
+          <span>手机号码:</span>{{iphone}}
+        </div>
+        <div class="puy-name"> 
+          <span>购买标大大{{this.all.stdDesc}}</span>
+        </div>
+      </div>
+      <div class="puy-price" >
+           <div class="puy-name"> 
+             <span>应付金额:</span><span class="price" >{{this.all.price}}</span>元
+           </div>
+      </div>  
+    </div>
+
+    <div class="puy-title" style="fontSize:14px;" >
+       <span>支付方式</span>
+    </div>
+
+     <div class="puy-code">
+         <div class="puy-img" id="qrcode"  >
+           <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
+         </div>  
+         <div class="puy-hint"  >
+            <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+         </div>
+      </div>
+  </div>
+
 </div>
 </template>
 <script>
+import QRCode from 'qrcodejs2'
+import { FeeStandard,vipPay,nowxPay,getUserTemp } from '@/api/index';
 export default {
   data () {
     return {
@@ -221,32 +264,25 @@ export default {
      ],
      source:'湖南',
      level:[
-       {
-         price:'318',
-         rate:'6.3',
-         save:'182',
-         month:'1'
-       },
-        {
-         price:'898',
-         rate:'6.0',
-         save:'602',
-         month:'3'
-       },
-        {
-         price:'1498',
-         rate:'5.0',
-         save:'1502',
-          month:'6'
-       },
-        {
-         price:'2298',
-         rate:'3.8',
-         save:'3702',
-         month:'12'
-       }
+      
      ],
-     price:'318'
+     price:'318',
+     noShow:false,
+     all:{},
+     iphone:''
+    }
+  },
+  filters: {
+    month(val) {
+      if(val == "一个月会员") {
+        return '1'
+      } else  if(val == "三个月会员") {
+        return '3'
+      }  else  if(val == "六个月会员") {
+        return '6'
+      } else {
+        return '12'
+      }
     }
   },
   methods: {
@@ -290,6 +326,7 @@ export default {
     },
     how(el) {
       this.price = el.price
+      this.all = el
     },
       judges() {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -301,10 +338,92 @@ export default {
     },
     towe() {
       this.$router.push('/about')
-    }
+    },
+    close() {
+      this.noShow = false
+    },
+    gainfee() {
+      FeeStandard({channel:'1003'}).then(res => {
+        if(res.code ==1 ) {
+          this.level = res.data
+          this.price = res.data[0].price
+          this.all = res.data[0]
+        }
+        
+      })
+    },
+    openV() {
+      let id = sessionStorage.getItem('ip')
+      this.iphone = localStorage.getItem('phoneNo')
+      vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
+         if(res.code == 1) {
+              let code = new QRCode("qrcode", {
+                  text: res.data.codeUrl,
+                  width:180,
+                  height: 180,
+                  colorDark : "#000000",
+                  colorLight : "#ffffff",
+              });
+           this.gainstate(res.orderNo)
+         }
+        
+      })
+      this.noShow = true
+    },
+    gainstate(val){
+
+      let that  = this
+       let int = setInterval( function () {
+          
+            if(!that.noShow) {
+              
+              clearInterval(int)
+              return false
+            }
+            nowxPay({orderNo:val,type:'report'}).then( res => {
+              console.log(res);
+              
+              if(res.trade_state == 'SUCCESS') {
+                getUserTemp({}).then( res => {
+                  if(res.code == 1) {
+                    sessionStorage.setItem('ip', res.data.pkid)
+                    localStorage.setItem('permissions',res.data.permissions)
+                    // localStorage.setItem('ip', res.data.pkid)
+                    if(localStorage.getItem('Xtoken')) {
+                      localStorage.setItem('Xtoken',res.data.xtoken)
+                    } else {
+                      sessionStorage.setItem('xtoken',res.data.xtoken)
+                    }
+                  }
+                  
+                })
+                 that.$message({
+                      message: '支付成功',
+                      type: 'success'
+                    });
+                 that.noShow = false
+                  clearInterval(int)
+                  that.$router.push('/user/order')
+              }else if(res.trade_state == 'ClOSED') {
+                 clearInterval(int)
+                 that.noShow = false
+              } else if(res.trade_state == 'REVOKED') {
+                that.noShow = false
+                clearInterval(int)
+              } else if(res.trade_state == 'PAYERROR') {
+                 that.noShow = false
+                 clearInterval(int)
+              }
+                
+                 
+            })
+        },2000)
+     
+    },
   },
   created () {
     this.judges()
+    this.gainfee()
   },
   //  watch: {
   //   $route:{
@@ -331,8 +450,8 @@ export default {
     bottom: -320px !important;
   }
   .buy-img {
-    width: 100%;
-    height: 250px;
+    min-width: 1020px;
+    height: 200px;
     background: url(../../assets/img/pic-banner.png)  no-repeat;
     background-position: center;
     background-size: 100%;
@@ -488,5 +607,68 @@ export default {
     }
 
   }
+    .re-puy {
+       position: fixed;
+       left: 50%;
+       transform: translateX(-50%);
+       width: 500px;
+      //  height: 500px;
+       top: 100px;
+       background-color: #fff;
+       box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
+       border: 1px solid  rgba(242,242,242,1);
+       .puy-title {
+         height: 45px;
+         font-size: 16px;
+         border-bottom: 1px solid #F2F2F2;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 0 18px;
+         font-size: 16px;
+          i {
+           font-size: 24px;
+           cursor: pointer;
+          }
+       }
+       .puy-detail {
+         padding: 18px 18px 10px;
+         font-size: 14px;   
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         border-bottom: 1px solid #F2F2F2;
+         .puy-name {
+            margin-bottom: 15px;
+           span {
+             font-weight: 550;
+             margin-right: 10px;
+           }
+           .price {
+             font-weight: 400;
+             font-size: 18px;
+             color:#FE6603;
+           }
+         }  
+       }
+        .puy-code {
+           margin: 10px 0;
+           display: flex;
+           align-items: center;
+           flex-direction: column;
+           overflow: hidden;
+           .puy-img {
+              // width: 180px;
+              // height: 180px;
+            }
+          .puy-hint {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #FE6603;
+            margin-top: 10px;
+          }
+         }
+     }
 }
 </style>

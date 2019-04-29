@@ -30,7 +30,7 @@
             <div class="user-day">
               剩余天数: <span class="p-color" >{{day}}</span>天
             </div>
-            <div class="user-btn" @click="jumpapp" >会员续费
+            <div class="user-btn" @click="jumpapp" >{{vipname}}
             </div>
          </div>
          <div class="user-tab" >
@@ -84,7 +84,8 @@ export default {
       name:'个人信息',
       userData:{},
       day:0,
-      state:''
+      state:'',
+      vipname:''
     }
   },
   methods: {
@@ -102,8 +103,10 @@ export default {
          this.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0;
           if(this.userData.roleName == '会员用户') {
             this.state = '会员'
+            this.vipname = '会员续费'
           } else {
             this.state = '非会员'
+             this.vipname = '开通会员'
           }
          
        }
