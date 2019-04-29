@@ -1,51 +1,53 @@
 <template>
 <div class="history">
-  <div class="inform" v-if="!pass" v-for="(el,i) in history " :key="i" >
-    <div class="inform-top">
-      <div class="top-left" >
-         <div class="top-title"> 
-           企业综合查询报告--¥{{el.price}}
-         </div>
-         <div class="top-buy">
-           购买时间：{{el.date}}
-         </div>
-         <div class="inform-f">
-           企业所在地：{{el.reginAddress}}
-         </div>
-          <div class="inform-f">
-            资质要求：{{el.qualName}}
-         </div>
-      </div>
-      <div class="top-right" >
-         <div class="top-btn" :class=" el.pAth ? '' : 'no-path' " @click="jump(el)" >
-            查看报告
-         </div>
-         <div class="no-inform" v-show="!el.pAth" >
-           报告生成中……
-         </div>
-      </div>
-    </div>
-    <div class="inform-b">
-      <div class="b-in">
-        业绩要求
-      </div>
-        <div class="inform-f">
-           业绩平台：{{el.projSource}}
-        </div>
-        <div class="inform-f">
-          项目名称关键词：{{el.projName}}
-        </div>
-        <div class="inform-f">
-          竣工时间：{{el.buildStart}}至{{el.buildEnd}}
-        </div>
-        <div class="inform-f">
-          合同金额：{{el.amountStart}}万-{{el.amountEnd}}万
-        </div>
-    </div>
-  </div>
   <div class="hi-img" v-if='pass' >
     <img src="../../assets/img/card.png" alt="">
   </div>
+  <template v-else>
+    <div class="inform" v-for="(el,i) in history " :key="i" >
+      <div class="inform-top">
+        <div class="top-left" >
+          <div class="top-title"> 
+            企业综合查询报告--¥{{el.price}}
+          </div>
+          <div class="top-buy">
+            购买时间：{{el.date}}
+          </div>
+          <div class="inform-f">
+            企业所在地：{{el.reginAddress}}
+          </div>
+            <div class="inform-f">
+              资质要求：{{el.qualName}}
+          </div>
+        </div>
+        <div class="top-right" >
+          <div class="top-btn" :class=" el.pAth ? '' : 'no-path' " @click="jump(el)" >
+              查看报告
+          </div>
+          <div class="no-inform" v-show="!el.pAth" >
+            报告生成中……
+          </div>
+        </div>
+      </div>
+      <div class="inform-b">
+        <div class="b-in">
+          业绩要求
+        </div>
+          <div class="inform-f">
+            业绩平台：{{el.projSource}}
+          </div>
+          <div class="inform-f">
+            项目名称关键词：{{el.projName}}
+          </div>
+          <div class="inform-f">
+            竣工时间：{{el.buildStart}}至{{el.buildEnd}}
+          </div>
+          <div class="inform-f">
+            合同金额：{{el.amountStart}}万-{{el.amountEnd}}万
+          </div>
+      </div>
+    </div>
+  </template>
 </div>
 </template>
 <script>
