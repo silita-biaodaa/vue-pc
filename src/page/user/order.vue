@@ -117,7 +117,7 @@
                        {{el.updateTime | times }}
                      </div>
 
-                     <div class="left" style="width:100px;" >
+                     <div class="left" style="width:100px;"  v-if="el.report.reportPath">
                          <div class="again" @click="resend(el)" >
                            重新发送
                          </div>
@@ -132,8 +132,9 @@
                       <div class="left" style="width:180px;" >
                        {{el.report.reportPath | nopath }}
                      </div>
-                     <div  class="left" style="width:300px;" >
-                       <span @click='dowloadFn(el)'>下载</span><span @click="look(el)" >查看</span>
+                     <div  class="left" style="width:300px;" v-if="el.report.reportPath">
+                       <!-- <span @click='dowloadFn(el)'>下载</span> -->
+                       <span @click="look(el)" >查看</span>
                        <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
                      </div>
                 </div>
@@ -197,7 +198,7 @@ export default {
       wsend:false,
       payshow:false,
       detail:{},
-      iphone:''
+      iphone:'',
     }
   },
   filters: {
@@ -493,7 +494,12 @@ export default {
         }
     },
     resend(el) {
-      send({orderNo:el.orderNo,pkid:el.report.pkid,email:el.report.email}).then( res => {
+      let email=el.report.email;
+      let name=prompt('请输入您的新邮箱','');
+      if(name!=null&&name!=''){
+        email=name;
+      }
+      send({orderNo:el.orderNo,pkid:el.report.pkid,email:email}).then( res => {
          if(res.code == 1) {
            this.wsend = true
            setTimeout(() => {
