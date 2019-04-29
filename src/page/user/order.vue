@@ -62,14 +62,14 @@
                          <div style="fontSize:16px" class="m-6" >会员服务
                          </div>
                           <div style="fontSize:12px" class="m-6" >
-                           订单编号 {{el.orderNo}}
+                           订单编号:{{el.orderNo}}
                          </div>
                           <div style="fontSize:12px" class="m-6" >
-                           服务时长 {{el.vipDays | months }}
+                           服务时长:{{el.vipDays | months }}
                          </div>
                     </div>
 
-                    <div class="left" style="width:80px;" >
+                    <div class="left" style="width:80px;fontSize:14px;" >
                       {{el.orderStatus  | status  }}
                     </div>
 
@@ -78,12 +78,12 @@
                     </div>
 
                     <div class="left" style="width:160px;" >
-                     {{el.updateTime | times }}
+                     {{el.updateTime ? el.updateTime : el.createTime | times }}
                     </div>
 
                     <div class="left" style="width:100px;" >
                      <div class="again" @click="again(el)" >
-                       再次购买
+                       {{el.orderStatus==1 ? '立即购买' : '再次购买'}}
                      </div>
                     </div>
                 </div>
@@ -95,17 +95,17 @@
                 <div class="ta-list">
                   <div class="list-vip">
                      <div class="left" style="width:230px;textAlign:left" >
-                       <div style="fontSize:16px" class="m-6" >企业综合查询报告
+                       <div style="fontSize:16px" class="m-6" >企业资质·业绩查询报告-体验版
                        </div>
                         <div style="fontSize:12px" class="m-6" >
-                         订单编号 {{el.orderNo}}
+                         订单编号:{{el.orderNo}}
                        </div>
                         <div style="fontSize:12px" class="m-6" >
-                         发送邮箱 {{el.report.email}}
+                         发送邮箱:{{el.report.email}}
                        </div>
                      </div>
 
-                     <div class="left" style="width:80px;" >
+                     <div class="left" style="width:80px;fontSize:14px;" >
                         {{el.orderStatus  | status  }}
                      </div>
 
@@ -114,7 +114,7 @@
                      </div>
 
                      <div class="left" style="width:160px;" >
-                       {{el.updateTime | times }}
+                        {{el.updateTime ? el.updateTime : el.createTime | times }}
                      </div>
 
                      <div class="left" style="width:100px;">
@@ -220,7 +220,12 @@ export default {
       } 
     },
     times(val) {
-      return moment(val).format('YYYY-MM-DD HH:mm:ss')
+      if(val == '') {
+         return 
+      } else {
+         return moment(val).format('YYYY-MM-DD HH:mm:ss')
+      }
+     
     },
     nopath(val) {
       if(val ==null ) {

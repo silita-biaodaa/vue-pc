@@ -278,9 +278,44 @@ export default {
       this.first = val.cur
       this.apfisrt = val.em
     },
-    gainCode(val,i) {
-       this.aptitude[val.i].value = val.cur
-       this.aptitude[val.i].blank = val.em
+    gainCode(val) {
+      // console.log(val);
+      
+      if(val.cur == this.first) {
+          this.$confirm('资质条件重复，请重新选择', '提示', {
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
+        })
+        return  this.aptitude.splice(val.i,1)
+      }
+      // console.log(val.i);
+      
+      let mall = true
+      if(this.aptitude.length > 1 ) {
+        this.aptitude.forEach((el,i) => {
+          
+            if(i != val.i) {
+                if(el.value == val.cur) {
+                  this.$confirm('资质条件重复，请重新选择', '提示', {
+                    type: 'warning',
+                    showCancelButton:false,
+                    showConfirmButton:false
+                  })
+                  this.aptitude.splice(val.i,1)
+                  mall = false
+              }
+            }
+        })
+      }
+      
+
+        if(mall) {
+           this.aptitude[val.i].value = val.cur
+          this.aptitude[val.i].blank = val.em
+        }
+
+      
     },
     addap() {
       this.aptitude.push({value:'',blank:false})
