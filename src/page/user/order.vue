@@ -133,7 +133,8 @@
                        {{el.report.reportPath | nopath }}
                      </div>
                      <div  class="left" style="width:300px;" >
-                       <span @click='windown(el)' >下载</span><span @click="look(el)" >查看</span>
+                       <span @click='dowloadFn(el)'>下载</span><span @click="look(el)" >查看</span>
+                       <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
                      </div>
                 </div>
              </div>    
@@ -263,7 +264,7 @@ export default {
          }
       })
     },
-    windown(el) {
+    dowloadFn(el) {
       if(el.report.reportPath) {
         window.open(el.report.reportPath)
       }
