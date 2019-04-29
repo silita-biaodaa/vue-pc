@@ -242,6 +242,9 @@ export default {
       this.$router.push('/buy')
     },
     pay() {
+      if(this.noShow) {
+        return false
+      }
       this.isphone()
       this.isemail()
       if(this.isshow) {

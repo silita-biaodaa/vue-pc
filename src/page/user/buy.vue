@@ -353,6 +353,10 @@ export default {
       })
     },
     openV() {
+      if(this.noShow) {
+        return false
+      }
+
       let id = sessionStorage.getItem('ip')
       this.iphone = localStorage.getItem('phoneNo')
       vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
