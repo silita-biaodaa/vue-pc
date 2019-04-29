@@ -87,6 +87,7 @@ export default {
            console.log(res);
            
             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
+            sessionStorage.setItem('ip',res.data.pkid)
             localStorage.setItem('phoneNo',res.data.phoneNo)
             localStorage.setItem('permissions',res.data.permissions)
             localStorage.setItem('Bname',name)
@@ -102,7 +103,7 @@ export default {
             if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){
               let uri=sessionStorage.getItem('path');
               this.$router.replace(uri)
-            }else{
+            } else {
               this.$router.replace('home')
             }
             

@@ -226,6 +226,8 @@ export default {
     gainaddress() {
       address({}).then(res => {
          if(res.code =1 ) {
+           console.log(res);
+           localStorage.setItem('uip',res.data.ip)
            this.source = res.data.region
          }
       })
@@ -243,6 +245,7 @@ export default {
              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
              localStorage.setItem('Xtoken',res.data.xtoken)
              localStorage.setItem('Bname',name)
+             sessionStorage.setItem('ip',res.data.pkid)
              localStorage.setItem('permissions',res.data.permissions) 
              localStorage.setItem('phoneNo',res.data.phoneNo)                         
           })

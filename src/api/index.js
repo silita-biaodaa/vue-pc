@@ -200,5 +200,9 @@ export const send = params => {
 }
 
 export const wxPay = params => {
-  return axios.post('/wxPay/unifiedOrder', params).then(res => res.data)
+  return axios.post('/wxPay/report/unifiedOrder', params).then(res => res.data)
+}
+
+export const nowxPay = params => {
+  return axios.post('/wxPay/queryOrderStatus', params).then(res => res.data)
 }
