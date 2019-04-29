@@ -206,3 +206,11 @@ export const wxPay = params => {
 export const nowxPay = params => {
   return axios.post('/wxPay/queryOrderStatus', params).then(res => res.data)
 }
+
+export const FeeStandard = params => {
+  return axios.post('/vip/queryFeeStandard', params).then(res => res.data)
+}
+
+export const vipPay = params => {
+  return axios.post('/wxPay/unifiedOrder', params).then(res => res.data)
+}

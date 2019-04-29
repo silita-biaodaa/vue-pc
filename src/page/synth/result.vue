@@ -27,7 +27,7 @@
         已选条件
       </div>
        <div class="di-line" >
-         企业所在地：{{detail.reginAddress}}
+         企业所在地：{{detail.reginAddress}}省
       </div>
        <div class="di-line"  style="marginBottom:20px;"  v-show="this.detail.qualName" >
         资质要求：<span v-html="newqual"></span>
@@ -73,43 +73,48 @@
         立即支付
       </div>
   </div>
-  <div class="re-puy" v-show="noShow" >
-    <div class="puy-title">
-       <span>企业综合查询报告</span>
-       <i class="el-icon-close"  @click="close" ></i>
-    </div>
+      <div class="re-puy" v-if="noShow"  >
+        <div class="puy-title">
+           <span>企业资质·业绩查询报告-体验版</span>
+           <i class="el-icon-close"  @click="close" ></i>
+        </div>
 
-     <div class="puy-title" style="fontSize:14px;" >
-       <span>订单详情</span>
-    </div>
+         <div class="puy-title" style="fontSize:14px;" >
+           <span>订单详情</span>
+        </div>
 
-    <div class="puy-detail">
-      <div class="puy-name"> 
-        <span>购买账号:</span>{{this.iphone}}
-      </div>
-      <div class="puy-name"> 
-        <span>发送邮箱:</span>{{this.email}}
-      </div>
-       <div class="puy-name"> 
-        <span>报告格式:</span>PDF
-      </div>
-       <div class="puy-name"> 
-        <span>支付方式:</span>微信支付
-      </div>
-       <div class="puy-name"> 
-        <span>应付金额:</span><span class="price" >{{price}}</span>元
-      </div>
-      <div class="puy-code">
-         <div class="puy-img" id="qrcode"  >
-           <!-- <img :src="payimg" alt=""> -->
-         </div>  
-         <div class="puy-hint"  >
-            <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
-         </div>
-      </div>
-    </div>
+        <div class="puy-detail">
+          <div>
+            <div class="puy-name"> 
+              <span>手机号码:</span>{{this.iphone}}
+            </div>
+            <div class="puy-name"> 
+              <span>发送邮箱:</span>{{this.email}}
+            </div>
+              <div class="puy-name"> 
+                <span>报告格式:</span>PDF
+              </div>
+          </div>
+          <div class="puy-price" >
+               <div class="puy-name"> 
+                 <span>应付金额:</span><span class="price" >{{price}}</span>元
+               </div>
+          </div>  
+        </div>
 
-  </div>
+        <div class="puy-title" style="fontSize:14px;" >
+           <span>支付方式</span>
+        </div>
+
+         <div class="puy-code">
+             <div class="puy-img" id="qrcode"  >
+               <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
+             </div>  
+             <div class="puy-hint"  >
+                <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+             </div>
+          </div>
+      </div>
 </div>
 </template>
 <script>
@@ -248,7 +253,7 @@ export default {
          if(res.code == 1) {
            this.Noid = res.orderNo
            this.url = res.data.codeUrl
-           if(this.payimg == 1) {
+          //  if(this.payimg == 1) {
                 let code = new QRCode("qrcode", {
                   text: res.data.codeUrl,
                   width:180,
@@ -256,8 +261,8 @@ export default {
                   colorDark : "#000000",
                   colorLight : "#ffffff",
               });
-               this.payimg = this.payimg + 1
-           } 
+              //  this.payimg = this.payimg + 1
+          //  } 
            
             this.gainstate(res.orderNo)
          }
@@ -280,12 +285,10 @@ export default {
             nowxPay({orderNo:val,type:'report'}).then( res => {
               
               if(res.trade_state == 'SUCCESS') {
-                  that.$notify({
-                    title: '提示',
-                    message: '支付成功',
-                    type: 'success',
-                    position: 'bottom-left'
-                  });
+                 that.$message({
+                      message: '您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。',
+                      type: 'success'
+                    });
                  that.noShow = false
                   clearInterval(int)
                   that.$router.push('/synth')
@@ -413,7 +416,7 @@ export default {
          margin-bottom: 5px;
        }
      }
-     .re-puy {
+      .re-puy {
        position: fixed;
        left: 50%;
        transform: translateX(-50%);
@@ -424,7 +427,7 @@ export default {
        box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
        border: 1px solid  rgba(242,242,242,1);
        .puy-title {
-         height: 49px;
+         height: 45px;
          font-size: 16px;
          border-bottom: 1px solid #F2F2F2;
          display: flex;
@@ -438,8 +441,12 @@ export default {
           }
        }
        .puy-detail {
-         padding: 18px;
+         padding: 18px 18px 15px;
          font-size: 14px;   
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         border-bottom: 1px solid #F2F2F2;
          .puy-name {
             margin-bottom: 15px;
            span {
@@ -451,13 +458,15 @@ export default {
              font-size: 18px;
              color:#FE6603;
            }
-         }
-         .puy-code {
-          //  margin-top: 10px;
+         }  
+       }
+        .puy-code {
+           margin-top: 15px;
            display: flex;
            align-items: center;
            flex-direction: column;
            overflow: hidden;
+           margin-bottom: 10px;
            .puy-img {
               // width: 180px;
               // height: 180px;
@@ -470,7 +479,6 @@ export default {
             margin-top: 10px;
           }
          }
-       }
      }
 }
 </style>
