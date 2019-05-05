@@ -28,7 +28,7 @@
 </div>
 </template>
 <script>
-import { filter} from '@/api/index';
+import { qual} from '@/api/index';
 export default {
   data () {
     return {
@@ -47,15 +47,13 @@ export default {
   props: {
     index:0,
     clear:false,
-    codeObj:{
-      default:''
-    }
+    chan:0
   },
   methods: {
      gainFilter() {
-      filter({}).then( res => {
+      qual({code:'hunan'}).then( res => {
          if(res.code == 1 ) {
-            this.companyQuals = res.data.companyQual
+            this.companyQuals = res.data
          }
       })
     },
@@ -105,9 +103,6 @@ export default {
   },
   watch: {
      companyQual(val) {
-       if(this.codeObj!=''){
-         return false
-       }
       this.major = ''
       this.majors = []
       this.grade = ''
@@ -127,10 +122,18 @@ export default {
       this.zType = []
     },
     clear(val) {
-      if(val) {
+         this.companyQual = ''
+         this.major = ''
          this.grade = ''
-      }
-     
+         this.majors = []
+         this.grades = []
+    },
+    chan(val) {      
+        this.companyQual = ''
+         this.major = ''
+         this.grade = ''
+         this.majors = []
+         this.grades = []
     }
   },
   created () {
@@ -138,12 +141,6 @@ export default {
     this.gainFilter()
   },
   mounted() {
-    if(this.codeObj!=''){
-      let arr=this.codeObj.split('||');
-      this.companyQual=arr[0];
-      this.major=arr[1];
-      this.grade=arr[2];
-    }
   },
   components: {
   }

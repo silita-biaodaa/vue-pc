@@ -2,8 +2,8 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Message } from 'element-ui';
 
-const baseURL = 'http://api.biaodaa.com/'
-// const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
+const baseURL = 'http://pre.biaodaa.com/'
 // const baseURL = '/' 
 
 
@@ -213,4 +213,8 @@ export const FeeStandard = params => {
 
 export const vipPay = params => {
   return axios.post('/wxPay/unifiedOrder', params).then(res => res.data)
+}
+
+export const qual = params => {
+  return axios.post('company/filter/qual', params).then(res => res.data)
 }

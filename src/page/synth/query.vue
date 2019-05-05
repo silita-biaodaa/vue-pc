@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span='22' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCo' :codeObj='first'></q-titu>
+               <q-titu @group='gainCo' :clear='fi'></q-titu>
             </el-col>
           </el-row>
       </div>
@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span='19' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCode' :index ='i' :clear='el.same' :codeObj='el.value'></q-titu>
+               <q-titu @group='gainCode' :index ='i' :clear='el.same' ></q-titu>
             </el-col>
             <el-col :span='3' class="titu-line titu-del"  @click.native="delap(i)" >
                删除
@@ -247,6 +247,7 @@ export default {
       min:'',
       max:'',
       first:'',
+      fi:1,
       apfisrt:false,
       aptitude:[
        
@@ -273,60 +274,102 @@ export default {
   watch: {
     state(val) {
       this.area = val
+      this.aptitude = []
+      this.first = ''
+      this.apfisrt = false
+      this.fi = this.fi + '1'
     }
   },
   methods: {
     charea(el) {
+      this.fi = this.fi + '1'
       this.area = el.name
+      this.aptitude = []
+      this.first = ''
+      this.apfisrt = false
     },
     crela(el) {
       this.rangeType = el.key
     },
     gainCo(val) {
-      this.first = val.cur
-      this.apfisrt = val.em
+      let sam = true
+      if(this.aptitude.length > 0 ) {
+        for (let i = 0; i < this.aptitude.length; i++) {
+            if(this.aptitude[i].value == val.cur && val.cur != '' ) {
+                  this.$confirm('资质条件重复，请重新选择', '提示', {
+                    type: 'warning',
+                    showCancelButton:false,
+                    showConfirmButton:false
+                  })
+                  this.fi = this.fi + 1
+                  return sam = false
+            }
+        // this.aptitude.forEach((el,i) => {
+        //     console.log(val.cur);
+        //     // if(i != val.i) {
+        //         if(el.value == val.cur && val.cur != '' ) {
+                
+                  
+        //           this.$confirm('资质条件重复，请重新选择', '提示', {
+        //             type: 'warning',
+        //             showCancelButton:false,
+        //             showConfirmButton:false
+        //           })
+        //           return 
+        //           // this.aptitude[val.i].same =  this.aptitude[val.i].same + 1
+        //           // mall = false
+        //       }
+        //     // }
+        // })
+       }
+      }  
+      setTimeout(() => {
+        if(sam){
+           this.first = val.cur
+           this.apfisrt = val.em
+           console.log(111);
+        }
+
+      }, 1000);
     },
     gainCode(val) {
-      // console.log(val);
       
-      if(val.cur == this.first) {
+      if(val.cur == this.first && val.cur != '' ) {
           this.$confirm('资质条件重复，请重新选择', '提示', {
           type: 'warning',
           showCancelButton:false,
           showConfirmButton:false
         })
-        return  this.aptitude.splice(val.i,1)
+        return  this.aptitude[val.i].same =  this.aptitude[val.i].same + 1
       }
-      // console.log(val.i);
       
       let mall = true
       if(this.aptitude.length > 1 ) {
         this.aptitude.forEach((el,i) => {
           
             if(i != val.i) {
-                if(el.value == val.cur) {
+                if(el.value == val.cur && val.cur != '' ) {
                   this.$confirm('资质条件重复，请重新选择', '提示', {
                     type: 'warning',
                     showCancelButton:false,
                     showConfirmButton:false
                   })
-                  this.aptitude.splice(val.i,1)
+                  this.aptitude[val.i].same =  this.aptitude[val.i].same + 1
                   mall = false
               }
             }
         })
       }
       
-
         if(mall) {
            this.aptitude[val.i].value = val.cur
-          this.aptitude[val.i].blank = val.em
+           this.aptitude[val.i].blank = val.em
         }
 
       
     },
     addap() {
-      this.aptitude.push({value:'',blank:false})
+      this.aptitude.push({value:'',blank:false,same:1})
       this.five = true
     },
     delap(i) {
@@ -391,31 +434,7 @@ export default {
     }
   },
   created () {
-    // if(localStorage.getItem('query')){
-    //   let data=JSON.parse(localStorage.getItem('query'));
-    //   this.area=data.regisAddress;
-    //   let arr1=[];
-    //   let arr2=[];
-    //   let arr=data.qualCode.split(',');
-    //   this.first=arr[0];
-    //   for(let x in arr){
-    //     if(x>0){
-    //       let data={
-    //         blank:false,
-    //         value:arr[x]
-    //       }
-    //       this.aptitude.push(data)
-    //     }
-    //   }
-    //   this.allstr=data.qualCode;
-    //   this.rangeType=data.rangeType;
-    //   this.terrace=data.projSource;
-    //   this.name=data.projName;
-    //   this.stateDate=data.buildStart;
-    //   this.endDate=data.buildEnd;
-    //   this.min=data.amountStart;
-    //   this.max=data.amountEnd;
-    // }
+
   },
   components: {
   }
