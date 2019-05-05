@@ -29,7 +29,7 @@
         <div class="left law-row" style="width:74px">
             {{i+1}}
         </div>
-        <div class="left law-row" style="width:200px;lineHeight:0" >
+        <div class="left law-row" style="width:200px;lineHeight:15px" >
             {{el.qualName ? el.qualName: '--'}}
         </div>
         <div class="left law-row" style="width:150px">
