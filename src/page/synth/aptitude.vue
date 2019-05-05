@@ -122,11 +122,11 @@ export default {
       this.zType = []
     },
     clear(val) {
-         this.companyQual = ''
-         this.major = ''
+        //  this.companyQual = ''
+        //  this.major = ''
          this.grade = ''
-         this.majors = []
-         this.grades = []
+        //  this.majors = []
+        //  this.grades = []
     },
     chan(val) {      
         this.companyQual = ''

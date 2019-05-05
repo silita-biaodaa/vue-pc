@@ -21,7 +21,7 @@
             </el-col>
             <el-col :span='22' >
               <!-- 资质关系  aptitude.vue -->
-               <q-titu @group='gainCo' :clear='fi'></q-titu>
+               <q-titu @group='gainCo' :chan='fi'></q-titu>
             </el-col>
           </el-row>
       </div>
@@ -277,7 +277,13 @@ export default {
       this.aptitude = []
       this.first = ''
       this.apfisrt = false
-      this.fi = this.fi + '1'
+      this.five = false
+      this.fi = this.fi + 1
+      this.stateDate = ''
+      this.endDate = ''
+      this.name = ''
+      this.min = ''
+      this.max = ''
     }
   },
   methods: {
@@ -286,7 +292,14 @@ export default {
       this.area = el.name
       this.aptitude = []
       this.first = ''
+      this.five = false
       this.apfisrt = false
+      this.fi = this.fi + 1
+      this.stateDate = ''
+      this.endDate = ''
+      this.name = ''
+      this.min = ''
+      this.max = ''
     },
     crela(el) {
       this.rangeType = el.key
