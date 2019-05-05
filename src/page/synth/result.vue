@@ -119,9 +119,9 @@
              </div>
           </div>
       </div>
-  <div class="hint" v-show="tohit" >
-      您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。
-  </div>
+  <!-- <div class="hint" v-show="tohit" >
+     <i class="el-icon-close" ></i> 您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。
+  </div> -->
       
 </div>
 </template>
@@ -153,7 +153,7 @@ export default {
       Noid:'',
       pkid:'',
       toVip:true,
-      tohit:false
+      tohit:true
       // int:''
     }
   },
@@ -302,13 +302,22 @@ export default {
             nowxPay({orderNo:val,type:'report',pkid:this.pkid}).then( res => {
               
               if(res.trade_state == 'SUCCESS') {
-                that.tohit = true
+                // that.tohit = true
                  that.noShow = false
-                  clearInterval(int)
-                  setTimeout(() => {
-                     that.tohit = false
-                     that.$router.push('/synth/query')
-                  },3000)
+                  // clearInterval(int)
+                  // setTimeout(() => {
+                  //    that.tohit = false
+                  //    
+                  // },3000)
+                  that.$confirm('您已支付成功，报告生成成功会发送至您的邮箱，若生成失败会自动退款。', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning',
+                        showCancelButton:false,
+                      }).then(() => {
+                         that.$router.push('/synth/query')
+                      }).catch(() => {
+                         that.$router.push('/synth/query')
+                      });
                  
               }else if(res.trade_state == 'ClOSED') {
                  clearInterval(int)
