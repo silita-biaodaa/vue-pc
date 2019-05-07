@@ -1076,7 +1076,9 @@ export default {
      margin: 0 auto;
      overflow: hidden;
      .firm-ul {
-       
+       a{
+         cursor: pointer;
+       }
        div,a {
          height: 70px;
          line-height: 70px;
@@ -1090,7 +1092,7 @@ export default {
          }
          .c-col {
            color:#FE6603;
-            cursor:pointer;
+            // cursor:pointer;
          }
        }
      }

@@ -20,7 +20,19 @@
    <div class="user-text">
       <div class="text-nav">
          <div class='user-news'>
-            <img src="../../assets/img/pic-toux.png@2x.png" alt="">
+            <el-upload action="http://pre.biaodaa.com/userCenter/updateHeadPortrait"
+              :on-success="upLoadFn"
+              auto-upload
+              :show-file-list="false"
+            >
+              <template v-if="userData.imageUrl">
+                <img :src="userData.imageUrl" alt="">
+              </template>
+              <template v-else>
+                <img src="../../assets/img/pic-toux.png@2x.png" alt="">
+              </template>
+            </el-upload>
+            
             <div class="user-first">
               <div class="user-name left">
                {{userData.nikeName}}
@@ -90,6 +102,24 @@ export default {
     }
   },
   methods: {
+    upLoadFn(e){
+      this.userData.imageUrl=e.imgPath;
+      let that=this;
+      this.$http({
+          method:'post',
+          url: '/userCenter/updateUserInfo',
+          data:this.userData
+      }).then(function(res){
+          if(res.data.code == 1) {
+              that.$notify({
+                title: '提示',
+                message: '用户信息更新成功',
+                offset: 100   
+              });
+              
+          }
+      })
+    },
     rename(val) {
       this.userData.nikeName = localStorage.getItem('Bname')
     },
@@ -222,6 +252,7 @@ export default {
        margin-bottom: 16px;
        padding-top: 21px;
          img {
+           border-radius: 50%;
           width: 67px;
           height: 67px;
          }
@@ -251,7 +282,7 @@ export default {
        width: 100%;
        font-size: 12px;
        color:#999;
-       padding-left: 50px;
+       text-align: center;
        box-sizing: border-box;
        margin-bottom: 60px;
      }
