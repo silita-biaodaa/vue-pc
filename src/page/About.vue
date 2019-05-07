@@ -1,30 +1,6 @@
 <template>
 <div class="about">
- <div class="ab-top" >
-   <div class="top-text" >
-     <div class="top-left" >
-       <div class="img-bor" >
-          <img src="../assets/img/pic-guanywm.png@2x.png" alt=""  @click="jump" >
-       </div>
-        关于我们
-     </div>
-     <div class="top-left" >
-      <div v-if="names" ><span @click="tologo" >登录</span>&nbsp/&nbsp<span @click="toenroll" >注册</span></div> 
-        <el-dropdown  v-else trigger="click"   >
-          <span class="el-dropdown-link">
-            {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown" style="z-index:2050" >
-            <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
-            <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
-            <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
-            <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
-            <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-     </div>
-   </div>
- </div>
+  <v-head :headTxt="'关于我们'"></v-head>
   <div class="we-content">
 
      <div class="we-title" >
@@ -108,89 +84,23 @@
 </div>
 </template>
 <script>
+import heads from '@/components/head3'
 export default {
   data () {
     return {
-      names:true
     }
   },
   methods: {
-    jump() {
-      this.$router.push('/')
-    },
-    order() {
-      this.$router.push('/user/order')
-    },
-    tologo() {
-      this.$router.push('/logo')
-    },
-    toenroll() {
-      this.$router.push('/enroll')
-    },
-     judges() {
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        this.name = localStorage.getItem('Bname')
-        this.names = false
-      } else {     
-        this.names = true
-      }
-    },
-    user() {
-      this.$router.push('/user')
-    },
-    tocol() {
-      this.$router.push('/user/fcoll')
-    },
-    amend() {
-      this.$router.push('/user/root')
-    },
-     quit() {
-        sessionStorage.removeItem('xtoken')
-        localStorage.removeItem('Bname')
-        localStorage.removeItem('Xtoken')
-        localStorage.removeItem('valid')
-        localStorage.removeItem('permissions')
-          this.$router.replace({
-           path: '/home',
-         
-          })
-    },
   },
   created () {
-    this.judges()
   },
   components: {
+    'v-head':heads,
   }
 }
 </script>
 <style lang="less" scoped>
 .about {
-  .ab-top {
-    // height: 40px;
-    background-color: #FE6603;
-    .top-text {
-      width: 1020px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      height: 40px;
-      .top-left {
-        cursor: pointer;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        color: #fff;
-        font-size: 12px;
-        .img-bor {
-          cursor: pointer;
-          height: 24px;
-          border-right: 1px solid #fff;
-          padding-right: 10px;
-          margin-right: 10px;
-        }
-      }
-    }
-  }
   .we-content {
     width: 1020px;
     margin: 0 auto 200px;

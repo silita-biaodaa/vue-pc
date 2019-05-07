@@ -1,36 +1,32 @@
 <template>
 <div class="download">
-<div class="d-top">
-    <img src="../assets/img/logo2.png" alt="" @click="$router.push('/home')" style="cursor: pointer;">
-    <!-- <img src="" alt=""> -->
-    <div>APP下载</div>
-</div>
-<div class="d-c">
-</div>
-<div class="d-bto">
-  © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
-</div>
+  <v-head :headTxt="'下载APP'"></v-head>
+  <div class="d-c">
+  </div>
+  <div class="d-bto">
+    © 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
+  </div>
 </div>
 </template>
 <script>
+import heads from '@/components/head3'
 export default {
   data ()  {
     return {
-
     }
   },
   methods: {
-    gain() {
-    }
   },
   created () {
-    this.gain()
+    // this.gain()
   },
   components: {
+    'v-head':heads,
   }
 }
 </script>
 <style lang="less" scoped>
+
 .download {
   width: 100%;
   background-color: #fafafa;

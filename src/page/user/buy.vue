@@ -1,65 +1,7 @@
 <template>
 <div class="buy">
-    <div class="app-header">
-       <div class="contact">
-          <div class="contact-l">
-             <p class="left">
-               您好,欢迎来到标大大!
-             </p>
-             <p class="left">
-               <i class="iconfont icon-dianhua1 left calling"></i>
-                0731-85076077
-             </p>
-             <router-link :to="{path:'/download'}" tag="a" target='_blank' class="left">
-               <i class="iconfont icon-shouji left l-mobile"></i>
-                下载APP
-             </router-link>
-             <p class="left" style="cursor: pointer;" @click="towe" >
-               <i class="iconfont icon-lianxiren left person"></i>
-                关于我们
-             </p>
-          </div>
-          <div class="contact-r">
-            
-            <p @click="jumpen" v-if="names"  >
-              免费注册
-            </p>
-            <p class="line" v-if="names" >
-             </p>
-             <p @click="jumpl" v-if="names" >
-               请登录
-             </p>
-              <el-dropdown  v-else trigger="click"   >
-                 <span class="el-dropdown-link">
-                   {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
-                 </span>
-                 <el-dropdown-menu slot="dropdown" style="z-index:2050" >
-                   <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
-                   <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
-                   <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
-                   <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
-                   <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
-                 </el-dropdown-menu>
-               </el-dropdown>
-             <div class="area">
-               <i class="iconfont icon-dizhi"></i>
-               <span @click="selfa" >{{source}}</span>
-               <div class="se-area" v-show="isarea" >
-                  <div class="a-line" v-for="(el,i) in allcity" :key="i"  >
-                    <div class="allcity left" >
-                      {{el.name}}:
-                    </div>
-                    <div class="left ">
-                      <div class="district left" v-for="(el,i) in el.next" :key="i" @click="selarea(el)" >
-                        {{el.name}}
-                      </div>
-                    </div>
-                  </div>
-               </div>
-             </div>
-          </div>
-       </div>
-     </div>
+    <!-- 头 -->
+    <v-head :headTxt="'会员服务'"></v-head>
     <!--  -->
      <div class="buy-img" >
        <div class="img-vip">
@@ -228,7 +170,8 @@
 </template>
 <script>
 import QRCode from 'qrcodejs2'
-import { FeeStandard,vipPay,nowxPay,getUserTemp } from '@/api/index';
+import { FeeStandard,vipPay,nowxPay,getUserTemp } from '@/api/index'
+import heads from '@/components/head3'
 export default {
   data () {
     return {
@@ -289,34 +232,6 @@ export default {
   methods: {
      jumpen() {
         this.$router.push('/enroll')
-    },
-     jumpl() {
-         this.$router.push('/logo')
-    },
-      user() {
-      this.$router.push('/user/pDet')
-    },
-    tocol() {
-      this.$router.push('/user/fcoll')
-    },
-    amend() {
-      this.$router.push('/user/root')
-    },
-    order() {
-      this.$router.push('/user/order')
-    },
-    quit() {
-        sessionStorage.removeItem('xtoken')
-        localStorage.removeItem('Bname')
-        localStorage.removeItem('Xtoken')
-        localStorage.removeItem('valid')
-        localStorage.removeItem('permissions')
-          this.$router.replace({
-           path: '/home',
-           query: {
-             t: Date.now()
-           }
-          })
     },
     selarea(el) {
       this.source = el.name 
@@ -445,6 +360,7 @@ export default {
   //   }
   // },
   components: {
+    'v-head':heads,
   }
 }
 </script>
