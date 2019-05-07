@@ -160,12 +160,22 @@ export default {
            name:'企业',
            url:require('./assets/img/icon-qiy.png'),
            to:'/company',
+        },
+        {
+           name:'业绩',
+           url:require('./assets/img/icon-yeji.png'),
+           to:'/',
+        },
+        {
+           name:'人员',
+           url:require('./assets/img/icon-reny.png'),
+           to:'/',
+        },
+         {
+           name:'在建',
+           url:require('./assets/img/icon-zaij.png'),
+           to:'/',
         }
-        // {
-        //    name:'诚信',
-        //    url:require('./assets/img/icon-chengx.png'),
-        //    to:'/faith',
-        // }
      ],
      rank:0,
      way:'/bid',
@@ -521,7 +531,7 @@ export default {
       box-sizing: border-box;
       li {
         box-sizing: border-box;
-        width: 25%;
+        width: 14%;
         height: 50px;
         line-height: 50px;
         float: left;

@@ -7,8 +7,7 @@
     <div class="t-options">
         <div class="select">
             <el-row>
-               <el-col :span="2">
-                  省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
+               <el-col :span="2">省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
                </el-col>
                <el-col :span="22">
                   <ul class='pro' >
@@ -19,24 +18,10 @@
                </el-col>
             </el-row>
         </div>
-        <!-- <div class="select">
-           <el-row>
-              <el-col :span="2">
-                类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型:
-              </el-col>
-              <el-col :span="22">
-                  <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='i' class='left' :class="el.key == projectType ? 'current':''"  @click='evalclass(el)' >
-                         {{el.name}}
-                      </li>
-                  </ul>
-              </el-col>
-           </el-row>
-        </div> -->
+        <c-ity   @nextC='gainC' v-show='Scity' ></c-ity>
         <div class="select">
            <el-row>
-             <el-col :span="2" class="t-5">
-                中标金额:
+             <el-col :span="2" class="t-5">中标金额:
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >
@@ -286,10 +271,26 @@ export default {
       pageNo:1,
       title:'',
       total:0,
-      present:0
+      present:0,
+      Scity:true,
+      last:'湖南'
     }
   },
   methods: {
+    gainC(val) {
+      if(val.cur.length == 0 ) {
+         this.last = this.area
+         this.current = 1
+         this.loading = true      
+         this.gainList()
+      } else {
+        let str = val.cur.join(',')
+        this.last = this.area + "||" + str
+        this.current = 1
+        this.loading = true      
+        this.gainList()
+      }
+    },
     closeload(val) {
       this.svip = val.cur
     },
@@ -307,7 +308,13 @@ export default {
          } else {
            return
          }
+         if(el.name == '湖南') {
+           this.Scity = true
+         } else {
+           this.Scity = false
+         }
          this.area = el.name
+         this.last = this.area
          this.pageNo = 1
          this.gainList()
          setTimeout(() => {
@@ -359,7 +366,7 @@ export default {
     gainList() {
 
        if(this.rank == 0) {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
+          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.last,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
                    if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
                            res.data.forEach( el => {
@@ -400,7 +407,7 @@ export default {
                }
           })
        } else {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.area,sumType:"zhongbiao"}).then( res => {
+          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.last,sumType:"zhongbiao"}).then( res => {
                if(res.code == 1 ) {
                
                     if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
@@ -483,7 +490,14 @@ export default {
                
         });
       }
-    }
+    },
+      SHcity() {
+      if(this.area  == '湖南') {
+        this.Scity = true
+      } else {
+        this.Scity = false
+      }
+    }  
   },
   watch: {
     projectType() {
@@ -494,10 +508,17 @@ export default {
       this.gainList()
     },
     state(val) {
+      if(val == '湖南') {
+         this.Scity = true
+       } else {
+         this.Scity = false
+       }
       this.area = val
+      this.last = this.area
        this.pageNo = 1
        this.gainList()
-    }
+    },
+
   },
   props: {
     state:''
@@ -507,6 +528,8 @@ export default {
       this.pageNo=sessionStorage.getItem('pageNo')*1;
     }
     this.area = this.state
+    this.last = this.area
+    this.SHcity()
     this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainList()
@@ -560,7 +583,7 @@ export default {
   .t-options {
     width: 1020px;
     margin: 0 auto;
-    height: 150px;
+    // height: 150px;
     box-sizing: border-box;
     background-color: #fff;
     margin-top: 20px;

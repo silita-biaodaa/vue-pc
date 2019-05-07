@@ -20,6 +20,7 @@
              </el-col>
           </el-row>
         </div>
+        <c-ity @nextC='gainC' v-show='Scity'  ></c-ity>
         <div class="select">
             <el-row>
                 <el-col :span='2'>
@@ -346,7 +347,9 @@ export default {
          },
        ],
        select:'',
-       present:0
+       present:0,
+       last:'湖南',
+       Scity:true
     }
   },
    props: {
@@ -377,7 +380,13 @@ export default {
       this.zType = []
     },
     state(val) {
+      if(val == '湖南') {
+        this.Scity = true
+      } else {
+        this.Scity = false
+      }
       this.area = val
+      this.last = this.area
       this.current = 1
       this.loading = true      
       this.gainQueryList()
@@ -385,6 +394,20 @@ export default {
     }
   },
   methods: {
+    gainC(val){
+      if(val.cur.length == 0 ) {
+         this.last = this.area
+         this.current = 1
+         this.loading = true      
+         this.gainQueryList()
+      } else {
+        let str = val.cur.join(',')
+        this.last = this.area + "||" + str
+        this.current = 1
+        this.loading = true      
+        this.gainQueryList()
+      }
+    },
     closeload(val) {
       this.svip = val.cur
     },
@@ -413,7 +436,7 @@ export default {
     },
     gainQueryList() {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
-       queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.area,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
+       queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.last,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
          if(res.code == 1 ) {
            this.loading = false
            this.total = res.total
@@ -494,44 +517,6 @@ export default {
       }
       
     },
-    // means() {
-    //     if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-    //       if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-    //         this.svip = true
-    //         this.modalHelper.afterOpen();
-    //         this.pbMode = [""]
-    //       } else {
-    //         this.loading = true
-    //          if(this.pbMode.length == 0) {
-    //             this.pbMode = ['']
-    //          }
-    //         if(this.pbMode.length > 1 ) {
-    //            if(this.pbMode[this.pbMode.length - 1] == '' ) {
-    //               this.pbMode = ['']
-    //            } else {
-    //               if(this.pbMode.indexOf('') == 0) {
-    //                   this.pbMode.splice(0,1)
-    //               }
-    //            }
-    //         }
-    //         this.pbModess = this.pbMode.join('||')
-    //         this.current = 1
-    //         this.gainQueryList()
-    //     }
-    //   } else {
-    //         this.$confirm('暂无权限，请先登录', '提示', {
-    //         confirmButtonText: '确定',
-    //         cancelButtonText: '取消',
-    //         type: 'warning'
-    //       }).then(() => {
-    //         this.$router.push('/logo')
-    //       }).catch(() => {
-
-    //       });
-    //   }
-
-    
-    // },
     Goto(val) {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
@@ -593,7 +578,13 @@ export default {
       })
     },
     eval(el) {
+        if(el.name == '湖南') {
+          this.Scity = true
+        } else {
+          this.Scity = false
+        }
         this.area = el.name
+        this.last = this.area
         this.current = 1
         this.loading = true      
         this.gainQueryList()
@@ -646,6 +637,13 @@ export default {
                
         });
       }
+    },
+    SHcity() {
+      if(this.area  == '湖南') {
+        this.Scity = true
+      } else {
+        this.Scity = false
+      }
     }  
   },
   created () {
@@ -653,7 +651,9 @@ export default {
       this.current=sessionStorage.getItem('pageNo')*1;
     }
     this.area = this.state
+    this.last = this.area
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    this.SHcity()
     this.toTop()
     this.gainQueryList()
     this.gainFilter();
@@ -705,7 +705,7 @@ export default {
      margin: 0 auto;
      width: 1020px;
      margin-top: 20px;
-     height: 290px;
+    //  height: 290px;
      background: #fff;
      padding: 15px;
      box-sizing: border-box;
