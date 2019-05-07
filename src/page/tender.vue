@@ -95,7 +95,7 @@
 </div>
 </template>
 <script>
-import { queryList } from '@/api/index';
+import { queryList,filter } from '@/api/index';
 export default {
   data () {
     return {
@@ -105,99 +105,6 @@ export default {
       Stroke:true,
       Snone:true,
       areas:[
-        {
-          name:'北京',
-        },
-        {
-          name:'天津',
-        },
-        {
-          name:'河北',
-        },
-        {
-          name:'山西',
-        },
-        {
-          name:'内蒙古',
-        },
-        {
-          name:'辽宁',
-        },
-        {
-          name:'吉林',
-        },
-        {
-          name:'黑龙江',
-        },
-        {
-          name:'上海',
-        },
-        {
-          name:'江苏',
-        },
-        {
-          name:'浙江',
-        },
-        {
-          name:'安徽',
-        },
-        {
-          name:'福建',
-        },
-        {
-          name:'江西',
-        },
-        {
-          name:'山东',
-        },
-        {
-          name:'河南',
-        },
-        {
-          name:'湖北',
-        },
-        {
-          name:'湖南',
-        },
-        {
-          name:'广西',
-        },
-        {
-          name:'海南',
-        },
-        {
-          name:'重庆',
-        },
-        {
-          name:'四川',
-        },
-        {
-          name:'贵州',
-        },
-        {
-          name:'云南',
-        },
-        {
-          name:'西藏',
-        },
-        {
-          name:'陕西',
-        },
-        {
-          name:'甘肃',
-        },
-        {
-          name:'青海',
-        },
-        {
-          name:'宁夏',
-        },
-        {
-          name:'新疆',
-        },
-        {
-          name:'广东',
-        },
       ],
       projectTypes:[
         {
@@ -273,7 +180,7 @@ export default {
       total:0,
       present:0,
       Scity:true,
-      last:'湖南'
+      last:'湖南省'
     }
   },
   methods: {
@@ -290,6 +197,13 @@ export default {
         this.loading = true      
         this.gainList()
       }
+    },
+    gainFilter() {
+      filter({}).then( res => {
+         if(res.code == 1 ) {
+            this.areas = res.data.area
+         }
+      })
     },
     closeload(val) {
       this.svip = val.cur
@@ -308,7 +222,7 @@ export default {
          } else {
            return
          }
-         if(el.name == '湖南') {
+         if(el.name == '湖南省') {
            this.Scity = true
          } else {
            this.Scity = false
@@ -492,7 +406,7 @@ export default {
       }
     },
       SHcity() {
-      if(this.area  == '湖南') {
+      if(this.area  == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
@@ -508,7 +422,7 @@ export default {
       this.gainList()
     },
     state(val) {
-      if(val == '湖南') {
+      if(val == '湖南省') {
          this.Scity = true
        } else {
          this.Scity = false
@@ -533,6 +447,7 @@ export default {
     this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainList()
+    this.gainFilter()
   },
   components: {
   }

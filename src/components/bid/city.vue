@@ -25,78 +25,78 @@ export default {
           i:true
         },
         {
-          name:'邵阳',
+          name:'邵阳市',
           value:'邵阳市',
           i:false
         },
         {
-          name:'长沙',
+          name:'长沙市',
           value:'长沙市',
           i:false
         },
         {
-          name:'岳阳',
+          name:'岳阳市',
           value:'岳阳市',
           i:false
         },
         {
-          name:'益阳',
+          name:'益阳市',
           value:'益阳市',
           i:false
         },
         {
-          name:'株洲',
+          name:'株洲市',
           value:'株洲市',
           i:false
         },
         {
-          name:'湘潭',
+          name:'湘潭市',
           value:'湘潭市',
           i:false
         },
         {
-          name:'郴州',
+          name:'郴州市',
           value:'郴州市',
           i:false
         },
         {
-          name:'永州',
+          name:'永州市',
           value:'永州市',
           i:false
         },
         {
-          name:'怀化',
+          name:'怀化市',
           value:'怀化市',
           i:false
         },
         {
-          name:'张家界',
+          name:'张家界市',
           value:'张家界市',
           i:false
         },
         {
-          name:'吉首',
+          name:'吉首市',
           value:'吉首市',
           i:false
         },
         {
-          name:'常德',
+          name:'常德市',
           value:'常德市',
           i:false
         },
         {
-          name:'娄底',
+          name:'娄底市',
           value:'娄底市',
           i:false
         },
         {
-          name:'衡阳',
-          value:'永州市',
+          name:'衡阳市',
+          value:'衡阳市',
           i:false
         },
         {
-          name:'湘西',
-          value:'湘西土家族苗族自治州',
+          name:'湘西自治州',
+          value:'湘西自治州',
           i:false
         },
       ],

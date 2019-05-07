@@ -7,7 +7,7 @@
    ></en-search>
 
    <div class="c-search">
-      <div class="select">
+      <!-- <div class="select">
             <el-row>
                <el-col :span="2">
                   省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
@@ -20,7 +20,8 @@
                   </ul>
                </el-col>
             </el-row>
-        </div>
+        </div> -->
+        <all-city :city='last' @Cnext='eval'  ></all-city>
         <div class="select">
            <el-row>
              <el-col :span="2" class="t-5">
@@ -248,101 +249,6 @@ export default {
        area:'',
        Snone:false,
        loading:false,
-      areas:[
-        {
-          name:'北京'
-        },
-        {
-          name:'天津'
-        },
-        {
-          name:'河北'
-        },
-        {
-          name:'山西'
-        },
-        {
-          name:'内蒙古'
-        },
-        {
-          name:'辽宁'
-        },
-        {
-          name:'吉林'
-        },
-        {
-          name:'黑龙江'
-        },
-        {
-          name:'上海'
-        },
-        {
-          name:'江苏'
-        },
-        {
-          name:'浙江'
-        },
-        {
-          name:'安徽'
-        },
-        {
-          name:'福建'
-        },
-        {
-          name:'江西'
-        },
-        {
-          name:'山东'
-        },
-        {
-          name:'河南'
-        },
-        {
-          name:'湖北'
-        },
-        {
-          name:'湖南'
-        },
-        {
-          name:'广西'
-        },
-        {
-          name:'海南'
-        },
-        {
-          name:'重庆'
-        },
-        {
-          name:'四川'
-        },
-        {
-          name:'贵州'
-        },
-        {
-          name:'云南'
-        },
-        {
-          name:'西藏'
-        },
-        {
-          name:'陕西'
-        },
-        {
-          name:'甘肃'
-        },
-        {
-          name:'青海'
-        },
-        {
-          name:'宁夏'
-        },
-        {
-          name:'新疆'
-        },
-        {
-          name:'广东'
-        },
-      ],
       sums:[
         {
           name:'全部',
@@ -422,7 +328,8 @@ export default {
        total:0,
        current:1,
        title:'',
-       present:9
+       present:9,
+       last:''
     }
   },
    props: {
@@ -484,7 +391,8 @@ export default {
       });
     },
      state(val) {
-      this.area = val
+      this.last = val
+      this.area = this.last
       this.current = 1
       this.loading = true
       this.again()
@@ -514,6 +422,7 @@ export default {
          }
       })
     },
+    // 获取公司企业列表
     again() {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
@@ -558,12 +467,12 @@ export default {
       this.two = true
 
     },
-    eval(el) {
+    eval(val) {
       if(this.loading) {
          return
        }
        this.current = 1
-       this.area = el.name
+       this.area = val.cur
        this.loading = true
        this.allstr = this.allarr.join(",")
          if(this.rank == 0 ) {
@@ -892,7 +801,8 @@ export default {
     }
   },
   created () {
-    this.area = this.state
+    this.last = this.state
+    this.area = this.last
     if(sessionStorage.getItem('pageNo')){
       this.current=sessionStorage.getItem('pageNo')*1;
     }

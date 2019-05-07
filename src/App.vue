@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import { address,getUserTemp } from '@/api/index';
+import { address,getUserTemp,filter } from '@/api/index';
 export default {
   name: 'App',
   data() {
@@ -179,7 +179,7 @@ export default {
      ],
      rank:0,
      way:'/bid',
-     source:'湖南',
+     source:'湖南省',
      selects:[
          {
            name:'招标',
@@ -208,29 +208,29 @@ export default {
      allcity:[
        {
          name:'华东',
-         next:[{name:'上海'},{name:'江苏'},{name:'浙江'},{name:'安徽'},{name:'福建'},{name:'江西'},{name:'山东'}]
+         next:[{name:'上海市'},{name:'江苏省'},{name:'浙江省'},{name:'安徽省'},{name:'福建省'},{name:'江西省'},{name:'山东省'}]
        },
        {
          name:'东北',
-         next:[{name:'辽宁'},{name:'吉林'},{name:'黑龙江'}]
+         next:[{name:'辽宁省'},{name:'吉林省'},{name:'黑龙江省'}]
        }, 
         {
          name:'华中',
-         next:[{name:'河南'},{name:'湖北'},{name:'湖南'}]
+         next:[{name:'河南省'},{name:'湖北省'},{name:'湖南省'}]
        },{
          name:'华北',
-         next:[{name:'北京'},{name:'天津'},{name:'河北'},{name:'山西'},{name:'内蒙古'}]
+         next:[{name:'北京市'},{name:'天津市'},{name:'河北省'},{name:'山西省'},{name:'内蒙古自治区'}]
        },{
           name:'华南',
-          next:[{name:'广东'},{name:'广西'},{name:'海南'}]
+          next:[{name:'广东省'},{name:'广西壮族自治区'},{name:'海南省'}]
        },
        {
          name:'西北',
-         next:[{name:'陕西'},{name:'甘肃'},{name:'青海'},{name:'宁夏'},{name:'新疆'}]
+         next:[{name:'陕西省'},{name:'甘肃省'},{name:'青海省'},{name:'宁夏回族自治区'},{name:'新疆维吾尔自治区'}]
        },
        {
          name:'西南',
-         next:[{name:'重庆'},{name:'四川'},{name:'贵州'},{name:'云南'},{name:'西藏'}]
+         next:[{name:'重庆市'},{name:'四川省'},{name:'贵州省'},{name:'云南省'},{name:'西藏自治区'}]
        },
      ]
     }
@@ -239,9 +239,29 @@ export default {
     gainaddress() {
       address({}).then(res => {
          if(res.code =1 ) {
-           console.log(res);
+          //  console.log(res,1);
            localStorage.setItem('uip',res.data.ip)
-           this.source = res.data.region
+           if(res.data.region == ('湖南' || '湖北' || '安徽' || '福建' || '广东' || '甘肃' || '贵州' || '河北' || '河南' || '黑龙江' || '海南' || '江苏' || '江西' || '吉林' || '辽宁' || '青海' || '四川' || '山东' || '山西' || '陕西' || '台湾' || '云南' || '浙江' )) {
+              res.data.region =  res.data.region + '省'
+           } else if(res.data.region == ('北京' || '重庆' || '上海' || '天津')  ) {
+               res.data.region =  res.data.region + '市'
+           } else if (res.data.region == '广西') {
+              res.data.region = '广西壮族自治区'
+           } else if (res.data.region == '内蒙古') {
+              res.data.region = '内蒙古自治区'
+           } else if (res.data.region == '宁夏') {
+              res.data.region = '宁夏回族自治区'
+           }  else if (res.data.region == '新疆') {
+              res.data.region = '新疆维吾尔自治区'
+           }  else if (res.data.region == '西藏') {
+              res.data.region = '西藏自治区'
+           } 
+           setTimeout(() => {
+             this.source = res.data.region
+           }, 1000);
+           
+           console.log(this.source,6);
+           
          }
       })
     },
@@ -343,7 +363,17 @@ export default {
         });
       }
      
-    }
+    },
+   gainFilter() {
+      filter({}).then( res => {
+         if(res.code == 1 ) {
+            // this.areas = res.data.area
+            // this.companyQuals = res.data.companyQual
+            localStorage.setItem('area',JSON.stringify(res.data.area))
+            // localStorage.setItem('')
+         }
+      })
+    },
   },
   created () {
     this.valley()
@@ -356,6 +386,7 @@ export default {
     }
     this.judge()
     this.gainaddress()
+    this.gainFilter()
   },
   watch: {
     $route:{
@@ -486,11 +517,11 @@ export default {
               padding-top: 4px;
             }
             .se-area {
-              width: 340px;
+              width: 420px;
               height: 300px;
               position: absolute;
               bottom: -320px;
-              left: -150px;
+              left: -180px;
               background-color: #fff;
               z-index: 999999;
               border-radius: 8px;

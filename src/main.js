@@ -26,6 +26,8 @@ import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
 import aptitude from '@/page/synth/aptitude'
 import city from '@/components/bid/city'
+import allCity from '@/components/bid/allCity'
+
 
 
 import {getOpenid,ThirdLogin,refresh} from "@/api/index"
@@ -41,6 +43,8 @@ Vue.component('bid-list', bidlist)
 Vue.component('qy-list', qylist)
 Vue.component('q-titu', aptitude)
 Vue.component('c-ity', city)
+Vue.component('all-city', allCity)
+
 
 
 

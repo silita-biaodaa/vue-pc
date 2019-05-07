@@ -132,99 +132,6 @@ export default {
       Snone:false,
       loading:true,
       areas:[
-        {
-          name:'北京'
-        },
-        {
-          name:'天津'
-        },
-        {
-          name:'河北'
-        },
-        {
-          name:'山西'
-        },
-        {
-          name:'内蒙古'
-        },
-        {
-          name:'辽宁'
-        },
-        {
-          name:'吉林'
-        },
-        {
-          name:'黑龙江'
-        },
-        {
-          name:'上海'
-        },
-        {
-          name:'江苏'
-        },
-        {
-          name:'浙江'
-        },
-        {
-          name:'安徽'
-        },
-        {
-          name:'福建'
-        },
-        {
-          name:'江西'
-        },
-        {
-          name:'山东'
-        },
-        {
-          name:'河南'
-        },
-        {
-          name:'湖北'
-        },
-        {
-          name:'湖南'
-        },
-        {
-          name:'广西'
-        },
-        {
-          name:'海南'
-        },
-        {
-          name:'重庆'
-        },
-        {
-          name:'四川'
-        },
-        {
-          name:'贵州'
-        },
-        {
-          name:'云南'
-        },
-        {
-          name:'西藏'
-        },
-        {
-          name:'陕西'
-        },
-        {
-          name:'甘肃'
-        },
-        {
-          name:'青海'
-        },
-        {
-          name:'宁夏'
-        },
-        {
-          name:'新疆'
-        },
-        {
-          name:'广东'
-        },
       ],
       queryLists:[],
       projectTypes:[
@@ -348,7 +255,7 @@ export default {
        ],
        select:'',
        present:0,
-       last:'湖南',
+       last:'湖南省',
        Scity:true
     }
   },
@@ -380,7 +287,7 @@ export default {
       this.zType = []
     },
     state(val) {
-      if(val == '湖南') {
+      if(val == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
@@ -573,12 +480,14 @@ export default {
     gainFilter() {
       filter({}).then( res => {
          if(res.code == 1 ) {
+            this.areas = res.data.area
             this.companyQuals = res.data.companyQual
+            // localStorage.setItem('area',JSON.stringify(this.areas))
          }
       })
     },
     eval(el) {
-        if(el.name == '湖南') {
+        if(el.name == '湖南省') {
           this.Scity = true
         } else {
           this.Scity = false
@@ -639,7 +548,7 @@ export default {
       }
     },
     SHcity() {
-      if(this.area  == '湖南') {
+      if(this.area  == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
