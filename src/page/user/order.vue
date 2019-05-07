@@ -185,7 +185,7 @@
         </div>
 
          <div class="puy-code">
-             <div class="puy-img qrcode" id="qrcode"  >
+             <div class="puy-img qrcode" id="qrcode" v-loading='isload'  element-loading-text="二维码生成中"  >
                <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
              </div>  
              <div class="puy-hint"  >
@@ -245,7 +245,8 @@ export default {
       detail:{},
       iphone:'',
       egg:false,
-      aga:{}
+      aga:{},
+      isload:true
     }
   },
   filters: {
@@ -557,8 +558,7 @@ export default {
     },
     resend(el) {
       if(el.orderStatus == '1') {
-        console.log(el);
-        
+        this.isload = true
         this.aga = el
         this.egg = true
         setTimeout(() => {
@@ -589,7 +589,7 @@ export default {
     
     },
     gainstate(val){
-
+       this.isload = false
       let that  = this
        let int = setInterval( function () {
           
@@ -825,8 +825,8 @@ export default {
            overflow: hidden;
            margin-bottom: 10px;
            .puy-img {
-              // width: 180px;
-              // height: 180px;
+              width: 180px;
+              height: 180px;
             }
           .puy-hint {
             display: flex;

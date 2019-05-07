@@ -5,7 +5,7 @@
        注册人员（{{this.total}}）
      </div>
      <div class="law-year left">
-       <el-select v-model="mold" clearable placeholder="选择资质类型" @change="newList" >
+       <el-select v-model="mold" clearable placeholder="选择注册类别" @change="newList" >
           <el-option
             v-for="item in options"
             :key="item.category"

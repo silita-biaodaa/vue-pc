@@ -111,7 +111,7 @@
         </div>
 
          <div class="puy-code">
-             <div class="puy-img" id="qrcode"  >
+             <div class="puy-img" id="qrcode" v-loading='isload'  element-loading-text="二维码生成中" >
                <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
              </div>  
              <div class="puy-hint"  >
@@ -153,7 +153,8 @@ export default {
       Noid:'',
       pkid:'',
       toVip:true,
-      tohit:true
+      tohit:true,
+      isload:true
       // int:''
     }
   },
@@ -257,6 +258,7 @@ export default {
           this.msg = '请输入您的手机号码和电子邮箱'
          return 
       }
+      this.isload = true
       let ip = sessionStorage.getItem('ip')
       let uip = localStorage.getItem('uip')
       if(localStorage.getItem('permissions')) {
@@ -266,6 +268,7 @@ export default {
         this.price = this.common.price
         this.code = this.common.stdCode
       }
+
         wxPay({channel:'1003',stdCode:this.code,tradeType:'NATIVE',userId:ip,pkid:this.detail.pkid,email:this.email,phone:this.iphone,ip:uip}).then( res => {
          if(res.code == 1) {
            this.Noid = res.orderNo
@@ -290,7 +293,7 @@ export default {
       
     },
     gainstate(val){
-
+       this.isload = false
       let that  = this
        let int = setInterval( function () {
           
@@ -515,8 +518,8 @@ export default {
            overflow: hidden;
            margin-bottom: 10px;
            .puy-img {
-              // width: 180px;
-              // height: 180px;
+              width: 180px;
+              height: 180px;
             }
           .puy-hint {
             display: flex;

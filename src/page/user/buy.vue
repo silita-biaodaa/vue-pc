@@ -215,7 +215,7 @@
     </div>
 
      <div class="puy-code">
-         <div class="puy-img" id="qrcode"  >
+         <div class="puy-img" id="qrcode"  v-loading='isload'  element-loading-text="二维码生成中"  >
            <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
          </div>  
          <div class="puy-hint"  >
@@ -269,7 +269,8 @@ export default {
      price:'318',
      noShow:false,
      all:{},
-     iphone:''
+     iphone:'',
+     isload:true
     }
   },
   filters: {
@@ -356,7 +357,7 @@ export default {
       if(this.noShow) {
         return false
       }
-
+      this.isload = true
       let id = sessionStorage.getItem('ip')
       this.iphone = localStorage.getItem('phoneNo')
       vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
@@ -375,7 +376,7 @@ export default {
       this.noShow = true
     },
     gainstate(val){
-
+      this.isload = false
       let that  = this
        let int = setInterval( function () {
           
@@ -662,8 +663,8 @@ export default {
            flex-direction: column;
            overflow: hidden;
            .puy-img {
-              // width: 180px;
-              // height: 180px;
+              width: 180px;
+              height: 180px;
             }
           .puy-hint {
             display: flex;

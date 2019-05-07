@@ -317,23 +317,6 @@ export default {
                   this.fi = this.fi + 1
                   return sam = false
             }
-        // this.aptitude.forEach((el,i) => {
-        //     console.log(val.cur);
-        //     // if(i != val.i) {
-        //         if(el.value == val.cur && val.cur != '' ) {
-                
-                  
-        //           this.$confirm('资质条件重复，请重新选择', '提示', {
-        //             type: 'warning',
-        //             showCancelButton:false,
-        //             showConfirmButton:false
-        //           })
-        //           return 
-        //           // this.aptitude[val.i].same =  this.aptitude[val.i].same + 1
-        //           // mall = false
-        //       }
-        //     // }
-        // })
        }
       }  
       setTimeout(() => {
@@ -382,8 +365,28 @@ export default {
       
     },
     addap() {
-      this.aptitude.push({value:'',blank:false,same:1})
-      this.five = true
+      if(this.first)  {
+        if(this.aptitude.length >= 1) {
+          for (let i = 0; i < this.aptitude.length; i++) {
+             if(this.aptitude[i].value == '') {
+               return  this.$confirm('请讲上一级资质填充满,再添加下一级资质！', '提示', {
+                          type: 'warning',
+                          showCancelButton:false,
+                          showConfirmButton:false
+                        })
+             }
+          }
+        }
+         this.aptitude.push({value:'',blank:false,same:1})
+         this.five = true
+      } else {
+         this.$confirm('请讲上一级资质填充满,再添加下一级资质！', '提示', {
+          type: 'warning',
+          showCancelButton:false,
+          showConfirmButton:false
+        })
+      }
+     
     },
     delap(i) {
       this.aptitude.splice(i,1)

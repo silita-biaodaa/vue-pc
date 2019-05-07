@@ -243,3 +243,21 @@ figcaption:focus {
 .about .el-dropdown-link {
   color: #fff;
 }
+.result .el-loading-spinner .path {
+  stroke: #FE6603;
+}
+.result .el-loading-spinner .el-loading-text {
+  color: #FE6603;
+}
+.buy .el-loading-spinner .path {
+  stroke: #FE6603;
+}
+.buy .el-loading-spinner .el-loading-text {
+  color: #FE6603;
+}
+.order .el-loading-spinner .path {
+  stroke: #FE6603;
+}
+.order .el-loading-spinner .el-loading-text {
+  color: #FE6603;
+}

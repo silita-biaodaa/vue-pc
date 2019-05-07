@@ -431,6 +431,7 @@ export default {
           a,p {
             margin-right: 25px;
             color: #666;
+            line-height: 20px;
             i {
               margin-right: 6px;
             }
