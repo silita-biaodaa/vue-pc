@@ -57,17 +57,22 @@ export default {
       tra:false,
       proT:0,
       waterT:0,
-      traT:0
+      traT:0,
+      name:''
     }
   },
   methods: {
     gainList() {
       if(this.pro) {
-         Project({comId:this.id,type:'page',pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
+         Project({comId:this.id,type:'page',comName:this.name,pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
           if(res.code == 1) {
             this.total = res.total
             this.showArr = res.data
-            this.proT = res.total
+            if(res.data.length == 0) {
+               this.proT = 0
+            } else {
+               this.proT = res.total
+            }
             this.loading = false
              if(this.total > 10) {
                this.allnu = true
@@ -77,7 +82,7 @@ export default {
           }
         }) 
       } else if(this.water) {
-          Project({comId:this.id,pageNo:this.current,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
+          Project({comId:this.id,comName:this.name,pageNo:this.current,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
             if(res.code == 1) {
               this.total = res.total
               this.waterArr = res.data
@@ -91,7 +96,7 @@ export default {
             }
           }) 
       } else {
-         Project({comId:this.id,pageNo:this.current,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
+         Project({comId:this.id,comName:this.name,pageNo:this.current,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
             if(res.code == 1) {
               this.total = res.total
               this.traArr = res.data
@@ -108,11 +113,16 @@ export default {
       
     },
     gainPro() {
-       Project({comId:this.id,type:'page',pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
+       Project({comId:this.id,type:'page',comName:this.name,pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
           if(res.code == 1) {
             this.total = res.total
             this.showArr = res.data
-            this.proT = res.total
+            if(res.data.length == 0) {
+               this.proT = 0
+            } else {
+               this.proT = res.total
+            }
+           
             this.loading = false
              if(this.total > 10) {
                this.allnu = true
@@ -123,11 +133,15 @@ export default {
         }) 
     },
     gainWater() {
-       Project({comId:this.id,pageNo:this.current,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
+       Project({comId:this.id,pageNo:this.current,comName:this.name,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
             if(res.code == 1) {
               this.total = res.total
               this.waterArr = res.data
+            if(res.data.length == 0) {
+               this.waterT = 0
+            } else {
                this.waterT = res.total
+            }
               this.loading = false
                if(this.total > 10) {
                  this.allnu = true
@@ -138,11 +152,15 @@ export default {
           }) 
     },
     gainTra() {
-        Project({comId:this.id,pageNo:this.current,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
+        Project({comId:this.id,pageNo:this.current,comName:this.name,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
             if(res.code == 1) {
               this.total = res.total
               this.traArr = res.data
-              this.traT = res.total
+              if(res.data.length == 0) {
+               this.traT = 0
+            } else {
+               this.traT = res.total
+            }
               this.loading = false
                if(this.total > 10) {
                  this.allnu = true
@@ -183,6 +201,7 @@ export default {
   },
   created () {
     this.id = this.$route.query.id
+    this.name = this.$route.query.name
     this.gainPro()
     this.gainWater()
     this.gainTra()
