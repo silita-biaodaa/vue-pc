@@ -403,7 +403,7 @@ export default {
     }
   },
   destroyed () {
-    localStorage.removeItem('permissions')
+    // localStorage.removeItem('permissions')
   },
   computed: {
     tabNo(){

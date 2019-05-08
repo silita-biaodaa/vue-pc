@@ -1,47 +1,33 @@
 <template>
 <div class="intell" v-loading="loading" element-loading-text="拼命加载中" >
-    <div class="in-nav">
-      <span class="left in-po current"  >全部</span>
+    <div class="in-nav new-nav" >
      
+       <div>
+          <span class=" in-po"  :class="pro ? 'current' : ''"  @click="swpro" >住建部 ({{proT}})</span>
+          <span class="m-lr" >/</span>
+          <span class=" in-po" :class="water ? 'current' : ''"  @click="swater"  >水利部 ({{waterT}})</span>
+          <span class="m-lr" >/</span> 
+          <span class=" in-po" :class="tra ? 'current' : ''"  @click="swtra"  >交通部 ({{traT}})</span> 
+       </div>
+
+      <div>
+          <el-input
+            placeholder="请输入关键字搜索"
+            suffix-icon="el-icon-search"
+            @change="gainList"
+            @keyup.enter="gainList"
+            clearable
+            v-model="search">
+          </el-input>
+      </div>
+
     </div>
     <div class="in-table">
-      <div class="law-nav">
-        <div class="left" style="width:54px">
-            序号
-        </div>
-        <div class="left" style="width:260px">
-            项目名称
-        </div>
-        <div class="left" style="width:120px">
-            项目类型
-        </div>
-        <div class="left" style="width:90px">
-            项目属地
-        </div>
-        <div class="left" style="width:250px">
-           建筑单位
-        </div>
-      </div>
-      <div class="law-text" v-for="(el,i) in showArr" :key="i" v-show="result">
-        <div class="left" style="width:54px">
-            {{i+1}}
-        </div>
-        <div class="left" style="width:260px">
-            {{el.proName ? el.proName: '--'}}
-        </div>
-        <div class="left" style="width:120px">
-            {{el.proType ? el.proType: '--'}}
-        </div>
-        <div class="left" style="width:90px">
-            {{el.province ? el.province: '--'}}
-        </div>
-        <div class="left" style="width:250px">
-            {{el.proOrg ? el.proOrg: '--'}}
-        </div>
-      </div>
-      <div class="no-search" v-show="!result">
-        <img src="../../assets/img/card.png" alt="" >
-      </div>
+     <c-bur :arr='showArr' v-if="pro"  ></c-bur>
+     <c-water :arr='waterArr' v-if="water" ></c-water>
+     <c-tra :arr='traArr' v-if="tra" ></c-tra>
+   
+     
       <div class="e-page" v-show="allnu" >
           <nav-page 
            :all='total'
@@ -57,42 +43,150 @@ import { Project } from '@/api/index'
 export default {
   data () {
     return {
-      showArr:[],
       id:'',
-      result:true,
       total:0,
       current:1,
       allnu:false,
-      loading:true
+      loading:true,
+      showArr:[],
+      waterArr:[],
+      traArr:[],
+      search:'',
+      pro:true,
+      water:false,
+      tra:false,
+      proT:0,
+      waterT:0,
+      traT:0
     }
   },
   methods: {
     gainList() {
-      this.id = this.$route.query.id
-       Project({comId:this.id,type:'page',pageNo:this.current,pageSize:10}).then( res => {
+      if(this.pro) {
+         Project({comId:this.id,type:'page',pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
           if(res.code == 1) {
             this.total = res.total
-             this.showArr = res.data
-             
-             if(this.showArr.length == 0 ) {
-                this.result = false
-             }
-             this.loading = false
+            this.showArr = res.data
+            this.proT = res.total
+            this.loading = false
              if(this.total > 10) {
                this.allnu = true
              } else {
                this.allnu = false
              }
           }
-       }) 
+        }) 
+      } else if(this.water) {
+          Project({comId:this.id,pageNo:this.current,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
+            if(res.code == 1) {
+              this.total = res.total
+              this.waterArr = res.data
+               this.waterT = res.total
+              this.loading = false
+               if(this.total > 10) {
+                 this.allnu = true
+               } else {
+                 this.allnu = false
+               }
+            }
+          }) 
+      } else {
+         Project({comId:this.id,pageNo:this.current,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
+            if(res.code == 1) {
+              this.total = res.total
+              this.traArr = res.data
+               this.traT = res.total
+              this.loading = false
+               if(this.total > 10) {
+                 this.allnu = true
+               } else {
+                 this.allnu = false
+               }
+            }
+          }) 
+      }
+      
+    },
+    gainPro() {
+       Project({comId:this.id,type:'page',pageNo:this.current,tabType:'project',pageSize:10,proName:this.search}).then( res => {
+          if(res.code == 1) {
+            this.total = res.total
+            this.showArr = res.data
+            this.proT = res.total
+            this.loading = false
+             if(this.total > 10) {
+               this.allnu = true
+             } else {
+               this.allnu = false
+             }
+          }
+        }) 
+    },
+    gainWater() {
+       Project({comId:this.id,pageNo:this.current,tabType:'shuili',pageSize:10,proName:this.search}).then( res => {
+            if(res.code == 1) {
+              this.total = res.total
+              this.waterArr = res.data
+               this.waterT = res.total
+              this.loading = false
+               if(this.total > 10) {
+                 this.allnu = true
+               } else {
+                 this.allnu = false
+               }
+            }
+          }) 
+    },
+    gainTra() {
+        Project({comId:this.id,pageNo:this.current,tabType:'jiaotong',pageSize:10,proName:this.search}).then( res => {
+            if(res.code == 1) {
+              this.total = res.total
+              this.traArr = res.data
+              this.traT = res.total
+              this.loading = false
+               if(this.total > 10) {
+                 this.allnu = true
+               } else {
+                 this.allnu = false
+               }
+            }
+          }) 
     },
     Goto(val) {
       this.current = val.cur
       this.gainList()
     },
+    swpro() {
+      this.pro = true
+      this.water = false
+      this.tra = false
+      this.current = 1
+      this.search = ''
+       this.gainList()
+    },
+    swater() {
+      this.pro = false
+      this.water = true
+      this.tra = false
+      this.current = 1
+       this.search = ''
+      this.gainList()
+    },
+    swtra() {
+      this.pro = false
+      this.water = false
+      this.tra = true
+      this.current = 1
+       this.search = ''
+      this.gainList()
+    }
   },
   created () {
-    this.gainList()
+    this.id = this.$route.query.id
+    this.gainPro()
+    this.gainWater()
+    this.gainTra()
+    // this.gainList()
   },
   components: {
   }
@@ -114,8 +208,8 @@ export default {
   .in-nav {
     font-size: 14px;
     color:#999;
-    height: 44px;
-    line-height: 44px;
+    height: 56px;
+    line-height: 56px;
     padding-left: 22px;
     font-weight: 550;
     .in-pdd {
@@ -123,7 +217,16 @@ export default {
     }
     .in-po {
       cursor: pointer;
+      // vertical-align: bottom;
     }
+    .m-lr {
+      margin: 0 5px;
+    }
+  }
+  .new-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 9px;
   }
    .e-page {
     display: flex;
@@ -149,34 +252,8 @@ export default {
     border: 1px solid #f2f2f2;
     font-size: 12px;
     color:#333;
-     .law-nav {
-      height: 40px;
-      border-bottom: 1px solid #f2f2f2;
-      line-height: 40px;
-      font-size: 12px;
-      color:#333;
-      text-align: center;
-      font-weight: 550;
-    }
-    .law-text {
-      min-height: 40px;
-      border-bottom: 1px solid #f2f2f2;
-      font-size: 12px;
-      color:#333;
-      font-weight: 550;
-      display: flex;
-      align-items: center;
-      text-align: center;
-    }
   }
-  .no-search {
-    width: 100%;
-    height: 500px;
-    border-top-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+ 
 }
 
 </style>

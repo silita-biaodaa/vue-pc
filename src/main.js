@@ -27,6 +27,11 @@ import qylist from '@/components/qylist'
 import aptitude from '@/page/synth/aptitude'
 import city from '@/components/bid/city'
 import allCity from '@/components/bid/allCity'
+import bur from '@/page/companys/bur'
+import water from '@/page/companys/water'
+import traffic from '@/page/companys/traffic'
+
+
 
 
 
@@ -44,6 +49,11 @@ Vue.component('qy-list', qylist)
 Vue.component('q-titu', aptitude)
 Vue.component('c-ity', city)
 Vue.component('all-city', allCity)
+Vue.component('c-bur', bur)
+Vue.component('c-water', water)
+Vue.component('c-tra', traffic)
+
+
 
 
 

@@ -75,11 +75,6 @@ export default {
           i:false
         },
         {
-          name:'吉首市',
-          value:'吉首市',
-          i:false
-        },
-        {
           name:'常德市',
           value:'常德市',
           i:false
