@@ -218,3 +218,7 @@ export const vipPay = params => {
 export const qual = params => {
   return axios.post('company/filter/qual', params).then(res => res.data)
 }
+
+export const project = params => {
+  return axios.post('project/query', params).then(res => res.data)
+}

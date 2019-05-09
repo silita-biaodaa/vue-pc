@@ -40,6 +40,10 @@ import result from '@/page/synth/result'    // 综合查询
 import query from '@/page/synth/query' 
 import hist from '@/page/synth/history' 
 
+import perfor from '@/page/perfor/perfor' 
+import perlist from '@/page/perfor/perlist'
+import perwater from '@/page/perfor/perwater'
+import road from '@/page/perfor/road'
 
 
 
@@ -96,12 +100,40 @@ export default new Router({
       }
     },
     {
-      path: '/faith',
-      name: 'faith',
-      component: Faith,
-      meta: {
-        tabNo: 4
-      }
+      path: '/perfor',
+      name: 'perfor',
+      component: perfor,
+      redirect: '/perfor/perlist',
+      children: [
+        {
+          path: 'perlist',
+          name: 'perlist',
+          component: perlist,
+          meta: {
+            i: 0,
+            tabNo: 4
+          }
+        },
+        {
+          path: 'water',
+          name: 'water',
+          component: perwater,
+          meta: {
+            i: 1,
+            tabNo: 4
+          }
+        },
+        {
+          path: 'road',
+          name: 'road',
+          component: road,
+          meta: {
+            i: 2,
+            tabNo: 4
+          }
+        },
+      
+      ] 
     },
     {
       path: '/notice',

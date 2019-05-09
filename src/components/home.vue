@@ -49,12 +49,12 @@ export default {
            name:'企业',
            to:'/company',
            i: 2
-         }
-        //  {
-        //    name:'诚信',
-        //    to:'/faith',
-        //    i: 3
-        //  },
+         },
+         {
+           name:'业绩',
+           to:'/perfor',
+           i: 3
+         },
        ],
      select:'',
      rank:0,
@@ -82,14 +82,21 @@ export default {
     },
     engine() {
       localStorage.removeItem('title')
-      localStorage.removeItem('way')  
-      if(this.$route.path == this.way) {
-        this.$emit('vague',{cur:this.select});
-      } else { 
-        localStorage.setItem('title',this.select)
-        localStorage.setItem('way',this.way)  
-        this.$router.push({path:this.way})
+      localStorage.removeItem('way')
+      console.log(this.$route.matched[0].path);
+      
+      if(this.$route.matched[0].path == '/perfor') {
+          this.$emit('vague',{cur:this.select});
+      } else {
+         if(this.$route.path == this.way) {
+          this.$emit('vague',{cur:this.select});
+        } else { 
+          localStorage.setItem('title',this.select)
+          localStorage.setItem('way',this.way)  
+          this.$router.push({path:this.way})
+        }
       }
+   
     },
     paths() {
        if(this.$route.path == '/' || this.$route.path == '/bid' ) {

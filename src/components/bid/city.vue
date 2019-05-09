@@ -114,6 +114,11 @@ export default {
         this.city[0].i = false
         if( this.citys.indexOf(el.value) == -1 ) {
           if(this.citys.length >= 3 ) {
+            this.$confirm('最多可选三个市级条件', '提示', {
+                    type: 'warning',
+                    showCancelButton:false,
+                    showConfirmButton:false
+             })
             return  
           } else {
             el.i = true
@@ -159,26 +164,6 @@ export default {
            color:#fff;
          }
        }
-      .el-select {
-        width: 225px;
-        margin-right: 10px;
-      }
-      .el-checkbox-button__inner {
-        border: none;
-        margin-bottom: 12px;
-        font-size: 15px;
-        padding: 5px 10px;
-        color:#666;
-      }
-      .el-checkbox-button.is-checked .el-checkbox-button__inner {
-        color:#fff;
-        background-color: #FE6603;
-        border-color: #FE6603;
-        box-shadow: -1px 0 0 0 #fff; 
-      }
-      .el-checkbox-button:first-child .el-checkbox-button__inner {
-        border-radius: 0;
-      }
      }
 }
 </style>

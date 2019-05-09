@@ -164,7 +164,7 @@ export default {
         {
            name:'业绩',
            url:require('./assets/img/icon-yeji.png'),
-           to:'/',
+           to:'/perfor',
         },
         {
            name:'人员',
@@ -198,7 +198,7 @@ export default {
          },
          {
            name:'诚信',
-           to:'/faith',
+           to:'/perfor',
            i: 3
          },
        ],
