@@ -222,3 +222,7 @@ export const qual = params => {
 export const project = params => {
   return axios.post('project/query', params).then(res => res.data)
 }
+
+export const prodet = params => {
+  return axios.post('project/detail', params).then(res => res.data)
+}

@@ -47,7 +47,7 @@
            </div>
       </div>    
 
-        <a class="per-del per-color" v-for="(el,i) in perlist" :key="i"  >
+        <router-link class="per-del per-color " v-for="(el,i) in perlist" :key="i"  @click="decide(el)" tag="a" :to="{name:'irrigation', query: {id:el.pkid }}" target='_blank' >
            <div class="left " style="width:60px;">
               {{(current-1)*20+(i+1)}}
            </div>
@@ -69,7 +69,7 @@
              <div class="left" style="width:120px;">
               {{el.proWhere}}
            </div>
-        </a>
+        </router-link>
 
          <div class="c-page" >
               <nav-page 
@@ -172,11 +172,14 @@ export default {
          if(res.code == 1 ) {
            this.total = res.total
            this.perlist = res.data
-          if(res.data.length == 0 ) {
-             this.Snone = false
-           } else {
-              this.Snone = true
-           }
+           this.perlist.forEach(el => {
+             el.is = true
+           })
+           if(res.data.length == 0 ) {
+              this.Snone = false
+            } else {
+               this.Snone = true
+            }
 
          }
       })
@@ -185,7 +188,26 @@ export default {
        this.current = val.cur;
        this.gainList()
        document.documentElement.scrollTo(0,492);
-    }
+    },
+    decide(el) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
+        el.is = false
+        const { href } = this.$router.resolve({
+          path:'/irrigation',query:{id:el.pkid} 
+        })
+        window.open(href, '_blank', )
+        console.log(el);
+        
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        })
+      }
+    },
   },
   props: {
     state:'',
@@ -281,6 +303,8 @@ export default {
            text-align: center;
            border-bottom: 1px solid #f2f2f2;
          }
+          a:visited{color:#FE6603}
+
           .c-page {
             width:1020px;
             margin: 0 auto 210px;
@@ -291,6 +315,8 @@ export default {
             justify-content: center;
 
           }
+          // a:visited{color:#FE6603}
+          a:hover{color:#FE6603}
      }
 }
 </style>

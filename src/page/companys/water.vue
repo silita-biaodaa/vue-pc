@@ -23,7 +23,7 @@
             项目属地
         </div>
     </div>
-    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result">
+    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result" @click="decide(el)"  >
         <div class="left" style="width:54px">
             {{i+1}}
         </div>
@@ -73,6 +73,14 @@ export default {
   created () {
     this.allArr = this.arr
   },
+  methods: {
+      decide(el) {
+        const { href } = this.$router.resolve({
+          path:'/irrigation',query:{id:el.pkid} 
+        })
+        window.open(href, '_blank', )
+    },  
+  },
   components: {
   }
 }
@@ -97,6 +105,7 @@ export default {
       display: flex;
       align-items: center;
       text-align: center;
+      cursor: pointer;
     }
   .no-search {
     width: 100%;
