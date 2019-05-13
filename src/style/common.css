@@ -341,3 +341,8 @@ figcaption:focus {
   align-items: center;
   justify-content: center;
 }
+.show-f {
+  text-align: left;
+  padding: 0 5px;
+  box-sizing: border-box;
+}

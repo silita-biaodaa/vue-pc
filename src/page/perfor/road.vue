@@ -27,7 +27,7 @@
            <div class="left" style="width:60px;">
               序号
            </div>
-             <div class="left" style="width:270px;">
+             <div class="left " style="width:270px;">
               项目名称
            </div>
             <div class="left" style="width:120px;">
@@ -49,11 +49,11 @@
       </div>    
 
 
-        <a   class="per-del per-color" v-for="(el,i) in perlist" :key="i"  >
+        <a  class="per-del " v-for="(el,i) in perlist" :key="i"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'"  >
             <div class="left " style="width:60px;">
               {{(current-1)*20+(i+1)}}
            </div>
-             <div class="left" style="width:270px;textAlign:left">
+             <div class="left  show-f" style="width:270px;">
               {{el.proName}}
            </div>
            <div class="left" style="width:120px;">
@@ -171,6 +171,9 @@ export default {
     gainList() {
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"jiaotong",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
+            res.data.forEach(el => {
+             el.is = false
+           })
            this.total = res.total
            this.perlist = res.data
           if(res.data.length == 0 ) {
@@ -185,7 +188,27 @@ export default {
        this.current = val.cur;
        this.gainList()
        document.documentElement.scrollTo(0,492);
-    }
+    },
+     decide(el) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
+        // this.perlist[el].is = true
+           el.is = true
+          const { href } = this.$router.resolve({
+            path:'/traffic',query:{id:el.pkid} 
+          })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+    },
   },
   props: {
     state:'',

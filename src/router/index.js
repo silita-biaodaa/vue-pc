@@ -45,6 +45,8 @@ import perlist from '@/page/perfor/perlist'
 import perwater from '@/page/perfor/perwater'
 import road from '@/page/perfor/road'
 import irrigation from '@/page/perfor/wdetail'
+import traffic from '@/page/perfor/traffic'
+
 
 
 
@@ -343,6 +345,11 @@ export default new Router({
       path:'/irrigation',
       name:'irrigation',
       component: irrigation
+    },
+    {
+      path: '/traffic',
+      name: 'traffic',
+      component: traffic
     }
   ]
 })

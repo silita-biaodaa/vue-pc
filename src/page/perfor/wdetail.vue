@@ -13,25 +13,6 @@
     </div>
 
     <div class="irr-table">
-        <!-- <el-row>
-          <el-col :span="7">
-             <p>施工单位：<span>{{detail.comName}}</span></p>
-             <p>工程状态：<span>{{detail.proStatus}}</span></p>
-             <p>开工日期：<span>{{detail.worked}}</span></p>
-             <p>项目负责人：<span>{{prizes }}</span></p>
-          </el-col>
-          <el-col :span="7">
-             <p>建设单位：<span>{{detail.proOrg}}</span></p>
-             <p>合同金额：<span>{{detail.contractAmount}}</span></p>
-             <p>完工日期：<span>{{detail.comName}}</span></p>
-             <p>技术负责人：<span>{{leaders}}</span></p>
-          </el-col>
-          <el-col :span="10">
-             <p>所在地区：<span>{{detail.proWhere}}</span></p>
-             <p>结算金额：<span>{{detail.clearingAmount}}</span></p>
-             <p>合同工期：<span>{{detail.duration }}</span></p>
-          </el-col>
-        </el-row> -->
         <el-row>
           <el-col :span="7"><p>施工单位：<span>{{detail.comName}}</span></p></el-col>
           <el-col :span="7"><p>建设单位：<span>{{detail.proOrg}}</span></p></el-col>

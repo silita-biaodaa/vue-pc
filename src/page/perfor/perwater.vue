@@ -47,13 +47,15 @@
            </div>
       </div>    
 
-        <router-link class="per-del per-color " v-for="(el,i) in perlist" :key="i"  @click="decide(el)" tag="a" :to="{name:'irrigation', query: {id:el.pkid }}" target='_blank' >
+        <!-- <router-link class="per-del per-color " v-for="(el,i) in perlist" :key="i"  @click="decide(el)" tag="a" :to="{name:'irrigation', query: {id:el.pkid }}" target='_blank' > -->
+        <a class="per-del " v-for="(el,i) in perlist" :key="el.pkid"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'" >
+
            <div class="left " style="width:60px;">
               {{(current-1)*20+(i+1)}}
            </div>
-            <div class="left" style="width:280px;textAlign:left">{{el.proName}}
+            <div class="left show-f" style="width:280px;">{{el.proName}}
            </div>
-             <div class="left" style="width:220px;">
+             <div class="left show-f" style="width:220px;">
                {{el.comName}}
            </div>
            <div class="left" style="width:140px;">
@@ -68,7 +70,7 @@
              <div class="left" style="width:120px;">
               {{el.proWhere}}
            </div>
-        </router-link>
+        </a>
 
          <div class="c-page" >
               <nav-page 
@@ -169,11 +171,12 @@ export default {
     gainList() {
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"shuili",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
+            res.data.forEach(el => {
+             el.is = false
+           })
            this.total = res.total
            this.perlist = res.data
-           this.perlist.forEach(el => {
-             el.is = true
-           })
+         
            if(res.data.length == 0 ) {
               this.Snone = false
             } else {
@@ -190,13 +193,12 @@ export default {
     },
     decide(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
-        el.is = false
-        const { href } = this.$router.resolve({
-          path:'/irrigation',query:{id:el.pkid} 
-        })
+        // this.perlist[el].is = true
+           el.is = true
+          const { href } = this.$router.resolve({
+            path:'/irrigation',query:{id:el.pkid} 
+          })
         window.open(href, '_blank', )
-        console.log(el);
-        
       } else {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
@@ -204,7 +206,9 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$router.push('/logo')
-        })
+        }).catch(() => {
+               
+        });
       }
     },
   },
