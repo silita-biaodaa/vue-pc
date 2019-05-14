@@ -46,6 +46,18 @@ import perwater from '@/page/perfor/perwater'
 import road from '@/page/perfor/road'
 import irrigation from '@/page/perfor/wdetail'
 import traffic from '@/page/perfor/traffic'
+import urban from '@/page/perfor/urban'
+import ubid from '@/page/perfor/ubid'
+import uexe from '@/page/perfor/uexe'
+import upact from '@/page/perfor/upact'
+import uallow from '@/page/perfor/uallow'
+import ulete from '@/page/perfor/ulete'
+
+
+
+
+
+
 
 
 
@@ -350,6 +362,54 @@ export default new Router({
       path: '/traffic',
       name: 'traffic',
       component: traffic
+    },
+    {
+      path:'/urban',
+      name:'urban',
+      component: urban,
+      redirect: '/urban/ubid',
+      children: [
+        {
+          path: 'ubid',
+          name: 'ubid',
+          component: ubid,
+          meta: {
+            i: 0
+          }
+        },
+        {
+          path: 'execu',
+          name: 'execu',
+          component: uexe,
+          meta: {
+            i: 1
+          }
+        },
+        {
+          path: 'upact',
+          name: 'upact',
+          component: upact,
+          meta: {
+            i: 2
+          }
+        },
+        {
+          path: 'uallow',
+          name: 'uallow',
+          component: uallow,
+          meta: {
+            i: 3
+          }
+        },
+        {
+          path: 'ulete',
+          name: 'ulete',
+          component: ulete,
+          meta: {
+            i: 3
+          }
+        },
+      ]  
     }
   ]
 })

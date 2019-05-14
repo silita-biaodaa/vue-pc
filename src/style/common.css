@@ -266,7 +266,7 @@ figcaption:focus {
   flex-direction: row;
 }
 .money .ttt .el-input {
-  width: 30%;
+  width: 50%;
 }
 .money .ttt .el-input__inner {
   height: 30px;
@@ -345,4 +345,9 @@ figcaption:focus {
   text-align: left;
   padding: 0 5px;
   box-sizing: border-box;
+}
+.blur {
+  background-color: #fafdff;
+  font-size: 14px;
+  color: #999;
 }

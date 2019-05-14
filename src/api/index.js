@@ -226,3 +226,11 @@ export const project = params => {
 export const prodet = params => {
   return axios.post('project/detail', params).then(res => res.data)
 }
+
+export const cprodet = params => {
+  return axios.post('project/company/detail', params).then(res => res.data)
+}
+
+export const lprodet = params => {
+  return axios.post('project/list/detail', params).then(res => res.data)
+}

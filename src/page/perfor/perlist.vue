@@ -44,7 +44,7 @@
            </div>
       </div>    
 
-        <a class="per-del per-color " v-for="(el,i) in perlist" :key="i"  >
+        <a class="per-del " v-for="(el,i) in perlist" :key="i"  @click="decide(el)" :class="el.is ? 'vi-color' : 'per-color'"  >
            <div class="left " style="width:80px;">
               {{(current-1)*20+(i+1)}}
            </div>
@@ -149,8 +149,12 @@ export default {
     
     },
     gainMon(val) {
+      console.log(val);
+      
       this.amountStart = val.state
       this.amountEnd = val.end
+      console.log(this.amountEnd );
+      
       this.current = 1
       this.gainList()
     },
@@ -163,6 +167,9 @@ export default {
     gainList() {
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"project",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
+           res.data.forEach(el => {
+             el.is = false
+           })
            this.total = res.total
            this.perlist = res.data 
            if(res.data) {
@@ -180,6 +187,26 @@ export default {
     },
     closeload(val) {
       this.svip = val.cur
+    },
+     decide(el) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
+        // this.perlist[el].is = true
+           el.is = true
+          const { href } = this.$router.resolve({
+            path:'/urban',query:{id:el.proId} 
+          })
+        window.open(href, '_blank', )
+      } else {
+         this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
     },
   },
   props: {

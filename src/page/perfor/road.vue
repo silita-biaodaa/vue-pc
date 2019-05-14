@@ -41,7 +41,7 @@
            </div>
            
             <div class="left" style="width:110px;">
-              竣工时间
+             交工日期
            </div>
              <div class="left" style="width:100px;">
               项目属地

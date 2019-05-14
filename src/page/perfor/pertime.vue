@@ -14,7 +14,7 @@
                     <el-date-picker
                       v-model="defO"
                       type="date"
-                      value-format='yyyy-MM-DD'
+                       value-format='yyyy-MM-dd'
                       placeholder="起始日期">
                     </el-date-picker>
                     <div class="in-line">
@@ -23,7 +23,7 @@
                     <el-date-picker
                       v-model="defN"
                       type="date"
-                      value-format='yyyy-MM-DD'
+                      value-format='yyyy-MM-dd'
                       placeholder="结束日期">
                     </el-date-picker>
                     <div class="t-btn" @click="find" >

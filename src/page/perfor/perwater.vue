@@ -40,7 +40,7 @@
               业绩类别
            </div>
             <div class="left" style="width:120px;">
-              竣工时间
+              完工日期
            </div>
              <div class="left" style="width:120px;">
               项目属地
@@ -102,12 +102,40 @@ export default {
           value:'施工',
         },
         {
+          name:'监理',
+          value:'监理',
+        },
+        {
           name:'设计',
-          value:'设计',
+          value:'设计'
         },
         {
           name:'勘察',
           value:'勘察'
+        },
+        {
+          name:'招标代理',
+          value:'招标代理'
+        },
+        {
+          name:'检测',
+          value:'检测'
+        },
+        {
+          name:'供货',
+          value:'供货'
+        },
+        {
+          name:'咨询',
+          value:'咨询'
+        },
+        {
+          name:'机械制造',
+          value:'机械制造'
+        },
+        {
+          name:'移民监督',
+          value:'移民监督'
         }
       ],
       proType:null,

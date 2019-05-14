@@ -12,7 +12,7 @@
                 </el-col>    
                 <el-col :span='8' class="ttt" >    
                      <el-input
-                        placeholder="最低价"
+                        placeholder="最低价(万)"
                         v-model="low"
                         @clear='allmon'
                         clearable>
@@ -20,7 +20,7 @@
                       <div class="in-line">
                       </div> 
                       <el-input
-                        placeholder="最高价"
+                        placeholder="最高价(万)"
                         v-model="high"
                         @clear='allmon'
                         clearable>
@@ -78,7 +78,7 @@ export default {
             this.low = ''
             this.high = ''
             this.min = el.min
-            this.max = el.max
+            this.max = el.man
             this.$emit('amount', {state:this.min,end:this.max})
         }
       } else {

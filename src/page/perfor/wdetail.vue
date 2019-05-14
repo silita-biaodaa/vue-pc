@@ -25,7 +25,7 @@
         </el-row>
         <el-row>
           <el-col :span="7"><p>开工日期：<span>{{detail.worked}}</span></p></el-col>
-          <el-col :span="7"><p>完工日期：<span>{{detail.comName}}</span></p></el-col>
+          <el-col :span="7"><p>完工日期：<span>{{detail.finished}}</span></p></el-col>
           <el-col :span="10"><p>合同工期：<span>{{detail.duration }}</span></p></el-col>
         </el-row>
         <el-row>
