@@ -18,7 +18,7 @@
      <per-time  @time='gaintime' ></per-time>
    </div>
    <div class="per-total">
-     标大大为您找到<span class="p-color" >{{total}}</span>条业绩信息
+     共搜索到<span class="p-color" >{{total}}</span>条交通部业绩信息
    </div>
 
 
@@ -27,20 +27,20 @@
            <div class="left" style="width:60px;">
               序号
            </div>
-             <div class="left " style="width:270px;">
+             <div class="left " style="width:260px;">
               项目名称
            </div>
-            <div class="left" style="width:120px;">
+            <div class="left" style="width:160px;">
               标段名称
            </div>
-             <div class="left" style="width:220px;">
+             <div class="left" style="width:200px;">
               施工单位
            </div>
              <div class="left" style="width:140px;">
               合同金额
            </div>
            
-            <div class="left" style="width:110px;">
+            <div class="left" style="width:100px;">
              交工日期
            </div>
              <div class="left" style="width:100px;">
@@ -53,20 +53,20 @@
             <div class="left " style="width:60px;">
               {{(current-1)*20+(i+1)}}
            </div>
-             <div class="left  show-f" style="width:270px;">
+             <div class="left  show-f" style="width:260px;">
               {{el.proName}}
            </div>
-           <div class="left" style="width:120px;">
+           <div class="left" style="width:160px;">
               {{el.section ? el.section : '/'}}
            </div>
-             <div class="left" style="width:220px;">
+             <div class="left" style="width:200px;">
                {{el.comName}}
            </div>
            <div class="left" style="width:140px;">
               {{el.amount ? el.amount + '万元' : '/'}}
            </div>
             
-             <div class="left" style="width:110px;">
+             <div class="left" style="width:100px;">
               {{el.build ? el.build : '--'}}
            </div>
              <div class="left" style="width:100px;">

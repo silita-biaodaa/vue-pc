@@ -18,7 +18,8 @@
      <per-time  @time='gaintime' ></per-time>
    </div>
    <div class="per-total">
-     标大大为您找到<span class="p-color" >{{total}}</span>条业绩信息
+     <!-- 标大大为您找到<span class="p-color" >{{total}}</span>条业绩信息 -->
+     共搜索到<span class="p-color" >{{total}}</span>条住建部业绩信息
    </div>
 
 
@@ -37,7 +38,7 @@
               合同金额
            </div>
              <div class="left" style="width:150px;">
-              竣工时间
+              竣工日期
            </div>
              <div class="left" style="width:140px;">
               项目属地
@@ -149,12 +150,8 @@ export default {
     
     },
     gainMon(val) {
-      console.log(val);
-      
       this.amountStart = val.state
       this.amountEnd = val.end
-      console.log(this.amountEnd );
-      
       this.current = 1
       this.gainList()
     },

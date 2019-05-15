@@ -370,7 +370,7 @@ export default new Router({
       redirect: '/urban/ubid',
       children: [
         {
-          path: 'ubid',
+          path: 'ubid',  // 招投标
           name: 'ubid',
           component: ubid,
           meta: {
@@ -378,35 +378,35 @@ export default new Router({
           }
         },
         {
-          path: 'execu',
+          path: 'execu',  // 施工图
           name: 'execu',
           component: uexe,
-          meta: {
-            i: 1
-          }
-        },
-        {
-          path: 'upact',
-          name: 'upact',
-          component: upact,
           meta: {
             i: 2
           }
         },
         {
-          path: 'uallow',
-          name: 'uallow',
-          component: uallow,
+          path: 'upact',  // 合同备案
+          name: 'upact',
+          component: upact,
           meta: {
-            i: 3
+            i: 4
           }
         },
         {
-          path: 'ulete',
+          path: 'uallow',  // 施工许可
+          name: 'uallow',
+          component: uallow,
+          meta: {
+            i: 6
+          }
+        },
+        {
+          path: 'ulete',  // 竣工
           name: 'ulete',
           component: ulete,
           meta: {
-            i: 3
+            i: 8
           }
         },
       ]  

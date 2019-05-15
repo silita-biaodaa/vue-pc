@@ -50,7 +50,7 @@
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
-              龙山县新城九年制学校太平村小改扩建项目
+             {{titles}}
           </div>
           <div>
             <i class="el-icon-close"  @click="close" ></i>
@@ -229,7 +229,8 @@ export default {
       noPeo:false,
       ubl:false,
       design:true,
-      pect:true
+      pect:true,
+      noPeoL:false
     }
   },
   methods: {
@@ -283,15 +284,15 @@ export default {
     this.id = this.$route.query.id;
     this.gaindet()
   },
+  props: ['titles'],
   components: {
   }
 }
 </script>
 <style lang="less" scoped>
 .ubid {
-  margin-top: 40px;
   background-color: #fff;
-  padding: 20px 10px 30px;
+  padding: 0 10px 30px;
   margin-bottom: 200px;
   .ub-table {
     border: 1px solid #F2F2F2;

@@ -266,7 +266,7 @@ figcaption:focus {
   flex-direction: row;
 }
 .money .ttt .el-input {
-  width: 50%;
+  width: 30%;
 }
 .money .ttt .el-input__inner {
   height: 30px;

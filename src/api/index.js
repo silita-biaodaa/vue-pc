@@ -234,3 +234,7 @@ export const cprodet = params => {
 export const lprodet = params => {
   return axios.post('project/list/detail', params).then(res => res.data)
 }
+
+export const count = params => {
+  return axios.post('project/detail/count', params).then(res => res.data)
+}

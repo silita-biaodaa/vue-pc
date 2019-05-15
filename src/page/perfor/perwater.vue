@@ -18,7 +18,7 @@
      <per-time  @time='gaintime' ></per-time>
    </div>
    <div class="per-total">
-     标大大为您找到<span class="p-color" >{{total}}</span>条业绩信息
+     共搜索到<span class="p-color" >{{total}}</span>条水利部业绩信息
    </div>
 
 

@@ -39,18 +39,64 @@
         </el-row>
     </div>
   </div>
-
-  <router-view></router-view>
+  <div class="ub-nav">
+    <span v-for="(el,i) in navs" :key="i" :class="el.i  ? 'p-color' : '' " @click="jump(el)"  >{{el.name}} <span v-if="el.to" >({{el.all}})</span> </span>
+  </div>
+  <router-view :titles='detail.proName' ></router-view>
 
 </div>
 </template>
 <script>
-import { prodet } from '@/api/index';
+import { prodet,count } from '@/api/index';
 export default {
   data () {
     return {
       detail:{},
-      id:''
+      id:'',
+      navs:[
+        {
+          name:'招投标',
+          to:'ubid',
+          all:0,
+          i:false
+        },
+         {
+          name:'/',
+        },
+        {
+          name:'施工图审查',
+          to:'execu',
+          all:0,
+          i:false
+        },
+         {
+          name:'/',
+        },
+        {
+          name:'合同备案',
+          to:'upact',
+          all:0,
+          i:false
+        },
+         {
+          name:'/',
+        },
+        {
+          name:'施工许可',
+          to:'uallow',
+          all:0,
+          i:false
+        },
+         {
+          name:'/',
+        },
+        {
+          name:'竣工验收备案',
+          to:'ulete',
+          all:0,
+          i:false
+        }
+      ],
     }
   },
   methods: {
@@ -63,16 +109,48 @@ export default {
         }
       })
     },
+    gaincount() {
+      count({proId:this.id}).then(res => {
+       if(res.code == 1) {
+         console.log(res,1);
+         this.navs[0].all = res.data.zhaotoubiao // 招投标
+         this.navs[2].all = res.data.desin  // 审查
+         this.navs[4].all = res.data.contract  // 合同
+         this.navs[6].all = res.data.build   // 许可
+         this.navs[8].all = res.data.completion  // 竣工
+       }
+        
+      })
+    },
     junmpto() {
       this.$router.push('/')
     },
     junmpjiao() {
       this.$router.push('/perfor/perlist')
+    },
+    jump(el) {
+      if(el.to == null ) {
+        return 
+      }
+      this.$router.push({path:el.to,query:{id:this.id}})
     }
+  },
+  watch: {
+     $route: {
+      handler: function(val, oldVal){
+      this.navs.forEach(el => {
+        el.i = false
+      })
+      this.navs[val.meta.i].i = true
+    },
+    deep: true
+  }
   },
   created () {
     this.id = this.$route.query.id;
+    this.navs[this.$route.meta.i].i =  true
     this.gainshui()
+    this.gaincount()
   },
   components: {
   }
@@ -114,6 +192,19 @@ export default {
           color:#333;
         }
       }
+    }
+  }
+  .ub-nav {
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    color:#999;
+    cursor: pointer;
+    margin-top: 40px;
+    background-color: #fff;
+    padding-left: 10px;
+    span {
+      margin-right: 6px;
     }
   }
 }

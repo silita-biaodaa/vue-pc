@@ -55,7 +55,7 @@
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
-              龙山县新城九年制学校太平村小改扩建项目
+              {{titles}}
           </div>
           <div>
             <i class="el-icon-close"  @click="close" ></i>
@@ -190,6 +190,7 @@ export default {
       ubl:false,
     }
   },
+  props: ['titles'],
   methods: {
     gaindet() {
       cprodet({proId:this.id,tabType:'build',pageNo:'1',pageSize:'1000'}).then(res => {
@@ -232,9 +233,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .ubid {
-  margin-top: 40px;
   background-color: #fff;
-  padding: 20px 10px 30px;
+  padding: 0 10px 30px;
   margin-bottom: 200px;
   .ub-table {
     border: 1px solid #F2F2F2;

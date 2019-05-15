@@ -55,7 +55,7 @@
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
-              龙山县新城九年制学校太平村小改扩建项目
+               {{titles}}
           </div>
           <div>
             <i class="el-icon-close"  @click="close" ></i>
@@ -213,27 +213,6 @@ export default {
        lprodet({proId:this.id,tabType:'contract',pkid:el.pkid}).then( res => {
         if(res.code == 1) {
           this.debid = res.data
-          // if(this.debid.designOrg == '' && this.debid.designOrgCode == '' && this.debid.designProvince == '' ) {
-          //    this.design = false
-          // } else {
-          //    this.design = true
-          // }
-          // if(this.debid.exploreProvince == '' && this.debid.exploreOrgCode == '' && this.debid.exploreOrg == '' ) {
-          //    this.pect = false
-          // } else {
-          //    this.pect = true
-          // }
-          // if(this.pect || this.design) {
-          //   this.noPeo = false
-          // } else {
-          //    this.noPeo = true
-          // }
-          // if(this.debid.personList.length == 0 ) {
-          //   this.noPeoL = true
-          // } else {
-          //   this.noPeoL = false
-          // }
-         
         }
       })
     },
@@ -242,6 +221,7 @@ export default {
       this.isshow = false
     }
   },
+  props: ['titles'],
   created () {
     this.id = this.$route.query.id;
     this.gaindet()
@@ -252,9 +232,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .ubid {
-  margin-top: 40px;
   background-color: #fff;
-  padding: 20px 10px 30px;
+  padding: 0 10px 30px;
   margin-bottom: 200px;
   .ub-table {
     border: 1px solid #F2F2F2;

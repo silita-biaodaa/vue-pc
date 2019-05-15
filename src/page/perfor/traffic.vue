@@ -15,18 +15,18 @@
     <div class="irr-table">
         <el-row>
           <el-col :span="7"><p>施工单位：<span>{{detail.comName}}</span></p></el-col>
-          <el-col :span="7"><p>合同段名称：<span>{{detail.section}}</span></p></el-col>
+          <el-col :span="7"><p>标段名称：<span>{{detail.section}}</span></p></el-col>
           <el-col :span="10"><p>所在省份：<span>{{detail.proWhere}}</span></p></el-col>
         </el-row>
         <el-row>
           <el-col :span="7"><p>建设状态：<span>{{detail.build}}</span></p></el-col>
-          <el-col :span="7"><p>项目类型：<span>{{detail.contractAmount}}</span></p></el-col>
+          <el-col :span="7"><p>项目类型：<span>{{detail.proType}}</span></p></el-col>
           <el-col :span="10"><p>技术等级：<span>{{detail.technicalGrade}}</span></p></el-col>
         </el-row>
         <el-row>
           <el-col :span="7"><p>开工日期：<span>{{detail.begined}}</span></p></el-col>
           <el-col :span="7"><p>交工日期：<span>{{detail.ended}}</span></p></el-col>
-          <el-col :span="10"><p>竣工日期：<span>{{detail.ended }}</span></p></el-col>
+          <el-col :span="10"><p>俊工日期：<span>{{detail.ended }}</span></p></el-col>
         </el-row>
          <el-row>
           <el-col :span="7"><p>质量评定情况：<span>{{detail.assess}}</span></p></el-col>
@@ -34,8 +34,8 @@
           <el-col :span="10"><p>结算金额：<span>{{detail.clearingAmount }}</span></p></el-col>
         </el-row>
         <el-row>
-          <el-col :span="7"><p>合同段开始桩号：<span>{{detail.stakeBegin }}</span></p></el-col>
-          <el-col :span="7"><p>合同段结束桩号：<span>{{detail.stakeEnd}}</span></p></el-col>
+          <el-col :span="7"><p>开始桩号：<span>{{detail.stakeBegin }}</span></p></el-col>
+          <el-col :span="7"><p>结束桩号：<span>{{detail.stakeEnd}}</span></p></el-col>
         </el-row>
         <el-row>
           <el-col :span="24">

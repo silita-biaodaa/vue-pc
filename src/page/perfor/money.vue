@@ -10,7 +10,7 @@
                       </li>
                     </ul>
                 </el-col>    
-                <el-col :span='8' class="ttt" >    
+                <el-col :span='10' class="ttt" >    
                      <el-input
                         placeholder="最低价(万)"
                         v-model="low"

@@ -55,7 +55,7 @@
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
-              龙山县新城九年制学校太平村小改扩建项目
+              {{titles}}
           </div>
           <div>
             <i class="el-icon-close"  @click="close" ></i>
@@ -170,11 +170,52 @@
                    <div class="main-no"  v-show="noPeo" >
                     暂无数据
                   </div>
+
+                   <div class="ur-main">
+                    从业人员信息
+                  </div>
+                  <div class="main-table">
+                    <div style="width:205px;" class="bor" >
+                       担任角色  
+                    </div>
+                    <div style="width:110px;" class="bor"  >
+                       姓名
+                    </div>
+                     <div style="width:300px;" class="bor"  >
+                       证件号码
+                    </div>
+                     <div style="width:150px;" class="bor"  >
+                       注册类型及等级
+                    </div>
+                    <div style="width:200px;border:none" class="bor"  >
+                       执业印章号
+                    </div>
+                  </div>
+
+                  <div class="main-table" style="backgroundColor: #fff;"   v-for="(el) in debid.persons" :key="el.idCard" >
+                    <div style="width:205px;" class="bor" >
+                       {{el.role}}
+                    </div>
+                    <div style="width:110px;" class="bor"  >
+                       {{el.name}}
+                    </div>
+                     <div style="width:300px;" class="bor"  >
+                       {{el.idCard}}
+                    </div>
+                     <div style="width:150px;" class="bor"  >
+                       {{el.category}}
+                    </div>
+                    <div style="width:200px;border:none" class="bor"  >
+                        {{el.certNo}}
+                    </div>
+                  </div>
+                   <div class="main-no"  v-show="noRol" >
+                    暂无数据
+                   </div>
         </div>
      
       </div>
    </div>
-   
 
 </div>
 </template>
@@ -183,13 +224,16 @@ import { cprodet,lprodet } from '@/api/index';
 export default {
   data () {
     return {
-      id:'38fe6da745246c2353b7e9a8f0344607',
+      id:'',
       company:[],
       isshow:false,
       title:'',
       debid:{},
       noPeo:false,
       ubl:false,
+      noRol:false,
+      noPeoL:false,
+      name:'',
     }
   },
   methods: {
@@ -206,14 +250,19 @@ export default {
     gainPeo(el) {
       this.isshow = true
       this.modalHelper.afterOpen();
-     
        lprodet({proId:this.id,tabType:'completion',pkid:el.pkid}).then( res => {
         if(res.code == 1) {
+          console.log(res);
           this.debid = res.data
           if(this.debid.companys.length == 0 ) {
             this.noPeoL = true
           } else {
             this.noPeoL = false
+          }
+           if(this.debid.persons.length == 0 ) {
+            this.noRol = true
+          } else {
+            this.noRol = false
           }
          
         }
@@ -224,8 +273,9 @@ export default {
       this.isshow = false
     }
   },
+  props: ['titles'],
   created () {
-    // this.id = this.$route.query.id;
+    this.id = this.$route.query.id;
     this.gaindet()
   },
   components: {
@@ -234,9 +284,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .ubid {
-  margin-top: 40px;
   background-color: #fff;
-  padding: 20px 10px 30px;
+  padding: 0 10px 30px;
   margin-bottom: 200px;
   .ub-table {
     border: 1px solid #F2F2F2;
