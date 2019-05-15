@@ -49,8 +49,7 @@
            <div class="left " style="width:80px;">
               {{(current-1)*20+(i+1)}}
            </div>
-             <div class="left" style="width:350px;textAlign:left">
-              {{el.proName}}
+             <div class="left" style="width:350px;textAlign:left">{{el.proName}}
            </div>
              <div class="left" style="width:120px;">
                {{el.proType}}

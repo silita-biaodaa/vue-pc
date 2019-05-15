@@ -42,7 +42,7 @@
   <div class="ub-nav">
     <span v-for="(el,i) in navs" :key="i" :class="el.i  ? 'p-color' : '' " @click="jump(el)"  >{{el.name}} <span v-if="el.to" >({{el.all}})</span> </span>
   </div>
-  <router-view :titles='detail.proName' ></router-view>
+  <router-view :titles='detail.proName' :area='detail.proWhere' ></router-view>
 
 </div>
 </template>

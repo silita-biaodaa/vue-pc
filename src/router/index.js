@@ -53,6 +53,9 @@ import upact from '@/page/perfor/upact'
 import uallow from '@/page/perfor/uallow'
 import ulete from '@/page/perfor/ulete'
 
+import build from '@/page/build/build' 
+
+
 
 
 
@@ -410,6 +413,14 @@ export default new Router({
           }
         },
       ]  
+    },
+    {
+      path:'/build',
+      name:'build',
+      component: build,
+      meta: {
+        tabNo: 6
+      }
     }
   ]
 })

@@ -51,7 +51,7 @@
         </div>
    </div>
 
-   <div class="black-pop" v-show="isshow" >
+   <div class="black-pop" v-if="isshow" >
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
@@ -146,7 +146,7 @@
                        企业名称
                     </div>
                      <div style="width:300px;" class="bor"  >
-                       组织机构代码
+                       统一社会信用代码
                     </div>
                      <div style="width:150px;border:none" class="bor"  >
                        所在省份

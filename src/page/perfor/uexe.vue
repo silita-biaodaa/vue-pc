@@ -46,7 +46,7 @@
         </div>
    </div>
 
-   <div class="black-pop" v-show="isshow" >
+   <div class="black-pop" v-if="isshow" >
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>

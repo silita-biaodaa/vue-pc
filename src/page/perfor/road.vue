@@ -53,8 +53,7 @@
             <div class="left " style="width:60px;">
               {{(current-1)*20+(i+1)}}
            </div>
-             <div class="left  show-f" style="width:260px;">
-              {{el.proName}}
+            <div class="left  show-f" style="width:260px;">{{el.proName}}
            </div>
            <div class="left" style="width:160px;">
               {{el.section ? el.section : '/'}}
@@ -67,7 +66,7 @@
            </div>
             
              <div class="left" style="width:100px;">
-              {{el.build ? el.build : '--'}}
+              {{el.buildEnd ? el.buildEnd : '--'}}
            </div>
              <div class="left" style="width:100px;">
               {{el.proWhere}}

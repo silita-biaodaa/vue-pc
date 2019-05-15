@@ -54,7 +54,7 @@
         </div>
    </div>
 
-   <div class="black-pop" v-show="isshow" >
+   <div class="black-pop" v-if="isshow" >
       <div class="ur-pop"  >
         <div class="ur-title">
           <div>
@@ -104,7 +104,7 @@
                          项目属地
                        </div>
                         <div class="show-text " style="width:291px;border:none" >
-                         {{debid.provZhongbiaoCode}}
+                         {{area}}
                        </div>
                   </div>
                    <div class="show-del" >
@@ -256,7 +256,7 @@ export default {
       noPeoL:false
     }
   },
-  props: ['titles'],
+  props: ['titles','area'],
   methods: {
     gaindet() {
       cprodet({proId:this.id,tabType:'zhaotoubiao',pageNo:'1',pageSize:'1000'}).then(res => {
@@ -361,7 +361,7 @@ export default {
       width: 998px;
       height: auto;
       position: fixed;
-      top: 200px;
+      top: 130px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #fff;

@@ -174,7 +174,7 @@ export default {
          {
            name:'在建',
            url:require('./assets/img/icon-zaij.png'),
-           to:'/',
+           to:'/build',
         }
      ],
      rank:0,

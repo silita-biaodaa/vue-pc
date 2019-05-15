@@ -26,7 +26,7 @@
         <el-row>
           <el-col :span="7"><p>开工日期：<span>{{detail.begined}}</span></p></el-col>
           <el-col :span="7"><p>交工日期：<span>{{detail.ended}}</span></p></el-col>
-          <el-col :span="10"><p>俊工日期：<span>{{detail.ended }}</span></p></el-col>
+          <el-col :span="10"><p>竣工日期：<span>{{detail.ended }}</span></p></el-col>
         </el-row>
          <el-row>
           <el-col :span="7"><p>质量评定情况：<span>{{detail.assess}}</span></p></el-col>
