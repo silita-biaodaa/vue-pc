@@ -50,8 +50,14 @@ export default {
        this.i = 2
     },
   },
+  watch: {
+      $route(to,form) {
+        this.title = ''    
+      }
+  },
   created () {
-    
+    this.i = this.$route.meta.i
+    this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
   },
   components: {
   }

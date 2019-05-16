@@ -169,7 +169,7 @@ export default {
         {
            name:'人员',
            url:require('./assets/img/icon-reny.png'),
-           to:'/',
+           to:'/crew',
         },
          {
            name:'在建',

@@ -182,6 +182,8 @@ export default {
       this.gainList()
     },
     gainList() {
+      console.log(this.search,1);
+      
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"shuili",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
             res.data.forEach(el => {
@@ -237,7 +239,7 @@ export default {
     }
   },
   created () {
-    
+    // this.search = localStorage.getItem('title') ? localStorage.getItem('title') : ''
   },
   components: {
   }

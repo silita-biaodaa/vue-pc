@@ -361,7 +361,7 @@ export default {
       width: 998px;
       height: auto;
       position: fixed;
-      top: 130px;
+      top: 110px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #fff;
@@ -370,7 +370,7 @@ export default {
       box-sizing: border-box;
       .auto-pop {
         overflow-x: auto;
-        height: 440px;
+        height: 420px;
       }
       .ur-title {
         height: 60px;

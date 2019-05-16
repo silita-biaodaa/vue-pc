@@ -25,8 +25,8 @@
         </div>
       </div>
     </div>
-    <div class="build-search">     
-        共找到<span class="p-color" >{{total}}</span>条在建信息
+    <div class="build-search">
+      共搜索到<span class="p-color" >{{total}}</span>条在建信息     
     </div>
     <div class="build-list">
       <div class="build-table" >
@@ -78,7 +78,7 @@
 </div>
 </template>
 <script>
-import { under } from '@/api/index'
+import { under,underq } from '@/api/index'
 export default {
   data() {
     return {
@@ -93,6 +93,7 @@ export default {
     }
   },
   created () {
+    this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.gainList()
   },
   methods: {
@@ -126,10 +127,25 @@ export default {
             this.current = 1
             this.gainList()
           } else {
-             const { href } = this.$router.resolve({
-              path:'/certifi',query:{name:this.name,card:this.idcard} 
+             underq({name:this.name,idCard:this.idcard,type:'api'}).then(res => {
+               console.log(res);
+               
+             if(res.code == 1) {
+               if(res.data.length == 0 ) {
+                 this.$confirm('暂无数据', '提示', {
+                   showCancelButton:false,
+                   showConfirmButton:false,
+                   type: 'warning'
+                  })
+               } else {
+                  const { href } = this.$router.resolve({
+                    path:'/certifi',query:{name:this.name,card:this.idcard} 
+                  })
+                   window.open(href, '_blank', )
+               }
+             }
             })
-             window.open(href, '_blank', )
+            
           }
         }
       } else {
@@ -242,6 +258,7 @@ export default {
         color:#fff;
         line-height: 46px;
         text-align: center;
+        cursor: pointer;
       }
     }
   }
@@ -279,6 +296,7 @@ export default {
       font-size: 16px;
       color:#999;
       cursor: pointer;
+   
     }
     a:hover{color: #FE6603}
     .noneS {

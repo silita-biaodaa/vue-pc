@@ -196,12 +196,15 @@ export default {
   },
   watch: {
     title(val) {
+      console.log('搜索');
+      
       this.search = val
       this.current = 1
        this.gainList()
     }
   },
   created () {
+    this.search = localStorage.getItem('title') ? localStorage.getItem('title') : ''
   },
   components: {
   }
@@ -213,7 +216,6 @@ export default {
     padding: 15px 10px 10px;
     background-color: #fff;
     font-size: 14px;
-
   }
     .select {
        font-size: 16px;

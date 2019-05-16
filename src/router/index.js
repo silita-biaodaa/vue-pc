@@ -55,7 +55,10 @@ import ulete from '@/page/perfor/ulete'
 
 import build from '@/page/build/build' 
 import certifi from '@/page/build/certifi' 
-// certifi
+
+import crew from '@/page/people/crew' 
+
+// crew
 
 
 
@@ -429,11 +432,19 @@ export default new Router({
       meta: {
         tabNo: 6
       }
+    },
+    {
+      path: '/crew',
+      name: 'crew',
+      component: crew,
+      meta: {
+        tabNo: 5
+      }
     }
   ]
 })
 
-// certifi
+// crew
 // 模板
 //  {
 //    path:'/',

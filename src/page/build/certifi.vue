@@ -1,7 +1,7 @@
 <template>
 <div class="certifi">
    <div class="certifi-nav">
-     首页 > 人员> {{name}} > 注册证书（与下面对应）
+     首页 > 人员> {{name}} > 注册证书
    </div>
    <div class="certifi-text" >
      <div >
@@ -126,6 +126,7 @@ export default {
   width: 1020px;
   box-sizing: border-box;
   margin: 0 auto;
+  padding-bottom: 200px;
   .certifi-nav {
     line-height: 40px;
     font-size: 12px;

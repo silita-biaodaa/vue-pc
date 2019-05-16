@@ -55,6 +55,16 @@ export default {
            to:'/perfor',
            i: 3
          },
+         {
+           name:'人员',
+           to:'/crew',
+           i: 4
+         },
+         {
+           name:'在建',
+           to:'/build',
+           i: 5
+         },
        ],
      select:'',
      rank:0,
@@ -67,14 +77,14 @@ export default {
       this.way = el.to
     },
     mapping() {
-      this.selects.forEach(el => {
-         if(this.$route.path == el.to) {
-           this.way = el.to
-         }
-      })
+      // this.selects.forEach(el => {
+      //    if(this.$route.path == el.to) {
+      //      this.way = el.to
+      //    }
+      // })
+      this.way = this.$route.fullPath
     },
     jump() {
-      // this.$router.push('/synth')
       let url=this.$router.resolve({
         path:'/synth'
       })
@@ -82,13 +92,18 @@ export default {
     },
     engine() {
       localStorage.removeItem('title')
-      localStorage.removeItem('way')
-      console.log(this.$route.matched[0].path);
-      
-      if(this.$route.matched[0].path == '/perfor') {
+      localStorage.removeItem('way')     
+      if(this.$route.fullPath.indexOf('perfor')== 1) {
+          if(this.way.indexOf('perfor') == 1) {
+          this.$emit('vague',{cur:this.select});
+        } else { 
+          localStorage.setItem('title',this.select)
+          localStorage.setItem('way',this.way)  
+          this.$router.push({path:this.way})
+        }
           this.$emit('vague',{cur:this.select});
       } else {
-         if(this.$route.path == this.way) {
+         if(this.$route.fullPath == this.way) {
           this.$emit('vague',{cur:this.select});
         } else { 
           localStorage.setItem('title',this.select)
@@ -105,38 +120,34 @@ export default {
           this.rank = 1
        } else if (this.$route.path == '/company') {
           this.rank = 2
-       } else {
+       } else if (this.$route.fullPath.indexOf('perfor') == 1 ) {
          this.rank = 3
+       } else if (this.$route.path == '/crew') {
+         this.rank = 4
+       } else if (this.$route.path == '/build') {
+         this.rank = 5
        }
-    },
+    },   
     reloca() {      
-      if(this.$route.path == localStorage.getItem('way')) {
+      if(this.$route.fullPath == localStorage.getItem('way')) {
          this.select = localStorage.getItem('title')
-      } else {
+      } else  {
+          if(localStorage.getItem('way')) {
+              if (this.$route.fullPath.indexOf('perfor') == 1 &&  localStorage.getItem('way').indexOf('perfor') == 1 )  {
+                 return this.select = localStorage.getItem('title')
+              }
+          }
          localStorage.removeItem('title')
          this.select = ''
       }
     }
   },
   created () {
+    console.log(this.$route);
     this.reloca() 
     this.paths()
     this.mapping()
   },
-  // mounted () {
-  //   Window.addEventListener('keydown', () => {
-  //     if(event.keyCode == 13) {
-  //        console.log(222)
-  //     }
-  //   })
-  // },
-  // beforeDestroy () {
-  //   Window.removeEventListener('keydown', () => {
-  //     if(event.keyCode == 13) {
-  //        console.log(222)
-  //     }
-  //   })
-  // },
   computed: {
     synth() {
       if(this.$route.name == 'company') {
@@ -148,15 +159,14 @@ export default {
   },
   watch: {
       $route(to,form) {
-        if(to.path == "/tender") {
-          this.rank = 1
-        }else if(to.path == '/'|| to.path == '/bid' ) {
-          this.rank = 0
-        } else if (to.path == "/company") {
-          this.rank = 2
-        } else  {
-          this.rank = 3
-        }
+       if(form.name == 'water' && (to.name == 'perlist' || to.name == 'road' ) ) {
+          this.select = ''
+       } else if (form.name == 'road' && (to.name == 'perlist' || to.name == 'water' ) ) {
+          this.select = ''
+       }  else if (form.name == 'perlist' && (to.name == 'road' || to.name == 'water' ) ) {
+          this.select = ''
+       }
+        
       }
   },
   components: {
@@ -212,7 +222,7 @@ export default {
          color: #FE6603;
        }
        li {
-         width: 18%;
+         width: 13%;
          cursor: pointer;
        }
      }
