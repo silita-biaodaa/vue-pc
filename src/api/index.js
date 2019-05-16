@@ -242,3 +242,7 @@ export const count = params => {
 export const under = params => {
   return axios.post('under/list', params).then(res => res.data)
 }
+
+export const underq = params => {
+  return axios.post('under/query', params).then(res => res.data)
+}

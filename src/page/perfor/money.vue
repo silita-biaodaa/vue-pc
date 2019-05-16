@@ -53,7 +53,7 @@ export default {
         {
           name:'500-1000万',
           min:'500',
-          man:'1000'
+          max:'1000'
         },
         {
           name:'1000万以上',
@@ -69,54 +69,19 @@ export default {
   },
   methods: {
     evalclass(el) {
-
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-        } else {
             this.low = ''
             this.high = ''
             this.min = el.min
-            this.max = el.man
-            this.$emit('amount', {state:this.min,end:this.max})
-        }
-      } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          })
-      }
-     
+            this.max = el.max
+            this.$emit('amount', {state:this.min,end:this.max})  
     },
     fade() {
-      
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-        } else {
           if(this.low =='' && this.high =='') {
             return
           }
           this.min = '-1'
           this.max = ''
           this.$emit('amount', {state:this.low,end:this.high})
-        }
-      } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          })
-      }
-
-    
     },
     allmon() {
       if(this.low == '' && this.high =='' ) {

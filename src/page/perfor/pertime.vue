@@ -63,52 +63,19 @@ export default {
   },
   methods: {
     evalclass(el) {
-      
-    if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-        } else {
-           this.defN = ''
-           this.defO = ''
-           this.Ntime = el.new
-           this.Otime = el.old
-           this.$emit('time', {new:this.Ntime,old:this.Otime})
-        }
-      } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          })
-      }
-
+        this.defN = ''
+        this.defO = ''
+        this.Ntime = el.new
+        this.Otime = el.old
+        this.$emit('time', {new:this.Ntime,old:this.Otime})
     },
     find() {
-
-       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-        } else {
-            if(this.defN == '' && this.defO == '') {
-              return
-            }
-            this.Ntime = null
-            this.Otime = null
-            this.$emit('time', {new:this.defN,old:this.defO})
-        }
-      } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          })
-      }
+         if(this.defN == '' && this.defO == '') {
+           return
+         }
+         this.Ntime = null
+         this.Otime = null
+         this.$emit('time', {new:this.defN,old:this.defO})
     },
     gainTime() {
       var myDate = new Date();

@@ -46,8 +46,8 @@
           岗位类别
         </div>
       </div>
-       <div class="build-in" v-for="(el,i) in list" :key="i">
-          <div style="width:80px;"  >
+      <a class="build-in" v-for="(el,i) in list" :key="i"  @click="tobuild(el)"  > 
+        <div style="width:80px;"  >
              {{(current-1)*20+(i+1)}}
           </div>
           <div style="width:150px;" >
@@ -62,7 +62,7 @@
           <div style="width:240px;" >
             {{el.type}}
           </div>
-      </div>
+      </a>
       <div class="noneS" v-show="noList" >
           <img src="../../assets/img/card.png" alt="">
       </div>
@@ -74,6 +74,7 @@
           ></nav-page>
       </div>
     </div>
+    <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -87,7 +88,8 @@ export default {
       total:0,
       list:[],
       noList:false,
-      title:''
+      title:'',
+      svip:false
     }
   },
   created () {
@@ -115,11 +117,54 @@ export default {
      
     },
     bsearch() {
-      if(this.idcard == '') {
-        this.current = 1
-        this.gainList()
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        } else {
+          if(this.idcard == '') {
+            this.current = 1
+            this.gainList()
+          } else {
+             const { href } = this.$router.resolve({
+              path:'/certifi',query:{name:this.name,card:this.idcard} 
+            })
+             window.open(href, '_blank', )
+          }
+        }
       } else {
-        
+          this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          })
+      }
+    
+    },
+    closeload(val) {
+      this.svip = val.cur
+    },
+    tobuild(el) {
+       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        } else {
+          const { href } = this.$router.resolve({
+              path:'/certifi',query:{id:el.pkid} 
+            })
+          window.open(href, '_blank', )
+        }
+      } else {
+          this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          })
       }
     },
     gainList() {
@@ -233,7 +278,9 @@ export default {
       min-height: 60px;
       font-size: 16px;
       color:#999;
+      cursor: pointer;
     }
+    a:hover{color: #FE6603}
     .noneS {
     width: 1020px;
     margin: 0 auto;
@@ -250,6 +297,7 @@ export default {
        display: flex;
        justify-content: center;
      }
+     
   }
 }
 </style>

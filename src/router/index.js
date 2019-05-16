@@ -54,8 +54,8 @@ import uallow from '@/page/perfor/uallow'
 import ulete from '@/page/perfor/ulete'
 
 import build from '@/page/build/build' 
-
-
+import certifi from '@/page/build/certifi' 
+// certifi
 
 
 
@@ -421,11 +421,19 @@ export default new Router({
       meta: {
         tabNo: 6
       }
+    },
+    {
+      path: '/certifi',
+      name: 'certifi',
+      component: certifi,
+      meta: {
+        tabNo: 6
+      }
     }
   ]
 })
 
-
+// certifi
 // 模板
 //  {
 //    path:'/',

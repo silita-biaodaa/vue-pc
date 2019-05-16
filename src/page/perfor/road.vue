@@ -132,28 +132,13 @@ export default {
       this.gainList()
     },
     levelif(el) {
-      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
+        if(el.value  == '') {
+           this.proType = null
         } else {
-            if(el.value  == '') {
-               this.proType = null
-            } else {
-              this.proType = el.value
-            }
-             this.current = 1
-             this.gainList()
+          this.proType = el.value
         }
-      } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$router.push('/logo')
-          })
-      }
+         this.current = 1
+         this.gainList()
     },
     gainMon(val) {
       this.amountStart = val.state
