@@ -114,7 +114,7 @@ export default {
         this.city[0].i = false
         if( this.citys.indexOf(el.value) == -1 ) {
           if(this.citys.length >= 3 ) {
-            this.$confirm('最多可选三个市级条件', '提示', {
+            this.$confirm('最多只能选择三个市级', '提示', {
                     type: 'warning',
                     showCancelButton:false,
                     showConfirmButton:false

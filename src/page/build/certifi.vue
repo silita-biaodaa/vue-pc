@@ -5,12 +5,14 @@
    </div>
    <div class="certifi-text" >
      <div >
-       <img src="../../assets/img/icon-nanxing.png" alt="">
+       <img src="../../assets/img/icon-nvxing.png" alt="" v-if="detail.sex == '女'" >
+       <img src="../../assets/img/icon-nanxing.png" alt="" v-else >
+       
      </div>
      <div class="certifi-del" >
        <p class="cer-name" >{{detail.name}}</p>
        <p>身份证号码：<span>{{detail.idCard}}</span></p>
-       <p>性别：<span>男</span></p>
+       <p>性别：<span>{{detail.sex ? detail.sex : '男'}}</span></p>
      </div>
    </div>
    <div  class="certifi-list" >
@@ -37,27 +39,30 @@
          押证时间
        </div>
      </div>
-    <div class="certifi-in" >
+    <div class="certifi-in"  v-for="(el,i) in list" :key="i" >
        <div style="width:200px;" >
-         {{detail.unitOrg}}
+         {{el.unitOrg}}
        </div>
        <div style="width:150px;" >
-         {{detail.type}}
+         {{el.type}}
        </div>
        <div style="width:230px;" >
-         {{detail.proName}}
+         {{el.proName}}
        </div>
        <div style="width:200px;" >
-         {{detail.proOrg}}
+         {{el.proOrg}}
        </div>
        <div style="width:120px;" >
-         {{detail.city}}
+         {{el.city}}
        </div>
        <div style="width:120px;" >
-        {{detail.date}}
+        {{el.date}}
        </div>
      </div>
-   </div>
+    </div>
+    <div class="cer-no" v-show="ishow" >
+       暂无数据
+    </div>
 </div>
 </template>
 <script>
@@ -68,26 +73,38 @@ export default {
       name:'',
       card:'',
       id:'',
-      detail:{}
+      detail:{},
+      list:[],
+      ishow:false
     }
   },
   methods: {
     gaindel() {
       if(this.$route.query.card == null) {
-      this.id = this.$route.query.id
+        this.id = this.$route.query.id
          underq({pkid:this.id,type:'detail'}).then(res => {
          if(res.code == 1) {
-           console.log(res);
            this.detail = res.data[0]
+           this.list = res.data 
+           if(this.list.length == 0) {
+             this.ishow = true
+           } else {
+             this.ishow = false
+           }
          }
         })
       } else {
          this.name = this.$route.query.name
-          this.card = this.$route.query.card
+         this.card = this.$route.query.card
          underq({name:this.name,idCard:this.card,type:'api'}).then(res => {
          if(res.code == 1) {
-           console.log(res);
            this.detail = res.data[0]
+           this.list = res.data 
+           if(this.list.length == 0) {
+             this.ishow = true
+           } else {
+             this.ishow = false
+           }
          }
         })
       }
@@ -169,6 +186,15 @@ export default {
       font-size: 14px;
       border-bottom: 1px solid #f2f2f2;
     }
+  }
+  .cer-no {
+    height: 56px;
+    line-height: 56px;
+    text-align: center;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #fff;
+    font-size: 14px;
+    color:#999;
   }
 }
 </style>
