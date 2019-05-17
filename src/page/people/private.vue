@@ -1,47 +1,47 @@
 <template>
 <div class="sign">
   <div class="sign-top">
-     <span>执业注册信息（{{total}}）</span>
+     <span>个人工程业绩（{{total}}）</span>
   </div>
   <div class="sign-table" >
       <div class="certifi-table" >
          <div style="width:70px;" >
            序号
          </div>
-         <div style="width:160px;" >
-           注册类别
+         <div style="width:100px;" >
+           承担角色
          </div>
          <div style="width:80px;" >
-           专业
+           项目类型
          </div>
-         <div style="width:153px;" >
-           执业印章号
+         <div style="width:213px;" >
+           项目名称
          </div>
-         <div style="width:200px;" >
-           单位名称
+         <div style="width:130px;" >
+           项目属地
          </div>
-         <div style="width:110px;" >
-           有效期
+         <div style="width:180px;" >
+           所在企业
          </div>
       </div>
       <div class="certifi-in"  v-for="(el,i) in list" :key="i"  >
          <div style="width:70px;" >
            {{i + 1 }}
          </div>
-         <div style="width:160px;" >
-           {{el.category}}
+         <div style="width:100px;" >
+           {{el.role}}
          </div>
          <div style="width:80px;" >
-           {{el.major}}
+           {{el.proType}}
          </div>
-         <div style="width:153px;" >
-           {{el.sealNo}}
+         <div style="width:213px;" >
+           {{el.proName}}
          </div>
-         <div style="width:200px;" >
-            {{el.comName}}
+         <div style="width:130px;" >
+            {{el.proWhere}}
          </div>
-         <div style="width:110px;" >
-            {{el.validDate}}
+         <div style="width:180px;" >
+            {{el.company}}
          </div>
       </div>
       <div class="certifi-no" v-show="ishow" >
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     gainList() {
-      persond({certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,tabType:'registerCert',name:this.name}).then(res => {
+      persond({certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,tabType:'personProject',name:this.name}).then(res => {
         if(res.code == 1) {
-          this.total = res.data.personQualificat.length
-          this.list = res.data.personQualificat
+          this.total = res.data.prosonProjectList.length
+          this.list = res.data.prosonProjectList
           if(this.total == 0 ) {
               this.ishow = true
           } else {

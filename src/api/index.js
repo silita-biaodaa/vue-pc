@@ -246,3 +246,6 @@ export const under = params => {
 export const underq = params => {
   return axios.post('under/query', params).then(res => res.data)
 }
+export const persond = params => {
+  return axios.post('person/detail', params).then(res => res.data)
+}

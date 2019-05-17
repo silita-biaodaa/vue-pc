@@ -66,7 +66,7 @@
             {{el.major ? el.major : '--'}}
           </div>
           <div style="width:130px;" class="c-cen" >
-            <div class="crew-btn" >
+            <div class="crew-btn"  @click="jumpya(el)" >
               押证
             </div>
         </div>
@@ -82,6 +82,7 @@
           ></nav-page>
       </div>
   </div>   
+  <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -96,7 +97,8 @@ export default {
       category:'全部',
       total:0,
       person:[],
-      noList:false
+      noList:false,
+      svip:false
     }
   },
   created () {
@@ -108,6 +110,9 @@ export default {
     state:'',
   },
   methods: {
+    closeload(val) {
+      this.svip = val.cur
+    },
     entitle(val) {
       this.title = val.cur
       this.current = 1
@@ -155,7 +160,28 @@ export default {
           this.modalHelper.afterOpen();
         } else {
           const { href } = this.$router.resolve({
-              path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name} 
+              path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
+            })
+          window.open(href, '_blank', )
+        }
+      } else {
+          this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          })
+      }
+    },
+    jumpya(el) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        } else {
+          const { href } = this.$router.resolve({
+              path:'/personnel/escort',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
             })
           window.open(href, '_blank', )
         }

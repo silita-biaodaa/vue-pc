@@ -59,10 +59,17 @@ import certifi from '@/page/build/certifi'
 import crew from '@/page/people/crew' 
 import personnel from '@/page/people/Personnel' 
 import sign from '@/page/people/sign' 
+import privates from '@/page/people/private' 
+import dys from '@/page/people/dys' 
+import modify from '@/page/people/modify' 
+import escort from '@/page/people/escort' 
 
 
 
-// sign
+
+
+
+// escort
 
 
 
@@ -457,6 +464,42 @@ export default new Router({
           component: sign,
           meta: {
             i: 0,
+            tabNo: 5
+          }
+        },
+        {
+          path: 'private',
+          name: 'private',
+          component: privates,
+          meta: {
+            i: 1,
+            tabNo: 5
+          }
+        },
+        {
+          path: 'dys',
+          name: 'dys',
+          component: dys,
+          meta: {
+            i: 2,
+            tabNo: 5
+          }
+        },
+        {
+          path: 'modify',
+          name: 'modify',
+          component: modify,
+          meta: {
+            i: 3,
+            tabNo: 5
+          }
+        },
+        {
+          path: 'escort',
+          name: 'escort',
+          component: escort,
+          meta: {
+            i: 4,
             tabNo: 5
           }
         },

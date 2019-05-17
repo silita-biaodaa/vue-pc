@@ -1,7 +1,7 @@
 <template>
 <div class="personnel">
   <div class="personnel-nav">
-     首页 > 人员> {{name}} > 注册证书
+     <span @click="$router.push('/')" >首页</span> > <span @click="$router.push('/crew')" >人员</span>> {{name}} > {{names}}
   </div>
   <div class="certifi-text" >
      <div >
@@ -39,45 +39,68 @@ export default {
       name:'',
       sex:'',
       idCard:'',
+      certNo:'',
+      comId:'',
+      comName:'',
+      tabCode:'',
       tab:[
          {
           name:'注册证书',
-          to:'',
-          i: true
+          to:'sign',
+          i: false
         },
         {
           name:'个人业绩',
-          to:'',
+          to:'private',
           i: false
         },
         {
           name:'不良记录',
-          to:'',
+          to:'dys',
           i: false
         },
         {
           name:'变更记录',
-          to:'',
+          to:'modify',
           i: false
         },
         {
           name:'押证详情',
-          to:'',
+          to:'escort',
           i: false
         },
-      ]
+      ],
+      innerid:''
     }
+      // this.tab[this.$route.mate.i]
   },
   methods: {
     jumpto(el) {
-
+      this.$router.push({path:el.to,query:{certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,name:this.name,innerid:this.innerid}})
+       this.tab.forEach(el => {
+         el.i = false
+       }); 
+       el.i = true 
+       this.names = el.name
+    },
+    search() {
+       this.tab.forEach(el => {
+         el.i = false
+       }); 
+       this.tab[this.$route.meta.i].i = true 
+       this.names = this.tab[this.$route.meta.i].name
     }
   },
   created () {
-    console.log(this.$route);
     this.name = this.$route.query.name
     this.idCard = this.$route.query.idCard
     this.sex = this.$route.query.sex
+    this.certNo = this.$route.query.certNo
+    this.comId = this.$route.query.comId
+    this.comName = this.$route.query.comName
+    this.tabCode = this.$route.query.tabCode
+    this.innerid = this.$route.query.innerid
+    this.search()
   },
   components: {
 

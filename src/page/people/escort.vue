@@ -1,47 +1,53 @@
 <template>
 <div class="sign">
   <div class="sign-top">
-     <span>执业注册信息（{{total}}）</span>
+     <span>押证详情（{{total}}）</span>
   </div>
   <div class="sign-table" >
       <div class="certifi-table" >
-         <div style="width:70px;" >
+         <div style="width:60px;" >
            序号
          </div>
          <div style="width:160px;" >
-           注册类别
-         </div>
-         <div style="width:80px;" >
-           专业
-         </div>
-         <div style="width:153px;" >
-           执业印章号
-         </div>
-         <div style="width:200px;" >
            单位名称
          </div>
+         <div style="width:153px;" >
+           工程名称
+         </div>
+         <div style="width:100px;" >
+           建设单位
+         </div>
+         <div style="width:100px;" >
+           岗位类别
+         </div>
+         <div style="width:90px;" >
+           所在市州
+         </div>
          <div style="width:110px;" >
-           有效期
+           押证时间
          </div>
       </div>
       <div class="certifi-in"  v-for="(el,i) in list" :key="i"  >
-         <div style="width:70px;" >
+         <div style="width:60px;" >
            {{i + 1 }}
          </div>
          <div style="width:160px;" >
-           {{el.category}}
-         </div>
-         <div style="width:80px;" >
-           {{el.major}}
+           {{el.unitOrg}}
          </div>
          <div style="width:153px;" >
-           {{el.sealNo}}
+           {{el.proName}}
          </div>
-         <div style="width:200px;" >
-            {{el.comName}}
+         <div style="width:100px;" >
+           {{el.proOrg}}
+         </div>
+         <div style="width:100px;" >
+            {{el.type}}
+         </div>
+         <div style="width:90px;" >
+           {{el.city}}
          </div>
          <div style="width:110px;" >
-            {{el.validDate}}
+            {{el.date}}
          </div>
       </div>
       <div class="certifi-no" v-show="ishow" >
@@ -52,17 +58,11 @@
 </div>
 </template>
 <script>
-import { persond } from '@/api/index'
+import { underq } from '@/api/index'
 export default {
   data () {
     return {
-      name:'',
-      sex:'',
-      idCard:'',
-      certNo:'',
-      comId:'',
-      comName:'',
-      tabCode:'',
+      innerid:'',
       list:[],
       total:0,
       ishow:false
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     gainList() {
-      persond({certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,tabType:'registerCert',name:this.name}).then(res => {
+      underq({innerid:this.innerid,type:'detail'}).then(res => {
         if(res.code == 1) {
-          this.total = res.data.personQualificat.length
-          this.list = res.data.personQualificat
+          this.total = res.data.length
+          this.list = res.data
           if(this.total == 0 ) {
               this.ishow = true
           } else {
@@ -85,13 +85,9 @@ export default {
     }
   },
   created () {
-    this.name = this.$route.query.name
-    this.idCard = this.$route.query.idCard
-    this.sex = this.$route.query.sex
-    this.certNo = this.$route.query.certNo
-    this.comId = this.$route.query.comId
-    this.comName = this.$route.query.comName
-    this.tabCode = this.$route.query.tabCode
+    this.innerid = this.$route.query.innerid
+    console.log(this.$route.query.innerid);
+    
     this.gainList()
   },
   components: {

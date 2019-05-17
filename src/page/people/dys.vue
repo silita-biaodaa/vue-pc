@@ -1,50 +1,50 @@
 <template>
 <div class="sign">
   <div class="sign-top">
-     <span>执业注册信息（{{total}}）</span>
+     <span>不良记录（{{total}}）</span>
   </div>
   <div class="sign-table" >
       <div class="certifi-table" >
          <div style="width:70px;" >
            序号
          </div>
-         <div style="width:160px;" >
-           注册类别
+         <div style="width:190px;" >
+           项目名称
          </div>
-         <div style="width:80px;" >
-           专业
+         <div style="width:170px;" >
+           不良行为内容
          </div>
-         <div style="width:153px;" >
-           执业印章号
+         <div style="width:103px;" >
+           性质
          </div>
-         <div style="width:200px;" >
-           单位名称
+         <div style="width:100px;" >
+           发布日期
          </div>
-         <div style="width:110px;" >
-           有效期
+         <div style="width:140px;" >
+           发布部门
          </div>
       </div>
       <div class="certifi-in"  v-for="(el,i) in list" :key="i"  >
          <div style="width:70px;" >
            {{i + 1 }}
          </div>
-         <div style="width:160px;" >
-           {{el.category}}
+         <div style="width:190px;" >
+           {{el.projectname}}
          </div>
-         <div style="width:80px;" >
-           {{el.major}}
+         <div style="width:170px;" >
+           {{el.badbehaviorcontent}}
          </div>
-         <div style="width:153px;" >
-           {{el.sealNo}}
+         <div style="width:103px;" >
+           {{el.nature}}
          </div>
-         <div style="width:200px;" >
-            {{el.comName}}
+         <div style="width:100px;" >
+            {{el.publishdate}}
          </div>
-         <div style="width:110px;" >
-            {{el.validDate}}
+         <div style="width:140px;" >
+            {{el.publishsite}}
          </div>
       </div>
-      <div class="certifi-no" v-show="ishow" >
+      <div class="certifi-no"  v-show="ishow" >
         暂无数据
       </div>
   </div>
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     gainList() {
-      persond({certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,tabType:'registerCert',name:this.name}).then(res => {
+      persond({certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,tabType:'badRecord',name:this.name}).then(res => {
         if(res.code == 1) {
-          this.total = res.data.personQualificat.length
-          this.list = res.data.personQualificat
+          this.total = res.data.badRecord.length
+          this.list = res.data.badRecord
           if(this.total == 0 ) {
               this.ishow = true
           } else {
