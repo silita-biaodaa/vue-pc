@@ -31,13 +31,13 @@
         <div class="left" style="width:52px"> 
            序号
         </div>
-        <div class="left" style="width:150px"> 
+        <div class="left" style="width:80px"> 
            姓名
         </div>
-        <div class="left" style="width:150px"> 
+        <div class="left" style="width:140px"> 
            注册类别
         </div>
-        <div class="left" style="width:160px"> 
+        <div class="left" style="width:150px"> 
             执业印章号
         </div>
         <div class="left" style="width:160px"> 
@@ -46,18 +46,21 @@
         <div class="left" style="width:100px"> 
             有效日期
         </div>
+        <div class="left" style="width:90px"> 
+            
+        </div>
       </div>
-      <div class="law-text" v-for="(el,i) in lawList" :key="i" >
+      <div class="law-text" v-for="(el,i) in lawList" :key="i"  @click="toPer(el)" >
          <div class="left" style="width:52px"> 
            {{i+1}}
         </div>
-        <div class="left" style="width:150px"> 
+        <div class="left" style="width:80px"> 
           {{el.name}}
         </div>
-        <div class="left" style="width:150px"> 
+        <div class="left" style="width:140px"> 
             {{el.category}}
         </div>
-        <div class="left" style="width:160px"> 
+        <div class="left" style="width:150px"> 
             {{el.sealNo}}
         </div>
         <div class="left" style="width:160px"> 
@@ -65,6 +68,11 @@
         </div>
         <div class="left" style="width:100px"> 
              {{el.validDate}}
+        </div>
+        <div class="left law-cen" style="width:90px"> 
+           <div class="crew-btn"  @click="jumpya(el)" >
+              押证
+            </div>
         </div>
       </div>
     </div>
@@ -115,6 +123,18 @@ export default {
             this.loading = false
          }
       })
+    },
+    toPer(el) {
+      const { href } = this.$router.resolve({
+              path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
+            })
+      window.open(href, '_blank', )
+    },
+    jumpya(el) {
+      const { href } = this.$router.resolve({
+              path:'/personnel/escort',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
+            })
+          window.open(href, '_blank', )
     },
     Goto(val) {
     this.current = val.cur
@@ -196,9 +216,23 @@ export default {
       display: flex;
       align-items: center;
       box-sizing: border-box;
+      cursor: pointer;
       .law-pdd {
         padding: 10px 20px; 
         box-sizing: border-box;
+      }
+      .law-cen {
+        display: flex;
+        justify-content: center;
+      }
+      .crew-btn {
+        width:60px;
+        line-height: 22px;
+        border:1px solid rgba(254,102,3,1);
+        font-size: 12px;
+        border-radius:5px;
+        color: #FE6603;
+        text-align: center;
       }
     }
   }

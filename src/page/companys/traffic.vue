@@ -24,7 +24,7 @@
             项目属地
         </div>
     </div>
-    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result">
+    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result"  @click="decide(el,i)" >
         <div class="left" style="width:54px">
             {{i+1}}
         </div>
@@ -69,6 +69,14 @@ export default {
       } else {
          this.result = true
       }
+    }
+  },
+  methods: {
+    decide(el) {
+        const { href } = this.$router.resolve({
+            path:'/traffic',query:{id:el.pkid} 
+          })
+        window.open(href, '_blank', )
     }
   },
   created () {

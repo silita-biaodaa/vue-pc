@@ -8,7 +8,7 @@
       <per-por :state='state' @perPor='gainPor'  ></per-por>
       <div class="select">
             <el-row>
-                <el-col :span='2'>省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
+                <el-col :span='2'>注册类别:
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
@@ -20,7 +20,7 @@
      </div>
   </div>
   <div class="crew-total">
-      共搜索到<span class="p-color" >{{total}}</span>个人员信息
+      共搜索到<span class="p-color" >{{total}}</span>条个人员信息
   </div>
    <div class="build-list">
       <div class="build-table" >
@@ -276,14 +276,13 @@ export default {
         display: flex;
         justify-content: center;
       }
-         .crew-btn {
+      .crew-btn {
         width:80px;
         line-height: 32px;
         border:1px solid rgba(254,102,3,1);
         border-radius:5px;
         color: #FE6603;
         text-align: center;
-        
       }
     }
     a:hover{color: #FE6603}

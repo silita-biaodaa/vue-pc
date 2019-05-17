@@ -20,7 +20,7 @@
             项目属地
         </div>
     </div>
-    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result">
+    <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result" @click="decide(el)" >
         <div class="left" style="width:54px">
             {{i+1}}
         </div>
@@ -64,6 +64,14 @@ export default {
       }
     }
   },
+  methods: {
+    decide(el) {
+        const { href } = this.$router.resolve({
+            path:'/urban',query:{id:el.proId} 
+          })
+        window.open(href, '_blank', )
+    }
+  },
   created () {
     this.allArr = this.arr
   },
@@ -91,6 +99,7 @@ export default {
       display: flex;
       align-items: center;
       text-align: center;
+      cursor: pointer;
     }
     .p-10 {
       padding: 6px 0;
