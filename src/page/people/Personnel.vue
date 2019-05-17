@@ -91,6 +91,15 @@ export default {
        this.names = this.tab[this.$route.meta.i].name
     }
   },
+    watch: {
+     $route(to,form) {
+        this.tab.forEach(el => {
+         el.i = false
+       }); 
+       this.tab[this.$route.meta.i].i = true 
+       this.names = this.tab[this.$route.meta.i].name
+     }
+  },
   created () {
     this.name = this.$route.query.name
     this.idCard = this.$route.query.idCard

@@ -7,7 +7,7 @@
     </en-search>
     <div class="build-put">
       <div class="build-hint">
-        <i>*</i><span>如需精准查询，请输入姓名及身份证号</span>
+        <i>*</i><span>如需精准查询，请输入姓名及身份证号。(仅查询湖南省在建信息)</span>
       </div>
       <div class="mt-30" >
         <el-row>
@@ -123,10 +123,11 @@ export default {
           this.svip = true
           this.modalHelper.afterOpen();
         } else {
-          if(this.idcard == '') {
+
+          if(this.idcard == '' && this.name.trim() != '' ) {
             this.current = 1
             this.gainList()
-          } else {
+          } else if ( this.idcard.trim() != '' && this.name.trim() != '') {
              underq({name:this.name,idCard:this.idcard,type:'api'}).then(res => {
                console.log(res);
                
@@ -146,7 +147,7 @@ export default {
              }
             })
             
-          }
+          } 
         }
       } else {
           this.$confirm('暂无权限，请先登录', '提示', {

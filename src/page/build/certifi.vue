@@ -1,7 +1,7 @@
 <template>
 <div class="certifi">
    <div class="certifi-nav">
-     首页 > 人员> {{detail.name}} > 注册证书
+     <span @click="$router.push('/')" >首页</span>> <span @click="$router.push('/crew')" >人员</span>> {{detail.name}} > 在建详情
    </div>
    <div class="certifi-text" >
      <div >

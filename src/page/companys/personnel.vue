@@ -155,6 +155,15 @@ export default {
       this.gainList()
     }
   },
+  watch: {
+     $route(to,form) {
+        // this.navs.forEach( el => {
+        //    el.show = false
+        // })
+        // this.name = this.navs[this.$route.meta.i].name
+        // this.navs[this.$route.meta.i].show = true
+     }
+  },
   created () {
     this.gainList()
     this.gainCategory()

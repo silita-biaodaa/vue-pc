@@ -113,6 +113,9 @@ export default {
       id:''
     }
   },
+  watch: {
+   
+  },
   methods: {
     changeNavs() {
       this.i  = 0
