@@ -1,7 +1,7 @@
 <template>
 <div class="certifi">
    <div class="certifi-nav">
-     首页 > 人员> {{name}} > 注册证书
+     首页 > 人员> {{detail.name}} > 注册证书
    </div>
    <div class="certifi-text" >
      <div >

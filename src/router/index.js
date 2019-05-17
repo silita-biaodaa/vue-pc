@@ -57,8 +57,12 @@ import build from '@/page/build/build'
 import certifi from '@/page/build/certifi' 
 
 import crew from '@/page/people/crew' 
+import personnel from '@/page/people/Personnel' 
+import sign from '@/page/people/sign' 
 
-// crew
+
+
+// sign
 
 
 
@@ -440,11 +444,28 @@ export default new Router({
       meta: {
         tabNo: 5
       }
+    },
+    {
+      path: '/personnel',
+      name: 'personnel',
+      component: personnel,
+      redirect: '/personnel/sign',
+      children: [
+        {
+          path: 'sign',
+          name: 'sign',
+          component: sign,
+          meta: {
+            i: 0,
+            tabNo: 5
+          }
+        },
+      ]  
     }
   ]
 })
 
-// crew
+// sign
 // 模板
 //  {
 //    path:'/',

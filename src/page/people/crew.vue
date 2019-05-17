@@ -46,7 +46,7 @@
           
         </div>
       </div>
-       <a class="build-in"  v-for="(el,i) in person" :key="i" > 
+       <a class="build-in"  v-for="(el,i) in person" :key="i"  @click="toPer(el)" > 
         <div style="width:80px;"  >
            {{(current-1)*20+(i+1)}}
           </div>
@@ -147,6 +147,27 @@ export default {
       this.current = val.cur;
       document.documentElement.scrollTo(0,530);  
       this.gainList()
+    },
+    toPer(el) {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+        if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        } else {
+          const { href } = this.$router.resolve({
+              path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name} 
+            })
+          window.open(href, '_blank', )
+        }
+      } else {
+          this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          })
+      }
     },
     evalclass(el) {
       this.category = el.category
