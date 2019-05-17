@@ -191,7 +191,7 @@ router.beforeEach((to, from, next) => {
       }
     }
     if(to.fullPath=='/logo'){
-      sessionStorage.setItem('path',from.name);
+      sessionStorage.setItem('path',from.fullPath);
     }
     // _hmt.push(['_trackPageview', '/#' + to.fullPath]);
   }
