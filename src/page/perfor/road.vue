@@ -4,7 +4,7 @@
       <per-por :state='state' @perPor='gainPor'  ></per-por>
       <div class="select">
             <el-row>
-                <el-col :span='2'>业绩类别:
+                <el-col :span='2'>信息来源:
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >

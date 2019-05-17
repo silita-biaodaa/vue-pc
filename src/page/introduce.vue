@@ -151,6 +151,12 @@ export default {
             this.modalHelper.afterOpen();
             return 
           }  
+      }  else if ( el.name == '人员信息') {
+         if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPerformance') == -1  ) {
+            this.svip = true
+            this.modalHelper.afterOpen();
+            return 
+          }  
       } 
         this.name = el.name
         this.navs.forEach( el => {

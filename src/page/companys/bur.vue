@@ -43,6 +43,7 @@
        <div class="no-search" v-show="!result">
         <img src="../../assets/img/card.png" alt="" >
       </div>
+      <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -50,7 +51,8 @@ export default {
   data () {
     return {
        result:true,
-       allArr:[]
+       allArr:[],
+       svip:false
     }
   },
   props: ['arr'],
@@ -66,11 +68,19 @@ export default {
   },
   methods: {
     decide(el) {
+      if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        } else {
         const { href } = this.$router.resolve({
             path:'/urban',query:{id:el.proId} 
           })
         window.open(href, '_blank', )
-    }
+      } 
+    },
+    closeload(val) {
+      this.svip = val.cur
+    },
   },
   created () {
     this.allArr = this.arr

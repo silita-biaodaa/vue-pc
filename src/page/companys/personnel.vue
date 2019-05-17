@@ -19,7 +19,6 @@
           placeholder="请输入人员姓名"
           suffix-icon="el-icon-search"
           @change="newList"
-          clearable
           @keyup.enter="newList"
           v-model="search">
         </el-input>
@@ -87,6 +86,7 @@
    <div class="no-search" v-show="result">
         <img src="../../assets/img/card.png" alt="" >
    </div>
+   <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -103,7 +103,8 @@ export default {
       id:'',
       result:false,
       source:'',
-      loading:true
+      loading:true,
+      svip:false
     }
   },
   methods: {
@@ -125,16 +126,31 @@ export default {
       })
     },
     toPer(el) {
-      const { href } = this.$router.resolve({
+       if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+       } else {
+           const { href } = this.$router.resolve({
               path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
             })
-      window.open(href, '_blank', )
+           window.open(href, '_blank', )
+       }  
+    
     },
     jumpya(el) {
-      const { href } = this.$router.resolve({
+       if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+       } else {
+           const { href } = this.$router.resolve({
               path:'/personnel/escort',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
             })
           window.open(href, '_blank', )
+       }  
+     
+    },
+    closeload(val) {
+      this.svip = val.cur
     },
     Goto(val) {
     this.current = val.cur
