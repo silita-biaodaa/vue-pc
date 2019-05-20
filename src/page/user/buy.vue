@@ -300,7 +300,7 @@ export default {
               clearInterval(int)
               return false
             }
-            nowxPay({orderNo:val,type:'report'}).then( res => {
+            nowxPay({orderNo:val,type:'vip'}).then( res => {
               console.log(res);
               
               if(res.trade_state == 'SUCCESS') {
