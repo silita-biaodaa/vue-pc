@@ -300,7 +300,6 @@ export default {
             padding-top: 70px;
             display: flex;
             justify-content: center;
-
           }
           a:visited{color:#FE6603}
           a:hover{color:#FE6603}

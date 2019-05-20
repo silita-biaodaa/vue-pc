@@ -127,8 +127,8 @@ export default {
           if(this.idcard == '' && this.name.trim() != '' ) {
             this.current = 1
             this.gainList()
-          } else if ( this.idcard.trim() != '' && this.name.trim() != '') {
-             underq({name:this.name,idCard:this.idcard,type:'api'}).then(res => {
+          } else if ( this.idcard.trim() != '') {
+             underq({name:'aaaa',idCard:this.idcard,type:'api'}).then(res => {
                 if(res.code == 1) {
                   if(res.data.length == 0 ) {
                     this.$confirm('暂无数据', '提示', {
@@ -138,7 +138,7 @@ export default {
                      })
                   } else {
                      const { href } = this.$router.resolve({
-                       path:'/certifi',query:{name:this.name,card:this.idcard} 
+                       path:'/certifi',query:{card:this.idcard} 
                      })
                       window.open(href, '_blank', )
                   }

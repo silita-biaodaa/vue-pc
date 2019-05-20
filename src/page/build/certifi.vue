@@ -94,11 +94,11 @@ export default {
          }
         })
       } else {
-         this.name = this.$route.query.name
          this.card = this.$route.query.card
-         underq({name:this.name,idCard:this.card,type:'api'}).then(res => {
+         underq({name:'aaaa',idCard:this.card,type:'api'}).then(res => {
          if(res.code == 1) {
            this.detail = res.data[0]
+           this.name = res.data[0].name
            this.list = res.data 
            if(this.list.length == 0) {
              this.ishow = true

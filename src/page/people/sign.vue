@@ -37,7 +37,7 @@
          <div style="width:153px;" >
            {{el.sealNo}}
          </div>
-         <div style="width:200px;" >
+         <div style="width:200px;" class="box-p" >
             {{el.comName}}
          </div>
          <div style="width:110px;" >

@@ -5,10 +5,10 @@
   </div>
   <div class="sign-table" >
       <div class="certifi-table" >
-         <div style="width:60px;" >
+         <div style="width:50px;" >
            序号
          </div>
-         <div style="width:160px;" >
+         <div style="width:170px;" >
            单位名称
          </div>
          <div style="width:153px;" >
@@ -28,13 +28,12 @@
          </div>
       </div>
       <div class="certifi-in"  v-for="(el,i) in list" :key="i"  >
-         <div style="width:60px;" >
+         <div style="width:50px;" >
            {{i + 1 }}
          </div>
-         <div style="width:160px;" >
-           {{el.unitOrg}}
+         <div style="width:170px;textAlign: left;"  >{{el.unitOrg}}
          </div>
-         <div style="width:153px;" >
+         <div style="width:153px;" class="box-p" >
            {{el.proName}}
          </div>
          <div style="width:100px;" >

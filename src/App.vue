@@ -520,7 +520,7 @@ export default {
               width: 420px;
               height: 300px;
               position: absolute;
-              bottom: -320px;
+              bottom: -303px;
               left: -180px;
               background-color: #fff;
               z-index: 999999;
