@@ -73,7 +73,7 @@
                          省级施工许可证编号
                        </div>
                         <div class="show-text " style="width:291px;border:none" >
-                         {{debid.provZhongbiaoCode}}
+                         {{debid.blicence}}
                        </div>
                   </div>
                   <div class="show-del" >
