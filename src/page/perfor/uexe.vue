@@ -68,7 +68,7 @@
                          施工图审查机构组织机构代码
                        </div>
                         <div class="show-text " style="width:291px;border:none" >
-                         {{debid.provZhongbiaoCode}}
+                         {{debid.checkOrgCode}}
                        </div>
                   </div>
                   <div class="show-del" >
