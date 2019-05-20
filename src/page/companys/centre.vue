@@ -16,7 +16,6 @@
             suffix-icon="el-icon-search"
             @change="gainList"
             @keyup.enter="gainList"
-            clearable
             v-model="search">
           </el-input>
       </div>

@@ -358,3 +358,10 @@ figcaption:focus {
   padding: 5px;
   box-sizing: border-box;
 }
+.cat {
+  width: calc(100% - 60px);
+  display: inline-block;
+}
+.cat-col {
+  color: #999;
+}

@@ -137,6 +137,7 @@ export default {
     color:#333;
     font-weight: 550;
     .e-list {
+      cursor: pointer;
       height: 65px;
       padding: 15px 18px 0 18px;
       border-bottom: 1px solid #f2f2f2;

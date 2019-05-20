@@ -18,7 +18,7 @@
             合同金额
         </div>
         <div class="left" style="width:90px">
-            竣工时间
+            交工日期
         </div>
         <div class="left" style="width:100px">
             项目属地
@@ -84,11 +84,12 @@ export default {
             })
           window.open(href, '_blank', )
         }
-    }
-  },
-  closeload(val) {
+    },
+     closeload(val) {
       this.svip = val.cur
     },
+  },
+ 
   created () {
     this.allArr = this.arr
   },

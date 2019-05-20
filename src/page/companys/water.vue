@@ -17,7 +17,7 @@
             业绩级别
         </div>
         <div class="left" style="width:90px">
-            竣工时间
+            完工日期
         </div>
         <div class="left" style="width:120px">
             项目属地

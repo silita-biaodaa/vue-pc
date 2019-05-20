@@ -34,8 +34,8 @@
           <el-col :span="10"><p>结算金额：<span>{{detail.clearingAmount }}</span></p></el-col>
         </el-row>
         <el-row>
-          <el-col :span="7"><p>开始桩号：<span>{{detail.stakeBegin }}</span></p></el-col>
-          <el-col :span="7"><p>结束桩号：<span>{{detail.stakeEnd}}</span></p></el-col>
+          <el-col :span="7" class="cat-col" ><p style="wordWrap:break-word;display:flex;" ><i style="width:60px;display: inline-block;" >开始桩号：</i><span class="cat" >{{detail.stakeBegin}}</span></p></el-col>
+          <el-col :span="7" class="cat-col" ><p style="wordWrap:break-word;display:flex;" ><i style="width:60px;display: inline-block;" >结束桩号：</i><span class="cat" >{{detail.stakeEnd}}</span></p></el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
