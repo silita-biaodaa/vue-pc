@@ -48,7 +48,7 @@ export default {
         width: 100%;
         background: url(../assets/img/1.jpg) no-repeat center;
         height: 550px;
-        background-size: 100%;
+        // background-size: 100%;
         position: relative;
       }  
     }
@@ -60,7 +60,7 @@ export default {
         background: url(../assets/img/1.jpg) no-repeat ;
         background-position-x: 100%;
         height: 850px;
-        background-size: 100%;
+        // background-size: 100%;
         position: relative;
       }  
        
