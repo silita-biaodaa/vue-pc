@@ -48,7 +48,7 @@ export default {
         width: 100%;
         background: url(../assets/img/1.jpg) no-repeat center;
         height: 550px;
-        // background-size: 100%;
+        background-size: center;
         position: relative;
       }  
     }
@@ -58,8 +58,9 @@ export default {
        .d-c {
         width: 100%;
         background: url(../assets/img/1.jpg) no-repeat ;
-        background-position-x: 100%;
+        background-position-x: center;
         height: 850px;
+        // background-size: center;
         // background-size: 100%;
         position: relative;
       }  
