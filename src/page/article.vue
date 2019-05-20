@@ -142,7 +142,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .article {
-   width: 1190px;
+   width: 1020px;
    padding-top: 126px;
    margin: 0 auto;
    background: #FAFAFA;
@@ -151,7 +151,7 @@ export default {
      cursor: pointer;
    }
    .title {
-     width: 1190px;
+     width: 1020px;
      background: #fff;
      padding-top: 27px;
      p {
@@ -196,7 +196,7 @@ export default {
    .detail {
      background: #fff;
      box-sizing: border-box;
-     width: 1190px;
+     width: 1020px;
      height: 163px;
      margin-bottom: 11px;
      padding: 15px 19px 0;
@@ -221,12 +221,12 @@ export default {
    }
    .conten {
      background: #fff;
-     width: 1190px;
+     width: 1020px;
      padding: 0 20px;
      box-sizing: border-box;
      margin-bottom: 200px;
      .link {
-       width: 1150px;
+       width: 980px;
        height: 69px;
        line-height: 69px;
        font-size: 20px;
@@ -239,7 +239,7 @@ export default {
        }
      }
      .essay {
-       width: 1150px;
+       width: 980px;
        padding: 26px 0 80px;
      }
    }

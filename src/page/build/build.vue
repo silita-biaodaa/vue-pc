@@ -129,22 +129,20 @@ export default {
             this.gainList()
           } else if ( this.idcard.trim() != '' && this.name.trim() != '') {
              underq({name:this.name,idCard:this.idcard,type:'api'}).then(res => {
-               console.log(res);
-               
-             if(res.code == 1) {
-               if(res.data.length == 0 ) {
-                 this.$confirm('暂无数据', '提示', {
-                   showCancelButton:false,
-                   showConfirmButton:false,
-                   type: 'warning'
-                  })
-               } else {
-                  const { href } = this.$router.resolve({
-                    path:'/certifi',query:{name:this.name,card:this.idcard} 
-                  })
-                   window.open(href, '_blank', )
-               }
-             }
+                if(res.code == 1) {
+                  if(res.data.length == 0 ) {
+                    this.$confirm('暂无数据', '提示', {
+                      showCancelButton:false,
+                      showConfirmButton:false,
+                      type: 'warning'
+                     })
+                  } else {
+                     const { href } = this.$router.resolve({
+                       path:'/certifi',query:{name:this.name,card:this.idcard} 
+                     })
+                      window.open(href, '_blank', )
+                  }
+                }
             })
             
           } 

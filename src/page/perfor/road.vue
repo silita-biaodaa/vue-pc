@@ -176,11 +176,17 @@ export default {
      decide(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
         // this.perlist[el].is = true
-           el.is = true
+         if(localStorage.getItem('permissions')) {
+             el.is = true
           const { href } = this.$router.resolve({
             path:'/traffic',query:{id:el.pkid} 
           })
         window.open(href, '_blank', )
+        } else {
+          this.svip = true
+          this.modalHelper.afterOpen();
+        }
+        
       } else {
          this.$confirm('暂无权限，请先登录', '提示', {
           confirmButtonText: '确定',
