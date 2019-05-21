@@ -410,17 +410,41 @@ export default {
       })
     },
     gainCompany() {
-      companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-         this.companylisy = res.data
-         this.present = res.pageNum
-        this.total = res.total
-        this.loading = false
-        if(this.total == 0 ) {
-           this.Snone = true
-         } else {
-           this.Snone = false
-         }
-      })
+      if(!localStorage.getItem('permissions')) {
+        
+          companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
+             this.companylisy = res.data
+             this.present = res.pageNum
+            this.total = res.total
+            this.loading = false
+            if(this.total == 0 ) {
+               this.Snone = true
+             } else {
+               this.Snone = false
+             }
+          })
+      } else {
+           companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title,isVip:1}).then(res => {
+            let arr = []
+            res.data.forEach( el => {
+              if(el.phone) {
+                 arr =  el.phone.split(';')
+                 el.phone = arr[0]
+                 arr.length = 0
+              }
+             });
+             this.companylisy = res.data
+             this.present = res.pageNum
+            this.total = res.total
+            this.loading = false
+            if(this.total == 0 ) {
+               this.Snone = true
+             } else {
+               this.Snone = false
+             }
+          })
+      }
+     
     },
     // 获取公司企业列表
     again() {
