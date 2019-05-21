@@ -301,8 +301,6 @@ export default {
               return false
             }
             nowxPay({orderNo:val,type:'vip'}).then( res => {
-              console.log(res);
-              
               if(res.trade_state == 'SUCCESS') {
                 getUserTemp({}).then( res => {
                   if(res.code == 1) {

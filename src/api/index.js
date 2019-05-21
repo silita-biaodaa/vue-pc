@@ -2,8 +2,8 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Message } from 'element-ui';
 Vue.prototype.$http = axios
-const baseURL = 'http://api.biaodaa.com/'
-// const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
+const baseURL = 'http://pre.biaodaa.com/'
 // const baseURL = '/' 
 
 
@@ -246,6 +246,11 @@ export const under = params => {
 export const underq = params => {
   return axios.post('under/query', params).then(res => res.data)
 }
+
 export const persond = params => {
   return axios.post('person/detail', params).then(res => res.data)
+}
+
+export const undesirable = params => {
+  return axios.post('reputation/undesirable', params).then(res => res.data)
 }

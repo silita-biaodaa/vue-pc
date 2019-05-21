@@ -62,18 +62,21 @@
                发布日期
              </div>
           </div> 
-           <div class="nav-text" v-for="(el,i) in badList" :key="i">
+           <div class="nav-text" v-for="(el,i) in badList" :key="i" @mouseenter="enter(el)" @mouseleave="leave(el)"  >
              <div class="left" style="width:72px" >
                {{i+1}}
              </div>
              <div class="left" style="width:350px" >
-               {{el.projectName}}
+               {{el.projName}}
              </div>
              <div class="left" style="width:150px" >
-               {{el.publishSite}}
+               {{el.pubSite}}
              </div>
              <div class="left" style="width:200px" >
-               {{el.publishDate}}
+               {{el.pubDate}}
+             </div>
+             <div class="text-content" v-show="el.show"   >
+               {{el.content}}
              </div>
           </div>
           
@@ -83,7 +86,7 @@
 </div>
 </template>
 <script>
-import { getJsonData } from '@/api/index'
+import { getJsonData,undesirable } from '@/api/index'
 export default {
   data () {
     return {
@@ -134,19 +137,27 @@ export default {
         });
     },
     gainBad() {
-        let dataParam = JSON.stringify({          
-        });
-        getJsonData( "/company/undesirable/" + this.id ).then(res => {
+        undesirable({comId:this.id}).then(res => {
             if(res.code == 1) {
-              res.data.undesirable.forEach(el => {
-                el.list.forEach(el => {
-                   this.badList.push(el)
-                   console.log(el);
-                })  
-              })
-            }
-            this.bad = res.data.allNum
-        });
+               res.data.undesirable.forEach(el => {
+                   el.show = false
+                 })  
+              this.badList = res.data.undesirable
+               this.bad = res.data.undesirable.length
+             }
+            
+        })
+        // let dataParam = JSON.stringify({          
+        // });
+        // getJsonData( "/company/undesirable/" + this.id ).then(res => {
+        //    
+        // });
+    },
+    enter(el) {
+      el.show = true
+    },
+    leave(el) {
+      el.show = false
     },
     show() {
       this.name = '获奖信息'
@@ -173,6 +184,7 @@ export default {
 <style lang="less" >
 .good {
   background-color: #fff;
+  padding-bottom: 20px;
   .g-nav {
     height: 44px;
     line-height: 44px;
@@ -209,6 +221,19 @@ export default {
       align-items: center;
       text-align: center;
       border-bottom: 1px solid #f2f2f2;
+      position: relative;
+      .text-content {
+        position: absolute;
+        bottom: -100%;
+        left: 0;
+        width: 772px;
+        height: 30px;
+        background:rgba(255,255,255,1);
+        box-shadow:0px 3px 9px 1px rgba(0, 0, 0, 0.15);
+        z-index: 9999;
+        padding: 10px  5px 0; 
+        // box-sizing: border-box;
+      }
     }
   }
   .no-search {
