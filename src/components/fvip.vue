@@ -46,7 +46,7 @@ export default {
     height: 489px;
     left: 50%;
     transform: translateX(-50%);
-    top: 90px;
+    top: 55px;
     .vip-btn {
        position: absolute;
        bottom: 25px;
