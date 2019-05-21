@@ -66,7 +66,7 @@
             {{el.major ? el.major : '--'}}
           </div>
           <div style="width:130px;" class="c-cen" >
-            <div class="crew-btn"  @click="jumpya(el)" >
+            <div class="crew-btn"  @click.stop="jumpya(el)"  v-if="el.isUnder" >
               押证
             </div>
         </div>

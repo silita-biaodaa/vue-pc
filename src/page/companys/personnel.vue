@@ -69,7 +69,7 @@
              {{el.validDate}}
         </div>
         <div class="left law-cen" style="width:90px"> 
-           <div class="crew-btn"  @click.stop="jumpya(el)" >
+           <div class="crew-btn"  @click.stop="jumpya(el)"  v-if="el.isUnder" >
               押证
             </div>
         </div>
