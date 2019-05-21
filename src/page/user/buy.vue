@@ -364,6 +364,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .buy {
+  min-height: 1433px;
   .se-area {
     height: 310px !important;
     bottom: -320px !important;

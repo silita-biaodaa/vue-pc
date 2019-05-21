@@ -22,6 +22,7 @@ export default {
       this.$emit('toChildEvent', {cur:this.state})
     },
     jumbuy() {
+      this.modalHelper.beforeClose();
       this.$router.push('/buy')
     }
   },
