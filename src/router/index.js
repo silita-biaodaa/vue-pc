@@ -24,7 +24,8 @@ import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
 import find from '@/page/user/find'
 import bound from '@/page/user/bound'
-import buy from '@/page/user/buy'
+// import buy from '@/page/user/buy'
+const buy = resolve => require(['@/page/user/buy'], resolve)
 
 
 import user from '@/page/user/user'
