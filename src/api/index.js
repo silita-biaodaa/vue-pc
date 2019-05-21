@@ -2,8 +2,8 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Message } from 'element-ui';
 Vue.prototype.$http = axios
-const baseURL = 'http://api.biaodaa.com/'
-// const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
+const baseURL = 'http://pre.biaodaa.com/'
 // const baseURL = '/' 
 
 

@@ -268,6 +268,10 @@ export default {
         
       })
     },
+    toTop() {
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
+    },
     openV() {
       if(this.noShow) {
         return false
@@ -342,6 +346,7 @@ export default {
   created () {
     this.judges()
     this.gainfee()
+    this.toTop()
   },
   //  watch: {
   //   $route:{
