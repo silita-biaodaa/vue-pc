@@ -100,7 +100,7 @@ export default {
               sessionStorage.setItem('xtoken',res.data.xtoken)
               localStorage.removeItem('Xtoken')
             }
-            if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null&&sessionStorage.getItem('path')!='null'&&sessionStorage.getItem('path')!='enroll'&&sessionStorage.getItem('path')!='find'&&sessionStorage.getItem('path')!='protocol'){
+            if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null&&sessionStorage.getItem('path')!='null'&&sessionStorage.getItem('path')!='/enroll'&&sessionStorage.getItem('path')!='/find'&&sessionStorage.getItem('path')!='/protocol'){
               let uri=sessionStorage.getItem('path');
               this.$router.replace(uri)
             } else {
