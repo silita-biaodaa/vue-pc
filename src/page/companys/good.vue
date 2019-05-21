@@ -232,7 +232,6 @@ export default {
         box-shadow:0px 3px 9px 1px rgba(0, 0, 0, 0.15);
         z-index: 9999;
         padding: 10px  5px 0; 
-        // box-sizing: border-box;
       }
     }
   }

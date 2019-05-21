@@ -1,7 +1,10 @@
 <template>
 <div class="vip">
   <div class="vip-img">
-    <img src="../assets/img/icon-tanchuang-png@2x.png" alt="">
+    <img src="../assets/img/icon-tanchuang-png@2x .png" alt="">
+    <div class="vip-btn"  @click.stop="jumbuy" >
+
+    </div>
      <i class="el-icon-circle-close-outline"  @click="close" ></i>
   </div>
 </div>
@@ -17,6 +20,9 @@ export default {
     close() {
       this.modalHelper.beforeClose();
       this.$emit('toChildEvent', {cur:this.state})
+    },
+    jumbuy() {
+      this.$router.push('/buy')
     }
   },
   components: {
@@ -41,6 +47,15 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     top: 90px;
+    .vip-btn {
+       position: absolute;
+       bottom: 25px;
+       left: 50%;
+       transform: translateX(-50%);
+       width: 230px;
+       height: 60px;
+       cursor: pointer;
+    }
        i {
       position: absolute;
       left: 50%;

@@ -320,7 +320,7 @@ export default {
     },
     gainlist() {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-          if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+          if( localStorage.getItem('permissions') == ''   ) {
             this.svip = true
             this.modalHelper.afterOpen();
           } else {
@@ -482,7 +482,6 @@ export default {
          if(res.code == 1 ) {
             this.areas = res.data.area
             this.companyQuals = res.data.companyQual
-            // localStorage.setItem('area',JSON.stringify(this.areas))
          }
       })
     },
