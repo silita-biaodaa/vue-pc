@@ -102,7 +102,7 @@ export default new Router({
       }
     },
     {
-      path: '/bid',
+      path: '/bid',  // 招标
       name: 'bid',
       component: Bid,
       meta: {
@@ -110,7 +110,7 @@ export default new Router({
       }
     },
     {
-      path: '/tender',
+      path: '/tender',  // 中标
       name: 'tender',
       component: Tender,
       meta: {
@@ -118,7 +118,7 @@ export default new Router({
       }
     },
     {
-      path: '/article',
+      path: '/article',  // 招标详情
       name: 'article',
       component: Article,
       meta: {
@@ -126,7 +126,7 @@ export default new Router({
       }
     },
     {
-      path: '/company',
+      path: '/company',  // 企业
       name: 'company',
       component: Company,
       meta: {
@@ -134,13 +134,13 @@ export default new Router({
       }
     },
     {
-      path: '/perfor',
+      path: '/perfor',  
       name: 'perfor',
       component: perfor,
       redirect: '/perfor/perlist',
       children: [
         {
-          path: 'perlist',
+          path: 'perlist',  // 业绩住建部
           name: 'perlist',
           component: perlist,
           meta: {
@@ -148,8 +148,8 @@ export default new Router({
             tabNo: 4
           }
         },
-        {
-          path: 'water',
+        { 
+          path: 'water',  // 业绩水利部
           name: 'water',
           component: perwater,
           meta: {
@@ -158,7 +158,7 @@ export default new Router({
           }
         },
         {
-          path: 'road',
+          path: 'road',  // 业绩交通部
           name: 'road',
           component: road,
           meta: {
@@ -170,7 +170,7 @@ export default new Router({
       ] 
     },
     {
-      path: '/notice',
+      path: '/notice',  // 中标详情
       name: 'notice',
       component: Notice,
       meta: {
@@ -178,13 +178,13 @@ export default new Router({
       }
     },
     {
-      path: '/introduce',
+      path: '/introduce',   
       name: 'introduce',
       component: Introduce,
       redirect: '/introduce/icbc',
       children: [
         {
-          path: 'icbc',
+          path: 'icbc',  // 企业工商
           name: 'icbc',
           component: Icbc,
           meta: {
@@ -192,7 +192,7 @@ export default new Router({
           }
         },
         {
-          path: 'personnel',
+          path: 'personnel',  // 企业人员
           name: 'personnel',
           component: Personnel,
           meta: {
@@ -200,7 +200,7 @@ export default new Router({
           }
         },
         {
-          path: 'intell',
+          path: 'intell',  // 企业资质
           name: 'intell',
           component: Intell,
           meta: {
@@ -208,7 +208,7 @@ export default new Router({
           }
         },
         {
-          path: 'law',
+          path: 'law',    // 企业法务
           name: 'law',
           component: Law,
           meta: {
@@ -216,7 +216,7 @@ export default new Router({
           }
         },
         {
-          path: 'good',
+          path: 'good',  // 企业诚信
           name: 'good',
           component: Good,
           meta: {
@@ -224,7 +224,7 @@ export default new Router({
           }
         },
         {
-          path: 'centre',
+          path: 'centre',  // 企业业绩
           name: 'centre',
           component: Centre,
           meta: {
@@ -232,7 +232,7 @@ export default new Router({
           }
         },
         {
-          path: 'achievement',
+          path: 'achievement',   // 企业中标
           name: 'achievement',
           component: Achievement,
           meta: {
@@ -244,12 +244,12 @@ export default new Router({
      
     },
     {
-      path: '/conform',
+      path: '/conform',  // 招标详情符合资质企业
       name: 'conform',
       component: Conform
     },
     {
-      path: '/download',
+      path: '/download', // 下载页面
       component: Download,
       name: 'download'
     },
@@ -264,43 +264,43 @@ export default new Router({
       name: 'dalist'
     },
     {
-      path:'/logo',
+      path: '/logo',   // 登录
       name: 'logo',
       component:logo
     },
     {
-      path:'/enroll',
+      path: '/enroll',  // 注册
       name:'enroll',
       component: enroll
     },
     {
-      path: '/protocol',
+      path: '/protocol',  // 注册协议
       name: 'protocol',
       component: protocol
     },
      {
-       path:'/find',
+       path: '/find',  // 找回密码
        name:'find',
        component: find
      },
       {
-        path: '/bound',
+        path: '/bound',  // 绑定手机
         name: 'bound',
         component: bound
       },
       {
-        path: '/about',
+        path: '/about',  // 关于我们
         name: 'about',
         component: about
       },
       {
-        path:'/user',
+        path: '/user',  // 个人中心
         name:'user',
         component: user,
         redirect: '/user/pDet',
         children: [
           {
-            path: 'pDet',
+            path: 'pDet',  // 个人信息
             name: 'pDet',
             component: pDet,
             meta: {
@@ -308,7 +308,7 @@ export default new Router({
             }
           },
           {
-            path: 'root',
+            path: 'root',  // 修改密码
             name: 'root',
             component: root,
             meta: {
@@ -316,7 +316,7 @@ export default new Router({
             }
           },
           {
-            path: 'fcoll',
+            path: 'fcoll',  // 我的关注
             name: 'fcoll',
             component: fcoll,
             meta: {
@@ -340,7 +340,7 @@ export default new Router({
         redirect: '/synth/query',
         children: [
           {
-            path: 'query',
+            path: 'query',  // 综合查询页面
             name: 'query',
             component: query,
             meta: {
@@ -348,7 +348,7 @@ export default new Router({
             }
           },
           {
-            path: 'hist',
+            path: 'hist',  // 历史订单
             name: 'hist',
             component: hist,
             meta: {
@@ -372,17 +372,17 @@ export default new Router({
       component: buy,
     },
     {
-      path:'/irrigation',
+      path: '/irrigation',  //  水利详情
       name:'irrigation',
       component: irrigation
     },
     {
-      path: '/traffic',
+      path: '/traffic',  //  交通详情
       name: 'traffic',
       component: traffic
     },
     {
-      path:'/urban',
+      path: '/urban',  //  住建部详情
       name:'urban',
       component: urban,
       redirect: '/urban/ubid',
@@ -430,7 +430,7 @@ export default new Router({
       ]  
     },
     {
-      path:'/build',
+      path:'/build',  // 在建
       name:'build',
       component: build,
       meta: {
@@ -438,7 +438,7 @@ export default new Router({
       }
     },
     {
-      path: '/certifi',
+      path: '/certifi',   // 在建详情
       name: 'certifi',
       component: certifi,
       meta: {
@@ -446,7 +446,7 @@ export default new Router({
       }
     },
     {
-      path: '/crew',
+      path: '/crew',   // 人员
       name: 'crew',
       component: crew,
       meta: {
@@ -454,13 +454,13 @@ export default new Router({
       }
     },
     {
-      path: '/personnel',
+      path: '/personnel',    // 人员详情
       name: 'personnel',
       component: personnel,
       redirect: '/personnel/sign',
       children: [
         {
-          path: 'sign',
+          path: 'sign',  // 注册证书
           name: 'sign',
           component: sign,
           meta: {
@@ -469,7 +469,7 @@ export default new Router({
           }
         },
         {
-          path: 'private',
+          path: 'private',  // 个人业绩
           name: 'private',
           component: privates,
           meta: {
@@ -478,7 +478,7 @@ export default new Router({
           }
         },
         {
-          path: 'dys',
+          path: 'dys', // 不良记录
           name: 'dys',
           component: dys,
           meta: {
@@ -487,7 +487,7 @@ export default new Router({
           }
         },
         {
-          path: 'modify',
+          path: 'modify',  // 变更记录
           name: 'modify',
           component: modify,
           meta: {
@@ -496,7 +496,7 @@ export default new Router({
           }
         },
         {
-          path: 'escort',
+          path: 'escort',  // 押证详情
           name: 'escort',
           component: escort,
           meta: {

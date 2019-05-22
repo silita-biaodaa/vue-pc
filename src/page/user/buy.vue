@@ -348,20 +348,6 @@ export default {
     this.gainfee()
     this.toTop()
   },
-  //  watch: {
-  //   $route:{
-  //     handler: function(val, oldVal){
-  //       sessionStorage.setItem('pageNo',1)
-  //       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-  //         this.name = localStorage.getItem('Bname')
-  //         this.names = false
-  //       } else {     
-  //         this.names = true
-  //       }
-  //     },
-  //   deep: true
-  //   }
-  // },
   components: {
     'v-head':heads,
   }
