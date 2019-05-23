@@ -40,28 +40,41 @@
           };
           pandun()
           function pandun() {
-             var url = window.location.href;
-             var letter = false
+              var url = window.location.href;
+              var letter = false;
+              let isWx=false;
+              if(url.indexOf('from')>-1&&url.indexOf('isappinstalled')>-1){//如果是微信分享
+                  isWx=true;//是否为微信分享
+              }
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
                   var strs = url.substr(is) || '';
-                  console.log(strs)
-                  letter = true
+                  letter = true;
+                  if(isWx){
+                    let arr=url.split('?');
+                    strs='?'+arr[2]+'&'+arr[1];
+                  }
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                   console.log(str)
+                  if(isWx){
+                    let arr=url.split('?');
+                    let routre=arr[1].split('#')[1];
+                    str=routre+'?'+arr[2]+'&'+arr[1];
+                  }
               }
              
               console.log(browser.versions.dingtalk);
               
-            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
-                if(!letter) {
-                  window.location.href = 'http://mobile.biaodaa.com' + str
-                  // window.location.href = 'http://pre-mobile.biaodaa.com' + str
-                } else {
-                  window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
-                }
-                 
+            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
+              if(!letter) {
+                // window.location.href = 'http://mobile.biaodaa.com' + str
+                window.location.href = 'http://pre-mobile.biaodaa.com' + str
+              } else {
+                // window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
+                window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
+              }
+            }else{//pc
+              
             } 
-          }</script><link href=/static/css/app.296181faa505f60cb26492514c05d6b4.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.02c603d633d614cc8cfd.js></script><script type=text/javascript src=/static/js/vendor.6f3aae32a5746258353c.js></script><script type=text/javascript src=/static/js/app.95391509c7dbc73c76b6.js></script></body></html>
+          }</script><link href=/static/css/app.06c64a0767456de386737c949cbe65c4.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2460bbc52a3ef940071f.js></script><script type=text/javascript src=/static/js/vendor.88978af296e7d74281da.js></script><script type=text/javascript src=/static/js/app.c21fc363093a5bee9c8e.js></script></body></html>
