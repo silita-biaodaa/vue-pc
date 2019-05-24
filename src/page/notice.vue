@@ -29,6 +29,7 @@
 
       </div>
    </div>
+    <com-ment id="divId" :type="'zhongbiao'" class="no-comL" ></com-ment>
 </div>
 </template>
 <script>
@@ -170,7 +171,7 @@ export default {
     }
   }
   .n-detail {
-    margin: 40px auto 210px;    
+    margin: 40px auto 20px;    
     .n-nav {
       height: 70px;
       line-height: 70px;
@@ -186,5 +187,11 @@ export default {
   .n-text {
     padding: 26px 20px 70px;
   }  
+  .no-comL {
+    width: 1020px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-bottom: 200px;
+  }
 }
 </style>
