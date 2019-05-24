@@ -51,7 +51,6 @@
               var url = window.location.href;
               var letter = false;
               let isWx=false;
-              let str='';
               if(url.indexOf('from')>-1&&url.indexOf('isappinstalled')>-1){//如果是微信分享
                   isWx=true;//是否为微信分享
               }
@@ -66,8 +65,8 @@
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                  
                   if(isWx){
+                    alert(url);
                     let arr=url.split('?');
                     let routre=arr[1].split('#')[1];
                     str=routre+'?'+arr[2]+'&'+arr[1];
@@ -88,16 +87,6 @@
                 }
               } else {
                 window.location.href = uri+'/#/letter' + strs
-
- 
-   
-    
-    
-     
-      
-      
-      
-      
               }
             }else{//pc
               
