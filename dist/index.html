@@ -43,7 +43,7 @@
               var url = window.location.href;
               var letter = false;
               let isWx=false;
-              if(url.indexOf('from')>-1&&url.indexOf('isappinstalled')>-1){//如果是微信分享
+              if(url.indexOf('from')>-1||url.indexOf('isappinstalled')>-1){//如果是微信分享
                   isWx=true;//是否为微信分享
               }
               alert(url);
