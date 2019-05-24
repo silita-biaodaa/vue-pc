@@ -63,8 +63,9 @@
                     strs='?'+arr[2]+'&'+arr[1];
                   }
               } else {
-                  var i = url.indexOf('/#/') 
-                  var str = url.substr(i) || '';
+                  // var i = url.indexOf('/#/') 
+                  // var str = url.substr(i) || '';
+                  
                   if(isWx){
                     let arr=url.split('?');
                     let routre=arr[1].split('#')[1];
@@ -77,7 +78,7 @@
             if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
               if(!letter) {
                 // window.location.href = 'http://mobile.biaodaa.com' + str
-                window.location.href = 'http://pre-mobile.biaodaa.com/#' + str
+                window.location.href = 'http://pre-mobile.biaodaa.com/#/' + str
               } else {
                 // window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
                 window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
