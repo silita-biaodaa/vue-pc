@@ -54,7 +54,6 @@
               if(url.indexOf('from')>-1||url.indexOf('isappinstalled')>-1){//如果是微信分享
                   isWx=true;//是否为微信分享
               }
-              alert(url);
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
                   var strs = url.substr(is) || '';
@@ -66,10 +65,12 @@
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
+                  alert('普通：'+str);
                   if(isWx){
                     let arr=url.split('?');
                     let routre=arr[1].split('#')[1];
                     str=routre+'?'+arr[2]+'&'+arr[1];
+                    alert('微信：'+str);
                   }
               }
              
