@@ -48,29 +48,48 @@
           };
           pandun()
           function pandun() {
-             var url = window.location.href;
-             var letter = false
+              var url = window.location.href;
+              var letter = false;
+              let isWx=false;
+              if(url.indexOf('from')>-1||url.indexOf('isappinstalled')>-1){//如果是微信分享
+                  isWx=true;//是否为微信分享
+              }
+              alert(url);
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
                   var strs = url.substr(is) || '';
-                  console.log(strs)
-                  letter = true
+                  letter = true;
+                  if(isWx){
+                    let arr=url.split('?');
+                    strs='?'+arr[2]+'&'+arr[1];
+                  }
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                   console.log(str)
+                  if(isWx){
+                    let arr=url.split('?');
+                    let routre=arr[1].split('#')[1];
+                    str=routre+'?'+arr[2]+'&'+arr[1];
+                  }
               }
              
               console.log(browser.versions.dingtalk);
-              
-            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {
-                if(!letter) {
-                  window.location.href = 'http://mobile.biaodaa.com' + str
-                  // window.location.href = 'http://pre-mobile.biaodaa.com' + str
-                } else {
-                  window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
+              let uri='http://mobile.biaodaa.com';
+              if(location.href.indexOf('pre')>-1){
+                uri='http://pre-mobile.biaodaa.com';
+              }
+            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
+              if(!letter) {
+                if(isWx){
+                  window.location.href = uri+'/#/' + str
+                }else{
+                  window.location.href = uri+ str
                 }
-                 
+              } else {
+                window.location.href = uri+'/#/letter' + strs
+              }
+            }else{//pc
+              
             } 
           }
           
