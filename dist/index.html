@@ -66,14 +66,19 @@
               }
              
               console.log(browser.versions.dingtalk);
-              
+              let url='http://mobile.biaodaa.com';
+              if(location.href.indexOf('pre')>-1){
+                url='http://pre-mobile.biaodaa.com';
+              }
             if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
               if(!letter) {
-                // window.location.href = 'http://mobile.biaodaa.com' + str
-                window.location.href = 'http://pre-mobile.biaodaa.com/#/' + str
+                if(isWx){
+                  window.location.href = url+'/#/' + str
+                }else{
+                  window.location.href = url+ str
+                }
               } else {
-                // window.location.href = 'http://mobile.biaodaa.com/#/letter' + strs
-                window.location.href = 'http://pre-mobile.biaodaa.com/#/letter' + strs
+                window.location.href = url+'/#/letter' + strs
               }
             }else{//pc
               
