@@ -30,12 +30,13 @@ import allCity from '@/components/bid/allCity'
 import bur from '@/page/companys/bur'
 import water from '@/page/companys/water'
 import traffic from '@/page/companys/traffic'
-// import perlist from '@/page/perfor/perlist'
 import perpor from '@/page/perfor/perpor'
 import money from '@/page/perfor/money'
 import pertime from '@/page/perfor/pertime'
-// import perwater from '@/page/perfor/perwater'
-// import road from '@/page/perfor/road'
+
+import comment from '@/page/comment/comment'
+
+
 
 
 
@@ -62,12 +63,12 @@ Vue.component('all-city', allCity)
 Vue.component('c-bur', bur)
 Vue.component('c-water', water)
 Vue.component('c-tra', traffic)
-// Vue.component('per-list', perlist)
 Vue.component('per-por', perpor)
 Vue.component('m-oney', money)
 Vue.component('per-time', pertime)
-// Vue.component('per-water', perwater)
-// Vue.component('road', road)
+Vue.component('com-ment', comment)
+
+
 
 
 

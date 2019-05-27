@@ -1,6 +1,8 @@
 <template>
  <div class="article">
-
+  <!-- <div @click="toCom" >
+    点击
+  </div> -->
    <div class="title">
       <p>
         {{articles.title}}
@@ -44,6 +46,10 @@
          
       </div>
    </div>
+   <!-- <div > -->
+     <com-ment id="divId" :type="'zhaobiao'"  ></com-ment>
+   <!-- </div> -->
+   
  </div>
 </template>
 <script>
@@ -62,7 +68,6 @@ export default {
     }
   },
   methods: {
-    
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'0',
@@ -129,12 +134,22 @@ export default {
         })
       }
     
-    }
+    },
+    toCom() {
+      
+       console.log('执行2');
+              
+    },
+    
+  },
+  mounted () {
+    this.toCom()
   },
   created () {
     this.id = this.$route.query.id;
     this.source = this.$route.query.source;
     this.gainDetail()
+    
   },
   components: {
   }
@@ -224,7 +239,7 @@ export default {
      width: 1020px;
      padding: 0 20px;
      box-sizing: border-box;
-     margin-bottom: 200px;
+    
      .link {
        width: 980px;
        height: 69px;

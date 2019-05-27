@@ -254,3 +254,15 @@ export const persond = params => {
 export const undesirable = params => {
   return axios.post('reputation/undesirable', params).then(res => res.data)
 }
+
+export const commentL = params => {
+  return axios.post('comment/list', params).then(res => res.data)
+}
+
+export const commentP = params => {
+  return axios.post('comment/push', params).then(res => res.data)
+}
+
+export const commentU = params => {
+  return axios.post('comment/list/user', params).then(res => res.data)
+}
