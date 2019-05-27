@@ -52,22 +52,16 @@
                   letter = true;
                   if(isWx){
                     let arr=url.split('?');
-                    strs='?'+arr[2]+'&'+arr[1];
+                    strs='?'+arr[2];
                   }
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                  if(url.indexOf('from')>-1){
-                    console.log(url);
+                  if(isWx){
                     let arr=url.split('?');
                     let routre=arr[1].split('#')[1];
-                    str=routre+'?'+arr[2]+'&'+arr[1];
+                    str=routre+'?'+arr[2];
                   }
-                  // if(isWx){
-                  //   let arr=url.split('?');
-                  //   let routre=arr[1].split('#')[1];
-                  //   str=routre+'?'+arr[2]+'&'+arr[1];
-                  // }
               }
              
               console.log(browser.versions.dingtalk);
@@ -75,18 +69,17 @@
               if(location.href.indexOf('pre')>-1){
                 uri='http://pre-mobile.biaodaa.com';
               }
-            // if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
-            //   if(!letter) {
-            //     if(isWx){
-            //       window.location.href = uri+'/#/' + str
-            //     }else{
-            //       window.location.href = uri+ str
-            //     }
-            //   } else {
-            //     window.location.href = uri+'/#/letter' + strs
-            //   }
-            // }else{//pc
-              
-            // } 
-          
-          }</script><link href=/static/css/app.1d85d0f8d10af1091ad550e7c3350133.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.bfd3577dd7e9f8212af4.js></script><script type=text/javascript src=/static/js/vendor.6f3aae32a5746258353c.js></script><script type=text/javascript src=/static/js/app.ac630621b5591c39dca2.js></script></body></html>
+              if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
+                if(!letter) {
+                  if(isWx){
+                    window.location.href = uri+'/#/' + str
+                  }else{
+                    window.location.href = uri+ str
+                  }
+                } else {
+                  window.location.href = uri+'/#/letter' + strs
+                }
+              }else{//pc
+                
+              } 
+          }</script><link href=/static/css/app.fbbfd8e166db97a8ab6825722147f6cb.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.e78680121bdc563db083.js></script><script type=text/javascript src=/static/js/vendor.88978af296e7d74281da.js></script><script type=text/javascript src=/static/js/app.77a7fad9592048cfcfb5.js></script></body></html>
