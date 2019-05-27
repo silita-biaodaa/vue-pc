@@ -83,9 +83,7 @@ export default {
          return this.error = true
       }
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
-         if(res.code == 1) {
-           console.log(res);
-           
+         if(res.code == 1) {   
             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
             sessionStorage.setItem('ip',res.data.pkid)
             localStorage.setItem('phoneNo',res.data.phoneNo)

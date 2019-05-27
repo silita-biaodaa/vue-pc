@@ -258,10 +258,7 @@ export default {
            } 
            setTimeout(() => {
              this.source = res.data.region
-           }, 1000);
-           
-           console.log(this.source,6);
-           
+           }, 1000);           
          }
       })
     },
