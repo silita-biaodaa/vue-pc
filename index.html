@@ -65,13 +65,17 @@
               } else {
                   var i = url.indexOf('/#/') 
                   var str = url.substr(i) || '';
-                  alert('普通：'+str);
-                  if(isWx){
+                  if(url.indexOf('from')>-1){
+                    console.log(url);
                     let arr=url.split('?');
                     let routre=arr[1].split('#')[1];
                     str=routre+'?'+arr[2]+'&'+arr[1];
-                    alert('微信：'+str);
                   }
+                  // if(isWx){
+                  //   let arr=url.split('?');
+                  //   let routre=arr[1].split('#')[1];
+                  //   str=routre+'?'+arr[2]+'&'+arr[1];
+                  // }
               }
              
               console.log(browser.versions.dingtalk);
@@ -79,19 +83,19 @@
               if(location.href.indexOf('pre')>-1){
                 uri='http://pre-mobile.biaodaa.com';
               }
-            if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
-              if(!letter) {
-                if(isWx){
-                  window.location.href = uri+'/#/' + str
-                }else{
-                  window.location.href = uri+ str
-                }
-              } else {
-                window.location.href = uri+'/#/letter' + strs
-              }
-            }else{//pc
+            // if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
+            //   if(!letter) {
+            //     if(isWx){
+            //       window.location.href = uri+'/#/' + str
+            //     }else{
+            //       window.location.href = uri+ str
+            //     }
+            //   } else {
+            //     window.location.href = uri+'/#/letter' + strs
+            //   }
+            // }else{//pc
               
-            } 
+            // } 
           }
           
 
