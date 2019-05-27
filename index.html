@@ -53,6 +53,7 @@
               let isWx=false;
               if(url.indexOf('from')>-1||url.indexOf('isappinstalled')>-1){//如果是微信分享
                   isWx=true;//是否为微信分享
+                  sessionStorage.setItem('isShare','true');
               }
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
@@ -76,6 +77,10 @@
               let uri='http://mobile.biaodaa.com';
               if(location.href.indexOf('pre')>-1){
                 uri='http://pre-mobile.biaodaa.com';
+              }
+              if(isWx){
+                strs=strs+'&isShare=1';
+                str=str+'&isShare=1';
               }
               if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
                 if(!letter) {
