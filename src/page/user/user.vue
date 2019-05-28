@@ -74,6 +74,11 @@ export default {
           to:'pDet',
           i: true
         },
+         {
+          name:'我的信息',
+          to:'info',
+          i:false
+        },
         {
           name:'我的关注',
           to:'fcoll',

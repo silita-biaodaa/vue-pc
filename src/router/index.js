@@ -24,6 +24,7 @@ import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
 import find from '@/page/user/find'
 import bound from '@/page/user/bound'
+import info from '@/page/user/info'
 // import buy from '@/page/user/buy'
 const buy = resolve => require(['@/page/user/buy'], resolve)
 
@@ -312,7 +313,7 @@ export default new Router({
             name: 'root',
             component: root,
             meta: {
-              i: 2
+              i: 3
             }
           },
           {
@@ -320,7 +321,7 @@ export default new Router({
             name: 'fcoll',
             component: fcoll,
             meta: {
-              i: 1
+              i: 2
             }
           },
           {   // 订单页面
@@ -328,7 +329,15 @@ export default new Router({
             name: 'order',
             component: order,
             meta: {
-              i: 3
+              i: 4
+            }
+          },
+          {   // 信息页面
+            path: 'info',
+            name: 'info',
+            component: info,
+            meta: {
+              i: 1
             }
           }
         ] 

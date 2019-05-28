@@ -266,3 +266,15 @@ export const commentP = params => {
 export const commentU = params => {
   return axios.post('comment/list/user', params).then(res => res.data)
 }
+
+export const message = params => {
+  return axios.post('message/list', params).then(res => res.data)
+}
+
+export const Dmessage = params => {
+  return axios.post('message/del', params).then(res => res.data)
+}
+
+export const Rmessage = params => {
+  return axios.post('message/set/read', params).then(res => res.data)
+}

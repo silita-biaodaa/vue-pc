@@ -35,6 +35,8 @@ import money from '@/page/perfor/money'
 import pertime from '@/page/perfor/pertime'
 
 import comment from '@/page/comment/comment'
+import reply from '@/page/user/reply'
+
 
 
 
@@ -67,6 +69,9 @@ Vue.component('per-por', perpor)
 Vue.component('m-oney', money)
 Vue.component('per-time', pertime)
 Vue.component('com-ment', comment)
+Vue.component('re-ply', reply)
+
+
 
 
 

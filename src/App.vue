@@ -417,7 +417,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about'|| this.$route.name == 'order' || this.$route.name == 'buy' ) {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about'|| this.$route.name == 'order' || this.$route.name == 'buy'|| this.$route.name == 'info' ) {
         return false
       } else {
         return true

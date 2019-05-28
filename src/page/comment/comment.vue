@@ -2,7 +2,7 @@
 <div class="comment">
   <div class="comment-top">
     <p class="comment-title" >评论</p>
-    <div @click="switchs" >
+    <div @click="switchs"  v-if="!this.skip" >
         <div class="comment-about" v-show="about" >
             <div class="no-about" >
 
@@ -18,6 +18,9 @@
             </div>
         </div>
    
+    </div>
+    <div  v-if="this.skip" class="all-from" >
+      全部评论
     </div>
   </div>
    <textarea class="comment-text" placeholder="欢迎留言讨论~" style="resize:none" v-model="text" maxlength="300" ></textarea>
@@ -93,7 +96,8 @@ export default {
       source:'',
       s:null,
       total:0,
-      pageSize:10
+      pageSize:10,
+      skip:false
     }
   },
   props: {
@@ -173,7 +177,19 @@ export default {
       }
     },
     gaincomL() {
-      commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
+      if(this.skip) {
+          commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
+                   if(res.code == 1 ) {
+                  res.data.forEach( el => {
+                     el.show = false,
+                     el.comment = ''
+                  });
+                  this.comList = res.data
+                  this.total = res.total
+                }
+          })
+      } else {
+          commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
           if(res.code == 1 ) {
             res.data.forEach( el => {
                el.show = false,
@@ -182,7 +198,9 @@ export default {
             this.comList = res.data
             this.total = res.total
           }
-      })
+         })
+      }
+      
     },
     pushT(el) {
       el.show = true
@@ -292,6 +310,7 @@ export default {
     }
   },
   created () {
+    this.skip = this.$route.query.skip ? this.$route.query.skip : false;
     this.id = this.$route.query.id
     this.source = this.$route.query.source
     this.gaincomL()
@@ -311,6 +330,17 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .all-from {
+      width:64px;
+      height:24px;
+      border:1px solid rgba(254,102,3,1);
+      border-radius:5px;
+      font-size:12px;
+      color:rgba(254,102,3,1);
+      line-height:24px;
+      text-align: center;
+      cursor: pointer;
+    }
     .comment-title {
       font-size: 18px;
       color:#333;

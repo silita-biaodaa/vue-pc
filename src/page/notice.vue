@@ -100,12 +100,24 @@ export default {
           }
         })
       }
+    },
+     toskip() {
+      if(this.skip) {  
+        setTimeout(() => {
+          document.getElementById("divId").scrollIntoView(true);
+        }, 400);
+        
+      }
     }
   },
   created () {
+    this.skip = this.$route.query.skip ? this.$route.query.skip : false;
     this.id = this.$route.query.id;
     this.source = this.$route.query.source;
     this.gainDetail()
+  },
+  mounted () {
+    this.toskip()
   },
   components: {
   }

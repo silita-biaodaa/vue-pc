@@ -65,6 +65,7 @@ export default {
       source:'',
       iscollect:true,
       collect:'关注',
+      skip:false
     }
   },
   methods: {
@@ -135,17 +136,20 @@ export default {
       }
     
     },
-    toCom() {
-      
-       console.log('执行2');
-              
-    },
-    
+    toskip() {
+      if(this.skip) {  
+        setTimeout(() => {
+          document.getElementById("divId").scrollIntoView(true);
+        }, 400);
+        
+      }
+    }
   },
   mounted () {
-    this.toCom()
+    this.toskip()
   },
   created () {
+    this.skip = this.$route.query.skip ? this.$route.query.skip : false;
     this.id = this.$route.query.id;
     this.source = this.$route.query.source;
     this.gainDetail()
