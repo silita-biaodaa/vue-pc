@@ -3,23 +3,23 @@
   <div class="det-nav">
      <div>我的消息</div>
      <div>
-       <div class="info-btn" v-show="btnS" >编辑
+       <div class="info-btn" v-show="btnS"  @click="btnS = false" >编辑
        </div>
        <div v-show="!btnS" class="list-btn" >
-          <div class="info-btn" >全选
+          <div class="info-btn" @click="addes"  >全选
           </div>
-          <div class="info-btn" >设为已读
+          <div class="info-btn" @click="addre"  >设为已读
           </div>
-          <div class="info-btn" >删除
+          <div class="info-btn" @click="delno" >删除
           </div>
-          <div class="info-btn" >取消
+          <div class="info-btn" @click="btnS = true" >取消
           </div>
        </div>
      </div>
    </div>
  
-   <re-ply :current='current' @page='gaincur' ></re-ply>  
-
+   <re-ply :current='current' @page='gaincur' v-if="btnS" ></re-ply>  
+    <re-dit :current='current' @page='gaincur' v-else  :alles='alles' :allre='allre'  :allde='allde' ></re-dit>
 </div>
 </template>
 <script>
@@ -29,13 +29,23 @@ export default {
     return {
       btnS:true,
       current:1,
-      
+      alles:1,
+      allre:1,
+      allde:1
     }
   },
   methods: {
     gaincur(val){
-      console.log(val);
       this.current = val.state
+    },
+    addes() {
+      this.alles =  this.alles +1
+    },
+    addre() {
+      this.allre =  this.allre +1
+    },
+    delno() {
+      this.allde =  this.allde +1
     }
   },
   created () {

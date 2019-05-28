@@ -1,43 +1,44 @@
 <template>
 <div class="reply"     >
    <div v-for="(el,i) in textList" :key="i" class="re-bor" >
-     <div class="re-title">
-       <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
-     </div>
-     <div class="re-new"  v-if="current == 1 && i == 0" >
-        <span>最新回答</span>
-        <div class="triangle" >
+        <div @click="jumA(el)"  class=" all-text" >
+              <div class="re-title">
+                <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
+              </div>
+              <div class="re-new"  v-if="current == 1 && i == 0" >
+                 <span>最新回答</span>
+                 <div class="triangle" >
+                 </div>
+              </div>
+              <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
+                   <div class="re-list"  >
+                      <div class='list-img'>
+                        <img src="../../assets/img/icon-toux.png@2x.png" alt="">
+                        <div class="no-read" v-if="el.isRead == 0" >
+                        
+                        </div>
+                      </div>
+                      <div class="list-text" >
+                        <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
+                        <div style="margin: 5px 0;" >{{el.replyContent}}
+                        </div>
+                        <p>{{el.pushd}}</p>
+                      </div>
+                      <div class="list-btn" >
+                        <div class="btn-list" >
+                          <span class="p-color" @click.stop="pushA(el)" >回复</span>
+                          <span v-show="el.delBtn" @click.stop="delText(el)" >删除</span>
+                        </div>
+                      </div>
+             </div>
         </div>
      </div>
-     <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
-          <div class="re-list all-text" @click="jumA(el)" >
-             <div class='list-img'>
-               <img src="../../assets/img/icon-toux.png@2x.png" alt="">
-               <div class="no-read" v-if="el.isRead == 0" >
-   
-               </div>
-             </div>
-             <div class="list-text" >
-               <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-               <div style="margin: 5px 0;" >{{el.replyContent}}
-               </div>
-               <p>{{el.pushd}}</p>
-             </div>
-             <div class="list-btn" >
-               <div class="btn-list" >
-                 <span class="p-color" @click.stop="pushA(el)" >回复</span>
-                 <span v-show="el.delBtn" @click.stop="delText(el)" >删除</span>
-               </div>
-             </div>
-           </div>
-
-           <div v-show="el.textShow" >
-               <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
-               <div class="re-push p-color" @click.stop="pusHText(el)" >
-                 发布
-               </div>
-           </div>
-     </div>
+      <div v-show="el.textShow" >
+            <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
+            <div class="re-push p-color" @click.stop="pusHText(el)" >
+              发布
+            </div>
+      </div> 
    
    </div>
      <div class="page" v-show="ishow" >
@@ -83,13 +84,19 @@ export default {
       el.delBtn = false
     },
     jumA(el) {
-       const { href } = this.$router.resolve({
+      if(el.relatedType == 'zhongbiao') {
+         const { href } = this.$router.resolve({
+          path:'/notice',query:{id:el.relatedId,source:el.source,skip:true} 
+        })
+        window.open(href, '_blank', )
+      } else {
+         const { href } = this.$router.resolve({
           path:'/article',query:{id:el.relatedId,source:el.source,skip:true} 
         })
         window.open(href, '_blank', )
+      }
          el.isRead = 1
          Rmessage({pkid:el.pkid}).then(res => {
-
          })
     },
     pushA(el) {
