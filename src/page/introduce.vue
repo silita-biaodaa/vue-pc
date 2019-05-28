@@ -140,11 +140,25 @@ export default {
     },
     anchor(el) {
       if(el.name == '法务信息'  ) {
-        if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comLaw') == -1  ) {
-            this.svip = true
-            this.modalHelper.afterOpen();
-            return 
-        }  
+        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+            if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comLaw') == -1  ) {
+              this.svip = true
+              this.modalHelper.afterOpen();
+              return 
+            }
+        } else {
+          this.$confirm('暂无权限，请先登录', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$router.push('/logo')
+          }).catch(() => {
+
+          });
+          return false
+        }
+          
       } 
         this.name = el.name
         this.navs.forEach( el => {
@@ -226,6 +240,7 @@ export default {
     this.gainDetail()
     this.gainNav()
     this.deploy()
+    
   },
   components: {
   }
