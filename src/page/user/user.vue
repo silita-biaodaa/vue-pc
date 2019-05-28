@@ -75,7 +75,7 @@ export default {
           i: true
         },
          {
-          name:'我的信息',
+          name:'我的消息',
           to:'info',
           i:false
         },

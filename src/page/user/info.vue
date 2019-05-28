@@ -1,7 +1,7 @@
 <template>
 <div class="info">
   <div class="det-nav">
-     <div>我的订单</div>
+     <div>我的消息</div>
      <div>
        <div class="info-btn" v-show="btnS" >编辑
        </div>

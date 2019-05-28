@@ -140,6 +140,9 @@ export default {
       })
     },
     pusHText(el) {
+      if(this.pushText.trim() == '') {
+        return 
+      }
        commentP({content:this.pushText,relatedId:el.relatedId,relatedType:el.relatedType,toUid:el.replyUid,commentId:el.commentId,source:el.source}).then(res => {
          if(res.code == 1) {
             this.msg = '评论成功'

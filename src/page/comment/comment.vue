@@ -19,7 +19,7 @@
         </div>
    
     </div>
-    <div  v-if="this.skip" class="all-from" >
+    <div  v-if="this.skip" class="all-from"  @click.stop="rushR" >
       全部评论
     </div>
   </div>
@@ -307,7 +307,24 @@ export default {
                 }
             })
         }
+    },
+    rushR() {
+      if(this.type == 'zhongbiao') {
+
+      } else {
+        this.$router.push({path:'/article',query:{source:this.source,id:this.id,ne:true}})
+      }
+      
     }
+  },
+  watch: {
+   $route: {
+      handler: function(val, oldVal){
+          this.skip = this.$route.query.skip ? this.$route.query.skip : false;
+          this.gaincomL()
+        },
+        deep: true
+      }
   },
   created () {
     this.skip = this.$route.query.skip ? this.$route.query.skip : false;
