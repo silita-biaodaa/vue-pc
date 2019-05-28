@@ -45,6 +45,7 @@
               let isWx=false;
               if(url.indexOf('from')>-1||url.indexOf('isappinstalled')>-1){//如果是微信分享
                   isWx=true;//是否为微信分享
+                  sessionStorage.setItem('isShare','true');
               }
               if(url.indexOf('introduce') >= 0 ) {
                   var is = url.indexOf('?') 
@@ -69,6 +70,10 @@
               if(location.href.indexOf('pre')>-1){
                 uri='http://pre-mobile.biaodaa.com';
               }
+              if(isWx){
+                strs=strs+'&isshare=1';
+                str=str+'&isshare=1';
+              }
               if(  browser.versions.ios || browser.versions.android || browser.versions.dingtalk || browser.versions.swidth) {//wap
                 if(!letter) {
                   if(isWx){
@@ -82,4 +87,4 @@
               }else{//pc
                 
               } 
-          }</script><link href=/static/css/app.fbbfd8e166db97a8ab6825722147f6cb.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.e78680121bdc563db083.js></script><script type=text/javascript src=/static/js/vendor.88978af296e7d74281da.js></script><script type=text/javascript src=/static/js/app.77a7fad9592048cfcfb5.js></script></body></html>
+          }</script><link href=/static/css/app.41658767ce482d37e7725fd63551b65e.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.f712e67033cdc7266d6f.js></script><script type=text/javascript src=/static/js/vendor.6f3aae32a5746258353c.js></script><script type=text/javascript src=/static/js/app.c8cb20088c1117b286dd.js></script></body></html>
