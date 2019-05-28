@@ -63,7 +63,8 @@ export default {
       pageSize:2,
       ishow:false,
       noList:false,
-      allArr:[]
+      allArr:[],
+      allChe:true
     }
   },
 
@@ -81,6 +82,8 @@ export default {
     Goto(val) {
       this.pageNo = val.cur
       this.allArr = []  
+      this.allChe = true
+      this.$emit('invert', {state:'全选'})
       this.gaiaList()
       this.$emit('page', {state:val.cur})
     },
@@ -174,11 +177,25 @@ export default {
       if(val == 1 ) {
         return 
       } else {
-        this.allArr = []
-        this.textList.forEach(el => {
-          el.textShow = true
-          this.allArr.push(el.pkid)
-        })
+        if(this.allChe) {
+            this.allArr = []
+            this.textList.forEach(el => {
+              el.textShow = true
+              if( this.allArr.indexOf(el.pkid) == -1 ) {
+                this.allArr.push(el.pkid)
+              }          
+            })
+            this.$emit('invert', {state:'反选'})
+            this.allChe = false
+        } else {
+            this.allChe = true
+            this.allArr = []
+            this.textList.forEach(el => {
+              el.textShow = false                     
+            })
+            this.$emit('invert', {state:'全选'})
+        }
+        
       }
       
     }
