@@ -23,7 +23,7 @@
                <i class="iconfont icon-youxiang left person we-us" >
                  <div class="us-red" v-show="ishow" ></div>
                </i>
-                 <span>我的信息</span>
+                 <span>我的消息</span>
              </p>
              <router-link :to="{path:'/about'}" tag="a" target='_blank' class="left">
               <p class="left" style="cursor: pointer;" >  

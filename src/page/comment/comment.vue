@@ -325,7 +325,7 @@ export default {
     },
     rushR() {
       if(this.type == 'zhongbiao') {
-
+        this.$router.push({path:'/notice',query:{source:this.source,id:this.id,ne:true}})
       } else {
         this.$router.push({path:'/article',query:{source:this.source,id:this.id,ne:true}})
       }

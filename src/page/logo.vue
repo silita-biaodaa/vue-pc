@@ -35,9 +35,10 @@
                   忘记密码？
                 </div>
               </div>
-              <el-button class="e-btn" @click="register" >立即登录</el-button>
+              <div class="e-btn" @click="register">立即登录</div>
             </template>          
             <template v-else>
+
               <div class="e-title e-color">微信扫一扫登录</div>
               <div class="qrcode-box">
                 <div id="qrcode" class="qrcode" ref="qr"></div>
@@ -198,6 +199,13 @@ export default {
             width: 100%;
             background-color: #FE6603;
             color:#fff;
+            height: 37px;
+            font-size: 14px;
+            color: #fff;
+            line-height: 37px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
           }
           .wechat {
             margin-top: 9px;
