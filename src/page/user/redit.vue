@@ -13,12 +13,12 @@
               <div style="padding:10px 0" >
                    <div class="re-list"  >
                       <div class="list-cli" >
-                        <div class="list-true"  v-show="!el.textShow" >
+                        <div  class="list-true"  v-show="!el.textShow" >
                         </div>
-                        <img :src="el.image != null ? el.image : avatar" alt="" v-show="el.textShow" >
+                        <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
                       </div>
                       <div class='list-img'>
-                        <img src="../../assets/img/icon-toux.png@2x.png" alt="">
+                        <img :src="el.image != null ? el.image : avatar" alt="">
                         <div class="no-read" v-if="el.isRead == 0" >
                         
                         </div>

@@ -19,12 +19,19 @@
                <i class="iconfont icon-VIP1 left person"></i>
                 会员服务
              </p>
+             <p class="left" style="cursor: pointer;verticalAlign:middle"  @click="toinfo" >  
+               <i class="iconfont icon-youxiang left person we-us" >
+                 <div class="us-red" v-show="ishow" ></div>
+               </i>
+                 <span>我的信息</span>
+             </p>
              <router-link :to="{path:'/about'}" tag="a" target='_blank' class="left">
               <p class="left" style="cursor: pointer;" >  
                 <i class="iconfont icon-lianxiren left person"></i>
                   关于我们
               </p>
              </router-link>
+             
           </div>
           <div class="contact-r">
             
@@ -134,7 +141,7 @@
 </template>
 
 <script>
-import { address,getUserTemp,filter } from '@/api/index';
+import { address,getUserTemp,filter,Cmessage } from '@/api/index';
 export default {
   name: 'App',
   data() {
@@ -181,6 +188,7 @@ export default {
      ],
      rank:0,
      way:'/bid',
+     ishow:false,
      source:'湖南省',
      selects:[
          {
@@ -363,6 +371,24 @@ export default {
       }
      
     },
+    toinfo() {
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+          let routeUrl = this.$router.resolve({
+            path: "/user/info",
+          });
+          window.open(routeUrl.href, '_blank');
+      } else {     
+          this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+      }
+    },
    gainFilter() {
       filter({}).then( res => {
          if(res.code == 1 ) {
@@ -373,6 +399,18 @@ export default {
          }
       })
     },
+    gainCo() {
+      Cmessage({}).then(res => {
+        if(res.code == 1) {
+          if(res.data >= 1) {
+            this.ishow = true
+          } else {
+            this.ishow = false
+          }
+          
+        }
+      })
+    }
   },
   created () {
     this.valley()
@@ -386,10 +424,12 @@ export default {
     this.judge()
     this.gainaddress()
     this.gainFilter()
+    this.gainCo()
   },
   watch: {
     $route:{
       handler: function(val, oldVal){
+         this.gainCo()
         sessionStorage.setItem('pageNo',1)
         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           this.name = localStorage.getItem('Bname')
@@ -460,7 +500,7 @@ export default {
     background-color: #fff;
      .contact {
         height: 33px;
-        width: 1020px;
+        min-width: 1020px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -489,7 +529,7 @@ export default {
           }
         }
         .contact-r {
-          width: 400px;
+          width: 300px;
           display: flex;
           align-items: center; 
           flex-direction:row-reverse;
@@ -675,6 +715,20 @@ export default {
            color: #eee;
          }
        }
+    }
+  }
+  .we-us {
+    font-size: 20px !important;
+    padding-top: 2px;
+    position: relative;
+    .us-red {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background-color: red;
+      border-radius: 50%;
+      top: 1px;
+      right: 0;
     }
   }
 }

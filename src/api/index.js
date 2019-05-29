@@ -3,8 +3,8 @@ import Vue from 'vue'
 import { Message } from 'element-ui';
 Vue.prototype.$http = axios
 // const baseURL = 'http://api.biaodaa.com/'
-const baseURL = 'http://pre.biaodaa.com/'
-// const baseURL = '/' 
+// const baseURL = 'http://pre.biaodaa.com/'
+const baseURL = '/' 
 
 
 
@@ -13,9 +13,11 @@ axios.defaults.baseURL = baseURL
 
 axios.interceptors.request.use(function (config) {
   // 将token给到一个前后台约定好的key中，作为请求发送
+  config.headers['baseInfo'] = '3.5|1003'
   let token = sessionStorage.getItem('xtoken') ? sessionStorage.getItem('xtoken') : (localStorage.getItem('Xtoken') ? localStorage.getItem('Xtoken') : '' );
   if (token) {
     config.headers['X-TOKEN'] = token
+    
   }
   return config
 }, function (error) {
