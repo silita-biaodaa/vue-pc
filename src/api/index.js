@@ -278,3 +278,11 @@ export const Dmessage = params => {
 export const Rmessage = params => {
   return axios.post('message/set/read', params).then(res => res.data)
 }
+
+export const Cmessage = params => {
+  return axios.post('message/count/unread', params).then(res => res.data)
+}
+
+export const single = params => {
+  return axios.post('comment/single', params).then(res => res.data)
+}

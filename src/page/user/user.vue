@@ -5,10 +5,11 @@
        <img src="../../assets/img/logo2.png" alt="" @click="jump" style="cursor: pointer;">
        <el-dropdown >
          <span class="el-dropdown-link">
-           用户中心<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+           <span class="user-name" >用户中心<i class="user-info" v-show="ishow" ></i></span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
          </span>
          <el-dropdown-menu slot="dropdown" trigger="click" >
            <el-dropdown-item @click.native="gotoUser()" >个人设置</el-dropdown-item>
+           <el-dropdown-item @click.native="toinf()" ><span class="user-name"  >我的信息<i class="user-info" v-show="ishow" ></i></span></el-dropdown-item>
            <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
            <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
            <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
@@ -64,7 +65,7 @@
 </div>
 </template>
 <script>
-import { getUserTemp } from '@/api/index'
+import { getUserTemp,Cmessage } from '@/api/index'
 export default {
   data () {
     return {
@@ -103,7 +104,8 @@ export default {
       userData:{},
       day:0,
       state:'',
-      vipname:''
+      vipname:'',
+      ishow:false
     }
   },
   methods: {
@@ -197,7 +199,6 @@ export default {
       this.$router.push('/user/order')
     },
     quit() {
-
         sessionStorage.removeItem('xtoken')
         localStorage.removeItem('Bname')
         localStorage.removeItem('Xtoken')
@@ -211,11 +212,32 @@ export default {
            li.i = false 
         })
         this.tab[this.$route.meta.i].i = true
+    },
+    gainCo() {
+      Cmessage({}).then(res => {
+        if(res.code == 1) {
+          if(res.data >= 1) {
+            this.ishow = true
+          } else {
+            this.ishow = false
+          }
+          
+        }
+      })
+    }
+  },
+  watch: {
+      $route: {
+      handler: function(val, oldVal){
+        this.gainCo()
+      },
+      deep: true
     }
   },
   created () {
     this.isroot()
     this.getUser()
+    this.gainCo()
   },
   components: {
   }
@@ -344,6 +366,19 @@ export default {
      width: 100%;
      margin-left: 29px;
      margin-bottom: 150px;
+   }
+ }
+ .user-name {
+   position: relative;
+   .user-info {
+      position: absolute;
+      right: -6px;
+      top: -2px;
+      border: 1px solid red;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+      background-color: red;
    }
  }
 }

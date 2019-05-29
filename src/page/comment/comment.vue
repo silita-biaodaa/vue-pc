@@ -65,7 +65,7 @@
           </div>
        <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="el.show" v-model="el.comment" maxlength="300" ></textarea>
        <div class="comment-btn" v-show="el.show" >
-        <div class="pu-btn" @click="reply(el)"  >发布
+        <div class="pu-btn" @click="reply(el,i)"  >发布
        </div>
    </div>      
    </div>       
@@ -78,13 +78,12 @@
 </div>
 </template>
 <script>
-import { getJsonData,commentL,commentP,commentU } from '@/api/index'
-
+import { getJsonData,commentL,commentP,commentU,single } from '@/api/index'
 export default {
   data () {
     return {
       switcher:true,
-      about:true,
+      about:true,  // 控制与我相关的
       text:'',
       diss:false,
       id:'',
@@ -203,33 +202,42 @@ export default {
       
     },
     pushT(el) {
+      // 回复主评论
       el.show = true
       el.comment = ''
       this.s = null
     },
-    reply(el) {
+    reply(el,i) {
       if(el.comment.trim()) {
         this.pageSize = 10 
         if(this.s == null ) {
+
             commentP({content:el.comment,relatedId:this.id,relatedType:this.type,toUid:el.userId,commentId:el.pkid,source:this.source}).then(res => {
                 if(res.code == 1 ) {
                   this.msg = '提交成功'
                   this.isshow = true
                   this.text = ''
-                     if(!this.about) {
-                       commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
-                               if(res.code == 1 ) {
-                              res.data.forEach( el => {
-                                 el.show = false,
-                                 el.comment = ''
-                              });
-                              this.comList = res.data
-                              this.total = res.total
-                            }
-                      })
-                    } else {
-                      this.gaincomL()
-                    }
+                    //  if(!this.about) {
+                    //    commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
+                    //            if(res.code == 1 ) {
+                    //           res.data.forEach( el => {
+                    //              el.show = false,
+                    //              el.comment = ''
+                    //           });
+                    //           this.comList = res.data
+                    //           this.total = res.total
+                    //         }
+                    //   })
+                    // } else {
+                    //   this.gaincomL()
+                    // }
+                    single({commentId:el.pkid,source:this.source,relatedType:this.type,relatedId:this.id}).then(res => {
+                       if(res.code == 1 ) {
+                         res.data.show = false
+                         res.data.comment = ''
+                         this.comList.splice(i,1,res.data)
+                       }
+                    })
                   setTimeout(() => {
                     this.isshow = false
                   }, 2000);
@@ -247,20 +255,27 @@ export default {
                   this.msg = '提交成功'
                   this.isshow = true
                   this.text = ''
-                  if(!this.about) {
-                     commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:10,source:this.source}).then(res => {
-                             if(res.code == 1 ) {
-                            res.data.forEach( el => {
-                               el.show = false,
-                               el.comment = ''
-                            });
-                            this.comList = res.data
-                            this.total = res.total
-                          }
+                  // if(!this.about) {
+                  //    commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:10,source:this.source}).then(res => {
+                  //            if(res.code == 1 ) {
+                  //           res.data.forEach( el => {
+                  //              el.show = false,
+                  //              el.comment = ''
+                  //           });
+                  //           this.comList = res.data
+                  //           this.total = res.total
+                  //         }
+                  //   })
+                  // } else {
+                  //   this.gaincomL()
+                  // }
+                  single({commentId:el.pkid,source:this.source,relatedType:this.type,relatedId:this.id}).then(res => {
+                       if(res.code == 1 ) {
+                         res.data.show = false
+                         res.data.comment = ''
+                         this.comList.splice(i,1,res.data)
+                       }
                     })
-                  } else {
-                    this.gaincomL()
-                  }
                   setTimeout(() => {
                     this.isshow = false
                   }, 2000);

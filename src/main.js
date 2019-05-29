@@ -38,6 +38,9 @@ import comment from '@/page/comment/comment'
 import reply from '@/page/user/reply'
 import redit from '@/page/user/redit'
 
+import usercenter from '@/components/user-center'
+
+
 
 
 
@@ -73,6 +76,8 @@ Vue.component('per-time', pertime)
 Vue.component('com-ment', comment)
 Vue.component('re-ply', reply)
 Vue.component('re-dit', redit)
+Vue.component('user-center', usercenter)
+
 
 
 

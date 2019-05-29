@@ -12,10 +12,11 @@
             <div v-if="names" ><span @click="tologo" >登录</span>&nbsp&nbsp<span @click="toenroll" >注册</span></div> 
                 <el-dropdown  v-else trigger="click"   >
                 <span class="el-dropdown-link">
-                    {{name}}<i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+                    <span class="user-name" >{{name}}<i class="user-info" v-show="ishow" ></i></span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown" style="z-index:2050" >
                     <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
+                    <el-dropdown-item @click.native="toinf()" ><span class="user-name"  >我的信息<i class="user-info" v-show="ishow" ></i></span></el-dropdown-item>
                     <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
                     <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
                     <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
@@ -27,17 +28,25 @@
     </div>
 </template>
 <script>
+import { Cmessage } from "@/api/index";
 export default {
     name: 'heads', // 结构名称
     data() {
         return {
             // 数据模型
             names:true,
-            name:''
+            name:'',
+            ishow:false
         }
     },
     watch: {
         // 监控集合
+        $route: {
+        handler: function(val, oldVal){
+          this.gainCo()
+        },
+        deep: true
+      }
     },
     props: {
         // 集成父级参数
@@ -56,6 +65,7 @@ export default {
         } else {     
             this.names = true
         }
+        this.gainCo()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -98,6 +108,9 @@ export default {
         tocol() {
             this.$router.push('/user/fcoll')
         },
+        toinf() {
+          this.$router.push('/user/info')
+        },
         amend() {
             this.$router.push('/user/root')
         },
@@ -111,6 +124,18 @@ export default {
                 path: '/home',
             })
         },
+         gainCo() {
+          Cmessage({}).then(res => {
+            if(res.code == 1) {
+              if(res.data >= 1) {
+                this.ishow = true
+              } else {
+                this.ishow = false
+              }
+
+            }
+          })
+        }
     }
 
 }
@@ -145,6 +170,19 @@ export default {
             margin-right: 10px;
         }
         }
+    }
+    .user-name {
+      position: relative;
+      .user-info {
+         position: absolute;
+         right: -6px;
+         top: -2px;
+         border: 1px solid red;
+         border-radius: 50%;
+         width: 5px;
+         height: 5px;
+         background-color: red;
+      }
     }
 }
 </style>

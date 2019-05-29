@@ -365,3 +365,16 @@ figcaption:focus {
 .cat-col {
   color: #999;
 }
+.el-dropdown-menu__item .user-name {
+  position: relative;
+}
+.el-dropdown-menu__item .user-name .user-info {
+  position: absolute;
+  right: -6px;
+  top: -2px;
+  border: 1px solid red;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: red;
+}

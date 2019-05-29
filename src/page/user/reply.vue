@@ -13,7 +13,7 @@
               <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
                    <div class="re-list"  >
                       <div class='list-img'>
-                        <img src="../../assets/img/icon-toux.png@2x.png" alt="">
+                        <img :src="el.image != null ? el.image : avatar" alt="">
                         <div class="no-read" v-if="el.isRead == 0" >
                         
                         </div>
@@ -68,9 +68,10 @@ export default {
       pop:false,
       textList:[],
       total:0,
-      pageSize:2,
+      pageSize:10,
       ishow:false,
-      noList:false
+      noList:false,
+      avatar: require('../../assets/img/icon-toux.png@2x.png'),
     }
   },
   props: {
@@ -124,7 +125,7 @@ export default {
       this.$emit('page', {state:val.cur})
     },
     gaiaList() {
-      message({pageNum:this.pageNo,pageSize:2}).then(res => {
+      message({pageNum:this.pageNo,pageSize:10}).then(res => {
          if(res.code == 1) {
            res.data.forEach(el => {
              el.textShow = false
@@ -132,7 +133,7 @@ export default {
            })
            this.total = res.total
            this.textList = res.data
-           if( this.total >= 1) {
+           if( this.total >= 10) {
              this.ishow = true
            } else {
              this.ishow = false

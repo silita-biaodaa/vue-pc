@@ -15,7 +15,7 @@
                       <div class="list-cli" >
                         <div class="list-true"  v-show="!el.textShow" >
                         </div>
-                        <img src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
+                        <img :src="el.image != null ? el.image : avatar" alt="" v-show="el.textShow" >
                       </div>
                       <div class='list-img'>
                         <img src="../../assets/img/icon-toux.png@2x.png" alt="">
@@ -60,11 +60,12 @@ export default {
       pop:false,
       textList:[],
       total:0,
-      pageSize:2,
+      pageSize:10,
       ishow:false,
       noList:false,
       allArr:[],
-      allChe:true
+      allChe:true,
+      avatar: require('../../assets/img/icon-toux.png@2x.png'),
     }
   },
 
@@ -88,14 +89,14 @@ export default {
       this.$emit('page', {state:val.cur})
     },
     gaiaList() {
-      message({pageNum:this.pageNo,pageSize:2}).then(res => {
+      message({pageNum:this.pageNo,pageSize:10}).then(res => {
          if(res.code == 1) {
            res.data.forEach(el => {
              el.textShow = false
            })
            this.total = res.total
            this.textList = res.data
-           if( this.total >= 1) {
+           if( this.total >= 10) {
              this.ishow = true
            } else {
              this.ishow = false
@@ -163,6 +164,12 @@ export default {
                 this.textList.forEach(el => {
                   el.isRead = 1
                 })
+                // this.$router.replace({
+                //    path: '/user/info',
+                //    query: {
+                //      t: Date.now()
+                //    }
+                //   })
                 setTimeout(() => {
                   this.pop = false
                 }, 1500);
