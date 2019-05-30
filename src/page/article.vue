@@ -1,8 +1,6 @@
 <template>
  <div class="article">
-  <!-- <div @click="toCom" >
-    点击
-  </div> -->
+
    <div class="title">
       <p>
         {{articles.title}}
@@ -11,6 +9,7 @@
         <span>{{articles.opendate}}</span>
         <div>
           <span class="left">点击数：<i>{{clickCount}}</i></span>
+          <span class="left" style="marginLeft:10px" >评论数：<i>{{allC}}</i></span>
           <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
             <i class="el-icon-plus"></i>{{collect}}
           </div>
@@ -47,7 +46,7 @@
       </div>
    </div>
    <!-- <div > -->
-     <com-ment id="divId" :type="'zhaobiao'"  ></com-ment>
+     <com-ment id="divId" :type="'zhaobiao'" @total='gainT'  ></com-ment>
    <!-- </div> -->
    
  </div>
@@ -65,10 +64,14 @@ export default {
       source:'',
       iscollect:true,
       collect:'关注',
-      skip:false
+      skip:false,
+      allC:0
     }
   },
   methods: {
+    gainT(val) {
+      this.allC = val.state
+    },
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'0',

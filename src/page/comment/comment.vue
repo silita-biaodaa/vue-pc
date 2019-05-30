@@ -132,6 +132,7 @@ export default {
                   });
                   this.comList = res.data
                   this.total = res.total
+                  this.$emit('total', {state:res.total})
                 }
           })
         } else {
@@ -185,6 +186,7 @@ export default {
                   });
                   this.comList = res.data
                   this.total = res.total
+                  this.$emit('total', {state:res.total})
                 }
           })
       } else {
@@ -196,6 +198,7 @@ export default {
             });
             this.comList = res.data
             this.total = res.total
+            this.$emit('total', {state:res.total})
           }
          })
       }
@@ -217,20 +220,6 @@ export default {
                   this.msg = '提交成功'
                   this.isshow = true
                   this.text = ''
-                    //  if(!this.about) {
-                    //    commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
-                    //            if(res.code == 1 ) {
-                    //           res.data.forEach( el => {
-                    //              el.show = false,
-                    //              el.comment = ''
-                    //           });
-                    //           this.comList = res.data
-                    //           this.total = res.total
-                    //         }
-                    //   })
-                    // } else {
-                    //   this.gaincomL()
-                    // }
                     single({commentId:el.pkid,source:this.source,relatedType:this.type,relatedId:this.id}).then(res => {
                        if(res.code == 1 ) {
                          res.data.show = false
@@ -255,20 +244,6 @@ export default {
                   this.msg = '提交成功'
                   this.isshow = true
                   this.text = ''
-                  // if(!this.about) {
-                  //    commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:10,source:this.source}).then(res => {
-                  //            if(res.code == 1 ) {
-                  //           res.data.forEach( el => {
-                  //              el.show = false,
-                  //              el.comment = ''
-                  //           });
-                  //           this.comList = res.data
-                  //           this.total = res.total
-                  //         }
-                  //   })
-                  // } else {
-                  //   this.gaincomL()
-                  // }
                   single({commentId:el.pkid,source:this.source,relatedType:this.type,relatedId:this.id}).then(res => {
                        if(res.code == 1 ) {
                          res.data.show = false

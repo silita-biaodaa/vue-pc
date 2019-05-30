@@ -329,8 +329,7 @@ export default {
             this.gainQueryList()
           }
       } else {
-          sessionStorage.removeItem('xtoken')
-          localStorage.removeItem('Xtoken')
+          
           this.$confirm('暂无权限，请先登录', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
