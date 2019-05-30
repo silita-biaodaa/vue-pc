@@ -77,12 +77,12 @@ export default {
       this.way = el.to
     },
     mapping() {
-      // this.selects.forEach(el => {
-      //    if(this.$route.path == el.to) {
-      //      this.way = el.to
-      //    }
-      // })
-      this.way = this.$route.fullPath
+      if(this.$route.fullPath == '/home') {
+        this.way = '/bid'
+      } else {
+        this.way = this.$route.fullPath
+      }
+      
     },
     jump() {
       let url=this.$router.resolve({

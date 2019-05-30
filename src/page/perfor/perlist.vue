@@ -148,16 +148,17 @@ export default {
     gainList() {
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"project",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
-           res.data.forEach(el => {
-             el.is = false
-           })
-           this.total = res.total
-           this.perlist = res.data 
-           if(res.data) {
-             this.Snone = true
+           if( res.data) {
+               res.data.forEach(el => {
+                el.is = false
+              })
+              this.total = res.total
+              this.perlist = res.data 
+              this.Snone = true
            } else {
-              this.Snone = false
+             this.Snone = false
            }
+
          }
       })
     },
@@ -202,8 +203,7 @@ export default {
   },
   watch: {
     title(val) {
-      console.log('搜索');
-      
+      console.log(val);
       this.search = val
       this.current = 1
        this.gainList()
