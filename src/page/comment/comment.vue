@@ -69,7 +69,7 @@
        </div>
    </div>      
    </div>       
-   <div class="comm-more"  v-show="comList.length != 0  " >
+   <div class="comm-more"  v-show="comList.length != 0 && !this.skip  " >
       <span @click="Mlist"  :class="this.comList.length == this.total ? 'no-more' : ''" >查看更多</span>
    </div>
   <div class="com-pop"  v-show="isshow" >
@@ -96,7 +96,8 @@ export default {
       s:null,
       total:0,
       pageSize:10,
-      skip:false
+      skip:false,
+      commentId:''
     }
   },
   props: {
@@ -178,18 +179,17 @@ export default {
     },
     gaincomL() {
       if(this.skip) {
-          commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
-                   if(res.code == 1 ) {
-                  res.data.forEach( el => {
-                     el.show = false,
-                     el.comment = ''
-                  });
-                  this.comList = res.data
-                  this.total = res.total
-                  this.$emit('total', {state:res.total})
-                }
-          })
+        single({commentId:this.commentId,source:this.source,relatedType:this.type,relatedId:this.id}).then(res => {
+             if(res.code == 1 ) {
+                res.data.show = false
+                res.data.comment = ''
+                this.comList.push(res.data)
+                this.total = res.total
+                this.$emit('total', {state:res.total})
+             }
+         })
       } else {
+        
           commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
           if(res.code == 1 ) {
             res.data.forEach( el => {
@@ -318,6 +318,7 @@ export default {
   },
   created () {
     this.skip = this.$route.query.skip ? this.$route.query.skip : false;
+    this.commentId = this.$route.query.commentId ? this.$route.query.commentId : '';
     this.id = this.$route.query.id
     this.source = this.$route.query.source
     this.gaincomL()

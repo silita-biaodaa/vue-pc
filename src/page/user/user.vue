@@ -9,7 +9,7 @@
          </span>
          <el-dropdown-menu slot="dropdown" trigger="click" >
            <el-dropdown-item @click.native="gotoUser()" >个人设置</el-dropdown-item>
-           <el-dropdown-item @click.native="toinf()" ><span class="user-name"  >我的信息<i class="user-info" v-show="ishow" ></i></span></el-dropdown-item>
+           <el-dropdown-item @click.native="toinf()" ><span class="user-name"  >我的消息<i class="user-info" v-show="ishow" ></i></span></el-dropdown-item>
            <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
            <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
            <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>

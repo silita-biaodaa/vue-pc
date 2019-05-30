@@ -87,12 +87,12 @@ export default {
     jumA(el) {
       if(el.relatedType == 'zhongbiao') {
          const { href } = this.$router.resolve({
-          path:'/notice',query:{id:el.relatedId,source:el.source,skip:true} 
+          path:'/notice',query:{id:el.relatedId,source:el.source,skip:true,commentId:el.commentId} 
         })
         window.open(href, '_blank', )
       } else {
          const { href } = this.$router.resolve({
-          path:'/article',query:{id:el.relatedId,source:el.source,skip:true} 
+          path:'/article',query:{id:el.relatedId,source:el.source,skip:true,commentId:el.commentId} 
         })
         window.open(href, '_blank', )
       }
