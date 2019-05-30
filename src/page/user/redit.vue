@@ -85,6 +85,8 @@ export default {
       this.allArr = []  
       this.allChe = true
       this.$emit('invert', {state:'全选'})
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
       this.gaiaList()
       this.$emit('page', {state:val.cur})
     },

@@ -122,6 +122,8 @@ export default {
     Goto(val) {
       this.pageNo = val.cur     
       this.gaiaList()
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
       this.$emit('page', {state:val.cur})
     },
     gaiaList() {

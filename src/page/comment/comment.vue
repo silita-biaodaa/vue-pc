@@ -507,6 +507,7 @@ export default {
   }
   .no-more {
     color:#999;
+    cursor: default !important;
   }
 
 }
