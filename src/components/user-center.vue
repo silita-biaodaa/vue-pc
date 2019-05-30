@@ -54,16 +54,36 @@ export default {
       this.$router.push('/user')
     },
     gainCo() {
-      Cmessage({}).then(res => {
-        if(res.code == 1) {
-          if(res.data >= 1) {
-            this.ishow = true
-          } else {
-            this.ishow = false
-          }
-          
-        }
-      })
+     if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+           Cmessage({}).then(res => {
+            if(res.code == 1) {
+              if(res.data >= 1) {
+                this.ishow = true
+              } else {
+                this.ishow = false
+              }
+            } else {
+              sessionStorage.removeItem('xtoken')
+              localStorage.removeItem('Xtoken')
+              localStorage.removeItem('permissions')
+               this.$confirm('用户登录失效，请重新登录', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  this.$router.push('/logo')
+                }).catch(() => {
+                  this.$router.replace({
+                   path: '/home',
+                   query: {
+                     t: Date.now()
+                   }
+                  })
+                });
+            }
+          })
+     }
+   
     }
   },
   watch: {
