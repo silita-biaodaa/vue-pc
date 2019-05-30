@@ -46,7 +46,12 @@
          回复
        </div>
      </div>
-         <div class="next-list" v-for="(ell,s) in el.replys" :key="s"  >
+     <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="el.show" v-model="el.comment" maxlength="300" ></textarea>
+     <div class="comment-btn" v-show="el.show" >
+        <div class="pu-btn" @click="reply(el,i)"  >发布
+        </div>
+     </div>
+        <div class="next-list" v-for="(ell,s) in el.replys" :key="s"  >
               <div class="list-title" >
                 <img :src="ell.reImage ? ell.reImage : avatar" alt="">
                 <div class="list-name" >
@@ -58,15 +63,16 @@
               </div>
               <div class="list-time">
                 <p>{{ell.pushd | Upper }}</p>
-                <div class="p-color" style="cursor: pointer;" @click="againP(el,s)"   >
+                <div class="p-color" style="cursor: pointer;" @click="againP(ell,s)"   >
                   回复
                 </div>
               </div>
-          </div>
-       <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="el.show" v-model="el.comment" maxlength="300" ></textarea>
-       <div class="comment-btn" v-show="el.show" >
-        <div class="pu-btn" @click="reply(el,i)"  >发布
-       </div>
+               <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="ell.textS" v-model="el.comment" maxlength="300" ></textarea>
+               <div class="comment-btn" v-show="ell.textS" >
+                  <div class="pu-btn" @click="reply(el,i)"  >发布
+                  </div>
+               </div>
+      
    </div>      
    </div>       
    <div class="comm-more"  v-show="comList.length != 0 && !this.skip  " >
@@ -156,6 +162,9 @@ export default {
                           res.data.forEach( el => {
                              el.show = false,
                              el.comment = ''
+                             el.replys.forEach(el => {
+                                el.textS = false
+                              })
                           });
                           this.comList = res.data
                           this.total = res.total
@@ -183,20 +192,26 @@ export default {
              if(res.code == 1 ) {
                 res.data.show = false
                 res.data.comment = ''
+                res.data.replys.forEach(el => {
+                 el.textS = false
+               })
                 this.comList.push(res.data)
                 this.total = res.total
                 this.$emit('total', {state:res.total})
              }
          })
       } else {
-        
-          commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
+        commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
           if(res.code == 1 ) {
             res.data.forEach( el => {
                el.show = false,
                el.comment = ''
+               el.replys.forEach(el => {
+                 el.textS = false
+               })
             });
             this.comList = res.data
+            console.log(this.comList);
             this.total = res.total
             this.$emit('total', {state:res.total})
           }
@@ -205,9 +220,14 @@ export default {
       
     },
     pushT(el) {
-      // 回复主评论
+      this.comList.forEach( el => {
+          el.show = false,
+          el.comment = ''
+          el.replys.forEach(el => {
+            el.textS = false
+          })
+       });
       el.show = true
-      el.comment = ''
       this.s = null
     },
     reply(el,i) {
@@ -224,6 +244,9 @@ export default {
                        if(res.code == 1 ) {
                          res.data.show = false
                          res.data.comment = ''
+                           res.data.replys.forEach(el => {
+                            el.textS = false
+                          })
                          this.comList.splice(i,1,res.data)
                        }
                     })
@@ -248,6 +271,9 @@ export default {
                        if(res.code == 1 ) {
                          res.data.show = false
                          res.data.comment = ''
+                          res.data.replys.forEach(el => {
+                            el.textS = false
+                          })
                          this.comList.splice(i,1,res.data)
                        }
                     })
@@ -266,9 +292,15 @@ export default {
        
       }
     },
-    againP(el,s) {
-      el.show = true
-      el.comment = ''
+    againP(ell,s) {
+       this.comList.forEach( el => {
+          el.show = false,
+          el.comment = ''
+          el.replys.forEach(el => {
+            el.textS = false
+          })
+       });
+      ell.textS = true
       this.s = s
     },
     Mlist() {
@@ -282,6 +314,9 @@ export default {
                   res.data.forEach( el => {
                      el.show = false,
                      el.comment = ''
+                      el.replys.forEach(el => {
+                            el.textS = false
+                          })
                   });
                   this.comList =res.data
                 }
@@ -292,6 +327,9 @@ export default {
                   res.data.forEach( el => {
                      el.show = false,
                      el.comment = ''
+                      el.replys.forEach(el => {
+                            el.textS = false
+                          })
                   });
                   this.comList =  res.data
                 }
