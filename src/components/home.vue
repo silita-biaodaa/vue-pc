@@ -94,7 +94,7 @@ export default {
       localStorage.removeItem('title')
       localStorage.removeItem('way')     
       if(this.$route.fullPath.indexOf('perfor')== 1) {
-          if(this.way.indexOf('perfor') == 1) {
+        if(this.way.indexOf('perfor') == 1) {
           this.$emit('vague',{cur:this.select});
         } else { 
           localStorage.setItem('title',this.select)

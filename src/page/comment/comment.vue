@@ -162,9 +162,12 @@ export default {
                           res.data.forEach( el => {
                              el.show = false,
                              el.comment = ''
-                             el.replys.forEach(el => {
+                             if(el.replys) {
+                               el.replys.forEach(el => {
                                 el.textS = false
                               })
+                             }
+                           
                           });
                           this.comList = res.data
                           this.total = res.total
@@ -192,9 +195,12 @@ export default {
              if(res.code == 1 ) {
                 res.data.show = false
                 res.data.comment = ''
-                res.data.replys.forEach(el => {
-                 el.textS = false
-               })
+                if(res.data.replys) {
+                   res.data.replys.forEach(el => {
+                    el.textS = false
+                  })
+                }
+               
                 this.comList.push(res.data)
                 this.total = res.total
                 this.$emit('total', {state:res.total})
@@ -206,12 +212,14 @@ export default {
             res.data.forEach( el => {
                el.show = false,
                el.comment = ''
-               el.replys.forEach(el => {
-                 el.textS = false
-               })
+               if(el.replys) {
+                  el.replys.forEach(el => {
+                    el.textS = false
+                  })
+               }
+              
             });
             this.comList = res.data
-            console.log(this.comList);
             this.total = res.total
             this.$emit('total', {state:res.total})
           }
@@ -244,9 +252,12 @@ export default {
                        if(res.code == 1 ) {
                          res.data.show = false
                          res.data.comment = ''
-                           res.data.replys.forEach(el => {
-                            el.textS = false
-                          })
+                         if(res.data.replys) {
+                             res.data.replys.forEach(el => {
+                              el.textS = false
+                            })
+                         }
+                          
                          this.comList.splice(i,1,res.data)
                        }
                     })
@@ -271,9 +282,12 @@ export default {
                        if(res.code == 1 ) {
                          res.data.show = false
                          res.data.comment = ''
-                          res.data.replys.forEach(el => {
+                         if(res.data.replys) {
+                           res.data.replys.forEach(el => {
                             el.textS = false
                           })
+                         }
+                          
                          this.comList.splice(i,1,res.data)
                        }
                     })
@@ -296,9 +310,12 @@ export default {
        this.comList.forEach( el => {
           el.show = false,
           el.comment = ''
-          el.replys.forEach(el => {
-            el.textS = false
-          })
+          if(el.replys) {
+            el.replys.forEach(el => {
+              el.textS = false
+            })
+          }
+          
        });
       ell.textS = true
       this.s = s
@@ -314,9 +331,12 @@ export default {
                   res.data.forEach( el => {
                      el.show = false,
                      el.comment = ''
-                      el.replys.forEach(el => {
+                     if(el.replys) {
+                       el.replys.forEach(el => {
                             el.textS = false
                           })
+                     }
+                      
                   });
                   this.comList =res.data
                 }
@@ -327,9 +347,12 @@ export default {
                   res.data.forEach( el => {
                      el.show = false,
                      el.comment = ''
-                      el.replys.forEach(el => {
+                     if(el.replys) {
+                       el.replys.forEach(el => {
                             el.textS = false
                           })
+                     }
+                      
                   });
                   this.comList =  res.data
                 }
