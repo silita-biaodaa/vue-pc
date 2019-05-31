@@ -34,7 +34,7 @@
        <img :src="el.image  ? el.image : avatar " alt="">
        <div class="list-name" >
          <p style="color:#333" >{{el.nickName}}</p>
-         <p v-show="el.ccompany || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}：</p>
+         <p v-show="el.company || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}：</p>
        </div>
      </div>
 
