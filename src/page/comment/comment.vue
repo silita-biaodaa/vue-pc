@@ -165,14 +165,14 @@ export default {
                 if(!this.about) {
                    commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
                            if(res.code == 1 ) {
-                          res.data.forEach( el => {
-                             el.show = false,
-                             el.comment = ''
-                             if(el.replys) {
-                               el.replys.forEach(el => {
-                                el.textS = false
-                              })
-                             }
+                            res.data.forEach( el => {
+                               el.show = false,
+                               el.comment = ''
+                               if(el.replys) {
+                                 el.replys.forEach(el => {
+                                  el.textS = false
+                                })
+                               }
                            
                           });
                           this.comList = res.data
@@ -252,9 +252,12 @@ export default {
       this.comList.forEach( el => {
           el.show = false,
           el.comment = ''
-          el.replys.forEach(el => {
-            el.textS = false
-          })
+          if(el.replys) {
+             el.replys.forEach(el => {
+              el.textS = false
+            })
+          }
+         
        });
       el.show = true
       this.s = null
@@ -361,7 +364,7 @@ export default {
                       
                   });
                   this.comList =res.data
-                  if(this.comList.length = res.total ) {
+                  if(this.comList.length == res.total ) {
                      this.msgList = '没有更多'
                   } else {
                      this.msgList = '查看更多'
@@ -382,7 +385,7 @@ export default {
                       
                   });
                   this.comList =  res.data
-                  if(this.comList.length = res.total ) {
+                  if(this.comList.length == res.total ) {
                        this.msgList = '没有更多'
                     } else {
                        this.msgList = '查看更多'
