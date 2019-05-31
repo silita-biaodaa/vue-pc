@@ -146,6 +146,8 @@ export default {
                 this.msg = '删除成功'
                 this.pop = true
                 this.allArr = []
+                this.allChe = true
+                this.$emit('invert', {state:'全选'})
                 this.gaiaList()
                 setTimeout(() => {
                   this.pop = false
