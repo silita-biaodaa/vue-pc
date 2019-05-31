@@ -18,7 +18,7 @@
                         <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
                       </div>
                       <div class='list-img'>
-                        <img :src="el.image != null ? el.image : avatar" alt="">
+                        <img :src="el.reImage != null ? el.reImage : avatar" alt="">
                         <div class="no-read" v-if="el.isRead == 0" >
                         
                         </div>

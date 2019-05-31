@@ -13,7 +13,7 @@
               <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
                    <div class="re-list"  >
                       <div class='list-img'>
-                        <img :src="el.image != null ? el.image : avatar" alt="">
+                        <img :src="el.reImage != null ? el.reImage : avatar" alt="">
                         <div class="no-read" v-if="el.isRead == 0" >
                         
                         </div>
@@ -240,7 +240,9 @@ export default {
       border-radius: 50%;
        position: relative;
       img {
-        width: 100%;
+       width: 36px;
+       height: 36px;
+       border-radius: 50%;
       }
       .no-read {
         position: absolute;
