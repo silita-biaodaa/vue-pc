@@ -211,7 +211,11 @@ export default {
     Goto(val) {
       this.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
-      document.documentElement.scrollTo(0,410);
+      if(document.documentElement.scrollTo) {
+        document.documentElement.scrollTo(0,410);
+      } else {
+         document.body.scrollTop(0,410)
+      }
       this.queryLists=[];
       this.loading = true
       this.gainList()
