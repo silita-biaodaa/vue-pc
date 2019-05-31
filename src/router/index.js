@@ -515,7 +515,7 @@ export default new Router({
         },
       ]  
     }
-  ]
+  ],
 })
 
 // sign

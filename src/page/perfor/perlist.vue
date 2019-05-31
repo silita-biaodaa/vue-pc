@@ -156,6 +156,7 @@ export default {
               this.perlist = res.data 
               this.Snone = true
            } else {
+             this.total = 0
              this.Snone = false
            }
 
@@ -203,7 +204,6 @@ export default {
   },
   watch: {
     title(val) {
-      console.log(val);
       this.search = val
       this.current = 1
        this.gainList()

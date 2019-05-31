@@ -31,17 +31,17 @@
    
    <div class="comment-list" v-for="(el,i) in comList" :key="i"  >
      <div class="list-title" >
-       <img :src="el.image != null ? el.image : avatar" alt="">
+       <img :src="el.image  ? el.image : avatar " alt="">
        <div class="list-name" >
          <p style="color:#333" >{{el.nickName}}</p>
          <p v-show="el.ccompany || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}：</p>
        </div>
      </div>
 
-    <div class="list-content">{{el.commContent}}
+    <div class="list-content">{{el.state == 3 ? '该评论已被屏蔽' : el.commContent}}
       </div>
      <div class="list-time">
-       <p>{{el.pushd | Upper  }}</p>
+       <p>{{el.pushd   }}</p>
        <div class="p-color" style="cursor: pointer;"  @click="pushT(el)">
          回复
        </div>
@@ -51,7 +51,7 @@
         <div class="pu-btn" @click="reply(el,i)"  >发布
         </div>
      </div>
-        <div class="next-list" v-for="(ell,s) in el.replys" :key="s"  >
+        <div class="next-list" v-for="(ell,s) in el.replys" :key="s" v-show="el.state == 3 ? false : true" >
               <div class="list-title" >
                 <img :src="ell.reImage ? ell.reImage : avatar" alt="">
                 <div class="list-name" >
@@ -59,10 +59,10 @@
                   <p>{{ell.reCompany ? '(' + ell.reCompany + ')' : '' }} {{ell.rePost ? ell.rePost : ''}}回复了：{{ell.toNikename}}</p>
                 </div>
               </div>
-              <div class="list-content">{{ell.replyContent}}
+              <div class="list-content">{{ell.state == 3 ? '该评论已被屏蔽' : ell.replyContent}}
               </div>
               <div class="list-time">
-                <p>{{ell.pushd | Upper }}</p>
+                <p>{{ell.pushd }}</p>
                 <div class="p-color" style="cursor: pointer;" @click="againP(ell,s)"   >
                   回复
                 </div>
@@ -73,10 +73,10 @@
                   </div>
                </div>
       
-   </div>      
+        </div>      
    </div>       
    <div class="comm-more"  v-show="comList.length != 0 && !this.skip  " >
-      <span @click="Mlist"  :class="this.comList.length == this.total ? 'no-more' : ''" >查看更多</span>
+      <span @click="Mlist"  :class="this.comList.length == this.total ? 'no-more' : ''" >{{msgList}}</span>
    </div>
   <div class="com-pop"  v-show="isshow" >
     {{msg}}
@@ -103,7 +103,8 @@ export default {
       total:0,
       pageSize:10,
       skip:false,
-      commentId:''
+      commentId:'',
+      msgList:'查看更多'
     }
   },
   props: {
@@ -139,6 +140,11 @@ export default {
                   });
                   this.comList = res.data
                   this.total = res.total
+                  if(this.comList.length == res.total ) {
+                     this.msgList = '没有更多'
+                  } else {
+                     this.msgList = '查看更多'
+                  }
                   this.$emit('total', {state:res.total})
                 }
           })
@@ -171,6 +177,11 @@ export default {
                           });
                           this.comList = res.data
                           this.total = res.total
+                           if(this.comList.length == res.total ) {
+                               this.msgList = '没有更多'
+                            } else {
+                               this.msgList = '查看更多'
+                            }
                         }
                   })
                 } else {
@@ -200,15 +211,20 @@ export default {
                     el.textS = false
                   })
                 }
-               
                 this.comList.push(res.data)
                 this.total = res.total
+                if(this.comList.length == res.total ) {
+                       this.msgList = '没有更多'
+                    } else {
+                       this.msgList = '查看更多'
+                    }
                 this.$emit('total', {state:res.total})
              }
          })
       } else {
         commentL({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
           if(res.code == 1 ) {
+
             res.data.forEach( el => {
                el.show = false,
                el.comment = ''
@@ -221,6 +237,11 @@ export default {
             });
             this.comList = res.data
             this.total = res.total
+            if(this.comList.length == res.total ) {
+                   this.msgList = '没有更多'
+                } else {
+                   this.msgList = '查看更多'
+                }
             this.$emit('total', {state:res.total})
           }
          })
@@ -324,6 +345,7 @@ export default {
       if(this.comList.length == this.total ) {
         return
       }
+      this.msgList = '正在加载中~~~~'
       this.pageSize =  this.pageSize + 10 
          if(!this.about) {
            commentU({relatedId:this.id,relatedType:this.type,pageNum:this.current,pageSize:this.pageSize,source:this.source}).then(res => {
@@ -339,6 +361,11 @@ export default {
                       
                   });
                   this.comList =res.data
+                  if(this.comList.length = res.total ) {
+                     this.msgList = '没有更多'
+                  } else {
+                     this.msgList = '查看更多'
+                  }
                 }
           })
         } else {
@@ -355,6 +382,11 @@ export default {
                       
                   });
                   this.comList =  res.data
+                  if(this.comList.length = res.total ) {
+                       this.msgList = '没有更多'
+                    } else {
+                       this.msgList = '查看更多'
+                    }
                 }
             })
         }
@@ -495,10 +527,10 @@ export default {
       color: #999;
     }
   .next-list {
-    margin-top: 10px;
     background-color: #F8F8F8;
     margin-left: 50px;
     padding: 10px 6px;
+    border-bottom: 1px solid #f2f2f2;
   }
   .list-area {
     margin-top: 20px;

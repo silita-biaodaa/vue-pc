@@ -82,7 +82,8 @@ export default {
                                   this.articles.oneOffer = this.articles.oneOffer + '*'
                                 }
                              } 
-                    } 
+                    }
+                    this.toTop() 
             }
         });
     },
@@ -113,6 +114,12 @@ export default {
         }, 400);
         
       }
+    },
+    toTop() {
+      if(!this.skip) {
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
+      } 
     }
   },
   created () {

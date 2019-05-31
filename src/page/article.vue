@@ -1,6 +1,8 @@
 <template>
  <div class="article">
+   <div style="height:126px;" >
 
+   </div>
    <div class="title">
       <p>
         {{articles.title}}
@@ -100,10 +102,9 @@ export default {
                         this.articles.pbMode = this.articles.pbMode + '*'
                       }
                     } 
-                   
-                    // this.articles.pbMode = '****'
 
                 } 
+                this.toTop()
             }
         });
     },
@@ -145,17 +146,26 @@ export default {
           document.getElementById("divId").scrollIntoView(true);
         }, 400);
         
-      }
+      } 
+    },
+    toTop() {
+      if(!this.skip) {
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
+      } 
     }
   },
   mounted () {
     this.toskip()
+    this.$nextTick(function(){
+      
+    })
   },
   created () {
     this.skip = this.$route.query.skip ? this.$route.query.skip : false;
     this.id = this.$route.query.id;
     this.source = this.$route.query.source;
-    this.gainDetail()
+    this.gainDetail() 
     
   },
   components: {
@@ -165,7 +175,6 @@ export default {
 <style lang="less" scoped>
 .article {
    width: 1020px;
-   padding-top: 126px;
    margin: 0 auto;
    background: #FAFAFA;
    .a-color {
