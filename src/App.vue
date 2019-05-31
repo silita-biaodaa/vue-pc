@@ -400,16 +400,19 @@ export default {
       })
     },
     gainCo() {
-      Cmessage({}).then(res => {
-        if(res.code == 1) {
-          if(res.data >= 1) {
-            this.ishow = true
-          } else {
-            this.ishow = false
-          }
-          
-        }
-      })
+      if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+             Cmessage({}).then(res => {
+              if(res.code == 1) {
+                if(res.data >= 1) {
+                  this.ishow = true
+                } else {
+                  this.ishow = false
+                }
+                
+              }
+            })
+      }
+     
     }
   },
   created () {
