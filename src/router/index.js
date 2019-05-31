@@ -7,12 +7,22 @@ import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
 import Notice from '@/page/notice'
-import Introduce from '@/page/introduce'
-import Icbc from '@/page/companys/icbc'
-import Personnel from '@/page/companys/personnel'
-import Intell from '@/page/companys/intelligence'
-import Law from '@/page/companys/law'
-import Good from '@/page/companys/good'
+const Introduce = resolve => require(['@/page/introduce'], resolve)
+const Icbc = resolve => require(['@/page/companys/icbc'], resolve)
+const Personnel = resolve => require(['@/page/companys/personnel'], resolve)
+const Intell = resolve => require(['@/page/companys/intelligence'], resolve)
+const Law = resolve => require(['@/page/companys/law'], resolve)
+const Good = resolve => require(['@/page/companys/good'], resolve)
+
+
+
+
+// import Introduce from '@/page/introduce'
+// import Icbc from '@/page/companys/icbc'
+// import Personnel from '@/page/companys/personnel'
+// import Intell from '@/page/companys/intelligence'
+// import Law from '@/page/companys/law'
+// import Good from '@/page/companys/good'
 import Centre from '@/page/companys/centre'
 import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
