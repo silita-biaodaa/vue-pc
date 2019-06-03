@@ -44,19 +44,6 @@
                请登录
              </p>
              <user-center  v-else  ></user-center>
-              <!-- <el-dropdown  v-else trigger="click"   >
-                 <span class="el-dropdown-link">
-                   <span>{{name}}</span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
-                 </span>
-                 <el-dropdown-menu slot="dropdown" style="z-index:2050" >
-                   <el-dropdown-item @click.native="user()" >个人设置</el-dropdown-item>
-                   <el-dropdown-item  >我的信息</el-dropdown-item>
-                   <el-dropdown-item @click.native="tocol()" >我的关注</el-dropdown-item>
-                   <el-dropdown-item @click.native="amend()" >修改密码</el-dropdown-item>
-                   <el-dropdown-item @click.native="order()" >我的订单</el-dropdown-item>
-                   <el-dropdown-item @click.native="quit()"  >退出登录</el-dropdown-item>
-                 </el-dropdown-menu>
-               </el-dropdown> -->
              <div class="area">
                <i class="iconfont icon-dizhi"></i>
                <span @click="selfa" >{{source}}</span>
@@ -137,6 +124,15 @@
         </div>
     </div>
 
+    <div class="i-loading" v-show="duanwu" >
+        <div class="i-boo" >
+           <div class="i-detail" @click.stop="closeText(2)"  > 
+
+           </div>
+            <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
+        </div> 
+     </div>
+
   </div>
 </template>
 
@@ -147,6 +143,7 @@ export default {
   data() {
     return {
       show:true,
+      duanwu:false,
       isshow:true,
       names:true,
        navlist:[
@@ -408,14 +405,29 @@ export default {
                 } else {
                   this.ishow = false
                 }
-                
               }
             })
       }
-     
-    }
+    },
+    text() {
+      if(this.$route.fullPath == '/home'){
+        this.duanwu = true
+        this.modalHelper.afterOpen();
+      }
+    },
+    closeText(val) {
+      this.duanwu = false
+      this.modalHelper.beforeClose();
+      if(val == 2 ) {
+        // const { href } = this.$router.resolve({
+        //   path:'/article',query:{id:el.id,source:el.source} 
+        // })
+        // window.open(href, '_blank', )
+      }
+    },
   },
   created () {
+    this.text()
     this.valley()
     this.judges()
     if(this.$router.params!=undefined){
@@ -734,5 +746,40 @@ export default {
       right: 0;
     }
   }
+  .i-loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    
+  }
+  .i-boo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 380px;
+      background: url('./assets/img/pic-duanwuhoud.png@2x.png.png') no-repeat;
+      background-size: 100% 100%;
+      .i-detail {
+         position: absolute;
+         bottom: 12px;
+         right: 27%;
+         width: 11%;
+         height: 60px;
+         cursor: pointer;
+      }
+      i {
+        font-size: 35px;
+        color:#999;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        cursor: pointer;
+      }
+    }
 }
 </style>

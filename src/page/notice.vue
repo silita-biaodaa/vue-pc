@@ -30,7 +30,7 @@
 
       </div>
    </div>
-    <com-ment id="divId" :type="'zhongbiao'" class="no-comL"  @total='gainT' ></com-ment>
+    <com-ment id="divId" :type="'zhongbiao'" class="no-comL"   ></com-ment>
 </div>
 </template>
 <script>
@@ -49,9 +49,6 @@ export default {
     }
   },
   methods: {
-    gainT(val) {
-      this.allC = val.state
-    },
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'2',
@@ -59,6 +56,7 @@ export default {
         });
         getJsonData( "/notice/detail/" + this.id , dataParam).then(res => {
             if(res.code == 1) {
+               this.allC = res.commentCount
                this.articles = res.data[0]
                this.clickCount = res.clickCount
                this.iscollect = res.data[0].collected

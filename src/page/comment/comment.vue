@@ -146,7 +146,7 @@ export default {
                   } else {
                      this.msgList = '查看更多'
                   }
-                  this.$emit('total', {state:res.total})
+                  // this.$emit('total', {state:res.total})
                 }
           })
         } else {
@@ -219,7 +219,7 @@ export default {
                     } else {
                        this.msgList = '查看更多'
                     }
-                this.$emit('total', {state:res.total})
+                // this.$emit('total', {state:res.total})
              }
          })
       } else {
@@ -243,7 +243,7 @@ export default {
                 } else {
                    this.msgList = '查看更多'
                 }
-            this.$emit('total', {state:res.total})
+            // this.$emit('total', {state:res.total})
           }
          })
       }
