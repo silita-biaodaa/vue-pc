@@ -84,7 +84,6 @@ export default {
       this.pageNo = val.cur
       this.allArr = []  
       this.allChe = true
-      this.$emit('invert', {state:'全选'})
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
       this.gaiaList()
@@ -147,7 +146,6 @@ export default {
                 this.pop = true
                 this.allArr = []
                 this.allChe = true
-                this.$emit('invert', {state:'全选'})
                 this.gaiaList()
                 setTimeout(() => {
                   this.pop = false
@@ -198,7 +196,6 @@ export default {
                 this.allArr.push(el.pkid)
               }          
             })
-            this.$emit('invert', {state:'反选'})
             this.allChe = false
         } else {
             this.allChe = true
@@ -206,7 +203,6 @@ export default {
             this.textList.forEach(el => {
               el.textShow = false                     
             })
-            this.$emit('invert', {state:'全选'})
         }
         
       }

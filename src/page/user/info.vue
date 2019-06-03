@@ -48,9 +48,9 @@ export default {
     delno() {
       this.allde =  this.allde +1
     },
-    gainst(val) {
-      this.state = val.state
-    }
+    // gainst(val) {
+    //   this.state = val.state
+    // }
   },
   created () {
    
