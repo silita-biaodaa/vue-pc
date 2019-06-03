@@ -163,10 +163,12 @@ export default {
         let str = this.allArr.join(',')
           Rmessage({pkid:str}).then(res => {
             if(res.code == 1 ) {
-               this.msg = '设置成功'
+                this.msg = '设置成功'
                 this.pop = true
                 this.textList.forEach(el => {
-                  el.isRead = 1
+                  if(this.allArr.indexOf(el.pkid) >= 0) {
+                     el.isRead = 1
+                  }
                 })
                 // this.$router.replace({
                 //    path: '/user/info',
