@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-
+<!-- 
     <div class="i-loading" v-show="duanwu" >
         <div class="i-boo" >
            <div class="i-detail" @click.stop="closeText(2)"  > 
@@ -131,7 +131,7 @@
            </div>
             <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
         </div> 
-     </div>
+     </div> -->
 
   </div>
 </template>
@@ -427,7 +427,7 @@ export default {
     },
   },
   created () {
-    this.text()
+    // this.text()
     this.valley()
     this.judges()
     if(this.$router.params!=undefined){
