@@ -25,7 +25,7 @@
   </div>
    <textarea class="comment-text" placeholder="欢迎留言讨论~" style="resize:none" v-model="text" maxlength="300" ></textarea>
    <div class="comment-btn" >
-     <div class="pu-btn" @click="publish" >发布
+     <div class="pu-btn" @click="publish" :class="{'have-val':textT}" >发布
      </div>
    </div>
    
@@ -104,7 +104,8 @@ export default {
       pageSize:10,
       skip:false,
       commentId:'',
-      msgList:'查看更多'
+      msgList:'查看更多',
+      textT:false
     }
   },
   props: {
@@ -410,7 +411,16 @@ export default {
           this.gaincomL()
         },
         deep: true
+      },
+    text(val) {
+      console.log(val);
+      
+      if(val.trim() == '') {
+        this.textT = false
+      } else {
+         this.textT = true
       }
+    }
   },
   created () {
     this.skip = this.$route.query.skip ? this.$route.query.skip : false;
@@ -566,6 +576,9 @@ export default {
   .no-more {
     color:#999;
     cursor: default !important;
+  }
+  .have-val {
+    opacity: 1!important;
   }
 
 }

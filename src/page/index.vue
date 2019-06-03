@@ -81,6 +81,14 @@
           </div>
       </div>
 
+      <!-- <div class="i-loading" >
+        <div class="i-boo" >
+           <div class="i-detail" > 
+
+           </div>
+        </div> 
+    </div> -->
+
    </div>
 </template>
 <script>
@@ -495,24 +503,7 @@ export default {
            position: relative;
            box-sizing: border-box;
            padding: 5px 0;
-          //  border-bottom: 2px solid #F2F2F2;
-          // .t-p {
-          //   height: 3px;
-          //   width: 56px;
-          //   position: absolute;
-          //   background-color: #EC7522;
-          //   left: 0;
-          //   bottom:0;
-          //   z-index: 9;
-          // }
-          // .t-in {
-          //   height: 3px;
-          //   width: calc(100% - 56px);
-          //   position: absolute;
-          //   background-color: #F2F2F2;
-          //   left: 0;
-          //   bottom: 0;
-          // }
+
          }
            a {
              width: 20%;
@@ -579,5 +570,32 @@ export default {
     border-radius: 50%;
     opacity:0.5;
   }
+  .i-loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    
+  }
+  .i-boo {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 380px;
+      background: url('../assets/img/pic-duanwuhoud.png@2x.png.png') no-repeat;
+      background-size: 100% 100%;
+      .i-detail {
+         position: absolute;
+         bottom: 12px;
+         right: 27%;
+         width: 11%;
+         height: 60px;
+         cursor: pointer;
+      }
+    }
 }
 </style>
