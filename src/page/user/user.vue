@@ -173,7 +173,7 @@ export default {
       this.tab.forEach( li => {
           li.i = false 
       })
-      this.tab[2].i=true;
+      this.tab[3].i=true;
       this.$router.push('/user/root')
     },
     gotoUser(){
@@ -187,15 +187,22 @@ export default {
       this.tab.forEach( li => {
           li.i = false 
       })
-      this.tab[1].i=true;
+      this.tab[2].i=true;
       this.$router.push('/user/fcoll')
 
+    },
+    toinf() {
+       this.tab.forEach( li => {
+          li.i = false 
+      })
+      this.tab[1].i=true;
+      this.$router.push('/user/info')
     },
     order() {
        this.tab.forEach( li => {
           li.i = false 
       })
-      this.tab[3].i=true;
+      this.tab[4].i=true;
       this.$router.push('/user/order')
     },
     quit() {
