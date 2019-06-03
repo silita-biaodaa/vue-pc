@@ -141,7 +141,7 @@ export default {
                   this.comList = res.data
                   this.total = res.total
                   if(this.comList.length == res.total ) {
-                     this.msgList = '没有更多'
+                     this.msgList = '没有更多了'
                   } else {
                      this.msgList = '查看更多'
                   }
@@ -178,7 +178,7 @@ export default {
                           this.comList = res.data
                           this.total = res.total
                            if(this.comList.length == res.total ) {
-                               this.msgList = '没有更多'
+                               this.msgList = '没有更多了'
                             } else {
                                this.msgList = '查看更多'
                             }
@@ -214,7 +214,7 @@ export default {
                 this.comList.push(res.data)
                 this.total = res.total
                 if(this.comList.length == res.total ) {
-                       this.msgList = '没有更多'
+                       this.msgList = '没有更多了'
                     } else {
                        this.msgList = '查看更多'
                     }
@@ -238,7 +238,7 @@ export default {
             this.comList = res.data
             this.total = res.total
             if(this.comList.length == res.total ) {
-                   this.msgList = '没有更多'
+                   this.msgList = '没有更多了'
                 } else {
                    this.msgList = '查看更多'
                 }
@@ -365,7 +365,7 @@ export default {
                   });
                   this.comList =res.data
                   if(this.comList.length == res.total ) {
-                     this.msgList = '没有更多'
+                     this.msgList = '没有更多了'
                   } else {
                      this.msgList = '查看更多'
                   }
@@ -386,7 +386,7 @@ export default {
                   });
                   this.comList =  res.data
                   if(this.comList.length == res.total ) {
-                       this.msgList = '没有更多'
+                       this.msgList = '没有更多了'
                     } else {
                        this.msgList = '查看更多'
                     }
