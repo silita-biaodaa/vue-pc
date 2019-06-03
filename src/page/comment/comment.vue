@@ -69,7 +69,7 @@
               </div>
                <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="ell.textS" v-model="el.comment" maxlength="300" ></textarea>
                <div class="comment-btn" v-show="ell.textS" >
-                  <div class="pu-btn" @click="reply(el,i)" :class="{'have-val':el.comment !=''}"  >发布
+                  <div class="pu-btn" @click="reply(el,i)" :class="{'have-val':el.comment !=''}"  >发送
                   </div>
                </div>
       

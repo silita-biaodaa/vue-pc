@@ -36,7 +36,7 @@
       <div v-show="el.textShow" >
             <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
             <div class="re-push p-color" @click.stop="pusHText(el)" >
-              发布
+              发送
             </div>
       </div> 
    
