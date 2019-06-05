@@ -269,7 +269,7 @@ export default {
         this.error = false
         if(this.input.trim() == localStorage.getItem('phoneNo') ) {
               this.pop = true
-              this.msg = '不能输入账号一样的手机号码'
+              this.msg = '不能输入自己的手机号码'
               setTimeout(() => {
                 this.pop = false
               }, 1500);
