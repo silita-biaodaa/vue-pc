@@ -154,7 +154,7 @@
                    </div>
               </div>  
             </div>
-            <div class="puy-iphone" v-show="pushIp"  >
+            <div class="puy-iphone" v-show="pushIP"  >
               <div class="puy-iput" >
                 <div>邀请人手机号码：</div>
                  <el-input v-model="input" placeholder="请输入邀请人手机号码（可不填）"></el-input>
@@ -185,6 +185,9 @@
            </div>  
         </div>
      </div>  
+
+     <div class="buy-prp" v-show="pop"  >{{msg}}
+     </div>
 
 </div>
 </template>
@@ -237,7 +240,9 @@ export default {
      input:'',
      orderNo:'',
      error:false,
-     pushIp:false
+     pushIP:false,
+     pop:false,
+     msg:''
     }
   },
   filters: {
@@ -263,18 +268,21 @@ export default {
       } else {
         this.error = false
         if(this.input.trim() == localStorage.getItem('phoneNo') ) {
-              return this.$message({
-                message: '不能输入账号一样的手机号码',
-                type: 'warning'
-              });
+              this.pop = true
+              this.msg = '不能输入账号一样的手机号码'
+              setTimeout(() => {
+                this.pop = false
+              }, 1500);
+              return 
         }
       }
       activity({phone:this.input,stdCode:this.all.stdCode,orderNo:this.orderNo}).then(res => {
         if(res.code == 1) {
-           this.$message({
-                message: '提交成功',
-                type: 'success'
-              });
+            this.pop = true
+              this.msg = '提交成功'
+              setTimeout(() => {
+                this.pop = false
+              }, 1500);
         }
       })
     },
@@ -325,7 +333,7 @@ export default {
         return false
       }
             
-      this.pushIp =  localStorage.getItem('isFirst') == 0 ? true : false
+      this.pushIP =  localStorage.getItem('isFirst') == 0 ? true : false
       this.isload = true
       let id = sessionStorage.getItem('ip')
       this.iphone = localStorage.getItem('phoneNo')
@@ -711,6 +719,17 @@ export default {
       }  
        
   }  
+  .buy-prp {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%);
+    color: #fff;
+    background-color: rgba(0,0,0,.5);
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 6000;
+  }
 }
 .bigDian{
   width: 10px;

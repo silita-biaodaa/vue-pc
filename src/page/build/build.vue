@@ -221,7 +221,7 @@ export default {
     height: 282px;
     background-color: #fff;
     padding: 19px 20px;
-    margin-top: 20px ;
+    margin-top: 20px;
     .build-hint {
       font-size: 12px;
       color: #999;
