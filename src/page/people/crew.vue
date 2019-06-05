@@ -218,7 +218,7 @@ export default {
    padding: 15px 10px 10px;
    background-color: #fff;
    font-size: 14px;
-   margin: 40px auto 0;
+   margin: 20px auto 0;
     .select {
        font-size: 16px;
        margin-bottom: 12px;
