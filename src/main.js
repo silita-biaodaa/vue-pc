@@ -13,6 +13,8 @@ import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
 import 'babel-polyfill'
+import funcom from './util/util'
+Vue.prototype.funcom = funcom
 
 Vue.config.productionTip = false
 import  navPage  from '@/components/paging';
