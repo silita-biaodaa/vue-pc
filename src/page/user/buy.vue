@@ -128,60 +128,62 @@
 
 
     <div class="re-loading" v-if="noShow" >   
-      <div class="re-puy"  >
+      <div class="re-puy "  >
         <div class="puy-title">
            <span>会员支付</span>
            <i class="el-icon-close"  @click="close" ></i>
         </div>
 
-        <div class="puy-title" style="fontSize:14px;" >
-           <span>订单详情</span>
-        </div>
+          <div class="re-auto" >         
+            <div class="puy-title" style="fontSize:14px;" >
+               <span>订单详情</span>
+            </div>
 
-        <div class="puy-detail">
-          <div>
-            <div class="puy-name"> 
-              <span>手机号码:</span>{{iphone}}
+            <div class="puy-detail">
+              <div>
+                <div class="puy-name"> 
+                  <span>手机号码:</span>{{iphone}}
+                </div>
+                <div class="puy-name"> 
+                  <span>标大大{{this.all.stdDesc}}</span>
+                </div>
+              </div>
+              <div class="puy-price" >
+                   <div class="puy-name"> 
+                     <span>应付金额:</span><span class="price" >{{this.all.price}}</span>元
+                   </div>
+              </div>  
             </div>
-            <div class="puy-name"> 
-              <span>标大大{{this.all.stdDesc}}</span>
+            <div class="puy-iphone" v-show="pushIp"  >
+              <div class="puy-iput" >
+                <div>邀请人手机号码：</div>
+                 <el-input v-model="input" placeholder="请输入邀请人手机号码（可不填）"></el-input>
+                 <div class="puy-iti" @click.stop="pushIp" >
+                   确定
+                 </div>
+              </div>
+              <div class="puy-hint" >
+                <div class="puy-pos" >
+                  <span class="puy-star" >*</span>填写邀请人手机号码，助力好友领取微信红包！
+                </div>
+                <div  v-show="error" >
+                    请输入正确的手机号码格式
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="puy-price" >
-               <div class="puy-name"> 
-                 <span>应付金额:</span><span class="price" >{{this.all.price}}</span>元
-               </div>
-          </div>  
-        </div>
-        <div class="puy-iphone" v-show="pushIp"  >
-          <div class="puy-iput" >
-            <div>邀请人手机号码：</div>
-             <el-input v-model="input" placeholder="请输入邀请人手机号码（可不填）"></el-input>
-             <div class="puy-iti" @click.stop="pushIp" >
-               确定
-             </div>
-          </div>
-          <div class="puy-hint" >
-            <div class="puy-pos" >
-              <span class="puy-star" >*</span>填写邀请人手机号码，助力好友领取微信红包！
+            <div class="puy-title" style="fontSize:14px;" >
+               <span>支付方式</span>
             </div>
-            <div  v-show="error" >
-                请输入正确的手机号码格式
-            </div>
-          </div>
-        </div>
-        <div class="puy-title" style="fontSize:14px;" >
-           <span>支付方式</span>
-        </div>
 
-         <div class="puy-code">
-             <div class="puy-img" id="qrcode"  v-loading='isload'  element-loading-text="二维码生成中"  >
-             </div>  
-             <div class="puy-hint"  >
-                <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
-             </div>
-          </div>
-      </div>
+             <div class="puy-code">
+                 <div class="puy-img" id="qrcode"  v-loading='isload'  element-loading-text="二维码生成中"  >
+                 </div>  
+                 <div class="puy-hint"  >
+                    <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+                 </div>
+            </div>
+           </div>  
+        </div>
      </div>  
 
 </div>
@@ -586,8 +588,7 @@ export default {
        left: 50%;
        transform: translateX(-50%);
        width: 500px;
-       max-height: 480px;
-       overflow-x: auto;
+       
        box-sizing: border-box;
        top: 100px;
        background-color: #fff;
@@ -696,6 +697,20 @@ export default {
           }
          }
      }
+     @media screen and (max-device-width:1900px){
+      .re-auto {
+        max-height: 434px;
+        overflow-x: auto;
+      }  
+    }
+
+    /*分辨率高于1440，采用下面的样式*/
+  @media screen and (min-device-width: 1900px){
+       .re-auto {
+         height: auto;
+      }  
+       
+  }  
 }
 .bigDian{
   width: 10px;
