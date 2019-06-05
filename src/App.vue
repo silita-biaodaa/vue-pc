@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-<!-- 
+
     <div class="i-loading" v-show="duanwu" >
         <div class="i-boo" >
            <div class="i-detail" @click.stop="closeText(2)"  > 
@@ -131,7 +131,7 @@
            </div>
             <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
         </div> 
-     </div> -->
+     </div>
 
   </div>
 </template>
@@ -281,6 +281,7 @@ export default {
              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
              localStorage.setItem('Xtoken',res.data.xtoken)
              localStorage.setItem('Bname',name)
+             localStorage.setItem('isFirst',res.data.isFirst)
              sessionStorage.setItem('ip',res.data.pkid)
              localStorage.setItem('permissions',res.data.permissions) 
              localStorage.setItem('phoneNo',res.data.phoneNo)                         
@@ -419,15 +420,15 @@ export default {
       this.duanwu = false
       this.modalHelper.beforeClose();
       if(val == 2 ) {
-        // const { href } = this.$router.resolve({
-        //   path:'/article',query:{id:el.id,source:el.source} 
-        // })
-        // window.open(href, '_blank', )
+        const { href } = this.$router.resolve({
+          path:'/dwDetail'
+        })
+        window.open(href, '_blank', )
       }
     },
   },
   created () {
-    // this.text()
+    this.text()
     this.valley()
     this.judges()
     if(this.$router.params!=undefined){
@@ -474,7 +475,7 @@ export default {
     },
     // 顶部是否消失
     excom() {
-      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about'|| this.$route.name == 'order' || this.$route.name == 'buy'|| this.$route.name == 'info' ) {
+      if(this.$route.name == 'download' || this.$route.name == 'logo' ||  this.$route.name == 'enroll' ||  this.$route.name == 'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name == 'bound' || this.$route.name == 'about'|| this.$route.name == 'order' || this.$route.name == 'buy'|| this.$route.name == 'info' || this.$route.name == 'dwDetail') {
         return false
       } else {
         return true
@@ -754,7 +755,6 @@ export default {
     z-index: 5000;
     top: 0;
     left: 0;
-    
   }
   .i-boo {
       position: absolute;

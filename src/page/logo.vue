@@ -89,6 +89,7 @@ export default {
             sessionStorage.setItem('ip',res.data.pkid)
             localStorage.setItem('phoneNo',res.data.phoneNo)
             localStorage.setItem('permissions',res.data.permissions)
+            localStorage.setItem('isFirst',res.data.isFirst)
             localStorage.setItem('Bname',name)
             if(this.checked) {
               localStorage.setItem('Xtoken',res.data.xtoken)

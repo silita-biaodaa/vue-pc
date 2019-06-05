@@ -126,56 +126,63 @@
         </div>
     </div>
 
-  <div class="re-puy" v-if="noShow"  >
-    <div class="puy-title">
-       <span>会员支付</span>
-       <i class="el-icon-close"  @click="close" ></i>
-    </div>
 
-     <div class="puy-title" style="fontSize:14px;" >
-       <span>订单详情</span>
-    </div>
-
-    <div class="puy-detail">
-      <div>
-        <div class="puy-name"> 
-          <span>手机号码:</span>{{iphone}}
+    <div class="re-loading" v-if="noShow" >   
+      <div class="re-puy"  >
+        <div class="puy-title">
+           <span>会员支付</span>
+           <i class="el-icon-close"  @click="close" ></i>
         </div>
-        <div class="puy-name"> 
-          <span>标大大{{this.all.stdDesc}}</span>
-        </div>
-      </div>
-      <div class="puy-price" >
-           <div class="puy-name"> 
-             <span>应付金额:</span><span class="price" >{{this.all.price}}</span>元
-           </div>
-      </div>  
-    </div>
-    <!-- <div class="puy-iphone" >
-      <div class="puy-iput" >
-        <div>手机号码：</div>
-         <el-input v-model="input" placeholder="请输入邀请人的手机号码"></el-input>
-         <div class="puy-iti" @click.stop="pushIp" >
-           确定
-         </div>
-      </div>
-      <div class="puy-hint" v-show="error" >
-        请输入正确的手机号码格式
-      </div>
-    </div> -->
-    <div class="puy-title" style="fontSize:14px;" >
-       <span>支付方式</span>
-    </div>
 
-     <div class="puy-code">
-         <div class="puy-img" id="qrcode"  v-loading='isload'  element-loading-text="二维码生成中"  >
-           <!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
-         </div>  
-         <div class="puy-hint"  >
-            <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
-         </div>
+        <div class="puy-title" style="fontSize:14px;" >
+           <span>订单详情</span>
+        </div>
+
+        <div class="puy-detail">
+          <div>
+            <div class="puy-name"> 
+              <span>手机号码:</span>{{iphone}}
+            </div>
+            <div class="puy-name"> 
+              <span>标大大{{this.all.stdDesc}}</span>
+            </div>
+          </div>
+          <div class="puy-price" >
+               <div class="puy-name"> 
+                 <span>应付金额:</span><span class="price" >{{this.all.price}}</span>元
+               </div>
+          </div>  
+        </div>
+        <div class="puy-iphone" v-show="pushIp"  >
+          <div class="puy-iput" >
+            <div>邀请人手机号码：</div>
+             <el-input v-model="input" placeholder="请输入邀请人手机号码（可不填）"></el-input>
+             <div class="puy-iti" @click.stop="pushIp" >
+               确定
+             </div>
+          </div>
+          <div class="puy-hint" >
+            <div class="puy-pos" >
+              <span class="puy-star" >*</span>填写邀请人手机号码，助力好友领取微信红包！
+            </div>
+            <div  v-show="error" >
+                请输入正确的手机号码格式
+            </div>
+          </div>
+        </div>
+        <div class="puy-title" style="fontSize:14px;" >
+           <span>支付方式</span>
+        </div>
+
+         <div class="puy-code">
+             <div class="puy-img" id="qrcode"  v-loading='isload'  element-loading-text="二维码生成中"  >
+             </div>  
+             <div class="puy-hint"  >
+                <img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+             </div>
+          </div>
       </div>
-  </div>
+     </div>  
 
 </div>
 </template>
@@ -227,7 +234,8 @@ export default {
      isload:true,
      input:'',
      orderNo:'',
-     error:false
+     error:false,
+     pushIp:false
     }
   },
   filters: {
@@ -248,7 +256,7 @@ export default {
       if(this.input.trim() == '') {
         return 
       }
-      if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.input.trim()))) {
+      if(this.funcom.textIP(this.input.trim())) {
          return this.error = true
       } else {
         this.error = false
@@ -314,6 +322,8 @@ export default {
       if(this.noShow) {
         return false
       }
+            
+      this.pushIp =  localStorage.getItem('isFirst') == 0 ? true : false
       this.isload = true
       let id = sessionStorage.getItem('ip')
       this.iphone = localStorage.getItem('phoneNo')
@@ -351,6 +361,8 @@ export default {
                   if(res.code == 1) {
                     sessionStorage.setItem('ip', res.data.pkid)
                     localStorage.setItem('permissions',res.data.permissions)
+                    localStorage.setItem('isFirst',res.data.isFirst)
+
                     // localStorage.setItem('ip', res.data.pkid)
                     if(localStorage.getItem('Xtoken')) {
                       localStorage.setItem('Xtoken',res.data.xtoken)
@@ -560,11 +572,23 @@ export default {
     }
 
   }
+  .re-loading {
+      position: fixed;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0,0,0,.5);
+     z-index: 5000;
+     top: 0;
+     left: 0;
+  }
     .re-puy {
        position: fixed;
        left: 50%;
        transform: translateX(-50%);
        width: 500px;
+       max-height: 480px;
+       overflow-x: auto;
+       box-sizing: border-box;
        top: 100px;
        background-color: #fff;
        box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
@@ -585,7 +609,7 @@ export default {
        }
        .puy-iphone {
          padding: 0 18px;
-         height: 80px;
+         height: 120px;
          display: flex;
         justify-content: center;
          flex-direction: column;
@@ -600,11 +624,35 @@ export default {
            align-items: center;
          }
          .puy-hint {
-           font-size: 12px;
+           margin-top: 5px;
+           font-size: 11px;
            color: red;
-            font-weight: 400;
+           font-weight: 400;
+           padding-left: 110px;
+           .puy-pos {
+             position: relative;
+             color: #999;
+             overflow: hidden;
+             padding-left: 12px;
+            .puy-star {
+              position: absolute;
+              left: 0;
+              top: 2px;
+              font-size: 22px;
+              color:red;
+              line-height: 23px;
+            }
+           }
+          
          }
          .puy-iti {
+           line-height: 40px;
+           width: 60px;
+           background:rgba(254,102,3,1);
+           border-radius:5px;
+           text-align: center;
+           color: #fff;
+           font-weight: 400;
            margin-left: 10px;
            cursor: pointer;
          }

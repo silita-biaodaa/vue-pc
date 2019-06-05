@@ -78,6 +78,7 @@ export default {
         console.log(res);
         if(res.code == 1) {
             localStorage.setItem('permissions',res.data.permissions)
+            localStorage.setItem('isFirst',res.data.isFirst)
             localStorage.setItem('Bname',this.nickname.trim())
            if(sessionStorage.getItem('xtoken')) {
              sessionStorage.setItem('xtoken',res.data.xtoken)

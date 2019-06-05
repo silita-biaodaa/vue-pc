@@ -98,6 +98,7 @@ export default {
             localStorage.setItem('valid',time)
             localStorage.setItem('Bname',name)
             localStorage.setItem('Xtoken',token)
+            localStorage.setItem('isFirst',res.data.isFirst)
             this.$router.push('/home')
           } else if( res.code == 202) {
               this.error = true
