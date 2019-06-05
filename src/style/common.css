@@ -255,6 +255,9 @@ figcaption:focus {
 .buy .el-loading-spinner .el-loading-text {
   color: #FE6603;
 }
+.buy .puy-iphone .el-input {
+  width: 40%;
+}
 .order .el-loading-spinner .path {
   stroke: #FE6603;
 }

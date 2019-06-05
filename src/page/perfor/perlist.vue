@@ -166,7 +166,12 @@ export default {
     Goto(val) {
        this.current = val.cur;
        this.gainList()
-       document.documentElement.scrollTo(0,492);
+       if(document.documentElement.scrollTop) {
+        document.documentElement.scrollTop=492
+      } else {
+         document.body.scrollTop=492
+      }
+
     },
     closeload(val) {
       this.svip = val.cur

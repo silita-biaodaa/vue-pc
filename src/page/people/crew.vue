@@ -150,7 +150,11 @@ export default {
     },
     Goto(val) {
       this.current = val.cur;
-      document.documentElement.scrollTo(0,530);  
+        if(document.documentElement.scrollTop) {
+          document.documentElement.scrollTop=530
+        } else {
+           document.body.scrollTop=530
+        }
       this.gainList()
     },
     toPer(el) {

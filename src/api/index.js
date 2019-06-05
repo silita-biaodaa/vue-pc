@@ -286,3 +286,7 @@ export const Cmessage = params => {
 export const single = params => {
   return axios.post('comment/single', params).then(res => res.data)
 }
+
+export const activity = params => {
+  return axios.post('activity/save/phone', params).then(res => res.data)
+}

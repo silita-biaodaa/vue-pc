@@ -67,7 +67,7 @@
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >企业联系电话</p>
-               <p class="buy-s" >(限APP查看)</p>
+               <!-- <p class="buy-s" >(限APP查看)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               可查看企业的全部联系号码。
@@ -77,7 +77,7 @@
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >查在建功能</p>
-               <p class="buy-s" >(限APP使用)</p>
+               <!-- <p class="buy-s" >(限APP使用)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               可根据姓名和身份证号，精准查询湖南省内人员在建情况。
@@ -87,7 +87,7 @@
          <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >在建库功能</p>
-               <p class="buy-s" >(限APP使用)</p>
+               <!-- <p class="buy-s" >(限APP使用)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               提供湖南省内注册人员在建信息查询，输入姓名一键查询。
@@ -97,7 +97,7 @@
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >业绩信息</p>
-               <p class="buy-s" >(限APP查看)</p>
+               <!-- <p class="buy-s" >(限APP查看)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               包含全国住建部、交通部、水利部业绩，可根据地区、合同金额、日期、关键词快速查找业绩信息。
@@ -116,7 +116,7 @@
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >人员信息</p>
-               <p class="buy-s" >(限APP查看)</p>
+               <!-- <p class="buy-s" >(限APP查看)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               提供注册人员的押证项目、证书信息、个人业绩、变更记录、不良记录等信息，查找信息更加快速精准。
@@ -151,7 +151,18 @@
            </div>
       </div>  
     </div>
-
+    <!-- <div class="puy-iphone" >
+      <div class="puy-iput" >
+        <div>手机号码：</div>
+         <el-input v-model="input" placeholder="请输入邀请人的手机号码"></el-input>
+         <div class="puy-iti" @click.stop="pushIp" >
+           确定
+         </div>
+      </div>
+      <div class="puy-hint" v-show="error" >
+        请输入正确的手机号码格式
+      </div>
+    </div> -->
     <div class="puy-title" style="fontSize:14px;" >
        <span>支付方式</span>
     </div>
@@ -170,7 +181,7 @@
 </template>
 <script>
 import QRCode from 'qrcodejs2'
-import { FeeStandard,vipPay,nowxPay,getUserTemp } from '@/api/index'
+import { FeeStandard,vipPay,nowxPay,getUserTemp,activity } from '@/api/index'
 import heads from '@/components/head3'
 export default {
   data () {
@@ -213,7 +224,10 @@ export default {
      noShow:false,
      all:{},
      iphone:'',
-     isload:true
+     isload:true,
+     input:'',
+     orderNo:'',
+     error:false
     }
   },
   filters: {
@@ -230,6 +244,30 @@ export default {
     }
   },
   methods: {
+    pushIp() {
+      if(this.input.trim() == '') {
+        return 
+      }
+      if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.input.trim()))) {
+         return this.error = true
+      } else {
+        this.error = false
+        if(this.input.trim() == localStorage.getItem('phoneNo') ) {
+              return this.$message({
+                message: '不能输入账号一样的手机号码',
+                type: 'warning'
+              });
+        }
+      }
+      activity({phone:this.input,stdCode:this.all.stdCode,orderNo:this.orderNo}).then(res => {
+        if(res.code == 1) {
+           this.$message({
+                message: '提交成功',
+                type: 'success'
+              });
+        }
+      })
+    },
      jumpen() {
         this.$router.push('/enroll')
     },
@@ -281,6 +319,7 @@ export default {
       this.iphone = localStorage.getItem('phoneNo')
       vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
          if(res.code == 1) {
+           this.orderNo = res.orderNo
               let code = new QRCode("qrcode", {
                   text: res.data.codeUrl,
                   width:180,
@@ -471,6 +510,7 @@ export default {
       font-weight: 500;
       margin: 25px 0;
     }
+   
     .buy-table {
       width: 900px;
       border: 1px solid #F2F2F2;
@@ -523,7 +563,6 @@ export default {
        left: 50%;
        transform: translateX(-50%);
        width: 500px;
-      //  height: 500px;
        top: 100px;
        background-color: #fff;
        box-shadow:4px 3px 9px 1px rgba(4,0,0,0.05);
@@ -541,6 +580,32 @@ export default {
            font-size: 24px;
            cursor: pointer;
           }
+       }
+       .puy-iphone {
+         padding: 0 18px;
+         height: 80px;
+         display: flex;
+        justify-content: center;
+         flex-direction: column;
+         width: 100%;
+         font-size: 14px;
+         border-bottom: 1px solid #F2F2F2;
+         font-weight: 550;
+         box-sizing: border-box;
+         .puy-iput {
+           display: flex;
+           flex-direction: row;
+           align-items: center;
+         }
+         .puy-hint {
+           font-size: 12px;
+           color: red;
+            font-weight: 400;
+         }
+         .puy-iti {
+           margin-left: 10px;
+           cursor: pointer;
+         }
        }
        .puy-detail {
          padding: 18px 18px 10px;

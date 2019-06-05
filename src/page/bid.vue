@@ -430,12 +430,11 @@ export default {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
-      if(document.documentElement.scrollTo) {
-        document.documentElement.scrollTo(0,530);
+      if(document.documentElement.scrollTop) {
+        document.documentElement.scrollTop=530
       } else {
-         document.body.scrollTop(0,530)
+         document.body.scrollTop=530
       }
-      
       this.loading = true      
       this.gainQueryList()
     },

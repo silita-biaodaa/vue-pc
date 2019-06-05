@@ -753,7 +753,11 @@ export default {
     Goto(val) {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
-      document.documentElement.scrollTo(0,492);
+      if(document.documentElement.scrollTop) {
+        document.documentElement.scrollTop=492
+      } else {
+         document.body.scrollTop=492
+      }
       this.companylisy=[];
       this.loading = true
          this.allstr = this.allarr.join(",")
