@@ -319,6 +319,8 @@ export default {
       this.iphone = localStorage.getItem('phoneNo')
       vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
          if(res.code == 1) {
+           console.log(res);
+           
            this.orderNo = res.orderNo
               let code = new QRCode("qrcode", {
                   text: res.data.codeUrl,
