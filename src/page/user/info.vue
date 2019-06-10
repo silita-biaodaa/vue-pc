@@ -3,9 +3,9 @@
   <div class="det-nav">
      <div>我的消息</div>
      <div>
-       <div class="info-btn" v-show="btnS"  @click="btnS = false" >编辑
+       <div class="info-btn" v-show="btnS && shide "  @click="btnS = false" >编辑
        </div>
-       <div v-show="!btnS" class="list-btn" >
+       <div v-show="!btnS  && shide" class="list-btn" >
           <div class="info-btn" @click="addes"  >{{state}}
           </div>
           <div class="info-btn" @click="addre"  >设为已读
@@ -18,8 +18,8 @@
      </div>
    </div>
  
-   <re-ply :current='current' @page='gaincur' v-if="btnS" ></re-ply>  
-    <re-dit :current='current' @page='gaincur' @invert='gainst'  v-else  :alles='alles' :allre='allre'  :allde='allde' ></re-dit>
+   <re-ply :current='current' @page='gaincur' @hide='inhide'  v-if="btnS" ></re-ply>  
+    <re-dit :current='current' @page='gaincur' @invert='gainst' @hide='inhide'  v-else  :alles='alles' :allre='allre'  :allde='allde' ></re-dit>
 </div>
 </template>
 <script>
@@ -32,10 +32,14 @@ export default {
       alles:1,
       allre:1,
       allde:1,
-      state:'全选'
+      state:'全选',
+      shide:false
     }
   },
   methods: {
+    inhide(val) {
+      this.shide = val.state
+    },
     gaincur(val){
       this.current = val.state
     },
@@ -48,9 +52,6 @@ export default {
     delno() {
       this.allde =  this.allde +1
     },
-    // gainst(val) {
-    //   this.state = val.state
-    // }
   },
   created () {
    

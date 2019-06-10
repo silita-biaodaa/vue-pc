@@ -144,6 +144,7 @@ export default {
            } else {
              this.noList = false
            }
+           this.$emit('hide', {state:!this.noList})
          }
         
       })

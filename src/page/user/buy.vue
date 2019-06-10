@@ -67,7 +67,6 @@
           <div class="table-or">
             <div class="left buy-bor " style="width:218px" >
                <p class="p-color" >企业联系电话</p>
-               <!-- <p class="buy-s" >(限APP查看)</p> -->
             </div>
             <div class="left buy-p" style="width:680px" >
               可查看企业的全部联系号码。
