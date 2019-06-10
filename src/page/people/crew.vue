@@ -74,6 +74,10 @@
       <div class="noneS" v-show="noList" >
           <img src="../../assets/img/card.png" alt="">
       </div>
+      <div class="no-toast" v-show="noList" >
+        <img src="../../assets/img/bank_card @2x.png" alt="">
+        <span>Sorry，没有找到符合条件的人员信息</span>
+      </div>
       <div class="page"  v-show="!noList"  >
            <nav-page 
           :all='total'

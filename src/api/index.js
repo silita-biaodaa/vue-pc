@@ -69,11 +69,6 @@ export const queryList = params => {
 export const companyList = params => {
   return axios.post('company/host', params).then(res => res.data)
 }
-
-export const filter = params => {
-  return axios.get('company/filter', params).then(res => res.data)
-}
-
 export const companys = params => {
   return axios.post('company/query/filter', params).then(res => res.data)
 }

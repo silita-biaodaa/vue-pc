@@ -222,5 +222,10 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created(){
+    this.$http.get('company/filter',{}).then(res => {
+      sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+    })
+  }
 })

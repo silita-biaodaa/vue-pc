@@ -98,6 +98,9 @@ export default {
       citys:[]
     }
   },
+  props:{
+    citystr:''
+  },
   methods: {
     evalclass(el) {
       if(el.value == '') {
@@ -136,7 +139,19 @@ export default {
       }
     }
   },
-  components: {
+  created(){
+    if(this.citystr!=''){
+      this.city[0].i=false;
+      let arr=this.citystr.split(',');
+      for(let x of this.city){
+        for(let y of arr){
+          if(x.name==y){
+            x.i=true;
+            break
+          }
+        }
+      }
+    }
   }
 }
 </script>

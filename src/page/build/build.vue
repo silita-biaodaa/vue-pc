@@ -15,7 +15,7 @@
              姓名：<el-input  placeholder="请输入姓名"  v-model="name" clearable></el-input>
           </el-col>
           <el-col :span="12"  class="put-id" >
-            身份证号码：<el-input  placeholder="请输入身份证号码"  v-model="idcard" clearable></el-input>
+            身份证号码：<el-input  placeholder="请输入身份证号码"  v-model="idcard" clearable maxlength="18"></el-input>
           </el-col>
         </el-row>
       </div>
@@ -63,8 +63,9 @@
             {{el.type}}
           </div>
       </a>
-      <div class="noneS" v-show="noList" >
-          <img src="../../assets/img/card.png" alt="">
+      <div class="no-toast" v-show="noList" >
+        <img src="../../assets/img/bank_card @2x.png" alt="">
+        <span>Sorry，没有找到相关在建信息</span>
       </div>
       <div class="page" v-show="!noList" >
           <nav-page 
@@ -119,34 +120,39 @@ export default {
     },
     bsearch() {
         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-        if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-        } else {
-
-          if(this.idcard == '' && this.name.trim() != '' ) {
-            this.current = 1
-            this.gainList()
-          } else if ( this.idcard.trim() != '') {
-             underq({name:'aaaa',idCard:this.idcard,type:'api'}).then(res => {
-                if(res.code == 1) {
-                  if(res.data.length == 0 ) {
-                    this.$confirm('暂无数据', '提示', {
+          if(localStorage.getItem('permissions') == '') {//判断会员
+            this.svip = true
+            this.modalHelper.afterOpen();
+          } else {
+            if(this.idcard == '' && this.name!= '' ) {
+              this.current = 1
+              this.gainList()
+            } else if ( this.idcard!= '') {
+              underq({name:'aaaa',idCard:this.idcard,type:'api'}).then(res => {
+                  if(res.code == 1) {
+                    if(res.data.length == 0 ) {
+                      this.$confirm('该人员无在建信息', '提示', {
+                        showCancelButton:false,
+                        showConfirmButton:false,
+                        type: 'warning'
+                      })
+                    } else {
+                      const { href } = this.$router.resolve({
+                        path:'/certifi',query:{card:this.idcard} 
+                      })
+                        window.open(href, '_blank', )
+                    }
+                  }else{
+                    this.$confirm(res.msg, '提示', {
                       showCancelButton:false,
                       showConfirmButton:false,
                       type: 'warning'
-                     })
-                  } else {
-                     const { href } = this.$router.resolve({
-                       path:'/certifi',query:{card:this.idcard} 
-                     })
-                      window.open(href, '_blank', )
+                    })
                   }
-                }
-            })
-            
-          } 
-        }
+              })
+              
+            } 
+          }
       } else {
           this.$confirm('暂无权限，请先登录', '提示', {
             confirmButtonText: '确定',

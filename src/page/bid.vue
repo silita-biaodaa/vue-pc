@@ -20,7 +20,7 @@
              </el-col>
           </el-row>
         </div>
-        <c-ity @nextC='gainC' v-show='Scity'  ></c-ity>
+        <c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
         <div class="select">
             <el-row>
                 <el-col :span='2'>
@@ -28,7 +28,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='i' class='left' :class="el.key == projectType ? 'current':''"  @click='evalclass(el)' >
+                      <li v-for='(el,i) in projectTypes' :key='i' class='left' :class="el.key == data.projectType ? 'current':''"  @click='evalclass(el)' >
                          {{el.name}}
                       </li>
                     </ul>
@@ -105,14 +105,15 @@
        <div class="page">
           <nav-page 
           :all='total'
-          :currents='current'
+          :currents='data.pageNo'
           @skip='Goto'
           ></nav-page>
        </div>
      </div>
 
-     <div class="noneS" v-show="Snone">
-      <img src="../assets/img/card.png" alt="">
+    <div class="no-toast" v-show="Snone" >
+      <img src="../assets/img/bank_card @2x.png" alt="">
+      <span>Sorry，没有找到符合条件的公告信息</span>
     </div>
     <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
    </div>
@@ -159,9 +160,7 @@ export default {
           key:5
         }
       ],
-      projectType:'',
       pbMode:[],
-      pbModess:'',
       pbModes:[
         {
           name:'全部',
@@ -221,11 +220,8 @@ export default {
       majors:[],
       grade:'',
       grades:[],
-      zzType:'',
       zType:[],
       total:0,
-      current:1,
-      title:'',
       selects:[
          {
            name:'招标',
@@ -248,10 +244,19 @@ export default {
            i: 3
          },
        ],
-       select:'',
        present:0,
-       last:'湖南省',
-       Scity:true
+       Scity:true,
+       data:{
+         pageNo:1,
+         pbModes:'',
+         type:'0',
+         pageSize:'20',
+         regions:'湖南省',
+         zzType:'',
+         projectType:'',
+         title:''
+       },
+       city:''
     }
   },
    props: {
@@ -288,24 +293,29 @@ export default {
         this.Scity = false
       }
       this.area = val
-      this.last = this.area
-      this.current = 1
+      this.data.regions = this.area
+      this.data.pageNo = 1
       this.loading = true      
       this.gainQueryList()
-      
+    },
+    data:{//监听data变化，并实时保存
+      deep:true,
+      handler(val,old){
+        sessionStorage.setItem('bidSerach',JSON.stringify(val));
+      }
     }
   },
   methods: {
     gainC(val){
       if(val.cur.length == 0 ) {
-         this.last = this.area
-         this.current = 1
+         this.data.regions = this.area
+         this.data.pageNo = 1
          this.loading = true      
          this.gainQueryList()
       } else {
         let str = val.cur.join(',')
-        this.last = this.area + "||" + str
-        this.current = 1
+        this.data.regions = this.area + "||" + str
+        this.data.pageNo = 1
         this.loading = true      
         this.gainQueryList()
       }
@@ -319,7 +329,7 @@ export default {
             this.svip = true
             this.modalHelper.afterOpen();
           } else {
-            this.current = 1
+            this.data.pageNo = 1
             this.loading = true 
             this.gainQueryList()
           }
@@ -340,7 +350,7 @@ export default {
     },
     gainQueryList() {
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
-       queryList({pageNo:this.current,pbModes:this.pbModess,type:'0',pageSize:'20',regions:this.last,zzType:this.zzType,projectType:this.projectType,title:this.title}).then( res => {
+       queryList(this.data).then( res => {
          if(res.code == 1 ) {
            this.loading = false
            this.total = res.total
@@ -379,7 +389,7 @@ export default {
           return false
         }
         this.pbMode=[];
-        this.pbModess='';
+        this.data.pbModes='';
         let l=this.pbModes;
         if(i==0){
           for(let x of l){
@@ -401,11 +411,11 @@ export default {
             this.pbMode.push(x.key)
           }
         }
-        this.pbModess = this.pbMode.join('||');
+        this.data.pbModes = this.pbMode.join('||');
         if(i==0){
-          this.pbModess=''
+          this.data.pbModes=''
         }
-        this.current = 1
+        this.data.pageNo = 1
         this.gainQueryList()
       }else{
         this.$confirm('暂无权限，请先登录', '提示', {
@@ -422,7 +432,7 @@ export default {
       
     },
     Goto(val) {
-      this.current = val.cur;
+      this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
       this.funcom.toList(530)
@@ -430,21 +440,21 @@ export default {
       this.gainQueryList()
     },
     entitle(val) {
-      this.title = val.cur
-      this.current = 1
+      this.data.title = val.cur
+      this.data.pageNo = 1
       this.loading = true      
       this.gainQueryList()
     },
     Splice() {
-      this.zzType = this.companyQual
-      this.current = 1
+      this.data.zzType = this.companyQual
+      this.data.pageNo = 1
       this.loading = true      
       this.gainQueryList()
     },
     spliceo() {
       this.zType.push(this.companyQual,this.major)
-      this.zzType = this.zType.join('||')
-      this.current = 1
+      this.data.zzType = this.zType.join('||')
+      this.data.pageNo = 1
       this.loading = true      
        this.gainQueryList()
     },
@@ -469,18 +479,15 @@ export default {
     },
     splicet() {
       this.zType.push(this.companyQual,this.major,this.grade)
-      this.zzType = this.zType.join('||')
-      this.current = 1
+      this.data.zzType = this.zType.join('||')
+      this.data.pageNo = 1
       this.loading = true      
       this.gainQueryList()
     },
     gainFilter() {
-      filter({}).then( res => {
-         if(res.code == 1 ) {
-            this.areas = res.data.area
-            this.companyQuals = res.data.companyQual
-         }
-      })
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      this.areas=data.area;
+      this.companyQuals=data.companyQual;
     },
     eval(el) {
         if(el.name == '湖南省') {
@@ -489,8 +496,8 @@ export default {
           this.Scity = false
         }
         this.area = el.name
-        this.last = this.area
-        this.current = 1
+        this.data.regions = this.area
+        this.data.pageNo = 1
         this.loading = true      
         this.gainQueryList()
     },
@@ -500,8 +507,8 @@ export default {
               this.svip = true
               this.modalHelper.afterOpen();
             } else {
-             this.projectType = el.key
-             this.current = 1
+             this.data.projectType = el.key
+             this.data.pageNo = 1
              this.loading = true 
              this.gainQueryList()
             }
@@ -553,23 +560,70 @@ export default {
   },
   created () {
     if(sessionStorage.getItem('pageNo')){
-      this.current=sessionStorage.getItem('pageNo')*1;
+      this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
     this.area = this.state
-    this.last = this.area
-    this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    this.data.regions = this.area
+    this.data.title = localStorage.getItem('title') ? localStorage.getItem('title') : '';
+    this.gainFilter();
+
+    
+    //如果是刷新操作，则复现上次
+    if(sessionStorage.getItem('bidSerach')){
+      let data=JSON.parse(sessionStorage.getItem('bidSerach'));
+      this.data=data;
+      if(data.regions.indexOf('||')>-1){//省市
+        let arr=data.regions.split('||');
+        this.area=arr[0];
+        this.city=arr[1];
+      }else{
+        this.area=data.regions;
+      }
+      //评标办法
+      if(data.pbModes!=''){
+        let arr2=data.pbModes.split('||');
+        this.pbModes[0].active=false;
+        for(let x of this.pbModes){
+          for(let y of arr2){
+            if(x.name==y){
+              x.active=true;
+              break
+            }
+          }
+        }
+      }
+      //资质
+      if(data.zzType!=''){
+        let arr1=data.zzType.split('||');
+        this.companyQual=arr1[0];
+        for(let x of this.companyQuals){
+          if(arr1[0]==x.code){
+            this.majors=x.list
+            break
+          }
+        }
+        this.major=arr1[1];
+        for(let y of this.majors){
+          if(arr1[1]==y.code){
+            this.grades=y.list
+            break
+          }
+        }
+        this.grade=arr1[2]
+      }
+    }
     this.SHcity()
     this.toTop()
     this.gainQueryList()
-    this.gainFilter();
     if((sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken'))&& localStorage.getItem('permissions') != ''&&localStorage.getItem('permissions').indexOf('bidFilter') != -1  ){
       this.isCompanyQual=false;
       this.isMajor=false;
       this.isGrade=false;
     }
   },
-  components:{
-  }
+  beforeDestroy(){
+    sessionStorage.removeItem('bidSerach')
+  },
 }
 </script>
 <style lang="less" >
@@ -619,6 +673,7 @@ export default {
        margin-bottom: 12px;
        .pro {
          li {
+           margin-right: 5px;
            padding: 2px 9px;
            height: 20px;
            text-align: center;
@@ -717,6 +772,7 @@ export default {
     padding: 5px 10px;
     color:#666;
     cursor: pointer;
+    margin-right: 5px;
     display: inline-block;
  }
  .pb-bf.active{

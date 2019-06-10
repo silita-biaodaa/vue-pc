@@ -74,9 +74,10 @@
          </div>
    </div>
 
-  <div class="no-list" v-show="!Snone"  >
-    <img src="../../assets/img/card.png" alt="">
-  </div>
+  <div class="no-toast" v-show="!Snone" >
+      <img src="../../assets/img/bank_card @2x.png" alt="">
+      <span>Sorry，没有找到符合条件的业绩信息</span>
+    </div>
    <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
