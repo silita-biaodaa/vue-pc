@@ -47,7 +47,7 @@
      </div>
      <div class="no-toast" v-show="noList" >
        <img src="../../assets/img/bank_card @2x.png" alt="">
-       <span>暂无评论信息</span>
+       <span>暂未收到消息通知</span>
      </div>
 </div>
 </template>

@@ -247,11 +247,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  @media screen and (min-device-width: 1920px){
-     .introduce {
-       min-height: 1025px;
-     }       
-}
 .introduce {
   width: 1020px;
   padding-top: 86px;
