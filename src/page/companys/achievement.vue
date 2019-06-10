@@ -41,8 +41,9 @@
     </div>
 
     
-    <div class="no-search" v-show="result">
-        <img src="../../assets/img/card.png" alt="" >
+    <div class="no-toast" v-show="result" >
+      <img src="../../assets/img/bank_card @2x.png" alt="">
+      <span>Sorry，暂未查询到该公司的中标信息</span>
     </div>
   </div>
   <div class="e-page" v-show="!result">

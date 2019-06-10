@@ -36,7 +36,7 @@
 
    <div v-show="!ishow" class="no-toast" >
     <img src="../assets/img/bank_card @2x.png" alt="">
-    <span>暂无关注的企业信息</span>
+    <span>暂无关注的企业</span>
   </div>
 </div>
 </template>

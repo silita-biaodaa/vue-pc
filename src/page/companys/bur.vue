@@ -40,8 +40,9 @@
             {{el.province ? el.province: '--'}}
         </div>
       </div>
-       <div class="no-search" v-show="!result">
-        <img src="../../assets/img/card.png" alt="" >
+      <div class="no-toast" v-show="!result" >
+        <img src="../../assets/img/bank_card @2x.png" alt="">
+        <span>Sorry，暂未查询到该公司住建部业绩信息</span>
       </div>
       <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>

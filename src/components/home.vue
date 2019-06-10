@@ -1,5 +1,5 @@
 <template>
-<div class="l-search">
+<div class="l-search" @keydown.enter="engine">
    <div class='app-fff'>
         <el-row class="app-search"> 
          <el-col :span="7">
@@ -17,7 +17,7 @@
                    </li>
                 </ul>
                 <div  >
-                   <el-input placeholder="请输入关键字搜索" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
+                   <el-input :placeholder="placeTxt" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
                       <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
                    <div class="right  syn" v-show="synth"  @click="jump" >
@@ -68,7 +68,8 @@ export default {
        ],
      select:'',
      rank:0,
-     way:'/bid'
+     way:'/bid',
+     placeTxt:'请输入公告名称或企业名称'
     }
   },
   methods: {
@@ -157,16 +158,28 @@ export default {
     }
   },
   watch: {
-      $route(to,form) {
-       if(form.name == 'water' && (to.name == 'perlist' || to.name == 'road' ) ) {
-          this.select = ''
-       } else if (form.name == 'road' && (to.name == 'perlist' || to.name == 'water' ) ) {
-          this.select = ''
-       }  else if (form.name == 'perlist' && (to.name == 'road' || to.name == 'water' ) ) {
-          this.select = ''
-       }
-        
+    $route(to,form) {
+      if(form.name == 'water' && (to.name == 'perlist' || to.name == 'road' ) ) {
+        this.select = ''
+      }else if (form.name == 'road' && (to.name == 'perlist' || to.name == 'water' ) ) {
+        this.select = ''
+      }else if (form.name == 'perlist' && (to.name == 'road' || to.name == 'water' ) ) {
+        this.select = ''
       }
+    },
+    rank(newValue,old){
+      if(newValue==0||newValue==1){
+        this.placeTxt='请输入公告名称或企业名称'
+      }else if(newValue==2){
+        this.placeTxt='请输入企业名称或法人名称'
+      }else if(newValue==3){
+        this.placeTxt='请输入项目名称或企业名称'
+      }else if(newValue==4){
+        this.placeTxt='请输入注册人员姓名或企业名称'
+      }else if(newValue==5){
+        this.placeTxt='请输入姓名或身份证号'
+      }
+    }
   },
   components: {
   }

@@ -147,7 +147,7 @@
   <div class="noList"  v-show="!noShow" >
     <img src="../../assets/img/bank_card @2x.png" alt="">
     <div>
-      暂无数据
+      暂无订单信息
     </div>
   </div>
   <div class="whint"  v-show="wsend" >
