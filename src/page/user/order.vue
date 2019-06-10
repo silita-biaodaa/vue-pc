@@ -332,6 +332,14 @@ export default {
             
          } else {
            this.win = []
+           setTimeout(() => {
+              this.allList = this.win.concat(this.feat)
+              if( this.allList.length == 0) {
+                this.noShow = false
+              } else {
+                this.noShow = true
+              }
+            }, 100);
          }
       })
     },
@@ -641,7 +649,6 @@ export default {
   created () {
     this.gainList()
     this.gainWin()
-    // this.listcon()
   },
   components: {
   }

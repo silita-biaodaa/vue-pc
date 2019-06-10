@@ -54,6 +54,7 @@ export default {
     Goto(val) {
       this.pageNo = val.cur     
       this.gainbid()
+       this.funcom.toList(0)
     },
     gainbid() {
       collectlist({type:'0',pageNo:this.pageNo,pageSize:15}).then(res => {

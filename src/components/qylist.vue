@@ -56,6 +56,7 @@ export default {
     Goto(val) {
       this.pageNo = val.cur     
       this.gainbid()
+      this.funcom.toList(0)
     },
     gainbid() {
       qytlist({pageNo:this.pageNo,pageSize:15}).then(res => {
