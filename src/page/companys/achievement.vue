@@ -75,7 +75,6 @@ export default {
       queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
-           console.log(this.bidList,1)
            this.current = res.pageNo
            this.total = res.total
            if(this.bidList.length ==0 ) {
@@ -90,6 +89,7 @@ export default {
      Goto(val) {
       this.current = val.cur
       this.gainList()
+      this.funcom.toList(200)
     },
     searchBid() {
       this.current = 1

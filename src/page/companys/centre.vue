@@ -172,6 +172,7 @@ export default {
     Goto(val) {
       this.current = val.cur
       this.gainList()
+      this.funcom.toList(180)
     },
     swpro() {
       this.pro = true

@@ -84,8 +84,7 @@ export default {
       this.pageNo = val.cur
       this.allArr = []  
       this.allChe = true
-      document.body.scrollTop = 0
-      document.documentElement.scrollTop = 0
+       this.funcom.toList(0)
       this.gaiaList()
       this.$emit('page', {state:val.cur})
     },

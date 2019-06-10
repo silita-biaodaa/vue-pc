@@ -73,11 +73,6 @@
               </el-option>
             </el-select>
         </div>
-        <!-- <div class='select cc-btn' >
-          <div class='c-sure'  @click='gainlist' >
-            查询
-          </div>
-        </div> -->
      </div> 
 
       <div class="total">
@@ -430,11 +425,7 @@ export default {
       this.current = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
-      if(document.documentElement.scrollTop) {
-        document.documentElement.scrollTop=530
-      } else {
-         document.body.scrollTop=530
-      }
+      this.funcom.toList(530)
       this.loading = true      
       this.gainQueryList()
     },

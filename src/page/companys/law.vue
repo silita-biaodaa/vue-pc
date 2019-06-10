@@ -4,24 +4,6 @@
      <div class="left law-wei" >
        裁判文书（{{this.total}}）
      </div>
-     <!-- <div class="law-year left">
-        <el-date-picker
-          v-model="year"
-          type="year"
-          value-format='yyyy'
-          @change='gainlod'
-          placeholder="请选择年份">
-        </el-date-picker>
-     </div> -->
-     <!-- <div class="right law-w">
-        <el-input
-          placeholder="请输入关键字"
-          suffix-icon="el-icon-search"
-          @change='gainlod'
-          @keyup.enter="gainlod"
-          v-model="search">
-        </el-input>
-     </div> -->
    </div>
    <div class="law-list">
       <div class="law-nav">
@@ -76,8 +58,6 @@ import { Law } from '@/api/index'
 export default {
   data () {
     return {
-      // year:'',
-      // search:'',
       lawList:[],
       total:0,
       current:1,
@@ -104,14 +84,10 @@ export default {
          }
       }) 
     },
-    // gainlod() {
-    //   this.current = 1
-    //   this.loading = true
-    //   this.gainList()
-    // },
     Goto(val) {
     this.current = val.cur
     this.gainList()
+    this.funcom.toList(200)
     },
     text() {
       console.log('变化')

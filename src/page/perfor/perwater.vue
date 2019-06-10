@@ -181,9 +181,7 @@ export default {
       this.current = 1
       this.gainList()
     },
-    gainList() {
-      console.log(this.search,1);
-      
+    gainList() {  
       project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"shuili",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
          if(res.code == 1 ) {
             res.data.forEach(el => {
@@ -204,11 +202,7 @@ export default {
     Goto(val) {
        this.current = val.cur;
        this.gainList()
-       if(document.documentElement.scrollTop) {
-        document.documentElement.scrollTop=492
-      } else {
-         document.body.scrollTop=492
-      }
+       this.funcom.toList(492)
     },
     decide(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {

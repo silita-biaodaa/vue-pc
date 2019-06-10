@@ -82,8 +82,9 @@ export default {
         });
     },
     Goto(val) {
-    this.current = val.cur
-    this.gainList()
+      this.current = val.cur
+      this.gainList()
+      this.funcom.toList(0)
     },
     store(el) {
       localStorage.removeItem('id')

@@ -5,5 +5,12 @@ export default{
     } else {
       return false
     }
+  },
+  toList(val) {
+    if (document.documentElement.scrollTop) {
+      document.documentElement.scrollTop = val
+    } else {
+      document.body.scrollTop = val
+    }
   }
 }

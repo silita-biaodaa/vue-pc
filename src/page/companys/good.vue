@@ -147,11 +147,6 @@ export default {
              }
             
         })
-        // let dataParam = JSON.stringify({          
-        // });
-        // getJsonData( "/company/undesirable/" + this.id ).then(res => {
-        //    
-        // });
     },
     enter(el) {
       el.show = true

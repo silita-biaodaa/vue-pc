@@ -155,6 +155,7 @@ export default {
     Goto(val) {
     this.current = val.cur
     this.gainList()
+    this.funcom.toList(200)
     },
     gainCategory() {
       let dataParam = JSON.stringify({

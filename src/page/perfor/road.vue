@@ -171,15 +171,10 @@ export default {
     Goto(val) {
        this.current = val.cur;
        this.gainList()
-         if(document.documentElement.scrollTop) {
-          document.documentElement.scrollTop=492
-        } else {
-           document.body.scrollTop=492
-        }
+       this.funcom.toList(492)
     },
      decide(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
-        // this.perlist[el].is = true
          if(localStorage.getItem('permissions')) {
              el.is = true
           const { href } = this.$router.resolve({
@@ -216,7 +211,6 @@ export default {
     }
   },
   created () {
-    // this.search = localStorage.getItem('title') ? localStorage.getItem('title') : ''
   },
   components: {
   }
