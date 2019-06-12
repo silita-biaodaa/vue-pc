@@ -1,10 +1,7 @@
  <template>
    <div class="bid"> 
 
-      <en-search
-      @vague='entitle'
-      >        
-      </en-search>
+      <en-search @vague='entitle' :title="data.title"></en-search>
       <div class="options">
         <div class="select">
           <el-row>
@@ -28,7 +25,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='i' class='left' :class="el.key == data.projectType ? 'current':''"  @click='evalclass(el)' >
+                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.key == data.projectType ? 'current':''"  @click='evalclass(el)' >
                          {{el.name}}
                       </li>
                     </ul>
@@ -41,7 +38,7 @@
                   评标办法:
                </el-col>
                <el-col :span='22'> 
-                  <span class="pb-bf" v-for="(el,i) in pbModes" :key="i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
+                  <span class="pb-bf" v-for="(el,i) in pbModes" :key="'2'+i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
                </el-col>
             </el-row>
         </div>
@@ -59,7 +56,7 @@
              <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'   >
               <el-option
                 v-for="item in majors"
-                :key="item.name"
+                :key="item.code"
                 :label="item.name"
                 :value="item.code">
               </el-option>
@@ -81,7 +78,7 @@
 
      <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
          <!-- <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' > -->
-         <a  v-for="(el,i ) of queryLists" :key="i" @click='decide(el)'  >
+         <a  v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'  >
            <div class="m-bt">
               <p class="left m-rg">
                 {{(present-1)*20+(i+1)}}
@@ -265,8 +262,6 @@ export default {
   watch: {
     companyQual(val) {
       this.zType = []
-      this.major = ''
-      this.majors = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
             this.majors = el.list
@@ -275,8 +270,6 @@ export default {
     },
     major(val) {
       this.zType = []
-      this.grade = ''
-      this.grades = []
       this.majors.forEach(el => {
          if(el.code == val ) {
             this.grades = el.list
@@ -447,6 +440,11 @@ export default {
     },
     Splice() {
       this.data.zzType = this.companyQual
+      //每次切换重置值
+      this.majors=[];
+      this.major='';
+      this.grades=[];
+      this.grade='';
       this.data.pageNo = 1
       this.loading = true      
       this.gainQueryList()
@@ -454,6 +452,8 @@ export default {
     spliceo() {
       this.zType.push(this.companyQual,this.major)
       this.data.zzType = this.zType.join('||')
+      this.grades=[];
+      this.grade='';
       this.data.pageNo = 1
       this.loading = true      
        this.gainQueryList()
@@ -596,19 +596,19 @@ export default {
       if(data.zzType!=''){
         let arr1=data.zzType.split('||');
         this.companyQual=arr1[0];
-        for(let x of this.companyQuals){
-          if(arr1[0]==x.code){
-            this.majors=x.list
-            break
-          }
-        }
+        // for(let x of this.companyQuals){
+        //   if(arr1[0]==x.code){
+        //     this.majors=x.list
+        //     break
+        //   }
+        // }
         this.major=arr1[1];
-        for(let y of this.majors){
-          if(arr1[1]==y.code){
-            this.grades=y.list
-            break
-          }
-        }
+        // for(let y of this.majors){
+        //   if(arr1[1]==y.code){
+        //     this.grades=y.list
+        //     break
+        //   }
+        // }
         this.grade=arr1[2]
       }
     }

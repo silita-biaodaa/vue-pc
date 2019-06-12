@@ -6,8 +6,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in province' :key='i' class='left' :class="el.name == area ? 'current':''"  @click='evalclass(el)' >{{el.name}}
-                      </li>
+                      <li v-for='(el,i) in province' :key='i' class='left' :class="el.name == area ? 'current':''"  @click='evalclass(el)' >{{el.name}}</li>
                     </ul>
                 </el-col>
             </el-row>
@@ -29,7 +28,12 @@ export default {
     }
   },
   props: {
-    state:''
+    state:{
+      default:'湖南省'
+    },
+    address:{
+      default:''
+    }
   },
   watch: {
     state(val) {
@@ -38,8 +42,15 @@ export default {
     }
   },
   created () {
-    this.area = this.state
-    this.province = JSON.parse(localStorage.getItem('area'))
+    let data=JSON.parse(sessionStorage.getItem('filter'));
+    this.area = this.state;
+    this.province = data.area;
+    if(sessionStorage.getItem('yjSerach')||sessionStorage.getItem('slSerach')||sessionStorage.getItem('jtSerach')||sessionStorage.getItem('peopleSerach')){
+      if(this.address!=''){
+        this.area=this.address;
+        return false
+      }
+    }
     this.$emit('perPor', {cur:this.area})
   },
   components: {

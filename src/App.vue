@@ -387,16 +387,6 @@ export default {
         });
       }
     },
-   gainFilter() {
-      filter({}).then( res => {
-         if(res.code == 1 ) {
-            // this.areas = res.data.area
-            // this.companyQuals = res.data.companyQual
-            localStorage.setItem('area',JSON.stringify(res.data.area))
-            // localStorage.setItem('')
-         }
-      })
-    },
     gainCo() {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
              Cmessage({}).then(res => {
@@ -439,7 +429,6 @@ export default {
     }
     this.judge()
     this.gainaddress()
-    this.gainFilter()
     this.gainCo()
   },
   watch: {

@@ -1,14 +1,14 @@
 <template>
 <div class="perlist">
    <div class="per-option">
-      <per-por :state='state' @perPor='gainPor'  ></per-por>
+      <per-por :state='state' :address="data.area" @perPor='gainPor'  ></per-por>
       <div class="select">
             <el-row>
                 <el-col :span='2'>业绩类别:
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in classif' :key='i' class='left' :class="el.value == proType ? 'current':''"  @click='levelif(el)' >{{el.name}}
+                      <li v-for='(el,i) in classif' :key='i' class='left' :class="el.value == data.proType ? 'current':''"  @click='levelif(el)' >{{el.name}}
                       </li>
                     </ul>
                 </el-col>
@@ -51,7 +51,7 @@
         <a class="per-del " v-for="(el,i) in perlist" :key="el.pkid"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'" >
 
            <div class="left " style="width:60px;">
-              {{(current-1)*20+(i+1)}}
+              {{(data.pageNo-1)*20+(i+1)}}
            </div>
             <div class="left show-f" style="width:280px;">{{el.proName}}
            </div>
@@ -75,7 +75,7 @@
          <div class="c-page" >
               <nav-page 
               :all='total'
-              :currents='current'
+              :currents='data.pageNo'
               @skip='Goto'
               ></nav-page>
          </div>
@@ -138,17 +138,23 @@ export default {
           value:'移民监督'
         }
       ],
-      proType:null,
-      area:'',
-      amountStart:'',
       amountEnd:'',
-      comStartDate:'',
-      comEndDate:'',
-      current:1,
       total:0,
       perlist:[],
       Snone:true,
-      search:''
+      data:{
+        pageNo:1,
+        proName:'',
+        pageSize:20,
+        amountStart:'',
+        amountEnd:'',
+        proType:null,
+        area:'',
+        tabType:"shuili",
+        buildStart:'',
+        buildEnd:''
+      }
+
     }
   },
   methods: {
@@ -156,33 +162,33 @@ export default {
       this.svip = val.cur
     },
     gainPor(val) {
-      this.area = val.cur
-      this.current = 1
+      this.data.area = val.cur
+      this.data.pageNo = 1
       this.gainList()
     },
     levelif(el) {
             if(el.value  == '') {
-               this.proType = null
+               this.data.proType = null
             } else {
-              this.proType = el.value
+              this.data.proType = el.value
             }
-             this.current = 1
+             this.data.pageNo = 1
              this.gainList()
     },
     gainMon(val) {
-      this.amountStart = val.state
-      this.amountEnd = val.end
-      this.current = 1
+      this.data.amountStart = val.state
+      this.data.amountEnd = val.end
+      this.data.pageNo = 1
       this.gainList()
     },
     gaintime(val) {
-      this.comStartDate = val.old
-      this.comEndDate = val.new
-      this.current = 1
+      this.data.buildStart = val.old
+      this.data.buildEnd = val.new
+      this.data.pageNo = 1
       this.gainList()
     },
     gainList() {  
-      project({pageNo:this.current,proName:this.search,pageSize:20,amountStart:this.amountStart,amountEnd:this.amountEnd,proType:this.proType,area:this.area,tabType:"shuili",buildStart:this.comStartDate,buildEnd:this.comEndDate}).then(res => {
+      project(this.data).then(res => {
          if(res.code == 1 ) {
             res.data.forEach(el => {
              el.is = false
@@ -200,7 +206,7 @@ export default {
       })
     },
     Goto(val) {
-       this.current = val.cur;
+       this.data.pageNo = val.cur;
        this.gainList()
        this.funcom.toList(492)
     },
@@ -237,16 +243,29 @@ export default {
   },
    watch: {
     title(val) {
-      this.search = val
-      this.current = 1
+      this.data.proName = val
+      this.data.pageNo = 1
        this.gainList()
+    },
+    data:{
+      handler(val,old){
+        sessionStorage.setItem('slSerach',JSON.stringify(val));
+      },
+      deep:true
     }
   },
   created () {
     // this.search = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    //如果是刷新操作，则复现上次
+    if(sessionStorage.getItem('slSerach')){
+      let data=JSON.parse(sessionStorage.getItem('slSerach'));
+      this.data=data;
+    }
+    this.gainList();
   },
-  components: {
-  }
+  beforeDestroy(){
+    sessionStorage.removeItem('slSerach')
+  },
 }
 </script>
 <style lang="less" >

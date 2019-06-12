@@ -1,9 +1,6 @@
 <template>
 <div class="tender">
-    <en-search
-    @vague='entitle'
-    ></en-search>
-
+    <en-search @vague='entitle' :title="data.title"></en-search>
     <div class="t-options">
         <div class="select">
             <el-row>
@@ -18,14 +15,14 @@
                </el-col>
             </el-row>
         </div>
-        <c-ity   @nextC='gainC' v-show='Scity' ></c-ity>
+        <c-ity   @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
         <div class="select">
            <el-row>
              <el-col :span="2" class="t-5">中标金额:
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >
-                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==start? 'current':''"  @click='evalsum(el)'  >
+                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==data.projSumStart? 'current':''"  @click='evalsum(el)'  >
                        {{el.name}}
                     </li>
                 </ul>
@@ -33,14 +30,14 @@
              <el-col :span="8" class="ttt">
                 <el-input
                   placeholder="最低价"
-                  v-model="low"
+                  v-model="data.low"
                   clearable>
                 </el-input>
                 <div class="in-line">
                 </div> 
                 <el-input
                   placeholder="最高价"
-                  v-model="high"
+                  v-model="data.high"
                   clearable>
                 </el-input>
                 <div class="t-btn" @click='fade' >
@@ -62,7 +59,7 @@
          <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide(el)" >
            <div class="m-bt">
               <p class="left m-rg">
-                {{(pageNo-1)*20+(i+1)}}
+                {{(data.pageNo-1)*20+(i+1)}}
               </p>
               <p class="left super" :title="el.title" >
                 {{el.title}}         
@@ -83,7 +80,7 @@
        <div class="t-page">
           <nav-page 
           :all='total'
-          :currents='pageNo'
+          :currents='data.pageNo'
           @skip='Goto'
           ></nav-page>
        </div>
@@ -107,37 +104,6 @@ export default {
       Snone:true,
       areas:[
       ],
-      projectTypes:[
-        {
-          name:'全部',
-          key:''
-        },
-        {
-          name:'施工',
-          key:'0'
-        },
-        {
-          name:'监理',
-          key:'2'
-        },
-        {
-          name:'采购',
-          key:'3'
-        },
-        {
-          name:'设计',
-          key:'1'
-        },
-        {
-          name:'勘察',
-          key:'4'
-        },
-        {
-          name:'其他',
-          key:'5'
-        }
-      ],
-      projectType:'',
       sums:[
         {
           name:'全部',
@@ -170,47 +136,50 @@ export default {
           e:''
         }
       ],
-      start:'0',
-      end:'',
       queryLists:[],
-      low:'',
-      high:'',
       rank:0,
-      pageNo:1,
-      title:'',
       total:0,
       present:0,
       Scity:true,
-      last:'湖南省'
+      city:'',
+      data:{
+        pageNo:1,
+        pageSize:20,
+        type:2,
+        projSumStart:'0',
+        projSumEnd:'',
+        title:'',
+        regions:'湖南省',
+        sumType:"zhongbiao",
+        high:'',
+        low:'',
+      }
     }
   },
   methods: {
     gainC(val) {
       if(val.cur.length == 0 ) {
-         this.last = this.area
+         this.data.regions = this.area
          this.current = 1
          this.loading = true      
          this.gainList()
       } else {
         let str = val.cur.join(',')
-        this.last = this.area + "||" + str
+        this.data.regions = this.area + "||" + str
         this.current = 1
         this.loading = true      
         this.gainList()
       }
     },
     gainFilter() {
-      filter({}).then( res => {
-         if(res.code == 1 ) {
-            this.areas = res.data.area
-         }
-      })
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      this.areas=data.area;
     },
     closeload(val) {
       this.svip = val.cur
     },
     Goto(val) {
-      this.pageNo = val.cur;
+      this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.funcom.toList(410)
       this.queryLists=[];
@@ -229,20 +198,14 @@ export default {
            this.Scity = false
          }
          this.area = el.name
-         this.last = this.area
-         this.pageNo = 1
+         this.data.laregionsst = this.area
+         this.data.pageNo = 1
          this.gainList()
          setTimeout(() => {
            this.Stroke = true
          }, 1000);
 
     },
-    // evalclass(el) {
-    //   this.queryLists = []
-    //   this.projectType = el.key
-    //   this.pageNo = 1
-    //   this.gainList()
-    // },
     evalsum(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
@@ -255,11 +218,11 @@ export default {
                     return
                   }
                   this.rank = 0 
-                  this.low = '',
-                  this.high = '',
-                  this.start = el.s,
-                  this.end = el.e 
-                  this.pageNo = 1
+                  this.data.low = '',
+                  this.data.high = '',
+                  this.data.projSumStart = el.s,
+                  this.data.projSumEnd = el.e 
+                  this.data.pageNo = 1
                   this.loading = true
                   this.gainList()
                   setTimeout(() => {
@@ -279,9 +242,9 @@ export default {
       }
     },
     gainList() {
-
+        let data=this.data;
        if(this.rank == 0) {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.start,projSumEnd:this.end,title:this.title,regions:this.last,sumType:"zhongbiao"}).then( res => {
+          queryList(data).then( res => {
                if(res.code == 1 ) {
                    if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
                            res.data.forEach( el => {
@@ -322,39 +285,40 @@ export default {
                }
           })
        } else {
-          queryList({pageNo:this.pageNo,pageSize:20,type:2,projectType:this.projectType,projSumStart:this.low,projSumEnd:this.high,title:this.title,regions:this.last,sumType:"zhongbiao"}).then( res => {
-               if(res.code == 1 ) {
-               
-                    if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
-                           res.data.forEach( el => {
-                             if(el.oneName)  {
-                                  if(el.oneName.indexOf('公司') == -1) {
-                                  el.oneName = '***********'
-                                } else {
-                                  el.oneName = '***********' + '公司'
-                                }
-                             } else {
-                               el.oneName = '***********'
-                             }
-                            })
-                             el.oneOffer = '***'
+          data.projSumStart=data.low;
+          data.projSumEnd=data.high;
+          queryList(data).then( res => {
+              if(res.code == 1 ) {
+                if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+                  res.data.forEach( el => {
+                    if(el.oneName)  {
+                        if(el.oneName.indexOf('公司') == -1) {
+                        el.oneName = '***********'
+                      } else {
+                        el.oneName = '***********' + '公司'
+                      }
+                    } else {
+                      el.oneName = '***********'
                     }
-                  this.queryLists = res.data
-                  this.present = res.pageNo
-                  this.total = res.total
-                  this.loading = false
-                   if(this.total == 0 ) {
-                     this.Snone = false
-                   } else {
-                     this.Snone = true
-                   }
-               }
+                  })
+                  el.oneOffer = '***'
+                }
+                this.queryLists = res.data
+                this.present = res.pageNo
+                this.total = res.total
+                this.loading = false
+                if(this.total == 0 ) {
+                  this.Snone = false
+                } else {
+                  this.Snone = true
+                }
+              }
           })
        }
     },
     entitle(val) {
-      this.title = val.cur
-      this.pageNo = 1
+      this.data.title = val.cur
+      this.data.pageNo = 1
       this.loading = true
       // this.queryLists = []
       this.gainList()
@@ -367,9 +331,9 @@ export default {
           } else {
               this.loading = true
               this.rank = 1
-              this.start = ''
-              this.end = '' 
-              this.pageNo = 1 
+              this.data.projSumStart = ''
+              this.data.projSumEnd = '' 
+              this.data.pageNo = 1 
               this.gainList()
           }
       } else {
@@ -414,14 +378,10 @@ export default {
       }
     }  
   },
+  beforeDestroy(){//销毁前删除本地
+    sessionStorage.removeItem('tenderSerach')
+  },
   watch: {
-    projectType() {
-      this.pageNo = 1
-      // this.queryLists = []
-      this.loading = true
-      // this.total = 0
-      this.gainList()
-    },
     state(val) {
       if(val == '湖南省') {
          this.Scity = true
@@ -429,10 +389,16 @@ export default {
          this.Scity = false
        }
       this.area = val
-      this.last = this.area
-       this.pageNo = 1
+      this.data.regions = this.area
+       this.data.pageNo = 1
        this.gainList()
     },
+    data:{
+      deep:true,
+      handler(val,old){
+        sessionStorage.setItem('tenderSerach',JSON.stringify(val));
+      }
+    }
 
   },
   props: {
@@ -440,18 +406,28 @@ export default {
   },
   created () {
     if(sessionStorage.getItem('pageNo')){
-      this.pageNo=sessionStorage.getItem('pageNo')*1;
+      this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
+    this.data.title = localStorage.getItem('title') ?  localStorage.getItem('title'): '';
     this.area = this.state
-    this.last = this.area
+    this.data.regions = this.area
+    this.gainFilter()
+    //如果是刷新操作，则复现上次
+    if(sessionStorage.getItem('tenderSerach')){
+      let data=JSON.parse(sessionStorage.getItem('tenderSerach'));
+      this.data=data;
+      if(data.regions.indexOf('||')>-1){//省市
+        let arr=data.regions.split('||');
+        this.area=arr[0];
+        this.city=arr[1];
+      }else{
+        this.area=data.regions;
+      }
+    }
     this.SHcity()
-    this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
     this.gainList()
-    this.gainFilter()
   },
-  components: {
-  }
 }
 </script>
 <style lang="less" >

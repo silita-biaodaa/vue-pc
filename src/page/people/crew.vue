@@ -1,19 +1,15 @@
 <template>
 <div class="crew">
-  <en-search
-      @vague='entitle'
-      >        
-  </en-search>
+  <en-search @vague='entitle'></en-search>
   <div class="crew-option" >
-      <per-por :state='state' @perPor='gainPor'  ></per-por>
+      <per-por :state='state' @perPor='gainPor' :address="data.province" ></per-por>
       <div class="select">
             <el-row>
                 <el-col :span='2'>注册类别:
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in list' :key='i' class='left' :class="el.category == category ? 'current':''"  @click='evalclass(el)' >{{el.category}}
-                      </li>
+                      <li v-for='(el,i) in list' :key='i' class='left' :class="el.category == data.category ? 'current':''"  @click='evalclass(el)' >{{el.category}}</li>
                     </ul>
                 </el-col>
             </el-row>
@@ -48,7 +44,7 @@
       </div>
        <a class="build-in"  v-for="(el,i) in person" :key="i"  @click="toPer(el)" > 
         <div style="width:80px;"  >
-           {{(current-1)*20+(i+1)}}
+           {{(data.pageNo-1)*20+(i+1)}}
           </div>
           <div style="width:110px;" >
            {{el.name}}
@@ -81,7 +77,7 @@
       <div class="page"  v-show="!noList"  >
            <nav-page 
           :all='total'
-          :currents='current'
+          :currents='data.pageNo'
           @skip='Goto'
           ></nav-page>
       </div>
@@ -94,20 +90,31 @@ import { getJsonData,Person } from '@/api/index'
 export default {
   data () {
     return {
-      title:'',
-      current:1,
-      area:'',
       list:[],
-      category:'全部',
       total:0,
       person:[],
       noList:false,
-      svip:false
+      svip:false,
+      data:{
+        keyWord:'',
+        category:'全部',
+        pageNo:1,
+        pageSize:20,
+        province:''
+      }
     }
   },
   created () {
-    this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
-    this.gainDetail()
+    this.data.keyWord = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    this.gainDetail();
+    //如果是刷新操作，则复现上次
+    if(sessionStorage.getItem('peopleSerach')){
+      let data=JSON.parse(sessionStorage.getItem('peopleSerach'));
+      if(data.category==''){
+        data.category='全部'
+      }
+      this.data=data;
+    }
     this.gainList()
   },
   props: {
@@ -118,13 +125,13 @@ export default {
       this.svip = val.cur
     },
     entitle(val) {
-      this.title = val.cur
-      this.current = 1
+      this.data.keyWord = val.cur
+      this.data.pageNo = 1
       this.gainList()
     },
     gainPor(val) {
-      this.area = val.cur
-      this.current = 1
+      this.data.province = val.cur
+      this.data.pageNo = 1
       this.gainList()
     },
     gainDetail() {
@@ -138,8 +145,9 @@ export default {
         });
     },
     gainList(){
-      let str = this.category == '全部' ? '' : this.category;
-      Person({keyWord:this.title,category:str,pageNo:this.current,pageSize:20,province:this.area}).then(res => {
+      let data=JSON.parse(JSON.stringify(this.data));
+      data.category=data.category == '全部' ? '' :data.category;
+      Person(data).then(res => {
         if(res.code == 1) {
           this.total = res.total
           this.person = res.data
@@ -153,7 +161,7 @@ export default {
       })
     },
     Goto(val) {
-      this.current = val.cur;
+      this.data.pageNo = val.cur;
       this.funcom.toList(450)
       this.gainList()
     },
@@ -200,13 +208,22 @@ export default {
       }
     },
     evalclass(el) {
-      this.category = el.category
-      this.current = 1
+      this.data.category = el.category
+      this.data.pageNo = 1
       this.gainList()
     }
-   },
-  components: {
-  }
+  },
+  watch:{
+    data:{//监听data变化，并实时保存
+      deep:true,
+      handler(val,old){
+        sessionStorage.setItem('peopleSerach',JSON.stringify(val));
+      }
+    }
+  },
+  beforeDestroy(){
+    sessionStorage.removeItem('peopleSerach')
+  },
 }
 </script>
 <style lang="less" scoped>

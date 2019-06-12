@@ -1,10 +1,7 @@
 <template>
 <div class="company">
  
-   <en-search
-    @vague='entitle'
-    :all='total'
-   ></en-search>
+   <en-search @vague='entitle' :all='total'></en-search>
 
    <div class="c-search">
       <!-- <div class="select">
@@ -247,7 +244,6 @@ export default {
   data () {
     return {
        svip:false,
-       area:'',
        Snone:false,
        loading:false,
       sums:[
@@ -330,7 +326,18 @@ export default {
        current:1,
        title:'',
        present:9,
-       last:''
+       last:'',
+       data:{
+         regisAddress:'',
+         minCapital:this.start,
+         maxCapital:this.end,
+         qualCode:this.allstr,
+         pageNo:this.current,
+         pageSize:20,
+         levelRank:'',
+         rangeType:this.rangeType,
+         keyWord:this.title
+       }
     }
   },
    props: {
@@ -393,7 +400,7 @@ export default {
     },
      state(val) {
       this.last = val
-      this.area = this.last
+      this.data.regisAddress = this.last
       this.current = 1
       this.loading = true
       this.again()
@@ -404,48 +411,36 @@ export default {
       this.svip = val.cur
     },
     gainFilter() {
-      filter({}).then( res => {
-         if(res.code == 1 ) {
-            this.companyQuals = res.data.companyQual
-         }
-      })
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      this.areas=data.area;
+      this.companyQuals=data.companyQual;
     },
     gainCompany() {
-      if(!localStorage.getItem('permissions')) {
-        
-          companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-             this.companylisy = res.data
-             this.present = res.pageNum
-            this.total = res.total
-            this.loading = false
-            if(this.total == 0 ) {
-               this.Snone = true
-             } else {
-               this.Snone = false
-             }
-          })
-      } else {
-           companys({regisAddress:this.area,minCapital:this.start,maxCapital:this.end,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title,isVip:1}).then(res => {
+      let data=this.data;
+      if(localStorage.getItem('permissions')){
+        data.isVip=1
+      }
+      companys(data).then(res => {
+          if(localStorage.getItem('permissions')){
             let arr = []
             res.data.forEach( el => {
               if(el.phone) {
-                 arr =  el.phone.split(';')
-                 el.phone = arr[0]
-                 arr.length = 0
+                  arr =  el.phone.split(';')
+                  el.phone = arr[0]
+                  arr.length = 0
               }
-             });
-             this.companylisy = res.data
-             this.present = res.pageNum
-            this.total = res.total
-            this.loading = false
-            if(this.total == 0 ) {
-               this.Snone = true
-             } else {
-               this.Snone = false
-             }
-          })
-      }
-     
+            });
+          }
+          this.companylisy = res.data
+          this.present = res.pageNum
+          this.total = res.total
+          this.loading = false
+          if(this.total == 0 ) {
+            this.Snone = true
+          } else {
+            this.Snone = false
+          }
+      })
     },
     // 获取公司企业列表
     again() {
@@ -827,7 +822,7 @@ export default {
   },
   created () {
     this.last = this.state
-    this.area = this.last
+    this.data.regisAddress = this.last
     if(sessionStorage.getItem('pageNo')){
       this.current=sessionStorage.getItem('pageNo')*1;
     }
@@ -957,6 +952,7 @@ export default {
         margin-right: 10px;
       }
       .com-btn {
+        cursor: pointer;
         height: 40px;
         line-height: 40px;
         color: #fff;
@@ -1014,6 +1010,9 @@ export default {
        a{
          cursor: pointer;
        }
+       a:hover .left{
+         color:#FE6603;
+       }
        div,a {
          height: 70px;
          line-height: 70px;
@@ -1024,10 +1023,6 @@ export default {
          .t-size {
            font-size: 14px;
            color:#000;           
-         }
-         .c-col {
-           color:#FE6603;
-            // cursor:pointer;
          }
        }
      }

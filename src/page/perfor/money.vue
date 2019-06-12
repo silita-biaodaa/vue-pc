@@ -6,8 +6,7 @@
                 </el-col>
                 <el-col :span='9'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in range' :key='i' class='left' :class="el.min == min ? 'current':''"  @click='evalclass(el)' >{{el.name}}
-                      </li>
+                      <li v-for='(el,i) in range' :key='i' class='left' :class="el.min == min ? 'current':''"  @click='evalclass(el)' >{{el.name}}</li>
                     </ul>
                 </el-col>    
                 <el-col :span='10' class="ttt" >    
@@ -95,10 +94,21 @@ export default {
     },
   },
   created () {
-    
+    let data=this.$parent.data;
+    if(data.amountStart==0&&data.amountEnd==500){
+      this.min=0;
+      this.max=500;
+    }else if(data.amountStart==500&&data.amountEnd==1000){
+      this.min=500;
+      this.max=1000;
+    }else if(data.amountStart==1000&&(data.amountEnd==''||data.amountEnd==null)){
+      this.min=1000;
+      this.max=null;
+    }else{
+      this.low=data.amountStart;
+      this.high=data.amountEnd;
+    }
   },
-  components: {
-  }
 }
 </script>
 <style lang="less" >

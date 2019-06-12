@@ -20,7 +20,7 @@
                    <el-input :placeholder="placeTxt" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
                       <el-button slot="append" @click="engine"  >搜索</el-button>
                    </el-input>
-                   <div class="right  syn" v-show="synth"  @click="jump" >
+                   <div class="right  syn"  @click="jump" >
                       综合查询
                    </div>
                  </div>
@@ -143,19 +143,27 @@ export default {
       }
     }
   },
+  props:{
+    title:{
+      default:''
+    }
+  },
   created () {
     this.reloca() 
+    if(this.title!=''){
+      this.select=this.title;
+    }
     this.paths()
     this.mapping()
   },
   computed: {
-    synth() {
-      if(this.$route.name == 'company') {
-        return true
-      } else {
-        return false
-      }
-    }
+    // synth() {
+    //   if(this.$route.name == 'company') {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // }
   },
   watch: {
     $route(to,form) {

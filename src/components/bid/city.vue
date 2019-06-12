@@ -25,8 +25,8 @@ export default {
           i:true
         },
         {
-          name:'邵阳市',
-          value:'邵阳市',
+          name:'常德市',
+          value:'常德市',
           i:false
         },
         {
@@ -35,33 +35,8 @@ export default {
           i:false
         },
         {
-          name:'岳阳市',
-          value:'岳阳市',
-          i:false
-        },
-        {
-          name:'益阳市',
-          value:'益阳市',
-          i:false
-        },
-        {
-          name:'株洲市',
-          value:'株洲市',
-          i:false
-        },
-        {
-          name:'湘潭市',
-          value:'湘潭市',
-          i:false
-        },
-        {
           name:'郴州市',
           value:'郴州市',
-          i:false
-        },
-        {
-          name:'永州市',
-          value:'永州市',
           i:false
         },
         {
@@ -70,13 +45,8 @@ export default {
           i:false
         },
         {
-          name:'张家界市',
-          value:'张家界市',
-          i:false
-        },
-        {
-          name:'常德市',
-          value:'常德市',
+          name:'衡阳市',
+          value:'衡阳市',
           i:false
         },
         {
@@ -85,13 +55,38 @@ export default {
           i:false
         },
         {
-          name:'衡阳市',
-          value:'衡阳市',
+          name:'邵阳市',
+          value:'邵阳市',
           i:false
         },
         {
           name:'湘西自治州',
           value:'湘西自治州',
+          i:false
+        },
+        {
+          name:'湘潭市',
+          value:'湘潭市',
+          i:false
+        },
+        {
+          name:'岳阳市',
+          value:'岳阳市',
+          i:false
+        },
+        {
+          name:'永州市',
+          value:'永州市',
+          i:false
+        },
+        {
+          name:'张家界市',
+          value:'张家界市',
+          i:false
+        },
+        {
+          name:'株洲市',
+          value:'株洲市',
           i:false
         },
       ],
@@ -162,6 +157,7 @@ export default {
        margin-bottom: 12px;
        .pro {
          li {
+           margin-right: 5px;
            padding: 2px 9px;
            height: 20px;
            text-align: center;

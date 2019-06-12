@@ -110,6 +110,15 @@ export default {
   },
   created () {
     this.gainTime()
+    let n=this.$parent.data.buildEnd;
+    let o=this.$parent.data.buildStart;
+    if((n==this.province[1].new&&o==this.province[1].old)||(n==this.province[2].new&&o==this.province[2].old)){
+      this.Ntime=n;
+      this.Otime=o;
+    }else{
+      this.defN=n;
+      this.defO=o;
+    }
   },
   components: {
   }

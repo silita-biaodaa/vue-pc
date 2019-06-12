@@ -107,7 +107,8 @@ export default {
     }
   },
   created () {
-    this.areas = JSON.parse(localStorage.getItem('area'))
+    let data=JSON.parse(sessionStorage.getItem('filter'));
+    this.areas = data.area;
     this.area = this.city
      this.marry()
   },
@@ -177,6 +178,7 @@ export default {
        }
        .pro {
          li {
+           margin-right: 5px;
            padding: 2px 7px;
            height: 20px;
            text-align: center;
