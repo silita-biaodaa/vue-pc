@@ -69,7 +69,7 @@ export default {
     return {
       mobile:'',
       password:'',
-      checked:false,
+      checked:true,
       error:false,
       msg:'请重新输入正确手机号码格式和密码',
       isWx:false
