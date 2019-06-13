@@ -19,7 +19,7 @@
       <div e-title >
         <div class="e-title">
             <div class="left">
-              {{i+1}}
+              {{(current-1)*20+(i+1)}}
             </div>
             <p class="left e-p">
               {{el.title}}

@@ -4,14 +4,14 @@
        <p class="n-fp">{{articles.title}}</p>
 
        <div class="n-tp">
-          <span class="left">{{articles.opendate}}</span>
-          <div class="right" >
-             <span class="left">点击数: <i>{{clickCount}}</i></span>
-              <span class="left" style="marginLeft:10px" >评论数：<i>{{allC}}</i></span>
-             <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
-                <i class="el-icon-plus"></i>{{collect}}
-             </div>
-          </div> 
+          <span>{{articles.opendate}}</span>
+          <span>点击数: <i>{{clickCount}}</i></span>
+          <span class="left" style="marginLeft:10px;cursor: pointer;"  @click="anchorJump">评论数：<i>{{allC}}</i></span>
+          <!-- <div class="right" > -->
+          <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+              <i class="el-icon-plus"></i>{{collect}}
+          </div>
+          <!-- </div>  -->
          
        </div>
        <p class="n-thp">
@@ -30,7 +30,7 @@
 
       </div>
    </div>
-    <com-ment id="divId" :type="'zhongbiao'" class="no-comL"   ></com-ment>
+    <com-ment id="divId" :type="'zhongbiao'" class="no-comL" ref="comment" ></com-ment>
 </div>
 </template>
 <script>
@@ -118,6 +118,13 @@ export default {
         document.body.scrollTop = 0
         document.documentElement.scrollTop = 0
       } 
+    },
+    anchorJump(){
+      if(this.allC==0){
+        return false
+      }
+      let h=this.$refs.comment.$el.offsetTop;
+      document.documentElement.scrollTop=h-108;
     }
   },
   created () {
@@ -154,11 +161,11 @@ export default {
        text-align: center;
     }
     .n-tp {
-      width: 550px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
       color: #666;
       font-size: 18px;
-      margin: 0 auto;
-      overflow: hidden;
       i {
         color: #EC7522;
       }

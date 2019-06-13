@@ -67,9 +67,6 @@
             </div>
         </div>
       </a>
-      <div class="noneS" v-show="noList" >
-          <img src="../../assets/img/card.png" alt="">
-      </div>
       <div class="no-toast" v-show="noList" >
         <img src="../../assets/img/bank_card @2x.png" alt="">
         <span>Sorry，没有找到符合条件的人员信息</span>
@@ -177,7 +174,7 @@ export default {
           window.open(href, '_blank', )
         }
       } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
+          this.$confirm('查看更多信息，请立即登录', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -198,7 +195,7 @@ export default {
           window.open(href, '_blank', )
         }
       } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
+          this.$confirm('查看更多信息，请立即登录', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'

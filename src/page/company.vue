@@ -469,7 +469,7 @@ export default {
             //  }
           }
       } else {
-            this.$confirm('暂无权限，请先登录', '提示', {
+            this.$confirm('查看更多信息，请立即登录', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -532,7 +532,7 @@ export default {
               this.again()
             }
         } else {
-              this.$confirm('暂无权限，请先登录', '提示', {
+              this.$confirm('查看更多信息，请立即登录', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'
@@ -564,7 +564,7 @@ export default {
                 this.again()
             }
         } else {
-              this.$confirm('暂无权限，请先登录', '提示', {
+              this.$confirm('查看更多信息，请立即登录', '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'
@@ -873,7 +873,7 @@ export default {
         })
         window.open(href, '_blank', )
       } else {
-         this.$confirm('暂无权限，请先登录', '提示', {
+         this.$confirm('查看更多信息，请立即登录', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -973,8 +973,10 @@ export default {
     this.toTop()
     this.gainCompany()
   },
-  components: {
-  }
+  beforeDestroy(){
+    sessionStorage.removeItem('comselect');
+    sessionStorage.removeItem('Rank');
+  },
 }
 </script>
 <style lang="less" >

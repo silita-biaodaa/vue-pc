@@ -25,7 +25,7 @@
       </div>
       <div class="law-text" v-for="(el,i) in lawList" :key="i" v-show="!result" >
         <div class="left" style="width:72px"> 
-            {{i+1}}
+            {{(current-1)*20+(i+1)}}
         </div>
         <div class="left law-pdd" style="width:250px"> 
            {{el.title}}

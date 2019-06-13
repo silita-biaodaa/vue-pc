@@ -9,13 +9,13 @@
       </p>
       <div class="date">
         <span>{{articles.opendate}}</span>
-        <div>
-          <span class="left">点击数：<i>{{clickCount}}</i></span>
-          <span class="left" style="marginLeft:10px" >评论数：<i>{{allC}}</i></span>
-          <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
-            <i class="el-icon-plus"></i>{{collect}}
-          </div>
+        <span>点击数：<i>{{clickCount}}</i></span>
+        <span class="left" style="marginLeft:10px;cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
+        <!-- <div> -->
+        <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+          <i class="el-icon-plus"></i>{{collect}}
         </div>
+        <!-- </div> -->
         
       </div>
    </div>
@@ -48,7 +48,7 @@
       </div>
    </div>
    <!-- <div > -->
-     <com-ment id="divId" :type="'zhaobiao'"  ></com-ment>
+     <com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
    <!-- </div> -->
    
  </div>
@@ -150,6 +150,13 @@ export default {
         document.body.scrollTop = 0
         document.documentElement.scrollTop = 0
       } 
+    },
+    anchorJump(){
+      if(this.allC==0){
+        return false
+      }
+      let h=this.$refs.comment.$el.offsetTop;
+      document.documentElement.scrollTop=h-108;
     }
   },
   mounted () {
@@ -189,10 +196,10 @@ export default {
       //  height: 40px;
      }
      .date {
-       margin-left: 275px;
+      //  margin-left: 275px;
        display: flex;
-       justify-content: space-between;
-       width: 575px;
+       justify-content: space-evenly;
+      //  width: 575px;
        font-size: 18px;
       //  margin-bottom: 10px;
        i {

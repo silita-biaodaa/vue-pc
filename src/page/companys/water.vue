@@ -25,7 +25,7 @@
     </div>
     <div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result" @click="decide(el)"  >
         <div class="left" style="width:54px">
-            {{i+1}}
+            {{($parent.current-1)*10+(i+1)}}
         </div>
         <div class="left p-10" style="width:180px">
             {{el.proName ? el.proName: '--'}}

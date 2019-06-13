@@ -31,41 +31,42 @@
    
    <div class="comment-list" v-for="(el,i) in comList" :key="i"  >
      <div class="list-title" >
-       <img :src="el.image  ? el.image : avatar " alt="">
-       <div class="list-name" >
-         <p style="color:#333" >{{el.nickName}}</p>
-         <p v-show="el.company || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}：</p>
+       <div>
+          <img :src="el.image  ? el.image : avatar " alt="">
+          <div class="list-name" >
+            <span style="color:#333" >{{el.nickName}}</span>
+            <span v-show="el.company || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}</span>
+          </div>
        </div>
+       <p class="comment-time">{{el.pushd}}</p>
      </div>
 
     <div class="list-content">{{el.state == 3 ? '该评论已被屏蔽' : el.commContent}}
       </div>
      <div class="list-time">
-       <p>{{el.pushd   }}</p>
-       <div class="p-color" style="cursor: pointer;"  @click="pushT(el)">
-         回复
-       </div>
+       <div class="p-color" style="cursor: pointer;"  @click="pushT(el)">回复</div>
      </div>
      <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="el.show" v-model="el.comment" maxlength="300" ></textarea>
      <div class="comment-btn" v-show="el.show" >
-        <div class="pu-btn" @click="reply(el,i)" :class="{'have-val':el.comment !=''}"  >发送
-        </div>
+        <div class="pu-btn" @click="reply(el,i)" :class="{'have-val':el.comment !=''}"  >发送</div>
      </div>
         <div class="next-list" v-for="(ell,s) in el.replys" :key="s" v-show="el.state == 3 ? false : true" >
               <div class="list-title" >
-                <img :src="ell.reImage ? ell.reImage : avatar" alt="">
-                <div class="list-name" >
-                  <p style="color:#333" >{{ell.reNikename}}</p>
-                  <p>{{ell.reCompany ? '(' + ell.reCompany + ')' : '' }} {{ell.rePost ? ell.rePost : ''}}回复了：{{ell.toNikename}}</p>
+                <div>
+                  <img :src="ell.reImage ? ell.reImage : avatar" alt="">
+                  <div class="list-name" >
+                    <span>{{ell.reNikename}}{{ell.reCompany ? '(' + ell.reCompany + ')' : '' }} {{ell.rePost ? ell.rePost : ''}}  </span>
+                    <span class="reply">回复</span>
+                    <span>{{ell.toNikename}}</span>
+                  </div>
                 </div>
+                
+                <p class="comment-time">{{ell.pushd}}</p>
               </div>
               <div class="list-content">{{ell.state == 3 ? '该评论已被屏蔽' : ell.replyContent}}
               </div>
               <div class="list-time">
-                <p>{{ell.pushd }}</p>
-                <div class="p-color" style="cursor: pointer;" @click="againP(ell,s)"   >
-                  回复
-                </div>
+                <div class="p-color" style="cursor: pointer;" @click="againP(ell,s)">回复</div>
               </div>
                <textarea class="comment-text list-area" placeholder="欢迎留言讨论~" style="resize:none" v-show="ell.textS" v-model="el.comment" maxlength="300" ></textarea>
                <div class="comment-btn" v-show="ell.textS" >
@@ -105,7 +106,8 @@ export default {
       skip:false,
       commentId:'',
       msgList:'查看更多',
-      textT:false
+      textT:false,
+      isClistFS:false,
     }
   },
   props: {
@@ -156,9 +158,14 @@ export default {
       }
     },
     publish() {
+      if(this.isClistFS){
+        return false
+      }
       if(this.text.trim()) {
+        this.isClistFS=true;
         commentP({content:this.text.trim(),relatedId:this.id,relatedType:this.type,source:this.source}).then(res => {
            if(res.code == 1 ) {
+             this.isClistFS=false;
              this.msg = '提交成功'
              this.isshow = true
              this.text = ''
@@ -249,10 +256,13 @@ export default {
       }
       
     },
-    pushT(el) {
+    pushT(o) {
       this.comList.forEach( el => {
           el.show = false,
-          el.comment = ''
+          el.comment = '';
+          if(o==el){
+            o.show=true;
+          }
           if(el.replys) {
              el.replys.forEach(el => {
               el.textS = false
@@ -260,7 +270,7 @@ export default {
           }
          
        });
-      el.show = true
+      o.show = !o.show
       this.s = null
     },
     reply(el,i) {
@@ -491,6 +501,7 @@ export default {
     display: flex;
     flex-direction: row-reverse;
     margin-top: 4px;
+    margin-bottom: 30px;
     .pu-btn {
       cursor: pointer;
       width: 56px;
@@ -507,43 +518,58 @@ export default {
     }
   }
   .comment-list {
-    margin-top: 30px;
+    padding-top: 30px;
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 20px;
   }
-   .list-title {
-      height: 58px;
+    .list-title {
       display: flex;
-      flex-direction: row;
+      // flex-direction: row;
       align-items: center;
+      justify-content:space-between;
+      div{
+        display: flex;
+        align-items: center;
+      }
       img {
-        height: 58px;
-        width: 58px;
+        height: 50px;
+        width: 50px;
         border-radius: 50%;
       }
       .list-name {
         margin-left: 10px;
-        font-size: 16px;
-        color:#999;
+        font-size: 14px;
+        color:#333;
+        font-weight: bold;
+        .reply{
+          color: #999;
+          margin: 0 1em;
+        }
+      }
+      .comment-time{
+        font-size: 12px;
+        color: #999;
       }
     }
     .list-content {
-      margin-top: 12px;
-      font-size: 16px;
+      margin-left:64px;
+      margin-top: 4px;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
     }
     .list-time {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-size: 16px;
-      margin-top: 10px;
-      color: #999;
+      justify-content:flex-end;
+      font-size: 14px;
+      margin-top: 16px;
     }
   .next-list {
-    background-color: #F8F8F8;
-    margin-left: 50px;
+    // background-color: #F8F8F8;
     padding: 10px 6px;
-    border-bottom: 1px solid #f2f2f2;
+    padding-left: 64px;
+    border-top: 1px solid #f2f2f2;
   }
   .list-area {
     margin-top: 20px;

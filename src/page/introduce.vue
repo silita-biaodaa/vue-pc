@@ -147,7 +147,7 @@ export default {
               return 
             }
         } else {
-          this.$confirm('暂无权限，请先登录', '提示', {
+          this.$confirm('查看更多信息，请立即登录', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'

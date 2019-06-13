@@ -51,7 +51,7 @@
       </div>
       <div class="law-text" v-for="(el,i) in lawList" :key="i"  @click="toPer(el)" >
          <div class="left" style="width:52px"> 
-           {{i+1}}
+           {{(current-1)*20+(i+1)}}
         </div>
         <div class="left" style="width:80px"> 
           {{el.name}}
