@@ -4,20 +4,6 @@
    <en-search @vague='entitle' :all='total'></en-search>
 
    <div class="c-search">
-      <!-- <div class="select">
-            <el-row>
-               <el-col :span="2">
-                  省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
-               </el-col>
-               <el-col :span="22">
-                  <ul class='pro' >
-                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'  >
-                       {{el.name}}
-                    </li>
-                  </ul>
-               </el-col>
-            </el-row>
-        </div> -->
         <all-city :city='last' @Cnext='eval'  ></all-city>
         <div class="select">
            <el-row>
@@ -78,7 +64,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-            <div class='right com-btn' @click='again' >
+            <div class='right com-btn' @click='changeapi' >
                资质查询
             </div>
         </div>
@@ -161,12 +147,6 @@
              </el-col>
            </el-row>
         </div>  
-
-         <!-- <div class="select cc-btn" >
-        //   <div class='left c-sure'  >
-        //     查询
-        //   </div>
-        // </div> -->
              
    </div>
 
@@ -327,24 +307,24 @@ export default {
        title:'',
        present:9,
        last:'',
-       data:{
-         regisAddress:'',
-         minCapital:this.start,
-         maxCapital:this.end,
-         qualCode:this.allstr,
-         pageNo:this.current,
+       data:{   // 传参条件  
+         regisAddress:'',  // 多地区
+         minCapital:'',  // 最小资金
+         maxCapital:'',   // 最大资金
+         qualCode:this.allstr,  // 资质
+         pageNo:this.current,  // 页码
          pageSize:20,
          levelRank:'',
-         rangeType:this.rangeType,
-         keyWord:this.title
-       }
+         rangeType:this.rangeType,  // 资质关联
+         keyWord:this.title,  // 关键字 
+       },
     }
   },
    props: {
     state:''
   },
   watch: {
-    companyQual(val) {
+    companyQual(val) {  // 资质第一个得
       this.major = ''
       this.majors = []
       this.companyQuals.forEach(el => {
@@ -352,6 +332,8 @@ export default {
             this.majors = el.list
          }
       });      
+      
+      
     },
     twoQual(val) {
       this.twot = ''
@@ -416,9 +398,16 @@ export default {
       this.companyQuals=data.companyQual;
     },
     gainCompany() {
-      let data=this.data;
+      let data = {}
+      if(sessionStorage.getItem('comselect')) {
+         data = JSON.parse(sessionStorage.getItem("comselect"))
+      } else {
+        data = this.data
+      }
       if(localStorage.getItem('permissions')){
-        data.isVip=1
+         data.isVip = 1
+      } else {
+         data.isVip = 0 
       }
       companys(data).then(res => {
           if(localStorage.getItem('permissions')){
@@ -443,29 +432,41 @@ export default {
       })
     },
     // 获取公司企业列表
+    changeapi() {
+       
+       this.allstr = this.allarr.join(",")
+       this.data.qualCode =  this.allstr
+       this.loading = true
+       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+       sessionStorage.setItem('comselect',JSON.stringify(this.data))
+       this.again()
+    },
     again() {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
           if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1  ) {
             this.svip = true
             this.modalHelper.afterOpen();
           } else {
-             this.allstr = this.allarr.join(",")
-             this.loading = true
-             if(this.rank == 0 ) {
+            //  this.allstr = this.allarr.join(",")
+            //  this.loading = true
+            //  if(this.rank == 0 ) {
                this.gainCompany()
-             } else {
-               companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-               this.companylisy = res.data
-               this.total = res.total
-               this.loading = false
-               this.present = res.pageNum
-               if(this.total == 0 ) {
-                  this.Snone = true
-                } else {
-                  this.Snone = false
-                }
-              })
-             }
+            //  } else {
+            //    let data = this.data 
+            //    data.minCapital = this.low
+            //    data.maxCapital = this.high
+            //    companys(data).then(res => {
+            //    this.companylisy = res.data
+            //    this.total = res.total
+            //    this.loading = false
+            //    this.present = res.pageNum
+            //    if(this.total == 0 ) {
+            //       this.Snone = true
+            //     } else {
+            //       this.Snone = false
+            //     }
+            //   })
+            //  }
           }
       } else {
             this.$confirm('暂无权限，请先登录', '提示', {
@@ -491,25 +492,21 @@ export default {
       if(this.loading) {
          return
        }
+       let data = this.data 
        this.current = 1
-       this.area = val.cur
+       data.regisAddress = val.cur
        this.loading = true
        this.allstr = this.allarr.join(",")
-         if(this.rank == 0 ) {
-           this.gainCompany()
+         if(this.rank == 0 ) {  // 判断注册资金是否获取方式
+           data.minCapital = this.start
+           data.maxCapital = this.end
+           sessionStorage.setItem('comselect',JSON.stringify(data))
          } else {
-           companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-           this.companylisy = res.data
-           this.total = res.total
-           this.loading = false
-           this.present = res.pageNum
-           if(this.total == 0 ) {
-              this.Snone = true
-            } else {
-              this.Snone = false
-            }
-          })
+           data.minCapital = this.low
+           data.maxCapital = this.high
+           sessionStorage.setItem('comselect',JSON.stringify(data))
          }
+         this.gainCompany()
     },
     evalsum(el) {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -524,9 +521,14 @@ export default {
               this.low = '',
               this.high = '',
               this.start = el.s,
-              this.end = el.e 
+              this.end = el.e
+              this.data.minCapital = this.start
+              this.data.maxCapital = this.end
+              this.allstr = this.allarr.join(",")
               this.current = 1
               this.loading = true
+              sessionStorage.setItem('Rank','0')  // 页面刷新用于判断资金值得从哪里来
+              sessionStorage.setItem('comselect',JSON.stringify(this.data))
               this.again()
             }
         } else {
@@ -554,6 +556,11 @@ export default {
                 this.start = ''
                 this.end = '' 
                 this.loading = true
+                this.allstr = this.allarr.join(",")
+                this.data.minCapital = this.low
+                this.data.maxCapital = this.high
+                sessionStorage.setItem('Rank','1')  // 页面刷新用于判断资金值得从哪里来
+                sessionStorage.setItem('comselect',JSON.stringify(this.data))
                 this.again()
             }
         } else {
@@ -602,15 +609,30 @@ export default {
       this.three = false
     },
     first(val) {
-      this.firstarr = [],
-      this.allarr = []
-      this.firstarr.push(val)
-      this.firststr = this.firstarr.join('||')
-      this.fisrtpush()
+       this.firstarr = [],
+       this.allarr = []
+      if(val != '') {
+        this.firstarr.push(val)
+        this.firststr = this.firstarr.join('||')
+         this.fisrtpush()
+      } else {
+        if(this.twostr) {
+             if(this.threestr ) {
+              this.allarr.push(this.twostr,this.threestr) 
+             } else {
+              this.allarr.push(this.twostr) 
+             }
+        } else {
+          if(this.threestr) {
+            this.allarr.push(this.threestr) 
+          }
+        }
+      }
+     
     },
     firsts(val) {
       this.allarr = []
-      this.firstarr.length = 1 ,
+      this.firstarr.length = 1,
       this.firstarr.push(val)      
       this.firststr = this.firstarr.join('||')  
       this.fisrtpush()
@@ -630,7 +652,6 @@ export default {
       } else {
          this.fisrtpush()
       }
-     
     },
     fisrtpush() {
       if(this.twostr) {
@@ -650,9 +671,24 @@ export default {
     twoq(val) {
       this.twoarr = []
       this.allarr = []
-      this.twoarr.push(val)
-      this.twostr = this.twoarr.join("||")
-      this.twopush()
+      if(val != '') {
+         this.twoarr.push(val)
+        this.twostr = this.twoarr.join("||")
+        this.twopush()
+      } else {
+        if(this.firstarr) {
+             if(this.threestr ) {
+              this.allarr.push(this.firstarr,this.threestr) 
+             } else {
+              this.allarr.push(this.firstarr) 
+             }
+        } else {
+          if(this.threestr) {
+            this.allarr.push(this.threestr) 
+          }
+        }
+      }
+     
     },
     twoqs(val) {
       this.twoarr.length = 1
@@ -677,8 +713,6 @@ export default {
       } else {
          this.twopush()
       }
-      
-     
     },
     twopush() {
       if(this.firststr) {
@@ -698,9 +732,24 @@ export default {
     threeq(val){
       this.threearr = []
       this.allarr = []
-      this.threearr.push(val)
-      this.threestr = this.threearr.join("||")
-      this.threepush()
+      if(val != '') {
+        this.threearr.push(val)
+        this.threestr = this.threearr.join("||")
+        this.threepush()
+      } else {
+        if(this.firststr) {
+             if(this.twostr ) {
+              this.allarr.push(this.twostr,this.firststr) 
+             } else {
+              this.allarr.push(this.firststr) 
+             }
+        } else {
+          if(this.twostr) {
+            this.allarr.push(this.twostr) 
+          }
+        }
+      }
+      
     },
     threeqs(val){
       this.threearr.length = 1
@@ -745,6 +794,10 @@ export default {
     },
     crela(el) {
       this.rangeType = el.key
+      this.data.rangeType = el.key
+       this.allstr = this.allarr.join(",")
+      sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+      sessionStorage.setItem('comselect',JSON.stringify(this.data))
     },
     Goto(val) {
       this.current = val.cur;
@@ -752,44 +805,56 @@ export default {
       this.funcom.toList(492)
       this.companylisy=[];
       this.loading = true
-         this.allstr = this.allarr.join(",")
-             if(this.rank == 0 ) {
-               this.gainCompany()
-             } else {
-               companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-               this.companylisy = res.data
-               this.total = res.total
-               this.loading = false
-               this.present = res.pageNum
-               if(this.total == 0 ) {
-                  this.Snone = true
-                } else {
-                  this.Snone = false
-                }
-              })
-             }
+      this.allstr = this.allarr.join(",")
+      sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+      sessionStorage.setItem('comselect',JSON.stringify(this.data))
+      // if(this.rank == 0 ) {
+        this.gainCompany()
+      // } else {
+      //    let data = this.data 
+      //   data.minCapital = this.low
+      //   data.maxCapital = this.high
+      //   companys(data).then(res => {
+      //   this.companylisy = res.data
+      //   this.total = res.total
+      //   this.loading = false
+      //   this.present = res.pageNum
+      //   if(this.total == 0 ) {
+      //      this.Snone = true
+      //    } else {
+      //      this.Snone = false
+      //    }
+      //  })
+      // }
     },
     entitle(val) {      
       this.title = val.cur
       this.current = 1
       this.loading = true
       this.allstr = this.allarr.join(",")
-      this.loading = true
-      if(this.rank == 0 ) {
-        this.gainCompany()
-      } else {
-        companys({regisAddress:this.area,minCapital:this.low,maxCapital:this.high,qualCode:this.allstr,pageNo:this.current,pageSize:20,levelRank:'',rangeType:this.rangeType,keyWord:this.title}).then(res => {
-        this.companylisy = res.data
-        this.total = res.total
-        this.loading = false
-        this.present = res.pageNum
-        if(this.total == 0 ) {
-           this.Snone = true
-         } else {
-           this.Snone = false
-         }
-       })
-      }
+      // sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+      // sessionStorage.setItem('comselect',JSON.stringify(this.data))
+      // this.gainCompany()
+      // 下面得是废代码
+       
+      // if(this.rank == 0 ) {
+      
+      // } else {
+      //   let data = this.data 
+      //   data.minCapital = this.low
+      //   data.maxCapital = this.high
+      //   companys(data).then(res => {
+      //   this.companylisy = res.data
+      //   this.total = res.total
+      //   this.loading = false
+      //   this.present = res.pageNum
+      //   if(this.total == 0 ) {
+      //      this.Snone = true
+      //    } else {
+      //      this.Snone = false
+      //    }
+      //  })
+      // }
     },
     store(el) {
       localStorage.removeItem('id')
@@ -818,17 +883,94 @@ export default {
                
         });
       }
+    },
+    gainAera() {  
+       if(!sessionStorage.getItem('comselect')) { // 根据是否本地有保存筛选数据来选择地址
+        console.log(this.state);
+         this.last = this.state    
+         this.data.regisAddress = this.state
+       } else {
+         this.data = JSON.parse(sessionStorage.getItem("comselect"))
+         this.last  = this.data.regisAddress
+            if(sessionStorage.getItem('Rank')) {  // 注册资金的选项
+               let isRank = sessionStorage.getItem('Rank')
+                 if(isRank == 0 ) {
+                    this.start = this.data.minCapital        
+                    this.end = this.data.maxCapital
+                    this.low = ''
+                    this.high = ''
+                 } else {
+                    this.low =  this.data.minCapital
+                    this.high = this.data.maxCapital
+                    this.start = ''
+                    this.end = ''
+                 }
+            }
+       } 
+    },
+    GqualCode() {  // 资质得填充
+      if(sessionStorage.getItem('comselect')) {
+          let arr = [] 
+        if(this.data.qualCode) {
+            arr = this.data.qualCode.split(",")
+          this.firststr = arr[0]
+          this.firstarr = arr[0].split("||")
+          let fList = arr[0].split("||")
+          this.companyQual = fList[0]
+          setTimeout(() => {
+            this.major = fList[1] ?  fList[1] : '' 
+          }, 100);
+          setTimeout(() => {
+            this.grade = fList[2] ?  fList[2] : ''
+          }, 100);
+        }
+        
+         if (arr.length >= 2 ) {
+            this.two = true
+            this.five = true
+            this.twostr = arr[1]
+            this.twoarr = arr[1].split("||")
+            let TList = arr[1].split("||")
+             this.twoQual = TList[0]
+             setTimeout(() => {
+               this.twot = TList[1] ? TList[1] : ''
+             }, 100);
+             setTimeout(() => {
+               this.twott = TList[2] ? TList[2] : ''
+             }, 100);
+             this.rangeType = this.data.rangeType ? this.data.rangeType : 'and'
+        }
+         if(arr.length == 3) {
+            this.two = true
+            this.three = true
+            this.five = true
+            this.threestr = arr[2]
+            this.threearr = arr[2].split("||")
+            let ThList = arr[2].split("||")
+             this.threeQual = ThList[0]
+             setTimeout(() => {
+               this.threet = ThList[1] ? ThList[1] : ''
+             }, 100);
+             setTimeout(() => {
+               this.threett = ThList[2] ? ThList[2] : ''
+             }, 100);
+
+        }
+
+      }
     }
   },
   created () {
-    this.last = this.state
-    this.data.regisAddress = this.last
+    this.gainFilter()
+    this.gainAera()
+    this.GqualCode()
+    // this.last = this.state
+    // this.data.regisAddress = this.state
     if(sessionStorage.getItem('pageNo')){
       this.current=sessionStorage.getItem('pageNo')*1;
     }
-    this.title = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
+    this.data.keyWord = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()
-    this.gainFilter()
     this.gainCompany()
   },
   components: {

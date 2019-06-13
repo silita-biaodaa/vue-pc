@@ -59,8 +59,17 @@ export default {
   },
   methods: {
     // 获取地区
-    gainFilter() {
-  
+    gainFilter() {  // 对传进来的数据解析，是否包含市级下面地区
+      if(this.city.indexOf("||") == -1  ) {
+        this.area = this.city
+      }else {
+        let arr = this.city.split('||')
+        this.area = arr[0]
+        this.cstr = arr[1]
+        this.all = arr[1].split(',')
+      }
+       
+      
     },
     eval(el) {
       this.area = el.name
@@ -75,13 +84,10 @@ export default {
          }
        })
     },
-    level(el) {
-      console.log(this.area);
-      
+    level(el) { 
       if(el == '全部') {
          this.all = []
          this.cstr = '全部'
-         
       } else {
         if( this.all.indexOf(el) == -1 ) {
           if(this.all.length >= 3 ) {
@@ -108,8 +114,8 @@ export default {
   },
   created () {
     let data=JSON.parse(sessionStorage.getItem('filter'));
+    this.gainFilter()
     this.areas = data.area;
-    this.area = this.city
      this.marry()
   },
   mounted () {
