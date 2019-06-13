@@ -102,7 +102,7 @@ Vue.component('user-center', usercenter)
 
 
 
-
+Vue.prototype.qjTipTxt='查看更多信息，请立即登录!';
 Vue.prototype.modalHelper = (function () {
   var scrollTop;
   return {

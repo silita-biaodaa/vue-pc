@@ -41,8 +41,12 @@
        <p class="comment-time">{{el.pushd}}</p>
      </div>
 
-    <div class="list-content">{{el.state == 3 ? '该评论已被屏蔽' : el.commContent}}
-      </div>
+      <template v-if="el.state == 3">
+        <div class="list-content">该评论已被屏蔽</div>
+      </template>
+      <template v-else>
+        <div class="list-content" v-html="el.commContent"></div>
+      </template>
      <div class="list-time">
        <div class="p-color" style="cursor: pointer;"  @click="pushT(el)">回复</div>
      </div>
@@ -63,8 +67,12 @@
                 
                 <p class="comment-time">{{ell.pushd}}</p>
               </div>
-              <div class="list-content">{{ell.state == 3 ? '该评论已被屏蔽' : ell.replyContent}}
-              </div>
+              <template v-if="ell.state == 3">
+                <div class="list-content">该评论已被屏蔽</div>
+              </template>
+              <template v-else>
+                <div class="list-content" v-html="ell.replyContent"></div>
+              </template>
               <div class="list-time">
                 <div class="p-color" style="cursor: pointer;" @click="againP(ell,s)">回复</div>
               </div>
@@ -161,9 +169,10 @@ export default {
       if(this.isClistFS){
         return false
       }
+      let content=this.text.replace(/\n/g,'<br/>');
       if(this.text.trim()) {
         this.isClistFS=true;
-        commentP({content:this.text.trim(),relatedId:this.id,relatedType:this.type,source:this.source}).then(res => {
+        commentP({content:content,relatedId:this.id,relatedType:this.type,source:this.source}).then(res => {
            if(res.code == 1 ) {
              this.isClistFS=false;
              this.msg = '提交成功'
@@ -422,15 +431,20 @@ export default {
         },
         deep: true
       },
-    text(val) {
-      console.log(val);
-      
-      if(val.trim() == '') {
-        this.textT = false
-      } else {
-         this.textT = true
+      text(val) {
+        if(val.length==300){
+          this.msg='最多只能输入300个字';
+          this.isshow=true;
+          setTimeout(() => {
+            this.isshow = false
+          }, 2000);
+        }
+        if(val.trim() == '') {
+          this.textT = false
+        } else {
+          this.textT = true
+        }
       }
-    }
   },
   created () {
     this.skip = this.$route.query.skip ? this.$route.query.skip : false;

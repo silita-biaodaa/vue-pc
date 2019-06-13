@@ -150,7 +150,7 @@ export default {
        this.record = true
        this.$router.push('hist')
      } else {
-         this.$confirm('查看更多信息，请立即登录', '提示', {
+         this.$confirm(this.qjTipTxt, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
