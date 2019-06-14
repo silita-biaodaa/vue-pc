@@ -71,16 +71,22 @@ export default {
       password:'',
       checked:true,
       error:false,
-      msg:'请重新输入正确手机号码格式和密码',
+      msg:'请输入手机号',
       isWx:false
     }
   },
   methods: {
     register() {
+      if(this.mobile.trim()==''){
+        this.msg='请输入手机号'
+        return this.error = true
+      }
       if(this.funcom.textIP(this.mobile.trim())) {
+        this.msg='请输入正确的手机号'
          return this.error = true
       }
        if(this.password.trim() == '') {
+         this.msg='请输入密码'
          return this.error = true
       }
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {

@@ -80,12 +80,19 @@ export default {
       }
        if(this.note.trim() == '') {
          this.pass = false
+         this.msg='请输入验证码'
          return this.error = true
       }
-       if( this.password.trim() == '' || !(/[0-9A-Za-z]{8,16}$/.test(this.password)))  {
+      if(this.password.trim()==''){
+        this.pass = false
+        this.msg = '请输入密码'
+        this.error = true
+        return false
+      }
+       if(!(/[0-9A-Za-z]{8}$/.test(this.password)))  {
    
          this.pass = false
-         this.msg = '请输入8-16位包含字母或数字的密码'
+         this.msg = '请输入8位以上包含字母或数字的密码'
          return this.error = true
       }
       if(this.checked && this.pass ) {
@@ -118,6 +125,11 @@ export default {
 
     },
     gainCode() {
+      if(this.mobile.trim()==''){
+        this.error = true
+        this.msg = '请输入手机号码'
+        return false
+      }
       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
          this.error = true
          return this.msg = '请输入正确的手机号码'
