@@ -1,10 +1,7 @@
 
 <template>
 <div class="build">
-    <en-search
-       @vague='entitle'
-       >        
-    </en-search>
+    <en-search @vague='entitle' :company="true"></en-search>
     <div class="build-put">
       <div class="build-hint">
         <i>*</i><span>如需精准查询，请输入姓名及身份证号。(仅查询湖南省在建信息)</span>

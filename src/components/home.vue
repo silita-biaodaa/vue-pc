@@ -30,7 +30,7 @@
                    </div>
                 </div>
                 <div class="hisgory">
-                  <span v-for="(o,i) of list" :key="'hisgory'+i">{{o.title}}</span>
+                  <span v-for="(o,i) of list" :key="'hisgory'+i" @click="hisgoryFn(o)">{{o.title}}</span>
                 </div>
              </div>
          </el-col>
@@ -280,6 +280,55 @@ export default {
           sessionStorage.setItem('searchType',1)
           localStorage.setItem('way',this.way)  
           this.$router.push({path:this.way})
+        }
+      }
+    },
+    hisgoryFn(el){
+      this.select=el.title;
+      if(el.isCompany){//公司
+        localStorage.removeItem('title')
+        localStorage.removeItem('way')
+        sessionStorage.removeItem('searchType')     
+        if(this.$route.fullPath.indexOf('perfor')== 1) {
+          if(this.way.indexOf('perfor') == 1) {
+            this.$emit('company',{cur:this.select});
+          } else { 
+            localStorage.setItem('title',this.select)
+            sessionStorage.setItem('searchType',1)
+            localStorage.setItem('way',this.way)  
+            this.$router.push({path:this.way})
+          }
+            this.$emit('company',{cur:this.select});
+        } else {
+          if(this.$route.fullPath == this.way) {
+            this.$emit('company',{cur:this.select});
+          } else { 
+            localStorage.setItem('title',this.select)
+            sessionStorage.setItem('searchType',1)
+            localStorage.setItem('way',this.way)  
+            this.$router.push({path:this.way})
+          }
+        }
+      }else{
+        localStorage.removeItem('title')
+        localStorage.removeItem('way')  
+        if(this.$route.fullPath.indexOf('perfor')== 1) {
+          if(this.way.indexOf('perfor') == 1) {
+            this.$emit('vague',{cur:this.select});
+          } else { 
+            localStorage.setItem('title',this.select)
+            localStorage.setItem('way',this.way)  
+            this.$router.push({path:this.way})
+          }
+            this.$emit('vague',{cur:this.select});
+        } else {
+          if(this.$route.fullPath == this.way) {
+            this.$emit('vague',{cur:this.select});
+          } else { 
+            localStorage.setItem('title',this.select)
+            localStorage.setItem('way',this.way)  
+            this.$router.push({path:this.way})
+          }
         }
       }
     }
