@@ -211,6 +211,7 @@ export default {
       }
     },
     comNameFn(o){
+      
       this.select=o.com_name;
       /*历史记录 start*/ 
       let obj1={
@@ -261,7 +262,9 @@ export default {
 
       localStorage.removeItem('title')
       localStorage.removeItem('way')
-      sessionStorage.removeItem('searchType')     
+      sessionStorage.removeItem('searchType')
+      sessionStorage.removeItem('companyId');    
+      sessionStorage.setItem('companyId',o.comId); 
       if(this.$route.fullPath.indexOf('perfor')== 1) {
         if(this.way.indexOf('perfor') == 1) {
           this.$emit('company',{cur:this.select});
@@ -288,7 +291,8 @@ export default {
       if(el.isCompany){//公司
         localStorage.removeItem('title')
         localStorage.removeItem('way')
-        sessionStorage.removeItem('searchType')     
+        sessionStorage.removeItem('searchType')
+        sessionStorage.removeItem('companyId');     
         if(this.$route.fullPath.indexOf('perfor')== 1) {
           if(this.way.indexOf('perfor') == 1) {
             this.$emit('company',{cur:this.select});

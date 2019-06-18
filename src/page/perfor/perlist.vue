@@ -119,7 +119,8 @@ export default {
         tabType:"project",
         buildStart:'',
         buildEnd:'',
-        comName:''
+        comName:'',
+        comId:'',
       },
     }
   },
@@ -216,6 +217,7 @@ export default {
     title(val) {
       if(this.$parent.searchType==1){
         this.data.comName = val
+        this.data.comId=sessionStorage.getItem('companyId');
       }else{
         this.data.proName = val
       }

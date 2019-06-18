@@ -12,11 +12,11 @@ axios.defaults.baseURL = baseURL
 
 axios.interceptors.request.use(function (config) {
   // 将token给到一个前后台约定好的key中，作为请求发送
-  config.headers['baseInfo'] = '3.5|1003'
+  config.headers['baseInfo'] = '3.5|1003';
+  // config.headers['Content-Type']='application/x-www-form-urlencoded';
   let token = sessionStorage.getItem('xtoken') ? sessionStorage.getItem('xtoken') : (localStorage.getItem('Xtoken') ? localStorage.getItem('Xtoken') : '' );
   if (token) {
     config.headers['X-TOKEN'] = token
-    
   }
   return config
 }, function (error) {
@@ -39,7 +39,7 @@ export const getJsonData = (url, params) => {
     let token = 'biaodaaTestToken'
     if (params != null) {
       axios.post(url, params, {
-        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-TOKEN': token }
       }).then(res => {
         resolve(res.data)
       }).catch(error => {
@@ -47,7 +47,7 @@ export const getJsonData = (url, params) => {
       })
     } else {
       axios.post(url, null, {
-        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-TOKEN': token }
       }).then(res => {
         resolve(res.data)
       }).catch(error => {

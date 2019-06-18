@@ -153,7 +153,9 @@ export default {
         area:'',
         tabType:"shuili",
         buildStart:'',
-        buildEnd:''
+        buildEnd:'',
+        comName:'',
+        comId:'',
       }
 
     }
@@ -189,6 +191,9 @@ export default {
       this.gainList()
     },
     gainList() {  
+      if(sessionStorage.getItem('searchType')||sessionStorage.getItem('searchType')==1){
+
+      }
       project(this.data).then(res => {
          if(res.code == 1 ) {
             res.data.forEach(el => {
@@ -244,7 +249,12 @@ export default {
   },
    watch: {
     title(val) {
-      this.data.proName = val
+      if(this.$parent.searchType==1){
+        this.data.comName = val
+        this.data.comId=sessionStorage.getItem('companyId');
+      }else{
+        this.data.proName = val
+      }
       this.data.pageNo = 1
        this.gainList()
     },

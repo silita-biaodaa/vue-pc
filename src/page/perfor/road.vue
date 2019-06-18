@@ -210,7 +210,12 @@ export default {
   },
   watch: {
     title(val) {
-      this.data.proName = val
+      if(this.$parent.searchType==1){
+        this.data.comName = val
+        this.data.comId=sessionStorage.getItem('companyId');
+      }else{
+        this.data.proName = val
+      }
       this.data.pageNo = 1
       this.gainList()
     },
