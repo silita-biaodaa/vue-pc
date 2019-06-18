@@ -9,8 +9,7 @@
         <div class="put-w m-r">手机号码:</div><el-input  v-model="iphone" placeholder="请输入您的手机号码" ></el-input>
       </div>
       <div class="put-t" >
-        <span   v-show="erip">
-          请输入正确的手机格式
+        <span   v-show="erip">提示:{{fhint}}
         </span>
        </div>
       <div class="put-l ">
@@ -20,8 +19,7 @@
         </button>
       </div>
         <div class="put-t" >
-          <span v-show="erno"   >
-            请输入短信验证码
+          <span v-show="erno"   >提示:请输入短信验证码
           </span>
         </div>
       <div class="put-l ">
@@ -29,14 +27,14 @@
       </div>
       <div class="put-t" >
         <span v-show="erpass">
-          请输入正确的密码格式(不低于8位数)
+          提示：{{passH}}
         </span></div>
       <div class="put-l ">
         <div class=" put-w m-r">确认密码:</div><el-input  type="password" name="password"  autocomplete="new-password" v-model="chancepass" placeholder="请再次输入密码" ></el-input>
       </div>
       <div class="put-t" >
         <span v-show="ertwo" >
-          请确保两次密码输入一致
+          提示：请确保两次密码输入一致
         </span></div>
       <div class="put-l m-t">
         <div class="put-w m-r"></div>
@@ -62,12 +60,19 @@ export default {
       erno:false,
       erpass:false,
       ertwo:false,
-      msg:'获取验证码'
+      msg:'获取验证码',
+      fhint:'',
+      passH:''
     }
   },
   methods: {
     gainCode() {
+       if(this.iphone.trim() == '') {
+          this.fhint = '请输入手机号'
+          return this.erip = true
+       }
        if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.iphone))) {
+         this.fhint = '请输入正确的手机号'
          return this.erip = true
        }
        if(!(this.msg  == '获取验证码') && !(this.msg  == '重新发送')  ) {
@@ -97,7 +102,12 @@ export default {
       } 
     },
     transfer() {
+       if(this.iphone.trim() == '') {
+          this.fhint = '请输入手机号'
+          return this.erip = true
+       }
        if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.iphone))) {
+        this.fhint = '请输入正确的手机号'
          return this.erip = true
        }
        if(this.note.trim() =='') {
@@ -107,7 +117,17 @@ export default {
          this.erip = false
          return 
        }
-       if(this.newpass.trim() =='' || !(/[0-9A-Za-z]{8,16}$/.test(this.newpass))) {
+      //  if(this.newpass.trim() =='' || !(/[0-9A-Za-z]{8,16}$/.test(this.newpass))) {
+       if(this.newpass.trim() =='' || this.chancepass.trim() =='' ) {
+         this.passH = '请输入密码'
+         this.erpass = true
+         this.ertwo = false
+         this.erno = false
+         this.erip = false
+         return 
+       }
+      if(!(/[0-9A-Za-z]{8,16}$/.test(this.newpass))) {
+         this.passH = '请设置不低于8位数的密码'
          this.erpass = true
          this.ertwo = false
          this.erno = false

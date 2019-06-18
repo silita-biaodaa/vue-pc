@@ -74,8 +74,14 @@ export default {
   methods: {
     register() {
       this.pass = true
+      if(this.mobile.trim() == '') {
+          this.pass = false
+          this.msg='请输入手机号'
+         return this.error = true
+      }
       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
          this.pass = false
+         this.msg='请输入正确的手机号'
          return this.error = true
       }
        if(this.note.trim() == '') {
@@ -92,7 +98,7 @@ export default {
        if(!(/[0-9A-Za-z]{8}$/.test(this.password)))  {
    
          this.pass = false
-         this.msg = '请输入8位以上包含字母或数字的密码'
+         this.msg = '请设置不低于8位数的密码'
          return this.error = true
       }
       if(this.checked && this.pass ) {

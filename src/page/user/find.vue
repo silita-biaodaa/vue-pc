@@ -60,6 +60,15 @@ export default {
           this.error = true
           return  false
         }
+        if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
+        this.msg = '请输入正确的手机号码'
+         return this.error = true
+       }
+        if(this.note.trim()==''){
+          this.msg='请输入验证码'
+          this.error = true
+          return  false
+        }
         if(this.password.trim()==''){
           this.msg='请输入密码'
           this.error = true
@@ -70,13 +79,7 @@ export default {
           this.error = true
           return  false
         }
-      if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
-        this.msg = '请输入正确的手机号码'
-         return this.error = true
-      }
-      if(this.note.trim() == '') {
-         return this.error = true
-      } 
+    
       if(!(/[0-9A-Za-z]{8}$/.test(this.password)) ) {
         this.msg = '请输入8位以上包含字母或数字的密码'
          return this.error = true
@@ -99,7 +102,7 @@ export default {
         }
       })
     },
-      gainCode() {
+     gainCode() {
         if(this.mobile.trim()==''){
           this.msg='请输入手机号'
           this.error = true
@@ -107,7 +110,7 @@ export default {
         }
       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
          this.error = true
-         this.msg = '请输入正确的手机号码'
+         this.msg = '请输入正确的手机号'
          return false
       }
       if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {
