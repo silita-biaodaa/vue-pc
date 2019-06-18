@@ -60,7 +60,7 @@
                   <img :src="ell.reImage ? ell.reImage : avatar" alt="">
                   <div class="list-name" >
                     <span>{{ell.reNikename}}{{ell.reCompany ? '(' + ell.reCompany + ')' : '' }} {{ell.rePost ? ell.rePost : ''}}  </span>
-                    <span class="reply">回复</span>
+                    <span class="reply-hf">回复</span>
                     <span>{{ell.toNikename}}</span>
                   </div>
                 </div>
@@ -555,7 +555,7 @@ export default {
         font-size: 14px;
         color:#333;
         font-weight: bold;
-        .reply{
+        .reply-hf{
           color: #999;
           margin: 0 1em;
         }
