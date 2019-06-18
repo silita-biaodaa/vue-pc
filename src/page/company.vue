@@ -1,7 +1,7 @@
 <template>
 <div class="company">
  
-   <en-search @vague='entitle' :all='total'></en-search>
+   <en-search @vague='entitle' :all='total' :company="true"></en-search>
 
    <div class="c-search">
         <all-city :city='last' @Cnext='eval'  ></all-city>
@@ -381,6 +381,7 @@ export default {
       });
     },
      state(val) {
+       this.companylisy=[]
       this.last = val
       this.data.regisAddress = this.last
       this.current = 1
@@ -492,8 +493,9 @@ export default {
       if(this.loading) {
          return
        }
-       let data = this.data 
-       this.current = 1
+       this.companylisy=[];
+       let data = this.data; 
+       this.current = 1;
        data.regisAddress = val.cur
        this.loading = true
        this.allstr = this.allarr.join(",")
@@ -828,13 +830,15 @@ export default {
       // }
     },
     entitle(val) {      
-      this.title = val.cur
-      this.current = 1
-      this.loading = true
+      this.title = val.cur;
+      this.data.keyWord=val.cur;
+      this.current = 1;
+      this.loading = true;
+      this.companylisy=[];
       this.allstr = this.allarr.join(",")
-      // sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
-      // sessionStorage.setItem('comselect',JSON.stringify(this.data))
-      // this.gainCompany()
+      sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+      sessionStorage.setItem('comselect',JSON.stringify(this.data))
+      this.gainCompany()
       // 下面得是废代码
        
       // if(this.rank == 0 ) {

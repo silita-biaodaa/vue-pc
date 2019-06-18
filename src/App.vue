@@ -263,6 +263,7 @@ export default {
            }  else if (res.data.region == '西藏') {
               res.data.region = '西藏自治区'
            } 
+           sessionStorage.setItem('address',res.data.region);
            setTimeout(() => {
              this.source = res.data.region
            }, 1000);           
@@ -291,10 +292,12 @@ export default {
       }
     },
     selfa() {
+
        this.isarea = !this.isarea
     },
     selarea(el) {
       this.source = el.name 
+      sessionStorage.setItem('address',el.name)
       this.isarea = false
     },
     judge(){

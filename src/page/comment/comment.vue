@@ -279,7 +279,7 @@ export default {
           }
          
        });
-      o.show = !o.show
+      // o.show = !o.show
       this.s = null
     },
     reply(el,i) {

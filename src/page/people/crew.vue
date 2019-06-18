@@ -1,6 +1,6 @@
 <template>
 <div class="crew">
-  <en-search @vague='entitle'></en-search>
+  <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
   <div class="crew-option" >
       <per-por :state='state' @perPor='gainPor' :address="data.province" ></per-por>
       <div class="select">
@@ -97,16 +97,27 @@ export default {
         category:'全部',
         pageNo:1,
         pageSize:20,
-        province:''
-      }
+        province:'',
+        comName:''
+      },
+      searchType:0,
+      serach:'',
     }
   },
   created () {
-    this.data.keyWord = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.gainDetail();
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('peopleSerach')){
       let data=JSON.parse(sessionStorage.getItem('peopleSerach'));
+
+      this.serach=data.keyWord!=''?data.keyWord:data.comName;
+      if(data.comName!=''){
+        this.searchType=1
+      }else{
+        this.searchType=0
+      }
+
       if(data.category==''){
         data.category='全部'
       }
@@ -122,12 +133,15 @@ export default {
       this.svip = val.cur
     },
     entitle(val) {
-      this.data.keyWord = val.cur
+      this.searchType=0;
+      this.serach = val.cur;
+      this.person=[];
       this.data.pageNo = 1
       this.gainList()
     },
     gainPor(val) {
       this.data.province = val.cur
+      this.this.person=[];
       this.data.pageNo = 1
       this.gainList()
     },
@@ -142,8 +156,16 @@ export default {
         });
     },
     gainList(){
+      if(sessionStorage.getItem('searchType')||this.searchType==1){
+        this.data.comName=this.serach
+        this.data.keyWord=''
+      }else{
+        this.data.keyWord=this.serach
+        this.data.comName=''
+      }
       let data=JSON.parse(JSON.stringify(this.data));
       data.category=data.category == '全部' ? '' :data.category;
+      
       Person(data).then(res => {
         if(res.code == 1) {
           this.total = res.total
@@ -206,6 +228,15 @@ export default {
     },
     evalclass(el) {
       this.data.category = el.category
+      this.this.person=[];
+      this.data.pageNo = 1
+      this.gainList()
+    },
+    //企业搜索
+    companyFn(val){
+      this.person=[];
+      this.searchType=1;
+      this.serach =val.cur;
       this.data.pageNo = 1
       this.gainList()
     }

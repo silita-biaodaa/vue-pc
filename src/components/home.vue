@@ -16,14 +16,19 @@
                        {{el.name}}  
                    </li>
                 </ul>
-                <div  >
-                   <el-input :placeholder="placeTxt" v-model="select" @keyup.enter.native='engine' @change="engine"  class="input-with-select">
-                      <el-button slot="append" @click="engine"  >搜索</el-button>
+                <div style="position:relative;">
+                   <el-input :placeholder="placeTxt" v-model="select" class="input-with-select">
+                      <el-button slot="append" @click="engine">搜索</el-button>
                    </el-input>
                    <div class="right  syn"  @click="jump" >
                       综合查询
                    </div>
-                 </div>
+                   <div class="company-serach" v-if="!company&&select!=null&&select.length>0">
+                     <ul>
+                       <li v-for="(o,i) of serachList" :key="i" @click="comNameFn(o)">{{o.com_name}}</li>
+                     </ul>
+                   </div>
+                </div>
              </div>
          </el-col>
         </el-row>
@@ -69,7 +74,8 @@ export default {
      select:'',
      rank:0,
      way:'/bid',
-     placeTxt:'请输入公告名称或企业名称'
+     placeTxt:'请输入公告名称或企业名称',
+     serachList:[],
     }
   },
   methods: {
@@ -93,7 +99,7 @@ export default {
     },
     engine() {
       localStorage.removeItem('title')
-      localStorage.removeItem('way')     
+      localStorage.removeItem('way')  
       if(this.$route.fullPath.indexOf('perfor')== 1) {
         if(this.way.indexOf('perfor') == 1) {
           this.$emit('vague',{cur:this.select});
@@ -141,11 +147,40 @@ export default {
          localStorage.removeItem('title')
          this.select = ''
       }
+    },
+    comNameFn(o){
+      this.select=o.com_name;
+      localStorage.removeItem('title')
+      localStorage.removeItem('way')
+      sessionStorage.removeItem('searchType')     
+      if(this.$route.fullPath.indexOf('perfor')== 1) {
+        if(this.way.indexOf('perfor') == 1) {
+          this.$emit('company',{cur:this.select});
+        } else { 
+          localStorage.setItem('title',this.select)
+          sessionStorage.setItem('searchType',1)
+          localStorage.setItem('way',this.way)  
+          this.$router.push({path:this.way})
+        }
+          this.$emit('company',{cur:this.select});
+      } else {
+         if(this.$route.fullPath == this.way) {
+          this.$emit('company',{cur:this.select});
+        } else { 
+          localStorage.setItem('title',this.select)
+          sessionStorage.setItem('searchType',1)
+          localStorage.setItem('way',this.way)  
+          this.$router.push({path:this.way})
+        }
+      }
     }
   },
   props:{
     title:{
       default:''
+    },
+    company:{
+      default:false
     }
   },
   created () {
@@ -173,7 +208,7 @@ export default {
         this.select = ''
       }else if (form.name == 'perlist' && (to.name == 'road' || to.name == 'water' ) ) {
         this.select = ''
-      }
+      };
     },
     rank(newValue,old){
       if(newValue==0||newValue==1){
@@ -187,6 +222,28 @@ export default {
       }else if(newValue==5){
         this.placeTxt='请输入姓名或身份证号'
       }
+    },
+    select(newVal,old){
+      if(newVal==''||this.company){
+        return false
+      }
+      let that=this;
+      let regisAddress=sessionStorage.getItem('address');
+      this.$http({
+          method:'post',
+          url: '/company/matchName',
+          data:{
+            name:newVal,
+            regisAddress:regisAddress,
+          }
+      }).then(function(res){
+          that.serachList=res.data.data;
+      }).catch(function(res){
+
+      })
+    },
+    title(newVal,old){
+      this.select=newVal
     }
   },
   components: {
@@ -204,7 +261,7 @@ export default {
      margin: 0 auto;
   }
   .bor {
-     overflow: hidden;
+    //  overflow: hidden;
      height: 149px;
     //  clear: both;
      .el-input-group{
@@ -253,5 +310,26 @@ export default {
        cursor: pointer;
      } 
    }
+
+
+  /*搜索企业*/
+  .company-serach{
+    z-index: 9;
+    background: #fff;
+    position: absolute;
+    border: 1PX solid #d0dbe5;
+    border-top: none;
+    width: calc(100% - 207px);
+    box-sizing: border-box;
+    ul li{
+      line-height: 24px;
+      padding-left: 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    li:hover{
+      color: #FE6603;
+    }
+  }
 }
 </style>

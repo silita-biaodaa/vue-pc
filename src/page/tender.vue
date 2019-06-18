@@ -1,6 +1,6 @@
 <template>
 <div class="tender">
-    <en-search @vague='entitle' :title="data.title"></en-search>
+    <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
     <div class="t-options">
         <div class="select">
             <el-row>
@@ -153,7 +153,10 @@ export default {
         sumType:"zhongbiao",
         high:'',
         low:'',
-      }
+        com_name:''
+      },
+      searchType:0,
+      serach:'',
     }
   },
   methods: {
@@ -198,6 +201,11 @@ export default {
            this.Scity = false
          }
          this.area = el.name
+         sessionStorage.setItem('address',el.name)
+        /* 地址修改后   重置serach以及type*/
+        this.serach='';
+        this.searchType=0
+        /*end*/
          this.data.regions = this.area
          this.data.pageNo = 1
          this.gainList()
@@ -243,6 +251,13 @@ export default {
     },
     gainList() {
         let data=this.data;
+        if(sessionStorage.getItem('searchType')||this.searchType==1){
+          data.com_name=this.serach
+          data.title=''
+        }else{
+          data.title=this.serach
+          data.com_name=''
+        }
        if(this.rank == 0) {
           queryList(data).then( res => {
                if(res.code == 1 ) {
@@ -317,7 +332,9 @@ export default {
        }
     },
     entitle(val) {
-      this.data.title = val.cur
+      this.searchType=0;
+      this.serach = val.cur
+      this.queryLists=[];
       this.data.pageNo = 1
       this.loading = true
       // this.queryLists = []
@@ -370,13 +387,22 @@ export default {
         });
       }
     },
-      SHcity() {
+    SHcity() {
       if(this.area  == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
       }
-    }  
+    },
+    //企业搜索
+    companyFn(val){
+      this.searchType=1;
+      this.serach =val.cur;
+      this.queryLists=[];
+      this.data.pageNo = 1
+      this.loading = true      
+      this.gainList()
+    }   
   },
   beforeDestroy(){//销毁前删除本地
     sessionStorage.removeItem('tenderSerach')
@@ -408,13 +434,19 @@ export default {
     if(sessionStorage.getItem('pageNo')){
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
-    this.data.title = localStorage.getItem('title') ?  localStorage.getItem('title'): '';
+    this.serach = localStorage.getItem('title') ?  localStorage.getItem('title'): '';
     this.area = this.state
     this.data.regions = this.area
     this.gainFilter()
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('tenderSerach')){
       let data=JSON.parse(sessionStorage.getItem('tenderSerach'));
+      this.serach=data.title!=''?data.title:data.com_name;
+      if(data.com_name!=''){
+        this.searchType=1
+      }else{
+        this.searchType=0
+      }
       this.data=data;
       if(data.regions.indexOf('||')>-1){//省市
         let arr=data.regions.split('||');

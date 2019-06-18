@@ -1,9 +1,6 @@
 <template>
 <div class="perfor">
-   <en-search
-      @vague='entitle'
-      >        
-   </en-search>
+   <en-search @vague='entitle' :title="title" @company="companyFn"></en-search>
    <div class="per-nav">
        <span @click="jumpper" :class="i == 0 ? 'current' : ''" >住建部</span>
        <span class="p-6" >/</span>
@@ -26,7 +23,8 @@ export default {
   data () {
     return {
       title:'',
-      i:0
+      i:0,
+      searchType:0,
     }
   },
   props: {
@@ -36,6 +34,7 @@ export default {
   methods: {
     entitle(val) {
       this.title = val.cur
+      this.searchType=0;
     },
     jumpper() {
       this.$router.push('perlist')
@@ -43,16 +42,24 @@ export default {
     },
      jumpwa() {
       this.$router.push('water')
-       this.i = 1
+      this.i = 1
     },
      jumptra() {
       this.$router.push('road')
-       this.i = 2
+      this.i = 2
     },
+    //企业搜索
+    companyFn(val){
+      this.searchType=1;
+      this.title =val.cur;
+    }
   },
   watch: {
       $route(to,form) {
         this.title = ''    
+      },
+      title(newVal,old){
+        this.title=newVal;
       }
   },
   created () {

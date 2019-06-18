@@ -118,35 +118,40 @@ export default {
         area:'',
         tabType:"project",
         buildStart:'',
-        buildEnd:''
-      }
+        buildEnd:'',
+        comName:''
+      },
     }
   },
   methods: {
     gainPor(val) {
       this.data.area = val.cur
+      this.perlist=[];
       this.data.pageNo = 1
       this.gainList()
     },
     levelif(el) {
-            if(el.value  == '') {
-               this.data.proType = null
-            } else {
-              this.data.proType = el.value
-            }
-             this.data.pageNo = 1
-             this.gainList()
+      if(el.value  == '') {
+          this.data.proType = null
+      } else {
+        this.data.proType = el.value
+      }
+      this.perlist=[]
+      this.data.pageNo = 1
+      this.gainList()
 
     },
     gainMon(val) {
       this.data.amountStart = val.state
       this.data.amountEnd = val.end
+      this.perlist=[]
       this.data.pageNo = 1
       this.gainList()
     },
     gaintime(val) {
       this.data.buildStart = val.old
       this.data.buildEnd = val.new
+      this.perlist=[]
       this.data.pageNo = 1
       this.gainList()
     },
@@ -209,9 +214,13 @@ export default {
   },
   watch: {
     title(val) {
-      this.data.proName = val
+      if(this.$parent.searchType==1){
+        this.data.comName = val
+      }else{
+        this.data.proName = val
+      }
       this.data.pageNo = 1
-       this.gainList()
+      this.gainList()
     },
     data:{
       handler(val,old){
@@ -225,6 +234,12 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('yjSerach')){
       let data=JSON.parse(sessionStorage.getItem('yjSerach'));
+      this.$parent.title=data.proName!=''?data.proName:data.comName;
+      if(data.comName!=''){
+        this.$parent.searchType=1
+      }else{
+        this.$parent.searchType=0
+      }
       this.data=data;
     }
     this.gainList();
