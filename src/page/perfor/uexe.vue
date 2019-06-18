@@ -41,9 +41,7 @@
              </div>
         </div>
       </div>
-        <div class="show-nou"  v-show="ubl" >
-          暂无数据
-        </div>
+        <div class="show-nou"  v-show="ubl" >Sorry，暂未查询到该业绩的施工图审查信息</div>
    </div>
 
    <div class="black-pop" v-if="isshow" >
