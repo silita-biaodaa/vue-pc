@@ -29,6 +29,9 @@
                      </ul>
                    </div>
                 </div>
+                <div class="hisgory">
+                  <span v-for="(o,i) of list" :key="'hisgory'+i">{{o.title}}</span>
+                </div>
              </div>
          </el-col>
         </el-row>
@@ -76,6 +79,7 @@ export default {
      way:'/bid',
      placeTxt:'请输入公告名称或企业名称',
      serachList:[],
+     list:[],
     }
   },
   methods: {
@@ -98,6 +102,55 @@ export default {
       window.open(url.href,'_blank')
     },
     engine() {
+      /*历史记录 start*/
+      if(this.select!=''){
+        let obj1={
+          title:this.select,
+          isCompany:false
+        }
+        if(localStorage.getItem('history')){//如果本地有值
+          let obj=JSON.parse(localStorage.getItem('history'));
+          if(this.way=='/bid'){
+            this.forinHistory(obj.bid,obj1);
+          }else if(this.way=='/tender'){
+            this.forinHistory(obj.tender,obj1);
+          }else if(this.way=='/company'){
+            this.forinHistory(obj.company,obj1);
+          }else if(this.way=='/perfor'){
+            this.forinHistory(obj.perfor,obj1);
+          }else if(this.way=='/crew'){
+            this.forinHistory(obj.crew,obj1);
+          }else if(this.way=='/build'){
+            this.forinHistory(obj.build,obj1);
+          }
+          localStorage.setItem('history',JSON.stringify(obj));
+        }else{
+          let obj={
+            bid:[],
+            tender:[],
+            company:[],
+            perfor:[],
+            crew:[],
+            build:[]
+          }
+          if(this.way=='/bid'){
+            obj.bid.unshift(obj1);
+          }else if(this.way=='/tender'){
+            obj.tender.unshift(obj1);
+          }else if(this.way=='/company'){
+            obj.company.unshift(obj1);
+          }else if(this.way=='/perfor'){
+            obj.perfor.unshift(obj1);
+          }else if(this.way=='/crew'){
+            obj.crew.unshift(obj1);
+          }else if(this.way=='/build'){
+            obj.build.unshift(obj1);
+          }
+          localStorage.setItem('history',JSON.stringify(obj));
+        }
+      }
+      /*历史记录end*/
+
       localStorage.removeItem('title')
       localStorage.removeItem('way')  
       if(this.$route.fullPath.indexOf('perfor')== 1) {
@@ -118,7 +171,16 @@ export default {
           this.$router.push({path:this.way})
         }
       }
-   
+    },
+    forinHistory(arr,obj){//判断数组中是否有某条记录，如果没有则添加到最前，如果有则移到最前
+      for(let x in arr){
+        if(arr[x].title==obj.title){
+          arr.splice(x,1)
+          break
+        }
+      }
+      arr.unshift(obj);
+      return arr
     },
     paths() {
        if(this.$route.path == '/' || this.$route.path == '/bid' ) {
@@ -150,6 +212,53 @@ export default {
     },
     comNameFn(o){
       this.select=o.com_name;
+      /*历史记录 start*/ 
+      let obj1={
+        title:this.select,
+        isCompany:true
+      }
+      if(localStorage.getItem('history')){//如果本地有值
+        let obj=JSON.parse(localStorage.getItem('history'));
+        if(this.way=='/bid'){
+          this.forinHistory(obj.bid,obj1);
+        }else if(this.way=='/tender'){
+          this.forinHistory(obj.tender,obj1);
+        }else if(this.way=='/company'){
+          this.forinHistory(obj.company,obj1);
+        }else if(this.way=='/perfor'){
+          this.forinHistory(obj.perfor,obj1);
+        }else if(this.way=='/crew'){
+          this.forinHistory(obj.crew,obj1);
+        }else if(this.way=='/build'){
+          this.forinHistory(obj.build,obj1);
+        }
+        localStorage.setItem('history',JSON.stringify(obj));
+      }else{
+        let obj={
+          bid:[],
+          tender:[],
+          company:[],
+          perfor:[],
+          crew:[],
+          build:[]
+        }
+        if(this.way=='/bid'){
+          obj.bid.unshift(obj1);
+        }else if(this.way=='/tender'){
+          obj.tender.unshift(obj1);
+        }else if(this.way=='/company'){
+          obj.company.unshift(obj1);
+        }else if(this.way=='/perfor'){
+          obj.perfor.unshift(obj1);
+        }else if(this.way=='/crew'){
+          obj.crew.unshift(obj1);
+        }else if(this.way=='/build'){
+          obj.build.unshift(obj1);
+        }
+        localStorage.setItem('history',JSON.stringify(obj));
+      }
+      /*历史记录end*/
+
       localStorage.removeItem('title')
       localStorage.removeItem('way')
       sessionStorage.removeItem('searchType')     
@@ -211,16 +320,26 @@ export default {
       };
     },
     rank(newValue,old){
+      let obj=localStorage.getItem('history')?JSON.parse(localStorage.getItem('history')):'';
       if(newValue==0||newValue==1){
-        this.placeTxt='请输入公告名称或企业名称'
+        this.placeTxt='请输入公告名称或企业名称';
+        if(newValue==0){
+          this.list=obj.bid||[];
+        }else{
+          this.list=obj.tender||[];
+        }
       }else if(newValue==2){
-        this.placeTxt='请输入企业名称或法人名称'
+        this.placeTxt='请输入企业名称或法人名称';
+        this.list=obj.company||[];
       }else if(newValue==3){
-        this.placeTxt='请输入项目名称或企业名称'
+        this.placeTxt='请输入项目名称或企业名称';
+        this.list=obj.perfor||[];
       }else if(newValue==4){
-        this.placeTxt='请输入注册人员姓名或企业名称'
+        this.placeTxt='请输入注册人员姓名或企业名称';
+        this.list=obj.crew||[];
       }else if(newValue==5){
-        this.placeTxt='请输入姓名或身份证号'
+        this.placeTxt='请输入姓名或身份证号';
+        this.list=obj.build||[];
       }
     },
     select(newVal,old){
@@ -328,6 +447,21 @@ export default {
       cursor: pointer;
     }
     li:hover{
+      color: #FE6603;
+    }
+  }
+
+  /*历史记录*/
+  .hisgory{
+    margin-top: 10px;
+    max-width:calc(100% - 207px);
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    span{
+      margin-right: 15px;
+      font-size: 14px;
+      cursor: pointer;
       color: #FE6603;
     }
   }
