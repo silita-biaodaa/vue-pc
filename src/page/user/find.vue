@@ -81,7 +81,7 @@ export default {
         }
     
       if(!(/[0-9A-Za-z]{8}$/.test(this.password)) ) {
-        this.msg = '请输入8位以上包含字母或数字的密码'
+        this.msg = '请设置不低于8位数的密码'
          return this.error = true
 
       }else if(this.password.trim() !== this.password1.trim()) {

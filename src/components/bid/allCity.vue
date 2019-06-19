@@ -14,7 +14,7 @@
           </el-col>
        </el-row>
     </div>
-    <div class="select">
+    <div class="select" v-show="allt" >
        <el-row>
           <el-col :span="2">
              市&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级:
@@ -41,7 +41,8 @@ export default {
       list:[
       ],
       cstr:'全部',
-      all:[]
+      all:[],
+      allt:true
     }
   },
   props: {
@@ -61,7 +62,12 @@ export default {
     // 获取地区
     gainFilter() {  // 对传进来的数据解析，是否包含市级下面地区
       if(this.city.indexOf("||") == -1  ) {
-        this.area = this.city
+        this.area = (this.city == '' ? '全部' : this.city)
+        if(this.area == '全部') {
+         this.allt = false
+        } else {
+          this.allt = true
+        }
       }else {
         let arr = this.city.split('||')
         this.area = arr[0]
@@ -74,14 +80,23 @@ export default {
     eval(el) {
       this.area = el.name
       this.list = el.list
-      this.$emit('Cnext', {cur:this.area})
+      if(this.area == '全部') {
+        this.allt = false
+        this.$emit('Cnext', {cur:''})
+       } else {
+         this.allt = true
+         this.$emit('Cnext', {cur:this.area})
+       }
     },
     marry() {
      this.areas.forEach( el => {
-        el.list.unshift('全部')      
-         if(el.name == this.area) {
-           this.list = el.list
-         }
+       if(el.name != '全部') {
+          el.list.unshift('全部')      
+          if(el.name == this.area) {
+            this.list = el.list
+          }
+       }
+       
        })
     },
     level(el) { 
@@ -116,7 +131,8 @@ export default {
     let data=JSON.parse(sessionStorage.getItem('filter'));
     this.gainFilter()
     this.areas = data.area;
-     this.marry()
+    this.areas.unshift({name:'全部'})
+    this.marry()
   },
   mounted () {
     
