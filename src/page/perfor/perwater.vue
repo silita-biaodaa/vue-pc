@@ -22,7 +22,7 @@
    </div>
 
 
-   <div class="per-lists" v-show="Snone" >
+   <div class="per-lists">
      <div class="t-size per-navs" >
            <div class="left" style="width:60px;">
               序号
@@ -47,44 +47,61 @@
            </div>
       </div>    
 
-        <!-- <router-link class="per-del per-color " v-for="(el,i) in perlist" :key="i"  @click="decide(el)" tag="a" :to="{name:'irrigation', query: {id:el.pkid }}" target='_blank' > -->
-        <a class="per-del " v-for="(el,i) in perlist" :key="el.pkid"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'" >
 
-           <div class="left " style="width:60px;">
-              {{(data.pageNo-1)*20+(i+1)}}
-           </div>
-            <div class="left show-f" style="width:280px;">{{el.proName}}
-           </div>
-             <div class="left show-f" style="width:220px;">
-               {{el.comName}}
-           </div>
-           <div class="left" style="width:140px;">
-              {{el.amount ? el.amount : '暂无'}}
-           </div>
-            <div class="left" style="width:80px;">
-              {{el.proType ? el.proType : '暂无'}}
-           </div>
-             <div class="left" style="width:120px;">
-              {{el.build ? el.build : ' '}}
-           </div>
-             <div class="left" style="width:120px;">
-              {{el.proWhere}}
-           </div>
-        </a>
-
-         <div class="c-page" >
+      <!-- 判断是否加载中 -->
+      <template v-if="isajax">
+          <!-- 有数据 -->
+          <template v-if="perlist&&perlist.length>0">
+            <a class="per-del " v-for="(el,i) in perlist" :key="el.pkid"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'" >
+              <div class="left " style="width:60px;">
+                  {{(data.pageNo-1)*20+(i+1)}}
+              </div>
+                <div class="left show-f" style="width:280px;">{{el.proName}}
+              </div>
+                <div class="left show-f" style="width:220px;">
+                  {{el.comName}}
+              </div>
+              <div class="left" style="width:140px;">
+                  {{el.amount ? el.amount : '暂无'}}
+              </div>
+                <div class="left" style="width:80px;">
+                  {{el.proType ? el.proType : '暂无'}}
+              </div>
+                <div class="left" style="width:120px;">
+                  {{el.build ? el.build : ' '}}
+              </div>
+                <div class="left" style="width:120px;">
+                  {{el.proWhere}}
+              </div>
+            </a>
+            <div class="c-page" >
               <nav-page 
               :all='total'
               :currents='data.pageNo'
               @skip='Goto'
               ></nav-page>
-         </div>
-   </div>
-    <div class="no-toast" v-show="!Snone" >
-      <img src="../../assets/img/bank_card @2x.png" alt="">
-      <span>Sorry，没有找到符合条件的业绩信息</span>
+            </div>
+          </template>
+          <!-- 无数据  -->
+          <template v-else-if="perlist&&perlist.length==0">
+            <div class="no-toast">
+              <img src="../../assets/img/bank_card @2x.png" alt="">
+              <span>Sorry，没有找到符合条件的业绩信息</span>
+            </div>
+          </template>
+          <!-- 加载失败 -->
+          <template v-else-if="!perlist">
+            <div class="ajax-erroe">
+              <img src="../../assets/img/pic-zoudiu.png"/>
+              <span @click="recoldFn">刷新</span>
+            </div>
+          </template>
+      </template>
+      <template v-else>
+        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+      </template>
     </div>
-     <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
+    <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -142,7 +159,8 @@ export default {
       amountEnd:'',
       total:0,
       perlist:[],
-      Snone:true,
+      loading:true,
+      isajax:false,
       data:{
         pageNo:1,
         proName:'',
@@ -160,13 +178,16 @@ export default {
 
     }
   },
+  inject:['reload'],
   methods: {
     closeload(val) {
       this.svip = val.cur
     },
     gainPor(val) {
       this.data.area = val.cur
+      this.perlist=[];
       this.data.pageNo = 1
+      this.isajax=false;
       this.gainList()
     },
     levelif(el) {
@@ -175,46 +196,52 @@ export default {
             } else {
               this.data.proType = el.value
             }
-             this.data.pageNo = 1
-             this.gainList()
+            this.perlist=[];
+            this.data.pageNo = 1
+            this.isajax=false;
+            this.gainList()
     },
     gainMon(val) {
       this.data.amountStart = val.state
       this.data.amountEnd = val.end
       this.data.pageNo = 1
+      this.perlist=[];
+      this.isajax=false;
       this.gainList()
     },
     gaintime(val) {
       this.data.buildStart = val.old
       this.data.buildEnd = val.new
       this.data.pageNo = 1
+      this.perlist=[];
+      this.isajax=false;
       this.gainList()
     },
     gainList() {  
       if(sessionStorage.getItem('searchType')||sessionStorage.getItem('searchType')==1){
 
       }
+      let that=this;
       project(this.data).then(res => {
-         if(res.code == 1 ) {
-            res.data.forEach(el => {
-             el.is = false
-           })
-           this.total = res.total
-           this.perlist = res.data
-         
-           if(res.data.length == 0 ) {
-              this.Snone = false
-            } else {
-               this.Snone = true
-            }
-
-         }
+        this.isajax=true;
+        if(res.code == 1 ) {
+          res.data.forEach(el => {
+            el.is = false
+          })
+          this.total = res.total
+          this.perlist = res.data
+        }
+      }).catch(function(res){
+          that.isajax=true;
+          that.perlist=null;
       })
     },
     Goto(val) {
-       this.data.pageNo = val.cur;
-       this.gainList()
-       this.funcom.toList(492)
+        this.data.pageNo = val.cur;
+        this.perlist=[];
+        this.isajax=false;
+        this.gainList()
+        this.funcom.toList(492)
     },
     decide(el) {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken') ) {
@@ -242,6 +269,10 @@ export default {
         });
       }
     },
+    //刷新
+    recoldFn(){
+      this.reload();
+    }
   },
   props: {
     state:'',
@@ -255,8 +286,10 @@ export default {
       }else{
         this.data.proName = val
       }
+      this.perlist=[];
+      this.isajax=false;
       this.data.pageNo = 1
-       this.gainList()
+      this.gainList()
     },
     data:{
       handler(val,old){
@@ -337,7 +370,7 @@ export default {
      }
      .per-lists {
         background-color: #fff;
-        margin-bottom: 200px;
+        margin-bottom: 20px;
        .t-size {
            font-size: 14px;
            color:#000;           
@@ -359,10 +392,10 @@ export default {
 
           .c-page {
             width:1020px;
-            margin: 0 auto 210px;
-            height: 210px;
+            margin: 0 auto;
+            height:100px;
             background-color:#fff;
-            padding-top: 70px;
+            padding-top: 50px;
             display: flex;
             justify-content: center;
 

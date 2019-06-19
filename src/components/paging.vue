@@ -195,7 +195,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style   lang="less" scoped>
 .paging{
-    margin-top:40px;
+    // margin-top:40px;
     ul {
           li{
           padding: 0 14px;
