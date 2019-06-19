@@ -35,7 +35,7 @@
           <img :src="el.image  ? el.image : avatar " alt="">
           <div class="list-name" >
             <span style="color:#333" >{{el.nickName}}</span>
-            <span v-show="el.company || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}</span>
+            <span v-show="el.company || el.post" >{{el.company ? '(' + el.company + ')' : '' }} {{el.post}}:</span>
           </div>
        </div>
        <p class="comment-time">{{el.pushd}}</p>
@@ -61,7 +61,7 @@
                   <div class="list-name" >
                     <span>{{ell.reNikename}}{{ell.reCompany ? '(' + ell.reCompany + ')' : '' }} {{ell.rePost ? ell.rePost : ''}}  </span>
                     <span class="reply-hf">回复</span>
-                    <span>{{ell.toNikename}}</span>
+                    <span>{{ell.toNikename}}:</span>
                   </div>
                 </div>
                 
@@ -559,7 +559,7 @@ export default {
         margin-left: 10px;
         font-size: 14px;
         color:#333;
-        font-weight: bold;
+        // font-weight: bold;
         .reply-hf{
           color: #999;
           margin: 0 1em;

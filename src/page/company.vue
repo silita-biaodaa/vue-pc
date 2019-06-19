@@ -204,7 +204,7 @@
                 </a>
               </div>
             </div>
-            <div class="c-page" v-show="!Snone">
+            <div class="c-page">
               <nav-page 
               :all='total'
               :currents='current'
