@@ -42,42 +42,63 @@
           
         </div>
       </div>
-       <a class="build-in"  v-for="(el,i) in person" :key="i"  @click="toPer(el)" > 
-        <div style="width:80px;"  >
-           {{(data.pageNo-1)*20+(i+1)}}
-          </div>
-          <div style="width:110px;" >
-           {{el.name}}
-          </div>
-          <div style="width:250px;" >
-            {{el.comName}}
-          </div>
-          <div style="width:160px;" >
-           {{el.category}}
-          </div>
-          <div style="width:180px;" >
-            {{el.sealNo}}
-          </div>
-          <div style="width:110px;" >
-            {{el.major ? el.major : '--'}}
-          </div>
-          <div style="width:130px;" class="c-cen" >
-            <div class="crew-btn"  @click.stop="jumpya(el)"  v-if="el.isUnder" >
-              押证
+
+      <!-- 判断是否加载中 -->
+      <template v-if="isajax">
+        <!-- 有数据 -->
+        <template v-if="person&&person.length>0">
+          <a class="build-in"  v-for="(el,i) in person" :key="i"  @click="toPer(el)" > 
+            <div style="width:80px;"  >
+              {{(data.pageNo-1)*20+(i+1)}}
+              </div>
+              <div style="width:110px;" >
+              {{el.name}}
+              </div>
+              <div style="width:250px;" >
+                {{el.comName}}
+              </div>
+              <div style="width:160px;" >
+              {{el.category}}
+              </div>
+              <div style="width:180px;" >
+                {{el.sealNo}}
+              </div>
+              <div style="width:110px;" >
+                {{el.major ? el.major : '--'}}
+              </div>
+              <div style="width:130px;" class="c-cen" >
+                <div class="crew-btn"  @click.stop="jumpya(el)"  v-if="el.isUnder" >
+                  押证
+                </div>
             </div>
-        </div>
-      </a>
-      <div class="no-toast" v-show="noList" >
-        <img src="../../assets/img/bank_card @2x.png" alt="">
-        <span>Sorry，没有找到符合条件的人员信息</span>
-      </div>
-      <div class="page"  v-show="!noList"  >
-           <nav-page 
-          :all='total'
-          :currents='data.pageNo'
-          @skip='Goto'
-          ></nav-page>
-      </div>
+          </a>
+          <div class="page">
+            <nav-page 
+            :all='total'
+            :currents='data.pageNo'
+            @skip='Goto'
+            ></nav-page>
+          </div>
+        </template>
+        <!-- 无数据  -->
+        <template v-else-if="person&&person.length==0">
+          <div class="no-toast">
+              <img src="../../assets/img/bank_card @2x.png" alt="">
+              <span>Sorry，没有找到符合条件的人员信息</span>
+            </div>
+        </template>
+        <!-- 加载失败 -->
+        <template v-else-if="!person">
+          <div class="ajax-erroe">
+            <img src="../../assets/img/pic-zoudiu.png"/>
+            <span @click="recoldFn">刷新</span>
+          </div>
+        </template>
+      </template>
+      <!-- loading -->
+      <template v-else>
+        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+      </template>
   </div>   
   <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
@@ -90,7 +111,8 @@ export default {
       list:[],
       total:0,
       person:[],
-      noList:false,
+      isajax:false,
+      loading:true,
       svip:false,
       data:{
         keyWord:'',
@@ -104,6 +126,7 @@ export default {
       serach:'',
     }
   },
+  inject:['reload'],
   created () {
     this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : ''
     this.gainDetail();
@@ -136,12 +159,14 @@ export default {
       this.searchType=0;
       this.serach = val.cur;
       this.person=[];
+      this.isajax=false;
       this.data.pageNo = 1
       this.gainList()
     },
     gainPor(val) {
       this.data.province = val.cur
-      this.this.person=[];
+      this.person=[];
+      this.isajax=false;
       this.data.pageNo = 1
       this.gainList()
     },
@@ -156,6 +181,7 @@ export default {
         });
     },
     gainList(){
+      let that=this;
       if(sessionStorage.getItem('searchType')||this.searchType==1){
         this.data.comName=this.serach
         this.data.keyWord=''
@@ -170,17 +196,17 @@ export default {
         if(res.code == 1) {
           this.total = res.total
           this.person = res.data
-          if(this.person.length == 0) {
-            this.noList = true
-          } else {
-            this.noList = false
-          }
+          this.isajax=true;
         }
-        
+      }).catch(function(res){
+          that.isajax=true;
+          that.person=null;
       })
     },
     Goto(val) {
+      this.person=[];
       this.data.pageNo = val.cur;
+      this.isajax=false;
       this.funcom.toList(450)
       this.gainList()
     },
@@ -229,6 +255,7 @@ export default {
     evalclass(el) {
       this.data.category = el.category
       this.this.person=[];
+      this.isajax=false;
       this.data.pageNo = 1
       this.gainList()
     },
@@ -236,9 +263,14 @@ export default {
     companyFn(val){
       this.person=[];
       this.searchType=1;
+      this.isajax=false;
       this.serach =val.cur;
       this.data.pageNo = 1
       this.gainList()
+    },
+    //刷新
+    recoldFn(){
+      this.reload();
     }
   },
   watch:{
@@ -299,7 +331,7 @@ export default {
     width: 1020px;
     margin: 0 auto;
     background-color: #fff;
-    margin-bottom: 200px;
+    margin-bottom: 20px;
     .build-table {
       display: flex;
       flex-direction: row;
@@ -346,8 +378,8 @@ export default {
     justify-content: center;
   }
     .page {
-      height: 210px;
-       padding-top: 70px;
+      height: 100px;
+       padding-top: 50px;
        display: flex;
        justify-content: center;
     }

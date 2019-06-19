@@ -806,4 +806,11 @@ export default {
     border-radius:3px;
   }
 }
+
+body .el-loading-spinner .path{
+  stroke: #FE6603;
+}
+body .el-loading-spinner .el-loading-text{
+  color: #FE6603
+}
 </style>
