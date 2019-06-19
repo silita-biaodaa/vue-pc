@@ -1,7 +1,7 @@
 <template>
 <div class="perlist">
    <div class="per-option">
-      <per-por :state='state' :address="data.area" @perPor='gainPor'></per-por>
+      <per-por :state='data.area'  @perPor='gainPor'></per-por>
       <div class="select">
             <el-row>
                 <el-col :span='2'>项目类别:
@@ -18,7 +18,6 @@
      <per-time  @time='gaintime' ></per-time>
    </div>
    <div class="per-total">
-     <!-- 标大大为您找到<span class="p-color" >{{total}}</span>条业绩信息 -->
      共搜索到<span class="p-color" >{{total}}</span>条住建部业绩信息
    </div>
 
@@ -278,6 +277,8 @@ export default {
         this.$parent.searchType=0
       }
       this.data=data;
+    } else {
+      this.data.area= this.state
     }
     this.gainList();
   },

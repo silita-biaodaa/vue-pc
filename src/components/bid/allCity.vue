@@ -74,8 +74,6 @@ export default {
         this.cstr = arr[1]
         this.all = arr[1].split(',')
       }
-       
-      
     },
     eval(el) {
       this.area = el.name

@@ -18,40 +18,45 @@ export default {
   data () {
     return {
       province:[],
-      area:'湖南省'
+      area:''
     }
   },
   methods: {
     evalclass(el) {
       this.area = el.name
-      this.$emit('perPor', {cur:this.area})
-    }
+      if(this.area == '全部') {
+        this.$emit('perPor', {cur:''})
+       } else {
+         this.$emit('perPor', {cur:this.area})
+       }
+    },
   },
   props: {
     state:{
-      default:'湖南省'
-    },
-    address:{
       default:''
-    }
+    },
   },
   watch: {
     state(val) {
-      this.area = val
-      this.$emit('perPor', {cur:this.area})
+      if(val != '') {
+        this.area = val
+        this.$emit('perPor', {cur:this.area})
+      }
+      
     }
   },
   created () {
     let data=JSON.parse(sessionStorage.getItem('filter'));
-    this.area = this.state;
+    this.area= (this.state=='' ? '全部' : this.state);
     this.province = data.area;
-    if(sessionStorage.getItem('yjSerach')||sessionStorage.getItem('slSerach')||sessionStorage.getItem('jtSerach')||sessionStorage.getItem('peopleSerach')){
-      if(this.address!=''){
-        this.area=this.address;
-        return false
-      }
-    }
-    this.$emit('perPor', {cur:this.area})
+    this.province.unshift({name:'全部'})
+    // if(sessionStorage.getItem('yjSerach')||sessionStorage.getItem('slSerach')||sessionStorage.getItem('jtSerach')||sessionStorage.getItem('peopleSerach')){
+    //   if(this.address!=''){  
+    //     this.area=this.address;
+    //     return false
+    //   }
+    // }
+    // this.$emit('perPor', {cur:this.area})
   },
   components: {
   }

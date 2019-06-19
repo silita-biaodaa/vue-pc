@@ -1,7 +1,7 @@
 <template>
 <div class="perlist">
    <div class="per-option">
-      <per-por :state='state' :address="data.area" @perPor='gainPor'  ></per-por>
+      <per-por :state='data.area'  @perPor='gainPor'  ></per-por>
       <div class="select">
             <el-row>
                 <el-col :span='2'>业绩类别:
@@ -303,8 +303,10 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('slSerach')){
       let data=JSON.parse(sessionStorage.getItem('slSerach'));
-      this.data=data;
-    }
+       this.data=data;
+      } else {
+        this.data.area= this.state
+      }
     this.gainList();
   },
   beforeDestroy(){
