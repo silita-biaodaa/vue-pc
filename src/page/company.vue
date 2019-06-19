@@ -154,68 +154,84 @@
         共搜索到<span>{{total}}</span>家企业
     </div>
 
-
-<div v-loading="loading" element-loading-text="拼命加载中" >
-  <div class="firm" v-show="!Snone">
-      <div class='firm-ul'>  
-        <div>
-           <div class="left t-size" style="width:80px;">
-              序号
-           </div>
-             <div class="left t-size" style="width:300px;">
-              企业名称
-           </div>
-             <div class="left t-size" style="width:120px;">
-              法定代表
-           </div>
-             <div class="left t-size" style="width:180px;">
-              注册资本
-           </div>
-             <div class="left t-size" style="width:200px;">
-              联系方式
-           </div>
-             <div class="left t-size" style="width:140px;">
-              所属地区
-           </div>
-        </div>    
-          
-        
-        <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
-        <a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'  >
-            <div class="left " style="width:80px;">
-              {{(current-1)*20+(i+1)}}
-           </div>
-             <div class="left" style="width:300px;">
-               <span class='c-col' >{{el.comName}}</span>
-           </div>
-             <div class="left" style="width:120px;">
-               {{el.legalPerson}}
-           </div>
-             <div class="left" style="width:180px;">
-              {{el.regisCapital ? el.regisCapital : '暂无'}}
-           </div>
-             <div class="left" style="width:200px;">
-              {{el.phone ? el.phone : '暂无'}}
-           </div>
-             <div class="left" style="width:140px;">
-              {{el.regisAddress}}
-           </div>
-        </a>
-      </div>
-  </div>
-  <div class="c-page" v-show="!Snone">
-          <nav-page 
-          :all='total'
-          :currents='current'
-          @skip='Goto'
-          ></nav-page>
-  </div>
-</div>  
-  <div class="no-toast" v-show="Snone" >
-    <img src="../assets/img/bank_card @2x.png" alt="">
-    <span>Sorry，没有找到符合条件的企业信息</span>
-  </div>
-<f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
+    <!-- 判断是否加载中 -->
+    <template v-if="isajax">
+        <!-- 有数据 -->
+        <template v-if="companylisy&&companylisy.length>0">
+          <div>
+            <div class="firm">
+              <div class='firm-ul'>  
+                <div>
+                  <div class="left t-size" style="width:80px;">
+                      序号
+                  </div>
+                    <div class="left t-size" style="width:300px;">
+                      企业名称
+                  </div>
+                    <div class="left t-size" style="width:120px;">
+                      法定代表
+                  </div>
+                    <div class="left t-size" style="width:180px;">
+                      注册资本
+                  </div>
+                    <div class="left t-size" style="width:200px;">
+                      联系方式
+                  </div>
+                    <div class="left t-size" style="width:140px;">
+                      所属地区
+                  </div>
+                </div>    
+                <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
+                <a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'  >
+                    <div class="left " style="width:80px;">
+                      {{(current-1)*20+(i+1)}}
+                  </div>
+                    <div class="left" style="width:300px;">
+                      <span class='c-col' >{{el.comName}}</span>
+                  </div>
+                    <div class="left" style="width:120px;">
+                      {{el.legalPerson}}
+                  </div>
+                    <div class="left" style="width:180px;">
+                      {{el.regisCapital ? el.regisCapital : '暂无'}}
+                  </div>
+                    <div class="left" style="width:200px;">
+                      {{el.phone ? el.phone : '暂无'}}
+                  </div>
+                    <div class="left" style="width:140px;">
+                      {{el.regisAddress}}
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="c-page" v-show="!Snone">
+              <nav-page 
+              :all='total'
+              :currents='current'
+              @skip='Goto'
+              ></nav-page>
+            </div>
+          </div>  
+        </template>
+        <!-- 无数据  -->
+        <template v-else-if="companylisy&&companylisy.length==0">
+          <div class="no-toast">
+            <img src="../assets/img/bank_card @2x.png" alt="">
+            <span>Sorry，没有找到符合条件的企业信息</span>
+          </div>
+        </template>
+        <!-- 加载失败 -->
+        <template v-else-if="!companylisy">
+          <div class="ajax-erroe">
+            <img src="../assets/img/pic-zoudiu.png"/>
+            <span @click="recoldFn">刷新</span>
+          </div>
+        </template>
+    </template>
+    <template v-else>
+      <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+    </template>
+  <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -224,8 +240,8 @@ export default {
   data () {
     return {
        svip:false,
-       Snone:false,
-       loading:false,
+       isajax:false,
+       loading:true,
       sums:[
         {
           name:'全部',
@@ -323,6 +339,7 @@ export default {
    props: {
     state:''
   },
+  inject:['reload'],
   watch: {
     companyQual(val) {  // 资质第一个得
       this.major = ''
@@ -385,7 +402,7 @@ export default {
       this.last = val
       this.data.regisAddress = this.last
       this.current = 1
-      this.loading = true
+      this.isajax=false;
       this.again()
     }
   },
@@ -400,6 +417,7 @@ export default {
     },
     gainCompany() {
       let data = {}
+      let that=this;
       if(sessionStorage.getItem('comselect')) {
          data = JSON.parse(sessionStorage.getItem("comselect"))
       } else {
@@ -411,6 +429,7 @@ export default {
          data.isVip = 0 
       }
       companys(data).then(res => {
+          this.isajax=true;
           if(localStorage.getItem('permissions')){
             let arr = []
             res.data.forEach( el => {
@@ -424,20 +443,20 @@ export default {
           this.companylisy = res.data
           this.present = res.pageNum
           this.total = res.total
-          this.loading = false
-          if(this.total == 0 ) {
-            this.Snone = true
-          } else {
-            this.Snone = false
-          }
+          // if(this.total == 0 ) {
+          //   this.Snone = true
+          // } else {
+          //   this.Snone = false
+          // }
+      }).catch(function(res){
+          that.isajax=true;
+          that.companylisy=null;
       })
     },
     // 获取公司企业列表
     changeapi() {
-       
        this.allstr = this.allarr.join(",")
        this.data.qualCode =  this.allstr
-       this.loading = true
        sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
        sessionStorage.setItem('comselect',JSON.stringify(this.data))
        this.again()
@@ -490,14 +509,14 @@ export default {
 
     },
     eval(val) {
-      if(this.loading) {
+      if(!this.isajax) {
          return
        }
        this.companylisy=[];
        let data = this.data; 
        this.current = 1;
+       this.isajax=false;
        data.regisAddress = val.cur
-       this.loading = true
        this.allstr = this.allarr.join(",")
          if(this.rank == 0 ) {  // 判断注册资金是否获取方式
            data.minCapital = this.start
@@ -516,7 +535,7 @@ export default {
               this.svip = true
               this.modalHelper.afterOpen();
             } else {
-              if(this.loading) {
+              if(!this.isajax) {
                 return
               }
               this.rank = 0 
@@ -527,8 +546,9 @@ export default {
               this.data.minCapital = this.start
               this.data.maxCapital = this.end
               this.allstr = this.allarr.join(",")
+              this.isajax=false;
               this.current = 1
-              this.loading = true
+              // this.loading = true
               sessionStorage.setItem('Rank','0')  // 页面刷新用于判断资金值得从哪里来
               sessionStorage.setItem('comselect',JSON.stringify(this.data))
               this.again()
@@ -556,8 +576,9 @@ export default {
                 this.current = 1
                 this.rank = 1
                 this.start = ''
-                this.end = '' 
-                this.loading = true
+                this.end = ''
+                this.isajax=false; 
+                // this.loading = true
                 this.allstr = this.allarr.join(",")
                 this.data.minCapital = this.low
                 this.data.maxCapital = this.high
@@ -601,7 +622,8 @@ export default {
       this.rank = 1
       this.start = ''
       this.end = '' 
-      this.current = 1 
+      this.current = 1
+      this.isajax=false; 
       // this.again()
     },
     ftwo() {
@@ -806,7 +828,8 @@ export default {
       sessionStorage.setItem('pageNo',val.cur);
       this.funcom.toList(492)
       this.companylisy=[];
-      this.loading = true
+      this.isajax=false;
+      // this.loading = true
       this.allstr = this.allarr.join(",")
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
       sessionStorage.setItem('comselect',JSON.stringify(this.data))
@@ -833,8 +856,9 @@ export default {
       this.title = val.cur;
       this.data.keyWord=val.cur;
       this.current = 1;
-      this.loading = true;
+      // this.loading = true;
       this.companylisy=[];
+      this.isajax=false;
       this.allstr = this.allarr.join(",")
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
       sessionStorage.setItem('comselect',JSON.stringify(this.data))
@@ -962,7 +986,11 @@ export default {
         }
 
       }
-    }
+    },
+    //刷新
+    recoldFn(){
+      this.reload();
+    } 
   },
   created () {
     this.gainFilter()
@@ -1177,10 +1205,10 @@ export default {
    }
    .c-page {
        width:1020px;
-       margin: 0 auto 210px;
-       height: 210px;
+       margin: 0 auto;
+       height: 100px;
        background-color:#fff;
-       padding-top: 70px;
+       padding-top: 50px;
        display: flex;
        justify-content: center;
 

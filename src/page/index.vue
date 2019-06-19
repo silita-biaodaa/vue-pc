@@ -468,7 +468,7 @@ export default {
            font-weight: 500;
            height: 28px;
            position: relative;
-           border-left: 3px solid #FF6000;
+           border-left: 2px solid #FF6000;
          }
          span {
            color: #999;
@@ -486,7 +486,7 @@ export default {
            position: absolute;
            content: '';
            bottom: 0;
-           height: 3px;
+           height: 2px;
            background-color: #F2F2F2;
            width: calc(100% - 56px);
            right: 0;
@@ -495,7 +495,7 @@ export default {
            position: absolute;
            content: '';
            bottom: 0;
-           height: 3px;
+           height: 2px;
            left: 0;
            width: 56px;
            background-color: #EC7522;
