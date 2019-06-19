@@ -78,7 +78,7 @@
     
 
     <div class="content">
-         <router-view :state='source' />
+         <router-view :state='source' v-if="isRouter"/>
     </div>
 
     <div class="footer footer-b "  v-show="exploit"   >
@@ -142,6 +142,7 @@ export default {
   name: 'App',
   data() {
     return {
+      isRouter:true,
       show:true,
       duanwu:false,
       isshow:true,
@@ -242,7 +243,18 @@ export default {
      ]
     }
   },
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
   methods: {
+    reload(){
+      this.isRouter=false
+      this.$nextTick(function(){
+        this.isRouter=true
+      })
+    },
     gainaddress() {
       address({}).then(res => {
          if(res.code =1 ) {
@@ -640,13 +652,13 @@ export default {
       li:hover,
       li:hover div {
         background-color: #FF8400;
-        border: none;
+        // border: none;
       }
       .current {
          background-color: #F49C17;
-         div {
-           border: none;
-         }
+        //  div {
+        //    border: none;
+        //  }
       }
     }
   }
@@ -772,5 +784,26 @@ export default {
         cursor: pointer;
       }
     }
+}
+
+
+.ajax-erroe{
+  background: #fff;
+  text-align: center;
+  padding: 50px 0;
+  img{
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+  span{
+    cursor: pointer;
+    display: inline-block;
+    width: 70px;
+    line-height: 25px;
+    background: #FE6603;
+    color: #fff;
+    border-radius:3px;
+  }
 }
 </style>

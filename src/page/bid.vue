@@ -75,43 +75,65 @@
       <div class="total">
         共搜索到<span>{{total}}</span>条招标公告
       </div>
-
-     <div class="bid-content" v-show="!Snone" v-loading="loading" element-loading-text="拼命加载中" >
+      <!-- 判断是否加载中 -->
+      <template v-if="isajax">
+          <!-- 有数据 -->
+          <template v-if="queryLists&&queryLists.length>0">
+            <div class="bid-content">
+              <a  v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'  >
+                <div class="m-bt">
+                    <p class="left m-rg">
+                      {{(present-1)*20+(i+1)}}
+                    </p>
+                    <p class="left super" :title='el.title' >
+                      {{el.title}}         
+                    </p>
+                    <p class="right">
+                      {{el.opendate}}
+                    </p>
+                </div>
+                <div class="aptitude">
+                  <p class="left surplus" :title='el.certificate' >
+                      资质要求:{{el.certificate ? el.certificate : '详见原文' }}
+                  </p>
+                  <p class="right">
+                      评标办法:{{el.pbMode}}
+                  </p>
+                </div>
+              </a>
+              <div class="page">
+                  <nav-page 
+                  :all='total'
+                  :currents='data.pageNo'
+                  @skip='Goto'
+                  ></nav-page>
+              </div>
+            </div>
+          </template>
+          <!-- 无数据  -->
+          <template v-else-if="queryLists&&queryLists.length==0">
+            <div class="no-toast">
+              <img src="../assets/img/bank_card @2x.png" alt="">
+              <span>Sorry，没有找到符合条件的公告信息</span>
+            </div>
+          </template>
+          <!-- 加载失败 -->
+          <template v-else-if="!queryLists">
+            <div class="ajax-erroe">
+              <img src="../assets/img/pic-zoudiu.png"/>
+              <span @click="recoldFn">刷新</span>
+            </div>
+          </template>
+      </template>
+      <template v-else>
+        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+      </template>
+     <!-- <div class="bid-content" v-loading="loading" element-loading-text="拼命加载中" > -->
          <!-- <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' > -->
-         <a  v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'  >
-           <div class="m-bt">
-              <p class="left m-rg">
-                {{(present-1)*20+(i+1)}}
-              </p>
-              <p class="left super" :title='el.title' >
-                {{el.title}}         
-              </p>
-              <p class="right">
-                {{el.opendate}}
-              </p>
-           </div>
-           <div class="aptitude">
-             <p class="left surplus" :title='el.certificate' >
-                 资质要求:{{el.certificate ? el.certificate : '详见原文' }}
-             </p>
-             <p class="right">
-                评标办法:{{el.pbMode}}
-             </p>
-           </div>
-         </a>
-       <div class="page">
-          <nav-page 
-          :all='total'
-          :currents='data.pageNo'
-          @skip='Goto'
-          ></nav-page>
-       </div>
-     </div>
+         
+     <!-- </div> -->
 
-    <div class="no-toast" v-show="Snone" >
-      <img src="../assets/img/bank_card @2x.png" alt="">
-      <span>Sorry，没有找到符合条件的公告信息</span>
-    </div>
+    
     <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
    </div>
 </template>
@@ -122,8 +144,9 @@ export default {
     return {
       svip:false,
       area:'',
-      Snone:false,
+      // Snone:false,
       loading:true,
+      isajax:false,
       areas:[
       ],
       queryLists:[],
@@ -262,6 +285,7 @@ export default {
    props: {
     state:''
   },
+  inject:['reload'],
   watch: {
     companyQual(val) {
       this.zType = []
@@ -288,10 +312,11 @@ export default {
       } else {
         this.Scity = false
       }
+      this.isajax=false;
       this.area = val
       this.data.regions = this.area
       this.data.pageNo = 1
-      this.loading = true      
+      // this.loading = true      
       this.gainQueryList()
     },
     data:{//监听data变化，并实时保存
@@ -306,13 +331,14 @@ export default {
       if(val.cur.length == 0 ) {
          this.data.regions = this.area
          this.data.pageNo = 1
-         this.loading = true      
+         this.isajax=false;
+        //  this.loading = true      
          this.gainQueryList()
       } else {
         let str = val.cur.join(',')
         this.data.regions = this.area + "||" + str
         this.data.pageNo = 1
-        this.loading = true      
+        this.isajax=false;     
         this.gainQueryList()
       }
     },
@@ -326,7 +352,7 @@ export default {
             this.modalHelper.afterOpen();
           } else {
             this.data.pageNo = 1
-            this.loading = true 
+            this.isajax=false;
             this.gainQueryList()
           }
       } else {
@@ -352,10 +378,11 @@ export default {
           this.data.title=this.serach
           this.data.com_name=''
         }
+        let that=this;
                     //  页号              评标办法                   页面显示条数      地区              资质类型                类型
        queryList(this.data).then( res => {
          if(res.code == 1 ) {
-           this.loading = false
+          //  this.loading = false
            this.total = res.total
            if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
                 for(let x of res.data){
@@ -374,14 +401,18 @@ export default {
                   } 
             }
            this.queryLists = res.data
+           this.isajax=true;
            this.present = res.pageNo
-           if(this.total == 0 ) {
-             this.Snone = true
-           } else {
-             this.Snone = false
-           }
+          //  if(this.total == 0 ) {
+          //    this.Snone = true
+          //  } else {
+          //    this.Snone = false
+          //  }
          }
-       })
+       }).catch(function(res){
+            that.isajax=true;
+            that.queryLists=null;
+        })
     },
     pbmodeFn(i){
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -439,7 +470,7 @@ export default {
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
       this.funcom.toList(530)
-      this.loading = true      
+      this.isajax=false;   
       this.gainQueryList()
     },
     entitle(val) {
@@ -447,7 +478,7 @@ export default {
       this.serach = val.cur;
       this.queryLists=[];
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax=false;      
       this.gainQueryList()
     },
     Splice() {
@@ -459,7 +490,7 @@ export default {
       this.grade='';
       this.this.queryLists=[];
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax=false;      
       this.gainQueryList()
     },
     spliceo() {
@@ -468,7 +499,7 @@ export default {
       this.grades=[];
       this.grade='';
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax=false;     
        this.gainQueryList()
     },
     judvip() {
@@ -494,7 +525,7 @@ export default {
       this.zType.push(this.companyQual,this.major,this.grade)
       this.data.zzType = this.zType.join('||')
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax=false;      
       this.gainQueryList()
     },
     gainFilter() {
@@ -516,7 +547,7 @@ export default {
         /*end*/
         this.data.regions = this.area
         this.data.pageNo = 1
-        this.loading = true      
+        this.isajax=false;      
         this.gainQueryList()
     },
     evalclass(el) {
@@ -527,7 +558,7 @@ export default {
             } else {
              this.data.projectType = el.key
              this.data.pageNo = 1
-             this.loading = true 
+             this.isajax=false; 
              this.gainQueryList()
             }
         } else {
@@ -581,8 +612,12 @@ export default {
       this.searchType=1;
       this.serach =val.cur;
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax=false;     
       this.gainQueryList()
+    },
+    //刷新
+    recoldFn(){
+      this.reload();
     }  
   },
   created () {
@@ -747,15 +782,16 @@ export default {
      }
    }
    .bid-content {
+     min-height: 240px;
      margin: 0 auto;
      width: 1020px;
      box-sizing: border-box;
      background: #fff;
      font-size: 16px;
-     margin-bottom: 185px;
+     margin-bottom:20px;
      .page {
-       height: 210px;
-       padding-top: 70px;
+       height:100px;
+       padding-top:50px;
        display: flex;
        justify-content: center;
      }

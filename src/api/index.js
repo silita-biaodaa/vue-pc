@@ -7,7 +7,8 @@ const baseURL = 'http://pre.biaodaa.com/'
 
 
 
-
+axios.defaults.retry = 4;//重复请求次数
+axios.defaults.retryDelay = 1000;//重复请求间隔
 axios.defaults.baseURL = baseURL
 
 axios.interceptors.request.use(function (config) {
@@ -29,8 +30,22 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
     // return
   }
   return response
-}, function (error) {
-  return Promise.reject(error)
+}, function (err) {
+  var config = err.config;
+  if (!config || !config.retry) return Promise.reject(err);
+  config.__retryCount = config.__retryCount || 0;
+  if (config.__retryCount >= config.retry) {
+      return Promise.reject(err);
+  }
+  config.__retryCount += 1;
+  var backoff = new Promise(function (resolve) {
+      setTimeout(function () {
+          resolve();
+      }, config.retryDelay || 1);
+  });
+  return backoff.then(function () {
+      return axios(config);
+  });
 })
 
 

@@ -223,8 +223,10 @@ export default {
              if(res.code == 1 ) {
                 res.data.show = false
                 res.data.comment = ''
+                res.data.commContent=res.data.commContent.replace(/\n/g,'<br/>');
                 if(res.data.replys) {
                    res.data.replys.forEach(el => {
+                    el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
                     el.textS = false
                   })
                 }
@@ -243,10 +245,12 @@ export default {
           if(res.code == 1 ) {
 
             res.data.forEach( el => {
+              el.commContent=el.commContent.replace(/\n/g,'<br/>');
                el.show = false,
                el.comment = ''
                if(el.replys) {
                   el.replys.forEach(el => {
+                    el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
                     el.textS = false
                   })
                }
@@ -284,10 +288,11 @@ export default {
     },
     reply(el,i) {
       if(el.comment.trim()) {
+        let content=el.comment.replace(/\n/g,'<br/>');
         this.pageSize = 10 
         if(this.s == null ) {
 
-            commentP({content:el.comment,relatedId:this.id,relatedType:this.type,toUid:el.userId,commentId:el.pkid,source:this.source}).then(res => {
+            commentP({content:content,relatedId:this.id,relatedType:this.type,toUid:el.userId,commentId:el.pkid,source:this.source}).then(res => {
                 if(res.code == 1 ) {
                   this.msg = '提交成功'
                   this.isshow = true
@@ -317,7 +322,7 @@ export default {
                 }
             })
         } else {
-            commentP({content:el.comment,relatedId:this.id,relatedType:this.type,commentId:el.pkid,toUid:el.replys[this.s].replyUid,source:this.source}).then(res => {
+            commentP({content:content,relatedId:this.id,relatedType:this.type,commentId:el.pkid,toUid:el.replys[this.s].replyUid,source:this.source}).then(res => {
                 if(res.code == 1 ) {
                   this.msg = '提交成功'
                   this.isshow = true

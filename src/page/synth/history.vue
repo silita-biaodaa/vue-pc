@@ -43,8 +43,9 @@
         </div>
     </div>
   </div>
-  <div class="hi-img" v-if='pass' >
-    <img src="../../assets/img/card.png" alt="">
+  <div class="no-toast" v-if='pass'>
+    <img src="../../assets/img/bank_card @2x.png" alt="">
+    <span>暂无数据</span>
   </div>
 </div>
 </template>

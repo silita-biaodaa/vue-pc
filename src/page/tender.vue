@@ -55,40 +55,60 @@
     <div class="total">
       共搜索到<span>{{total}}</span>条中标公告
     </div>
-    <div class="t-list" v-show="Snone" v-loading="loading" element-loading-text="拼命加载中">
-         <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide(el)" >
-           <div class="m-bt">
-              <p class="left m-rg">
-                {{(data.pageNo-1)*20+(i+1)}}
-              </p>
-              <p class="left super" :title="el.title" >
-                {{el.title}}         
+    <!-- 判断是否加载中 -->
+    <template v-if="isajax">
+      <!-- 有数据 -->
+      <template v-if="queryLists&&queryLists.length>0">
+        <div class="t-list">
+          <a  v-for="(el,i ) of queryLists" :key="i"  @click="decide(el)" >
+            <div class="m-bt">
+                <p class="left m-rg">
+                  {{(data.pageNo-1)*20+(i+1)}}
+                </p>
+                <p class="left super" :title="el.title" >
+                  {{el.title}}         
+                </p>
+                <p class="right">
+                  {{el.opendate}}
+                </p>
+            </div>
+            <div class="aptitude">
+              <p class="left surplus">
+                  <span  :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
               </p>
               <p class="right">
-                {{el.opendate}}
+                  <span >中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
               </p>
-           </div>
-           <div class="aptitude">
-             <p class="left surplus">
-                <span  :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
-             </p>
-             <p class="right">
-                <span >中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
-             </p>
-           </div>
-         </a >
-       <div class="t-page">
-          <nav-page 
-          :all='total'
-          :currents='data.pageNo'
-          @skip='Goto'
-          ></nav-page>
-       </div>
-    </div>
-    <div class="no-toast" v-show="!Snone" >
-      <img src="../assets/img/bank_card @2x.png" alt="">
-      <span>Sorry，没有找到符合条件的公告信息</span>
-    </div>
+            </div>
+          </a >
+          <div class="t-page">
+              <nav-page 
+              :all='total'
+              :currents='data.pageNo'
+              @skip='Goto'
+              ></nav-page>
+          </div>
+        </div>
+      </template>
+      <!-- 无数据  -->
+      <template v-else-if="queryLists&&queryLists.length==0">
+        <div class="no-toast">
+            <img src="../assets/img/bank_card @2x.png" alt="">
+            <span>Sorry，没有找到符合条件的公告信息</span>
+          </div>
+      </template>
+      <!-- 加载失败 -->
+      <template v-else-if="!queryLists">
+        <div class="ajax-erroe">
+          <img src="../assets/img/pic-zoudiu.png"/>
+          <span @click="recoldFn">刷新</span>
+        </div>
+      </template>
+    </template>
+    <!-- loading -->
+    <template v-else>
+      <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+    </template>
     <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
@@ -99,9 +119,9 @@ export default {
     return {
       svip:false,
       area:'',
-      loading:false,
+      loading:true,
+      isajax:false,
       Stroke:true,
-      Snone:true,
       areas:[
       ],
       sums:[
@@ -159,18 +179,19 @@ export default {
       serach:'',
     }
   },
+  inject:['reload'],
   methods: {
     gainC(val) {
       if(val.cur.length == 0 ) {
          this.data.regions = this.area
          this.current = 1
-         this.loading = true      
+         this.isajax = false      
          this.gainList()
       } else {
         let str = val.cur.join(',')
         this.data.regions = this.area + "||" + str
         this.current = 1
-        this.loading = true      
+        this.isajax = false      
         this.gainList()
       }
     },
@@ -186,7 +207,7 @@ export default {
       sessionStorage.setItem('pageNo',val.cur);
       this.funcom.toList(410)
       this.queryLists=[];
-      this.loading = true
+      this.isajax = false
       this.gainList()
     },
     eval(el) {
@@ -231,7 +252,7 @@ export default {
                   this.data.projSumStart = el.s,
                   this.data.projSumEnd = el.e 
                   this.data.pageNo = 1
-                  this.loading = true
+                  this.isajax = false
                   this.gainList()
                   setTimeout(() => {
                     this.Stroke = true
@@ -251,6 +272,7 @@ export default {
     },
     gainList() {
         let data=this.data;
+        let that=this;
         if(sessionStorage.getItem('searchType')||this.searchType==1){
           data.com_name=this.serach
           data.title=''
@@ -288,16 +310,19 @@ export default {
                              } 
                             })
                     }
+                    this.isajax=true;
                   this.queryLists = res.data
                   this.present = res.pageNo
                   this.total = res.total
-                  this.loading = false
-                   if(this.total == 0 ) {
-                     this.Snone = false
-                   } else {
-                     this.Snone = true
-                   }
+                  //  if(this.total == 0 ) {
+                  //    this.Snone = false
+                  //  } else {
+                  //    this.Snone = true
+                  //  }
                }
+          }).catch(function(res){
+              that.isajax=true;
+              that.queryLists=null;
           })
        } else {
           data.projSumStart=data.low;
@@ -318,16 +343,19 @@ export default {
                   })
                   el.oneOffer = '***'
                 }
+                this.isajax=true;
                 this.queryLists = res.data
                 this.present = res.pageNo
                 this.total = res.total
-                this.loading = false
-                if(this.total == 0 ) {
-                  this.Snone = false
-                } else {
-                  this.Snone = true
-                }
+                // if(this.total == 0 ) {
+                //   this.Snone = false
+                // } else {
+                //   this.Snone = true
+                // }
               }
+          }).catch(function(res){
+              that.isajax=true;
+              that.queryLists=null;
           })
        }
     },
@@ -336,7 +364,7 @@ export default {
       this.serach = val.cur
       this.queryLists=[];
       this.data.pageNo = 1
-      this.loading = true
+      this.isajax = false
       // this.queryLists = []
       this.gainList()
     },
@@ -346,7 +374,7 @@ export default {
             this.svip = true
             this.modalHelper.afterOpen();
           } else {
-              this.loading = true
+              this.isajax = false
               this.rank = 1
               this.data.projSumStart = ''
               this.data.projSumEnd = '' 
@@ -400,8 +428,12 @@ export default {
       this.serach =val.cur;
       this.queryLists=[];
       this.data.pageNo = 1
-      this.loading = true      
+      this.isajax = false     
       this.gainList()
+    },
+    //刷新
+    recoldFn(){
+      this.reload();
     }   
   },
   beforeDestroy(){//销毁前删除本地
@@ -575,11 +607,11 @@ export default {
     margin: 0 auto;
     background-color: #fff;
     box-sizing: border-box;
-    margin-bottom: 210px;
+    margin-bottom: 20px;
     font-size: 16px;
     .t-page {
-       height: 210px;
-       padding-top: 70px;
+       height: 100px;
+       padding-top: 50px;
        display: flex;
        justify-content: center;
      }
