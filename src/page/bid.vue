@@ -488,7 +488,7 @@ export default {
       this.major='';
       this.grades=[];
       this.grade='';
-      this.this.queryLists=[];
+      this.queryLists=[];
       this.data.pageNo = 1
       this.isajax=false;      
       this.gainQueryList()
@@ -661,7 +661,7 @@ export default {
         }
       }
       //资质
-      if(data.zzType!=''){
+      if(data.zzType&&data.zzType!=''){
         let arr1=data.zzType.split('||');
         this.companyQual=arr1[0];
         // for(let x of this.companyQuals){

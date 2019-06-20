@@ -1,7 +1,7 @@
 
 <template>
 <div class="build">
-    <en-search @vague='entitle' :company="true"></en-search>
+    <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
     <div class="build-put">
       <div class="build-hint">
         <i>*</i><span>如需精准查询，请输入姓名及身份证号。(仅查询湖南省在建信息)</span>
@@ -45,7 +45,7 @@
       </div>
       <a class="build-in" v-for="(el,i) in list" :key="i"  @click="tobuild(el)"  > 
         <div style="width:80px;"  >
-             {{(current-1)*20+(i+1)}}
+             {{(data.pageNo-1)*20+(i+1)}}
           </div>
           <div style="width:150px;" >
             {{el.name}}
@@ -67,7 +67,7 @@
       <div class="page" v-show="!noList" >
           <nav-page 
           :all='total'
-          :currents='current'
+          :currents='data.pageNo'
           @skip='Goto'
           ></nav-page>
       </div>
@@ -82,24 +82,44 @@ export default {
     return {
       name:'',
       idcard:'',
-      current:1,
       total:0,
       list:[],
       noList:false,
       title:'',
-      svip:false
+      svip:false,
+      serach:'',
+      data:{
+        name:'',
+        pageNo:1,
+        pageSize:'20',
+        searchType:0,
+      }
     }
   },
   created () {
     this.title = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+    //如果是刷新操作，则复现上次
+    if(sessionStorage.getItem('zjSerach')){
+      let data=JSON.parse(sessionStorage.getItem('zjSerach'));
+      if(data.searchType==0){
+        this.data=data;
+      }else{
+        this.data=data;
+        this.serach=data.name;
+        this.data.name='';
+      }
+      
+    }
     this.gainList()
   },
   methods: {
     entitle(val) {
       if(this.name == '' ) {
          this.title = val.cur
-         this.current = 1
-        under({pageNo:this.current,pageSize:'20',name:this.title}).then(res => {
+         this.data.pageNo = 1
+         let data=this.data;
+         data.name=this.title;
+        under(data).then(res => {
           if(res.code == 1 ) {
             this.total = res.total
             this.list = res.data
@@ -113,7 +133,6 @@ export default {
       } else {
         this.gainList()
       }
-     
     },
     bsearch() {
         if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -122,7 +141,7 @@ export default {
             this.modalHelper.afterOpen();
           } else {
             if(this.idcard == '' && this.name!= '' ) {
-              this.current = 1
+              this.data.pageNo = 1
               this.gainList()
             } else if ( this.idcard!= '') {
               underq({name:'aaaa',idCard:this.idcard,type:'api'}).then(res => {
@@ -186,7 +205,11 @@ export default {
       }
     },
     gainList() {
-      under({pageNo:this.current,pageSize:'20',name:this.name}).then(res => {
+      let data=this.data;
+      if(this.data.searchType==1){
+        data.name=this.serach;   
+      }
+      under(data).then(res => {
         if(res.code == 1 ) {
           this.total = res.total
           this.list = res.data
@@ -199,15 +222,30 @@ export default {
       })
     },
     Goto(val) {
-      this.current = val.cur;
+      this.data.pageNo = val.cur;
       this.funcom.toList(450)
       this.gainList()
     },
-    
+    companyFn(val){//企业搜索
+      this.list=[];
+      this.data.searchType=1;
+      this.serach =val.cur;
+      this.data.pageNo = 1
+      this.isajax=false;     
+      this.gainList()
+    },
   },
-  components: {
-
-  }
+  watch:{
+    data:{//监听data变化，并实时保存
+      deep:true,
+      handler(val,old){
+        sessionStorage.setItem('zjSerach',JSON.stringify(val));
+      }
+    }
+  },
+  beforeDestroy(){
+    sessionStorage.removeItem('zjSerach')
+  },
 }
 </script>
 <style lang="less" scoped>

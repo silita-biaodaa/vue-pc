@@ -1,5 +1,5 @@
 <template>
-<div class="logo" @keydown.enter="register">
+<div class="logo" @keydown.13="register">
   <logo-Nav></logo-Nav>
   <div class="logo-img">
     <div class="logo-center">

@@ -1,5 +1,5 @@
 <template>
-<div class="l-search" @keydown.enter="engine">
+<div class="l-search" @keydown.13="engine">
    <div class='app-fff'>
         <el-row class="app-search"> 
          <el-col :span="7">
@@ -112,16 +112,22 @@ export default {
           let obj=JSON.parse(localStorage.getItem('history'));
           if(this.way=='/bid'){
             this.forinHistory(obj.bid,obj1);
+            this.list=obj.bid;
           }else if(this.way=='/tender'){
             this.forinHistory(obj.tender,obj1);
+            this.list=obj.tender;
           }else if(this.way=='/company'){
             this.forinHistory(obj.company,obj1);
+            this.list=obj.company;
           }else if(this.way=='/perfor'){
             this.forinHistory(obj.perfor,obj1);
+            this.list=obj.perfor;
           }else if(this.way=='/crew'){
             this.forinHistory(obj.crew,obj1);
+            this.list=obj.crew;
           }else if(this.way=='/build'){
             this.forinHistory(obj.build,obj1);
+            this.list=obj.build;
           }
           localStorage.setItem('history',JSON.stringify(obj));
         }else{
@@ -135,16 +141,22 @@ export default {
           }
           if(this.way=='/bid'){
             obj.bid.unshift(obj1);
+            this.list=obj.bid;
           }else if(this.way=='/tender'){
             obj.tender.unshift(obj1);
+            this.list=obj.tender;
           }else if(this.way=='/company'){
             obj.company.unshift(obj1);
+            this.list=obj.company;
           }else if(this.way=='/perfor'){
             obj.perfor.unshift(obj1);
+            this.list=obj.perfor;
           }else if(this.way=='/crew'){
             obj.crew.unshift(obj1);
+            this.list=obj.crew;
           }else if(this.way=='/build'){
             obj.build.unshift(obj1);
+            this.list=obj.build;
           }
           localStorage.setItem('history',JSON.stringify(obj));
         }
@@ -222,16 +234,22 @@ export default {
         let obj=JSON.parse(localStorage.getItem('history'));
         if(this.way=='/bid'){
           this.forinHistory(obj.bid,obj1);
+          this.list=obj.bid;
         }else if(this.way=='/tender'){
           this.forinHistory(obj.tender,obj1);
+          this.list=obj.tender;
         }else if(this.way=='/company'){
           this.forinHistory(obj.company,obj1);
+          this.list=obj.company;
         }else if(this.way=='/perfor'){
           this.forinHistory(obj.perfor,obj1);
+          this.list=obj.perfor;
         }else if(this.way=='/crew'){
           this.forinHistory(obj.crew,obj1);
+          this.list=obj.crew;
         }else if(this.way=='/build'){
           this.forinHistory(obj.build,obj1);
+          this.list=obj.build;
         }
         localStorage.setItem('history',JSON.stringify(obj));
       }else{
@@ -245,16 +263,22 @@ export default {
         }
         if(this.way=='/bid'){
           obj.bid.unshift(obj1);
+          this.list=obj.bid;
         }else if(this.way=='/tender'){
           obj.tender.unshift(obj1);
+          this.list=obj.tender;
         }else if(this.way=='/company'){
           obj.company.unshift(obj1);
+          this.list=obj.company;
         }else if(this.way=='/perfor'){
           obj.perfor.unshift(obj1);
+          this.list=obj.perfor;
         }else if(this.way=='/crew'){
           obj.crew.unshift(obj1);
+          this.list=obj.crew;
         }else if(this.way=='/build'){
           obj.build.unshift(obj1);
+          this.list=obj.build;
         }
         localStorage.setItem('history',JSON.stringify(obj));
       }
@@ -349,6 +373,22 @@ export default {
     this.reloca() 
     if(this.title!=''){
       this.select=this.title;
+    }
+    if(localStorage.getItem('history')){//如果本地有值
+      let obj=JSON.parse(localStorage.getItem('history'));
+      if(this.way=='/bid'){
+        this.list=obj.bid;
+      }else if(this.way=='/tender'){
+        this.list=obj.tender;
+      }else if(this.way=='/company'){
+        this.list=obj.company;
+      }else if(this.way=='/perfor'){
+        this.list=obj.perfor;
+      }else if(this.way=='/crew'){
+        this.list=obj.crew;
+      }else if(this.way=='/build'){
+        this.list=obj.build;
+      }
     }
     this.paths()
     this.mapping()

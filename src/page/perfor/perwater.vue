@@ -303,10 +303,16 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('slSerach')){
       let data=JSON.parse(sessionStorage.getItem('slSerach'));
-       this.data=data;
-      } else {
-        this.data.area= this.state
+      this.$parent.title=data.proName!=''?data.proName:data.comName;
+      if(data.comName!=''){
+        this.$parent.searchType=1
+      }else{
+        this.$parent.searchType=0
       }
+      this.data=data;
+    } else {
+      this.data.area= this.state
+    }
     this.gainList();
   },
   beforeDestroy(){
