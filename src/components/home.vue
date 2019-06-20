@@ -119,7 +119,7 @@ export default {
           }else if(this.way=='/company'){
             this.forinHistory(obj.company,obj1);
             this.list=obj.company;
-          }else if(this.way=='/perfor'){
+          }else if(this.way.indexOf('/perfor')>-1){
             this.forinHistory(obj.perfor,obj1);
             this.list=obj.perfor;
           }else if(this.way=='/crew'){
@@ -148,7 +148,7 @@ export default {
           }else if(this.way=='/company'){
             obj.company.unshift(obj1);
             this.list=obj.company;
-          }else if(this.way=='/perfor'){
+          }else if(this.way.indexOf('/perfor')>-1){
             obj.perfor.unshift(obj1);
             this.list=obj.perfor;
           }else if(this.way=='/crew'){
@@ -241,7 +241,7 @@ export default {
         }else if(this.way=='/company'){
           this.forinHistory(obj.company,obj1);
           this.list=obj.company;
-        }else if(this.way=='/perfor'){
+        }else if(this.way.indexOf('/perfor')>-1){
           this.forinHistory(obj.perfor,obj1);
           this.list=obj.perfor;
         }else if(this.way=='/crew'){
@@ -270,7 +270,7 @@ export default {
         }else if(this.way=='/company'){
           obj.company.unshift(obj1);
           this.list=obj.company;
-        }else if(this.way=='/perfor'){
+        }else if(this.way.indexOf('/perfor')>-1){
           obj.perfor.unshift(obj1);
           this.list=obj.perfor;
         }else if(this.way=='/crew'){
@@ -382,7 +382,7 @@ export default {
         this.list=obj.tender;
       }else if(this.way=='/company'){
         this.list=obj.company;
-      }else if(this.way=='/perfor'){
+      }else if(this.way.indexOf('/perfor')>-1){
         this.list=obj.perfor;
       }else if(this.way=='/crew'){
         this.list=obj.crew;

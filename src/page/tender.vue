@@ -205,7 +205,7 @@ export default {
     Goto(val) {
       this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
-      this.funcom.toList(410)
+      this.funcom.toList(470)
       this.queryLists=[];
       this.isajax = false
       this.gainList()

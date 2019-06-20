@@ -223,7 +223,7 @@ export default {
     },
     Goto(val) {
       this.data.pageNo = val.cur;
-      this.funcom.toList(450)
+      this.funcom.toList(505)
       this.gainList()
     },
     companyFn(val){//企业搜索

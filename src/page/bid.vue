@@ -469,7 +469,7 @@ export default {
       this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.queryLists=[];
-      this.funcom.toList(530)
+      this.funcom.toList(615)
       this.isajax=false;   
       this.gainQueryList()
     },

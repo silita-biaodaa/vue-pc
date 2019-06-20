@@ -207,7 +207,7 @@ export default {
        this.perlist=[];
        this.isajax=false;
        this.gainList()
-       this.funcom.toList(492)
+       this.funcom.toList(530)
     },
     closeload(val) {
       this.svip = val.cur

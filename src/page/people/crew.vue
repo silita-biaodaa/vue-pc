@@ -207,7 +207,7 @@ export default {
       this.person=[];
       this.data.pageNo = val.cur;
       this.isajax=false;
-      this.funcom.toList(450)
+      this.funcom.toList(480)
       this.gainList()
     },
     toPer(el) {
