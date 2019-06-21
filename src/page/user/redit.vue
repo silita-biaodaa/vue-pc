@@ -25,8 +25,7 @@
                       </div>
                       <div class="list-text" >
                         <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-                        <div style="margin: 5px 0;" >{{el.replyContent}}
-                        </div>
+                        <div style="margin: 5px 0;" v-html="el.replyContent"></div>
                         <p>{{el.pushd}}</p>
                       </div>
              </div>
@@ -93,6 +92,7 @@ export default {
          if(res.code == 1) {
            res.data.forEach(el => {
              el.textShow = false
+             el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
            })
            this.total = res.total
            this.textList = res.data

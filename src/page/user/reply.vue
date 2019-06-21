@@ -20,8 +20,7 @@
                       </div>
                       <div class="list-text" >
                         <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-                        <div style="margin: 5px 0;" >{{el.replyContent}}
-                        </div>
+                        <div style="margin: 5px 0;" v-html="el.replyContent"></div>
                         <p>{{el.pushd}}</p>
                       </div>
                       <div class="list-btn" >
@@ -35,7 +34,7 @@
      </div>
       <div v-show="el.textShow" >
             <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
-            <div class="re-push p-color" @click.stop="pusHText(el)" >
+            <div class="re-push p-color" @click.stop="pusHTextFn(el)" >
               发送
             </div>
       </div> 
@@ -102,6 +101,7 @@ export default {
     },
     pushA(el) {
       this.textList.forEach(el => {
+        el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
         el.textShow = false
       })
       this.pushText = ''
@@ -131,6 +131,7 @@ export default {
            res.data.forEach(el => {
              el.textShow = false
              el.delBtn = false
+             el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
            })
            this.total = res.total
            this.textList = res.data
@@ -149,11 +150,17 @@ export default {
         
       })
     },
-    pusHText(el) {
+    pusHTextFn(el) {
+      if(el.isTap){
+        return
+      }
       if(this.pushText.trim() == '') {
         return 
       }
-       commentP({content:this.pushText,relatedId:el.relatedId,relatedType:el.relatedType,toUid:el.replyUid,commentId:el.commentId,source:el.source}).then(res => {
+      el.isTap=true;
+      let content=this.pushText.replace(/\n/g,'<br/>');
+       commentP({content:content,relatedId:el.relatedId,relatedType:el.relatedType,toUid:el.replyUid,commentId:el.commentId,source:el.source}).then(res => {
+         el.isTap=false;
          if(res.code == 1) {
             this.msg = '评论成功'
             this.pop = true
@@ -166,6 +173,10 @@ export default {
             setTimeout(() => {
               this.pop = false
             }, 1500);
+         }else{
+           this.$alert(res.msg, '提示', {
+            type: 'error'
+          })
          }  
        })
     },
@@ -288,6 +299,7 @@ export default {
       box-sizing: border-box;
   }
   .re-push {
+    margin: 10px 0 20px;
     width: 100%;
     display: flex;
     flex-direction: row-reverse;

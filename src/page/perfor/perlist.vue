@@ -249,6 +249,7 @@ export default {
   },
   watch: {
     title(val) {
+      this.perlist=[];
       if(this.$parent.searchType==1){
         this.data.proName=''
         this.data.comName = val

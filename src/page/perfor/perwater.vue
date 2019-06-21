@@ -280,6 +280,7 @@ export default {
   },
    watch: {
     title(val) {
+      this.perlist=[];
       if(this.$parent.searchType==1){
         this.data.comName = val
         this.data.comId=sessionStorage.getItem('companyId');
