@@ -408,7 +408,10 @@ export default {
   created () {
     this.judges()
     this.gainfee()
-    this.toTop()
+    this.toTop();
+    // if(navigator.userAgent.indexOf("MSIE")>=1||navigator.userAgent.indexOf("Edge")>=1){
+    //   alert('检测到您使用IE内核，IE会默认拦截支付请求。建议更换浏览器或更换为‘极速模式’支付')
+    // }
   },
   components: {
     'v-head':heads,
