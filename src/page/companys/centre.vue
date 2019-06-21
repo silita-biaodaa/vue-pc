@@ -214,7 +214,7 @@ export default {
 <style lang="less" >
 .intell {
   background-color: #fff;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
   .current {
     color:#333;
   }
@@ -250,7 +250,9 @@ export default {
    .e-page {
     display: flex;
     justify-content: center;
-    height: 150px;
+    // height: 150px;
+    padding-top: 50px;
+    padding-bottom: 75px;
       .paging {
      ul {
        li {
@@ -268,7 +270,7 @@ export default {
   }
   .in-table {
     margin: 0 9px;
-    border: 1px solid #f2f2f2;
+    // border: 1px solid #f2f2f2;
     font-size: 12px;
     color:#333;
   }

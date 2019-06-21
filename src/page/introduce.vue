@@ -346,7 +346,7 @@ export default {
     overflow: hidden;
     margin-top: 16px;
     box-sizing: border-box;
-    margin-bottom: 200px;
+    margin-bottom: 124px;
     .i-nav {
       color:#333;
       font-size: 14px;

@@ -134,6 +134,7 @@ export default {
       this.$router.push('/')
     },
     getUser() {
+      let that=this;
       getUserTemp({}).then(res => {
        if(res.code ==1 ) {
          this.userData = res.data

@@ -29,7 +29,7 @@
                      </ul>
                    </div>
                 </div>
-                <div class="hisgory">
+                <div class="hisgory" v-if="list&&list.length>0">
                   <span>历史搜索：</span>
                   <span v-for="(o,i) of list" :key="'hisgory'+i" @click="hisgoryFn(o)">{{o.title}}</span>
                 </div>
@@ -226,7 +226,7 @@ export default {
       }
     },
     comNameFn(o){
-      
+      this.tipsShow=false;
       this.select=o.com_name;
       /*历史记录 start*/ 
       let obj1={
@@ -314,6 +314,7 @@ export default {
       }
     },
     hisgoryFn(el){
+      this.tipsShow=false;
       this.select=el.title;
       if(el.isCompany){//公司
         localStorage.removeItem('title')
@@ -445,7 +446,9 @@ export default {
       if(newVal==''||this.company){
         return false
       }
-      this.tipsShow=true;
+      if(newVal.indexOf('公司')==-1){
+        this.tipsShow=true;
+      }
       let that=this;
       let regisAddress=sessionStorage.getItem('address');
       this.$http({

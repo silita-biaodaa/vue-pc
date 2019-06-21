@@ -165,7 +165,9 @@ export default {
   .e-page {
     display: flex;
     justify-content: center;
-    height: 150px;
+    padding-top: 50px;
+    padding-bottom: 75px;
+    // height: 150px;
       .paging {
      ul {
        li {

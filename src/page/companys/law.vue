@@ -159,10 +159,11 @@ export default {
     }
   }
   .law-page {
-    height: 200px;
+    // height: 200px;
     display: flex;
     justify-content: center;
     padding-top: 50px;
+    padding-bottom: 75px;
      .paging {
      ul {
        li {
