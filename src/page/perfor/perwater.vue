@@ -378,7 +378,7 @@ export default {
      }
      .per-lists {
         background-color: #fff;
-        margin-bottom: 20px;
+        margin-bottom:125px;
        .t-size {
            font-size: 14px;
            color:#000;           
@@ -401,7 +401,8 @@ export default {
           .c-page {
             width:1020px;
             margin: 0 auto;
-            height:100px;
+            // height:100px;
+            padding-bottom: 75px;
             background-color:#fff;
             padding-top: 50px;
             display: flex;

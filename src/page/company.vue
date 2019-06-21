@@ -1206,10 +1206,12 @@ export default {
    .c-page {
        width:1020px;
        margin: 0 auto;
-       height: 100px;
+      //  height: 100px;
        background-color:#fff;
        padding-top: 50px;
+       padding-bottom: 75px;
        display: flex;
+       margin-bottom: 125px;
        justify-content: center;
 
      }

@@ -171,8 +171,14 @@ export default {
           var str = String(phone)
           var len = str.length;
           if (len >= 7) {
-              var reg = str.slice(-7, -3)
-              return str.replace(reg, "****")
+              if(len==11){
+                var reg = str.slice(3,7)
+                return str.replace(reg, "****")
+              }else{
+                var reg = str.slice(5, 9)
+                return str.replace(reg, "****")
+              }
+              
           } else if (len < 7 && len >= 6) {
               //1234567
               var reg = str.slice(-4, -2)

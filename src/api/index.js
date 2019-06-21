@@ -54,7 +54,7 @@ export const getJsonData = (url, params) => {
     let token = 'biaodaaTestToken'
     if (params != null) {
       axios.post(url, params, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
       }).then(res => {
         resolve(res.data)
       }).catch(error => {
@@ -62,7 +62,7 @@ export const getJsonData = (url, params) => {
       })
     } else {
       axios.post(url, null, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
       }).then(res => {
         resolve(res.data)
       }).catch(error => {

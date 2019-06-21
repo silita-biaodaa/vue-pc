@@ -607,11 +607,12 @@ export default {
     margin: 0 auto;
     background-color: #fff;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 125px;
     font-size: 16px;
     .t-page {
-       height: 100px;
+      //  height: 100px;
        padding-top: 50px;
+       padding-bottom: 75px;
        display: flex;
        justify-content: center;
      }

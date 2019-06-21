@@ -23,13 +23,14 @@
                    <div class="right  syn"  @click="jump" >
                       综合查询
                    </div>
-                   <div class="company-serach" v-if="!company&&select!=null&&select.length>0">
+                   <div class="company-serach" v-if="(!company&&select!=null&&select.length>0)&&tipsShow">
                      <ul>
                        <li v-for="(o,i) of serachList" :key="i" @click="comNameFn(o)">{{o.com_name}}</li>
                      </ul>
                    </div>
                 </div>
                 <div class="hisgory">
+                  <span>历史搜索：</span>
                   <span v-for="(o,i) of list" :key="'hisgory'+i" @click="hisgoryFn(o)">{{o.title}}</span>
                 </div>
              </div>
@@ -80,6 +81,7 @@ export default {
      placeTxt:'请输入公告名称或企业名称',
      serachList:[],
      list:[],
+     tipsShow:true,
     }
   },
   methods: {
@@ -163,6 +165,7 @@ export default {
       }
       /*历史记录end*/
 
+      this.tipsShow=false;
       localStorage.removeItem('title')
       localStorage.removeItem('way')  
       if(this.$route.fullPath.indexOf('perfor')== 1) {
@@ -370,6 +373,7 @@ export default {
     }
   },
   created () {
+    this.tipsShow=true;
     this.reloca() 
     if(this.title!=''){
       this.select=this.title;
@@ -404,6 +408,7 @@ export default {
   },
   watch: {
     $route(to,form) {
+      this.tipsShow=true;
       if(form.name == 'water' && (to.name == 'perlist' || to.name == 'road' ) ) {
         this.select = ''
       }else if (form.name == 'road' && (to.name == 'perlist' || to.name == 'water' ) ) {
@@ -413,6 +418,7 @@ export default {
       };
     },
     rank(newValue,old){
+      this.tipsShow=true;
       let obj=localStorage.getItem('history')?JSON.parse(localStorage.getItem('history')):'';
       if(newValue==0||newValue==1){
         this.placeTxt='请输入公告名称或企业名称';
@@ -439,6 +445,7 @@ export default {
       if(newVal==''||this.company){
         return false
       }
+      this.tipsShow=true;
       let that=this;
       let regisAddress=sessionStorage.getItem('address');
       this.$http({
@@ -546,7 +553,7 @@ export default {
 
   /*历史记录*/
   .hisgory{
-    margin-top: 10px;
+    margin-top: 18px;
     max-width:calc(100% - 207px);
     overflow: hidden;
     text-overflow:ellipsis;
@@ -555,7 +562,11 @@ export default {
       margin-right: 15px;
       font-size: 14px;
       cursor: pointer;
-      color: #FE6603;
+      color: #999;
+    }
+    span:first-child{
+      margin-right: 0;
+      cursor:default;
     }
   }
 }

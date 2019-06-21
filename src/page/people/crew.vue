@@ -331,7 +331,7 @@ export default {
     width: 1020px;
     margin: 0 auto;
     background-color: #fff;
-    margin-bottom: 20px;
+    margin-bottom:125px;
     .build-table {
       display: flex;
       flex-direction: row;
@@ -378,8 +378,9 @@ export default {
     justify-content: center;
   }
     .page {
-      height: 100px;
+      // height: 100px;
        padding-top: 50px;
+       padding-bottom: 75px;
        display: flex;
        justify-content: center;
     }

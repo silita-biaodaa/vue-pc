@@ -114,6 +114,11 @@ export default {
   },
   methods: {
     entitle(val) {
+      if(localStorage.getItem('permissions') == '') {
+        this.svip = true
+        this.modalHelper.afterOpen();
+        return
+      }
       if(this.name == '' ) {
          this.title = val.cur
          this.data.pageNo = 1
@@ -227,6 +232,11 @@ export default {
       this.gainList()
     },
     companyFn(val){//企业搜索
+      if(localStorage.getItem('permissions') == '') {
+        this.svip = true
+        this.modalHelper.afterOpen();
+        return
+      }
       this.list=[];
       this.data.searchType=1;
       this.serach =val.cur;
@@ -313,7 +323,7 @@ export default {
     width: 1020px;
     margin: 0 auto;
     background-color: #fff;
-    margin-bottom: 200px;
+    margin-bottom:125px;
     .build-table {
       display: flex;
       flex-direction: row;
@@ -349,8 +359,9 @@ export default {
     justify-content: center;
   }
   .page {
-       height: 210px;
-       padding-top: 70px;
+      //  height: 210px;
+       padding-top: 50px;
+       padding-bottom: 75px;
        display: flex;
        justify-content: center;
      }

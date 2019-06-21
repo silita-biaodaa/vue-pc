@@ -788,12 +788,13 @@ export default {
      box-sizing: border-box;
      background: #fff;
      font-size: 16px;
-     margin-bottom:20px;
+     margin-bottom:125px;
      .page {
-       height:100px;
-       padding-top:50px;
-       display: flex;
-       justify-content: center;
+      //  height:100px;
+        padding-bottom: 75px;
+        padding-top:50px;
+        display: flex;
+        justify-content: center;
      }
     //  ul {
        a {
