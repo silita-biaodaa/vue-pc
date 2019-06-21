@@ -250,9 +250,12 @@ export default {
   watch: {
     title(val) {
       if(this.$parent.searchType==1){
+        this.data.proName=''
         this.data.comName = val
         this.data.comId=sessionStorage.getItem('companyId');
       }else{
+        this.data.comName='';
+        this.data.comId='';
         this.data.proName = val
       }
       this.data.pageNo = 1

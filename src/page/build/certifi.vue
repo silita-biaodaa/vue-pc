@@ -12,7 +12,7 @@
      <div class="certifi-del" >
        <p class="cer-name" >{{detail.name}}</p>
        <p>身份证号码：<span>{{detail.idCard}}</span></p>
-       <p>性别：<span>{{detail.sex ? detail.sex : '男'}}</span></p>
+       <p v-if="detail.sex">性别：<span>{{detail.sex}}</span></p>
      </div>
    </div>
    <div  class="certifi-list" >

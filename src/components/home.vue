@@ -1,5 +1,5 @@
 <template>
-<div class="l-search" @keydown.13="engine">
+<div class="l-search" @keydown.13="searchFn">
    <div class='app-fff'>
         <el-row class="app-search"> 
          <el-col :span="7">
@@ -18,7 +18,7 @@
                 </ul>
                 <div style="position:relative;">
                    <el-input :placeholder="placeTxt" v-model="select" class="input-with-select">
-                      <el-button slot="append" @click="engine">搜索</el-button>
+                      <el-button slot="append" @click="searchFn">搜索</el-button>
                    </el-input>
                    <div class="right  syn"  @click="jump" >
                       综合查询
@@ -102,6 +102,25 @@ export default {
         path:'/synth'
       })
       window.open(url.href,'_blank')
+    },
+    forinList(){
+      if(this.select!=''&&this.serachList.length>0){
+        for(let x of this.serachList){
+          if(x.com_name==this.select){
+            return {isC:true,data:x}
+          }
+        }
+      }else{
+        return {isC:false}
+      }
+      
+    },
+    searchFn(){
+      if(this.forinList()&&this.forinList().isC){//搜索公司
+        this.comNameFn(this.forinList().data);
+      }else{
+        this.engine()
+      }      
     },
     engine() {
       /*历史记录 start*/
@@ -231,7 +250,8 @@ export default {
       /*历史记录 start*/ 
       let obj1={
         title:this.select,
-        isCompany:true
+        isCompany:true,
+        comId:o.comId,
       }
       if(localStorage.getItem('history')){//如果本地有值
         let obj=JSON.parse(localStorage.getItem('history'));
@@ -322,6 +342,7 @@ export default {
         sessionStorage.removeItem('searchType')
         sessionStorage.removeItem('companyId');     
         if(this.$route.fullPath.indexOf('perfor')== 1) {
+          sessionStorage.setItem('companyId',el.comId)
           if(this.way.indexOf('perfor') == 1) {
             this.$emit('company',{cur:this.select});
           } else { 
@@ -409,7 +430,7 @@ export default {
   },
   watch: {
     $route(to,form) {
-      this.tipsShow=true;
+      // this.tipsShow=true;
       if(form.name == 'water' && (to.name == 'perlist' || to.name == 'road' ) ) {
         this.select = ''
       }else if (form.name == 'road' && (to.name == 'perlist' || to.name == 'water' ) ) {
@@ -419,7 +440,7 @@ export default {
       };
     },
     rank(newValue,old){
-      this.tipsShow=true;
+      // this.tipsShow=true;
       let obj=localStorage.getItem('history')?JSON.parse(localStorage.getItem('history')):'';
       if(newValue==0||newValue==1){
         this.placeTxt='请输入公告名称或企业名称';

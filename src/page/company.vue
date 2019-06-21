@@ -1,7 +1,7 @@
 <template>
 <div class="company">
  
-   <en-search @vague='entitle' :all='total' :company="true"></en-search>
+   <en-search @vague='entitle' :all='total' @company='entitle'></en-search>
 
    <div class="c-search">
         <all-city :city='last' @Cnext='eval'  ></all-city>

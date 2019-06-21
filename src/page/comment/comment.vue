@@ -559,7 +559,7 @@ export default {
         margin-left: 10px;
         font-size: 14px;
         color:#333;
-        // font-weight: bold;
+        font-weight: bold;
         .reply-hf{
           color: #999;
           margin: 0 1em;
@@ -575,7 +575,7 @@ export default {
       margin-top: 4px;
       font-size: 14px;
       color: #333;
-      font-weight: bold;
+      // font-weight: bold;
     }
     .list-time {
       display: flex;

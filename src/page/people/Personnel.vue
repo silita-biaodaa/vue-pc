@@ -30,6 +30,7 @@
         <router-view  />
     </div>
   </div>
+  <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div> 
 </template>
 <script>
@@ -70,12 +71,23 @@ export default {
           i: false
         },
       ],
-      innerid:''
+      innerid:'',
+      svip:false,
     }
       // this.tab[this.$route.mate.i]
   },
   methods: {
+    closeload(val) {
+      this.svip = val.cur
+    },
     jumpto(el) {
+      if(el.name=='押证详情'){
+        if(localStorage.getItem('permissions') == '') {
+          this.svip = true
+          this.modalHelper.afterOpen();
+          return
+        }
+      }
       this.$router.push({path:el.to,query:{certNo:this.certNo,comId:this.comId,comName:this.comName,idCard:this.idCard,sex:this.sex,tabCode:this.tabCode,name:this.name,innerid:this.innerid}})
        this.tab.forEach(el => {
          el.i = false

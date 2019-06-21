@@ -127,15 +127,15 @@ export default {
       })
     },
     toPer(el) {
-       if(localStorage.getItem('permissions') == '') {
-          this.svip = true
-          this.modalHelper.afterOpen();
-       } else {
+      //  if(localStorage.getItem('permissions') == '') {
+      //     this.svip = true
+      //     this.modalHelper.afterOpen();
+      //  } else {
            const { href } = this.$router.resolve({
               path:'/personnel',query:{certNo:el.certNo,comId:el.comId,comName:el.comName,idCard:el.idCard,sex:el.sex,tabCode:el.tabCode,name:el.name,innerid:el.innerid} 
             })
            window.open(href, '_blank', )
-       }  
+      //  }  
     
     },
     jumpya(el) {
