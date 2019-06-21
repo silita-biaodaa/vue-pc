@@ -539,7 +539,6 @@ export default {
   .comment-list {
     padding-top: 30px;
     border-bottom: 1px solid #f2f2f2;
-    padding-bottom: 20px;
   }
     .list-title {
       display: flex;
@@ -583,6 +582,7 @@ export default {
       justify-content:flex-end;
       font-size: 14px;
       margin-top: 16px;
+      padding-bottom: 20px;
     }
   .next-list {
     // background-color: #F8F8F8;

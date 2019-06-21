@@ -1,5 +1,5 @@
 <template>
-<div class="logo" @keydown.13="register">
+<div class="logo">
   <logo-Nav></logo-Nav>
   <div class="logo-img">
     <div class="logo-center">
@@ -7,7 +7,7 @@
            <img src="../assets/img/logoerwei.png" alt="" class="code-img">
            <img src="../assets/img/logofont.png" alt="">
         </div>
-        <div class="l-enter">
+        <div class="l-enter" @keydown.13="register">
             <template v-if="!isWx">
               <div class="e-title e-color">
                 用户登录  
