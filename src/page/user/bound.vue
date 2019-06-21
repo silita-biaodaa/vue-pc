@@ -52,30 +52,33 @@ export default {
       this.$router.push('/logo')
     },
     register() {
+      if(this.mobile.trim() == '') {
+           this.error = true
+           this.msg = '请输入手机号'
+           return false
+          }
       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
+         this.msg = '请输入正确的手机号'
          return this.error = true
       }
       if(this.note.trim() == '') {
+        this.msg = '请输入验证码'
          return this.error = true
       } 
-      if(this.password.trim() == '' || this.password1.trim() =='' || !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
-        this.msg = '请设置密码(不低于8位)'
+      // if(this.password.trim() == '' || this.password1.trim() =='' || !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
+      if(this.password.trim() == '') {
+        this.msg = '请输入密码'
          return this.error = true
 
-      }else if(this.password.trim() !== this.password1.trim()) {
+      }
+      if(!(/[0-9A-Za-z]{8,16}$/.test(this.password))) {
+         this.msg = '请设置不低于8位数的密码'
+         return this.error = true
+      }
+      if (this.password.trim() !== this.password1.trim()) {
         this.error = true
         return this.msg = '请确保两次密码一致'
       }
-      // updatePwd({loginPwd:sha1(this.password1.trim()),verifyCode:this.note.trim(),phoneNo:this.mobile.trim(),channel:'1003'}).then( res => {
-      //   if(res.code == 1) {
-      //      this.error = true
-      //      this.msg = res.msg
-      //      this.$router.push('/logo')
-      //   } else {
-      //     this.error = true
-      //     this.msg = res.msg
-      //   }
-      // })
       // 第三方绑定手机  上面代码留着借鉴，之后再删
         let data={
           wxOpenId:localStorage.getItem('wxOpenId'),
@@ -102,9 +105,14 @@ export default {
         })
     },
       gainCode() {
+        if(this.mobile.trim() == '') {
+           this.error = true
+           this.msg = '请输入手机号'
+           return false
+          }
       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
          this.error = true
-         this.msg = '请输入正确的手机号码'
+         this.msg = '请输入正确的手机号'
          return false
       }
       if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {

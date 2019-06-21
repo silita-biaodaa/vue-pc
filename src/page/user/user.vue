@@ -138,13 +138,19 @@ export default {
        if(res.code ==1 ) {
          this.userData = res.data
          let gap = new Date(this.userData.expiredDate).getTime() - new Date().getTime()
-         this.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0;
+           if(gap >=0 ) {
+              that.day = Math.ceil(gap/3600/24/1000)
+           } else {
+              that.day = 1
+           }
+        //  this.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0;
           if(this.userData.roleName == '会员用户') {
             this.state = '会员'
             this.vipname = '会员续费'
           } else {
             this.state = '非会员'
              this.vipname = '开通会员'
+             that.day = 0
           }
          
        }
