@@ -49,14 +49,9 @@ export default {
     let data=JSON.parse(sessionStorage.getItem('filter'));
     this.area= (this.state=='' ? '全部' : this.state);
     this.province = data.area;
-    this.province.unshift({name:'全部'})
-    // if(sessionStorage.getItem('yjSerach')||sessionStorage.getItem('slSerach')||sessionStorage.getItem('jtSerach')||sessionStorage.getItem('peopleSerach')){
-    //   if(this.address!=''){  
-    //     this.area=this.address;
-    //     return false
-    //   }
-    // }
-    // this.$emit('perPor', {cur:this.area})
+    if(!this.$route.fullPath == '/crew') {
+       this.province.unshift({name:'全部'})
+    }
   },
   components: {
   }
