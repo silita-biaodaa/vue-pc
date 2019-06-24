@@ -166,6 +166,7 @@ export default {
         this.data.idCard=this.serach;
         let idcard=this.serach
         underq({name:'aaaa',idCard:idcard,type:'api'}).then(res => {
+            this.isajax=true;
             if(res.code == 1) {
               if(res.data.length == 0 ) {
                 this.$confirm('该人员无在建信息', '提示', {

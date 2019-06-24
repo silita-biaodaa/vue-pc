@@ -1,5 +1,5 @@
 <template>
-<div class="logo">
+<div class="logo" @keydown.13="register">
   <logo-Nav></logo-Nav>
   <div class="logo-img">
     <div class="logo-center">
@@ -7,7 +7,7 @@
            <img src="../assets/img/logoerwei.png" alt="" class="code-img">
            <img src="../assets/img/logofont.png" alt="">
         </div>
-        <div class="l-enter" @keydown.13="register">
+        <div class="l-enter">
             <template v-if="!isWx">
               <div class="e-title e-color">
                 用户登录  
@@ -19,7 +19,7 @@
                 <div class="e-i">
                   <i class="iconfont icon-ren111" ></i>
                 </div>
-                <el-input v-model="mobile"  placeholder="请输入您的手机号"  ></el-input>
+                <el-input v-model="mobile" ref='zh'  placeholder="请输入您的手机号"  ></el-input>
               </div>
               <div class="e-ipt">
                 <div class="e-i">
@@ -146,7 +146,10 @@ export default {
   created () {
     this.efficacy()
   },
-  components: {
+  mounted(){
+    this.$nextTick(function(){
+      this.$refs.zh.focus();
+    })
   }
 }
 </script>
