@@ -195,13 +195,17 @@ export default new Router({
       name: 'introduce',
       component: Introduce,
       redirect: '/introduce/icbc',
+      meta: {
+        tabNo: 3
+      },
       children: [
         {
           path: 'icbc',  // 企业工商
           name: 'icbc',
           component: Icbc,
           meta: {
-            i: 0
+            i: 0,
+            tabNo: 3
           }
         },
         {
@@ -209,7 +213,8 @@ export default new Router({
           name: 'personnel',
           component: Personnel,
           meta: {
-            i: 3
+            i: 3,
+            tabNo: 3
           }
         },
         {
@@ -217,7 +222,8 @@ export default new Router({
           name: 'intell',
           component: Intell,
           meta: {
-            i: 2
+            i: 2,
+            tabNo: 3
           }
         },
         {
@@ -225,7 +231,8 @@ export default new Router({
           name: 'law',
           component: Law,
           meta: {
-            i: 1
+            i: 1,
+            tabNo: 3
           }
         },
         {
@@ -233,7 +240,8 @@ export default new Router({
           name: 'good',
           component: Good,
           meta: {
-            i: 6
+            i: 6,
+            tabNo: 3
           }
         },
         {
@@ -241,7 +249,8 @@ export default new Router({
           name: 'centre',
           component: Centre,
           meta: {
-            i: 4
+            i: 4,
+            tabNo: 3
           }
         },
         {
@@ -249,7 +258,8 @@ export default new Router({
           name: 'achievement',
           component: Achievement,
           meta: {
-            i: 5
+            i: 5,
+            tabNo: 3
           }
         }
 
@@ -395,25 +405,35 @@ export default new Router({
     {
       path: '/irrigation',  //  水利详情
       name:'irrigation',
-      component: irrigation
+      component: irrigation,
+      meta: {
+        tabNo: 4
+      }
     },
     {
       path: '/traffic',  //  交通详情
       name: 'traffic',
-      component: traffic
+      component: traffic,
+      meta: {
+        tabNo: 4
+      }
     },
     {
       path: '/urban',  //  住建部详情
       name:'urban',
       component: urban,
       redirect: '/urban/ubid',
+      meta: {
+        tabNo: 4
+      },
       children: [
         {
           path: 'ubid',  // 招投标
           name: 'ubid',
           component: ubid,
           meta: {
-            i: 0
+            i: 0,
+            tabNo: 4
           }
         },
         {
@@ -421,7 +441,8 @@ export default new Router({
           name: 'execu',
           component: uexe,
           meta: {
-            i: 2
+            i: 2,
+            tabNo: 4
           }
         },
         {
@@ -429,7 +450,8 @@ export default new Router({
           name: 'upact',
           component: upact,
           meta: {
-            i: 4
+            i: 4,
+            tabNo: 4
           }
         },
         {
@@ -437,7 +459,8 @@ export default new Router({
           name: 'uallow',
           component: uallow,
           meta: {
-            i: 6
+            i: 6,
+            tabNo: 4
           }
         },
         {
@@ -445,7 +468,8 @@ export default new Router({
           name: 'ulete',
           component: ulete,
           meta: {
-            i: 8
+            i: 8,
+            tabNo: 4
           }
         },
       ]  
