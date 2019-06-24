@@ -384,7 +384,16 @@ export default {
           }
         }
       }
-    }
+    },
+    forinHis(name){//判断数组中是否有某条记录
+      let arr=this.list;
+      for(let x in arr){
+        if(arr[x].title==name){
+          return true
+        }
+      }
+      return false
+    },
   },
   props:{
     title:{
@@ -463,6 +472,8 @@ export default {
         this.list=obj.build||[];
       }
     },
+
+
     select(newVal,old){
       if(newVal==''||this.company){
         return false
@@ -470,6 +481,11 @@ export default {
       if(newVal.indexOf('公司')==-1){
         this.tipsShow=true;
       }
+      if(this.forinHis(newVal)){
+        this.tipsShow=false
+        return false
+      }
+
       let that=this;
       let regisAddress=sessionStorage.getItem('address');
       this.$http({

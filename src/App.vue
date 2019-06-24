@@ -814,17 +814,20 @@ body .el-loading-spinner .el-loading-text{
   color: #FE6603
 }
 
-
-@media screen and (min-width: 1919px){
-  #app{
-    min-height: 100vh;
-  }
-  #app .footer{
-    position: fixed;
-    bottom:0;
-  }
-  #app .content{
-    padding-bottom: 195px
-  }
+#app .content{
+  min-height: calc(100vh - 320px);
 }
+
+// @media screen and (min-width: 1919px){
+//   #app{
+//     min-height: 100vh;
+//   }
+//   #app .footer{
+//     position: fixed;
+//     bottom:0;
+//   }
+//   #app .content{
+//     padding-bottom: 195px
+//   }
+// }
 </style>
