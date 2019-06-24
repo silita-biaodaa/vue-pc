@@ -254,7 +254,7 @@ export default {
     },
     evalclass(el) {
       this.data.category = el.category
-      this.this.person=[];
+      this.person=[];
       this.isajax=false;
       this.data.pageNo = 1
       this.gainList()

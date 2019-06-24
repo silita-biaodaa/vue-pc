@@ -328,7 +328,7 @@ export default {
      ul {
        li {
          font-size: 12px;
-         margin-right: 6px;
+         margin-right: 5px;
          padding: 0 10px;
          height: 30px;
          line-height: 30px;
