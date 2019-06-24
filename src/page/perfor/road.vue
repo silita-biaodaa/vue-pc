@@ -52,7 +52,8 @@
       <template v-if="isajax">
           <!-- 有数据 -->
           <template v-if="perlist&&perlist.length>0">
-            <a  class="per-del " v-for="(el,i) in perlist" :key="i"  @click="decide(el,i)" :class="el.is ? 'vi-color' : 'per-color'"  >
+             <!-- :class="el.is ? 'vi-color' : 'per-color'"   -->
+            <a  class="per-del per-color" v-for="(el,i) in perlist" :key="i"  @click="decide(el,i)">
               <div class="left " style="width:60px;">
                   {{(data.pageNo-1)*20+(i+1)}}
               </div>
