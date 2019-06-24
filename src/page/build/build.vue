@@ -136,7 +136,7 @@ export default {
           }
       })
     }else{
-      this.gainList()
+      this.gainList(this.serach)
     }
     
   },
