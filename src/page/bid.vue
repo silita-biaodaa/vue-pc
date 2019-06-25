@@ -73,7 +73,7 @@
      </div> 
 
       <div class="total">
-        共搜索到<span>{{total}}</span>条招标公告
+        共找到<span>{{total}}</span>条招标公告
       </div>
       <!-- 判断是否加载中 -->
       <template v-if="isajax">

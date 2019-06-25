@@ -16,7 +16,7 @@
      </div>
   </div>
   <div class="crew-total">
-      共搜索到<span class="p-color" >{{total}}</span>条个人员信息
+      共找到<span class="p-color" >{{total}}</span>条人员信息
   </div>
    <div class="build-list">
       <div class="build-table" >

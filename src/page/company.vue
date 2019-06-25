@@ -151,7 +151,7 @@
    </div>
 
     <div class="total">
-        共搜索到<span>{{total}}</span>家企业
+        共找到<span>{{total}}</span>家企业
     </div>
 
     <!-- 判断是否加载中 -->

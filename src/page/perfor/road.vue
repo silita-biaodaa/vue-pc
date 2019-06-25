@@ -18,7 +18,7 @@
      <per-time  @time='gaintime' ></per-time>
    </div>
    <div class="per-total">
-     共搜索到<span class="p-color" >{{total}}</span>条交通部业绩信息
+     共找到<span class="p-color" >{{total}}</span>条交通部业绩信息
    </div>
 
 
