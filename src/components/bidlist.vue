@@ -109,6 +109,7 @@ export default {
     border: 1px solid #F2F2F2;
   }
   .list-top {
+    border-bottom: 1px solid #F2F2F2;
     height: 40px;
     line-height: 40px;
     font-size: 14px;

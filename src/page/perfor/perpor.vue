@@ -49,7 +49,7 @@ export default {
     let data=JSON.parse(sessionStorage.getItem('filter'));
     this.area= (this.state=='' ? '全部' : this.state);
     this.province = data.area;
-    if(!this.$route.fullPath == '/crew') {
+    if(!(this.$route.fullPath == '/crew')) {
        this.province.unshift({name:'全部'})
     }
   },

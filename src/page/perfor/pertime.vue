@@ -2,7 +2,7 @@
 <div class="perpor">
     <div class="select">
             <el-row>
-                <el-col :span='2'>竣工时间:
+                <el-col :span='2'>{{timeTxt}}:
                 </el-col>
                 <el-col :span='6'>
                     <ul class='left pro' >
@@ -120,7 +120,10 @@ export default {
       this.defO=o;
     }
   },
-  components: {
+  props:{
+    timeTxt:{
+      default:'竣工时间'
+    }
   }
 }
 </script>

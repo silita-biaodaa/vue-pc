@@ -21,7 +21,7 @@
       </div>
 
     </div>
-    <div class="in-table">
+    <div class="in-tabler">
      <c-bur :arr='showArr' v-if="pro"  ></c-bur>
      <c-water :arr='waterArr' v-if="water" ></c-water>
      <c-tra :arr='traArr' v-if="tra" ></c-tra>
@@ -268,7 +268,7 @@ export default {
      }
    }
   }
-  .in-table {
+  .in-tabler {
     margin: 0 9px;
     // border: 1px solid #f2f2f2;
     font-size: 12px;

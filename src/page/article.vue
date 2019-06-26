@@ -9,7 +9,7 @@
       </p>
       <div class="date">
         <span>{{articles.opendate}}</span>
-        <span>点击数：<i>{{clickCount}}</i></span>
+        <span>浏览量：<i>{{clickCount}}</i></span>
         <span class="left" style="marginLeft:10px;cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
         <!-- <div> -->
         <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >

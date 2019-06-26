@@ -1,188 +1,135 @@
 <template>
 <div class="icbc">
-   <div class="ic-nav"><span :class="i==0 ? 'ic-dark' : ''"  @click='changeNavs' >基本信息</span>/<span :class="i==1 ? 'ic-dark' : ''" @click='changeNavss' >分支机构(<span style="color:#FE6603">{{length}}</span>)</span></div>
-   <!-- 基本信息 -->
-   <div class="ic-basic" v-show="infor">
-      <div class="ic-line">
-        <div class="left line-f">
-           法定代表人
-        </div>
-        <div class="left f-color line-r">
-           {{details.legalPerson}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left line-f">
-           注册资本
-        </div>
-        <div class="left f-color line-r">
-           {{details.regisCapital}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left line-f">
-           注册号
-        </div>
-        <div class="left f-color line-r">
-           {{details.businessNum}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left line-f">
-          企业类型
-        </div>
-        <div class="left f-color line-r">
-           {{details.economicType}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left line-f">
-           安许证号
-        </div>
-        <div class="left f-color line-r">
-          {{details.certNo}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left line-f">
-           安许期至
-        </div>
-        <div class="left f-color line-r">
-          {{details.validDate}}
-        </div>  
-      </div>
-      <div class="ic-line">
-        <div class="left h-auto">
-           经营范围
-        </div>
-        <div class="left f-color min-h">
-           {{details.comRange}}
-        </div>  
-      </div>
-   </div>
-   <!-- 分支机构 -->
-    <div class="ic-basic" v-show="branch">
-       <div class="list-nav">
-         <div class="left" style="width:72px" >
-           序号
-         </div>
-         <div class="left" style="width:200px" >
-           企业名称
-         </div>
-         <div class="left" style="width:100px" >
-           负责人
-         </div>
-         <div class="left" style="width:150px" >
-           联系方式
-         </div>
-         <div class="left" style="width:250px" >
-           地址
-         </div>
-       </div>
-       <div class="list-co" v-for="(el,i) in list" :key="i" >
-         <div class="left" style="width:72px" >
-           {{i+1}}
-         </div>
-         <div class="left" style="width:200px" >
-            <span style="color:#FE6603" >{{el.comName}}</span>
-         </div>
-         <div class="left" style="width:100px" >
-           {{el.legalPerson}}  
-         </div>
-         <div class="left" style="width:150px" >
-           {{el.phone}}
-         </div>
-         <div class="left" style="width:250px" >
-           {{el.comAddress}}
-         </div>
-       </div>
-    </div>
+  <div class="ic-nav">
+      <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="navNum==i?'ic-dark':''" @click="navNum=i">
+        {{o.name}}
+        <template v-if="o.length!=0">
+          (<span style="color:#FE6603">{{o.length}}</span>)
+        </template>
+      </span>
+  </div>
+    <!-- 基本信息 -->
+    <template v-if="navNum==0">
+      <v-infor :details="inforData"></v-infor>
+    </template>
+    <!-- 分支机构 -->
+    <template v-else-if="navNum==1"> 
+      <v-branch :list='branchList'></v-branch>
+    </template>
+    <!-- 股东信息 -->
+    <template v-else-if="navNum==2"> 
+
+    </template>
+    <!-- 主要人员 -->
+    <template v-else-if="navNum==3"> 
+
+    </template>
+    <!-- 变更记录 -->
+    <template v-else-if="navNum==4"> 
+
+    </template>
+    <!-- 企业年报 -->
+    <template v-else-if="navNum==5"> 
+
+    </template>
+    <!-- 行政处罚 -->
+    <template v-else-if="navNum==6"> 
+
+    </template>
+    
 </div>
 </template>
 <script>
 import { Branch,getJsonData } from '@/api/index'
+import information from '@/components/business/information'
+import branch from '@/components/business/branch'
 export default {
   data () {
     return {
-      i:0,
-      infor:true,
-      branch:false,
-      list:[],
-      length:'',
-      details:{},
-      id:''
+      inforData:{},//基本信息data
+      branchList:[],//分支机构list
+      id:'',
+      navNum:0,
+      navlist:[
+        {
+          name:'基本信息',
+          length:0
+        },{
+          name:'分支机构',
+          length:0
+        },{
+          name:'股东信息',
+          length:0
+        },{
+          name:'主要人员',
+          length:0
+        },{
+          name:'变更记录',
+          length:0
+        },{
+          name:'企业年报',
+          length:0
+        },{
+          name:'行政处罚',
+          length:0
+        }
+      ]
     }
   },
   watch: {
    
   },
   methods: {
-    changeNavs() {
-      this.i  = 0
-      this.infor = true
-      this.branch = false
-    },
-    changeNavss() {
-      if(this.length ==0 ) {
-         return
-      }
-      this.i = 1
-      this.infor = false
-      this.branch = true
-    },
-    gainList() {
+    getInfor() {//基本信息
       this.id = this.$route.query.id
-       let dataParam = JSON.stringify({
-          
-        });
-        getJsonData( "/company/" + this.id ).then(res => {
-            if(res.code == 1) {
-              this.details = res.data
-            }
-        });
+      getJsonData( "/company/" + this.id ).then(res => {
+          if(res.code == 1) {
+            this.inforData = res.data
+          }
+      });
     },
-    gainBranch() {
+    getBranch() {//分支机构
       Branch({comId:this.id}).then(res => {
-         if(res.code == 1) {
-           this.list = res.data
-           var iar = []
-           this.list.forEach( el => {
-               if(el.phone) {
+          if(res.code == 1) {
+            this.branchList = res.data
+            var iar = []
+            this.branchList.forEach( el => {
+                if(el.phone) {
                   iar = el.phone.split(';')
-                   if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
-                       el.phone = this.resetPhone(iar[0])
-                   } else {
-                       el.phone = iar[0]
-                   }
-                
-
+                  if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                      el.phone = this.resetPhone(iar[0])
+                  } else {
+                      el.phone = iar[0]
+                  }
                   iar = []
-               } else {
-                 return
-               }           
-           })
-           this.length = res.data.length
-         }
+                } else {
+                  return
+                }           
+            })
+            this.navlist[1].length = res.data.length
+          }
       })
     },
     resetPhone(phone) {
-          var str = String(phone)
-          var len = str.length;
-          if (len >= 7) {
-              var reg = str.slice(-7, -3)
-              return str.replace(reg, "****")
-          } else if (len < 7 && len >= 6) {
-              //1234567
-              var reg = str.slice(-4, -2)
-              return str.replace(reg, "**")
-          }
+      var str = String(phone)
+      var len = str.length;
+      if (len >= 7) {
+          var reg = str.slice(-7, -3)
+          return str.replace(reg, "****")
+      } else if (len < 7 && len >= 6) {
+          //1234567
+          var reg = str.slice(-4, -2)
+          return str.replace(reg, "**")
+      }
     },
   },
   created () {
-    this.gainList()
-    this.gainBranch()
+    this.getInfor()
+    this.getBranch()
   },
   components: {
+    'v-infor':information,
+    'v-branch':branch
   }
 }
 </script>
@@ -196,83 +143,23 @@ export default {
     margin: 15px 0 14px 23px;
     cursor: pointer;
     font-weight: 550;
+    .navspan{
+      border-right: 1px solid #999;
+      padding: 0 10px;
+    }
+    .navspan:last-child{
+      border-right: none;
+    }
   }
   .ic-dark {
     color:#333;
   }
-  .ic-basic {
-    margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    .ic-line{
-      font-size: 12px;
-      color:#333;
-      font-weight: 550;
-      min-height: 40px;
-      background-color: #FAFDFF;
-      display: flex;
-      align-items: center;
-
-      border-bottom: 1px solid #f2f2f2;
-      overflow: hidden;
-      .line-f {
-        background-color: #FAFDFF;
-        padding-left: 19px;
-        display: flex;
-        align-items: center;
-        border-right: 1px solid #f2f2f2;
-        min-width: 150px;
-        max-height: 200px;
-        min-height: 40px;
-        height: auto;
-        box-sizing: border-box;
-      }
-      .h-auto {
-        display: flex;
-        align-items: center;
-        min-width: 150px;
-        padding-left: 19px;
-        min-height: 40px;
-        box-sizing: border-box;
-      }
-      .line-r {
-        padding-left: 40px;
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-      }
-      .min-h {
-        min-height: 40px;
-        box-sizing: border-box;
-        padding: 16px 15px 15px 40px;
-        border-left: 1px solid #f2f2f2;
-
-      }
-    }
-    .list-nav {
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      font-size: 12px;
-      color:#333;
-      border-bottom: 1px solid #f2f2f2;
-    }
-    .list-co {
-      color: #999;
-      text-align: center;
-      min-height: 40px;
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      padding: 5px 0;
-      box-sizing: border-box; 
-      border-bottom: 1px solid #f2f2f2
-    }
+  
+    
   }
   .f-color {
     background-color: #fff;
     
   }
   
-}
 </style>

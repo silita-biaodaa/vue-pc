@@ -104,6 +104,7 @@ export default {
     border: 1px solid #F2F2F2;
   }
   .list-top {
+    border-bottom: 1px solid #F2F2F2;
     height: 40px;
     line-height: 40px;
     font-size: 14px;
@@ -111,7 +112,7 @@ export default {
   }
    .project {
       width: 85%;
-      padding-left: 29px;
+      padding-left: 18px;
       box-sizing: border-box;
     }
     .operate {
@@ -121,6 +122,7 @@ export default {
       overflow: hidden;
     }
   .list-text {
+    padding: 15px 0;
     height: 60px;
     width: 100%;
     display: flex;

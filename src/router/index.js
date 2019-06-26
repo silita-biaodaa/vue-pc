@@ -78,7 +78,10 @@ import dys from '@/page/people/dys'
 import modify from '@/page/people/modify' 
 import escort from '@/page/people/escort' 
 
+import lawList from '@/page/law'//法务列表
+import lawDetail from '@/page/lawDetail'//法务详情
 
+import annualDetail from '@/components/business/annualDetail'
 
 
 
@@ -128,6 +131,14 @@ export default new Router({
       component: Tender,
       meta: {
         tabNo: 2
+      }
+    },
+    {
+      path: '/law',  // 法务
+      name: 'law',
+      component: lawList,
+      meta: {
+        tabNo: 7
       }
     },
     {
@@ -556,6 +567,19 @@ export default new Router({
       name: 'dwDetail',
       component: dwDetail,
     },
+    {
+      path: '/lawDetail',  // 法务详情
+      name: 'lawDetail',
+      component: lawDetail,
+      meta: {
+        tabNo: 7
+      }
+    },
+    {
+      path:'/annualDetail',
+      name:'annualDetail',
+      component:annualDetail,
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
 			return { x: 0, y: 0 }

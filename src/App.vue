@@ -182,6 +182,11 @@ export default {
            name:'在建',
            url:require('./assets/img/icon-zaij.png'),
            to:'/build',
+        },
+         {
+           name:'法务',
+           url:require('./assets/img/icon-fawu.png'),
+           to:'/law',
         }
      ],
      rank:0,
@@ -433,6 +438,9 @@ export default {
     },
   },
   created () {
+    if(localStorage.getItem('history')){
+      localStorage.removeItem('history')
+    }
     this.text()
     this.valley()
     this.judges()
@@ -621,7 +629,7 @@ export default {
       box-sizing: border-box;
       li {
         box-sizing: border-box;
-        width: 14%;
+        width: 12%;
         height: 50px;
         line-height: 50px;
         float: left;

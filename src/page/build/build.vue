@@ -3,7 +3,7 @@
 <div class="build">
     <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
     <div class="build-search">
-      共搜索到<span class="p-color" >{{total}}</span>条在建信息(仅查询湖南省在建信息)     
+      共找到<span class="p-color" >{{total}}</span>条在建信息(仅查询湖南省在建信息)     
     </div>
     <div class="build-list">
       <div class="build-table" >
@@ -242,7 +242,7 @@ export default {
       this.isajax=false;
       this.list=[];
       this.data.pageNo = val.cur;
-      this.funcom.toList(505)
+      this.funcom.toList(205)
       this.gainList()
     },
     companyFn(val){//企业搜索

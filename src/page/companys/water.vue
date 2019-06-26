@@ -98,6 +98,7 @@ export default {
 </script>
 <style lang="less" >
 .bur {
+    border: 1px solid #f2f2f2;
    .law-nav {
     height: 40px;
     border-bottom: 1px solid #f2f2f2;
