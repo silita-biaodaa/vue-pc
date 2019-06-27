@@ -24,7 +24,7 @@
    <div class="n-detail fa">
       <div class="n-nav">
          <span class="left">原文</span>
-         <span class="right n-color" @click="text" >访问原文出处》</span>
+         <span class="right n-color" @click="text" >访问原文出处>></span>
       </div>
       <div class="n-text" v-html="articles.content" >
 

@@ -41,7 +41,7 @@
    <div class="conten">
       <div class="link">
           <span>原文</span>
-          <span @click="text">访问原文出处》</span>
+          <span @click="text">访问原文出处>></span>
       </div>
       <div class="essay" v-html="articles.content">
          
