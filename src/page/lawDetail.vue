@@ -9,10 +9,10 @@
           </div>
       </div>
       <div class="content">
-        <div class="original">
+        <!-- <div class="original">
           <span>原文</span>
           <span @click="jump(detail.url)">访问原文出处>></span>
-        </div>
+        </div> -->
         <div class="box" v-html="detail.content"></div>
       </div>
     </div>

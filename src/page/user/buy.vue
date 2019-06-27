@@ -37,91 +37,162 @@
             标大大会员 <i class="bigDian"></i> 专享<span style="color:#FE0303" >8</span>大特权
         </div>
         <div class="buy-table">
-          <div class="table-top">
-            <div class="left" style="width:218px" >
-              特权项目
-            </div>
-             <div class="left" style="width:680px" >
-              特权介绍
-            </div>
-          </div>
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >高级筛选</p>
-               <p class="buy-s" >(招标、中标、企业信息)</p>
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              1、会员可快速筛选招标公告的资质要求和评标办法。查找信息更加快速精准。2、可快速筛选中标公告的中标金额。查找信息更加快速精准。3、可快速筛选企业的资质、注册资金。查找信息更加快速精准。
-            </div>
-          </div>
-
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color"  style="position:relative" >综合查询 <span class="buy-new" >NEW</span></p>
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              可根据资质、业绩等多重筛选条件，查找到符合条件的企业。
-            </div>
-          </div>
-
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >企业联系电话</p>
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              可查看企业的全部联系号码。
-            </div>
-          </div>  
-          
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >查在建功能</p>
-               <!-- <p class="buy-s" >(限APP使用)</p> -->
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              可根据姓名和身份证号，精准查询湖南省内人员在建情况。
-            </div>
-          </div>  
-
-         <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >在建库功能</p>
-               <!-- <p class="buy-s" >(限APP使用)</p> -->
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              提供湖南省内注册人员在建信息查询，输入姓名一键查询。
-            </div>
-          </div>  
-
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >业绩信息</p>
-               <!-- <p class="buy-s" >(限APP查看)</p> -->
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              包含全国住建部、交通部、水利部业绩，可根据地区、合同金额、日期、关键词快速查找业绩信息。
-            </div>
-          </div>  
-
-         <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >更多企业信息</p>
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              提供建筑业企业的工商、法务、资质、人员、业绩、中标项目、诚信等信息。
-            </div>
-          </div>  
-
-          <div class="table-or">
-            <div class="left buy-bor " style="width:218px" >
-               <p class="p-color" >人员信息</p>
-               <!-- <p class="buy-s" >(限APP查看)</p> -->
-            </div>
-            <div class="left buy-p" style="width:680px" >
-              提供注册人员的押证项目、证书信息、个人业绩、变更记录、不良记录等信息，查找信息更加快速精准。
-            </div>
-          </div>  
-
+          <table>
+            <thead>
+              <th style="width:18.75%">特权项目</th>
+              <th style="width:31.25%">特权服务介绍</th>
+              <th style="width:12.75%">月度会员<br/>318元</th>
+              <th style="width:12.75%">季度会员<br/>898元</th>
+              <th style="width:12.75%">半年会员<br/>1498元</th>
+              <th style="width:12.75%">年度会员<br/>2298元</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tit">招标公告</td>
+                <td class="con">提供全国各省的招标公告，会员可根据地区、项目类型、项目资质和评标办法等筛选条件查询出自己想要的信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">变更公告</td>
+                <td class="con">提供招标过程中的补充公告、变更公告、废标公告、重新招标等信息，使用户可以及时获知并有效的对投标工作做出相应方案调整。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">中标公告</td>
+                <td class="con">提供建筑行业即时的中标资讯，帮助会员用户即时获取实时的中标公示，掌握市场行情。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">竞价谈判公告</td>
+                <td class="con">提供全国各省有关服务、货物的谈判采购信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">询价采购公告</td>
+                <td class="con">提供全国各省有关服务、货物的询价采购信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">招标数据统计</td>
+                <td class="con">根据会员单位需求,以列表的形式定期汇总各行业、各领域招标采购数据信息,并以PDF格式提供给会员单位，为会员单位做数据分析提供支持服务。</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+                <td>1次</td>
+                <td>5次</td>
+              </tr>
+              <tr>
+                <td class="tit">企业信息</td>
+                <td class="con">提供300W+家企业的基本信息，包括企业工商信息、企业联系方式、分支机构、法务信息、资质信息、人员信息、业绩信息、中标信息、诚信信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td  class="tit" style="position: relative;">工商信息<span class="buy-new" >New</span></td>
+                <td class="con">接入全国工商信息网站，提供企业的工商信息。包括企业基本信息、分支机构、股东信息、主要人员、变更记录、企业年报、行政处罚等信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">人员信息</td>
+                <td class="con">提供全国注册人员的证书信息、个人业绩、变更记录、不良记录等信息，查找信息更加快速精准。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">业绩信息</td>
+                <td class="con">提供全国住建部、交通部、水利部的业绩信息，可根据地区、合同金额、日期、关键词快速查找想要的业绩信息。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td style="position: relative;" class="tit">法务信息<span class="buy-new" >New</span></td>
+                <td class="con">可查看自身风险信息和企业的关联风险信息</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">综合查询（限APP和网页端使用）</td>
+                <td class="con">可通过设置地区、资质、业绩关键字等条件，查询出符合条件的建筑企业业绩信息，快捷方便，为用户提供个性化的信息查询服务。</td>
+                <td>按次收费</td>
+                <td>按次收费</td>
+                <td>按次收费</td>
+                <td>按次收费</td>
+              </tr>
+              <tr>
+                <td class="tit">在建信息</td>
+                <td class="con">可根据姓名和身份证号，精准查询湖南省内人员的在建情况。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">保证金业务</td>
+                <td class="con">为我们的会员用户提供相关的保证金业务</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">人工服务</td>
+                <td class="con">提供一对一的客服经理服务模式。在服务期间内为会员单位提供全方位立体式的服务，及时解决会员单位使用过程中遇到的问题和困难。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+              <tr>
+                <td class="tit">企业定制化数据查询</td>
+                <td class="con">为会员用户提供私人定制化企业数据查询</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+              </tr>
+              <tr>
+                <td class="tit">企业定制化开发</td>
+                <td class="con">公司有非常强大的技术团队、并且再建筑行业中有多年经验。可以针对性得为我们会员用户提供建筑相关的app、小程序、公众号、网页定制服务。</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+                <td>另行收费</td>
+              </tr>
+              <tr>
+                <td class="tit">移动客户端</td>
+                <td class="con">提供手机app（标大大）、标大大移动端、标大大网页端，三端可用同一账号登录、浏览招投标项目信息，第一时间便捷查看项目不错失商机，大大提高工作效率。</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+                <td>免费</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
     </div>
 
@@ -538,48 +609,41 @@ export default {
     }
    
     .buy-table {
-      width: 900px;
-      border: 1px solid #F2F2F2;
-      .table-top {
-        height: 40px;
-        line-height: 40px;
-        background-color: #FE6603;
-        font-size: 14px;
-        color:#fff;
-        text-align: center;
-      }
-      .table-or {
-        height: 74px;
-        font-size: 14px;
-        color:#999;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid #F2F2F2;
-        // text-align: center;
-        .buy-bor {
-          border-right: 1px solid #F2F2F2;
-          height: 100%;
-          display: flex;
-          justify-content: center;
+      table{
+        width: 980px;
+        border-collapse: collapse;
+        th,td{
+          border: 1px solid #f2f2f2;
+          font-size: 14px;
           text-align: center;
-          flex-direction:column;
-          position: relative;
-          .buy-new {
-            font-size: 11px;
-            color:#FE0303;
-            font-weight: 550;
-            position: absolute;
-            right: 35%;
-            transform: translateX(100%);
-            top: 0px;
-          }
-          .buy-s {
-          font-size: 12px;
+          font-weight: normal;
+          height: 60px;
+          color: #999;
+          // line-height: 60px;
         }
+        thead th{
+          background: #FE6603;
+          color: #fff;
+          border: none;
         }
-        .buy-p {
-          padding: 0 20px;
+        .tit{
+          color: #fe6603;
         }
+        .con{
+          text-align: left;
+        }
+      }
+      .buy-new{
+        display: inline-block;
+        width: 40px;
+        background: #FE0303;
+        position: absolute;
+        font-size: 12px;
+        color:#fff;
+        border-radius: 12px;
+        font-weight: 550;
+        right:15px;
+        top: 8px;
       }
     }
 

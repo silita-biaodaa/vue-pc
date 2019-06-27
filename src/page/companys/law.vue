@@ -23,7 +23,7 @@
             时间
         </div>
       </div>
-      <div class="law-text" v-for="(el,i) in lawList" :key="i" v-show="!result" >
+      <div class="law-text" @click="jumpDetail(el.id)" v-for="(el,i) in lawList" :key="i" v-show="!result" >
         <div class="left" style="width:72px"> 
             {{(current-1)*20+(i+1)}}
         </div>
@@ -52,6 +52,7 @@
           @skip='Goto'
        ></nav-page>
    </div>
+   <f-vip @toChildEvent='closeload' v-if='svip' ></f-vip>
 </div>
 </template>
 <script>
@@ -64,7 +65,8 @@ export default {
       current:1,
       name:'',
       result:false,
-      loading:true
+      loading:true,
+      svip:false
     }
   },
   methods: {
@@ -86,13 +88,24 @@ export default {
       }) 
     },
     Goto(val) {
-    this.current = val.cur
-    this.gainList()
-    this.funcom.toList(200)
+      this.current = val.cur
+      this.gainList()
+      this.funcom.toList(200)
     },
-    text() {
-      console.log('变化')
-    }
+    jumpDetail(id){
+      if(localStorage.getItem('permissions') == '') {
+        this.svip = true
+        this.modalHelper.afterOpen();
+      } else {
+        const { href } = this.$router.resolve({
+          path:'/lawDetail',query:{id:id} 
+        })
+        window.open(href,'_blank',)
+      }
+    },
+    closeload(val) {
+      this.svip = val.cur
+    },
   },
   created () {
     this.gainList()
@@ -143,6 +156,7 @@ export default {
       font-weight: 550;
     }
     .law-text {
+      cursor: pointer;
       min-height: 40px;
       border-bottom: 1px solid #f2f2f2;
       font-size: 12px;
