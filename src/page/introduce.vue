@@ -325,7 +325,9 @@ export default {
         font-weight: 550;
       }
       .c-state {
-        width: 32px;
+        
+        display: inline-block;
+        padding: 0 5px;
         height: 16px;
         background-color: #E4FFF0;
         margin-left: 5px;

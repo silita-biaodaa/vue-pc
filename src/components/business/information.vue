@@ -4,20 +4,16 @@
         <!-- 基本信息 -->
         <div class="ic-basic">
             <div class="ic-line">
-                <div class="left line-f">
-                法定代表人
-                </div>
-                <div class="left f-color line-r">
-                {{details.legalPerson}}
-                </div>  
+                <div class="left line-f">法定代表人</div>
+                <div class="left f-color line-r">{{details.legalPerson}}</div>  
             </div>
             <div class="ic-line">
-                <div class="left line-f">
-                注册资本
-                </div>
-                <div class="left f-color line-r">
-                {{details.regisCapital}}
-                </div>  
+                <div class="left line-f">统一社会信用代码</div>
+                <div class="left f-color line-r">{{details.creditCode}}</div>  
+            </div>
+            <div class="ic-line">
+                <div class="left line-f">注册资本</div>
+                <div class="left f-color line-r">{{details.regisCapital}}</div>  
             </div>
             <!-- 基本信息  新 -->
             <div class="ic-line" v-if="details.regisDate">
