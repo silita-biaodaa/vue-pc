@@ -20,37 +20,21 @@
                 </div>  
             </div>
             <!-- 基本信息  新 -->
-            <div class="ic-line">
-                <div class="left line-f">
-                成立时间
-                </div>
-                <div class="left f-color line-r">
-                
-                </div>  
+            <div class="ic-line" v-if="details.regisDate">
+                <div class="left line-f">成立时间</div>
+                <div class="left f-color line-r">{{details.regisDate}}</div>  
             </div>
-            <div class="ic-line">
-                <div class="left line-f">
-                经营期限
-                </div>
-                <div class="left f-color line-r">
-                
-                </div>  
+            <div class="ic-line" v-if="details.businessStart&&details.businessEnd">
+                <div class="left line-f">经营期限</div>
+                <div class="left f-color line-r">{{details.businessStart}}至{{details.businessEnd}}</div>  
             </div>
-            <div class="ic-line">
-                <div class="left line-f">
-                登记机关
-                </div>
-                <div class="left f-color line-r">
-                
-                </div>  
+            <div class="ic-line" v-if="details.regisAuthority">
+                <div class="left line-f">登记机关</div>
+                <div class="left f-color line-r">{{details.regisAuthority}}</div>  
             </div>
-            <div class="ic-line">
-                <div class="left line-f">
-                企业地址
-                </div>
-                <div class="left f-color line-r">
-                
-                </div>  
+            <div class="ic-line" v-if="details.comAddress">
+                <div class="left line-f">企业地址</div>
+                <div class="left f-color line-r">{{details.comAddress}}</div>  
             </div>
             <!-- 基本信息 新 end -->
             <div class="ic-line">
