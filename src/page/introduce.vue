@@ -10,9 +10,17 @@
       <img src="../assets/img/company.png" alt="">
     </div>
     <div class="com-detail left" >
-      <p class="c-name">
-        {{details.comName}}
-      </p>
+      <div class="flex-box">
+        <p class="c-name">{{details.comName}}</p>
+        <div class="right-box">
+          <span>更新时间:{{formatDate(details.updated,1)}}</span>
+          <span class="update" @click="updateFn">更新</span>
+          <div class="attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+              <i class="el-icon-plus"></i>{{collect}}
+          </div>
+        </div>
+      </div>
+      
       <div class="c-state">
         {{details.subsist}}&nbsp
       </div>
@@ -27,9 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="right attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
-         <i class="el-icon-plus"></i>{{collect}}
-    </div>
+    
   </div>
 
 
@@ -238,6 +244,23 @@ export default {
          path:'/download'
         })
         window.open(href, '_blank')
+    },
+    updateFn(){//更新
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/updated/company',
+        data:{
+          comName:that.$route.query.name,
+          comId:that.$route.query.id
+        }
+      }).then(function(res){
+          that.$confirm(res.data.msg, '提示', {
+              showCancelButton:false,
+              showConfirmButton:false,
+              type: 'warning'
+          })
+      })
     }
   },
   created () {
@@ -296,6 +319,7 @@ export default {
       overflow: hidden;
     }
     .com-detail {
+      width: calc(100% - 100px);
       .c-name {
         font-size: 18px;
         font-weight: 550;
@@ -390,6 +414,29 @@ export default {
     margin: 10px 0;
   }
   
- 
+  .flex-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .right-box{
+      display: flex;
+      align-items: center;
+      .update{
+        background: #fff;
+        border: 1px solid #FE6603;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #FE6603;
+        width: 62px;
+        line-height: 22px;
+        text-align: center;
+        display: inline-block;
+      }
+      span{
+        margin-right: 20px;
+        font-size: 14px;
+      }
+    }
+  }
 }
 </style>
