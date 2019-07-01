@@ -124,14 +124,14 @@
         </div>
     </div>
 
-    <div class="i-loading" v-show="duanwu" >
+    <!-- <div class="i-loading" v-show="duanwu" >
         <div class="i-boo" >
            <div class="i-detail" @click.stop="closeText(2)"  > 
 
            </div>
             <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
         </div> 
-     </div>
+     </div> -->
 
   </div>
 </template>
@@ -144,7 +144,7 @@ export default {
     return {
       isRouter:true,
       show:true,
-      duanwu:false,
+      // duanwu:false,
       isshow:true,
       names:true,
        navlist:[
@@ -420,28 +420,28 @@ export default {
             })
       }
     },
-    text() {
-      if(this.$route.fullPath == '/home'){
-        this.duanwu = true
-        this.modalHelper.afterOpen();
-      }
-    },
-    closeText(val) {
-      this.duanwu = false
-      this.modalHelper.beforeClose();
-      if(val == 2 ) {
-        const { href } = this.$router.resolve({
-          path:'/dwDetail'
-        })
-        window.open(href, '_blank', )
-      }
-    },
+    // 端午活动逻辑
+    // text() {
+    //   if(this.$route.fullPath == '/home'){
+    //     this.duanwu = true
+    //     this.modalHelper.afterOpen();
+    //   }
+    // },
+    // closeText(val) {
+    //   this.duanwu = false
+    //   this.modalHelper.beforeClose();
+    //   if(val == 2 ) {
+    //     const { href } = this.$router.resolve({
+    //       path:'/dwDetail'
+    //     })
+    //     window.open(href, '_blank', )
+    //   }
+    // },
   },
   created () {
     if(localStorage.getItem('history')){
       localStorage.removeItem('history')
     }
-    this.text()
     this.valley()
     this.judges()
     if(this.$router.params!=undefined){

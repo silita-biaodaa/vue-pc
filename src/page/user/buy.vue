@@ -224,7 +224,7 @@
                    </div>
               </div>  
             </div>
-            <div class="puy-iphone" v-show="pushIP"  >
+            <!-- <div class="puy-iphone" v-show="pushIP"  >
               <div class="puy-iput" >
                 <div>邀请人手机号码：</div>
                  <el-input v-model="input" placeholder="请输入邀请人手机号码（可不填）"></el-input>
@@ -240,7 +240,7 @@
                     请输入正确的手机号码格式
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="puy-title" style="fontSize:14px;" >
                <span>支付方式</span>
             </div>
@@ -307,7 +307,7 @@ export default {
      all:{},
      iphone:'',
      isload:true,
-     input:'',
+    //  input:'',
      orderNo:'',
      error:false,
      pushIP:false,
@@ -329,34 +329,7 @@ export default {
     }
   },
   methods: {
-    pushIp() {
-      if(this.input.trim() == '') {
-        return 
-      }
-      if(this.funcom.textIP(this.input.trim())) {
-         return this.error = true
-      } else {
-        this.error = false
-        if(this.input.trim() == localStorage.getItem('phoneNo') ) {
-              this.pop = true
-              this.msg = '不能输入自己的手机号码'
-              setTimeout(() => {
-                this.pop = false
-              }, 1500);
-              return 
-        }
-      }
-      activity({phone:this.input,stdCode:this.all.stdCode,orderNo:this.orderNo}).then(res => {
-        if(res.code == 1) {
-            this.pop = true
-              this.msg = '提交成功'
-              setTimeout(() => {
-                this.pop = false
-              }, 1500);
-        }
-      })
-    },
-     jumpen() {
+    jumpen() {
         this.$router.push('/enroll')
     },
     selarea(el) {
@@ -409,7 +382,6 @@ export default {
       this.iphone = localStorage.getItem('phoneNo')
       vipPay({channel:'1003',userId:id,stdCode:this.all.stdCode,tradeType:'NATIVE'}).then( res => {
          if(res.code == 1) {
-           console.log(res);
            
            this.orderNo = res.orderNo
               let code = new QRCode("qrcode", {
