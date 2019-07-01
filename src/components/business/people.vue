@@ -1,32 +1,26 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <!-- 行政处罚 -->
-    <div class="punish">
+    <!-- 主要人员 -->
+    <div class="people">
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div style="width:200px" >决定书文号</div>
-                <div style="width:100px" >违法行为类型</div>
-                <div style="width:150px" >行政处罚内容</div>
-                <div style="width:150px" >决定机关名称</div>
-                <div style="width:100px" >处罚决定日期</div>
+                <div style="width:200px" >姓名</div>
+                <div style="width:100px" >职务</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
                 <div style="width:200px">
-                    <span style="color:#FE6603" >{{el.comName}}</span>
+                    <span style="color:#FE6603" >{{el.name}}</span>
                 </div>
-                <div style="width:100px">{{el.legalPerson}}</div>
-                <div style="width:150px" >{{el.phone}}</div>
-                <div style="width:150px" >{{el.phone}}</div>
-                <div style="width:100px"></div>
+                <div style="width:100px" v-html="el.position_CN"></div>
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'punish', // 基本信息
+    name: 'people', // 基本信息
     data() {
         return {
             // 数据模型
@@ -84,9 +78,9 @@ export default {
     .list-nav {
         height: 40px;
         line-height: 40px;
-        display: flex;
         text-align: center;
         font-size: 12px;
+        display: flex;
         color:#333;
         border-bottom: 1px solid #f2f2f2;
     }

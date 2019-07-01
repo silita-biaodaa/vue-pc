@@ -3,28 +3,20 @@
     <div class="branch">
         <div class="ic-basic">
             <div class="list-nav">
-                <div class="left" style="width:72px" >序号</div>
-                <div class="left" style="width:200px" >企业名称</div>
-                <div class="left" style="width:100px" >负责人</div>
-                <div class="left" style="width:150px" >联系方式</div>
-                <div class="left" style="width:250px" >地址</div>
+                <div style="width:72px" >序号</div>
+                <div style="width:200px" >企业名称</div>
+                <div style="width:100px" >负责人</div>
+                <div style="width:150px" >联系方式</div>
+                <div style="width:250px" >地址</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div class="left" style="width:72px" >
-                {{i+1}}
-                </div>
-                <div class="left" style="width:200px" >
+                <div style="width:72px" >{{i+1}}</div>
+                <div style="width:200px" >
                     <span style="color:#FE6603" >{{el.comName}}</span>
                 </div>
-                <div class="left" style="width:100px" >
-                {{el.legalPerson}}  
-                </div>
-                <div class="left" style="width:150px" >
-                {{el.phone}}
-                </div>
-                <div class="left" style="width:250px" >
-                {{el.comAddress}}
-                </div>
+                <div style="width:100px" >{{el.legalPerson}}</div>
+                <div style="width:150px" >{{el.phone}}</div>
+                <div style="width:250px" >{{el.comAddress}}</div>
             </div>
         </div>
     </div>
@@ -89,6 +81,7 @@ export default {
     .list-nav {
         height: 40px;
         line-height: 40px;
+        display: flex;
         text-align: center;
         font-size: 12px;
         color:#333;

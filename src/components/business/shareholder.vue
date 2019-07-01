@@ -4,18 +4,18 @@
     <div class="shareholder">
         <div class="ic-basic">
             <div class="list-nav">
-                <div class="left" style="width:72px" >序号</div>
-                <div class="left" style="width:200px" >股东</div>
-                <div class="left" style="width:100px" >持股比例</div>
-                <div class="left" style="width:150px" >认缴出资金额</div>
+                <div style="width:72px" >序号</div>
+                <div style="width:200px" >股东</div>
+                <div style="width:100px" >持股比例</div>
+                <div style="width:150px" >认缴出资金额</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div class="left" style="width:72px">{{i+1}}</div>
-                <div class="left" style="width:200px">
-                    <span style="color:#FE6603" >{{el.comName}}</span>
+                <div style="width:72px">{{i+1}}</div>
+                <div style="width:200px">
+                    <span style="color:#FE6603" >{{el.inv}}</span>
                 </div>
-                <div class="left" style="width:100px">{{el.legalPerson}}</div>
-                <div class="left" style="width:150px" >{{el.phone}}</div>
+                <div style="width:100px">{{el.proportion}}</div>
+                <div style="width:150px" >{{el.liSubConAm}}万元</div>
             </div>
         </div>
     </div>
@@ -82,6 +82,7 @@ export default {
         line-height: 40px;
         text-align: center;
         font-size: 12px;
+        display: flex;
         color:#333;
         border-bottom: 1px solid #f2f2f2;
     }

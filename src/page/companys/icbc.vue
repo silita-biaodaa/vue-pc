@@ -18,15 +18,15 @@
     </template>
     <!-- 股东信息 -->
     <template v-else-if="navNum==2"> 
-
+      <v-holder :list='holderList'></v-holder>
     </template>
     <!-- 主要人员 -->
     <template v-else-if="navNum==3"> 
-
+      <v-people :list='peopleList'></v-people>
     </template>
     <!-- 变更记录 -->
     <template v-else-if="navNum==4"> 
-
+      <v-change :list='changeList'></v-change>
     </template>
     <!-- 企业年报 -->
     <template v-else-if="navNum==5"> 
@@ -43,11 +43,18 @@
 import { Branch,getJsonData } from '@/api/index'
 import information from '@/components/business/information'
 import branch from '@/components/business/branch'
+import shareholder from '@/components/business/shareholder'
+import changeRecord from '@/components/business/changeRecord'
+import people from '@/components/business/people'
 export default {
   data () {
     return {
       inforData:{},//基本信息data
       branchList:[],//分支机构list
+      holderList:[],//股东信息
+      peopleList:[],//主要人员
+      changeList:[],//变更记录
+      
       id:'',
       navNum:0,
       navlist:[
@@ -110,7 +117,69 @@ export default {
           }
       })
     },
-    resetPhone(phone) {
+    getHolder(){//股东信息
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/info',
+        data:{
+          comId:this.id,
+          paramter:'partner'
+        }
+      }).then(function(res){
+        if(res.data.code==1){
+          let n =that.countScale(res.data.data);
+          for(let x of res.data.data){
+            x.proportion=((x.liSubConAm/n)*100).toFixed(2)+'%';
+          }
+          that.holderList=res.data.data;
+        }else{
+          that.$alert(res.data.msg);
+        }
+      })
+    },
+    getPeople(){//主要人员
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/info',
+        data:{
+          comId:this.id,
+          paramter:'personnel'
+        }
+      }).then(function(res){
+        if(res.data.code==1){
+          that.peopleList=res.data.data;
+        }else{
+          that.$alert(res.data.msg);
+        }
+      })
+    },
+    getChange(){//变更信息
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/info',
+        data:{
+          comId:this.id,
+          paramter:'change_record'
+        }
+      }).then(function(res){
+        if(res.data.code==1){
+          that.changeList=res.data.data;
+        }else{
+          that.$alert(res.data.msg);
+        }
+      })
+    },
+    countScale(list){//计算股东比例
+      let n=0;
+      for(let x of list){
+        n+=x.liSubConAm
+      }
+      return n
+    },
+    resetPhone(phone) {//号码*号
       var str = String(phone)
       var len = str.length;
       if (len >= 7) {
@@ -126,10 +195,16 @@ export default {
   created () {
     this.getInfor()
     this.getBranch()
+    this.getHolder()
+    this.getPeople()
+    this.getChange()
   },
   components: {
     'v-infor':information,
-    'v-branch':branch
+    'v-branch':branch,
+    'v-holder':shareholder,
+    'v-change':changeRecord,
+    'v-people':people
   }
 }
 </script>

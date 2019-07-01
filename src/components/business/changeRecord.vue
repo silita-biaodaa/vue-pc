@@ -4,20 +4,20 @@
     <div class="changeRecord">
         <div class="ic-basic">
             <div class="list-nav">
-                <div class="left" style="width:72px" >序号</div>
-                <div class="left" style="width:200px" >变更事项</div>
-                <div class="left" style="width:100px" >变更前内容</div>
-                <div class="left" style="width:150px" >变更后内容</div>
-                <div class="left" style="width:150px" >变更日期</div>
+                <div style="width:72px" >序号</div>
+                <div style="width:200px" >变更事项</div>
+                <div style="width:200px" >变更前内容</div>
+                <div style="width:200px" >变更后内容</div>
+                <div style="width:150px" >变更日期</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div class="left" style="width:72px">{{i+1}}</div>
-                <div class="left" style="width:200px">
-                    <span style="color:#FE6603" >{{el.comName}}</span>
+                <div style="width:72px">{{i+1}}</div>
+                <div style="width:200px">
+                    <span style="color:#FE6603" >{{el.altItem_CN}}</span>
                 </div>
-                <div class="left" style="width:100px">{{el.legalPerson}}</div>
-                <div class="left" style="width:150px" >{{el.phone}}</div>
-                <div class="left" style="width:150px" >{{el.phone}}</div>
+                <div style="width:200px">{{el.altBe}}</div>
+                <div style="width:200px" >{{el.altAf}}</div>
+                <div style="width:150px" >{{formatDate(el.altDate)}}</div>
             </div>
         </div>
     </div>
@@ -80,6 +80,7 @@ export default {
     border: 1px solid #f2f2f2;
     box-sizing: border-box;
     .list-nav {
+        display: flex;
         height: 40px;
         line-height: 40px;
         text-align: center;
