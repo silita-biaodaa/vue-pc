@@ -6,7 +6,7 @@
                 <i class="el-icon-close"  @click="closeFn"></i>
             </div>
             <div class="box">
-                <template v-if="contentDom">
+                <template v-if="contentTxt">
                     {{contentTxt}}
                 </template>
                 <template v-else>

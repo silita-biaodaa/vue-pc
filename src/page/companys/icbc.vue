@@ -105,7 +105,7 @@ export default {
     },
     getBranch() {//分支机构
       Branch({comId:this.id}).then(res => {
-          that.navlist[1].isAjax=true;
+          this.navlist[1].isAjax=true;
           if(res.code == 1) {
             this.branchList = res.data
             var iar = []

@@ -33,14 +33,14 @@
                 <div class="left f-color line-r">{{details.comAddress}}</div>  
             </div>
             <!-- 基本信息 新 end -->
-            <div class="ic-line">
+            <!-- <div class="ic-line">
                 <div class="left line-f">
                 注册号
                 </div>
                 <div class="left f-color line-r">
                 {{details.businessNum}}
                 </div>  
-            </div>
+            </div> -->
             <div class="ic-line">
                 <div class="left line-f">
                 企业类型
