@@ -143,6 +143,7 @@ export default {
             x.proportion=((x.liSubConAm/n)*100).toFixed(2)+'%';
           }
           that.holderList=res.data.data;
+          that.navlist[2].length=res.data.data.length;
         }else{
           that.$alert(res.data.msg);
         }
@@ -161,6 +162,7 @@ export default {
         that.navlist[3].isAjax=true;
         if(res.data.code==1){
           that.peopleList=res.data.data;
+          that.navlist[3].length=res.data.data.length;
         }else{
           that.$alert(res.data.msg);
         }
@@ -179,6 +181,7 @@ export default {
         that.navlist[4].isAjax=true;
         if(res.data.code==1){
           that.changeList=res.data.data;
+          that.navlist[4].length=res.data.data.length;
         }else{
           that.$alert(res.data.msg);
         }
@@ -196,6 +199,7 @@ export default {
         that.navlist[5].isAjax=true;
         if(res.data.code==1){
           that.yearsList=res.data.data;
+          that.navlist[5].length=res.data.data.length;
         }else{
           that.$alert(res.data.msg);
         }

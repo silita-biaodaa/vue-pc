@@ -12,9 +12,7 @@
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
-                <div style="width:200px">
-                    <span style="color:#FE6603" >{{el.altItem_CN}}</span>
-                </div>
+                <div style="width:200px">{{el.altItem_CN}}</div>
                 <div style="width:200px">{{el.altBe}}</div>
                 <div style="width:200px" >{{el.altAf}}</div>
                 <div style="width:150px" >{{formatDate(el.altDate)}}</div>
