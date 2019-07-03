@@ -4,7 +4,7 @@
       <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i,'loading':!o.isAjax}" @click="navTapFn(i,o.isAjax)">
         {{o.name}}
         <template v-if="o.length!=0">
-          (<span style="color:#FE6603">{{o.length}}</span>)
+          (<span>{{o.length}}</span>)
         </template>
       </span>
   </div>
@@ -34,7 +34,7 @@
     </template>
     <!-- 行政处罚 -->
     <template v-else-if="navNum==6"> 
-
+      <v-punish :list='punishList'></v-punish>
     </template>
     
 </div>
@@ -47,6 +47,7 @@ import shareholder from '@/components/business/shareholder'
 import changeRecord from '@/components/business/changeRecord'
 import people from '@/components/business/people'
 import annualReport from '@/components/business/annualReport'
+import punish from '@/components/business/punish'
 export default {
   data () {
     return {
@@ -56,6 +57,7 @@ export default {
       peopleList:[],//主要人员
       changeList:[],//变更记录
       yearsList:[],//年报
+      punishList:[],//行政处罚
       id:'',
       navNum:0,
       navlist:[
@@ -187,7 +189,7 @@ export default {
         }
       })
     },
-    getYears(){
+    getYears(){//企业年报
       let that=this;
       this.$http({
         method:'post',
@@ -204,6 +206,26 @@ export default {
           that.$alert(res.data.msg);
         }
       })
+    },
+    getPunish(){//行政处罚
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/info',
+        data:{
+          comId:this.id,
+          paramter:'punish'
+        }
+      }).then(function(res){
+        that.navlist[6].isAjax=true;
+        if(res.data.code==1){
+          that.punishList=res.data.data;
+          that.navlist[6].length=res.data.data.length;
+        }else{
+          that.$alert(res.data.msg);
+        }
+      })
+      
     },
     countScale(list){//计算股东比例
       let n=0;
@@ -237,6 +259,7 @@ export default {
     this.getPeople()
     this.getChange()
     this.getYears()
+    this.getPunish()
   },
   components: {
     'v-infor':information,
@@ -244,7 +267,8 @@ export default {
     'v-holder':shareholder,
     'v-change':changeRecord,
     'v-people':people,
-    'v-years':annualReport
+    'v-years':annualReport,
+    'v-punish':punish
   }
 }
 </script>
@@ -267,7 +291,7 @@ export default {
     }
   }
   .ic-dark {
-    color:#333;
+    color:#FE6603;
   }
   .loading{
     cursor: wait;

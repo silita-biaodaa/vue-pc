@@ -5,21 +5,21 @@
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div style="width:200px" >决定书文号</div>
-                <div style="width:100px" >违法行为类型</div>
-                <div style="width:150px" >行政处罚内容</div>
-                <div style="width:150px" >决定机关名称</div>
+                <div style="width:100px" >决定书文号</div>
+                <div style="width:200px" >违法行为类型</div>
+                <div style="width:200px" >行政处罚内容</div>
+                <div style="width:100px" >决定机关名称</div>
                 <div style="width:100px" >处罚决定日期</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
-                <div style="width:200px">
-                    <span style="color:#FE6603" >{{el.comName}}</span>
+                <div style="width:100px">
+                    <span style="color:#FE6603" >{{el.penDecNo}}</span>
                 </div>
-                <div style="width:100px">{{el.legalPerson}}</div>
-                <div style="width:150px" >{{el.phone}}</div>
-                <div style="width:150px" >{{el.phone}}</div>
-                <div style="width:100px"></div>
+                <div style="width:200px">{{el.illegActType}}</div>
+                <div style="width:200px" >{{el.penContent}}</div>
+                <div style="width:100px" >{{el.penAuth_CN}}</div>
+                <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
             </div>
         </div>
     </div>

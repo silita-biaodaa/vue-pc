@@ -5,17 +5,17 @@
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div style="width:200px" >变更事项</div>
-                <div style="width:200px" >变更前内容</div>
-                <div style="width:200px" >变更后内容</div>
-                <div style="width:150px" >变更日期</div>
+                <div style="width:100px" >变更事项</div>
+                <div style="width:275px" >变更前内容</div>
+                <div style="width:275px" >变更后内容</div>
+                <div style="width:100px" >变更日期</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
-                <div style="width:200px">{{el.altItem_CN}}</div>
-                <div style="width:200px">{{el.altBe}}</div>
-                <div style="width:200px" >{{el.altAf}}</div>
-                <div style="width:150px" >{{formatDate(el.altDate)}}</div>
+                <div style="width:100px">{{el.altItem_CN}}</div>
+                <div style="width:275px">{{el.altBe}}</div>
+                <div style="width:275px" >{{el.altAf}}</div>
+                <div style="width:100px" >{{formatDate(el.altDate)}}</div>
             </div>
         </div>
     </div>
