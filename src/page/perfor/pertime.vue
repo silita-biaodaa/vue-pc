@@ -112,6 +112,11 @@ export default {
     this.gainTime()
     let n=this.$parent.data.buildEnd;
     let o=this.$parent.data.buildStart;
+    if(sessionStorage.getItem('fwSerach')){
+      let data=JSON.parse(sessionStorage.getItem('fwSerach'));
+      n=data.end;
+      o=data.start;
+    }
     if((n==this.province[1].new&&o==this.province[1].old)||(n==this.province[2].new&&o==this.province[2].old)){
       this.Ntime=n;
       this.Otime=o;

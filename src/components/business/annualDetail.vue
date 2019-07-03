@@ -77,10 +77,10 @@
                 <tr>
                     <td class="bg">序号</td>
                     <td class="bg">股东</td>
-                    <td class="bg">认缴出资额（万元）</td>
+                    <td class="bg">认缴出资额</br>（万元）</td>
                     <td class="bg">认缴出资时间</td>
                     <td class="bg">认缴出资方式</td>
-                    <td class="bg">实缴出资额（万元）</td>
+                    <td class="bg">实缴出资额</br>（万元）</td>
                     <td class="bg">实缴出资时间</td>
                     <td class="bg">实缴出资方式</td>
                 </tr>

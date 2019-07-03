@@ -8,42 +8,22 @@
     </div>
     <div class="build-list">
         <div class="build-table" >
-            <div style="width:80px;" >
-            序号
-            </div>
-            <div style="width:300px;" >
-            标题
-            </div>
-            <div style="width:240px;" >
-            法院
-            </div>
-            <div style="width:200px;" >
-            案号
-            </div>
-            <div style="width:200px;" >
-            发布日期
-            </div>
+            <div style="width:80px;" >序号</div>
+            <div style="width:300px;" >标题</div>
+            <div style="width:240px;" >法院</div>
+            <div style="width:200px;" >案号</div>
+            <div style="width:200px;" >发布日期</div>
         </div>
         <!-- 判断是否加载中 -->
         <template v-if="isajax">
             <!-- 有数据 -->
             <template v-if="list&&list.length>0">
                 <a class="build-in" v-for="(el,i) in list" :key="i"  @click="toDetail(el)"  > 
-                <div style="width:80px;"  >
-                    {{(data.pageNo-1)*20+(i+1)}}
-                    </div>
-                    <div style="width:300px;" >
-                    {{el.title}}
-                    </div>
-                    <div style="width:240px;" >
-                    {{el.court}}
-                    </div>
-                    <div style="width:200px;" >
-                    {{el.caseNo}}
-                    </div>
-                    <div style="width:200px;" >
-                    {{el.dateStr}}
-                    </div>
+                    <div style="width:80px;">{{(data.pageNo-1)*20+(i+1)}}</div>
+                    <div style="width:300px;" >{{el.title}}</div>
+                    <div style="width:240px;" >{{el.court}}</div>
+                    <div style="width:200px;" >{{el.caseNo}}</div>
+                    <div style="width:200px;" >{{el.dateStr}}</div>
                 </a>
                 <div class="page">
                     <nav-page 
@@ -104,7 +84,7 @@ export default {
             let data=JSON.parse(sessionStorage.getItem('fwSerach'));
             this.data=data;
         }
-        // this.gainList();
+        this.gainList();
     },
     methods: {
         gaintime(val){

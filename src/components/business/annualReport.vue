@@ -13,7 +13,7 @@
                 <div style="width:72px">{{i+1}}</div>
                 <div>{{el.years}}年度报告</div>
                 <div style="width:200px">
-                    <span style="color:#FE6603;cursor: pointer;" @click="seeDetail(el)">查看详情</span>
+                    <span @click="seeDetail(el)" class="see-detail">查看详情</span>
                 </div>
             </div>
         </div>
@@ -72,12 +72,13 @@ export default {
                 }
             }).then(function(res){
                 if(res.data.code==1){
+                    that.mask=true;
                     console.log(res.data);
                 }else{
                     that.$alert(res.data.msg);
                 }
             })
-            that.mask=true;
+            
         }
     }
 
@@ -112,7 +113,13 @@ export default {
         border-bottom: 1px solid #f2f2f2;
         justify-content: space-between;
     }
-
+    .see-detail{
+        color:#FE6603;
+        cursor: pointer;
+    }
+    .loading{
+        cursor: wait;
+    }
 }
 
 </style>
