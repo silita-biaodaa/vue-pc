@@ -1,7 +1,7 @@
 <template>
 <div class="icbc">
   <div class="ic-nav">
-      <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="navNum==i?'ic-dark':''" @click="navNum=i">
+      <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i,'loading':!o.isAjax}" @click="navTapFn(i,o.isAjax)">
         {{o.name}}
         <template v-if="o.length!=0">
           (<span style="color:#FE6603">{{o.length}}</span>)
@@ -30,7 +30,7 @@
     </template>
     <!-- 企业年报 -->
     <template v-else-if="navNum==5"> 
-
+      <v-years :list='yearsList'></v-years>
     </template>
     <!-- 行政处罚 -->
     <template v-else-if="navNum==6"> 
@@ -46,6 +46,7 @@ import branch from '@/components/business/branch'
 import shareholder from '@/components/business/shareholder'
 import changeRecord from '@/components/business/changeRecord'
 import people from '@/components/business/people'
+import annualReport from '@/components/business/annualReport'
 export default {
   data () {
     return {
@@ -54,31 +55,38 @@ export default {
       holderList:[],//股东信息
       peopleList:[],//主要人员
       changeList:[],//变更记录
-      
+      yearsList:[],//年报
       id:'',
       navNum:0,
       navlist:[
         {
           name:'基本信息',
-          length:0
+          length:0,
+          isAjax:true,
         },{
           name:'分支机构',
-          length:0
+          length:0,
+          isAjax:false,
         },{
           name:'股东信息',
-          length:0
+          length:0,
+          isAjax:false,
         },{
           name:'主要人员',
-          length:0
+          length:0,
+          isAjax:false,
         },{
           name:'变更记录',
-          length:0
+          length:0,
+          isAjax:false,
         },{
           name:'企业年报',
-          length:0
+          length:0,
+          isAjax:false,
         },{
           name:'行政处罚',
-          length:0
+          length:0,
+          isAjax:false,
         }
       ]
     }
@@ -97,6 +105,7 @@ export default {
     },
     getBranch() {//分支机构
       Branch({comId:this.id}).then(res => {
+          that.navlist[1].isAjax=true;
           if(res.code == 1) {
             this.branchList = res.data
             var iar = []
@@ -127,6 +136,7 @@ export default {
           paramter:'partner'
         }
       }).then(function(res){
+        that.navlist[2].isAjax=true;
         if(res.data.code==1){
           let n =that.countScale(res.data.data);
           for(let x of res.data.data){
@@ -148,6 +158,7 @@ export default {
           paramter:'personnel'
         }
       }).then(function(res){
+        that.navlist[3].isAjax=true;
         if(res.data.code==1){
           that.peopleList=res.data.data;
         }else{
@@ -165,8 +176,26 @@ export default {
           paramter:'change_record'
         }
       }).then(function(res){
+        that.navlist[4].isAjax=true;
         if(res.data.code==1){
           that.changeList=res.data.data;
+        }else{
+          that.$alert(res.data.msg);
+        }
+      })
+    },
+    getYears(){
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/report/years',
+        data:{
+          comId:this.id,
+        }
+      }).then(function(res){
+        that.navlist[5].isAjax=true;
+        if(res.data.code==1){
+          that.yearsList=res.data.data;
         }else{
           that.$alert(res.data.msg);
         }
@@ -191,6 +220,11 @@ export default {
           return str.replace(reg, "**")
       }
     },
+    navTapFn(i,isajax){
+      if(isajax){
+        this.navNum=i;
+      }
+    }
   },
   created () {
     this.getInfor()
@@ -198,13 +232,15 @@ export default {
     this.getHolder()
     this.getPeople()
     this.getChange()
+    this.getYears()
   },
   components: {
     'v-infor':information,
     'v-branch':branch,
     'v-holder':shareholder,
     'v-change':changeRecord,
-    'v-people':people
+    'v-people':people,
+    'v-years':annualReport
   }
 }
 </script>
@@ -229,7 +265,9 @@ export default {
   .ic-dark {
     color:#333;
   }
-  
+  .loading{
+    cursor: wait;
+  }
     
   }
   .f-color {
@@ -237,4 +275,6 @@ export default {
     
   }
   
+
+
 </style>

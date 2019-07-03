@@ -351,9 +351,9 @@ export default {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            cursor: pointer;
             span {
               color:#FE6603;
+              cursor: pointer;
             }
           }
         }

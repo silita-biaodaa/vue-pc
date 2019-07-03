@@ -1,29 +1,28 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <!-- 主要人员 -->
-    <div class="people">
-        <div class="ic-basic">
-            <div class="list-nav">
-                <div style="width:72px" >序号</div>
-                <div>姓名</div>
-                <div style="width:200px" >职务</div>
+    <div class="popup">
+        <div class="pop">
+            <div class="title">
+                <i class="el-icon-close"  @click="closeFn"></i>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div>
-                    <span style="color:#FE6603" >{{el.name}}</span>
-                </div>
-                <div class="position" v-html="el.position_CN"></div>
+            <div class="box">
+                <template v-if="contentDom">
+                    {{contentTxt}}
+                </template>
+                <template v-else>
+                    <slot></slot>
+                </template>
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'people', // 基本信息
+    name: 'popup', // 结构名称
     data() {
         return {
             // 数据模型
+            isShow:true
         }
     },
     watch: {
@@ -31,8 +30,8 @@ export default {
     },
     props: {
         // 集成父级参数
-        list:{
-            
+        contentTxt:{//可以传内容，可以用插槽
+            default:false
         }
     },
     beforeCreate() {
@@ -64,6 +63,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        closeFn(){
+            this.$parent.mask=false
+        }
     }
 
 }
@@ -71,39 +73,35 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.ic-basic {
-    margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    .list-nav {
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 12px;
-        display: flex;
-        justify-content: space-between;
-        color:#333;
-        border-bottom: 1px solid #f2f2f2;
-    }
-    .list-co {
-        color: #999;
-        text-align: center;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        padding: 5px 0;
-        box-sizing: border-box; 
-        border-bottom: 1px solid #f2f2f2;
-        justify-content: space-between;
-    }
-
+.popup{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.position{
-    width: 200px;
-    img{
-        max-width: 200px;
+.pop{
+    width: 998px;
+    background: #fff;
+    padding: 10px;
+    height: 600px;
+    .title{
+        text-align: right;
+        i{
+            font-size: 30px;
+            cursor: pointer;
+            color: #EC7522
+        }
+    }
+    .box{
+        height:calc(600px - 40px);
+        overflow: auto;
     }
 }
-
 </style>

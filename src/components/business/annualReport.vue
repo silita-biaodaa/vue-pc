@@ -1,29 +1,37 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <!-- 主要人员 -->
-    <div class="people">
+    <!-- 年报信息 -->
+    <div class="annualReport">
+        <!-- list -->
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div>姓名</div>
-                <div style="width:200px" >职务</div>
+                <div>标题</div>
+                <div style="width:200px" >操作</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
-                <div>
-                    <span style="color:#FE6603" >{{el.name}}</span>
+                <div>{{el.years}}年度报告</div>
+                <div style="width:200px">
+                    <span style="color:#FE6603;cursor: pointer;" @click="seeDetail(el)">查看详情</span>
                 </div>
-                <div class="position" v-html="el.position_CN"></div>
             </div>
         </div>
+        <!-- 弹窗 -->
+        <v-pop v-if="mask">
+            <v-annual-detail></v-annual-detail>
+        </v-pop>
     </div>
 </template>
 <script>
+import popup from '@/components/popup'
+import annualDetail from '@/components/business/annualDetail'
 export default {
-    name: 'people', // 基本信息
+    name: 'annualReport', // 基本信息
     data() {
         return {
             // 数据模型
+            mask:false
         }
     },
     watch: {
@@ -35,14 +43,15 @@ export default {
             
         }
     },
+    components:{
+        'v-pop':popup,
+        'v-annual-detail':annualDetail
+    },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-    },
-    beforeMount() {
-        // console.group('挂载前状态  ===============》beforeMount');
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
@@ -50,20 +59,26 @@ export default {
             // console.log('执行完后，执行===============》mounted');
         });
     },
-    beforeUpdate() {
-        // console.group('更新前状态  ===============》beforeUpdate');
-    },
-    updated() {
-        // console.group('更新完成状态===============》updated');
-    },
-    beforeDestroy() {
-        // console.group('销毁前状态  ===============》beforeDestroy');
-    },
-    destroyed() {
-        // console.group('销毁完成状态===============》destroyed');
-    },
     methods: {
         // 方法 集合
+        seeDetail(el){
+            let that=this;
+            this.$http({
+                method:'post',
+                url:'/gs/report/detail',
+                data:{
+                    comId:el.comId,
+                    years:el.years
+                }
+            }).then(function(res){
+                if(res.data.code==1){
+                    console.log(res.data);
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            })
+            that.mask=true;
+        }
     }
 
 }
@@ -98,12 +113,6 @@ export default {
         justify-content: space-between;
     }
 
-}
-.position{
-    width: 200px;
-    img{
-        max-width: 200px;
-    }
 }
 
 </style>

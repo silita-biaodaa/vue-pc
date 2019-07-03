@@ -5,16 +5,16 @@
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div style="width:200px" >股东</div>
-                <div style="width:100px" >持股比例</div>
+                <div>股东</div>
+                <div>持股比例</div>
                 <div style="width:150px" >认缴出资金额</div>
             </div>
             <div class="list-co" v-for="(el,i) in list" :key="i" >
                 <div style="width:72px">{{i+1}}</div>
-                <div style="width:200px">
+                <div>
                     <span style="color:#FE6603" >{{el.inv}}</span>
                 </div>
-                <div style="width:100px">{{el.proportion}}</div>
+                <div>{{el.proportion}}</div>
                 <div style="width:150px" >{{el.liSubConAm}}万元</div>
             </div>
         </div>
@@ -78,6 +78,7 @@ export default {
     border: 1px solid #f2f2f2;
     box-sizing: border-box;
     .list-nav {
+        justify-content: space-between;
         height: 40px;
         line-height: 40px;
         text-align: center;
@@ -91,13 +92,13 @@ export default {
         text-align: center;
         min-height: 40px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         font-size: 12px;
         padding: 5px 0;
         box-sizing: border-box; 
         border-bottom: 1px solid #f2f2f2
     }
-
 }
 
 </style>
