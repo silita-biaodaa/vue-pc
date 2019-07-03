@@ -37,7 +37,7 @@
             <template v-else-if="list&&list.length==0">
                 <div class="no-toast">
                 <img src="../assets/img/bank_card @2x.png" alt="">
-                <span>Sorry，没有找到相关法务信息</span>
+                <span>Sorry，没有找到符合条件的法务信息</span>
                 </div>
             </template>
             <!-- 加载失败 -->
