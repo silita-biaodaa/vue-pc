@@ -8,49 +8,63 @@
             <table class="four">
                 <tr>
                     <td class="bg">企业名称</td>
-                    <td>湖南耀邦建设有限公司</td>
+                    <td>{{data.comName}}</td>
                     <td class="bg">统一社会信用代码</td>
-                    <td>91430000320669897C</td>
+                    <td>{{data.basic.uniscId}}</td>
                 </tr>
                 <tr>
                     <td class="bg">企业联系电话</td>
-                    <td>0731-85076077</td>
+                    <td>{{data.basic.tel}}</td>
                     <td class="bg">邮政编码</td>
-                    <td>410000</td>
+                    <td>{{data.basic.postalCode}}</td>
                 </tr>
                 <tr>
                     <td class="bg">企业经营状态</td>
-                    <td>开业</td>
+                    <td>{{data.basic.busSt}}</td>
                     <td class="bg">从业人数</td>
-                    <td>企业选择不公示</td>
+                    <td>{{data.basic.empNum}}</td>
                 </tr>
                 <tr>
                     <td class="bg">电子邮箱</td>
-                    <td>huangxin@yaobangjs.com</td>
+                    <td>{{data.basic.email}}</td>
                     <td class="bg">是否有网站或网店</td>
-                    <td>有</td>
+                    <td>
+                        <template v-if="data.website&&data.website.length>0">
+                            是
+                        </template>
+                        <template v-else>
+                            否
+                        </template>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bg">其中女性从业人数</td>
-                    <td>企业选择不公示</td>
+                    <td>{{data.basic.womemPNum}}</td>
                     <td class="bg">企业控股情况</td>
-                    <td>企业选择不公示</td>
+                    <td>{{data.basic.holdingSmsg}}</td>
                 </tr>
                 <tr>
                     <td class="bg">是否有对外提供担保信息</td>
                     <td>否</td>
                     <td class="bg">有限责任公司本年度是否发生股东股权转让</td>
-                    <td>否</td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="bg">企业通信地址</td>
-                    <td>湖南省长沙市岳麓区望岳街道杜鹃路768号</td>
+                    <td>{{data.basic.addr}}</td>
                     <td class="bg">是否有投资信息或购买其他公司股权</td>
-                    <td>是</td>
+                    <td>
+                        <template v-if="data.invest&&data.invest.length>0">
+                            是
+                        </template>
+                        <template v-else>
+                            否
+                        </template>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bg">企业主营业务活动</td>
-                    <td colspan="3" style="text-align: left;">建筑工程施工总承包；市政公用工程施工总承包；钢结构工程专业承包；室内装饰、设计；建筑装修装饰工程专业承包；建筑工程后期装饰、装修和清理；起重设备安装服务；地基与基础工程专业承包；水利水电工程施工总承包；建筑幕墙工程专业承包；机电设备安装工程专业承包；消防设施工程专业承包；电子与智能化工程专业承包；城市道路养护；混凝土制造（限分支机构）；砼结构构件制造（限分支机构）；土石方工程服务；建筑行业工程设计；园林绿化工程服务；房屋建筑工程、水利水电工程、环保工程设施、城市及道路照明工程的施工</td>
+                    <td colspan="3" style="text-align: left;">{{data.basic.mainBusiAct}}</td>
                 </tr>
             </table>
         </div>
@@ -63,10 +77,17 @@
                     <td class="bg">名称</td>
                     <td class="bg">网址</td>
                 </tr>
-                <tr>
-                    <td>网站</td>
-                    <td>湖南耀邦建设有限公司</td>
-                    <td>www.1234.com</td>
+                <tr v-for="(o,i) of data.website" :key="'wd'+i">
+                    <td>
+                        <template v-if="o.webType==1">
+                            网站
+                        </template>
+                        <template v-else>
+                            网店
+                        </template>
+                    </td>
+                    <td>{{o.webSitName}}</td>
+                    <td>{{o.domain}}</td>
                 </tr>
             </table>
         </div>
@@ -84,15 +105,15 @@
                     <td class="bg">实缴出资时间</td>
                     <td class="bg">实缴出资方式</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>xxx</td>
-                    <td>1000</td>
-                    <td>2014-12-22</td>
-                    <td>货币,实物,知识产权,土地使用权</td>
-                    <td>1000</td>
-                    <td>2014-12-22</td>
-                    <td>货币,实物,知识产权,土地使用权</td>
+                <tr v-for="(o,i) of data.partner" :key="'gd'+i">
+                    <td>{{i+1}}</td>
+                    <td>{{o.invName}}</td>
+                    <td>{{o.liSubConAm}}</td>
+                    <td>{{formatDate(o.subConDate)}}</td>
+                    <td>{{o.subConFormName}}</td>
+                    <td>{{o.liAcConAm}}</td>
+                    <td>{{formatDate(o.acConDate)}}</td>
+                    <td>{{o.acConForm_CN}}</td>
                 </tr>
             </table>
         </div>
@@ -105,10 +126,10 @@
                     <td class="bg">统一社会信用代码/注册号</td>
                     <td class="bg">对外投资企业名称</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>91430100790317749U</td>
-                    <td>湖南东方红建设集团园林有限公司</td>
+                <tr v-for="(o,i) of data.invest" :key="'dw'+i">
+                    <td>{{i+1}}</td>
+                    <td>{{o.uniscId}}</td>
+                    <td>{{o.entName}}</td>
                 </tr>
             </table>
         </div>
@@ -167,80 +188,80 @@
             <table>
                 <tr class="four">
                     <td class="bg">城镇职工基本养老保险</td>
-                    <td colspan="2">19930人</td>
+                    <td colspan="2">{{data.socialSecurity[0].so110}}人</td>
                     <td class="bg" colspan="2">失业保险</td>
-                    <td colspan="2">19930人</td>
+                    <td colspan="2">{{data.socialSecurity[0].so210}}人</td>
                 </tr>
                 <tr class="four">
                     <td class="bg">职工基本医疗保险</td>
-                    <td colspan="2">19930人</td>
+                    <td colspan="2">{{data.socialSecurity[0].so310}}人</td>
                     <td class="bg" colspan="2">工伤保险</td>
-                    <td colspan="2">19930人</td>
+                    <td colspan="2">{{data.socialSecurity[0].so410}}人</td>
                 </tr>
                 <tr class="four">
                     <td class="bg">生育保险</td>
-                    <td colspan="2">19930人</td>
-                    <td class="bg" colspan="2">/</td>
-                    <td colspan="2">/</td>
+                    <td colspan="2">{{data.socialSecurity[0].so510}}人</td>
+                    <td class="bg" colspan="2">&nbsp;</td>
+                    <td colspan="2">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td rowspan="4">城镇职工基本养老保险</td>
+                    <td rowspan="4">单位缴费基数</td>
                     <td colspan="3">单位参加城镇职工基本养老保险缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalWagesSo110}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加失业保险缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalWagesSo210}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加职工基本医疗保险缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalWagesSo310}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加生育保险缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo510}}</td>
                 </tr>
                 <tr>
-                    <td rowspan="5">职工基本医疗保险</td>
+                    <td rowspan="5">本期实际缴费基数</td>
                     <td colspan="3">参加城镇职工基本养老保险本期实际缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo110}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">参加失业保险本期实际缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo210}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">参加职工基本医疗保险本期实际缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo310}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">参加工伤保险本期实际缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo410}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">参加生育保险本期实际缴费基数</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].totalPaymentSo510}}</td>
                 </tr>
                 <tr>
-                    <td rowspan="5">生育保险</td>
+                    <td rowspan="5">单位累计欠缴金额</td>
                     <td colspan="3">单位参加城镇职工基本养老保险累计欠缴金额</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo110}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加失业保险累计欠缴金额</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo210}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加职工基本医疗保险累计欠缴金额</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo310}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加工伤保险累计欠缴金额</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo410}}</td>
                 </tr>
                 <tr>
                     <td colspan="3">单位参加生育保险累计欠缴金额</td>
-                    <td colspan="3">企业选择不公示</td>
+                    <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo510}}</td>
                 </tr>
             </table>
         </div>
@@ -259,6 +280,9 @@ export default {
     },
     props: {
         // 集成父级参数
+        data:{
+            default:''
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

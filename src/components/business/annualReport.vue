@@ -19,7 +19,7 @@
         </div>
         <!-- 弹窗 -->
         <v-pop v-if="mask">
-            <v-annual-detail></v-annual-detail>
+            <v-annual-detail :data="detail"></v-annual-detail>
         </v-pop>
     </div>
 </template>
@@ -31,7 +31,8 @@ export default {
     data() {
         return {
             // 数据模型
-            mask:false
+            mask:false,
+            detail:''
         }
     },
     watch: {
@@ -73,7 +74,7 @@ export default {
             }).then(function(res){
                 if(res.data.code==1){
                     that.mask=true;
-                    console.log(res.data);
+                    that.detail=res.data.data;
                 }else{
                     that.$alert(res.data.msg);
                 }
