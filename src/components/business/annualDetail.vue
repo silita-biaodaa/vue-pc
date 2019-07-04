@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="annualDetail">
-        <h5>湖南耀邦建设有限公司2018年度报告</h5>
+        <h5>{{data.comName}}{{data.year}}年度报告</h5>
         <!--  -->
         <div class="box">
             <h6>企业基本信息</h6>
@@ -69,7 +69,7 @@
             </table>
         </div>
         <!--  -->
-        <div class="box">
+        <div class="box"  v-if="data.website&&data.website.length>0">
             <h6>网站或网店信息</h6>
             <table class="three">
                 <tr>
@@ -113,12 +113,12 @@
                     <td>{{o.subConFormName}}</td>
                     <td>{{o.liAcConAm}}</td>
                     <td>{{formatDate(o.acConDate)}}</td>
-                    <td>{{o.acConForm_CN}}</td>
+                    <td>{{o.acConForm}}</td>
                 </tr>
             </table>
         </div>
         <!--  -->
-        <div class="box">
+        <div class="box"  v-if="data.invest&&data.invest.length>0">
             <h6>对外投资信息</h6>
             <table class="three">
                 <tr>
@@ -183,7 +183,7 @@
             </table>
         </div>
         <!--  -->
-        <div class="box">
+        <div class="box" v-if="data.socialSecurity&&data.socialSecurity.length>0">
             <h6>社保信息</h6>
             <table>
                 <tr class="four">
