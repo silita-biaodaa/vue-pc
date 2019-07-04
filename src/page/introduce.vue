@@ -13,7 +13,7 @@
       <div class="flex-box">
         <p class="c-name">{{details.comName}}</p>
         <div class="right-box">
-          <span>更新时间:{{formatDate(details.updated,1)}}</span>
+          <span>更新时间:{{formatDate((details.updated)*1,1)}}</span>
           <span class="update" @click="updateFn">更新</span>
           <div class="attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
               <i class="el-icon-plus"></i>{{collect}}
