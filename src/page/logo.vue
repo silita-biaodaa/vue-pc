@@ -225,6 +225,7 @@ export default {
               width: 24px;
               height: 20px;
               float: right;
+              cursor: pointer;
             }
             .iqq {
               width: 18px;

@@ -1,53 +1,91 @@
 <template>
 <div class="reply"  >
-   <div v-for="(el,i) in textList" :key="i" class="re-bor" >
-        <div @click="jumA(el)"  class=" all-text" >
-              <div class="re-title">
-                <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
+   <div v-for="(el,i) in textList" :key="i" class="re-bor"  @click="jumA(el)">
+        <!-- 评论 -->
+        <template  v-if="el.msgType=='reply'">
+          <div  class=" all-text" >
+            <div class="re-title">
+              <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
+            </div>
+            <div class="re-new"  v-if="current == 1 && i == 0" >
+                <span>最新回答</span>
+                <div class="triangle" >
+                </div>
+            </div>
+            <div style="padding:10px 0" >
+              <div class="re-list"  >
+                <div class="list-cli" >
+                  <div  class="list-true"  v-show="!el.textShow" ></div>
+                  <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
+                </div>
+                <div class='list-img'>
+                  <img :src="el.reImage != null ? el.reImage : avatar" alt="">
+                  <div class="no-read" v-if="el.isRead == 0" ></div>
+                </div>
+                <div class="list-text" >
+                  <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
+                  <div style="margin: 5px 0;" v-html="el.replyContent"></div>
+                  <p>{{el.pushd}}</p>
+                </div>
               </div>
-              <div class="re-new"  v-if="current == 1 && i == 0" >
-                 <span>最新回答</span>
-                 <div class="triangle" >
-                 </div>
+            </div>
+          </div>
+        </template>
+        <!-- 企业更新 -->
+        <template v-else-if="el.msgType=='company'">
+          <div class="msg-company-box">
+            <div class="msg-tit">
+              <p>企业数据更新已完成</p>
+              <p>{{el.pushd}}</p>
+            </div>
+            <div class="msg-con">
+              <div class="list-cli" >
+                <div  class="list-true"  v-if="!el.textShow" ></div>
+                <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
               </div>
-              <div style="padding:10px 0" >
-                   <div class="re-list"  >
-                      <div class="list-cli" >
-                        <div  class="list-true"  v-show="!el.textShow" >
-                        </div>
-                        <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
-                      </div>
-                      <div class='list-img'>
-                        <img :src="el.reImage != null ? el.reImage : avatar" alt="">
-                        <div class="no-read" v-if="el.isRead == 0" >
-                        
-                        </div>
-                      </div>
-                      <div class="list-text" >
-                        <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-                        <div style="margin: 5px 0;" v-html="el.replyContent"></div>
-                        <p>{{el.pushd}}</p>
-                      </div>
-             </div>
-        </div>
-     </div>
+              <div>{{el.msgContent}}</div>
+            </div>
+            <div class="msg-btn">
+              <button class="right" @click="jumpCom(el)">查看详情 ></button>
+            </div>
+          </div>
+        </template>
+        <!-- 会员到期 -->
+        <template v-else-if="el.msgType=='vip'">
+          <div class="msg-company-box">
+            <div class="msg-tit">
+              <p>会员过期通知</p>
+              <p>{{el.pushd}}</p>
+            </div>
+            <div class="msg-con">
+              <div class="list-cli" >
+                <div  class="list-true"  v-if="!el.textShow" ></div>
+                <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+              </div>
+              <div>{{el.msgContent}}</div>
+            </div>
+            <div class="msg-btn">
+              <button class="right" @click="jumpVip">查看详情 ></button>
+            </div>
+          </div>
+        </template>
    
-   </div>
-     <div class="page" v-show="ishow" >
-         <nav-page 
-          :all='total'
-          :currents='pageNo'
-          :pageSize = 'pageSize'
-          @skip='Goto'
-          ></nav-page>
-     </div>  
-      <div class="info-pop" v-show="pop" >
-       {{msg}}
-     </div>
-     <div class="no-toast" v-show="noList" >
-       <img src="../../assets/img/bank_card @2x.png" alt="">
-       <span>暂未收到消息通知</span>
-     </div>
+    </div>
+    <div class="page" v-show="ishow" >
+        <nav-page 
+        :all='total'
+        :currents='pageNo'
+        :pageSize = 'pageSize'
+        @skip='Goto'
+        ></nav-page>
+    </div>  
+    <div class="info-pop" v-show="pop" >
+      {{msg}}
+    </div>
+    <div class="no-toast" v-show="noList" >
+      <img src="../../assets/img/bank_card @2x.png" alt="">
+      <span>暂未收到消息通知</span>
+    </div>
 </div>
 </template>
 <script>
@@ -92,7 +130,9 @@ export default {
          if(res.code == 1) {
            res.data.forEach(el => {
              el.textShow = false
-             el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
+             if(el.msgType=='reply'){
+               el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
+             }
            })
            this.total = res.total
            this.textList = res.data
@@ -111,8 +151,19 @@ export default {
         
       })
     },
-    nopas() {
-
+    //跳转至会员服务
+    jumpVip(){
+      const { href } = this.$router.resolve({
+          path:'/buy' 
+      })
+      window.open(href,'_blank')
+    },
+    //跳转至公司详情
+    jumpCom(el){
+      const { href } = this.$router.resolve({
+        path:'/introduce',query:{id:el.replyId,name:el.comName} 
+      })
+      window.open(href, '_blank', )
     }
   },
   created () {
@@ -213,10 +264,12 @@ export default {
   }
 }
 </script>
-<style lang="less" >
+<style lang="less">
 .reply {
   .list-cli  {
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 14px;
       .list-true {
       width: 15px;
       height: 15px;
@@ -228,6 +281,16 @@ export default {
       height: 17px;
     }
   }
-  
+}
+
+
+.msg-con{
+  display: flex;
+  align-items: center;
+  div:last-child{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
 }
 </style>

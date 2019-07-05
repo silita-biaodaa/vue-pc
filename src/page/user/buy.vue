@@ -372,6 +372,18 @@ export default {
       document.documentElement.scrollTop = 0
     },
     openV() {
+      if(!sessionStorage.getItem('xtoken')&&!localStorage.getItem('Xtoken')) {
+          this.$confirm('暂无权限，请先登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/logo')
+        }).catch(() => {
+               
+        });
+        return false
+      }
       if(this.noShow) {
         return false
       }

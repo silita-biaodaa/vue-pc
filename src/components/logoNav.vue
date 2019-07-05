@@ -60,6 +60,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    img{
+      cursor: pointer;
+    }
     .l-switch {
       font-size: 14px;
       color:#FE6603;

@@ -19,7 +19,7 @@
    </div>
  
    <re-ply :current='current' @page='gaincur' @hide='inhide'  v-if="btnS" ></re-ply>  
-    <re-dit :current='current' @page='gaincur' @invert='gainst' @hide='inhide'  v-else  :alles='alles' :allre='allre'  :allde='allde' ></re-dit>
+    <re-dit :current='current' @page='gaincur'  @hide='inhide'  v-else  :alles='alles' :allre='allre'  :allde='allde' ></re-dit>
 </div>
 </template>
 <script>

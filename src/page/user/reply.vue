@@ -1,60 +1,90 @@
 <template>
 <div class="reply"     >
-   <div v-for="(el,i) in textList" :key="i" class="re-bor" >
-        <div @click="jumA(el)"  class=" all-text" >
-              <div class="re-title">
-                <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
-              </div>
-              <div class="re-new"  v-if="current == 1 && i == 0" >
-                 <span>最新回答</span>
-                 <div class="triangle" >
-                 </div>
-              </div>
-              <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
-                   <div class="re-list"  >
-                      <div class='list-img'>
-                        <img :src="el.reImage != null ? el.reImage : avatar" alt="">
-                        <div class="no-read" v-if="el.isRead == 0" >
-                        
-                        </div>
-                      </div>
-                      <div class="list-text" >
-                        <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-                        <div style="margin: 5px 0;" v-html="el.replyContent"></div>
-                        <p>{{el.pushd}}</p>
-                      </div>
-                      <div class="list-btn" >
-                        <div class="btn-list" >
-                          <span class="p-color" @click.stop="pushA(el)" >回复</span>
-                          <span v-show="el.delBtn" @click.stop="delText(el)" >删除</span>
-                        </div>
-                      </div>
-             </div>
+  <div v-for="(el,i) in textList" :key="i" class="re-bor" >
+    <!-- 评论 -->
+    <template v-if="el.msgType=='reply'">
+      <div @click="jumA(el)"  class=" all-text" >
+        <div class="re-title">
+          <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
         </div>
-     </div>
-      <div v-show="el.textShow" >
-            <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
-            <div class="re-push p-color" @click.stop="pusHTextFn(el)" >
-              发送
+        <div class="re-new"  v-if="current == 1 && i == 0" >
+          <span>最新回答</span>
+          <div class="triangle" >
+          </div>
+        </div>
+        <div style="padding:10px 0"   @mouseenter="enter(el)"  @mouseleave="leave(el)" >
+          <div class="re-list"  >
+            <div class='list-img'>
+              <img :src="el.reImage != null ? el.reImage : avatar" alt="">
+              <div class="no-read" v-if="el.isRead == 0" >
+              
+              </div>
             </div>
-      </div> 
-   
-   </div>
-     <div class="page" v-show="ishow" >
-         <nav-page 
-          :all='total'
-          :currents='pageNo'
-          :pageSize = 'pageSize'
-          @skip='Goto'
-          ></nav-page>
-     </div>  
-      <div class="info-pop" v-show="pop" >
-       {{msg}}
-     </div>
-     <div class="no-toast" v-show="noList" >
-       <img src="../../assets/img/bank_card @2x.png" alt="">
-       <span>暂未收到消息通知</span>
-     </div>
+            <div class="list-text" >
+              <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
+              <div style="margin: 5px 0;" v-html="el.replyContent"></div>
+              <p>{{el.pushd}}</p>
+            </div>
+            <div class="list-btn" >
+              <div class="btn-list" >
+                <span class="p-color" @click.stop="pushA(el)" >回复</span>
+                <span v-show="el.delBtn" @click.stop="delText(el)" >删除</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-show="el.textShow" >
+          <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
+          <div class="re-push p-color" @click.stop="pusHTextFn(el)" >发送</div>
+        </div> 
+      </div>
+    </template>
+    <!-- 企业更新 -->
+    <template v-else-if="el.msgType=='company'">
+      <div class="msg-company-box">
+        <div class="msg-tit">
+          <p>企业数据更新已完成</p>
+          <p>{{el.pushd}}</p>
+        </div>
+        <div class="msg-con">
+          {{el.msgContent}}
+        </div>
+        <div class="msg-btn">
+          <button class="right" @click="jumpCom(el)">查看详情 ></button>
+        </div>
+      </div>
+    </template>
+    <!-- 会员到期 -->
+    <template v-else-if="el.msgType=='vip'">
+      <div class="msg-company-box">
+        <div class="msg-tit">
+          <p>会员过期通知</p>
+          <p>{{el.pushd}}</p>
+        </div>
+        <div class="msg-con">
+          {{el.msgContent}}
+        </div>
+        <div class="msg-btn">
+          <button class="right" @click="jumpVip">查看详情 ></button>
+        </div>
+      </div>
+    </template>
+  </div>    
+  <div class="page" v-show="ishow" >
+      <nav-page 
+      :all='total'
+      :currents='pageNo'
+      :pageSize = 'pageSize'
+      @skip='Goto'
+      ></nav-page>
+  </div>  
+  <div class="info-pop" v-show="pop" >
+    {{msg}}
+  </div>
+  <div class="no-toast" v-show="noList" >
+    <img src="../../assets/img/bank_card @2x.png" alt="">
+    <span>暂未收到消息通知</span>
+  </div>
 </div>
 </template>
 <script>
@@ -101,8 +131,10 @@ export default {
     },
     pushA(el) {
       this.textList.forEach(el => {
-        el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
-        el.textShow = false
+        if(el.msgType=='reply'){
+          el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
+          el.textShow = false
+        }
       })
       this.pushText = ''
       el.textShow = true
@@ -131,7 +163,9 @@ export default {
            res.data.forEach(el => {
              el.textShow = false
              el.delBtn = false
-             el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
+             if(el.replyContent){
+               el.replyContent=el.replyContent.replace(/\n/g,'<br/>');
+             }
            })
            this.total = res.total
            this.textList = res.data
@@ -180,8 +214,19 @@ export default {
          }  
        })
     },
-    nopas() {
-
+    //跳转至会员服务
+    jumpVip(){
+      const { href } = this.$router.resolve({
+          path:'/buy' 
+      })
+      window.open(href,'_blank')
+    },
+    //跳转至公司详情
+    jumpCom(el){
+      const { href } = this.$router.resolve({
+        path:'/introduce',query:{id:el.replyId,name:el.comName} 
+      })
+      window.open(href, '_blank', )
     }
   },
   created () {
@@ -339,6 +384,35 @@ export default {
          width: 30px;
        }
      }
+    }
+  }
+}
+
+.msg-company-box{
+  .msg-tit{
+    display: flex;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    p:first-child{
+      font-weight: bold
+    }
+  }
+  .msg-con{
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+  }
+  .msg-btn{
+    height: 50px;
+    button{
+      color: #fe6603;
+      border: 1px solid #fe6603;
+      border-radius: 5px;
+      padding: 5px;
+      background: #fff;
+      cursor: pointer;
     }
   }
 }

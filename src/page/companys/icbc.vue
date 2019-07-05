@@ -177,7 +177,7 @@ export default {
         url:'/gs/info',
         data:{
           comId:this.id,
-          paramter:'change_record'
+          paramter:'changeRecord'
         }
       }).then(function(res){
         that.navlist[4].isAjax=true;
