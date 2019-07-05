@@ -8,13 +8,23 @@
                 <div>姓名</div>
                 <div style="width:200px" >职务</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div>
-                    <span style="color:#FE6603" >{{el.name}}</span>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px">{{i+1}}</div>
+                    <div>
+                        <span style="color:#FE6603" >{{el.name}}</span>
+                    </div>
+                    <div class="position" v-html="el.position_CN"></div>
                 </div>
-                <div class="position" v-html="el.position_CN"></div>
-            </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无人员信息</span>
+                </div>
+            </template>
         </div>
     </div>
 </template>

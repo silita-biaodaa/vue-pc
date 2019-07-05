@@ -11,16 +11,26 @@
                 <div style="width:100px" >决定机关名称</div>
                 <div style="width:100px" >处罚决定日期</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div style="width:100px">
-                    <span style="color:#FE6603" >{{el.penDecNo}}</span>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px">{{i+1}}</div>
+                    <div style="width:100px">
+                        <span style="color:#FE6603" >{{el.penDecNo}}</span>
+                    </div>
+                    <div style="width:200px">{{el.illegActType}}</div>
+                    <div style="width:200px" >{{el.penContent}}</div>
+                    <div style="width:100px" >{{el.penAuth_CN}}</div>
+                    <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
                 </div>
-                <div style="width:200px">{{el.illegActType}}</div>
-                <div style="width:200px" >{{el.penContent}}</div>
-                <div style="width:100px" >{{el.penAuth_CN}}</div>
-                <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
-            </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无行政处罚信息</span>
+                </div>
+            </template>
         </div>
     </div>
 </template>

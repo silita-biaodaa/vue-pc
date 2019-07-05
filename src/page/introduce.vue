@@ -30,7 +30,12 @@
           <p>邮箱：{{ details.email == '(NULL)' || 'null' ? '--' : details.email }}</p>
         </div>
         <div class="left">
-          <p :title="details.comUrl" @click="jump" >网址：{{details.comUrl ? details.comUrl : '--'}}</p>
+          <p :title="details.comUrl" @click="jump" >网址：
+            <template v-if="details.comUrl">
+              <span @click="jumpTo(details.comUrl)" class="urlCss">{{details.comUrl}}</span>
+            </template>
+            <template v-else>--</template>
+          </p>
           <p :title="details.comAddress" >地址：{{details.comAddress ? details.comAddress : '--' }}</p>
         </div>
       </div>
@@ -261,6 +266,9 @@ export default {
               type: 'warning'
           })
       })
+    },
+    jumpTo(uri){
+      window.open(uri,'_blank')
     }
   },
   created () {

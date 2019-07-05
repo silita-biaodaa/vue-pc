@@ -9,15 +9,25 @@
                 <div style="width:150px" >联系方式</div>
                 <div style="width:250px" >地址</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px" >{{i+1}}</div>
-                <div style="width:200px" >
-                    <span style="color:#FE6603" >{{el.comName}}</span>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px" >{{i+1}}</div>
+                    <div style="width:200px" >
+                        <span style="color:#FE6603" >{{el.comName}}</span>
+                    </div>
+                    <div style="width:100px" >{{el.legalPerson}}</div>
+                    <div style="width:150px" >{{el.phone}}</div>
+                    <div style="width:250px" >{{el.comAddress}}</div>
                 </div>
-                <div style="width:100px" >{{el.legalPerson}}</div>
-                <div style="width:150px" >{{el.phone}}</div>
-                <div style="width:250px" >{{el.comAddress}}</div>
-            </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无分支机构信息</span>
+                </div>
+            </template>
         </div>
     </div>
 </template>

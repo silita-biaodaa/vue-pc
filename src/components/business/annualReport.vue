@@ -9,13 +9,23 @@
                 <div>标题</div>
                 <div style="width:200px" >操作</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div>{{el.years}}年度报告</div>
-                <div style="width:200px">
-                    <span @click="seeDetail(el)" class="see-detail">查看详情</span>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px">{{i+1}}</div>
+                    <div>{{el.years}}年度报告</div>
+                    <div style="width:200px">
+                        <span @click="seeDetail(el)" class="see-detail">查看详情</span>
+                    </div>
                 </div>
-            </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无年报信息</span>
+                </div>
+            </template>
         </div>
         <!-- 弹窗 -->
         <v-pop v-if="mask">
@@ -32,7 +42,7 @@ export default {
         return {
             // 数据模型
             mask:false,
-            detail:''
+            detail:'',
         }
     },
     watch: {
@@ -47,6 +57,8 @@ export default {
     components:{
         'v-pop':popup,
         'v-annual-detail':annualDetail
+    },
+    computed:{
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

@@ -87,7 +87,14 @@
                         </template>
                     </td>
                     <td>{{o.webSitName}}</td>
-                    <td>{{o.domain}}</td>
+                    <td>
+                        <template v-if="o.domain">
+                            <span @click="jumpTo(o.domain)" class="urlCss">{{o.domain}}</span>
+                        </template>
+                        <template v-else>
+                            &nbsp;
+                        </template>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -109,10 +116,23 @@
                     <td>{{i+1}}</td>
                     <td>{{o.invName}}</td>
                     <td>{{o.liSubConAm}}</td>
-                    <td>{{formatDate(o.subConDate)}}</td>
+                    <td>
+                        <template v-if="o.subConDate">
+                            {{formatDate(o.subConDate)}}
+                        </template>
+                        <template v-else>
+                            &nbsp;
+                        </template>
+                    </td>
                     <td>{{o.subConFormName}}</td>
                     <td>{{o.liAcConAm}}</td>
-                    <td>{{formatDate(o.acConDate)}}</td>
+                    <td>
+                        <template v-if="o.acConDate">
+                            {{formatDate(o.acConDate)}}
+                        </template>
+                        <template v-else>
+                            &nbsp;
+                        </template></td>
                     <td>{{o.acConForm}}</td>
                 </tr>
             </table>
@@ -313,6 +333,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        jumpTo(uri){
+            window.open(uri,'_blank')
+        }
     }
 
 }
@@ -350,6 +373,10 @@ table{
     td{
         width: calc(100%/3);
     }
+}
+.urlCss{
+    cursor: pointer;
+    color: #EC7522;
 }
 // .first{
 //     td{

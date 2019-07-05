@@ -5,18 +5,42 @@
         <div class="ic-basic">
             <div class="list-nav">
                 <div style="width:72px" >序号</div>
-                <div>股东</div>
-                <div>持股比例</div>
-                <div style="width:150px" >认缴出资金额</div>
+                <div style="width:calc((100% - 72px)/3)">股东</div>
+                <div style="width:calc((100% - 72px)/3)">持股比例</div>
+                <div style="width:calc((100% - 72px)/3)">认缴出资金额</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div>
-                    <span style="color:#FE6603" >{{el.inv}}</span>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px">{{i+1}}</div>
+                    <div style="width:calc((100% - 72px)/3)">
+                        <span style="color:#FE6603" >{{el.inv}}</span>
+                    </div>
+                    <div style="width:calc((100% - 72px)/3)">
+                        <template v-if="!isNaN(el.proportion)">
+                            {{el.proportion}}
+                        </template>
+                        <template v-else>
+                            暂无信息
+                        </template>
+                    </div>
+                    <div style="width:calc((100% - 72px)/3)">
+                        <template v-if="el.liSubConAm">
+                            {{el.liSubConAm}}万元
+                        </template>
+                        <template v-else>
+                            暂无信息
+                        </template>
+                    </div>
                 </div>
-                <div>{{el.proportion}}</div>
-                <div style="width:150px" >{{el.liSubConAm}}万元</div>
-            </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无股东信息</span>
+                </div>
+            </template>
         </div>
     </div>
 </template>

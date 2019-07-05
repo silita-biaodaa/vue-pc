@@ -10,13 +10,23 @@
                 <div style="width:275px" >变更后内容</div>
                 <div style="width:100px" >变更日期</div>
             </div>
-            <div class="list-co" v-for="(el,i) in list" :key="i" >
-                <div style="width:72px">{{i+1}}</div>
-                <div style="width:100px">{{el.altItem_CN}}</div>
-                <div style="width:275px">{{el.altBe}}</div>
-                <div style="width:275px" >{{el.altAf}}</div>
-                <div style="width:100px" >{{formatDate(el.altDate)}}</div>
-            </div>
+            <!-- 有数据 -->
+            <template v-if="list&&list.length>0">
+                <div class="list-co" v-for="(el,i) in list" :key="i" >
+                    <div style="width:72px">{{i+1}}</div>
+                    <div style="width:100px">{{el.altItem_CN}}</div>
+                    <div style="width:275px">{{el.altBe}}</div>
+                    <div style="width:275px" >{{el.altAf}}</div>
+                    <div style="width:100px" >{{formatDate(el.altDate)}}</div>
+                </div>
+            </template>
+            <!-- 无数据 -->
+            <template v-else>
+                <div class="no-toast">
+                    <img src="../../assets/img/bank_card @2x.png" alt="">
+                    <span>Sorry，该企业暂无变更记录信息</span>
+                </div>
+            </template>
         </div>
     </div>
 </template>

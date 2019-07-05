@@ -46,7 +46,7 @@
                 企业类型
                 </div>
                 <div class="left f-color line-r">
-                {{details.economicType}}
+                {{details.comType}}
                 </div>  
             </div>
             <div class="ic-line">
