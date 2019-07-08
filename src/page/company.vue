@@ -825,6 +825,7 @@ export default {
     },
     Goto(val) {
       this.current = val.cur;
+      this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.funcom.toList(590)
       this.companylisy=[];

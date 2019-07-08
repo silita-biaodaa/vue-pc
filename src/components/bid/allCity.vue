@@ -101,6 +101,7 @@ export default {
       if(el == '全部') {
          this.all = []
          this.cstr = '全部'
+         this.$emit('Cnext', {cur:this.area})
       } else {
         if( this.all.indexOf(el) == -1 ) {
           if(this.all.length >= 3 ) {
