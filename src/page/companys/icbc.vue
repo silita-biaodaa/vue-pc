@@ -106,7 +106,13 @@ export default {
       });
     },
     getBranch() {//分支机构
-      Branch({comId:this.id}).then(res => {
+      let data={comId:this.id};
+      if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
+         data.isVip = 1
+      } else {
+         data.isVip = 0 
+      }
+      Branch(data).then(res => {
           this.navlist[1].isAjax=true;
           if(res.code == 1) {
             this.branchList = res.data
@@ -114,11 +120,11 @@ export default {
             this.branchList.forEach( el => {
                 if(el.phone) {
                   iar = el.phone.split(';')
-                  if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
-                      el.phone = this.resetPhone(iar[0])
-                  } else {
+                  // if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                  //     el.phone = this.resetPhone(iar[0])
+                  // } else {
                       el.phone = iar[0]
-                  }
+                  // }
                   iar = []
                 } else {
                   return

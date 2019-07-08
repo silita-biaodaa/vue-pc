@@ -4,7 +4,7 @@
     <div class="changeRecord">
         <div class="ic-basic">
             <div class="list-nav">
-                <div style="width:72px" >序号</div>
+                <div style="width:45px" >序号</div>
                 <div style="width:100px" >变更事项</div>
                 <div style="width:275px" >变更前内容</div>
                 <div style="width:275px" >变更后内容</div>
@@ -13,10 +13,10 @@
             <!-- 有数据 -->
             <template v-if="list&&list.length>0">
                 <div class="list-co" v-for="(el,i) in list" :key="i" >
-                    <div style="width:72px">{{i+1}}</div>
+                    <div style="width:45px">{{i+1}}</div>
                     <div style="width:100px">{{el.altItem_CN}}</div>
-                    <div style="width:275px">{{el.altBe}}</div>
-                    <div style="width:275px" >{{el.altAf}}</div>
+                    <div style="width:288px">{{el.altBe}}</div>
+                    <div style="width:288px" >{{el.altAf}}</div>
                     <div style="width:100px" >{{formatDate(el.altDate)}}</div>
                 </div>
             </template>
@@ -95,6 +95,9 @@ export default {
         font-size: 12px;
         color:#333;
         border-bottom: 1px solid #f2f2f2;
+        // div{
+        //     border-right: 1px solid #f2f2f2;
+        // }
     }
     .list-co {
         color: #999;
@@ -105,7 +108,10 @@ export default {
         font-size: 12px;
         padding: 5px 0;
         box-sizing: border-box; 
-        border-bottom: 1px solid #f2f2f2
+        border-bottom: 1px solid #f2f2f2;
+        div{
+            padding: 5px;
+        }
     }
 
 }
