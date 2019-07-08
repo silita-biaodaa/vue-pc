@@ -251,6 +251,12 @@ export default {
         window.open(href, '_blank')
     },
     updateFn(){//更新
+      if(!localStorage.getItem('permissions')||localStorage.getItem('permissions') == '') {
+        this.svip = true
+        this.modalHelper.afterOpen();
+        this.pbMode = [];
+        return false
+      }
       let that=this;
       this.$http({
         method:'post',
