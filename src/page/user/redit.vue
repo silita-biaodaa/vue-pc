@@ -35,7 +35,7 @@
         <template v-else-if="el.msgType=='company'">
           <div class="msg-company-box">
             <div class="msg-tit">
-              <p>企业数据更新已完成</p>
+              <p>{{el.msgTitle}}</p>
               <p>{{el.pushd}}</p>
             </div>
             <div class="msg-con">
@@ -54,7 +54,7 @@
         <template v-else-if="el.msgType=='vip'">
           <div class="msg-company-box">
             <div class="msg-tit">
-              <p>会员过期通知</p>
+              <p>{{el.msgTitle}}</p>
               <p>{{el.pushd}}</p>
             </div>
             <div class="msg-con">

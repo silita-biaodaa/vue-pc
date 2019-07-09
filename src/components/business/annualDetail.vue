@@ -334,6 +334,9 @@ export default {
     methods: {
         // 方法 集合
         jumpTo(uri){
+            if(uri.indexOf('http://')==-1){
+                uri='http://'+uri;
+            }
             window.open(uri,'_blank')
         }
     }
