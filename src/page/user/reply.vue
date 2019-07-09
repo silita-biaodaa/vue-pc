@@ -3,7 +3,7 @@
   <div v-for="(el,i) in textList" :key="i" class="re-bor" >
     <!-- 评论 -->
     <template v-if="el.msgType=='reply'">
-      <div @click="jumA(el)"  class=" all-text" >
+      <div @click.stop="jumA(el)"  class=" all-text" >
         <div class="re-title">
           <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
         </div>
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div v-show="el.textShow" >
-          <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" ></textarea>
+          <textarea class="re-area" placeholder="欢迎留言讨论~" style="resize:none" maxlength="300" v-model="pushText" @click.stop="a=1"></textarea>
           <div class="re-push p-color" @click.stop="pusHTextFn(el)" >发送</div>
         </div> 
       </div>
@@ -101,6 +101,7 @@ export default {
       ishow:false,
       noList:false,
       avatar: require('../../assets/img/icon-toux.png@2x.png'),
+      a:''
     }
   },
   props: {

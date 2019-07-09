@@ -34,7 +34,7 @@
 
         </div>
         <div class="buy-title" style="display: flex;align-items: center;">
-            标大大会员 <i class="bigDian"></i> 专享<span style="color:#FE0303" >8</span>大特权
+            标大大会员 <i class="bigDian"></i> 专享特权
         </div>
         <div class="buy-table">
           <table>
