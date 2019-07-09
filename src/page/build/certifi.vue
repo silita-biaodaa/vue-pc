@@ -12,7 +12,7 @@
      <div class="certifi-del" >
        <p class="cer-name" >{{detail.name}}</p>
        <p>身份证号码：<span>{{detail.idCard}}</span></p>
-       <p v-if="detail.sex">性别：<span>{{detail.sex}}</span></p>
+       <!-- <span v-if="detail.sex">性别：<span>{{detail.sex}}</span></p> -->
      </div>
    </div>
    <div  class="certifi-list" >
@@ -29,12 +29,12 @@
        <div style="width:230px;" >
          工程名称
        </div>
-       <div style="width:200px;" >
+       <!-- <div style="width:200px;" >
          建设单位
        </div>
        <div style="width:120px;" >
          所在市州
-       </div>
+       </div> -->
        <div style="width:120px;" >
          押证时间
        </div>
@@ -49,12 +49,12 @@
        <div style="width:230px;" >
          {{el.proName}}
        </div>
-       <div style="width:200px;" >
+       <!-- <div style="width:200px;" >
          {{el.proOrg}}
        </div>
        <div style="width:120px;" >
          {{el.city}}
-       </div>
+       </div> -->
        <div style="width:120px;" >
         {{el.date}}
        </div>
@@ -171,6 +171,7 @@ export default {
       flex-direction: row;
       align-items: center;
       text-align: center;
+      justify-content: space-around;
       height: 56px;
       color:#333;
       font-size: 14px;
@@ -180,6 +181,7 @@ export default {
     .certifi-in {
       display: flex;
       flex-direction: row;
+      justify-content: space-around;
       align-items: center;
       text-align: center;
       min-height: 56px;

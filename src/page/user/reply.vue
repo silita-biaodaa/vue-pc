@@ -16,9 +16,7 @@
           <div class="re-list"  >
             <div class='list-img'>
               <img :src="el.reImage != null ? el.reImage : avatar" alt="">
-              <div class="no-read" v-if="el.isRead == 0" >
-              
-              </div>
+              <div class="no-read" v-if="el.isRead == 0" ></div>
             </div>
             <div class="list-text" >
               <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
@@ -47,6 +45,7 @@
           <p>{{el.pushd}}</p>
         </div>
         <div class="msg-con">
+          <div class="no-read" v-if="el.isRead == 0" ></div>
           {{el.msgContent}}
         </div>
         <div class="msg-btn">
@@ -62,6 +61,7 @@
           <p>{{el.pushd}}</p>
         </div>
         <div class="msg-con">
+          <div class="no-read" v-if="el.isRead == 0" ></div>
           {{el.msgContent}}
         </div>
         <div class="msg-btn">
@@ -403,6 +403,18 @@ export default {
     font-size: 14px;
     height: 50px;
     line-height: 50px;
+    position: relative;
+    padding-left: 10px;
+    .no-read {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: red;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
   .msg-btn{
     height: 50px;

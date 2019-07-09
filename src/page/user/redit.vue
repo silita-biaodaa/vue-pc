@@ -43,7 +43,10 @@
                 <div  class="list-true"  v-if="!el.textShow" ></div>
                 <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
               </div>
-              <div>{{el.msgContent}}</div>
+              <div>
+                <div class="no-read" v-if="el.isRead == 0" ></div>
+                {{el.msgContent}}
+              </div>
             </div>
             <div class="msg-btn">
               <button class="right" @click="jumpCom(el)">查看详情 ></button>
@@ -62,7 +65,10 @@
                 <div  class="list-true"  v-if="!el.textShow" ></div>
                 <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
               </div>
-              <div>{{el.msgContent}}</div>
+              <div>
+                <div class="no-read" v-if="el.isRead == 0" ></div>
+                {{el.msgContent}}
+              </div>
             </div>
             <div class="msg-btn">
               <button class="right" @click="jumpVip">查看详情 ></button>

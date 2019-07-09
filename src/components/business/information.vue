@@ -167,9 +167,11 @@ export default {
             padding-left: 40px;
             width: 100%;
             height: 40px;
+            background: #fff;
             line-height: 40px;
         }
         .min-h {
+            background: #fff;
             min-height: 40px;
             box-sizing: border-box;
             padding: 16px 15px 15px 40px;

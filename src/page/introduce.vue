@@ -245,11 +245,7 @@ export default {
           comId:that.$route.query.id
         }
       }).then(function(res){
-          that.$confirm(res.data.msg, '提示', {
-              showCancelButton:false,
-              showConfirmButton:false,
-              type: 'warning'
-          })
+          that.$alert(res.data.msg, '提示')
       })
     },
     jumpTo(uri){
