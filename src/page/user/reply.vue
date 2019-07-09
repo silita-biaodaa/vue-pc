@@ -65,7 +65,7 @@
           {{el.msgContent}}
         </div>
         <div class="msg-btn">
-          <button class="right" @click="jumpVip">查看详情 ></button>
+          <button class="right" @click="jumpVip(el)">查看详情 ></button>
         </div>
       </div>
     </template>
@@ -215,7 +215,9 @@ export default {
        })
     },
     //跳转至会员服务
-    jumpVip(){
+    jumpVip(el){
+      el.isRead = 1
+      Rmessage({pkid:el.pkid}).then(res => {})
       const { href } = this.$router.resolve({
           path:'/buy' 
       })
@@ -223,6 +225,8 @@ export default {
     },
     //跳转至公司详情
     jumpCom(el){
+      el.isRead = 1
+      Rmessage({pkid:el.pkid}).then(res => {})
       const { href } = this.$router.resolve({
         path:'/introduce',query:{id:el.replyId,name:el.comName} 
       })
