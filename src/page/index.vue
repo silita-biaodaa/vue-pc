@@ -406,12 +406,28 @@ export default {
       })
     },
     gainCompany() {
-      companyList({regisAddress:this.state,limit:8}).then( res => {
+        let data={regisAddress:this.state,limit:8}
+        if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
+          data.isVip = 1
+        } else {
+          data.isVip = 0 
+        }
+      companyList(data).then( res => {
          if(res.code == 1) {
             res.data.splice(8,22)
-            // res.data.forEach(el => {
-            //    el.data = moment(el.created).format('YYYY年MM月DD日')
-            // })
+            res.data.forEach(el => {
+               el.data = moment(el.created).format('YYYY年MM月DD日')
+            })
+            if(localStorage.getItem('permissions')){
+              let arr = []
+              res.data.forEach( el => {
+                if(el.phone) {
+                    arr =  el.phone.split(';')
+                    el.phone = arr[0]
+                    // arr.length = 0
+                }
+              });
+            }
             this.companys = res.data
          }
       })
