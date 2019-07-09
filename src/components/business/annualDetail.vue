@@ -9,8 +9,15 @@
                 <tr>
                     <td class="bg">企业名称</td>
                     <td>{{data.comName}}</td>
-                    <td class="bg">统一社会信用代码</td>
-                    <td>{{data.basic.uniscId}}</td>
+                    <td class="bg">统一社会信用代码/注册号</td>
+                    <td>
+                        <template v-if="data.basic.uniscId">
+                            {{data.basic.uniscId}}
+                        </template>
+                        <template v-else-if="data.basic.regNo">
+                            {{data.basic.regNo}}
+                        </template>
+                    </td>
                 </tr>
                 <tr>
                     <td class="bg">企业联系电话</td>
