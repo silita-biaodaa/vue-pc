@@ -187,6 +187,7 @@ export default {
 <style lang="less" scoped>
 
 .law {
+    background: #fafafa;
     padding-top: 85px;
     .build-put {
         width: 1020px;
