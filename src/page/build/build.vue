@@ -127,10 +127,10 @@ export default {
             } else {
               that.list=res.data;
               that.total=res.data.length;
-              const { href } = this.$router.resolve({
-                path:'/certifi',query:{card:idcard} 
-              })
-                window.open(href, '_blank', )
+              // const { href } = this.$router.resolve({
+              //   path:'/certifi',query:{card:idcard} 
+              // })
+              //   window.open(href, '_blank', )
             }
           }else{
             this.$confirm(res.msg, '提示', {
