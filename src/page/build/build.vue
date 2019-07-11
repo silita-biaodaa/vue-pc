@@ -151,7 +151,6 @@ export default {
         this.modalHelper.afterOpen();
         return
       }
-      this.isajax=false;
       this.serach=val.cur;
       let reNumber = /^\d+$/;
       if(reNumber.test(this.serach[0])){//判断第一位是否为数字,则进身份证
@@ -164,8 +163,9 @@ export default {
           })
           return 
         }
+        this.isajax=false;
         this.data.idCard=this.serach;
-        let idcard=this.serach
+        let idcard=this.serach.replace(/x/g,'X');
         underq({name:'aaaa',idCard:idcard,type:'api'}).then(res => {
             this.isajax=true;
             if(res.code == 1) {
@@ -190,6 +190,7 @@ export default {
             }
         })
       }else{
+        this.isajax=false;
         this.list=[];
         this.data.pageNo = 1;
         this.gainList(this.serach);
