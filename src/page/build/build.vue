@@ -114,7 +114,8 @@ export default {
     }
     if(this.data.idCard!=''){
       let that=this;
-      underq({name:'aaaa',idCard:this.data.idCard,type:'api'}).then(res => {
+      let idcard=this.data.idCard.replace(/x/g,'X');
+      underq({name:'aaaa',idCard:idcard,type:'api'}).then(res => {
           that.isajax=true;
           if(res.code == 1) {
             if(res.data.length == 0 ) {
@@ -125,9 +126,9 @@ export default {
               })
             } else {
               that.list=res.data;
-              that.total=res.data.list.length;
+              that.total=res.data.length;
               const { href } = this.$router.resolve({
-                path:'/certifi',query:{id:this.data.pkid} 
+                path:'/certifi',query:{card:idcard} 
               })
                 window.open(href, '_blank', )
             }
@@ -151,6 +152,7 @@ export default {
         this.modalHelper.afterOpen();
         return
       }
+      let that=this;
       this.serach=val.cur;
       let reNumber = /^\d+$/;
       if(reNumber.test(this.serach[0])){//判断第一位是否为数字,则进身份证
@@ -176,10 +178,12 @@ export default {
                   type: 'warning'
                 })
               } else {
+                that.list=res.data;
+                that.total=res.data.length;
                 const { href } = this.$router.resolve({
                   path:'/certifi',query:{card:idcard} 
                 })
-                  window.open(href, '_blank', )
+                window.open(href, '_blank', )
               }
             }else{
               this.$confirm(res.msg, '提示', {
