@@ -113,7 +113,9 @@ export default {
       }
     }
     if(this.data.idCard!=''){
+      let that=this;
       underq({name:'aaaa',idCard:this.data.idCard,type:'api'}).then(res => {
+          that.isajax=true;
           if(res.code == 1) {
             if(res.data.length == 0 ) {
               this.$confirm('该人员无在建信息', '提示', {
@@ -122,8 +124,10 @@ export default {
                 type: 'warning'
               })
             } else {
+              that.list=res.data;
+              that.total=res.data.list.length;
               const { href } = this.$router.resolve({
-                path:'/certifi',query:{card:this.data.idCard} 
+                path:'/certifi',query:{id:this.data.pkid} 
               })
                 window.open(href, '_blank', )
             }
@@ -148,10 +152,7 @@ export default {
         return
       }
       this.isajax=false;
-      this.list=[];
-      this.data.pageNo = 1;
       this.serach=val.cur;
-
       let reNumber = /^\d+$/;
       if(reNumber.test(this.serach[0])){//判断第一位是否为数字,则进身份证
         let sfz=/^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
@@ -189,6 +190,8 @@ export default {
             }
         })
       }else{
+        this.list=[];
+        this.data.pageNo = 1;
         this.gainList(this.serach);
       }
       
