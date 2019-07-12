@@ -73,7 +73,7 @@ export default {
   methods: {
     gainList() {
       this.name = this.$route.query.name
-      queryList({pageNo:this.current,pageSize:20,type:2,regions:'湖南',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
+      queryList({pageNo:this.current,pageSize:20,type:2,regions:'hunan',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
         if(res.code == 1) {
            this.bidList = res.data
            this.current = res.pageNo

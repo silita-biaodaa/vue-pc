@@ -169,8 +169,8 @@ export default {
         projSumStart:'0',
         projSumEnd:'',
         title:'',
-        regions:'湖南省',
-        sumType:"zhongbiao",
+        regions:'hunan',
+        // sumType:"zhongbiao",
         high:'',
         low:'',
         com_name:''
@@ -280,6 +280,7 @@ export default {
           data.title=this.serach
           data.com_name=''
         }
+        data.regions='hunan'
        if(this.rank == 0) {
           queryList(data).then( res => {
                if(res.code == 1 ) {

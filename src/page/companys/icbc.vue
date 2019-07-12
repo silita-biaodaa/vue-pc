@@ -1,7 +1,7 @@
 <template>
 <div class="icbc">
   <div class="ic-nav">
-      <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i,'loading':!o.isAjax}" @click="navTapFn(i,o.isAjax)">
+      <span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
         {{o.name}}
         <template v-if="o.length!=0">
           (<span>{{o.length}}</span>)
@@ -14,27 +14,27 @@
     </template>
     <!-- 分支机构 -->
     <template v-else-if="navNum==1"> 
-      <v-branch :list='branchList'></v-branch>
+      <v-branch></v-branch>
     </template>
     <!-- 股东信息 -->
     <template v-else-if="navNum==2"> 
-      <v-holder :list='holderList'></v-holder>
+      <v-holder></v-holder>
     </template>
     <!-- 主要人员 -->
     <template v-else-if="navNum==3"> 
-      <v-people :list='peopleList'></v-people>
+      <v-people></v-people>
     </template>
     <!-- 变更记录 -->
     <template v-else-if="navNum==4"> 
-      <v-change :list='changeList'></v-change>
+      <v-change></v-change>
     </template>
     <!-- 企业年报 -->
     <template v-else-if="navNum==5"> 
-      <v-years :list='yearsList'></v-years>
+      <v-years></v-years>
     </template>
     <!-- 行政处罚 -->
     <template v-else-if="navNum==6"> 
-      <v-punish :list='punishList'></v-punish>
+      <v-punish></v-punish>
     </template>
     
 </div>
@@ -52,12 +52,6 @@ export default {
   data () {
     return {
       inforData:{},//基本信息data
-      branchList:[],//分支机构list
-      holderList:[],//股东信息
-      peopleList:[],//主要人员
-      changeList:[],//变更记录
-      yearsList:[],//年报
-      punishList:[],//行政处罚
       id:'',
       navNum:0,
       navlist:[
@@ -97,6 +91,23 @@ export default {
    
   },
   methods: {
+    getLen(){
+      let that=this;
+      this.$http({
+        method:'post',
+        url:'/gs/count/company',
+        data:{
+          comId:this.id,
+        }
+      }).then(function(res){
+        that.navlist[1].length = res.data.data.branchCompany;
+        that.navlist[2].length = res.data.data.partner;
+        that.navlist[3].length = res.data.data.personnel;
+        that.navlist[4].length = res.data.data.changeRecord;
+        that.navlist[5].length = res.data.data.report;
+        that.navlist[6].length = res.data.data.punish;
+      })
+    },
     getInfor() {//基本信息
       this.id = this.$route.query.id
       getJsonData( "/company/" + this.id ).then(res => {
@@ -105,167 +116,25 @@ export default {
           }
       });
     },
-    getBranch() {//分支机构
-      let data={comId:this.id};
-      if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
-         data.isVip = 1
-      } else {
-         data.isVip = 0 
-      }
-      Branch(data).then(res => {
-          this.navlist[1].isAjax=true;
-          if(res.code == 1) {
-            this.branchList = res.data
-            var iar = []
-            this.branchList.forEach( el => {
-                if(el.phone) {
-                  iar = el.phone.split(';')
-                  // if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
-                  //     el.phone = this.resetPhone(iar[0])
-                  // } else {
-                      el.phone = iar[0]
-                  // }
-                  iar = []
-                } else {
-                  return
-                }           
-            })
-            this.navlist[1].length = res.data.length
-          }
-      })
-    },
-    getHolder(){//股东信息
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/gs/info',
-        data:{
-          comId:this.id,
-          paramter:'partner'
-        }
-      }).then(function(res){
-        that.navlist[2].isAjax=true;
-        if(res.data.code==1){
-          let n =that.countScale(res.data.data);
-          for(let x of res.data.data){
-            x.proportion=((x.liSubConAm/n)*100).toFixed(2)+'%';
-          }
-          that.holderList=res.data.data;
-          that.navlist[2].length=res.data.data.length;
-        }else{
-          that.$alert(res.data.msg);
-        }
-      })
-    },
-    getPeople(){//主要人员
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/gs/info',
-        data:{
-          comId:this.id,
-          paramter:'personnel'
-        }
-      }).then(function(res){
-        that.navlist[3].isAjax=true;
-        if(res.data.code==1){
-          that.peopleList=res.data.data;
-          that.navlist[3].length=res.data.data.length;
-        }else{
-          that.$alert(res.data.msg);
-        }
-      })
-    },
-    getChange(){//变更信息
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/gs/info',
-        data:{
-          comId:this.id,
-          paramter:'changeRecord'
-        }
-      }).then(function(res){
-        that.navlist[4].isAjax=true;
-        if(res.data.code==1){
-          that.changeList=res.data.data;
-          that.navlist[4].length=res.data.data.length;
-        }else{
-          that.$alert(res.data.msg);
-        }
-      })
-    },
-    getYears(){//企业年报
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/gs/report/years',
-        data:{
-          comId:this.id,
-        }
-      }).then(function(res){
-        that.navlist[5].isAjax=true;
-        if(res.data.code==1){
-          that.yearsList=res.data.data;
-          that.navlist[5].length=res.data.data.length;
-        }else{
-          that.$alert(res.data.msg);
-        }
-      })
-    },
-    getPunish(){//行政处罚
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/gs/info',
-        data:{
-          comId:this.id,
-          paramter:'punish'
-        }
-      }).then(function(res){
-        that.navlist[6].isAjax=true;
-        if(res.data.code==1){
-          that.punishList=res.data.data;
-          that.navlist[6].length=res.data.data.length;
-        }else{
-          that.$alert(res.data.msg);
-        }
-      })
-      
-    },
-    countScale(list){//计算股东比例
-      let n=0;
-      for(let x of list){
-        n+=x.liSubConAm
-      }
-      return n
-    },
-    resetPhone(phone) {//号码*号
-      var str = String(phone)
-      var len = str.length;
-      if (len >= 7) {
-          var reg = str.slice(-7, -3)
-          return str.replace(reg, "****")
-      } else if (len < 7 && len >= 6) {
-          //1234567
-          var reg = str.slice(-4, -2)
-          return str.replace(reg, "**")
-      }
-    },
-    navTapFn(i,isajax){
-      if(isajax){
-        this.navNum=i;
-      }
+    // resetPhone(phone) {//号码*号
+    //   var str = String(phone)
+    //   var len = str.length;
+    //   if (len >= 7) {
+    //       var reg = str.slice(-7, -3)
+    //       return str.replace(reg, "****")
+    //   } else if (len < 7 && len >= 6) {
+    //       //1234567
+    //       var reg = str.slice(-4, -2)
+    //       return str.replace(reg, "**")
+    //   }
+    // },
+    navTapFn(i){
+      this.navNum=i;
     }
   },
   created () {
     this.getInfor()
-    this.getBranch()
-    this.getHolder()
-    this.getPeople()
-    this.getChange()
-    this.getYears()
-    this.getPunish()
+    this.getLen()
   },
   components: {
     'v-infor':information,
@@ -299,9 +168,9 @@ export default {
   .ic-dark {
     color:#FE6603;
   }
-  .loading{
-    cursor: wait;
-  }
+  // .loading{
+  //   cursor: wait;
+  // }
     
   }
   .f-color {

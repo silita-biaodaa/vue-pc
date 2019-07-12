@@ -1,8 +1,8 @@
 import axios from 'axios'
 import Vue from 'vue'
 Vue.prototype.$http = axios
-const baseURL = 'http://api.biaodaa.com/'
-// const baseURL = 'http://pre.biaodaa.com/'
+// const baseURL = 'http://api.biaodaa.com/'
+const baseURL = 'http://pre.biaodaa.com/'
 // const baseURL = '/' 
 
 
@@ -78,7 +78,7 @@ export const foundation = params => {
 }
 
 export const queryList = params => {
-  return axios.post('notice/queryList', params).then(res => res.data)
+  return axios.post('/newnocite/zhongbiao/list', params).then(res => res.data)
 }
 
 export const companyList = params => {

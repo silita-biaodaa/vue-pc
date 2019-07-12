@@ -325,7 +325,9 @@ export default {
       })
     },
     gainqueryList() {
-      queryList({pageNo:1,type:'0',pageSize:8,regions:this.state}).then(res => {
+      let data={pageNo:1,type:'1',pageSize:8,regions:this.state};
+      data.regions='hunan'
+      queryList(data).then(res => {
          if(res.code == 1 ) {
             this.queryLists = res.data
             if( this.queryLists.length == 0) {
@@ -361,7 +363,9 @@ export default {
      
     },
     gainten() {
-       queryList({pageNo:1,type:'2',pageSize:8,regions:this.state}).then(res => {
+      let data={pageNo:1,type:'2',pageSize:8,regions:this.state};
+      data.regions='hunan'
+       queryList(data).then(res => {
          if(res.code == 1 ) {
              this.biddings = res.data
              if( this.biddings.length == 0) {

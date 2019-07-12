@@ -9,37 +9,48 @@
                 <div style="width:calc((100% - 72px)/3)">持股比例</div>
                 <div style="width:calc((100% - 72px)/3)">认缴出资金额</div>
             </div>
-            <!-- 有数据 -->
-            <template v-if="list&&list.length>0">
-                <div class="list-co" v-for="(el,i) in list" :key="i" >
-                    <div style="width:72px">{{i+1}}</div>
-                    <div style="width:calc((100% - 72px)/3)">
-                        <span style="color:#FE6603" >{{el.inv}}</span>
+            <template v-if="isajax">
+                <!-- 有数据 -->
+                <template v-if="list&&list.length>0">
+                    <div class="list-co" v-for="(el,i) in list" :key="i" >
+                        <div style="width:72px">{{i+1}}</div>
+                        <div style="width:calc((100% - 72px)/3)">
+                            <span style="color:#FE6603" >{{el.inv}}</span>
+                        </div>
+                        <div style="width:calc((100% - 72px)/3)">
+                            <template v-if="!isNaN(el.proportion)">
+                                {{el.proportion}}
+                            </template>
+                            <template v-else>
+                                暂无信息
+                            </template>
+                        </div>
+                        <div style="width:calc((100% - 72px)/3)">
+                            <template v-if="el.liSubConAm">
+                                {{el.liSubConAm}}万元
+                            </template>
+                            <template v-else>
+                                暂无信息
+                            </template>
+                        </div>
                     </div>
-                    <div style="width:calc((100% - 72px)/3)">
-                        <template v-if="!isNaN(el.proportion)">
-                            {{el.proportion}}
-                        </template>
-                        <template v-else>
-                            暂无信息
-                        </template>
+                </template>
+                <!-- 无数据 -->
+                <template v-else-if="list&&list.length==0">
+                    <div class="no-toast">
+                        <img src="../../assets/img/bank_card @2x.png" alt="">
+                        <span>Sorry，该企业暂无股东信息</span>
                     </div>
-                    <div style="width:calc((100% - 72px)/3)">
-                        <template v-if="el.liSubConAm">
-                            {{el.liSubConAm}}万元
-                        </template>
-                        <template v-else>
-                            暂无信息
-                        </template>
+                </template>
+                <template v-else-if="!list">
+                    <div class="ajax-erroe">
+                        <img src="../../assets/img/pic-zoudiu.png"/>
+                        <!-- <span @click="recoldFn">刷新</span> -->
                     </div>
-                </div>
+                </template>
             </template>
-            <!-- 无数据 -->
             <template v-else>
-                <div class="no-toast">
-                    <img src="../../assets/img/bank_card @2x.png" alt="">
-                    <span>Sorry，该企业暂无股东信息</span>
-                </div>
+                <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
             </template>
         </div>
     </div>
@@ -50,22 +61,24 @@ export default {
     data() {
         return {
             // 数据模型
+            list:[],
+            loading:true,
+            isajax:false
         }
     },
+    inject:['reload'],
     watch: {
         // 监控集合
     },
     props: {
         // 集成父级参数
-        list:{
-            
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.getHolder()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -90,6 +103,42 @@ export default {
     },
     methods: {
         // 方法 集合
+        //刷新
+        recoldFn(){
+            this.reload();
+        },
+        getHolder(){//股东信息
+            let that=this;
+            this.$http({
+                method:'post',
+                url:'/gs/info',
+                data:{
+                    comId:this.$route.query.id,
+                    paramter:'partner'
+                }
+            }).then(function(res){
+                that.isajax=true;
+                if(res.data.code==1){
+                    let n =that.countScale(res.data.data);
+                    for(let x of res.data.data){
+                        x.proportion=((x.liSubConAm/n)*100).toFixed(2)+'%';
+                    }
+                    that.list=res.data.data;
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            }).catch(req =>{
+                that.isajax=true;
+                that.list=null;
+            })
+        },
+        countScale(list){//计算股东比例
+            let n=0;
+            for(let x of list){
+                n+=x.liSubConAm
+            }
+            return n
+        },
     }
 
 }

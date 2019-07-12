@@ -11,25 +11,36 @@
                 <div style="width:100px" >决定机关名称</div>
                 <div style="width:100px" >处罚决定日期</div>
             </div>
-            <!-- 有数据 -->
-            <template v-if="list&&list.length>0">
-                <div class="list-co" v-for="(el,i) in list" :key="i" >
-                    <div style="width:72px">{{i+1}}</div>
-                    <div style="width:100px">
-                        <span style="color:#FE6603" >{{el.penDecNo}}</span>
+            <template v-if="isajax">
+                <!-- 有数据 -->
+                <template v-if="list&&list.length>0">
+                    <div class="list-co" v-for="(el,i) in list" :key="i" >
+                        <div style="width:72px">{{i+1}}</div>
+                        <div style="width:100px">
+                            <span style="color:#FE6603" >{{el.penDecNo}}</span>
+                        </div>
+                        <div style="width:200px">{{el.illegActType}}</div>
+                        <div style="width:200px" >{{el.penContent}}</div>
+                        <div style="width:100px" >{{el.penAuth_CN}}</div>
+                        <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
                     </div>
-                    <div style="width:200px">{{el.illegActType}}</div>
-                    <div style="width:200px" >{{el.penContent}}</div>
-                    <div style="width:100px" >{{el.penAuth_CN}}</div>
-                    <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
-                </div>
+                </template>
+                <!-- 无数据 -->
+                <template v-else-if="list&&list.length==0">
+                    <div class="no-toast">
+                        <img src="../../assets/img/bank_card @2x.png" alt="">
+                        <span>Sorry，该企业暂无行政处罚信息</span>
+                    </div>
+                </template>
+                <template v-else-if="!list">
+                    <div class="ajax-erroe">
+                        <img src="../../assets/img/pic-zoudiu.png"/>
+                        <!-- <span @click="recoldFn">刷新</span> -->
+                    </div>
+                </template>
             </template>
-            <!-- 无数据 -->
             <template v-else>
-                <div class="no-toast">
-                    <img src="../../assets/img/bank_card @2x.png" alt="">
-                    <span>Sorry，该企业暂无行政处罚信息</span>
-                </div>
+                <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
             </template>
         </div>
     </div>
@@ -40,22 +51,24 @@ export default {
     data() {
         return {
             // 数据模型
+            list:[],
+            loading:true,
+            isajax:false
         }
     },
     watch: {
         // 监控集合
     },
+    inject:['reload'],
     props: {
         // 集成父级参数
-        list:{
-            
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.getPunish();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -80,6 +93,31 @@ export default {
     },
     methods: {
         // 方法 集合
+        //刷新
+        recoldFn(){
+            this.reload();
+        },
+        getPunish(){//行政处罚
+            let that=this;
+            this.$http({
+                method:'post',
+                url:'/gs/info',
+                data:{
+                    comId:this.$route.query.id,
+                    paramter:'punish'
+                }
+            }).then(function(res){
+                that.isajax=true;
+                if(res.data.code==1){
+                    that.list=res.data.data;
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            }).catch(req =>{
+                that.isajax=true;
+                that.list=null;
+            })
+        },
     }
 
 }

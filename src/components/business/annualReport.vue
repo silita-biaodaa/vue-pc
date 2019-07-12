@@ -9,22 +9,33 @@
                 <div>标题</div>
                 <div style="width:200px" >操作</div>
             </div>
-            <!-- 有数据 -->
-            <template v-if="list&&list.length>0">
-                <div class="list-co" v-for="(el,i) in list" :key="i" >
-                    <div style="width:72px">{{i+1}}</div>
-                    <div>{{el.years}}年度报告</div>
-                    <div style="width:200px">
-                        <span @click="seeDetail(el)" class="see-detail">查看详情</span>
+            <template v-if="isajax">
+                <!-- 有数据 -->
+                <template v-if="list&&list.length>0">
+                    <div class="list-co" v-for="(el,i) in list" :key="i" >
+                        <div style="width:72px">{{i+1}}</div>
+                        <div>{{el.years}}年度报告</div>
+                        <div style="width:200px">
+                            <span @click="seeDetail(el)" class="see-detail">查看详情</span>
+                        </div>
                     </div>
-                </div>
+                </template>
+                <!-- 无数据 -->
+                <template v-else-if="list&&list.length==0">
+                    <div class="no-toast">
+                        <img src="../../assets/img/bank_card @2x.png" alt="">
+                        <span>Sorry，该企业暂无年报信息</span>
+                    </div>
+                </template>
+                <template v-else-if="!list">
+                    <div class="ajax-erroe">
+                        <img src="../../assets/img/pic-zoudiu.png"/>
+                        <!-- <span @click="recoldFn">刷新</span> -->
+                    </div>
+                </template>
             </template>
-            <!-- 无数据 -->
             <template v-else>
-                <div class="no-toast">
-                    <img src="../../assets/img/bank_card @2x.png" alt="">
-                    <span>Sorry，该企业暂无年报信息</span>
-                </div>
+                <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
             </template>
         </div>
         <!-- 弹窗 -->
@@ -43,6 +54,9 @@ export default {
             // 数据模型
             mask:false,
             detail:'',
+            list:[],
+            loading:true,
+            isajax:false
         }
     },
     watch: {
@@ -50,10 +64,11 @@ export default {
     },
     props: {
         // 集成父级参数
-        list:{
+        // list:{
             
-        }
+        // }
     },
+    inject:['reload'],
     components:{
         'v-pop':popup,
         'v-annual-detail':annualDetail
@@ -65,6 +80,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.getYears()
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
@@ -92,7 +108,31 @@ export default {
                 }
             })
             
-        }
+        },
+        //刷新
+        recoldFn(){
+            this.reload();
+        },
+        getYears(){//企业年报
+            let that=this;
+            this.$http({
+                method:'post',
+                url:'/gs/report/years',
+                data:{
+                    comId:this.$route.query.id,
+                }
+            }).then(function(res){
+                that.isajax=true;
+                if(res.data.code==1){
+                    that.list=res.data.data;
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            }).catch(req =>{
+                that.isajax=true;
+                that.list=null;
+            })
+        }, 
     }
 
 }
