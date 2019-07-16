@@ -73,6 +73,11 @@ export default {
           source:this.source,
           pageNo:this.current 
         });
+        if(localStorage.getItem('permissions')){
+          dataParam.isVip = 1
+        } else {
+          dataParam.isVip = 0 
+        }
         getJsonData( "/notice/queryCompanyList/" +  this.id , dataParam).then(res => {
             if(res.code == 1) {
               this.list = res.data
