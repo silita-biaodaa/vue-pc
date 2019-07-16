@@ -455,6 +455,9 @@ export default {
     },
     // 获取公司企业列表
     changeapi() {
+       if(this.allarr.length>1){
+          this.data.rangeType=this.rangeType;
+       }
        this.allstr = this.allarr.join(",")
        this.data.qualCode =  this.allstr
        sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
