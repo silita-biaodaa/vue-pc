@@ -68,11 +68,11 @@ export default {
   },
   methods: {
     gainList() {
-      let dataParam = JSON.stringify({
+      let dataParam ={
           pageSize:20,
           source:this.source,
           pageNo:this.current 
-        });
+        };
         if(localStorage.getItem('permissions')){
           dataParam.isVip = 1
         } else {
@@ -80,6 +80,16 @@ export default {
         }
         getJsonData( "/notice/queryCompanyList/" +  this.id , dataParam).then(res => {
             if(res.code == 1) {
+              if(localStorage.getItem('permissions')){
+                let arr = []
+                res.data.forEach( el => {
+                  if(el.phone) {
+                      arr =  el.phone.split(';')
+                      el.phone = arr[0]
+                      arr.length = 0
+                  }
+                });
+              }
               this.list = res.data
               this.total = res.total
               this.current = res.pageNo
