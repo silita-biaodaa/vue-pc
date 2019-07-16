@@ -10,7 +10,7 @@
              </el-col>
              <el-col :span='22' >
                <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.name==area? 'current':''"  @click='eval(el)' >
+                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >
                     {{el.name}}
                  </li>
                </ul>
@@ -267,11 +267,11 @@ export default {
        present:0,
        Scity:true,
        data:{
-         com_name:'',
+        //  com_name:'',
          pageNo:1,
          pbModes:'',
-         type:'0',
-         pageSize:'20',
+         type:'1',
+         pageSize:20,
          regions:'湖南省',
          zzType:'',
          projectType:'',
@@ -379,37 +379,34 @@ export default {
           this.data.com_name=''
         }
         let that=this;
-                    //  页号              评标办法                   页面显示条数      地区              资质类型                类型
-       queryList(this.data).then( res => {
-         if(res.code == 1 ) {
-          //  this.loading = false
-           this.total = res.total
-           if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-                for(let x of res.data){
-                   if(x.certificate){
-                     x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
-                    
-                   }
-                    if( x.pbMode) {
-                      let xin  = x.pbMode.length
-                      x.pbMode = '*'   
-                      for (var i = 1; i<xin; i++ ) {
-                        x.pbMode = x.pbMode + '*'
-                      }
-                    } 
-
-                  } 
+        this.$http({
+          method:'post',
+          data:this.data,
+          url:'/newnocite/zhaobiao/list'
+        }).then(res =>{
+          if(res.code == 1 ) {
+            //  this.loading = false
+            that.total = res.total
+            if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+              for(let x of res.data){
+                if(x.certificate){
+                  x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                  
+                }
+                if( x.pbMode) {
+                  let xin  = x.pbMode.length
+                  x.pbMode = '*'   
+                  for (var i = 1; i<xin; i++ ) {
+                    x.pbMode = x.pbMode + '*'
+                  }
+                } 
+              } 
             }
-           this.queryLists = res.data
-           this.isajax=true;
-           this.present = res.pageNo
-          //  if(this.total == 0 ) {
-          //    this.Snone = true
-          //  } else {
-          //    this.Snone = false
-          //  }
-         }
-       }).catch(function(res){
+            that.queryLists = res.data
+            that.isajax=true;
+            that.present = res.pageNo
+          }
+        }).catch(function(res){
             that.isajax=true;
             that.queryLists=null;
         })

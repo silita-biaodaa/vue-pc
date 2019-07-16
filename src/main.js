@@ -245,6 +245,14 @@ router.beforeEach((to, from, next) => {
         })
       }
     }
+    if(to.path=='/annals'){
+      next({
+        path:'/introduce/icbc',
+        query:{
+          id:to.query.id
+        }
+      })
+    }
     if(to.fullPath=='/logo'){
       sessionStorage.setItem('path',from.fullPath);
     }
@@ -259,8 +267,8 @@ new Vue({
   components: { App },
   template: '<App/>',
   created(){
-    this.$http.get('company/filter',{}).then(res => {
-      sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+    this.$http.post('/new/common/condition/filter',{}).then(res => {
+      sessionStorage.setItem('filter',JSON.stringify(res.data));
     })
   }
 })

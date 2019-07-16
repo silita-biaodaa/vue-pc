@@ -8,7 +8,7 @@
                </el-col>
                <el-col :span="22">
                   <ul class='pro' >
-                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'>
+                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.code==area? 'current':''"  @click='eval(el)'>
                       {{el.name}}
                     </li>
                   </ul>
@@ -221,7 +221,7 @@ export default {
          } else {
            this.Scity = false
          }
-         this.area = el.name
+         this.area = el.code
          sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
         this.serach='';
@@ -280,7 +280,7 @@ export default {
           data.title=this.serach
           data.com_name=''
         }
-        data.regions='hunan'
+        // data.regions='hunan'
        if(this.rank == 0) {
           queryList(data).then( res => {
                if(res.code == 1 ) {
