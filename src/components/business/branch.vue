@@ -9,50 +9,64 @@
                 <div style="width:150px" >联系方式</div>
                 <div style="width:250px" >地址</div>
             </div>
-            <!-- 有数据 -->
-            <template v-if="list&&list.length>0">
-                <div class="list-co" v-for="(el,i) in list" :key="i" >
-                    <div style="width:72px" >{{i+1}}</div>
-                    <div style="width:200px" >
-                        <span style="color:#FE6603" >{{el.comName}}</span>
+            <template v-if="isajax">
+                <!-- 有数据 -->
+                <template v-if="list&&list.length>0">
+                    <div class="list-co" v-for="(el,i) in list" :key="i" >
+                        <div style="width:72px" >{{i+1}}</div>
+                        <div style="width:200px" >
+                            <span style="color:#FE6603" >{{el.comName}}</span>
+                        </div>
+                        <div style="width:100px" >{{el.legalPerson}}</div>
+                        <div style="width:150px" >{{el.phone}}</div>
+                        <div style="width:250px" >{{el.comAddress}}</div>
                     </div>
-                    <div style="width:100px" >{{el.legalPerson}}</div>
-                    <div style="width:150px" >{{el.phone}}</div>
-                    <div style="width:250px" >{{el.comAddress}}</div>
-                </div>
+                </template>
+                <!-- 无数据 -->
+                <template v-else-if="list&&list.length==0">
+                    <div class="no-toast">
+                        <img src="../../assets/img/bank_card @2x.png" alt="">
+                        <span>Sorry，该企业暂无分支机构信息</span>
+                    </div>
+                </template>
+                <template v-else-if="!list">
+                    <div class="ajax-erroe">
+                        <img src="../../assets/img/pic-zoudiu.png"/>
+                        <!-- <span @click="recoldFn">刷新</span> -->
+                    </div>
+                </template>
             </template>
-            <!-- 无数据 -->
             <template v-else>
-                <div class="no-toast">
-                    <img src="../../assets/img/bank_card @2x.png" alt="">
-                    <span>Sorry，该企业暂无分支机构信息</span>
-                </div>
+                <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
             </template>
         </div>
     </div>
 </template>
 <script>
+import { Branch} from '@/api/index'
 export default {
     name: 'branch', // 基本信息
     data() {
         return {
             // 数据模型
+            list:[],
+            loading:true,
+            isajax:false
         }
     },
     watch: {
         // 监控集合
     },
+    inject:['reload'],
     props: {
         // 集成父级参数
-        list:{
-            
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.getBranch()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -77,6 +91,44 @@ export default {
     },
     methods: {
         // 方法 集合
+        getBranch() {//分支机构
+            let that=this;
+            let data={comId:this.$route.query.id};
+            if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
+                data.isVip = 1
+            } else {
+                data.isVip = 0 
+            }
+            Branch(data).then(res => {
+                that.isajax=true;
+                if(res.code == 1) {
+                    this.list = res.data
+                    var iar = []
+                    this.list.forEach( el => {
+                        if(el.phone) {
+                        iar = el.phone.split(';')
+                        // if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                        //     el.phone = this.resetPhone(iar[0])
+                        // } else {
+                            el.phone = iar[0]
+                        // }
+                        iar = []
+                        } else {
+                            return
+                        }           
+                    })
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            }).catch(req =>{
+                that.isajax=true;
+                that.list=null;
+            })
+        },
+        //刷新
+        recoldFn(){
+            this.reload();
+        } 
     }
 
 }
