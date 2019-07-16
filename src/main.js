@@ -245,6 +245,14 @@ router.beforeEach((to, from, next) => {
         })
       }
     }
+    if(to.path=='/annals'){
+      next({
+        path:'/introduce/icbc',
+        query:{
+          id:to.query.id
+        }
+      })
+    }
     if(to.fullPath=='/logo'){
       sessionStorage.setItem('path',from.fullPath);
     }
