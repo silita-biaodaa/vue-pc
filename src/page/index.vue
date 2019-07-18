@@ -28,7 +28,7 @@
                     <div class="m-detail">
                        <p :title='el.certificate' >资质要求:  {{el.certificate ? el.certificate : '详见原文'}}</p>
                        <p>评标办法：<span>{{el.pbMode ? el.pbMode : '详见原文'}}</span></p>
-                       <p>发布时间：{{el.date}}</p>
+                       <p>发布时间：{{el.openDate}}</p>
                     </div>
                  </a>
           </div>
@@ -51,7 +51,7 @@
                     <div class="m-detail">
                        <p :title='el.oneName' >第一候选人:{{el.oneName ? el.oneName : '详见原文'}}</p>
                        <p>中标金额：<span>{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span></p>
-                       <p>发布时间：{{el.date}}</p>
+                       <p>发布时间：{{el.openDate}}</p>
                     </div>
                  </a>
 
@@ -325,46 +325,51 @@ export default {
       })
     },
     gainqueryList() {
-      let data={pageNo:1,type:'1',pageSize:8,regions:this.state};
-      data.regions='hunan'
-      queryList(data).then(res => {
-         if(res.code == 1 ) {
-            this.queryLists = res.data
-            if( this.queryLists.length == 0) {
-              return this.biding  = false
-            } else {
-              this.biding  = true
-            }
-          res.data.forEach( el => {
-             var date = new Date(el.opendate.replace(/-/g, '/'));
-             el.date = moment(date).format('YYYY年MM月DD日')
-          });
-           
-             if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-                for(let x of this.queryLists){
-                  if(x.certificate) {
-                      if(x.certificate){
-                           x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
-                         }
-                   }
-                    if( x.pbMode) {
-                        let xin  = x.pbMode.length
-                        x.pbMode = '*'   
-                        for (var i = 1; i<xin; i++ ) {
-                          x.pbMode = x.pbMode + '*'
-                        }
-                      } 
-                }     
-             }
-            
-          
-         }
+      let data={
+        pageNo:1,
+        type:'1',
+        pageSize:8,
+        regions:this.state.code,
+        pbModes:"",
+        projectType: "",
+        rangeType: "",
+        title:"",
+        zzType:"",
+      };
+      let that=this;
+      this.$http({
+        method:'post',
+        data:data,
+        url:'/newnocite/zhaobiao/list'
+      }).then(res =>{
+        if(res.data.code == 1 ) {
+          //  this.loading = false
+          if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            for(let x of res.data.data){
+              if(x.certificate){
+                x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                
+              }
+              if( x.pbMode) {
+                let xin  = x.pbMode.length
+                x.pbMode = '*'   
+                for (var i = 1; i<xin; i++ ) {
+                  x.pbMode = x.pbMode + '*'
+                }
+              } 
+            } 
+          }
+          that.queryLists = res.data.data
+          if( that.queryLists.length == 0) {
+            return that.biding  = false
+          } else {
+            that.biding  = true
+          }
+        }
       })
-     
     },
     gainten() {
-      let data={pageNo:1,type:'2',pageSize:8,regions:this.state};
-      data.regions='hunan'
+      let data={pageNo:1,type:'2',pageSize:8,regions:this.state.code};
        queryList(data).then(res => {
          if(res.code == 1 ) {
              this.biddings = res.data
@@ -373,12 +378,6 @@ export default {
             } else {
               this.tendering  = true
             }
-          res.data.forEach( el => {
-             var date = new Date(el.opendate.replace(/-/g, '/'));
-             el.date = moment(date).format('YYYY年MM月DD日')
-
-          });
-          
               if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
                            this.biddings.forEach( el => {
                              if(el.oneName)  {
@@ -410,7 +409,7 @@ export default {
       })
     },
     gainCompany() {
-        let data={regisAddress:this.state,limit:8}
+        let data={regisAddress:this.state.source,limit:8}
         if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
           data.isVip = 1
         } else {

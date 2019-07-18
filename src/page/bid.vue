@@ -150,36 +150,7 @@ export default {
       areas:[
       ],
       queryLists:[],
-      projectTypes:[
-        {
-          name:'全部',
-          key:''
-        },
-        {
-          name:'施工',
-          key:'0'
-        },
-        {
-          name:'监理',
-          key:'2'
-        },
-        {
-          name:'采购',
-          key:'3'
-        },
-        {
-          name:'设计',
-          key:'1'
-        },
-        {
-          name:'勘察',
-          key:'4'
-        },
-        {
-          name:'其他',
-          key:5
-        }
-      ],
+      projectTypes:[],
       pbMode:[],
       pbModes:[
         {
@@ -307,13 +278,13 @@ export default {
       this.zType = []
     },
     state(val) {
-      if(val == '湖南省') {
+      if(val.source == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
       }
       this.isajax=false;
-      this.area = val
+      this.area = val.code
       this.data.regions = this.area
       this.data.pageNo = 1
       // this.loading = true      
@@ -384,11 +355,12 @@ export default {
           data:this.data,
           url:'/newnocite/zhaobiao/list'
         }).then(res =>{
-          if(res.code == 1 ) {
+          that.isajax=true;
+          if(res.data.code == 1 ) {
             //  this.loading = false
-            that.total = res.total
+            that.total = res.data.total
             if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-              for(let x of res.data){
+              for(let x of res.data.data){
                 if(x.certificate){
                   x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
                   
@@ -402,9 +374,8 @@ export default {
                 } 
               } 
             }
-            that.queryLists = res.data
-            that.isajax=true;
-            that.present = res.pageNo
+            that.queryLists = res.data.data
+            that.present = res.data.pageNo
           }
         }).catch(function(res){
             that.isajax=true;
@@ -528,7 +499,21 @@ export default {
     gainFilter() {
       let data=JSON.parse(sessionStorage.getItem('filter'));
       this.areas=data.area;
-      this.companyQuals=data.companyQual;
+      this.companyQuals=data.comQua;
+      data.type.unshift({name:'全部',projectType:''})
+      this.projectTypes=data.type;
+      //评标办法
+      let pbArr=data.pbMode;
+      let str=this.state.code;
+      for(let x of pbArr){
+        if(JSON.stringify(x).indexOf(str)>-1){
+          for(let y of x[0]){
+            y.active=false  
+          }
+          x.unshift({name:'全部',active:true,code:''})
+          this.pbModes=x;
+        }
+      }
     },
     eval(el) {
         if(el.name == '湖南省') {
@@ -536,7 +521,7 @@ export default {
         } else {
           this.Scity = false
         }
-        this.area = el.name
+        this.area = el.code
         sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
         this.serach='';
@@ -621,7 +606,7 @@ export default {
     if(sessionStorage.getItem('pageNo')){
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
-    this.area = this.state
+    this.area = this.state.code
     this.data.regions = this.area
     this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : '';
     this.gainFilter();

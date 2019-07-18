@@ -920,7 +920,7 @@ export default {
        if(!sessionStorage.getItem('comselect')) { // 根据是否本地有保存筛选数据来选择地址
         console.log(this.state);
          this.last = this.state    
-         this.data.regisAddress = this.state
+         this.data.regisAddress = this.state.source
        } else {
          this.data = JSON.parse(sessionStorage.getItem("comselect"))
          this.last  = this.data.regisAddress

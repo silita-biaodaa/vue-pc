@@ -46,7 +46,7 @@
              <user-center  v-else  ></user-center>
              <div class="area">
                <i class="iconfont icon-dizhi"></i>
-               <span @click="selfa" >{{addressTxt}}</span>
+               <span @click="selfa" >{{source.source}}</span>
                <div class="se-area" v-show="isarea" >
                   <div class="a-line" v-for="(el,i) in allcity" :key="i"  >
                     <div class="allcity left" >
@@ -142,8 +142,6 @@ export default {
   name: 'App',
   data() {
     return {
-      addressCode:'',//地区code
-      addressTxt:'湖南省',
       isRouter:true,
       show:true,
       // duanwu:false,
@@ -194,7 +192,10 @@ export default {
       rank:0,
       way:'/bid',
       ishow:false,
-      source:'湖南省',
+      source:{
+        source:'湖南省',
+        code:'hunan'
+      },
       selects:[
           {
             name:'招标',
@@ -287,13 +288,12 @@ export default {
           let that=this;
           for(let x of arr){
             if(x.name.indexOf(res.data.region)>-1){
-              that.addressCode=x.code
+              that.source.code=x.code
               break
             }
           }
           setTimeout(() => {
-            this.source = res.data.region
-            this.addressTxt=res.data.region
+            this.source.source = res.data.region
           }, 1000);           
         }
       })
@@ -321,7 +321,16 @@ export default {
       this.isarea = !this.isarea
     },
     selarea(el) {
-      this.source = el.name 
+      sessionStorage.setItem('address',res.data.region);
+      let arr=JSON.parse(sessionStorage.getItem('filter')).area;
+      let that=this;
+      for(let x of arr){
+        if(x.name.indexOf(el.name)>-1){
+          that.source.code=x.code
+          break
+        }
+      }
+      this.source.source = el.name 
       sessionStorage.setItem('address',el.name)
       this.isarea = false
     },
@@ -466,10 +475,6 @@ export default {
           this.names = false
         } else {     
           this.names = true
-        }
-        //如果是招标中标公告，用传地区code
-        if(val.path=='/tender'||val.path=='/bid'){
-          this.source=this.addressCode
         }
       },
       deep: true

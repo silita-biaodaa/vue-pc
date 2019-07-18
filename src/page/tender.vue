@@ -225,7 +225,7 @@ export default {
          sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
         this.serach='';
-        this.searchType=0
+        this.searchType=0;
         /*end*/
          this.data.regions = this.area
          this.data.pageNo = 1
@@ -280,7 +280,7 @@ export default {
           data.title=this.serach
           data.com_name=''
         }
-        // data.regions='hunan'
+        data.regions='hunan'
        if(this.rank == 0) {
           queryList(data).then( res => {
                if(res.code == 1 ) {
@@ -417,7 +417,7 @@ export default {
       }
     },
     SHcity() {
-      if(this.area  == '湖南省') {
+      if(this.area  == 'hunan') {
         this.Scity = true
       } else {
         this.Scity = false
@@ -442,12 +442,12 @@ export default {
   },
   watch: {
     state(val) {
-      if(val == '湖南省') {
+      if(val.source == '湖南省') {
          this.Scity = true
        } else {
          this.Scity = false
        }
-      this.area = val
+      this.area = val.code
       this.data.regions = this.area
        this.data.pageNo = 1
        this.gainList()
@@ -468,7 +468,7 @@ export default {
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
     this.serach = localStorage.getItem('title') ?  localStorage.getItem('title'): '';
-    this.area = this.state
+    this.area = this.state.code
     this.data.regions = this.area
     this.gainFilter()
     //如果是刷新操作，则复现上次

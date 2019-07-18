@@ -280,7 +280,7 @@ export default {
       }
       this.data=data;
     } else {
-      this.data.area= this.state
+      this.data.area= this.state.source
     }
     this.gainList();
   },

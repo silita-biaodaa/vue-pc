@@ -39,7 +39,7 @@ export default {
   watch: {
     state(val) {
       if(val != '') {
-        this.area = val
+        this.area = val.source
         this.$emit('perPor', {cur:this.area})
       }
       
@@ -48,6 +48,9 @@ export default {
   created () {
     let data=JSON.parse(sessionStorage.getItem('filter'));
     this.area= (this.state=='' ? '全部' : this.state);
+    if(this.$route.fullPath == '/crew'){
+      this.area= (this.state.source=='' ? '全部' : this.state.source);
+    }
     this.province = data.area;
     if(!(this.$route.fullPath == '/crew')) {
        this.province.unshift({name:'全部'})
