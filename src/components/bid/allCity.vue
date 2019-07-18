@@ -21,8 +21,8 @@
           </el-col>
           <el-col :span="22">
              <ul class='pro' >
-               <li v-for='(el,i) in list' :key='i' class='left' :class="cstr.indexOf(el) == -1 ? '' : 'current'"  @click="level(el)"  >
-                 {{el}}
+               <li v-for='(el,i) in list' :key='i' class='left' :class="cstr.indexOf(el.name) == -1 ? '' : 'current'"  @click="level(el)"  >
+                 {{el.name}}
                </li>
              </ul>
           </el-col>
@@ -50,10 +50,10 @@ export default {
   },
   watch:{
     city() {
-       this.area = this.city
+       this.area = this.city.source
         this.areas.forEach( el => {      
          if(el.name == this.area) {
-           this.list = el.list
+           this.list = el.data
          }
        })
     }
@@ -61,15 +61,15 @@ export default {
   methods: {
     // 获取地区
     gainFilter() {  // 对传进来的数据解析，是否包含市级下面地区
-      if(this.city.indexOf("||") == -1  ) {
-        this.area = (this.city == '' ? '全部' : this.city)
+      if(this.city.source.indexOf("||") == -1  ) {
+        this.area = (this.city.source == '' ? '全部' : this.city.source)
         if(this.area == '全部') {
          this.allt = false
         } else {
           this.allt = true
         }
       }else {
-        let arr = this.city.split('||')
+        let arr = this.city.source.split('||')
         this.area = arr[0]
         this.cstr = arr[1]
         this.all = arr[1].split(',')
@@ -77,7 +77,10 @@ export default {
     },
     eval(el) {
       this.area = el.name
-      this.list = el.list
+      for(let x of el.data){
+        x.i=false;
+      }
+      this.list = el.data
       if(this.area == '全部') {
         this.allt = false
         this.$emit('Cnext', {cur:''})
@@ -89,25 +92,25 @@ export default {
     marry() {
      this.areas.forEach( el => {
        if(el.name != '全部') {
-          el.list.unshift('全部')      
+          el.data.unshift({name:'全部',i:true})      
           if(el.name == this.area) {
-            this.list = el.list
+            this.list = el.data
           }
        }
        
        })
     },
     level(el) { 
-      if(el == '全部') {
+      if(el.name == '全部') {
          this.all = []
          this.cstr = '全部'
          this.$emit('Cnext', {cur:this.area})
       } else {
-        if( this.all.indexOf(el) == -1 ) {
+        if( this.all.indexOf(el.name) == -1 ) {
           if(this.all.length >= 3 ) {
             return  
            } else {
-              this.all.push(el)
+              this.all.push(el.name)
               this.cstr = this.all.join(',')
               this.$emit('Cnext', {cur:(this.area + '||' + this.cstr)})
            }

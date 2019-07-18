@@ -46,7 +46,7 @@
              <user-center  v-else  ></user-center>
              <div class="area">
                <i class="iconfont icon-dizhi"></i>
-               <span @click="selfa" >{{source}}</span>
+               <span @click="selfa" >{{source.source}}</span>
                <div class="se-area" v-show="isarea" >
                   <div class="a-line" v-for="(el,i) in allcity" :key="i"  >
                     <div class="allcity left" >
@@ -147,7 +147,7 @@ export default {
       // duanwu:false,
       isshow:true,
       names:true,
-       navlist:[
+      navlist:[
         {
            name:'首页',
            url:require('./assets/img/icon-shouy.png'),
@@ -188,64 +188,67 @@ export default {
            url:require('./assets/img/icon-fawu.png'),
            to:'/law',
         }
-     ],
-     rank:0,
-     way:'/bid',
-     ishow:false,
-     source:'湖南省',
-     selects:[
-         {
-           name:'招标',
-           to:'/bid',
-           i: 0
-         },
-         {
-           name:'中标',
-           to:'/tender',
-           i: 1
-         },
-         {
-           name:'企业',
-           to:'/company',
-           i: 2
-         },
-         {
-           name:'诚信',
-           to:'/perfor',
-           i: 3
-         },
-       ],
-     select:'',
-     name:'?',
-     isarea:false,
-     allcity:[
-       {
-         name:'华东',
-         next:[{name:'上海市'},{name:'江苏省'},{name:'浙江省'},{name:'安徽省'},{name:'福建省'},{name:'江西省'},{name:'山东省'}]
-       },
-       {
-         name:'东北',
-         next:[{name:'辽宁省'},{name:'吉林省'},{name:'黑龙江省'}]
-       }, 
+      ],
+      rank:0,
+      way:'/bid',
+      ishow:false,
+      source:{
+        source:'湖南省',
+        code:'hunan'
+      },
+      selects:[
+          {
+            name:'招标',
+            to:'/bid',
+            i: 0
+          },
+          {
+            name:'中标',
+            to:'/tender',
+            i: 1
+          },
+          {
+            name:'企业',
+            to:'/company',
+            i: 2
+          },
+          {
+            name:'诚信',
+            to:'/perfor',
+            i: 3
+          },
+      ],
+      select:'',
+      name:'?',
+      isarea:false,
+      allcity:[
         {
-         name:'华中',
-         next:[{name:'河南省'},{name:'湖北省'},{name:'湖南省'}]
-       },{
-         name:'华北',
-         next:[{name:'北京市'},{name:'天津市'},{name:'河北省'},{name:'山西省'},{name:'内蒙古自治区'}]
-       },{
-          name:'华南',
-          next:[{name:'广东省'},{name:'广西壮族自治区'},{name:'海南省'}]
-       },
-       {
-         name:'西北',
-         next:[{name:'陕西省'},{name:'甘肃省'},{name:'青海省'},{name:'宁夏回族自治区'},{name:'新疆维吾尔自治区'}]
-       },
-       {
-         name:'西南',
-         next:[{name:'重庆市'},{name:'四川省'},{name:'贵州省'},{name:'云南省'},{name:'西藏自治区'}]
-       },
-     ]
+          name:'华东',
+          next:[{name:'上海市'},{name:'江苏省'},{name:'浙江省'},{name:'安徽省'},{name:'福建省'},{name:'江西省'},{name:'山东省'}]
+        },
+        {
+          name:'东北',
+          next:[{name:'辽宁省'},{name:'吉林省'},{name:'黑龙江省'}]
+        }, 
+          {
+          name:'华中',
+          next:[{name:'河南省'},{name:'湖北省'},{name:'湖南省'}]
+        },{
+          name:'华北',
+          next:[{name:'北京市'},{name:'天津市'},{name:'河北省'},{name:'山西省'},{name:'内蒙古自治区'}]
+        },{
+            name:'华南',
+            next:[{name:'广东省'},{name:'广西壮族自治区'},{name:'海南省'}]
+        },
+        {
+          name:'西北',
+          next:[{name:'陕西省'},{name:'甘肃省'},{name:'青海省'},{name:'宁夏回族自治区'},{name:'新疆维吾尔自治区'}]
+        },
+        {
+          name:'西南',
+          next:[{name:'重庆市'},{name:'四川省'},{name:'贵州省'},{name:'云南省'},{name:'西藏自治区'}]
+        },
+      ]
     }
   },
   provide(){
@@ -262,35 +265,42 @@ export default {
     },
     gainaddress() {
       address({}).then(res => {
-         if(res.code =1 ) {
-          //  console.log(res,1);
-           localStorage.setItem('uip',res.data.ip)
-           if(res.data.region == ('湖南' || '湖北' || '安徽' || '福建' || '广东' || '甘肃' || '贵州' || '河北' || '河南' || '黑龙江' || '海南' || '江苏' || '江西' || '吉林' || '辽宁' || '青海' || '四川' || '山东' || '山西' || '陕西' || '台湾' || '云南' || '浙江' )) {
+        if(res.code =1 ) {
+        //  console.log(res,1);
+          localStorage.setItem('uip',res.data.ip)
+          if(res.data.region == ('湖南' || '湖北' || '安徽' || '福建' || '广东' || '甘肃' || '贵州' || '河北' || '河南' || '黑龙江' || '海南' || '江苏' || '江西' || '吉林' || '辽宁' || '青海' || '四川' || '山东' || '山西' || '陕西' || '台湾' || '云南' || '浙江' )) {
               res.data.region =  res.data.region + '省'
-           } else if(res.data.region == ('北京' || '重庆' || '上海' || '天津')  ) {
-               res.data.region =  res.data.region + '市'
-           } else if (res.data.region == '广西') {
+          } else if(res.data.region == ('北京' || '重庆' || '上海' || '天津')  ) {
+              res.data.region =  res.data.region + '市'
+          } else if (res.data.region == '广西') {
               res.data.region = '广西壮族自治区'
-           } else if (res.data.region == '内蒙古') {
+          } else if (res.data.region == '内蒙古') {
               res.data.region = '内蒙古自治区'
-           } else if (res.data.region == '宁夏') {
+          } else if (res.data.region == '宁夏') {
               res.data.region = '宁夏回族自治区'
-           }  else if (res.data.region == '新疆') {
+          }  else if (res.data.region == '新疆') {
               res.data.region = '新疆维吾尔自治区'
-           }  else if (res.data.region == '西藏') {
+          }  else if (res.data.region == '西藏') {
               res.data.region = '西藏自治区'
-           } 
-           sessionStorage.setItem('address',res.data.region);
-           setTimeout(() => {
-             this.source = res.data.region
-           }, 1000);           
-         }
+          } 
+          sessionStorage.setItem('address',res.data.region);
+          let arr=JSON.parse(sessionStorage.getItem('filter')).area;
+          let that=this;
+          for(let x of arr){
+            if(x.name.indexOf(res.data.region)>-1){
+              that.source.code=x.code
+              break
+            }
+          }
+          setTimeout(() => {
+            this.source.source = res.data.region
+          }, 1000);           
+        }
       })
     },
     valley() {
       if(localStorage.getItem('Xtoken')) {
         let today = new Date().getTime() - localStorage.getItem('valid')
-         console.log(Math.ceil(today/3600/24/1000),3);
         if(Math.ceil(today/3600/24/1000) >= 15 ) {
           alert('用户信息已失效，请重新登录')
           this.$router.push('/logo')
@@ -305,22 +315,24 @@ export default {
              localStorage.setItem('phoneNo',res.data.phoneNo)                         
           })
         } 
-
       }
     },
     selfa() {
-
-       this.isarea = !this.isarea
+      this.isarea = !this.isarea
     },
     selarea(el) {
-      this.source = el.name 
+      sessionStorage.setItem('address',res.data.region);
+      let arr=JSON.parse(sessionStorage.getItem('filter')).area;
+      let that=this;
+      for(let x of arr){
+        if(x.name.indexOf(el.name)>-1){
+          that.source.code=x.code
+          break
+        }
+      }
+      this.source.source = el.name 
       sessionStorage.setItem('address',el.name)
       this.isarea = false
-    },
-    judge(){
-    },
-    jumpto() {
-      window.open('http://old.biaodaa.com','_bleak')
     },
     jumpl() {
          this.$router.push('/logo')
@@ -354,12 +366,12 @@ export default {
         localStorage.removeItem('Xtoken')
         localStorage.removeItem('valid')
         localStorage.removeItem('permissions')
-          this.$router.replace({
-           path: '/home',
-           query: {
-             t: Date.now()
-           }
-          })
+        this.$router.replace({
+          path: '/home',
+          query: {
+            t: Date.now()
+          }
+        })
     },
     user() {
       this.$router.push('/user')
@@ -409,15 +421,15 @@ export default {
     },
     gainCo() {
       if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-             Cmessage({}).then(res => {
-              if(res.code == 1) {
-                if(res.data >= 1) {
-                  this.ishow = true
-                } else {
-                  this.ishow = false
-                }
-              }
-            })
+        Cmessage({}).then(res => {
+          if(res.code == 1) {
+            if(res.data >= 1) {
+              this.ishow = true
+            } else {
+              this.ishow = false
+            }
+          }
+        })
       }
     },
     // 端午活动逻辑
@@ -450,7 +462,6 @@ export default {
     }else{
       this.judges()
     }
-    this.judge()
     this.gainaddress()
     this.gainCo()
   },
@@ -466,7 +477,7 @@ export default {
           this.names = true
         }
       },
-    deep: true
+      deep: true
     }
   },
   destroyed () {

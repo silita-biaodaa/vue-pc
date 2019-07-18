@@ -72,20 +72,45 @@ export default {
   },
   methods: {
     gainList() {
+      let that=this;
       this.name = this.$route.query.name
-      queryList({pageNo:this.current,pageSize:20,type:2,regions:'hunan',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
-        if(res.code == 1) {
-           this.bidList = res.data
-           this.current = res.pageNo
-           this.total = res.total
+      this.$http({
+        method:'post',
+        data:{
+          comName:this.name,
+          pageNo:this.current,
+          title:this.search,
+          pageSize:20,
+        },
+        url:'/newnocite/company/zhongbiao/list'
+      }).then(res =>{
+        if(res.data.code == 1) {
+           that.bidList = res.data.data
+           that.current = res.data.pageNo
+           that.total = res.data.total
            if(this.bidList.length ==0 ) {
-             this.result = true
+             that.result = true
            } else {
-             this.result = false
+             that.result = false
            }
-           this.loading = false
+           that.loading = false
+        }else{
+          that.$alert(res.data.msg);
         }
       })
+      // queryList({pageNo:this.current,pageSize:20,type:2,regions:'hunan',com_name:this.name,title:this.search,sumType:"zhongbiao"}).then(res => {
+      //   if(res.code == 1) {
+      //      this.bidList = res.data
+      //      this.current = res.pageNo
+      //      this.total = res.total
+      //      if(this.bidList.length ==0 ) {
+      //        this.result = true
+      //      } else {
+      //        this.result = false
+      //      }
+      //      this.loading = false
+      //   }
+      // })
     },
      Goto(val) {
       this.current = val.cur

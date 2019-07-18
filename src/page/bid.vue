@@ -10,7 +10,7 @@
              </el-col>
              <el-col :span='22' >
                <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.name==area? 'current':''"  @click='eval(el)' >
+                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >
                     {{el.name}}
                  </li>
                </ul>
@@ -150,36 +150,7 @@ export default {
       areas:[
       ],
       queryLists:[],
-      projectTypes:[
-        {
-          name:'全部',
-          key:''
-        },
-        {
-          name:'施工',
-          key:'0'
-        },
-        {
-          name:'监理',
-          key:'2'
-        },
-        {
-          name:'采购',
-          key:'3'
-        },
-        {
-          name:'设计',
-          key:'1'
-        },
-        {
-          name:'勘察',
-          key:'4'
-        },
-        {
-          name:'其他',
-          key:5
-        }
-      ],
+      projectTypes:[],
       pbMode:[],
       pbModes:[
         {
@@ -267,11 +238,11 @@ export default {
        present:0,
        Scity:true,
        data:{
-         com_name:'',
+        //  com_name:'',
          pageNo:1,
          pbModes:'',
-         type:'0',
-         pageSize:'20',
+         type:'1',
+         pageSize:20,
          regions:'湖南省',
          zzType:'',
          projectType:'',
@@ -307,13 +278,13 @@ export default {
       this.zType = []
     },
     state(val) {
-      if(val == '湖南省') {
+      if(val.source == '湖南省') {
         this.Scity = true
       } else {
         this.Scity = false
       }
       this.isajax=false;
-      this.area = val
+      this.area = val.code
       this.data.regions = this.area
       this.data.pageNo = 1
       // this.loading = true      
@@ -379,37 +350,34 @@ export default {
           this.data.com_name=''
         }
         let that=this;
-                    //  页号              评标办法                   页面显示条数      地区              资质类型                类型
-       queryList(this.data).then( res => {
-         if(res.code == 1 ) {
-          //  this.loading = false
-           this.total = res.total
-           if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-                for(let x of res.data){
-                   if(x.certificate){
-                     x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
-                    
-                   }
-                    if( x.pbMode) {
-                      let xin  = x.pbMode.length
-                      x.pbMode = '*'   
-                      for (var i = 1; i<xin; i++ ) {
-                        x.pbMode = x.pbMode + '*'
-                      }
-                    } 
-
-                  } 
+        this.$http({
+          method:'post',
+          data:this.data,
+          url:'/newnocite/zhaobiao/list'
+        }).then(res =>{
+          that.isajax=true;
+          if(res.data.code == 1 ) {
+            //  this.loading = false
+            that.total = res.data.total
+            if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+              for(let x of res.data.data){
+                if(x.certificate){
+                  x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')
+                  
+                }
+                if( x.pbMode) {
+                  let xin  = x.pbMode.length
+                  x.pbMode = '*'   
+                  for (var i = 1; i<xin; i++ ) {
+                    x.pbMode = x.pbMode + '*'
+                  }
+                } 
+              } 
             }
-           this.queryLists = res.data
-           this.isajax=true;
-           this.present = res.pageNo
-          //  if(this.total == 0 ) {
-          //    this.Snone = true
-          //  } else {
-          //    this.Snone = false
-          //  }
-         }
-       }).catch(function(res){
+            that.queryLists = res.data.data
+            that.present = res.data.pageNo
+          }
+        }).catch(function(res){
             that.isajax=true;
             that.queryLists=null;
         })
@@ -531,7 +499,21 @@ export default {
     gainFilter() {
       let data=JSON.parse(sessionStorage.getItem('filter'));
       this.areas=data.area;
-      this.companyQuals=data.companyQual;
+      this.companyQuals=data.comQua;
+      data.type.unshift({name:'全部',projectType:''})
+      this.projectTypes=data.type;
+      //评标办法
+      let pbArr=data.pbMode;
+      let str=this.state.code;
+      for(let x of pbArr){
+        if(JSON.stringify(x).indexOf(str)>-1){
+          for(let y of x[0]){
+            y.active=false  
+          }
+          x.unshift({name:'全部',active:true,code:''})
+          this.pbModes=x;
+        }
+      }
     },
     eval(el) {
         if(el.name == '湖南省') {
@@ -539,7 +521,7 @@ export default {
         } else {
           this.Scity = false
         }
-        this.area = el.name
+        this.area = el.code
         sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
         this.serach='';
@@ -624,7 +606,7 @@ export default {
     if(sessionStorage.getItem('pageNo')){
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
-    this.area = this.state
+    this.area = this.state.code
     this.data.regions = this.area
     this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : '';
     this.gainFilter();

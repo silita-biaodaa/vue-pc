@@ -267,8 +267,14 @@ new Vue({
   components: { App },
   template: '<App/>',
   created(){
-    this.$http.get('company/filter',{}).then(res => {
+    this.$http({
+      method:'post',
+      url:'/new/common/condition/filter',
+      data:''
+    }).then(res => {
       sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+    }).catch(req =>{
+      console.log(req);
     })
   }
 })

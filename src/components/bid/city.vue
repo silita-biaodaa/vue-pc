@@ -18,78 +18,7 @@
 export default {
   data () {
     return {
-      city:[
-        {
-          name:'全部',
-          value:'',
-          i:true
-        },
-        {
-          name:'常德市',
-          value:'常德市',
-          i:false
-        },
-        {
-          name:'长沙市',
-          value:'长沙市',
-          i:false
-        },
-        {
-          name:'郴州市',
-          value:'郴州市',
-          i:false
-        },
-        {
-          name:'怀化市',
-          value:'怀化市',
-          i:false
-        },
-        {
-          name:'衡阳市',
-          value:'衡阳市',
-          i:false
-        },
-        {
-          name:'娄底市',
-          value:'娄底市',
-          i:false
-        },
-        {
-          name:'邵阳市',
-          value:'邵阳市',
-          i:false
-        },
-        {
-          name:'湘西自治州',
-          value:'湘西自治州',
-          i:false
-        },
-        {
-          name:'湘潭市',
-          value:'湘潭市',
-          i:false
-        },
-        {
-          name:'岳阳市',
-          value:'岳阳市',
-          i:false
-        },
-        {
-          name:'永州市',
-          value:'永州市',
-          i:false
-        },
-        {
-          name:'张家界市',
-          value:'张家界市',
-          i:false
-        },
-        {
-          name:'株洲市',
-          value:'株洲市',
-          i:false
-        },
-      ],
+      city:[],
       citys:[]
     }
   },
@@ -98,10 +27,10 @@ export default {
   },
   methods: {
     evalclass(el) {
-      if(el.value == '') {
+      if(el.code == '') {
          this.citys = []
          this.city.forEach(el => {
-           if(el.value == '') {
+           if(el.code == '') {
              el.i = true
            } else {
              el.i = false
@@ -110,7 +39,7 @@ export default {
         this.$emit('nextC', {cur:this.citys})
       } else {
         this.city[0].i = false
-        if( this.citys.indexOf(el.value) == -1 ) {
+        if( this.citys.indexOf(el.code) == -1 ) {
           if(this.citys.length >= 3 ) {
             this.$confirm('最多只能选择三个市级', '提示', {
                     type: 'warning',
@@ -120,11 +49,11 @@ export default {
             return  
           } else {
             el.i = true
-            this.citys.push(el.value)
+            this.citys.push(el.code)
             this.$emit('nextC', {cur:this.citys})
           }
         } else {
-          this.citys.splice(this.citys.indexOf(el.value),1)
+          this.citys.splice(this.citys.indexOf(el.code),1)
           el.i = false
           if(this.citys.length == 0) {
             this.city[0].i = true
@@ -135,6 +64,12 @@ export default {
     }
   },
   created(){
+    let data=JSON.parse(sessionStorage.getItem('filter'));
+    for(let x of data.area[13].data){
+      x.i=false;
+    }
+    data.area[13].data.unshift({name:'全部',code:'',i:true})
+    this.city=data.area[13].data;
     if(this.citystr!=''){
       this.city[0].i=false;
       let arr=this.citystr.split(',');
