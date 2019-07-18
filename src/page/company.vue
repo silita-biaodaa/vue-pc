@@ -346,7 +346,7 @@ export default {
       this.majors = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.majors = el.list
+            this.majors = el.data
          }
       });      
       
@@ -357,7 +357,7 @@ export default {
       this.twots = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.twots = el.list
+            this.twots = el.data
          }
       });      
     },
@@ -366,7 +366,7 @@ export default {
       this.threets = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.threets = el.list
+            this.threets = el.data
          }
       });      
     },
@@ -375,7 +375,7 @@ export default {
       this.grades = []
       this.majors.forEach(el => {
          if(el.code == val ) {
-            this.grades = el.list
+            this.grades = el.data
          }
       });
     },
@@ -413,7 +413,7 @@ export default {
     gainFilter() {
       let data=JSON.parse(sessionStorage.getItem('filter'));
       this.areas=data.area;
-      this.companyQuals=data.companyQual;
+      this.companyQuals=data.comQua;
     },
     gainCompany() {
       let data = {}

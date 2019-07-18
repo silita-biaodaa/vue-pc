@@ -2,15 +2,14 @@ import axios from 'axios'
 import Vue from 'vue'
 Vue.prototype.$http = axios
 // const baseURL = 'http://api.biaodaa.com/'
-const baseURL = 'http://pre.biaodaa.com/'
-// const baseURL = '/' 
+// const baseURL = 'http://pre.biaodaa.com/'
+const baseURL = '/' 
 
 
 
 axios.defaults.retry = 4;//重复请求次数
 axios.defaults.retryDelay = 1000;//重复请求间隔
-axios.defaults.baseURL = baseURL
-
+axios.defaults.baseURL = process.env.API_HOST;
 axios.interceptors.request.use(function (config) {
   // 将token给到一个前后台约定好的key中，作为请求发送
   config.headers['baseInfo'] = '3.5|1003';
