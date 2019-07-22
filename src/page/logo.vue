@@ -35,7 +35,12 @@
                   忘记密码？
                 </div>
               </div>
-              <div class="e-btn" @click="register">立即登录</div>
+              <template v-if="!loading">
+                <div class="e-btn" @click="register">立即登录</div>
+              </template>
+              <template v-else>
+                <div class="e-btn logoing">正在登录...</div>
+              </template>
             </template>          
             <template v-else>
 
@@ -72,7 +77,8 @@ export default {
       checked:true,
       error:false,
       msg:'请输入手机号',
-      isWx:false
+      isWx:false,
+      loading:false,
     }
   },
   methods: {
@@ -89,7 +95,10 @@ export default {
          this.msg='请输入密码'
          return this.error = true
       }
+      this.loading=true;
+      let that=this;
       authorize({phoneNo:this.mobile.trim(),loginPwd:sha1(this.password.trim()),channel:'1003',clientVersion:'3.0'}).then(res => {
+          this.loading=false;
          if(res.code == 1) {   
             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
             sessionStorage.setItem('ip',res.data.pkid)
@@ -117,6 +126,9 @@ export default {
             this.error = true
             this.msg = res.msg
          }
+      }).catch(req =>{
+        that.loading=false;
+        that.$alert('您的网络不稳定，请重新登录');
       })
 
       
@@ -216,6 +228,10 @@ export default {
             text-align: center;
             cursor: pointer;
             border-radius: 5px;
+          }
+          .logoing{
+            cursor: wait;
+            opacity: .8;
           }
           .wechat {
             margin-top: 9px;

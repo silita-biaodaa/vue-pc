@@ -173,7 +173,7 @@ export default {
         // sumType:"zhongbiao",
         high:'',
         low:'',
-        com_name:''
+        comName:''
       },
       searchType:0,
       serach:'',
@@ -274,11 +274,11 @@ export default {
         let data=this.data;
         let that=this;
         if(sessionStorage.getItem('searchType')||this.searchType==1){
-          data.com_name=this.serach
+          data.comName=this.serach
           data.title=''
         }else{
           data.title=this.serach
-          data.com_name=''
+          data.comName=''
         }
         data.regions='hunan'
        if(this.rank == 0) {
@@ -474,8 +474,8 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('tenderSerach')){
       let data=JSON.parse(sessionStorage.getItem('tenderSerach'));
-      this.serach=data.title!=''?data.title:data.com_name;
-      if(data.com_name!=''){
+      this.serach=data.title!=''?data.title:data.comName;
+      if(data.comName!=''){
         this.searchType=1
       }else{
         this.searchType=0

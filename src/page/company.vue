@@ -184,7 +184,7 @@
                 <!-- <router-link v-for='(el,i) in companylisy' :key='i' tag='a' :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank'   > -->
                 <a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'  >
                     <div class="left " style="width:80px;">
-                      {{(current-1)*20+(i+1)}}
+                      {{(data.pageNo-1)*20+(i+1)}}
                   </div>
                     <div class="left" style="width:300px;">
                       <span class='c-col' >{{el.comName}}</span>
@@ -207,7 +207,7 @@
             <div class="c-page">
               <nav-page 
               :all='total'
-              :currents='current'
+              :currents='data.pageNo'
               @skip='Goto'
               ></nav-page>
             </div>
@@ -319,7 +319,7 @@ export default {
        companylisy:[],
        five:false,
        total:0,
-       current:1,
+      //  current:1,
        title:'',
        present:9,
        last:'',
@@ -327,11 +327,11 @@ export default {
          regisAddress:'',  // 多地区
          minCapital:'',  // 最小资金
          maxCapital:'',   // 最大资金
-         qualCode:this.allstr,  // 资质
-         pageNo:this.current,  // 页码
+         qualCode:'',  // 资质
+         pageNo:1,  // 页码
          pageSize:20,
          levelRank:'',
-         rangeType:this.rangeType,  // 资质关联
+         rangeType:'',  // 资质关联
          keyWord:this.title,  // 关键字 
        },
     }
@@ -346,7 +346,7 @@ export default {
       this.majors = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.majors = el.list
+            this.majors = el.data
          }
       });      
       
@@ -357,7 +357,7 @@ export default {
       this.twots = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.twots = el.list
+            this.twots = el.data
          }
       });      
     },
@@ -366,7 +366,7 @@ export default {
       this.threets = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.threets = el.list
+            this.threets = el.data
          }
       });      
     },
@@ -375,7 +375,7 @@ export default {
       this.grades = []
       this.majors.forEach(el => {
          if(el.code == val ) {
-            this.grades = el.list
+            this.grades = el.data
          }
       });
     },
@@ -401,7 +401,7 @@ export default {
        this.companylisy=[]
       this.last = val
       this.data.regisAddress = this.last
-      this.current = 1
+      this.data.pageNo = 1
       this.isajax=false;
       this.again()
     }
@@ -413,7 +413,7 @@ export default {
     gainFilter() {
       let data=JSON.parse(sessionStorage.getItem('filter'));
       this.areas=data.area;
-      this.companyQuals=data.companyQual;
+      this.companyQuals=data.comQua;
     },
     gainCompany() {
       let data = {}
@@ -517,10 +517,11 @@ export default {
        }
        this.companylisy=[];
        let data = this.data; 
-       this.current = 1;
+       this.data.pageNo = 1;
        this.isajax=false;
        data.regisAddress = val.cur
-       this.allstr = this.allarr.join(",")
+       this.allstr = this.allarr.join(",");
+       this.data.qualCode=this.allstr;
          if(this.rank == 0 ) {  // 判断注册资金是否获取方式
            data.minCapital = this.start
            data.maxCapital = this.end
@@ -549,8 +550,9 @@ export default {
               this.data.minCapital = this.start
               this.data.maxCapital = this.end
               this.allstr = this.allarr.join(",")
+              this.data.qualCode=this.allstr
               this.isajax=false;
-              this.current = 1
+              this.data.pageNo = 1
               // this.loading = true
               sessionStorage.setItem('Rank','0')  // 页面刷新用于判断资金值得从哪里来
               sessionStorage.setItem('comselect',JSON.stringify(this.data))
@@ -576,13 +578,14 @@ export default {
               this.svip = true
               this.modalHelper.afterOpen();
             } else {
-                this.current = 1
+                this.data.pageNo = 1
                 this.rank = 1
                 this.start = ''
                 this.end = ''
                 this.isajax=false; 
                 // this.loading = true
                 this.allstr = this.allarr.join(",")
+                this.data.qualCode=this.allstr
                 this.data.minCapital = this.low
                 this.data.maxCapital = this.high
                 sessionStorage.setItem('Rank','1')  // 页面刷新用于判断资金值得从哪里来
@@ -625,7 +628,7 @@ export default {
       this.rank = 1
       this.start = ''
       this.end = '' 
-      this.current = 1
+      this.data.pageNo = 1
       this.isajax=false; 
       // this.again()
     },
@@ -823,11 +826,12 @@ export default {
       this.rangeType = el.key
       this.data.rangeType = el.key
        this.allstr = this.allarr.join(",")
+       this.data.qualCode=this.allstr
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
       sessionStorage.setItem('comselect',JSON.stringify(this.data))
     },
     Goto(val) {
-      this.current = val.cur;
+      // this.current = val.cur;
       this.data.pageNo = val.cur;
       sessionStorage.setItem('pageNo',val.cur);
       this.funcom.toList(590)
@@ -835,6 +839,7 @@ export default {
       this.isajax=false;
       // this.loading = true
       this.allstr = this.allarr.join(",")
+      this.data.qualCode=this.allstr
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
       sessionStorage.setItem('comselect',JSON.stringify(this.data))
       // if(this.rank == 0 ) {
@@ -859,11 +864,12 @@ export default {
     entitle(val) {      
       this.title = val.cur;
       this.data.keyWord=val.cur;
-      this.current = 1;
+      this.data.pageNo = 1;
       // this.loading = true;
       this.companylisy=[];
       this.isajax=false;
       this.allstr = this.allarr.join(",")
+      this.data.qualCode=this.allstr
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
       sessionStorage.setItem('comselect',JSON.stringify(this.data))
       this.gainCompany()
@@ -1003,7 +1009,7 @@ export default {
     // this.last = this.state
     // this.data.regisAddress = this.state
     if(sessionStorage.getItem('pageNo')){
-      this.current=sessionStorage.getItem('pageNo')*1;
+      this.data.pageNo=sessionStorage.getItem('pageNo')*1;
     }
     this.data.keyWord = localStorage.getItem('title') ?  localStorage.getItem('title'): ''
     this.toTop()

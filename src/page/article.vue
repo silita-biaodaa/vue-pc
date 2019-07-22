@@ -73,16 +73,16 @@ export default {
   methods: {
     gainDetail() {
       let dataParam = JSON.stringify({
-          type:'0',
+          type:'1',
           source:this.source
         });
-        getJsonData( "/notice/detail/" +  this.id , dataParam).then(res => {
+        getJsonData( "/newnocite/nociteDetails/" +  this.id , dataParam).then(res => {
             if(res.code == 1) {
-               this.allC = res.commentCount
-               this.articles = res.data[0]
+               this.allC = res.data.commentCount
+               this.articles = res.data
                this.clickCount = res.clickCount
                this.relCompanySize = res.relCompanySize
-               this.iscollect = res.data[0].collected
+               this.iscollect = res.data.collected
                if(this.iscollect) {
                  this.collect = '已关注'
                } else {

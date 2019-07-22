@@ -8,21 +8,21 @@
          <div style="width:50px;" >
            序号
          </div>
-         <div style="width:170px;" >
+         <div style="width:260px;" >
            单位名称
          </div>
-         <div style="width:153px;" >
+         <div style="width:253px;" >
            工程名称
          </div>
-         <div style="width:100px;" >
+         <!-- <div style="width:100px;" >
            建设单位
-         </div>
+         </div> -->
          <div style="width:100px;" >
            岗位类别
          </div>
-         <div style="width:90px;" >
+         <!-- <div style="width:90px;" >
            所在市州
-         </div>
+         </div> -->
          <div style="width:110px;" >
            押证时间
          </div>
@@ -31,20 +31,20 @@
          <div style="width:50px;" >
            {{i + 1 }}
          </div>
-         <div style="width:170px;textAlign: left;"  >{{el.unitOrg}}
+         <div style="width:260px;textAlign: left;"  >{{el.unitOrg}}
          </div>
-         <div style="width:153px;" class="box-p" >
+         <div style="width:253px;" class="box-p" >
            {{el.proName}}
          </div>
-         <div style="width:100px;" >
+         <!-- <div style="width:100px;" >
            {{el.proOrg}}
-         </div>
+         </div> -->
          <div style="width:100px;" >
             {{el.type}}
          </div>
-         <div style="width:90px;" >
+         <!-- <div style="width:90px;" >
            {{el.city}}
-         </div>
+         </div> -->
          <div style="width:110px;" >
             {{el.date}}
          </div>

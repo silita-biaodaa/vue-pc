@@ -269,8 +269,8 @@ new Vue({
   created(){
     this.$http({
       method:'post',
-      url:'/new/common/condition/filter',
-      data:''
+      url:'/new/common/condition',
+      data:{}
     }).then(res => {
       sessionStorage.setItem('filter',JSON.stringify(res.data.data));
     }).catch(req =>{

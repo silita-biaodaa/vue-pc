@@ -25,7 +25,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.key == data.projectType ? 'current':''"  @click='evalclass(el)' >
+                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"  @click='evalclass(el)' >
                          {{el.name}}
                       </li>
                     </ul>
@@ -152,59 +152,7 @@ export default {
       queryLists:[],
       projectTypes:[],
       pbMode:[],
-      pbModes:[
-        {
-          name:'全部',
-          key:'',
-          active:true,
-        },
-         {
-          name:"综合评估法Ⅰ",
-          key:"综合评估法Ⅰ",
-          active:false,
-        },
-        {
-          name:"综合评估法Ⅱ",
-          key:"综合评估法Ⅱ",
-          active:false,
-        },
-       
-        {
-          name:"固定标价评分法",
-          key:"固定标价评分法",
-          active:false,
-        },
-        {
-          name:"合理定价抽取法",
-          key:"合理定价抽取法",
-          active:false,
-        },
-        {
-          name:"技术评分最低标价法",
-          key:"技术评分最低标价法",
-          active:false,
-        },
-        {
-          name:"合理低价法",
-          key:"合理低价法",
-          active:false,
-        },
-        {
-          name:"经评审最低报价法",
-          key:"经评审最低报价法",
-          active:false,
-        },
-        {
-          name:"百分制综合评分法",
-          key:"百分制综合评分法",
-          active:false,
-        },
-        {
-          name:"其他",
-          key:"其他",
-          active:false,
-        }
-      ],
+      pbModes:[],
       companyQual:'',
       companyQuals:[],
       major:'',
@@ -247,6 +195,7 @@ export default {
          zzType:'',
          projectType:'',
          title:'',
+         rangeType:''
        },
        city:'',
        searchType:0,
@@ -262,7 +211,7 @@ export default {
       this.zType = []
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.majors = el.list
+            this.majors = el.data
          }
       });      
     },
@@ -270,7 +219,7 @@ export default {
       this.zType = []
       this.majors.forEach(el => {
          if(el.code == val ) {
-            this.grades = el.list
+            this.grades = el.data
          }
       });
     },
@@ -343,11 +292,11 @@ export default {
     },
     gainQueryList() {
         if(sessionStorage.getItem('searchType')||this.searchType==1){
-          this.data.com_name=this.serach
+          this.data.comName=this.serach
           this.data.title=''
         }else{
           this.data.title=this.serach
-          this.data.com_name=''
+          this.data.comName=''
         }
         let that=this;
         this.$http({
@@ -406,11 +355,15 @@ export default {
           }else{
             // this.pbModes[0].active=false;
             this.pbModes[i].active=false;
+            let str=JSON.stringify(this.pbModes);
+            if(str.indexOf('"active":true')==-1){
+              this.pbModes[0].active=true;
+            }
           }
         }
         for(let x of l){
           if(x.active){
-            this.pbMode.push(x.key)
+            this.pbMode.push(x.code)
           }
         }
         this.data.pbModes = this.pbMode.join('||');
@@ -450,25 +403,35 @@ export default {
       this.gainQueryList()
     },
     Splice() {
-      this.data.zzType = this.companyQual
+      // this.data.zzType=''
+      // if(this.companyQual){
+      //   this.data.zzType = this.companyQual
+      // }
       //每次切换重置值
       this.majors=[];
       this.major='';
       this.grades=[];
       this.grade='';
-      this.queryLists=[];
+      // this.queryLists=[];
       this.data.pageNo = 1
-      this.isajax=false;      
-      this.gainQueryList()
+      // this.isajax=false;      
+      // this.gainQueryList()
     },
     spliceo() {
-      this.zType.push(this.companyQual,this.major)
-      this.data.zzType = this.zType.join('||')
+      // this.zType.push(this.major)
+      this.data.zzType = this.major
       this.grades=[];
       this.grade='';
       this.data.pageNo = 1
       this.isajax=false;     
        this.gainQueryList()
+    },
+    splicet() {
+      this.zType.push(this.major,this.grade)
+      this.data.zzType = this.zType.join('/')
+      this.data.pageNo = 1
+      this.isajax=false;      
+      this.gainQueryList()
     },
     judvip() {
          if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -489,29 +452,23 @@ export default {
           });
       }
     },
-    splicet() {
-      this.zType.push(this.companyQual,this.major,this.grade)
-      this.data.zzType = this.zType.join('||')
-      this.data.pageNo = 1
-      this.isajax=false;      
-      this.gainQueryList()
-    },
     gainFilter() {
       let data=JSON.parse(sessionStorage.getItem('filter'));
       this.areas=data.area;
-      this.companyQuals=data.comQua;
+      this.companyQuals=data.noticeQua;
       data.type.unshift({name:'全部',projectType:''})
       this.projectTypes=data.type;
       //评标办法
       let pbArr=data.pbMode;
       let str=this.state.code;
       for(let x of pbArr){
-        if(JSON.stringify(x).indexOf(str)>-1){
-          for(let y of x[0]){
+        if(x.provice==str){
+          for(let y of x.list){
             y.active=false  
           }
-          x.unshift({name:'全部',active:true,code:''})
-          this.pbModes=x;
+          x.list.unshift({name:'全部',active:true,code:''})
+          this.pbModes=x.list;
+          break
         }
       }
     },
@@ -538,7 +495,7 @@ export default {
               this.svip = true
               this.modalHelper.afterOpen();
             } else {
-             this.data.projectType = el.key
+             this.data.projectType = el.projectType
              this.data.pageNo = 1
              this.isajax=false; 
              this.gainQueryList()
@@ -582,7 +539,7 @@ export default {
       }
     },
     SHcity() {
-      if(this.area  == '湖南省') {
+      if(this.area  == 'hunan') {
         this.Scity = true
       } else {
         this.Scity = false
@@ -615,8 +572,8 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('bidSerach')){
       let data=JSON.parse(sessionStorage.getItem('bidSerach'));
-      this.serach=data.title!=''?data.title:data.com_name;
-      if(data.com_name!=''){
+      this.serach=data.title!=''?data.title:data.comName;
+      if(data.comName!=''){
         this.searchType=1
       }else{
         this.searchType=0
