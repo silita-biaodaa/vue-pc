@@ -292,11 +292,11 @@ export default {
     },
     gainQueryList() {
         if(sessionStorage.getItem('searchType')||this.searchType==1){
-          this.data.com_name=this.serach
+          this.data.comName=this.serach
           this.data.title=''
         }else{
           this.data.title=this.serach
-          this.data.com_name=''
+          this.data.comName=''
         }
         let that=this;
         this.$http({
@@ -539,7 +539,7 @@ export default {
       }
     },
     SHcity() {
-      if(this.area  == '湖南省') {
+      if(this.area  == 'hunan') {
         this.Scity = true
       } else {
         this.Scity = false
@@ -572,8 +572,8 @@ export default {
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('bidSerach')){
       let data=JSON.parse(sessionStorage.getItem('bidSerach'));
-      this.serach=data.title!=''?data.title:data.com_name;
-      if(data.com_name!=''){
+      this.serach=data.title!=''?data.title:data.comName;
+      if(data.comName!=''){
         this.searchType=1
       }else{
         this.searchType=0
