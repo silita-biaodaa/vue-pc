@@ -185,7 +185,8 @@ export default {
     }
   }
   .con-page {
-    height: 200px;
+    padding-bottom: 75px;
+    padding-top: 50px;
     display: flex;
     justify-content: center;
     background-color: #fff;
