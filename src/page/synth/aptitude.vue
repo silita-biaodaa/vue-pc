@@ -51,11 +51,8 @@ export default {
   },
   methods: {
      gainFilter() {
-      qual({code:'hunan'}).then( res => {
-         if(res.code == 1 ) {
-            this.companyQuals = res.data
-         }
-      })
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      this.companyQuals=data.comQua;
     },
     Splice() {
       if(this.companyQual == '') {
@@ -69,20 +66,20 @@ export default {
        this.grades = []
         this.majors.forEach(el => {
          if(el.code == this.major ) {
-            if(el.list.length == 0  ) {
+            if(el.data.length == 0  ) {
               this.grade = '不分等级'
                this.noLevel = true
             } else {
                this.noLevel = false
-               this.grades = el.list
+               this.grades = el.data
             }
             
          }
       });
       if(this.noLevel) {
           this.zType = []
-          this.zType.push(this.companyQual,this.major)
-          this.zzType = this.zType.join('||')
+          this.zType.push(this.major)
+          this.zzType = this.zType.join('/')
           this.$emit('group', {cur:this.zzType,em:false,i:this.i})
       } else {
         this.$emit('group', {cur:'',em:true,i:this.i})
@@ -95,8 +92,8 @@ export default {
           this.$emit('group', {cur:'',em:true,i:this.i})
        } else {
           this.zType = []
-          this.zType.push(this.companyQual,this.major,this.grade)
-          this.zzType = this.zType.join('||')
+          this.zType.push(this.major,this.grade)
+          this.zzType = this.zType.join('/')
           this.$emit('group', {cur:this.zzType,em:false,i:this.i})
        }
     },
@@ -110,7 +107,7 @@ export default {
       this.noLevel = false
       this.companyQuals.forEach(el => {
          if(el.code == val ) {
-            this.majors = el.list
+            this.majors = el.data
          }
       });      
     },
