@@ -69,7 +69,7 @@
                   {{el.title}}         
                 </p>
                 <p class="right">
-                  {{el.opendate}}
+                  {{el.openDate}}
                 </p>
             </div>
             <div class="aptitude">

@@ -8,7 +8,7 @@
         {{articles.title}}
       </p>
       <div class="date">
-        <span>{{articles.opendate}}</span>
+        <span>{{articles.openDate}}</span>
         <span>浏览量：<i>{{clickCount}}</i></span>
         <span class="left" style="marginLeft:10px;cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
         <!-- <div> -->

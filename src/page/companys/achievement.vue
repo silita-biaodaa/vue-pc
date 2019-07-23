@@ -1,5 +1,5 @@
 <template>
-<div class="achievement" v-loading="loading" element-loading-text="拼命加载中" >
+<div class="achievement" v-loading="loading" element-loading-text="拼命加载中" @keyup.enter="searchBid">
   <div class="e-nav">
      <span class="e-wei">
        中标公告({{total}})
@@ -8,7 +8,6 @@
        <el-input
           placeholder="请输入关键字搜索"
           suffix-icon="el-icon-search"
-          @keyup.enter="searchBid"
            @change="searchBid"
           v-model="search">
         </el-input>
@@ -25,7 +24,7 @@
               {{el.title}}
             </p>
             <div class="right">
-              {{el.opendate}}
+              {{el.openDate}}
             </div>
         </div>
         <div class="e-peo">
