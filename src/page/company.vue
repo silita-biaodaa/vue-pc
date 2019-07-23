@@ -455,14 +455,18 @@ export default {
     },
     // 获取公司企业列表
     changeapi() {
-       if(this.allarr.length>1){
-          this.data.rangeType=this.rangeType;
-       }
-       this.allstr = this.allarr.join(",")
-       this.data.qualCode =  this.allstr
-       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
-       sessionStorage.setItem('comselect',JSON.stringify(this.data))
-       this.again()
+      if(this.allarr.length==0){
+        this.$alert('至少选择两级资质哦')
+        return false
+      }
+      if(this.allarr.length>1){
+        this.data.rangeType=this.rangeType;
+      }
+      this.allstr = this.allarr.join(",")
+      this.data.qualCode =  this.allstr
+      sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
+      sessionStorage.setItem('comselect',JSON.stringify(this.data))
+      this.again()
     },
     again() {
        if(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -470,6 +474,9 @@ export default {
             this.svip = true
             this.modalHelper.afterOpen();
           } else {
+            this.data.pageNo = 1;
+            this.isajax=false;
+            this.companylisy=[];
             //  this.allstr = this.allarr.join(",")
             //  this.loading = true
             //  if(this.rank == 0 ) {
@@ -641,11 +648,7 @@ export default {
     first(val) {
        this.firstarr = [],
        this.allarr = []
-      if(val != '') {
-        this.firstarr.push(val)
-        this.firststr = this.firstarr.join('||')
-         this.fisrtpush()
-      } else {
+      if(val == ''){
         if(this.twostr) {
              if(this.threestr ) {
               this.allarr.push(this.twostr,this.threestr) 
@@ -661,17 +664,17 @@ export default {
      
     },
     firsts(val) {
-      this.allarr = []
-      this.firstarr.length = 1,
+      this.allarr = [];
+      this.firstarr=[];
       this.firstarr.push(val)      
-      this.firststr = this.firstarr.join('||')  
+      this.firststr = this.firstarr.join('/')
       this.fisrtpush()
     },
     firstss(val) {
         this.allarr = []
-         this.firstarr.length = 2 ,
+         this.firstarr.length =1;
          this.firstarr.push(val)      
-         this.firststr = this.firstarr.join('||')
+         this.firststr = this.firstarr.join('/')
       if( this.firststr == this.twostr ||  this.firststr == this.threestr ) {
         this.grade = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
@@ -701,11 +704,7 @@ export default {
     twoq(val) {
       this.twoarr = []
       this.allarr = []
-      if(val != '') {
-         this.twoarr.push(val)
-        this.twostr = this.twoarr.join("||")
-        this.twopush()
-      } else {
+      if(val == ''){
         if(this.firstarr) {
              if(this.threestr ) {
               this.allarr.push(this.firstarr,this.threestr) 
@@ -721,18 +720,18 @@ export default {
      
     },
     twoqs(val) {
-      this.twoarr.length = 1
+      this.twoarr=[]
       this.allarr = []
       this.twoarr.push(val)
-      this.twostr = this.twoarr.join("||")
+      this.twostr = this.twoarr.join("/")
       this.twopush()
 
     },
     twoqss(val) {
-         this.twoarr.length = 2
+         this.twoarr.length = 1
          this.allarr = []
          this.twoarr.push(val)
-         this.twostr = this.twoarr.join("||")
+         this.twostr = this.twoarr.join("/")
       if( this.twostr == this.firststr ||  this.twostr == this.threestr ) {
         this.twott = ''
          this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
@@ -762,11 +761,7 @@ export default {
     threeq(val){
       this.threearr = []
       this.allarr = []
-      if(val != '') {
-        this.threearr.push(val)
-        this.threestr = this.threearr.join("||")
-        this.threepush()
-      } else {
+      if(val == '') {
         if(this.firststr) {
              if(this.twostr ) {
               this.allarr.push(this.twostr,this.firststr) 
@@ -782,10 +777,10 @@ export default {
       
     },
     threeqs(val){
-      this.threearr.length = 1
+      this.threearr=[]
       this.allarr = []
       this.threearr.push(val)
-      this.threestr = this.threearr.join("||")
+      this.threestr = this.threearr.join("/")
       this.threepush()
     },
     threeqss(val){
@@ -799,10 +794,10 @@ export default {
           showConfirmButton:false
         })
       } else {
-         this.threearr.length = 2
+         this.threearr.length =1
          this.allarr = []
          this.threearr.push(val)
-         this.threestr = this.threearr.join("||")
+         this.threestr = this.threearr.join("/")
          this.threepush()
       }
      
@@ -952,14 +947,21 @@ export default {
         if(this.data.qualCode) {
             arr = this.data.qualCode.split(",")
           this.firststr = arr[0]
-          this.firstarr = arr[0].split("||")
-          let fList = arr[0].split("||")
-          this.companyQual = fList[0]
+          this.firstarr = arr[0].split("/")
+          let fList = arr[0].split("/")
+          for(let x of this.companyQuals){
+            for(let y of x.data){
+              if(y.code==fList[0]){
+                this.companyQual=x.code;
+                break
+              }
+            }
+          }
           setTimeout(() => {
-            this.major = fList[1] ?  fList[1] : '' 
+            this.major = fList[0] ?  fList[0] : '' 
           }, 100);
           setTimeout(() => {
-            this.grade = fList[2] ?  fList[2] : ''
+            this.grade = fList[1] ?  fList[1] : ''
           }, 100);
         }
         
@@ -967,14 +969,21 @@ export default {
             this.two = true
             this.five = true
             this.twostr = arr[1]
-            this.twoarr = arr[1].split("||")
-            let TList = arr[1].split("||")
-             this.twoQual = TList[0]
+            this.twoarr = arr[1].split("/")
+            let TList = arr[1].split("/")
+            for(let x of this.companyQuals){
+              for(let y of x.data){
+                if(y.code==TList[0]){
+                  this.twoQual=x.code;
+                  break
+                }
+              }
+            }
              setTimeout(() => {
-               this.twot = TList[1] ? TList[1] : ''
+               this.twot = TList[0] ? TList[0] : ''
              }, 100);
              setTimeout(() => {
-               this.twott = TList[2] ? TList[2] : ''
+               this.twott = TList[1] ? TList[1] : ''
              }, 100);
              this.rangeType = this.data.rangeType ? this.data.rangeType : 'and'
         }
@@ -983,9 +992,16 @@ export default {
             this.three = true
             this.five = true
             this.threestr = arr[2]
-            this.threearr = arr[2].split("||")
-            let ThList = arr[2].split("||")
-             this.threeQual = ThList[0]
+            this.threearr = arr[2].split("/")
+            let ThList = arr[2].split("/")
+            for(let x of this.companyQuals){
+              for(let y of x.data){
+                if(y.code==ThList[0]){
+                  this.threeQual=x.code;
+                  break
+                }
+              }
+            }
              setTimeout(() => {
                this.threet = ThList[1] ? ThList[1] : ''
              }, 100);
