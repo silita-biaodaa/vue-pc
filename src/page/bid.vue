@@ -592,7 +592,7 @@ export default {
         this.pbModes[0].active=false;
         for(let x of this.pbModes){
           for(let y of arr2){
-            if(x.name==y){
+            if(x.code==y){
               x.active=true;
               break
             }
@@ -601,22 +601,30 @@ export default {
       }
       //资质
       if(data.zzType&&data.zzType!=''){
-        let arr1=data.zzType.split('||');
-        this.companyQual=arr1[0];
+        let arr1=data.zzType.split('/');
+        // this.companyQual=arr1[0];
+        for(let x of this.companyQuals){
+          for(let y of x.data){
+            if(y.code==arr1[0]){
+              this.companyQual=x.code;
+              break
+            }
+          }
+        }
         // for(let x of this.companyQuals){
         //   if(arr1[0]==x.code){
         //     this.majors=x.list
         //     break
         //   }
         // }
-        this.major=arr1[1];
+        this.major=arr1[0];
         // for(let y of this.majors){
         //   if(arr1[1]==y.code){
         //     this.grades=y.list
         //     break
         //   }
         // }
-        this.grade=arr1[2]
+        this.grade=arr1[1]
       }
     }
     this.SHcity()
