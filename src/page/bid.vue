@@ -89,7 +89,7 @@
                       {{el.title}}         
                     </p>
                     <p class="right">
-                      {{el.opendate}}
+                      {{el.openDate}}
                     </p>
                 </div>
                 <div class="aptitude">
@@ -97,7 +97,7 @@
                       资质要求:{{el.certificate ? el.certificate : '详见原文' }}
                   </p>
                   <p class="right">
-                      评标办法:{{el.pbMode}}
+                      评标办法:{{el.pbMode ? el.pbMode : '详见原文'}}
                   </p>
                 </div>
               </a>
