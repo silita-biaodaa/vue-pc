@@ -109,7 +109,7 @@ export default {
        window.open(this.articles.url, "_blank")
     },
     breakto() {
-      if(this.relCompanySize == null) {
+      if(!this.relCompanySize||this.relCompanySize==0||this.relCompanySize=='') {
         return 
       } else {
          const { href } = this.$router.resolve({

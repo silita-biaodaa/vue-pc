@@ -30,7 +30,7 @@
           <template v-if="list&&list.length>0">
             <router-link class="con-top" v-for="(el,i) in list" :key="i" :to="{path:'/introduce',query:{id:el.comId,name:el.comName,source:el.regisAddress}}" target='_blank' @click.native='store(el)' >
               <div class="left" style="width:70px">
-                {{i+1}}
+                {{(current-1)*20+(i+1)}}
               </div>
               <div class="left" style="width:300px">
                 <span class="con-cc">{{el.comName}}</span>
