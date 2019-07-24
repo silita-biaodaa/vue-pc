@@ -280,7 +280,6 @@ export default {
           data.title=this.serach
           data.comName=''
         }
-        data.regions='hunan'
        if(this.rank == 0) {
           queryList(data).then( res => {
                if(res.code == 1 ) {
