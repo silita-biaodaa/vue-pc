@@ -396,6 +396,7 @@ export default {
                                     el.oneName = el.oneName + '公司'
                                   }
                              } 
+                             el.oneOffer=el.oneOffer+'';
                              if(el.oneOffer) {
                                 let mm  = el.oneOffer.length
                                 el.oneOffer = '*'   

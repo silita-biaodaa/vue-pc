@@ -166,7 +166,7 @@ export default {
         pageNo:1,
         pageSize:20,
         type:2,
-        projSumStart:'0',
+        projSumStart:'',
         projSumEnd:'',
         title:'',
         regions:'hunan',
@@ -228,6 +228,7 @@ export default {
         this.searchType=0;
         /*end*/
          this.data.regions = this.area
+         this.isajax=false;
          this.data.pageNo = 1
          this.gainList()
          setTimeout(() => {
@@ -300,7 +301,9 @@ export default {
                                       }
                                     el.oneName = el.oneName + '公司'
                                   }
-                             } 
+                             }
+                             el.oneOffer=el.oneOffer+'';
+                              // el.oneOffer=el.oneOffer.replace(/\d/g,'*'); 
                              if(el.oneOffer) {
                                 let mm  = el.oneOffer.length
                                 el.oneOffer = '*'   

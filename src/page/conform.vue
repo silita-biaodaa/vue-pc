@@ -108,7 +108,7 @@ export default {
         getJsonData( "/company/qual/list/" +  this.id , dataParam).then(res => {
             this.isajax=true;
             if(res.code == 1) {
-              if(localStorage.getItem('permissions')){
+              // if(localStorage.getItem('permissions')){
                 let arr = []
                 res.data.forEach( el => {
                   if(el.phone) {
@@ -117,7 +117,7 @@ export default {
                       arr.length = 0
                   }
                 });
-              }
+              // }
               this.list = res.data
               this.total = res.total
               this.current = res.pageNo

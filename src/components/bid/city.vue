@@ -75,7 +75,7 @@ export default {
       let arr=this.citystr.split(',');
       for(let x of this.city){
         for(let y of arr){
-          if(x.name==y){
+          if(x.code==y){
             x.i=true;
             break
           }
