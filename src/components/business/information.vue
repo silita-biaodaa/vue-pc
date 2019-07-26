@@ -165,6 +165,7 @@ export default {
         }
         .line-r {
             padding-left: 40px;
+            width: calc(100% - 150px);
             width: 100%;
             height: 40px;
             background: #fff;

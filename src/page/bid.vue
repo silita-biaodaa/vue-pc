@@ -472,12 +472,27 @@ export default {
         }
       }
     },
+    getPbmode(code){
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      let pbArr=data.pbMode;
+      for(let x of pbArr){
+        if(x.provice==code){
+          for(let y of x.list){
+            y.active=false  
+          }
+          x.list.unshift({name:'全部',active:true,code:''})
+          this.pbModes=x.list;
+          break
+        }
+      }
+    },
     eval(el) {
         if(el.name == '湖南省') {
           this.Scity = true
         } else {
           this.Scity = false
         }
+        this.getPbmode(el.code);
         this.area = el.code
         sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
@@ -486,7 +501,7 @@ export default {
         /*end*/
         this.data.regions = this.area
         this.data.pageNo = 1
-        this.isajax=false;      
+        this.isajax=false;
         this.gainQueryList()
     },
     evalclass(el) {
@@ -566,9 +581,6 @@ export default {
     this.area = this.state.code
     this.data.regions = this.area
     this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : '';
-    this.gainFilter();
-
-    
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('bidSerach')){
       let data=JSON.parse(sessionStorage.getItem('bidSerach'));
@@ -581,10 +593,12 @@ export default {
       this.data=data;
       if(data.regions.indexOf('||')>-1){//省市
         let arr=data.regions.split('||');
+        this.state.code=data.regions
         this.area=arr[0];
         this.city=arr[1];
       }else{
         this.area=data.regions;
+        this.state.code=data.regions
       }
       //评标办法
       if(data.pbModes!=''){
@@ -627,6 +641,7 @@ export default {
         this.grade=arr1[1]
       }
     }
+    this.gainFilter();
     this.SHcity()
     this.toTop()
     this.gainQueryList()

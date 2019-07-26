@@ -67,7 +67,8 @@ export default {
       iscollect:true,
       collect:'关注',
       skip:false,
-      allC:0
+      allC:0,
+      collType:'',
     }
   },
   methods: {
@@ -83,6 +84,7 @@ export default {
                this.clickCount = res.clickCount
                this.relCompanySize = res.relCompanySize
                this.iscollect = res.data.collected
+               this.collType=res.data.type
                if(this.iscollect) {
                  this.collect = '已关注'
                } else {
@@ -128,7 +130,7 @@ export default {
           }
         })
       } else {
-        collectionNotice({noticeid:this.id,type:'0',source:this.source}).then(res => {
+        collectionNotice({noticeid:this.id,type:this.collType,source:this.source}).then(res => {
           if(res.code = 1) {
             this.iscollect = true
             this.collect = '已关注'

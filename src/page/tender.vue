@@ -128,7 +128,7 @@ export default {
         {
           name:'全部',
           i:0,
-          s:'0',
+          s:'',
           e:''
         },
         {

@@ -64,7 +64,8 @@
                 :value="item.code">
               </el-option>
             </el-select>
-            <div class='right com-btn' @click='changeapi' >
+
+            <div class='right com-btn' :class="isSerach?'isSerach':''" @click='changeapi' >
                资质查询
             </div>
         </div>
@@ -242,6 +243,7 @@ export default {
        svip:false,
        isajax:false,
        loading:true,
+       isSerach:false,
       sums:[
         {
           name:'全部',
@@ -384,7 +386,7 @@ export default {
       this.twotts = []
       this.twots.forEach(el => {
          if(el.code == val ) {
-            this.twotts = el.list
+            this.twotts = el.data
          }
       });
     },
@@ -393,7 +395,7 @@ export default {
       this.threetts = []
       this.threets.forEach(el => {
          if(el.code == val ) {
-            this.threetts = el.list
+            this.threetts = el.data
          }
       });
     },
@@ -430,6 +432,7 @@ export default {
       }
       companys(data).then(res => {
           this.isajax=true;
+          this.isSerach=false;
           if(localStorage.getItem('permissions')){
             let arr = []
             res.data.forEach( el => {
@@ -450,18 +453,23 @@ export default {
           // }
       }).catch(function(res){
           that.isajax=true;
+          that.isSerach=false;
           that.companylisy=null;
       })
     },
     // 获取公司企业列表
     changeapi() {
-      if(this.allarr.length==0){
-        this.$alert('至少选择两级资质哦')
-        return false
-      }
+      // if(this.allarr.length==0){
+      //   this.$alert('至少选择两级资质哦')
+      //   return false
+      // }
       if(this.allarr.length>1){
         this.data.rangeType=this.rangeType;
       }
+      if(this.isSerach){
+        return false
+      }
+      this.isSerach=true;
       this.allstr = this.allarr.join(",")
       this.data.qualCode =  this.allstr
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
@@ -945,7 +953,8 @@ export default {
       if(sessionStorage.getItem('comselect')) {
           let arr = [] 
         if(this.data.qualCode) {
-            arr = this.data.qualCode.split(",")
+          arr = this.data.qualCode.split(",")
+          this.allarr=arr
           this.firststr = arr[0]
           this.firstarr = arr[0].split("/")
           let fList = arr[0].split("/")
@@ -1022,7 +1031,7 @@ export default {
     this.gainFilter()
     this.gainAera()
     this.GqualCode()
-    // this.last = this.state
+    this.last = this.state
     // this.data.regisAddress = this.state
     if(sessionStorage.getItem('pageNo')){
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
@@ -1162,6 +1171,10 @@ export default {
         width: 100px;
         text-align: center;
         border-radius: 8px;
+      }
+      .isSerach{
+        opacity: .8;
+        cursor: wait;
       }
       .op-c{
          color:#fff;
