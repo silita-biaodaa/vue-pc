@@ -123,16 +123,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="i-loading" v-show="duanwu" >
-        <div class="i-boo" >
-           <div class="i-detail" @click.stop="closeText(2)"  > 
-
-           </div>
-            <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
-        </div> 
-     </div> -->
-
   </div>
 </template>
 
@@ -144,7 +134,6 @@ export default {
     return {
       isRouter:true,
       show:true,
-      // duanwu:false,
       isshow:true,
       names:true,
       navlist:[
@@ -778,31 +767,6 @@ export default {
     top: 0;
     left: 0;
   }
-  .i-boo {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 380px;
-      background: url('./assets/img/pic-duanwuhoud.png@2x.png.png') no-repeat;
-      background-size: 100% 100%;
-      .i-detail {
-         position: absolute;
-         bottom: 12px;
-         right: 27%;
-         width: 11%;
-         height: 60px;
-         cursor: pointer;
-      }
-      i {
-        font-size: 35px;
-        color:#999;
-        position: absolute;
-        right: 10px;
-        top: 0;
-        cursor: pointer;
-      }
-    }
 }
 
 

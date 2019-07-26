@@ -27,7 +27,6 @@ import Centre from '@/page/companys/centre'
 import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
 import Download from '@/page/Download'
-import dwDetail from '@/page/dwDetail'
 
 import zhong from '@/page/zong/zhong'
 import hlist from '@/page/zong/home'
@@ -561,11 +560,6 @@ export default new Router({
           }
         },
       ]  
-    },
-    {
-      path: '/dwDetail',  // 招标详情
-      name: 'dwDetail',
-      component: dwDetail,
     },
     {
       path: '/lawDetail',  // 法务详情
