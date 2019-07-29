@@ -283,6 +283,7 @@ export default {
      .essay {
        width: 980px;
        padding: 26px 0 80px;
+       overflow: hidden;
      }
    }
 }

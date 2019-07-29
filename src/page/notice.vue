@@ -223,6 +223,7 @@ export default {
   }
   .n-text {
     padding: 26px 20px 70px;
+    overflow: hidden;
   }  
   .no-comL {
     width: 1020px;
