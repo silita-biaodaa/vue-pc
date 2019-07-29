@@ -57,7 +57,7 @@ export default {
        this.funcom.toList(0)
     },
     gainbid() {
-      collectlist({type:'0',pageNo:this.pageNo,pageSize:15}).then(res => {
+      collectlist({type:'1',pageNo:this.pageNo,pageSize:15}).then(res => {
         if(res.code = 1 ) {
           this.total = res.total
           this.bidlists = res.data

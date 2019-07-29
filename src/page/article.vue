@@ -10,9 +10,9 @@
       <div class="date">
         <span>{{articles.openDate}}</span>
         <span>浏览量：<i>{{clickCount}}</i></span>
-        <span class="left" style="marginLeft:10px;cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
+        <span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
         <!-- <div> -->
-        <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+        <div class="attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
           <i class="el-icon-plus"></i>{{collect}}
         </div>
         <!-- </div> -->
@@ -199,8 +199,13 @@ export default {
      }
      .date {
       //  margin-left: 275px;
-       display: flex;
-       justify-content: space-evenly;
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;
+        -webkit-justify-content:space-around;
+        justify-content:space-around;
       //  width: 575px;
        font-size: 18px;
       //  margin-bottom: 10px;

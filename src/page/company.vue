@@ -48,7 +48,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="major" placeholder="请选择" clearable @change = 'firsts' >
+             <el-select v-model="major" placeholder="请选择" clearable @change = 'firsts'  v-if="majors.length>0">
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -56,7 +56,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable  @change = 'firstss'   >
+             <el-select v-model="grade" placeholder="请选择" clearable  @change = 'firstss' v-if="grades.length>0">
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -79,7 +79,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twot" placeholder="请选择" clearable  @change = 'twoqs' >
+             <el-select v-model="twot" placeholder="请选择" clearable  @change = 'twoqs' v-if="twots.length>0">
               <el-option
                 v-for="item in twots"
                 :key="item.name"
@@ -87,7 +87,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twott" placeholder="请选择" clearable  @change = 'twoqss'  >
+             <el-select v-model="twott" placeholder="请选择" clearable  @change = 'twoqss' v-if="twotts.length>0">
               <el-option
                 v-for="item in twotts"
                 :key="item.name"
@@ -107,7 +107,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threet" placeholder="请选择" clearable  @change = 'threeqs' >
+             <el-select v-model="threet" placeholder="请选择" clearable  @change = 'threeqs'  v-if="threets.length>0">
               <el-option
                 v-for="item in threets"
                 :key="item.name"
@@ -115,7 +115,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threett" placeholder="请选择" clearable  @change = 'threeqss' >
+             <el-select v-model="threett" placeholder="请选择" clearable  @change = 'threeqss'  v-if="threetts.length>0">
               <el-option
                 v-for="item in threetts"
                 :key="item.name"
@@ -127,7 +127,7 @@
         </div>
         <div class='select m-20'>
          <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
-         <div class='left c-btn' @click='transt' >
+         <div class='left c-btn' @click='transt' v-if="!three">
             <i class='el-icon-plus'></i>增加条件
          </div>
          
