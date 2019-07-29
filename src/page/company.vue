@@ -3,7 +3,7 @@
  
    <en-search @vague='entitle' :all='total' @company='entitle'></en-search>
 
-   <div class="c-search">
+   <div class="option-box">
         <all-city :city='last' @Cnext='eval'  ></all-city>
         <div class="select">
            <el-row>
@@ -12,9 +12,7 @@
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >
-                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==start? 'current':''"  @click='evalsum(el)'  >
-                       {{el.name}}
-                    </li>
+                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==start? 'current':''"  @click='evalsum(el)'  >{{el.name}}</li>
                 </ul>
              </el-col>
              <el-col :span="8" class="ttt">
@@ -65,9 +63,7 @@
               </el-option>
             </el-select>
 
-            <div class='right com-btn' :class="isSerach?'isSerach':''" @click='changeapi' >
-               资质查询
-            </div>
+            <div class='right com-btn' :class="isSerach?'isSerach':''" @click='changeapi' >资质查询</div>
         </div>
          <div class="select" v-show='two' >
            <span class='op-c' >资质要求:</span>&nbsp&nbsp
@@ -1089,13 +1085,6 @@ export default {
     font-size: 12px;
   }
  
-  .c-search {
-     width: 1020px;
-     background-color: #fff;
-     margin: 20px auto 0;
-     padding: 15px;
-     box-sizing: border-box;
-     font-size: 16px;
      .select {
        font-size: 16px;
        margin-bottom: 10px;
@@ -1150,21 +1139,6 @@ export default {
            margin-top: 2px;
            cursor: pointer;
          }
-       }
-       .pro {
-         li {
-           padding: 2px 7px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 10px;
-           color:#666;  
-           cursor: pointer;
-         }
-         .l-30 {
-           margin-top: 5px;       
-         }
-         
        }
       .el-select {
         width: 225px;
@@ -1222,8 +1196,6 @@ export default {
        margin-top: 20px;
        overflow: hidden;
      }
-
-  }
    .firm {
      width: 1020px;
      background: #fff;
@@ -1250,17 +1222,5 @@ export default {
        }
      }
    }
-   .c-page {
-       width:1020px;
-       margin: 0 auto;
-      //  height: 100px;
-       background-color:#fff;
-       padding-top: 50px;
-       padding-bottom: 75px;
-       display: flex;
-       margin-bottom: 125px;
-       justify-content: center;
-
-     }
 }
 </style>

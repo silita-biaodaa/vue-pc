@@ -1,6 +1,6 @@
 <template>
 <div class="perlist">
-   <div class="per-option">
+   <div class="option-box">
       <per-por :state='data.area'  @perPor='gainPor'  ></per-por>
       <div class="select">
             <el-row>
@@ -291,34 +291,9 @@ export default {
 </script>
 <style lang="less" >
 .perlist {
-  .per-option {
-    padding: 15px 10px 10px;
-    background-color: #fff;
-    font-size: 14px;
-    
-  }
     .select {
        font-size: 16px;
        margin-bottom: 12px;
-       .pro {
-         li {
-           padding: 2px 9px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 6px;
-           cursor: pointer;
-           color:#666;
-         }
-         .bid-p {
-           padding: 2px 9px;
-           color:#666;
-         }
-         .current {
-           background-color: #FE6603;
-           color:#fff;
-         }
-       }
       .el-select {
         width: 225px;
         margin-right: 10px;
@@ -366,17 +341,6 @@ export default {
            text-align: center;
            border-bottom: 1px solid #f2f2f2;
          }
-          .c-page {
-            width:1020px;
-            margin: 0 auto;
-            // height: 100px;
-            background-color:#fff;
-            padding-top: 50px;
-            padding-bottom: 75px;
-            display: flex;
-            justify-content: center;
-
-          }
      }
 }
 </style>

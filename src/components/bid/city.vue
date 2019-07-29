@@ -93,10 +93,7 @@ export default {
        .pro {
          li {
            margin-right: 5px;
-           padding: 2px 9px;
-           height: 20px;
            text-align: center;
-           line-height: 20px;
            margin-bottom: 6px;
            cursor: pointer;
            color:#666;

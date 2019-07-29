@@ -2,7 +2,7 @@
    <div class="bid"> 
 
       <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
-      <div class="options">
+      <div class="option-box">
         <div class="select">
           <el-row>
              <el-col :span='2'>
@@ -10,9 +10,7 @@
              </el-col>
              <el-col :span='22' >
                <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >
-                    {{el.name}}
-                 </li>
+                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >{{el.name}}</li>
                </ul>
              </el-col>
           </el-row>
@@ -25,9 +23,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"  @click='evalclass(el)' >
-                         {{el.name}}
-                      </li>
+                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"  @click='evalclass(el)' >{{el.name}}</li>
                     </ul>
                 </el-col>
             </el-row>
@@ -38,7 +34,9 @@
                   评标办法:
                </el-col>
                <el-col :span='22'> 
-                  <span class="pb-bf" v-for="(el,i) in pbModes" :key="'2'+i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
+                 <ul class='pro' >
+                   <li v-for="(el,i) in pbModes" :key="'2'+i" class="left" :class="{'current':el.active}" @click="pbmodeFn(i)">{{el.name}}</li>
+                 </ul>
                </el-col>
             </el-row>
         </div>
@@ -701,26 +699,6 @@ export default {
      .select {
        font-size: 16px;
        margin-bottom: 12px;
-       .pro {
-         li {
-           margin-right: 5px;
-           padding: 2px 9px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 6px;
-           cursor: pointer;
-           color:#666;
-         }
-         .bid-p {
-           padding: 2px 9px;
-           color:#666;
-         }
-         .current {
-           background-color: #FE6603;
-           color:#fff;
-         }
-       }
       .el-select {
         width: 225px;
         margin-right: 10px;
@@ -751,13 +729,6 @@ export default {
      background: #fff;
      font-size: 16px;
      margin-bottom:125px;
-     .page {
-      //  height:100px;
-        padding-bottom: 75px;
-        padding-top:50px;
-        display: flex;
-        justify-content: center;
-     }
     //  ul {
        a {
          height: 80px;
@@ -797,20 +768,5 @@ export default {
        }
     //  }
    }
- }
- .pb-bf{
-    margin-bottom: 12px;
-    font-size: 15px;
-    padding: 5px 10px;
-    color:#666;
-    cursor: pointer;
-    margin-right: 5px;
-    display: inline-block;
- }
- .pb-bf.active{
-    color:#fff;
-    background-color: #FE6603;
-    border-color: #FE6603;
-    box-shadow: -1px 0 0 0 #fff; 
  }
 </style>

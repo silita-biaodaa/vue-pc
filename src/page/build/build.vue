@@ -384,13 +384,6 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .page {
-      //  height: 210px;
-       padding-top: 50px;
-       padding-bottom: 75px;
-       display: flex;
-       justify-content: center;
-     }
      
   }
 }

@@ -513,6 +513,7 @@ export default {
 <style lang="less" >
 @import './style/common';
 @import './assets/iconfont.css';
+@import './base/base.css';
 #app {
   background-color: #FAFAFA;
   .content {
@@ -541,6 +542,7 @@ export default {
         background-color: #fff;
         font-weight: 400;
         .contact-l {
+          width: calc(100% - 190px);
           a,p {
             margin-right: 25px;
             color: #666;
@@ -562,7 +564,7 @@ export default {
           }
         }
         .contact-r {
-          width: 300px;
+          width: 190px;
           display: flex;
           align-items: center; 
           flex-direction:row-reverse;

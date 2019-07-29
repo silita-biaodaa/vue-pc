@@ -1,16 +1,14 @@
 <template>
 <div class="tender">
     <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
-    <div class="t-options">
+    <div class="option-box">
         <div class="select">
             <el-row>
                <el-col :span="2">省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
                </el-col>
                <el-col :span="22">
                   <ul class='pro' >
-                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.code==area? 'current':''"  @click='eval(el)'>
-                      {{el.name}}
-                    </li>
+                    <li v-for='(el,i) in areas' :key='i' class='left' :class="el.code==area? 'current':''"  @click='eval(el)'>{{el.name}}</li>
                   </ul>
                </el-col>
             </el-row>
@@ -22,9 +20,7 @@
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >
-                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==data.projSumStart? 'current':''"  @click='evalsum(el)'  >
-                       {{el.name}}
-                    </li>
+                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==data.projSumStart? 'current':''"  @click='evalsum(el)'>{{el.name}}</li>
                 </ul>
              </el-col>
              <el-col :span="8" class="ttt">
@@ -81,7 +77,7 @@
               </p>
             </div>
           </a >
-          <div class="t-page">
+          <div class="page">
               <nav-page 
               :all='total'
               :currents='data.pageNo'
@@ -539,15 +535,6 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .t-options {
-    width: 1020px;
-    margin: 0 auto;
-    // height: 150px;
-    box-sizing: border-box;
-    background-color: #fff;
-    margin-top: 20px;
-    font-size: 14px;
-    padding: 15px 10px 0;
     .select {
        font-size: 16px;
        margin-bottom: 12px;
@@ -582,29 +569,11 @@ export default {
            margin-top: 2px;
          }
        }
-       .pro {
-         li {
-           padding: 2px 7px;
-           height: 20px;
-           line-height: 20px;
-           margin-bottom: 10px;
-           cursor: pointer;
-           color:#666;
-         }
-         .l-30 {
-           margin-top: 5px;       
-         }
-         .current {
-           background-color: #FE6603;
-           color: #fff;
-         }
-       }
       .el-select {
         width: 225px;
         margin-right: 10px;
       }
      }
-  }
   .t-list {
     width: 1020px;
     margin: 0 auto;
@@ -612,13 +581,6 @@ export default {
     box-sizing: border-box;
     margin-bottom: 125px;
     font-size: 16px;
-    .t-page {
-      //  height: 100px;
-       padding-top: 50px;
-       padding-bottom: 75px;
-       display: flex;
-       justify-content: center;
-     }
        a {
          height: 80px;
          box-sizing: border-box;

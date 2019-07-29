@@ -2,7 +2,7 @@
 <template>
 <div class="law">
     <en-search @vague='entitle' :title="data.keyWord" :company="true"></en-search>
-    <per-time  @time='gaintime' :timeTxt="'判决时间'"></per-time>
+    <per-time  @time='gaintime' :timeTxt="'判决时间'" class="option-box"></per-time>
     <div class="build-search">
       共找到<span class="p-color" >{{total}}</span>条法务信息     
     </div>
@@ -284,21 +284,10 @@ export default {
             align-items: center;
             justify-content: center;
         }
-        .page {
-        //  height: 210px;
-        padding-top: 50px;
-        padding-bottom: 75px;
-        display: flex;
-        justify-content: center;
-        }
     }
 
     .perpor{
         width: 1020px;
-        box-sizing: border-box;
-        padding: 15px 10px 10px;
-        background-color: #fff;
-        font-size: 14px;
         margin: 20px auto 0;
         .select{
             margin-bottom: 0;

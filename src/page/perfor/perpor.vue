@@ -39,7 +39,7 @@ export default {
   watch: {
     state(val) {
       if(val != '') {
-        this.area = val.source
+        this.area = val.source||val
         this.$emit('perPor', {cur:this.area})
       }
       
@@ -65,25 +65,6 @@ export default {
    .select {
        font-size: 16px;
        margin-bottom: 12px;
-       .pro {
-         li {
-           padding: 2px 9px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 6px;
-           cursor: pointer;
-           color:#666;
-         }
-         .bid-p {
-           padding: 2px 9px;
-           color:#666;
-         }
-         .current {
-           background-color: #FE6603;
-           color:#fff;
-         }
-       }
      }
 }
 </style>
