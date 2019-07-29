@@ -465,6 +465,8 @@ export default {
       // }
       if(this.allarr.length>1){
         this.data.rangeType=this.rangeType;
+      }else{
+        this.data.rangeType=''
       }
       if(this.isSerach){
         return false
@@ -629,12 +631,18 @@ export default {
     },
     twof() {
       this.two = false
+      this.allarr.splice(1,1);
       if(!this.three) {
          this.five = false
       }
     },
     threef() {
       this.three = false
+      if(this.allarr.length==3){
+        this.allarr.splice(2,1);
+      }else if(this.allarr.length==2){
+        this.allarr.splice(1,1);
+      }
       if(!this.two) {
         this.five = false
       }
@@ -1012,10 +1020,10 @@ export default {
               }
             }
              setTimeout(() => {
-               this.threet = ThList[1] ? ThList[1] : ''
+               this.threet = ThList[0] ? ThList[0] : ''
              }, 100);
              setTimeout(() => {
-               this.threett = ThList[2] ? ThList[2] : ''
+               this.threett = ThList[1] ? ThList[1] : ''
              }, 100);
 
         }
