@@ -1,41 +1,59 @@
 <template>
 <div class="bidlist">
-  <div  class="bid-bor" v-show="ishow" >  
-    <div class="list-top">
-      <div  class="left project ">
-        项目名称
-      </div>
-       <div  class="left operate">
-        操作
-      </div>
-    </div>
-    <div class="list-text" v-for="(el,i) in bidlists" :key="i"   >
-       <div class="left project" @click="bjump(el)" >
-         <div>
-          <p class="list-til">{{el.title}}</p>
-          <p class="list-z">资质要求：{{el.certificate ? el.certificate : '详见原文'}}</p>       
-         </div>
-       </div>
-       <div class="left operate  ">
-         <div class="list-btn" @click="cancel(el)" >
-            取消关注
-         </div>
-       </div>
-    </div>
-  </div>
-  
-  <div class="page" v-show="ishow" >
-    <nav-page 
-    :all='total'
-    :currents='pageNo'
-    :pageSize = 'pageSize'
-    @skip='Goto'
-    ></nav-page>
-  </div>
-  <div v-show="!ishow" class="no-toast" >
-    <img src="../assets/img/bank_card @2x.png" alt="">
-    <span>暂无关注的招标公告</span>
-  </div>
+  <!-- 判断是否加载中 -->
+  <template v-if="isajax">
+      <!-- 有数据 -->
+      <template v-if="bidlists&&bidlists.length>0">
+          <div  class="bid-bor">  
+            <div class="list-top">
+              <div  class="left project ">
+                项目名称
+              </div>
+              <div  class="left operate">
+                操作
+              </div>
+            </div>
+            <div class="list-text" v-for="(el,i) in bidlists" :key="i"   >
+              <div class="left project" @click="bjump(el)" >
+                <div>
+                  <p class="list-til">{{el.title}}</p>
+                  <p class="list-z">资质要求：{{el.certificate ? el.certificate : '详见原文'}}</p>       
+                </div>
+              </div>
+              <div class="left operate  ">
+                <div class="list-btn" @click="cancel(el)" >
+                    取消关注
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="page" v-if="total>15">
+            <nav-page 
+            :all='total'
+            :currents='pageNo'
+            :pageSize = 'pageSize'
+            @skip='Goto'
+            ></nav-page>
+          </div>
+      </template>
+      <!-- 无数据  -->
+      <template v-else-if="bidlists&&bidlists.length==0">
+          <div class="no-toast">
+          <img src="../assets/img/bank_card @2x.png" alt="">
+          <span>暂无关注的招标公告</span>
+          </div>
+      </template>
+      <!-- 加载失败 -->
+      <template v-else-if="!bidlists">
+          <div class="ajax-erroe">
+          <img src="../assets/img/pic-zoudiu.png"/>
+          <span @click="recoldFn">刷新</span>
+          </div>
+      </template>
+  </template>
+  <template v-else>
+      <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+  </template>
 </div>
 </template>
 <script>
@@ -47,25 +65,29 @@ export default {
       bidlists:[],
       total:0,
       pageSize:15,
-      ishow:true
+      loading:true,
+      isajax:false,
     }
   },
+  inject:['reload'],
   methods: {
+    //刷新
+    recoldFn(){
+        this.reload();
+    },
     Goto(val) {
-      this.pageNo = val.cur     
+      this.pageNo = val.cur 
+      this.isajax=false;    
       this.gainbid()
        this.funcom.toList(0)
     },
     gainbid() {
+      let that=this;
       collectlist({type:'1',pageNo:this.pageNo,pageSize:15}).then(res => {
+        this.isajax=true;
         if(res.code = 1 ) {
           this.total = res.total
           this.bidlists = res.data
-          if(this.bidlists.length == 0) {
-            this.ishow = false
-          } else {
-            this.ishow = true
-          }
          if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
               for(let x of this.bidlists){
                  if(x.certificate){
@@ -74,6 +96,9 @@ export default {
                 } 
           }
         }
+      }).catch(function(res){
+          that.isajax=true;
+          that.bidlists=null;
       })
     },
     cancel(el) {

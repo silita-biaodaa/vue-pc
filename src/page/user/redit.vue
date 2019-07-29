@@ -1,97 +1,115 @@
 <template>
 <div class="reply"  >
-   <div v-for="(el,i) in textList" :key="i" class="re-bor"  @click="jumA(el)">
-        <!-- 评论 -->
-        <template  v-if="el.msgType=='reply'">
-          <div  class=" all-text" >
-            <div class="re-title">
-              <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
-            </div>
-            <div class="re-new"  v-if="current == 1 && i == 0" >
-                <span>最新回答</span>
-                <div class="triangle" >
-                </div>
-            </div>
-            <div style="padding:10px 0" >
-              <div class="re-list"  >
-                <div class="list-cli" >
-                  <div  class="list-true"  v-show="!el.textShow" ></div>
-                  <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
-                </div>
-                <div class='list-img'>
-                  <img :src="el.reImage != null ? el.reImage : avatar" alt="">
-                  <div class="no-read" v-if="el.isRead == 0" ></div>
-                </div>
-                <div class="list-text" >
-                  <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
-                  <div style="margin: 5px 0;" v-html="el.replyContent"></div>
-                  <p>{{el.pushd}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-        <!-- 企业更新 -->
-        <template v-else-if="el.msgType=='company'">
-          <div class="msg-company-box">
-            <div class="msg-tit">
-              <p>{{el.msgTitle}}</p>
-              <p>{{el.pushd}}</p>
-            </div>
-            <div class="msg-con">
-              <div class="list-cli" >
-                <div  class="list-true"  v-if="!el.textShow" ></div>
-                <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
-              </div>
-              <div>
-                <div class="no-read" v-if="el.isRead == 0" ></div>
-                {{el.msgContent}}
-              </div>
-            </div>
-            <div class="msg-btn">
-              <button class="right" @click="jumpCom(el)">查看详情 ></button>
-            </div>
-          </div>
-        </template>
-        <!-- 会员到期 -->
-        <template v-else-if="el.msgType=='vip'">
-          <div class="msg-company-box">
-            <div class="msg-tit">
-              <p>{{el.msgTitle}}</p>
-              <p>{{el.pushd}}</p>
-            </div>
-            <div class="msg-con">
-              <div class="list-cli" >
-                <div  class="list-true"  v-if="!el.textShow" ></div>
-                <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
-              </div>
-              <div>
-                <div class="no-read" v-if="el.isRead == 0" ></div>
-                {{el.msgContent}}
-              </div>
-            </div>
-            <div class="msg-btn">
-              <button class="right" @click="jumpVip">查看详情 ></button>
-            </div>
-          </div>
-        </template>
-   
-    </div>
-    <div class="page" v-show="ishow" >
-        <nav-page 
-        :all='total'
-        :currents='pageNo'
-        :pageSize = 'pageSize'
-        @skip='Goto'
-        ></nav-page>
-    </div>  
     <div class="info-pop" v-show="pop" >
       {{msg}}
     </div>
-    <div class="no-toast" v-show="noList" >
-      <img src="../../assets/img/bank_card @2x.png" alt="">
-      <span>暂未收到消息通知</span>
-    </div>
+    <!-- 判断是否加载中 -->
+    <template v-if="isajax">
+        <!-- 有数据 -->
+        <template v-if="textList&&textList.length>0">
+            <div v-for="(el,i) in textList" :key="i" class="re-bor"  @click="jumA(el)">
+                <!-- 评论 -->
+                <template  v-if="el.msgType=='reply'">
+                  <div  class=" all-text" >
+                    <div class="re-title">
+                      <p :title="el.noticeTitle" >{{el.relatedType == 'zhongbiao' ? '中标公告：' : '招标公告：'}}{{el.noticeTitle}}</p>
+                    </div>
+                    <div class="re-new"  v-if="current == 1 && i == 0" >
+                        <span>最新回答</span>
+                        <div class="triangle" >
+                        </div>
+                    </div>
+                    <div style="padding:10px 0" >
+                      <div class="re-list"  >
+                        <div class="list-cli" >
+                          <div  class="list-true"  v-show="!el.textShow" ></div>
+                          <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow" >
+                        </div>
+                        <div class='list-img'>
+                          <img :src="el.reImage != null ? el.reImage : avatar" alt="">
+                          <div class="no-read" v-if="el.isRead == 0" ></div>
+                        </div>
+                        <div class="list-text" >
+                          <p><span class="clor-3" >{{el.reNikename}}</span><span v-if="el.reCompany" >（{{el.reCompany}}）</span>回复了<span class="clor-3" >你</span>：</p>
+                          <div style="margin: 5px 0;" v-html="el.replyContent"></div>
+                          <p>{{el.pushd}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <!-- 企业更新 -->
+                <template v-else-if="el.msgType=='company'">
+                  <div class="msg-company-box">
+                    <div class="msg-tit">
+                      <p>{{el.msgTitle}}</p>
+                      <p>{{el.pushd}}</p>
+                    </div>
+                    <div class="msg-con">
+                      <div class="list-cli" >
+                        <div  class="list-true"  v-if="!el.textShow" ></div>
+                        <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+                      </div>
+                      <div>
+                        <div class="no-read" v-if="el.isRead == 0" ></div>
+                        {{el.msgContent}}
+                      </div>
+                    </div>
+                    <div class="msg-btn">
+                      <button class="right" @click="jumpCom(el)">查看详情 ></button>
+                    </div>
+                  </div>
+                </template>
+                <!-- 会员到期 -->
+                <template v-else-if="el.msgType=='vip'">
+                  <div class="msg-company-box">
+                    <div class="msg-tit">
+                      <p>{{el.msgTitle}}</p>
+                      <p>{{el.pushd}}</p>
+                    </div>
+                    <div class="msg-con">
+                      <div class="list-cli" >
+                        <div  class="list-true"  v-if="!el.textShow" ></div>
+                        <img  src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+                      </div>
+                      <div>
+                        <div class="no-read" v-if="el.isRead == 0" ></div>
+                        {{el.msgContent}}
+                      </div>
+                    </div>
+                    <div class="msg-btn">
+                      <button class="right" @click="jumpVip">查看详情 ></button>
+                    </div>
+                  </div>
+                </template>
+            </div>
+            <div class="page" v-if="total>10">
+              <nav-page 
+              :all='total'
+              :currents='pageNo'
+              :pageSize = 'pageSize'
+              @skip='Goto'
+              ></nav-page>
+            </div>
+        </template>
+        <!-- 无数据  -->
+        <template v-else-if="textList&&textList.length==0">
+            <div class="no-toast">
+            <img src="../../assets/img/bank_card @2x.png" alt="">
+            <span>暂未收到消息通知</span>
+            </div>
+        </template>
+        <!-- 加载失败 -->
+        <template v-else-if="!textList">
+            <div class="ajax-erroe">
+            <img src="../../assets/img/pic-zoudiu.png"/>
+            <span @click="recoldFn">刷新</span>
+            </div>
+        </template>
+    </template>
+    <template v-else>
+        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+    </template>
 </div>
 </template>
 <script>
@@ -104,15 +122,20 @@ export default {
       textList:[],
       total:0,
       pageSize:10,
-      ishow:false,
+      loading:true,
+      isajax:false,
       noList:false,
       allArr:[],
       allChe:true,
       avatar: require('../../assets/img/icon-toux.png@2x.png'),
     }
   },
-
+  inject:['reload'],
   methods: {
+    //刷新
+    recoldFn(){
+        this.reload();
+    },
     jumA(el) {
         el.textShow = !el.textShow
         if(el.textShow) {
@@ -125,6 +148,7 @@ export default {
     },
     Goto(val) {
       this.pageNo = val.cur
+      this.isajax=false; 
       this.allArr = []  
       this.allChe = true
        this.funcom.toList(0)
@@ -132,7 +156,9 @@ export default {
       this.$emit('page', {state:val.cur})
     },
     gaiaList() {
+      let that=this;
       message({pageNum:this.pageNo,pageSize:10}).then(res => {
+        this.isajax=true;
          if(res.code == 1) {
            res.data.forEach(el => {
              el.textShow = false
@@ -142,11 +168,6 @@ export default {
            })
            this.total = res.total
            this.textList = res.data
-           if( this.total >= 10) {
-             this.ishow = true
-           } else {
-             this.ishow = false
-           }
            if( this.textList.length == 0) {
              this.noList = true
            } else {
@@ -155,6 +176,9 @@ export default {
           this.$emit('hide', {state:!this.noList})
          }
         
+      }).catch(function(res){
+          that.isajax=true;
+          that.textList=null;
       })
     },
     //跳转至会员服务

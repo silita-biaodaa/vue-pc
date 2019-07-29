@@ -295,13 +295,18 @@ export default {
           this.$router.push('/logo')
         } else {
           getUserTemp({}).then( res => {
-             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
-             localStorage.setItem('Xtoken',res.data.xtoken)
-             localStorage.setItem('Bname',name)
-             localStorage.setItem('isFirst',res.data.isFirst)
-             sessionStorage.setItem('ip',res.data.pkid)
-             localStorage.setItem('permissions',res.data.permissions) 
-             localStorage.setItem('phoneNo',res.data.phoneNo)                         
+            if(res.code==1){
+              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
+              localStorage.setItem('Xtoken',res.data.xtoken)
+              localStorage.setItem('Bname',name)
+              localStorage.setItem('isFirst',res.data.isFirst)
+              sessionStorage.setItem('ip',res.data.pkid)
+              localStorage.setItem('permissions',res.data.permissions) 
+              localStorage.setItem('phoneNo',res.data.phoneNo) 
+            }else{
+              this.$alert(res.msg);
+            }
+                                     
           })
         } 
       }
