@@ -7,8 +7,7 @@
           </el-col>
           <el-col :span="22">
              <ul class='pro' >
-               <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'  >
-                  {{el.name}}
+               <li v-for='(el,i) in areas' :key='i' class='left' :class="el.name==area? 'current':''"  @click='eval(el)'>{{el.name}}
                </li>
              </ul>
           </el-col>
@@ -21,9 +20,7 @@
           </el-col>
           <el-col :span="22">
              <ul class='pro' >
-               <li v-for='(el,i) in list' :key='i' class='left' :class="cstr.indexOf(el.name) == -1 ? '' : 'current'"  @click="level(el)"  >
-                 {{el.name}}
-               </li>
+               <li v-for='(el,i) in list' :key='i' class='left' :class="cstr.indexOf(el.name) == -1 ? '' : 'current'"  @click="level(el)"  >{{el.name}}</li>
              </ul>
           </el-col>
        </el-row>
@@ -203,11 +200,9 @@ export default {
        .pro {
          li {
            margin-right: 5px;
-           padding: 2px 7px;
-           height: 20px;
+           padding: 2px 9px;
            text-align: center;
-           line-height: 20px;
-           margin-bottom: 10px;
+           margin-bottom:6px;
            color:#666;  
            cursor: pointer;
          }

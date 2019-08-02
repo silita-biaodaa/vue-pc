@@ -3,7 +3,7 @@
  
    <en-search @vague='entitle' :all='total' @company='entitle'></en-search>
 
-   <div class="c-search">
+   <div class="option-box">
         <all-city :city='last' @Cnext='eval'  ></all-city>
         <div class="select">
            <el-row>
@@ -12,9 +12,7 @@
              </el-col>
              <el-col :span="14">
                 <ul class='pro' >
-                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==start? 'current':''"  @click='evalsum(el)'  >
-                       {{el.name}}
-                    </li>
+                    <li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==start? 'current':''"  @click='evalsum(el)'  >{{el.name}}</li>
                 </ul>
              </el-col>
              <el-col :span="8" class="ttt">
@@ -48,7 +46,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="major" placeholder="请选择" clearable @change = 'firsts' >
+             <el-select v-model="major" placeholder="请选择" clearable @change = 'firsts'  v-if="majors.length>0">
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -56,7 +54,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable  @change = 'firstss'   >
+             <el-select v-model="grade" placeholder="请选择" clearable  @change = 'firstss' v-if="grades.length>0">
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -64,9 +62,8 @@
                 :value="item.code">
               </el-option>
             </el-select>
-            <div class='right com-btn' @click='changeapi' >
-               资质查询
-            </div>
+
+            <div class='right com-btn' :class="isSerach?'isSerach':''" @click='changeapi' >资质查询</div>
         </div>
          <div class="select" v-show='two' >
            <span class='op-c' >资质要求:</span>&nbsp&nbsp
@@ -78,7 +75,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twot" placeholder="请选择" clearable  @change = 'twoqs' >
+             <el-select v-model="twot" placeholder="请选择" clearable  @change = 'twoqs' v-if="twots.length>0">
               <el-option
                 v-for="item in twots"
                 :key="item.name"
@@ -86,7 +83,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="twott" placeholder="请选择" clearable  @change = 'twoqss'  >
+             <el-select v-model="twott" placeholder="请选择" clearable  @change = 'twoqss' v-if="twotts.length>0">
               <el-option
                 v-for="item in twotts"
                 :key="item.name"
@@ -106,7 +103,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threet" placeholder="请选择" clearable  @change = 'threeqs' >
+             <el-select v-model="threet" placeholder="请选择" clearable  @change = 'threeqs'  v-if="threets.length>0">
               <el-option
                 v-for="item in threets"
                 :key="item.name"
@@ -114,7 +111,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="threett" placeholder="请选择" clearable  @change = 'threeqss' >
+             <el-select v-model="threett" placeholder="请选择" clearable  @change = 'threeqss'  v-if="threetts.length>0">
               <el-option
                 v-for="item in threetts"
                 :key="item.name"
@@ -126,7 +123,7 @@
         </div>
         <div class='select m-20'>
          <div class='op-c left' >资质要求:&nbsp&nbsp&nbsp</div>
-         <div class='left c-btn' @click='transt' >
+         <div class='left c-btn' @click='transt' v-if="!three">
             <i class='el-icon-plus'></i>增加条件
          </div>
          
@@ -242,6 +239,7 @@ export default {
        svip:false,
        isajax:false,
        loading:true,
+       isSerach:false,
       sums:[
         {
           name:'全部',
@@ -384,7 +382,7 @@ export default {
       this.twotts = []
       this.twots.forEach(el => {
          if(el.code == val ) {
-            this.twotts = el.list
+            this.twotts = el.data
          }
       });
     },
@@ -393,7 +391,7 @@ export default {
       this.threetts = []
       this.threets.forEach(el => {
          if(el.code == val ) {
-            this.threetts = el.list
+            this.threetts = el.data
          }
       });
     },
@@ -430,6 +428,7 @@ export default {
       }
       companys(data).then(res => {
           this.isajax=true;
+          this.isSerach=false;
           if(localStorage.getItem('permissions')){
             let arr = []
             res.data.forEach( el => {
@@ -450,18 +449,25 @@ export default {
           // }
       }).catch(function(res){
           that.isajax=true;
+          that.isSerach=false;
           that.companylisy=null;
       })
     },
     // 获取公司企业列表
     changeapi() {
-      if(this.allarr.length==0){
-        this.$alert('至少选择两级资质哦')
-        return false
-      }
+      // if(this.allarr.length==0){
+      //   this.$alert('至少选择两级资质哦')
+      //   return false
+      // }
       if(this.allarr.length>1){
         this.data.rangeType=this.rangeType;
+      }else{
+        this.data.rangeType=''
       }
+      if(this.isSerach){
+        return false
+      }
+      this.isSerach=true;
       this.allstr = this.allarr.join(",")
       this.data.qualCode =  this.allstr
       sessionStorage.setItem('Rank',this.rank)  // 页面刷新用于判断资金值得从哪里来
@@ -621,12 +627,18 @@ export default {
     },
     twof() {
       this.two = false
+      this.allarr.splice(1,1);
       if(!this.three) {
          this.five = false
       }
     },
     threef() {
       this.three = false
+      if(this.allarr.length==3){
+        this.allarr.splice(2,1);
+      }else if(this.allarr.length==2){
+        this.allarr.splice(1,1);
+      }
       if(!this.two) {
         this.five = false
       }
@@ -945,7 +957,8 @@ export default {
       if(sessionStorage.getItem('comselect')) {
           let arr = [] 
         if(this.data.qualCode) {
-            arr = this.data.qualCode.split(",")
+          arr = this.data.qualCode.split(",")
+          this.allarr=arr
           this.firststr = arr[0]
           this.firstarr = arr[0].split("/")
           let fList = arr[0].split("/")
@@ -1003,10 +1016,10 @@ export default {
               }
             }
              setTimeout(() => {
-               this.threet = ThList[1] ? ThList[1] : ''
+               this.threet = ThList[0] ? ThList[0] : ''
              }, 100);
              setTimeout(() => {
-               this.threett = ThList[2] ? ThList[2] : ''
+               this.threett = ThList[1] ? ThList[1] : ''
              }, 100);
 
         }
@@ -1022,7 +1035,7 @@ export default {
     this.gainFilter()
     this.gainAera()
     this.GqualCode()
-    // this.last = this.state
+    this.last = this.state
     // this.data.regisAddress = this.state
     if(sessionStorage.getItem('pageNo')){
       this.data.pageNo=sessionStorage.getItem('pageNo')*1;
@@ -1042,15 +1055,6 @@ export default {
   background: #FAFAFA;
   width: 100%;
   padding-top: 86px;
-  .total {
-    width: 1020px;
-    color:#666;
-    font-size: 14px;
-    margin: 10px auto;
-    span {
-      color:#EC7522;
-    }
-  }
   .el-loading-spinner .path {
     stroke: #FE6603;
   }
@@ -1072,13 +1076,6 @@ export default {
     font-size: 12px;
   }
  
-  .c-search {
-     width: 1020px;
-     background-color: #fff;
-     margin: 20px auto 0;
-     padding: 15px;
-     box-sizing: border-box;
-     font-size: 16px;
      .select {
        font-size: 16px;
        margin-bottom: 10px;
@@ -1134,21 +1131,6 @@ export default {
            cursor: pointer;
          }
        }
-       .pro {
-         li {
-           padding: 2px 7px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 10px;
-           color:#666;  
-           cursor: pointer;
-         }
-         .l-30 {
-           margin-top: 5px;       
-         }
-         
-       }
       .el-select {
         width: 225px;
         margin-right: 10px;
@@ -1162,6 +1144,10 @@ export default {
         width: 100px;
         text-align: center;
         border-radius: 8px;
+      }
+      .isSerach{
+        opacity: .8;
+        cursor: wait;
       }
       .op-c{
          color:#fff;
@@ -1201,8 +1187,6 @@ export default {
        margin-top: 20px;
        overflow: hidden;
      }
-
-  }
    .firm {
      width: 1020px;
      background: #fff;
@@ -1229,17 +1213,5 @@ export default {
        }
      }
    }
-   .c-page {
-       width:1020px;
-       margin: 0 auto;
-      //  height: 100px;
-       background-color:#fff;
-       padding-top: 50px;
-       padding-bottom: 75px;
-       display: flex;
-       margin-bottom: 125px;
-       justify-content: center;
-
-     }
 }
 </style>

@@ -6,16 +6,16 @@
        <div class="n-tp">
           <span>{{articles.openDate}}</span>
           <span>浏览量: <i>{{clickCount}}</i></span>
-          <span class="left" style="marginLeft:10px;cursor: pointer;"  @click="anchorJump">评论数：<i>{{allC}}</i></span>
+          <span style="cursor: pointer;"  @click="anchorJump">评论数：<i>{{allC}}</i></span>
           <!-- <div class="right" > -->
-          <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+          <div class="attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
               <i class="el-icon-plus"></i>{{collect}}
           </div>
           <!-- </div>  -->
          
        </div>
        <p class="n-thp">
-         <span class="left" v-if="articles.oneName" >第一候选人：{{articles.oneName}}</span>
+         <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span>
          <span v-else class="left">第一候选人:详见原文</span>
          <span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
          <span class="right" v-else >中标金额：详见原文</span>
@@ -45,10 +45,45 @@ export default {
       source:'hunan',
       collect:'关注',
       iscollect:false,
-      allC:0
+      allC:0,
+      collType:'',
+      tapName:false,
     }
   },
   methods: {
+    jumpCompany(name){
+      if(this.tapName){
+        this.$alert('正在跳转中，请勿重复点击');
+        return false   
+      }
+      this.tapName=true;
+      let that=this;
+      this.$http({
+          method:'post',
+          url:'company/detail',
+          data:{
+            comName:name
+          }
+        }).then(res =>{
+          that.tapName=false;
+          if (res.data.code == 1) {
+            let id=res.data.data.comId;
+            const { href } = that.$router.resolve({
+              path:'/introduce/icbc',
+              query:{
+                id:id,
+                name:name,
+              } 
+            })
+            window.open(href, '_blank')
+          }else{
+            that.$alert(res.data.msg)
+          }
+        }).catch(err =>{
+          that.$alert('网络链接不稳定，请重新点击');
+          that.tapName=false;
+        })
+    },
     gainDetail() {
       let dataParam = JSON.stringify({
           type:'2',
@@ -60,6 +95,7 @@ export default {
                this.articles = res.data
                this.clickCount = res.clickCount
                this.iscollect = res.data.collected
+               this.collType=res.data.type
                if(this.iscollect) {
                  this.collect = '已关注'
                } else {
@@ -97,7 +133,7 @@ export default {
           }
         })
       } else {
-        collectionNotice({noticeid:this.id,type:'2',source:this.source}).then(res => {
+        collectionNotice({noticeid:this.id,type:this.collType,source:this.source}).then(res => {
           if(res.code = 1) {
             this.iscollect = true
             this.collect = '已关注'
@@ -161,8 +197,13 @@ export default {
        text-align: center;
     }
     .n-tp {
+      display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+      display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+      display: -ms-flexbox;      /* TWEENER - IE 10 */
+      display: -webkit-flex;     /* NEW - Chrome */
       display: flex;
-      justify-content: space-evenly;
+      -webkit-justify-content:space-around;
+      justify-content:space-around;
       align-items: center;
       color: #666;
       font-size: 18px;
@@ -216,6 +257,7 @@ export default {
   }
   .n-text {
     padding: 26px 20px 70px;
+    overflow: hidden;
   }  
   .no-comL {
     width: 1020px;
@@ -223,5 +265,11 @@ export default {
     box-sizing: border-box;
     margin-bottom: 200px;
   }
+}
+.tap-before{
+  cursor: pointer;
+}
+.tap-after{
+  cursor: wait;
 }
 </style>

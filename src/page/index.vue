@@ -80,16 +80,6 @@
                  </a>
           </div>
       </div>
-
-      <!-- <div class="i-loading" v-show="duanwu" >
-        <div class="i-boo" >
-           <div class="i-detail" @click.stop="closeText(2)"  > 
-
-           </div>
-            <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
-        </div> 
-     </div> -->
-
    </div>
 </template>
 <script>
@@ -396,6 +386,7 @@ export default {
                                     el.oneName = el.oneName + '公司'
                                   }
                              } 
+                             el.oneOffer=el.oneOffer+'';
                              if(el.oneOffer) {
                                 let mm  = el.oneOffer.length
                                 el.oneOffer = '*'   

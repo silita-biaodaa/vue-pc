@@ -2,7 +2,7 @@
    <div class="bid"> 
 
       <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
-      <div class="options">
+      <div class="option-box">
         <div class="select">
           <el-row>
              <el-col :span='2'>
@@ -10,9 +10,7 @@
              </el-col>
              <el-col :span='22' >
                <ul class='pro' >
-                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >
-                    {{el.name}}
-                 </li>
+                 <li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''"  @click='eval(el)' >{{el.name}}</li>
                </ul>
              </el-col>
           </el-row>
@@ -25,9 +23,7 @@
                 </el-col>
                 <el-col :span='22'>
                     <ul class='left pro' >
-                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"  @click='evalclass(el)' >
-                         {{el.name}}
-                      </li>
+                      <li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"  @click='evalclass(el)' >{{el.name}}</li>
                     </ul>
                 </el-col>
             </el-row>
@@ -38,7 +34,9 @@
                   评标办法:
                </el-col>
                <el-col :span='22'> 
-                  <span class="pb-bf" v-for="(el,i) in pbModes" :key="'2'+i" :class="{'active':el.active}" @click="pbmodeFn(i)">{{el.name}}</span>
+                 <ul class='pro' >
+                   <li v-for="(el,i) in pbModes" :key="'2'+i" class="left" :class="{'current':el.active}" @click="pbmodeFn(i)">{{el.name}}</li>
+                 </ul>
                </el-col>
             </el-row>
         </div>
@@ -53,7 +51,7 @@
                 </el-option>
               </el-select>
            
-             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'   >
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo' v-if="majors.length>0">
               <el-option
                 v-for="item in majors"
                 :key="item.code"
@@ -61,7 +59,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet'   >
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' v-if="grades.length>0">
               <el-option
                 v-for="item in grades"
                 :key="item.name"
@@ -472,12 +470,27 @@ export default {
         }
       }
     },
+    getPbmode(code){
+      let data=JSON.parse(sessionStorage.getItem('filter'));
+      let pbArr=data.pbMode;
+      for(let x of pbArr){
+        if(x.provice==code){
+          for(let y of x.list){
+            y.active=false  
+          }
+          x.list.unshift({name:'全部',active:true,code:''})
+          this.pbModes=x.list;
+          break
+        }
+      }
+    },
     eval(el) {
         if(el.name == '湖南省') {
           this.Scity = true
         } else {
           this.Scity = false
         }
+        this.getPbmode(el.code);
         this.area = el.code
         sessionStorage.setItem('address',el.name)
         /* 地址修改后   重置serach以及type*/
@@ -486,7 +499,7 @@ export default {
         /*end*/
         this.data.regions = this.area
         this.data.pageNo = 1
-        this.isajax=false;      
+        this.isajax=false;
         this.gainQueryList()
     },
     evalclass(el) {
@@ -566,9 +579,6 @@ export default {
     this.area = this.state.code
     this.data.regions = this.area
     this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : '';
-    this.gainFilter();
-
-    
     //如果是刷新操作，则复现上次
     if(sessionStorage.getItem('bidSerach')){
       let data=JSON.parse(sessionStorage.getItem('bidSerach'));
@@ -581,10 +591,12 @@ export default {
       this.data=data;
       if(data.regions.indexOf('||')>-1){//省市
         let arr=data.regions.split('||');
+        this.state.code=data.regions
         this.area=arr[0];
         this.city=arr[1];
       }else{
         this.area=data.regions;
+        this.state.code=data.regions
       }
       //评标办法
       if(data.pbModes!=''){
@@ -627,6 +639,7 @@ export default {
         this.grade=arr1[1]
       }
     }
+    this.gainFilter();
     this.SHcity()
     this.toTop()
     this.gainQueryList()
@@ -647,15 +660,6 @@ export default {
    display: flex;
    flex-direction: column;
    padding-top: 86px;
-   .total {
-    width: 1020px;
-    color:#666;
-    font-size: 14px;
-    margin: 10px auto;
-    span {
-      color:#EC7522;
-    }
-  }
   .el-loading-spinner .path {
     stroke: #FE6603;
   }
@@ -686,26 +690,6 @@ export default {
      .select {
        font-size: 16px;
        margin-bottom: 12px;
-       .pro {
-         li {
-           margin-right: 5px;
-           padding: 2px 9px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 6px;
-           cursor: pointer;
-           color:#666;
-         }
-         .bid-p {
-           padding: 2px 9px;
-           color:#666;
-         }
-         .current {
-           background-color: #FE6603;
-           color:#fff;
-         }
-       }
       .el-select {
         width: 225px;
         margin-right: 10px;
@@ -736,13 +720,6 @@ export default {
      background: #fff;
      font-size: 16px;
      margin-bottom:125px;
-     .page {
-      //  height:100px;
-        padding-bottom: 75px;
-        padding-top:50px;
-        display: flex;
-        justify-content: center;
-     }
     //  ul {
        a {
          height: 80px;
@@ -782,20 +759,5 @@ export default {
        }
     //  }
    }
- }
- .pb-bf{
-    margin-bottom: 12px;
-    font-size: 15px;
-    padding: 5px 10px;
-    color:#666;
-    cursor: pointer;
-    margin-right: 5px;
-    display: inline-block;
- }
- .pb-bf.active{
-    color:#fff;
-    background-color: #FE6603;
-    border-color: #FE6603;
-    box-shadow: -1px 0 0 0 #fff; 
  }
 </style>

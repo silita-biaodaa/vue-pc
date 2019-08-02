@@ -10,9 +10,9 @@
       <div class="date">
         <span>{{articles.openDate}}</span>
         <span>浏览量：<i>{{clickCount}}</i></span>
-        <span class="left" style="marginLeft:10px;cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
+        <span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
         <!-- <div> -->
-        <div class="left attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
+        <div class="attention" :class="iscollect ? 'collect' : ''"  @click="gaincollect" >
           <i class="el-icon-plus"></i>{{collect}}
         </div>
         <!-- </div> -->
@@ -67,7 +67,8 @@ export default {
       iscollect:true,
       collect:'关注',
       skip:false,
-      allC:0
+      allC:0,
+      collType:'',
     }
   },
   methods: {
@@ -83,6 +84,7 @@ export default {
                this.clickCount = res.clickCount
                this.relCompanySize = res.relCompanySize
                this.iscollect = res.data.collected
+               this.collType=res.data.type
                if(this.iscollect) {
                  this.collect = '已关注'
                } else {
@@ -128,7 +130,7 @@ export default {
           }
         })
       } else {
-        collectionNotice({noticeid:this.id,type:'0',source:this.source}).then(res => {
+        collectionNotice({noticeid:this.id,type:this.collType,source:this.source}).then(res => {
           if(res.code = 1) {
             this.iscollect = true
             this.collect = '已关注'
@@ -197,8 +199,13 @@ export default {
      }
      .date {
       //  margin-left: 275px;
-       display: flex;
-       justify-content: space-evenly;
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;
+        -webkit-justify-content:space-around;
+        justify-content:space-around;
       //  width: 575px;
        font-size: 18px;
       //  margin-bottom: 10px;
@@ -276,6 +283,7 @@ export default {
      .essay {
        width: 980px;
        padding: 26px 0 80px;
+       overflow: hidden;
      }
    }
 }

@@ -50,10 +50,9 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
 
 export const getJsonData = (url, params) => {
   return new Promise((resolve, reject) => {
-    let token = 'biaodaaTestToken'
     if (params != null) {
       axios.post(url, params, {
-        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/json'}
       }).then(res => {
         resolve(res.data)
       }).catch(error => {
@@ -61,7 +60,7 @@ export const getJsonData = (url, params) => {
       })
     } else {
       axios.post(url, null, {
-        headers: { 'Content-Type': 'application/json', 'X-TOKEN': token }
+        headers: { 'Content-Type': 'application/json'}
       }).then(res => {
         resolve(res.data)
       }).catch(error => {

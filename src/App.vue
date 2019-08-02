@@ -123,16 +123,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="i-loading" v-show="duanwu" >
-        <div class="i-boo" >
-           <div class="i-detail" @click.stop="closeText(2)"  > 
-
-           </div>
-            <i class="el-icon-circle-close-outline"  @click.stop="closeText(1)"  ></i>
-        </div> 
-     </div> -->
-
   </div>
 </template>
 
@@ -144,7 +134,6 @@ export default {
     return {
       isRouter:true,
       show:true,
-      // duanwu:false,
       isshow:true,
       names:true,
       navlist:[
@@ -306,13 +295,18 @@ export default {
           this.$router.push('/logo')
         } else {
           getUserTemp({}).then( res => {
-             let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
-             localStorage.setItem('Xtoken',res.data.xtoken)
-             localStorage.setItem('Bname',name)
-             localStorage.setItem('isFirst',res.data.isFirst)
-             sessionStorage.setItem('ip',res.data.pkid)
-             localStorage.setItem('permissions',res.data.permissions) 
-             localStorage.setItem('phoneNo',res.data.phoneNo)                         
+            if(res.code==1){
+              let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
+              localStorage.setItem('Xtoken',res.data.xtoken)
+              localStorage.setItem('Bname',name)
+              localStorage.setItem('isFirst',res.data.isFirst)
+              sessionStorage.setItem('ip',res.data.pkid)
+              localStorage.setItem('permissions',res.data.permissions) 
+              localStorage.setItem('phoneNo',res.data.phoneNo) 
+            }else{
+              this.$alert(res.msg);
+            }
+                                     
           })
         } 
       }
@@ -519,6 +513,7 @@ export default {
 <style lang="less" >
 @import './style/common';
 @import './assets/iconfont.css';
+@import './base/base.css';
 #app {
   background-color: #FAFAFA;
   .content {
@@ -547,6 +542,7 @@ export default {
         background-color: #fff;
         font-weight: 400;
         .contact-l {
+          width: calc(100% - 190px);
           a,p {
             margin-right: 25px;
             color: #666;
@@ -568,7 +564,7 @@ export default {
           }
         }
         .contact-r {
-          width: 300px;
+          width: 190px;
           display: flex;
           align-items: center; 
           flex-direction:row-reverse;
@@ -778,31 +774,6 @@ export default {
     top: 0;
     left: 0;
   }
-  .i-boo {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 380px;
-      background: url('./assets/img/pic-duanwuhoud.png@2x.png.png') no-repeat;
-      background-size: 100% 100%;
-      .i-detail {
-         position: absolute;
-         bottom: 12px;
-         right: 27%;
-         width: 11%;
-         height: 60px;
-         cursor: pointer;
-      }
-      i {
-        font-size: 35px;
-        color:#999;
-        position: absolute;
-        right: 10px;
-        top: 0;
-        cursor: pointer;
-      }
-    }
 }
 
 

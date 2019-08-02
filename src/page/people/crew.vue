@@ -1,7 +1,7 @@
 <template>
 <div class="crew">
   <en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
-  <div class="crew-option" >
+  <div class="option-box" >
       <per-por :state='state' @perPor='gainPor' :address="data.province" ></per-por>
       <div class="select">
             <el-row>
@@ -15,7 +15,7 @@
             </el-row>
      </div>
   </div>
-  <div class="crew-total">
+  <div class="total">
       共找到<span class="p-color" >{{total}}</span>条人员信息
   </div>
    <div class="build-list">
@@ -299,33 +299,7 @@ export default {
     .select {
        font-size: 16px;
        margin-bottom: 12px;
-       .pro {
-         li {
-           padding: 2px 9px;
-           height: 20px;
-           text-align: center;
-           line-height: 20px;
-           margin-bottom: 6px;
-           cursor: pointer;
-           color:#666;
-         }
-         .bid-p {
-           padding: 2px 9px;
-           color:#666;
-         }
-         .current {
-           background-color: #FE6603;
-           color:#fff;
-         }
-       }
      }
- }
- .crew-total {
-   line-height: 48px;
-   font-size: 14px;
-   color:#666;
-   width: 1020px;
-   margin: 0 auto;
  }
   .build-list {
     width: 1020px;
@@ -377,13 +351,6 @@ export default {
     align-items: center;
     justify-content: center;
   }
-    .page {
-      // height: 100px;
-       padding-top: 50px;
-       padding-bottom: 75px;
-       display: flex;
-       justify-content: center;
-    }
   }  
 }
 </style>

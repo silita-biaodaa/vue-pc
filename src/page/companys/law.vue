@@ -7,21 +7,11 @@
    </div>
    <div class="law-list">
       <div class="law-nav">
-        <div class="left" style="width:72px"> 
-            序号
-        </div>
-        <div class="left" style="width:250px"> 
-           案件名称
-        </div>
-        <div class="left" style="width:150px"> 
-            法院
-        </div>
-        <div class="left" style="width:200px"> 
-            案号
-        </div>
-        <div class="left" style="width:100px"> 
-            时间
-        </div>
+        <div class="left" style="width:72px">序号</div>
+        <div class="left" style="width:250px">案件名称</div>
+        <div class="left" style="width:150px">法院</div>
+        <div class="left" style="width:200px">案号</div>
+        <div class="left" style="width:100px">时间</div>
       </div>
       <div class="law-text" @click="jumpDetail(el.id)" v-for="(el,i) in lawList" :key="i" v-show="!result" >
         <div class="left" style="width:72px"> 

@@ -75,7 +75,7 @@ export default {
       let arr=this.citystr.split(',');
       for(let x of this.city){
         for(let y of arr){
-          if(x.name==y){
+          if(x.code==y){
             x.i=true;
             break
           }
@@ -93,10 +93,7 @@ export default {
        .pro {
          li {
            margin-right: 5px;
-           padding: 2px 9px;
-           height: 20px;
            text-align: center;
-           line-height: 20px;
            margin-bottom: 6px;
            cursor: pointer;
            color:#666;

@@ -103,8 +103,8 @@ export default {
       name:'个人信息',
       userData:{},
       day:0,
-      state:'',
-      vipname:'',
+      state:'非会员',
+      vipname:'开通会员',
       ishow:false
     }
   },

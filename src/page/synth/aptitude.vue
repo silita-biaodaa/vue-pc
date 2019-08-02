@@ -9,7 +9,7 @@
                 </el-option>
               </el-select>
            
-             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo'   >
+             <el-select v-model="major" placeholder="请选择" clearable  @change='spliceo' v-if="majors.length>0">
               <el-option
                 v-for="item in majors"
                 :key="item.name"
@@ -17,7 +17,7 @@
                 :value="item.code">
               </el-option>
             </el-select>
-             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' :disabled='noLevel'  >
+             <el-select v-model="grade" placeholder="请选择" clearable   @change='splicet' :disabled='noLevel' v-if="grades.length>0">
               <el-option
                 v-for="item in grades"
                 :key="item.name"
