@@ -660,15 +660,6 @@ export default {
    display: flex;
    flex-direction: column;
    padding-top: 86px;
-   .total {
-    width: 1020px;
-    color:#666;
-    font-size: 14px;
-    margin: 10px auto;
-    span {
-      color:#EC7522;
-    }
-  }
   .el-loading-spinner .path {
     stroke: #FE6603;
   }

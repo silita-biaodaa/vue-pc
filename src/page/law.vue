@@ -3,7 +3,7 @@
 <div class="law">
     <en-search @vague='entitle' :title="data.keyWord" :company="true"></en-search>
     <per-time  @time='gaintime' :timeTxt="'判决时间'" class="option-box"></per-time>
-    <div class="build-search">
+    <div class="total">
       共找到<span class="p-color" >{{total}}</span>条法务信息     
     </div>
     <div class="build-list">
@@ -237,14 +237,6 @@ export default {
                 cursor: pointer;
             }
         }
-    }
-    .build-search {
-        width: 1020px;
-        margin: 0 auto;
-        height: 46px;
-        line-height: 46px;
-        font-size: 14px;
-        color:#666;
     }
     .build-list {
         width: 1020px;

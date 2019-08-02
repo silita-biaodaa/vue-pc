@@ -15,7 +15,7 @@
             </el-row>
      </div>
   </div>
-  <div class="crew-total">
+  <div class="total">
       共找到<span class="p-color" >{{total}}</span>条人员信息
   </div>
    <div class="build-list">
@@ -300,13 +300,6 @@ export default {
        font-size: 16px;
        margin-bottom: 12px;
      }
- }
- .crew-total {
-   line-height: 48px;
-   font-size: 14px;
-   color:#666;
-   width: 1020px;
-   margin: 0 auto;
  }
   .build-list {
     width: 1020px;

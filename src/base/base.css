@@ -25,6 +25,15 @@
     background-color: #FE6603;
     color:#fff;
 }
+.total {
+    width: 1020px;
+    color:#666;
+    font-size: 14px;
+    margin: 10px auto;
+}
+.total span {
+    color:#EC7522;
+}
 .page {
     padding-bottom: 75px;
     padding-top:50px;

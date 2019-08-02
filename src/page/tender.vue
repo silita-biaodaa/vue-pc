@@ -503,15 +503,6 @@ export default {
   .el-loading-spinner .el-loading-text {
     color:#FE6603;
   }
-  .total {
-    width: 1020px;
-    color:#666;
-    font-size: 14px;
-    margin: 14px auto;
-    span {
-      color:#EC7522;
-    }
-  }
   .t-btn {
            width: 50px;
            height: 26px;
