@@ -28,7 +28,7 @@
 						注册类别
 					</div>
 					<div class="left" style="width:150px">
-						执业印章号
+						证书编号
 					</div>
 					<div class="left" style="width:160px">
 						专业

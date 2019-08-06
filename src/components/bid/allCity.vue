@@ -3,7 +3,7 @@
     <div class="select">
        <el-row>
           <el-col :span="2">
-             省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
+             企业属地:
           </el-col>
           <el-col :span="22">
              <ul class='pro' >
@@ -74,14 +74,14 @@ export default {
     },
     eval(el) {
       this.area = el.name
-      for(let x of el.data){
-        x.i=false;
-      }
-      this.list = el.data
       if(this.area == '全部') {
         this.allt = false
         this.$emit('Cnext', {cur:''})
        } else {
+          for(let x of el.data){
+            x.i=false;
+          }
+          this.list = el.data
          this.allt = true
          this.$emit('Cnext', {cur:this.area})
        }

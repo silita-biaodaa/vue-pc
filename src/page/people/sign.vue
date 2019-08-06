@@ -15,7 +15,7 @@
            专业
          </div>
          <div style="width:153px;" >
-           执业印章号
+           证书编号
          </div>
          <div style="width:200px;" >
            单位名称

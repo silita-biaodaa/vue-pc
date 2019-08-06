@@ -33,7 +33,7 @@
           注册类别
         </div>
         <div style="width:180px;" >
-          执业印章号
+          证书编号
         </div>
         <div style="width:110px;" >
           专业

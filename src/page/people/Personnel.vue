@@ -46,7 +46,7 @@ export default {
       tabCode:'',
       tab:[
          {
-          name:'注册证书',
+          name:'证书信息',
           to:'sign',
           i: false
         },
