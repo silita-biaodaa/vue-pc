@@ -516,6 +516,9 @@ export default {
 @import './base/base.css';
 #app {
   background-color: #FAFAFA;
+  table{
+    table-layout:fixed
+  }
   .content {
     width: 100%;
   }

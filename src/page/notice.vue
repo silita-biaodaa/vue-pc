@@ -258,6 +258,10 @@ export default {
   .n-text {
     padding: 26px 20px 70px;
     overflow: hidden;
+    table{
+      width: 100%;
+      max-width: 1020px;
+    }
   }  
   .no-comL {
     width: 1020px;
