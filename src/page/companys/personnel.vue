@@ -51,7 +51,7 @@
 						{{el.category}}
 					</div>
 					<div class="left" style="width:150px">
-						{{el.sealNo}}
+						{{el.certNo}}
 					</div>
 					<div class="left" style="width:160px">
 						{{el.major}}

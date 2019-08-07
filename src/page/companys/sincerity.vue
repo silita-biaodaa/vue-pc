@@ -1,0 +1,155 @@
+<template>
+	<div class="icbc">
+		<div class="ic-nav">
+			<span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
+				{{o.name}}
+				<template v-if="o.length!=0">
+					(<span>{{o.length}}</span>)
+				</template>
+			</span>
+		</div>
+		<template v-if="isajax">
+			<!-- 企业荣誉 -->
+			<template v-if="navNum==0">
+				<v-honor :data="honorList"></v-honor>
+			</template>
+			<!-- 工程获奖 -->
+			<template v-else-if="navNum==1">
+				<v-prize :data="prizeList"></v-prize>
+			</template>
+			<!-- 公路信用等级 -->
+			<!-- <template v-else-if="navNum==2">
+				<v-highway></v-highway>
+			</template> -->
+			<!-- 水利信用等级 -->
+			<!-- <template v-else-if="navNum==3">
+				<v-water></v-water>
+			</template> -->
+			<!-- 不良信息 -->
+			<template v-else-if="navNum==2">
+				<v-bad :data="badList"></v-bad>
+			</template>
+		</template>
+		<template v-else>
+			<div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+		</template>
+	</div>
+</template>
+<script>
+	import honor from '@/components/sincerity/honor'
+	import prize from '@/components/sincerity/prize'
+	import highway from '@/components/sincerity/highway'
+	import water from '@/components/sincerity/water'
+	import bad from '@/components/sincerity/bad'
+	export default {
+		data() {
+			return {
+				id: '',
+				navNum: 0,
+				navlist: [{
+					name: '企业荣誉',
+					length: 0,
+					isAjax: true,
+				}, {
+					name: '工程获奖',
+					length: 0,
+					isAjax: false,
+				}, 
+				// {
+				// 	name: '公路信用等级',
+				// 	length: 0,
+				// 	isAjax: false,
+				// }, {
+				// 	name: '水利信用等级',
+				// 	length: 0,
+				// 	isAjax: false,
+				// }, 
+				{
+					name: '不良信息',
+					length: 0,
+					isAjax: false,
+				}],
+				honorList:[],
+				prizeList:[],
+				badList:[],
+				isajax:false,
+				loading:true,
+			}
+		},
+		watch: {
+
+		},
+		methods: {
+			navTapFn(i) {
+				this.navNum = i;
+			},
+			getData(){
+				let data={
+					comId:this.$route.query.id,
+					source:this.$route.query.source,
+					reqType:'PC'
+				}
+				let that=this;
+				this.$http({
+					method:'post',
+					url:'/reputation/new/company',
+					data:data
+				}).then(res =>{
+					that.isajax=true;
+					if(res.data.code==1){
+						that.honorList=res.data.data.companyAwards
+						that.prizeList=res.data.data.projectAwards
+						that.badList=res.data.data.under
+					}else{
+						that.$alert(res.data.msg);
+					}
+				}).catch(function(){
+					that.isajax=true;
+				})
+			}
+		},
+		created() {
+			this.getData();
+		},
+		components: {
+			'v-honor':honor,
+			'v-prize':prize,
+			'v-highway':highway,
+			'v-water':water,
+			'v-bad':bad
+		}
+	}
+</script>
+<style lang="less" scoped>
+	.icbc {
+		background-color: #fff;
+		overflow: hidden;
+
+		.ic-nav {
+			font-size: 14px;
+			color: #999;
+			margin: 15px 0 14px 23px;
+			cursor: pointer;
+			font-weight: 550;
+
+			.navspan {
+				border-right: 1px solid #999;
+				padding: 0 10px;
+			}
+
+			.navspan:last-child {
+				border-right: none;
+			}
+		}
+
+		.ic-dark {
+			color: #FE6603;
+		}
+
+	}
+
+	.f-color {
+		background-color: #fff;
+
+	}
+</style>

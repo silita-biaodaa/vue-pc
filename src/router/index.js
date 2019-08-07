@@ -12,7 +12,7 @@ const Icbc = resolve => require(['@/page/companys/icbc'], resolve)
 const Personnel = resolve => require(['@/page/companys/personnel'], resolve)
 const Intell = resolve => require(['@/page/companys/intelligence'], resolve)
 const Law = resolve => require(['@/page/companys/law'], resolve)
-const Good = resolve => require(['@/page/companys/good'], resolve)
+const Good = resolve => require(['@/page/companys/sincerity'], resolve)
 
 
 
