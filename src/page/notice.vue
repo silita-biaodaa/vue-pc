@@ -91,7 +91,7 @@ export default {
         });
         getJsonData( "/newnocite/nociteDetails/" + this.id , dataParam).then(res => {
             if(res.code == 1) {
-               this.allC = res.data.block
+               this.allC = res.data.commentCount
                this.articles = res.data
                this.clickCount = res.clickCount
                this.iscollect = res.data.collected
