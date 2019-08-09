@@ -104,16 +104,17 @@
 			//如果是刷新操作，则复现上次
 			if (sessionStorage.getItem('peopleSerach')) {
 				let data = JSON.parse(sessionStorage.getItem('peopleSerach'));
-
 				this.serach = data.keyWord != '' ? data.keyWord : data.comName;
 				if (data.comName != '') {
 					this.searchType = 1
 				} else {
 					this.searchType = 0
 				}
-
 				if (data.category == '') {
 					data.category = '全部'
+				}
+				this.state={
+					source:data.province
 				}
 				this.data = data;
 			}

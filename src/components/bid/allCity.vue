@@ -73,7 +73,7 @@ export default {
       }
     },
     eval(el) {
-      sessionStorage.setItem('address',el.name);
+      // sessionStorage.setItem('address',el.name);
       this.area = el.name
       if(this.area == '全部') {
         this.allt = false

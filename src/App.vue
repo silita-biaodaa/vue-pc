@@ -315,7 +315,6 @@ export default {
       this.isarea = !this.isarea
     },
     selarea(el) {
-      sessionStorage.setItem('address',el.name);
       let arr=JSON.parse(sessionStorage.getItem('filter')).area;
       let that=this;
       for(let x of arr){
@@ -558,7 +557,7 @@ export default {
         background-color: #fff;
         font-weight: 400;
         .contact-l {
-          width: calc(100% - 190px);
+          width: calc(100% - 300px);
           a,p {
             margin-right: 25px;
             color: #666;
@@ -580,7 +579,7 @@ export default {
           }
         }
         .contact-r {
-          width: 190px;
+          width: 300px;
           display: flex;
           align-items: center; 
           flex-direction:row-reverse;

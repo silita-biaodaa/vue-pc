@@ -490,7 +490,7 @@
 				}
 				this.getPbmode(el.code);
 				this.area = el.code
-				sessionStorage.setItem('address', el.name)
+				// sessionStorage.setItem('address', el.name)
 				/* 地址修改后   重置serach以及type*/
 				this.serach = '';
 				this.searchType = 0
