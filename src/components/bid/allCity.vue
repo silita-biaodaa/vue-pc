@@ -73,6 +73,7 @@ export default {
       }
     },
     eval(el) {
+      sessionStorage.setItem('address',el.name);
       this.area = el.name
       if(this.area == '全部') {
         this.allt = false
@@ -87,6 +88,7 @@ export default {
        }
     },
     marry() {
+      console.log(this.area)
      this.areas.forEach( el => {
        if(el.name != '全部') {
           el.data.unshift({name:'全部',i:true})      

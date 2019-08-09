@@ -11,27 +11,13 @@
 			<div class="left" style="width:100px">项目属地</div>
 		</div>
 		<div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result" @click="decide(el,i)">
-			<div class="left" style="width:54px">
-				{{($parent.current-1)*10+(i+1)}}
-			</div>
-			<div class="left p-10" style="width:160px">
-				{{el.proName ? el.proName: '--'}}
-			</div>
-			<div class="left p-10" style="width:130px">
-				{{el.section ? el.section: '--'}}
-			</div>
-			<div class="left" style="width:130px">
-				{{el.comName ? el.comName: '--'}}
-			</div>
-			<div class="left" style="width:110px">
-				{{el.amount ? el.amount + '万' : '--'}}
-			</div>
-			<div class="left" style="width:90px">
-				{{el.build ? el.build: '--'}}
-			</div>
-			<div class="left" style="width:100px">
-				{{el.proWhere ? el.proWhere: '--'}}
-			</div>
+			<div class="left" style="width:54px">{{($parent.current-1)*10+(i+1)}}</div>
+			<div class="left p-10" style="width:160px">{{el.proName ? el.proName: '--'}}</div>
+			<div class="left p-10" style="width:130px">{{el.section ? el.section: '--'}}</div>
+			<div class="left" style="width:130px">{{el.comName ? el.comName: '--'}}</div>
+			<div class="left" style="width:110px">{{el.amount ? el.amount + '万' : '--'}}</div>
+			<div class="left" style="width:90px">{{el.build ? el.build: '--'}}</div>
+			<div class="left" style="width:100px">{{el.proWhere ? el.proWhere: '--'}}</div>
 		</div>
 		<div class="no-toast" v-show="!result">
 			<img src="../../assets/img/bank_card @2x.png" alt="">

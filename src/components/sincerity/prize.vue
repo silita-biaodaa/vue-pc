@@ -7,7 +7,7 @@
                 <div style="width:72px" >序号</div>
                 <div style="width: calc(100% - 372px);">工程名称</div>
                 <div style="width:150px">奖项名称</div>
-                <div style="width:150px" >评定时间</div>
+                <div style="width:150px" >获奖日期</div>
             </div>
             <!-- 有数据 -->
             <template v-if="data&&data.length>0">

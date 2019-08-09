@@ -315,7 +315,7 @@ export default {
       this.isarea = !this.isarea
     },
     selarea(el) {
-      sessionStorage.setItem('address',res.data.region);
+      sessionStorage.setItem('address',el.name);
       let arr=JSON.parse(sessionStorage.getItem('filter')).area;
       let that=this;
       for(let x of arr){
@@ -456,7 +456,20 @@ export default {
     }else{
       this.judges()
     }
-    this.gainaddress()
+    if(!sessionStorage.getItem('address')){
+      this.gainaddress()
+    }else{
+      let arr=JSON.parse(sessionStorage.getItem('filter')).area;
+      let str=sessionStorage.getItem('address');
+      let that=this;
+      for(let x of arr){
+        if(x.name.indexOf(str)>-1){
+          that.source.code=x.code
+          break
+        }
+      }
+      that.source.source = str
+    }
     this.gainCo()
   },
   watch: {
