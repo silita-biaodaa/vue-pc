@@ -100,6 +100,14 @@
 				</el-row>
 			</div>
 			<!-- 资质end -->
+			<!-- <div class="select">
+				<el-row>
+					<el-col :span="2" class="t-5">备案地区：</el-col>
+					<el-col :span="14">
+						<div class='left c-rela t-5' v-for="(el,i) in rela" :key='i' :class="el.key==rangeType?'current':''" @click='crela(el)'></div>
+					</el-col>
+				</el-row>
+			</div> -->
 		</div>
 
 		<div class="total">

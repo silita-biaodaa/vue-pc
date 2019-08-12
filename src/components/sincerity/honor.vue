@@ -13,7 +13,7 @@
                 <div class="list-co" v-for="(el,i) in data" :key="i" >
                     <div style="width:72px">{{i+1}}</div>
                     <div>
-                        <span style="color:#FE6603" >{{el.awardName}}</span>
+                        <span style="color:#FE6603;cursor: pointer;">{{el.awardName}}</span>
                     </div>
                     <div style="width:150px">{{el.issued}}</div>
                 </div>

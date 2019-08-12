@@ -396,7 +396,7 @@
 			margin-top: 16px;
 			box-sizing: border-box;
 			margin-bottom: 124px;
-
+			min-height: 360px;
 			.i-nav {
 				color: #333;
 				font-size: 14px;

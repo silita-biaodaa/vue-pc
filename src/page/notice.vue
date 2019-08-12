@@ -15,7 +15,8 @@
 
 			</div>
 			<p class="n-thp">
-				<span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span>
+				<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
+				<v-comjump v-if="articles.oneName" class="left" :type="1" :name="articles.oneName"></v-comjump>
 				<span v-else class="left">第一候选人:详见原文</span>
 				<span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
 				<span class="right" v-else>中标金额：详见原文</span>
@@ -34,7 +35,6 @@
 	</div>
 </template>
 <script>
-	import axios from 'axios'
 	import {
 		getJsonData,
 		collectionNotice,
@@ -51,45 +51,9 @@
 				iscollect: false,
 				allC: 0,
 				collType: '',
-				tapName: false,
 			}
 		},
 		methods: {
-			jumpCompany(name) {
-				if (this.tapName) {
-					this.$alert('正在跳转中，请勿重复点击');
-					return false
-				}
-				this.tapName = true;
-				let that = this;
-				this.$http({
-					method: 'post',
-					url: 'company/detail',
-					data: {
-						comName: name
-					}
-				}).then(res => {
-					that.tapName = false;
-					if (res.data.code == 1) {
-						let id = res.data.data.comId;
-						const {
-							href
-						} = that.$router.resolve({
-							path: '/introduce/icbc',
-							query: {
-								id: id,
-								name: name,
-							}
-						})
-						window.open(href, '_blank')
-					} else {
-						that.$alert(res.data.msg)
-					}
-				}).catch(err => {
-					that.$alert('网络链接不稳定，请重新点击');
-					that.tapName = false;
-				})
-			},
 			gainDetail() {
 				let dataParam = JSON.stringify({
 					type: '2',
@@ -302,13 +266,5 @@
 			box-sizing: border-box;
 			margin-bottom: 200px;
 		}
-	}
-
-	.tap-before {
-		cursor: pointer;
-	}
-
-	.tap-after {
-		cursor: wait;
 	}
 </style>

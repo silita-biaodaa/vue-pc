@@ -17,6 +17,7 @@ import funcom from './util/util'
 Vue.prototype.funcom = funcom
 
 Vue.config.productionTip = false
+import  companyJump  from '@/components/companyJump';
 import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
 import  logoNav from '@/components/logoNav'
@@ -80,7 +81,7 @@ Vue.component('com-ment', comment)
 Vue.component('re-ply', reply)
 Vue.component('re-dit', redit)
 Vue.component('user-center', usercenter)
-
+Vue.component('v-comjump',companyJump)
 
 
 
