@@ -27,7 +27,7 @@
 						<span>有效期：</span>
 						{{el.validDate}}
 					</div>
-					<div>
+					<div class="company">
 						<span>注册单位：</span>
 						<v-comjump :name="el.comName"></v-comjump>
 					</div>
@@ -127,15 +127,22 @@
 				width: 660px;
 				height: 120px;
 				display: grid;
-				grid-template-columns: 1fr 1fr 1fr;
-				grid-template-rows: 1fr 1fr 1fr;
+				grid-template-columns: repeat(3,1fr);
+				grid-template-rows:repeat(3,1fr);
 				align-items:center;
+				// grid-template-areas:'a b .'
+				// 					'd e f'
+				// 					'g . .';
 				div{
 					font-size: 12px;
 					color: #333;
 					span{
 						color: #999
 					}
+				}
+				.company{
+					grid-column-start: 1;
+					grid-column-end: 3;
 				}
 			}
 			.num{

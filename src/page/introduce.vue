@@ -273,6 +273,9 @@
 		},
 		created() {
 			this.source = this.$route.query.source
+			if(!this.$route.query.source){
+				this.navs.splice(5,2);
+			}
 			this.title = this.$route.query.name
 			this.gainDetail()
 			this.gainNav()

@@ -14,7 +14,7 @@
                 <div class="list-co" v-for="(el,i) in data" :key="i" >
                     <div style="width:72px">{{i+1}}</div>
                     <div style="width: calc(100% - 372px);">
-                        <span style="color:#FE6603" >{{el.projName}}</span>
+                        <span style="color:#FE6603;cursor: pointer;" @click="seeDetail(el)">{{el.projName}}</span>
                     </div>
                     <div style="width:150px">{{el.awardName}}</div>
                     <div style="width:150px">{{el.issued}}</div>
@@ -28,15 +28,22 @@
                 </div>
             </template>
         </div>
+        <!-- 弹窗 -->
+        <v-pop v-if="mask">
+            <v-prize-detail :data="detail"></v-prize-detail>
+        </v-pop>
     </div>
 </template>
 <script>
+import popup from '@/components/popup'
+import prizeDetail from '@/components/sincerity/prizeDetail'
 export default {
     name: 'prize', // 基本信息
     data() {
         return {
             // 数据模型
-            // list:[],
+            mask:false,
+            detail:''
         }
     },
     watch: {
@@ -47,6 +54,10 @@ export default {
         data:{
             default:''
         },
+    },
+    components:{
+        'v-pop':popup,
+        'v-prize-detail':prizeDetail
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -77,7 +88,28 @@ export default {
     },
     methods: {
         // 方法 集合
-        //刷新
+        // 方法 集合
+        seeDetail(el){
+            if(!el.pkid){
+                return false
+            }
+            let that=this;
+            this.$http({
+                method:'post',
+                url:'/reputation/detail',
+                data:{
+                    pkid:el.pkid,
+                }
+            }).then(function(res){
+                if(res.data.code==1){
+                    that.mask=true;
+                    that.modalHelper.afterOpen();
+                    that.detail=res.data.data;
+                }else{
+                    that.$alert(res.data.msg);
+                }
+            })
+        }
     }
 
 }

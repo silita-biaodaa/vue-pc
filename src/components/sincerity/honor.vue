@@ -13,7 +13,7 @@
                 <div class="list-co" v-for="(el,i) in data" :key="i" >
                     <div style="width:72px">{{i+1}}</div>
                     <div>
-                        <span style="color:#FE6603;cursor: pointer;">{{el.awardName}}</span>
+                        <span style="color:#FE6603;" >{{el.awardName}}</span>
                     </div>
                     <div style="width:150px">{{el.issued}}</div>
                 </div>
@@ -26,6 +26,7 @@
                 </div>
             </template>
         </div>
+        
     </div>
 </template>
 <script>
@@ -34,7 +35,6 @@ export default {
     data() {
         return {
             // 数据模型
-            // list:[],
         }
     },
     watch: {
@@ -74,7 +74,7 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     methods: {
-        // 方法 集合
+        
     }
 
 }
