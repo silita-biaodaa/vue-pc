@@ -3,7 +3,7 @@
 		<div class="sign-top">
 			<span>执业注册信息（{{total}}）</span>
 		</div>
-		<ul>
+		<ul v-if="list&&list.length>0">
 			<li v-for="(el,i) in list" :key="i">
 				<div class="box">
 					<div>
@@ -35,6 +35,12 @@
 				<div class="num">{{i+1}}</div>
 			</li>
 		</ul>
+		<template v-else>
+			<div class="no-toast">
+				<img src="../../assets/img/bank_card @2x.png" alt="">
+				<span>Sorry，没有找到该人员的证书信息</span>
+			</div>
+		</template>
 	</div>
 </template>
 <script>
