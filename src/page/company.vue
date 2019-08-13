@@ -104,7 +104,15 @@
 				<el-row>
 					<el-col :span="2" class="t-5">备案地区：</el-col>
 					<el-col :span="14">
-						<div class='left c-rela t-5' v-for="(el,i) in rela" :key='i' :class="el.key==rangeType?'current':''" @click='crela(el)'></div>
+						<div class='left c-isbei t-5' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
+					</el-col>
+				</el-row>
+			</div>
+			<div class="select">
+				<el-row>
+					<el-col :span="2" class="t-5">荣誉类别：</el-col>
+					<el-col :span="14">
+						<div class='left c-isbei t-5' v-for="(el,i) in honoraryList" :key='i' :class="" @click='honorCateFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div> -->
@@ -281,6 +289,19 @@
 				title: '',
 				present: 9,
 				last: '',
+				recordList:[//备案地区
+					{
+						name:'湘内企业',
+						code:'hunan'
+					},{
+						name:'入湘企业',
+						code:'enterCompany'
+					},{
+						name:'湘内企业+入湘企业',
+						code:'enterHunan'
+					},
+				],
+
 				data: { // 传参条件  
 					regisAddress: '', // 多地区
 					minCapital: '', // 最小资金
@@ -291,6 +312,7 @@
 					levelRank: '',
 					rangeType: '', // 资质关联
 					keyWord: this.title, // 关键字 
+					isBei:'',//备案地区
 				},
 			}
 		},
@@ -363,6 +385,10 @@
 			}
 		},
 		methods: {
+			isBeiFn(el){
+				this.data.isBei=el.code;
+				this.again()
+			},
 			closeload(val) {
 				this.svip = val.cur
 			},
@@ -1170,6 +1196,15 @@
 				font-size: 14px;
 				margin-right: 30px;
 				cursor: pointer;
+			}
+			.c-isbei{
+				height: 25px;
+				line-height: 25px;
+				text-align: center;
+				font-size: 14px;
+				margin-right: 30px;
+				cursor: pointer;
+				padding: 0 9px;
 			}
 		}
 

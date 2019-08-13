@@ -529,7 +529,8 @@ export default {
 #app {
   background-color: #FAFAFA;
   table{
-    table-layout:fixed
+    // table-layout:fixed
+    max-width: 100%;
   }
   .content {
     width: 100%;

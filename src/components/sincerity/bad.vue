@@ -11,20 +11,21 @@
             </div>
             <!-- 有数据 -->
             <template v-if="data&&data.length>0">
-                <div class="list-co" v-for="(el,i) in data" :key="i" >
+                <div class="list-co" v-for="(el,i) in data" :key="i">
                     <div style="width:72px">{{i+1}}</div>
                     <div style="width:250px">{{el.review}}</div>
                     <div style="width: calc(100% - 472px);">
                         <span style="color:#FE6603" >{{el.projName}}</span>
                     </div>
                     <div style="width:150px">{{el.issued}}</div>
+                    <div class="text-conent">{{el.remark}}</div>
                 </div>
             </template>
             <!-- 无数据 -->
             <template v-else-if="data&&data.length==0">
                 <div class="no-toast">
                     <img src="../../assets/img/bank_card @2x.png" alt="">
-                    <span>Sorry，暂未查询到该公司的工程获奖</span>
+                    <span>Sorry，暂未查询到该公司的不良信息</span>
                 </div>
             </template>
         </div>
@@ -61,6 +62,9 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            // for(let x of this.data){
+            //     x.show=false;
+            // }
         });
     },
     beforeUpdate() {
@@ -77,7 +81,12 @@ export default {
     },
     methods: {
         // 方法 集合
-        //刷新
+        // enter(el) {
+        //     el.show = true
+        // },
+        // leave(el) {
+        //     el.show = false
+        // },
     }
 
 }
@@ -110,14 +119,28 @@ export default {
         box-sizing: border-box; 
         border-bottom: 1px solid #f2f2f2;
         justify-content: space-between;
+        position: relative;
+        .text-conent{
+            position: absolute;
+            width: 100%;
+            padding: 15px;
+            bottom:0;
+            background: #fff;
+            box-sizing: border-box;
+            z-index: 99;
+            color: #999;
+            transform: translateY(100%);
+            // opacity: 0;
+            box-shadow: 0px 3px 9px 1px rgba(0, 0, 0, 0.15);
+            // transition: all 1s;
+            display: none
+        }
+    }
+    .list-co:hover .text-conent{
+        display: block;
+        // opacity: 1;
     }
 
-}
-.position{
-    width: 200px;
-    img{
-        max-width: 200px;
-    }
 }
 
 </style>

@@ -130,9 +130,6 @@
 				grid-template-columns: repeat(3,1fr);
 				grid-template-rows:repeat(3,1fr);
 				align-items:center;
-				// grid-template-areas:'a b .'
-				// 					'd e f'
-				// 					'g . .';
 				div{
 					font-size: 12px;
 					color: #333;

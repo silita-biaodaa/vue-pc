@@ -123,8 +123,8 @@
 <style lang="less" scoped>
 	.icbc {
 		background-color: #fff;
-		overflow: hidden;
-
+		// overflow: hidden;
+		padding: 1px 0;
 		.ic-nav {
 			font-size: 14px;
 			color: #999;

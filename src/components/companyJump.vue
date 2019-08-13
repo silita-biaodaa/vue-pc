@@ -42,6 +42,7 @@ export default {
                 that.tapName = false;
                 if (res.data.code == 1) {
                     let id = res.data.data.comId;
+                    let source=res.data.data.regisAddress;
                     const {
                         href
                     } = that.$router.resolve({
@@ -49,6 +50,7 @@ export default {
                         query: {
                             id: id,
                             name: name,
+                            source:source,
                         }
                     })
                     window.open(href, '_blank')

@@ -3,82 +3,97 @@
     <div class="prizeDetail">
         <h5>{{data.projName}}</h5>
         <div class="box">
-            <p>
+            <div class="item">
                 <span>奖项名称：</span>
                 {{data.awardName}}
-            </p>
-            <p>
+            </div>
+            <div class="item">
                 <span>工程名称：</span>
                 {{data.projName}}
-            </p>
-            <p v-if="data.projType">
+            </div>
+            <div class="item" v-if="data.projType">
                 <span>项目类型：</span>
                 {{data.projType}}
-            </p>
-            <p v-if="data.acreage">
+            </div>
+            <div class="item" v-if="data.acreage">
                 <span>建筑面积（㎡）：</span>
                 {{data.acreage}}
-            </p>
-            <p v-if="data.unitOrg&&data.unitOrg.length>0" :style="{'line-height':data.unitOrg.length>3?'30px':''}">
+            </div>
+            <div class="item" v-if="data.unitOrg&&data.unitOrg.length>0">
                 <span>单位名称：</span>
-                <span class="a" v-for="(o,i) of data.unitOrg" :key="'1'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.projManager">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.unitOrg" :key="'1'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.projManager">
                 <span>项目经理：</span>
                 {{data.projManager}}
-            </p>
-            <p v-if="data.skillManager">
+            </div>
+            <div class="item" v-if="data.skillManager">
                 <span>技术负责人：</span>
                 {{data.skillManager}}
-            </p>
-            <p v-if="data.qualityManager">
+            </div>
+            <div class="item" v-if="data.qualityManager">
                 <span>质量负责人：</span>
                 {{data.qualityManager}}
-            </p>
-            <p v-if="data.techQualManage">
+            </div>
+            <div class="item" v-if="data.techQualManage">
                 <span>技术质量负责人：</span>
                 {{data.techQualManage}}
-            </p>
-            <p v-if="data.buildOrg&&data.buildOrg.length>0" :style="{'line-height':data.buildOrg.length>3?'30px':''}">
+            </div>
+            <div class="item" v-if="data.buildOrg&&data.buildOrg.length>0">
                 <span>建设单位：</span>
-                <span class="a" v-for="(o,i) of data.buildOrg" :key="'2'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.superOrg&&data.superOrg.length>0" :style="{'line-height':data.superOrg.length>3?'30px':''}">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.buildOrg" :key="'2'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.superOrg&&data.superOrg.length>0">
                 <span>监理单位：</span>
-                <span class="a" v-for="(o,i) of data.superOrg" :key="'3'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.superPerson">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.superOrg" :key="'3'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.superPerson">
                 <span>总监理工程师：</span>
                 {{data.superPerson}}
-            </p>
-            <p v-if="data.exploreOrg&&data.exploreOrg.length>0" :style="{'line-height':data.exploreOrg.length>3?'30px':''}">
+            </div>
+            <div class="item" v-if="data.exploreOrg&&data.exploreOrg.length>0">
                 <span>勘察单位：</span>
-                <span class="a" v-for="(o,i) of data.exploreOrg" :key="'4'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.designOrg&&data.designOrg.length>0" :style="{'line-height':data.designOrg.length>3?'30px':''}">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.exploreOrg" :key="'4'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.designOrg&&data.designOrg.length>0">
                 <span>设计单位：</span>
-                <span class="a" v-for="(o,i) of data.designOrg" :key="'5'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.checkOrg&&data.checkOrg.length>0" :style="{'line-height':data.checkOrg.length>3?'30px':''}">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.designOrg" :key="'5'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.checkOrg&&data.checkOrg.length>0">
                 <span>监督单位：</span>
-                <span class="a" v-for="(o,i) of data.checkOrg" :key="'6'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.joinOrg&&data.joinOrg.length>0" :style="{'line-height':data.joinOrg.length>3?'30px':''}">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.checkOrg" :key="'6'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+            </div>
+            <div class="item" v-if="data.joinOrg&&data.joinOrg.length>0">
                 <span>参建单位：</span>
-                <span class="a" v-for="(o,i) of data.joinOrg" :key="'7'+i" @click="jumpCompany(o)">{{o.comName}}</span>
-            </p>
-            <p v-if="data.remark">
+                <p>
+                    <span :class="[o.comId?'a':'']" v-for="(o,i) of data.joinOrg" :key="'7'+i" @click="jumpCompany(o)">{{o.comName}}</span>
+                </p>
+                
+            </div>
+            <div class="item" v-if="data.remark">
                 <span>备注：</span>
                 {{data.remark}}
-            </p>
-            <p v-if="data.pubOrg">
+            </div>
+            <div class="item" v-if="data.pubOrg">
                 <span>发布单位：</span>
                 {{data.pubOrg}}
-            </p>
-            <p>
+            </div>
+            <div class="item">
                 <span>发布日期：</span>
                 {{data.issued}}
-            </p>
+            </div>
         </div>
     </div>
 </template>
@@ -130,14 +145,46 @@ export default {
     methods: {
         // 方法 集合
         jumpCompany(o){
-            const { href}= this.$router.resolve({
-                path: '/introduce/icbc',
-                query: {
-                    id: o.comId,
-                    name: o.comName,
-                }
-            })
-            window.open(href, '_blank')
+            if(o.comId){
+                const { href}= this.$router.resolve({
+                    path: '/introduce/icbc',
+                    query: {
+                        id: o.comId,
+                        name: o.comName,
+                    }
+                })
+                window.open(href, '_blank')
+            }else{
+                return false
+                // let that = this;
+                // this.$http({
+                //     method: 'post',
+                //     url: 'company/detail',
+                //     data: {
+                //         comName: o.comName
+                //     }
+                // }).then(res => {
+                //     if (res.data.code == 1) {
+                //         let id = res.data.data.comId;
+                //         const {
+                //             href
+                //         } = that.$router.resolve({
+                //             path: '/introduce/icbc',
+                //             query: {
+                //                 id: id,
+                //                 name: name,
+                //             }
+                //         })
+                //         window.open(href, '_blank')
+                //     } else {
+                //         that.$alert(res.data.msg)
+                //     }
+                // }).catch(err => {
+                //     that.$alert('网络链接不稳定，请重新点击');
+                //     that.tapName = false;
+                // })
+            }
+            
         }
     }
 
@@ -149,6 +196,8 @@ export default {
 h5{
     font-size: 24px;
     color: #333;
+    max-width: 80%;
+    margin: 0 auto;
     text-align: center;
     // padding: 30px 0;
     padding-bottom: 30px;
@@ -157,17 +206,24 @@ h5{
     width: 80%;
     margin: 0 auto;
     border-top: 1px solid #f2f2f2;
-    p{
+    .item{
         min-height: 50px;
-        line-height: 50px;
+        line-height: 30px;
         color: #333;
+        display: flex;
+        // flex-wrap: wrap;
+        align-items: center;
         font-size: 14px;
         border-bottom: 1px solid #f2f2f2;
+        span{
+            min-width: 70px;
+        }
         .a{
             cursor: pointer;
             display: inline-block;
             color: #EC7522;
-            margin-right: 10px
+            margin-right: 10px;
+            min-width: fit-content;
         }
     }
 }

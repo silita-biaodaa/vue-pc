@@ -195,6 +195,7 @@
 				let dataParam = JSON.stringify({});
 				getJsonData("/company/" + this.id).then(res => {
 					if (res.code == 1) {
+						this.$route.query.source=res.data.regisAddress
 						this.details = res.data
 						this.iscollect = res.data.collected
 						if (this.iscollect) {
@@ -273,9 +274,6 @@
 		},
 		created() {
 			this.source = this.$route.query.source
-			if(!this.$route.query.source){
-				this.navs.splice(5,2);
-			}
 			this.title = this.$route.query.name
 			this.gainDetail()
 			this.gainNav()
