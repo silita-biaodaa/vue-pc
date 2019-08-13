@@ -13,7 +13,7 @@
                 <div class="list-co" v-for="(el,i) in data" :key="i" >
                     <div style="width:72px">{{i+1}}</div>
                     <div>
-                        <span style="color:#FE6603;" >{{el.awardName}}</span>
+                        <span>{{el.awardName}}</span>
                     </div>
                     <div style="width:150px">{{el.issued}}</div>
                 </div>
@@ -97,7 +97,7 @@ export default {
         border-bottom: 1px solid #f2f2f2;
     }
     .list-co {
-        color: #999;
+        color: #333;
         text-align: center;
         min-height: 40px;
         display: flex;
@@ -107,6 +107,7 @@ export default {
         box-sizing: border-box; 
         border-bottom: 1px solid #f2f2f2;
         justify-content: space-between;
+        font-weight: 550;
     }
 
 }

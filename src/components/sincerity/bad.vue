@@ -15,7 +15,7 @@
                     <div style="width:72px">{{i+1}}</div>
                     <div style="width:250px">{{el.review}}</div>
                     <div style="width: calc(100% - 472px);">
-                        <span style="color:#FE6603" >{{el.projName}}</span>
+                        <span>{{el.projName}}</span>
                     </div>
                     <div style="width:150px">{{el.issued}}</div>
                     <div class="text-conent">{{el.remark}}</div>
@@ -109,7 +109,8 @@ export default {
         border-bottom: 1px solid #f2f2f2;
     }
     .list-co {
-        color: #999;
+        cursor: default;
+        color: #333;
         text-align: center;
         min-height: 40px;
         display: flex;
@@ -120,6 +121,7 @@ export default {
         border-bottom: 1px solid #f2f2f2;
         justify-content: space-between;
         position: relative;
+        font-weight: 550;
         .text-conent{
             position: absolute;
             width: 100%;

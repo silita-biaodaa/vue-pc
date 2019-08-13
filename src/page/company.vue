@@ -3,7 +3,7 @@
 		<en-search @vague='entitle' :all='total' @company='entitle'></en-search>
 		<div class="option-box">
 			<all-city :city='last' @Cnext='eval'></all-city>
-			<div class="select">
+			<!-- <div class="select">
 				<el-row>
 					<el-col :span="2" class="t-5">
 						注册资金:
@@ -23,6 +23,30 @@
 						<div class="t-btn" @click='gainList'>
 							确定
 						</div>
+					</el-col>
+				</el-row>
+			</div> -->
+			<div class="select">
+				<el-row>
+					<el-col :span="2" class="t-5">备案地区：</el-col>
+					<el-col :span="14">
+						<div class='left c-isbei t-5' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
+					</el-col>
+				</el-row>
+			</div>
+			<div class="select">
+				<el-row>
+					<el-col :span="2" class="t-5">荣誉类别：</el-col>
+					<el-col :span="14">
+						<div class='left c-isbei t-5' v-for="(el,i) in honoraryList" :key='i' :class="el.istap?'current':''" @click='honorCateFn(el)'>{{el.name}}</div>
+					</el-col>
+				</el-row>
+			</div>
+			<div class="select" v-if="honoraryList[0].istap">
+				<el-row>
+					<el-col :span="2" class="t-5">等&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级：</el-col>
+					<el-col :span="14">
+						<div class='left c-isbei t-5' v-for="(el,i) in levelList" :key='i' :class="el.istap?'current':''" @click='levelFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div>
@@ -100,22 +124,6 @@
 				</el-row>
 			</div>
 			<!-- 资质end -->
-			<!-- <div class="select">
-				<el-row>
-					<el-col :span="2" class="t-5">备案地区：</el-col>
-					<el-col :span="14">
-						<div class='left c-isbei t-5' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
-					</el-col>
-				</el-row>
-			</div>
-			<div class="select">
-				<el-row>
-					<el-col :span="2" class="t-5">荣誉类别：</el-col>
-					<el-col :span="14">
-						<div class='left c-isbei t-5' v-for="(el,i) in honoraryList" :key='i' :class="" @click='honorCateFn(el)'>{{el.name}}</div>
-					</el-col>
-				</el-row>
-			</div> -->
 		</div>
 
 		<div class="total">
@@ -301,18 +309,47 @@
 						code:'enterHunan'
 					},
 				],
-
+				honoraryList:[//荣誉类别
+					{
+						name:'安全认证',
+						istap:false,
+						code:'aqrz||省级优秀/省级合格/市级优秀/市级合格'
+					},{
+						name:'安全考评优良企业',
+						istap:false,
+						code:'reviewFine'
+					}
+				],
+				levelList:[
+					{
+						name:'全部',
+						istap:true,
+					},{
+						name:'省级优秀',
+						istap:false,
+					},{
+						name:'省级合格',
+						istap:false,
+					},{
+						name:'市级优秀',
+						istap:false,
+					},{
+						name:'市级合格',
+						istap:false,
+					},
+				],
 				data: { // 传参条件  
 					regisAddress: '', // 多地区
-					minCapital: '', // 最小资金
-					maxCapital: '', // 最大资金
+					// minCapital: '', // 最小资金
+					// maxCapital: '', // 最大资金
 					qualCode: '', // 资质
 					pageNo: 1, // 页码
 					pageSize: 20,
 					levelRank: '',
 					rangeType: '', // 资质关联
 					keyWord: this.title, // 关键字 
-					isBei:'',//备案地区
+					isBei:'hunan',//备案地区
+					honorCate:'',//荣誉类别
 				},
 			}
 		},
@@ -385,9 +422,59 @@
 			}
 		},
 		methods: {
-			isBeiFn(el){
+			isBeiFn(el){//备案地区
 				this.data.isBei=el.code;
+				sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
+			},
+			honorCateFn(el){//荣誉类别
+				el.istap=!el.istap;
+				this.honorCateEnter();
+			},
+			honorCateEnter(){//荣誉类别入参
+				let arr=[];
+				for(let x of this.honoraryList){
+					if(x.istap){
+						arr.push(x.code);
+					}
+				}
+				let str=arr.join(',');
+				this.data.honorCate=str;
+				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				this.again()
+			},
+			levelFn(el){//等级
+				if(el.name=='全部'){//全部
+					this.levelList[1].istap=false;
+					this.levelList[2].istap=false;
+					this.levelList[3].istap=false;
+					this.levelList[4].istap=false;
+					el.istap=true;
+					this.honoraryList[0].code='aqrz||省级优秀/省级合格/市级优秀/市级合格';
+				}else{
+					this.levelList[0].istap=false;
+					el.istap=!el.istap;
+					let arr=[];
+					for(let x of this.levelList){
+						if(x.istap){
+							arr.push(x.name)
+						}
+					}
+					this.honoraryList[0].code='aqrz||'+arr.join('/');
+				}
+				if(this.forLevel()==0){
+					this.levelList[0].istap=true;
+					this.honoraryList[0].code='aqrz||省级优秀/省级合格/市级优秀/市级合格';
+				}
+				this.honorCateEnter();
+			},
+			forLevel(){//反选
+				for(let x of this.levelList){
+					if(x.istap){
+						return 1
+					}
+				}
+				return 0
 			},
 			closeload(val) {
 				this.svip = val.cur
@@ -454,7 +541,7 @@
 				this.isSerach = true;
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
-				sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
+				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
 				sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
 			},
@@ -530,45 +617,45 @@
 				}
 				this.gainCompany()
 			},
-			evalsum(el) {
-				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
-						this.svip = true
-						this.modalHelper.afterOpen();
-					} else {
-						if (!this.isajax) {
-							return
-						}
-						this.rank = 0
-						this.low = '',
-							this.high = '',
-							this.start = el.s,
-							this.end = el.e
-						this.data.minCapital = this.start
-						this.data.maxCapital = this.end
-						this.allstr = this.allarr.join(",")
-						this.data.qualCode = this.allstr
-						this.isajax = false;
-						this.data.pageNo = 1
-						// this.loading = true
-						sessionStorage.setItem('Rank', '0') // 页面刷新用于判断资金值得从哪里来
-						sessionStorage.setItem('comselect', JSON.stringify(this.data))
-						this.again()
-					}
-				} else {
-					this.$confirm(this.qjTipTxt, '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
-						this.$router.push('/logo')
-					}).catch(() => {
+			// evalsum(el) {
+			// 	if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+			// 		if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
+			// 			this.svip = true
+			// 			this.modalHelper.afterOpen();
+			// 		} else {
+			// 			if (!this.isajax) {
+			// 				return
+			// 			}
+			// 			this.rank = 0
+			// 			this.low = '',
+			// 				this.high = '',
+			// 				this.start = el.s,
+			// 				this.end = el.e
+			// 			this.data.minCapital = this.start
+			// 			this.data.maxCapital = this.end
+			// 			this.allstr = this.allarr.join(",")
+			// 			this.data.qualCode = this.allstr
+			// 			this.isajax = false;
+			// 			this.data.pageNo = 1
+			// 			// this.loading = true
+			// 			sessionStorage.setItem('Rank', '0') // 页面刷新用于判断资金值得从哪里来
+			// 			sessionStorage.setItem('comselect', JSON.stringify(this.data))
+			// 			this.again()
+			// 		}
+			// 	} else {
+			// 		this.$confirm(this.qjTipTxt, '提示', {
+			// 			confirmButtonText: '确定',
+			// 			cancelButtonText: '取消',
+			// 			type: 'warning'
+			// 		}).then(() => {
+			// 			this.$router.push('/logo')
+			// 		}).catch(() => {
 
-					});
-				}
+			// 		});
+			// 	}
 
 
-			},
+			// },
 			gainList() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
 					if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
@@ -583,9 +670,9 @@
 						// this.loading = true
 						this.allstr = this.allarr.join(",")
 						this.data.qualCode = this.allstr
-						this.data.minCapital = this.low
-						this.data.maxCapital = this.high
-						sessionStorage.setItem('Rank', '1') // 页面刷新用于判断资金值得从哪里来
+						// this.data.minCapital = this.low
+						// this.data.maxCapital = this.high
+						// sessionStorage.setItem('Rank', '1') // 页面刷新用于判断资金值得从哪里来
 						sessionStorage.setItem('comselect', JSON.stringify(this.data))
 						this.again()
 					}
@@ -818,7 +905,7 @@
 				this.data.rangeType = el.key
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
-				sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
+				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
 				sessionStorage.setItem('comselect', JSON.stringify(this.data))
 			},
 			Goto(val) {
@@ -861,7 +948,7 @@
 				this.isajax = false;
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
-				sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
+				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
 				sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.gainCompany()
 				// 下面得是废代码
@@ -1032,6 +1119,28 @@
 			// this.data.regisAddress = this.state
 			if (sessionStorage.getItem('pageNo')) {
 				this.data.pageNo = sessionStorage.getItem('pageNo') * 1;
+			}
+			if(sessionStorage.getItem("comselect")){
+				let data=JSON.parse(sessionStorage.getItem("comselect"));
+				if(data.honorCate.indexOf('reviewFine')>-1){
+					this.honoraryList[1].istap=true
+				}
+				if(data.honorCate.indexOf('aqrz')>-1){
+					this.honoraryList[0].istap=true
+					let arr=data.honorCate.split(',')[0].split('||')[1].split('/');
+					console.log(arr);
+					if(arr.length!=4){
+						this.levelList[0].istap=false;
+						for(let x of arr){
+							for(let y of this.levelList){
+								if(x==y.name){
+									y.istap=true
+									break
+								}
+							}
+						}
+					}
+				}
 			}
 			this.data.keyWord = localStorage.getItem('title') ? localStorage.getItem('title') : ''
 			this.toTop()
