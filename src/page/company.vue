@@ -52,7 +52,7 @@
 			</div>
 			<!-- 资质 -->
 			<div class="select">
-				资质要求:&nbsp
+				<span>资质要求:</span>&nbsp&nbsp
 				<el-select v-model="companyQual" placeholder="选择资质类型" clearable @change='first'>
 					<el-option v-for="item in companyQuals" :key="item.name" :label="item.name" :value="item.code">
 					</el-option>
@@ -419,12 +419,18 @@
 				this.data.pageNo = 1
 				this.isajax = false;
 				this.again()
+			},
+			data:{
+				deep:true,
+				handler(val,old){
+					sessionStorage.setItem('comselect',JSON.stringify(val));
+				}
 			}
 		},
 		methods: {
 			isBeiFn(el){//备案地区
 				this.data.isBei=el.code;
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
 			},
 			honorCateFn(el){//荣誉类别
@@ -440,7 +446,7 @@
 				}
 				let str=arr.join(',');
 				this.data.honorCate=str;
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
 			},
 			levelFn(el){//等级
@@ -487,11 +493,7 @@
 			gainCompany() {
 				let data = {}
 				let that = this;
-				if (sessionStorage.getItem('comselect')) {
-					data = JSON.parse(sessionStorage.getItem("comselect"))
-				} else {
-					data = this.data
-				}
+				data = this.data
 				if (localStorage.getItem('permissions')) {
 					data.isVip = 1
 				} else {
@@ -542,7 +544,7 @@
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
 				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
 			},
 			again() {
@@ -599,11 +601,17 @@
 				if (!this.isajax) {
 					return
 				}
+				//每次切换省份，重置备案地区等值
+				this.data.honorCate='';
+				if(val.cur=='湖南省'){
+					this.data.isBei='hunan';
+				}else{
+					this.data.isBei='';
+				}
 				this.companylisy = [];
-				let data = this.data;
 				this.data.pageNo = 1;
 				this.isajax = false;
-				data.regisAddress = val.cur
+				this.data.regisAddress = val.cur
 				this.allstr = this.allarr.join(",");
 				this.data.qualCode = this.allstr;
 				// if (this.rank == 0) { // 判断注册资金是否获取方式
@@ -867,7 +875,7 @@
 				this.threepush()
 			},
 			threeqss(val) {
-				if (this.threett == this.twott || this.threett == this.grade) {
+				if (this.threestr == this.firststr || this.threestr == this.twostr) {
 					this.threett = ''
 					this.$confirm('当前条件已选择，请重新选择资质条件', '提示', {
 						confirmButtonText: '确定',
@@ -906,7 +914,7 @@
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
 				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 			},
 			Goto(val) {
 				// this.current = val.cur;
@@ -919,7 +927,7 @@
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
 				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				// if(this.rank == 0 ) {
 				this.gainCompany()
 				// } else {
@@ -949,7 +957,7 @@
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
 				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
-				sessionStorage.setItem('comselect', JSON.stringify(this.data))
+				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.gainCompany()
 				// 下面得是废代码
 
@@ -1120,6 +1128,7 @@
 			if (sessionStorage.getItem('pageNo')) {
 				this.data.pageNo = sessionStorage.getItem('pageNo') * 1;
 			}
+			this.data.keyWord = localStorage.getItem('title') ? localStorage.getItem('title') : ''
 			if(sessionStorage.getItem("comselect")){
 				let data=JSON.parse(sessionStorage.getItem("comselect"));
 				if(data.honorCate.indexOf('reviewFine')>-1){
@@ -1141,8 +1150,8 @@
 						}
 					}
 				}
+				this.data=data;
 			}
-			this.data.keyWord = localStorage.getItem('title') ? localStorage.getItem('title') : ''
 			this.toTop()
 			this.gainCompany()
 		},
