@@ -19,7 +19,7 @@
 			</div>
 			<div class="certifi-in" v-for="(el,i) in list" :key="i">
 				<div style="width:50px;">{{i + 1 }}</div>
-				<div style="width:260px;textAlign: left;">{{el.unitOrg}}</div>
+				<div style="width:260px;">{{el.unitOrg}}</div>
 				<div style="width:253px;" class="box-p">{{el.proName}}</div>
 				<!-- <div style="width:100px;" >
            {{el.proOrg}}

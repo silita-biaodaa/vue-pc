@@ -706,6 +706,12 @@
 			},
 			twof() {
 				this.two = false
+				this.twoQual='';
+				this.twoarr=[];
+				this.twostr='';
+				this.twot='';
+				this.twott='';
+				this.twotts=[];
 				this.allarr.splice(1, 1);
 				if (!this.three) {
 					this.five = false
@@ -713,6 +719,12 @@
 			},
 			threef() {
 				this.three = false
+				this.threeQual='';
+				this.threearr=[];
+				this.threestr='';
+				this.threet='';
+				this.threett='';
+				this.threetts=[];
 				if (this.allarr.length == 3) {
 					this.allarr.splice(2, 1);
 				} else if (this.allarr.length == 2) {
