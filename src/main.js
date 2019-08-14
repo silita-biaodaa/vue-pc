@@ -5,16 +5,16 @@ import App from './App'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import "babel-polyfill"
+// import "babel-polyfill"
 Vue.use(ElementUI);
-import moment from 'moment'
-Vue.prototype.$moment = moment;
+// import moment from 'moment'
+// Vue.prototype.$moment = moment;
 import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
-import 'babel-polyfill'
-import funcom from './util/util'
-Vue.prototype.funcom = funcom
+// import 'babel-polyfill'
+// import funcom from './util/util'
+// Vue.prototype.funcom = funcom
 
 Vue.config.productionTip = false
 import  companyJump  from '@/components/companyJump';

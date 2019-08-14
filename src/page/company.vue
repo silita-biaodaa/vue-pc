@@ -26,7 +26,7 @@
 					</el-col>
 				</el-row>
 			</div> -->
-			<div class="select">
+			<div class="select" v-if="data.regisAddress=='湖南省'">
 				<el-row>
 					<el-col :span="2" class="t-5">备案地区：</el-col>
 					<el-col :span="14">
@@ -34,7 +34,7 @@
 					</el-col>
 				</el-row>
 			</div>
-			<div class="select">
+			<div class="select" v-if="data.regisAddress=='湖南省'">
 				<el-row>
 					<el-col :span="2" class="t-5">荣誉类别：</el-col>
 					<el-col :span="14">
@@ -218,44 +218,44 @@
 				isajax: false,
 				loading: true,
 				isSerach: false,
-				sums: [{
-						name: '全部',
-						i: 0,
-						s: '0',
-						e: ''
-					},
-					{
-						name: '500万-1000万',
-						i: 1,
-						s: '500',
-						e: '1000'
-					},
-					{
-						name: '1000万-5000万',
-						i: 0,
-						s: '1000',
-						e: '5000'
-					},
-					{
-						name: '5000万-10000万',
-						i: 0,
-						s: '5000',
-						e: '10000'
-					},
-					{
-						name: '10000万以上',
-						i: 0,
-						s: '10000',
-						e: ''
-					}
-				],
+				// sums: [{
+				// 		name: '全部',
+				// 		i: 0,
+				// 		s: '0',
+				// 		e: ''
+				// 	},
+				// 	{
+				// 		name: '500万-1000万',
+				// 		i: 1,
+				// 		s: '500',
+				// 		e: '1000'
+				// 	},
+				// 	{
+				// 		name: '1000万-5000万',
+				// 		i: 0,
+				// 		s: '1000',
+				// 		e: '5000'
+				// 	},
+				// 	{
+				// 		name: '5000万-10000万',
+				// 		i: 0,
+				// 		s: '5000',
+				// 		e: '10000'
+				// 	},
+				// 	{
+				// 		name: '10000万以上',
+				// 		i: 0,
+				// 		s: '10000',
+				// 		e: ''
+				// 	}
+				// ],
 				two: false,
 				three: false,
-				rank: 0,
-				start: '0',
-				end: '',
-				low: '',
-				high: '',
+				// rank: 0,
+				// start: '0',
+				// end: '',
+				// low: '',
+				// high: '',
 				companyQuals: [],
 				companyQual: '',
 				majors: [],
@@ -606,15 +606,15 @@
 				data.regisAddress = val.cur
 				this.allstr = this.allarr.join(",");
 				this.data.qualCode = this.allstr;
-				if (this.rank == 0) { // 判断注册资金是否获取方式
-					data.minCapital = this.start
-					data.maxCapital = this.end
-					sessionStorage.setItem('comselect', JSON.stringify(data))
-				} else {
-					data.minCapital = this.low
-					data.maxCapital = this.high
-					sessionStorage.setItem('comselect', JSON.stringify(data))
-				}
+				// if (this.rank == 0) { // 判断注册资金是否获取方式
+				// 	data.minCapital = this.start
+				// 	data.maxCapital = this.end
+				// 	sessionStorage.setItem('comselect', JSON.stringify(data))
+				// } else {
+				// 	data.minCapital = this.low
+				// 	data.maxCapital = this.high
+				// 	sessionStorage.setItem('comselect', JSON.stringify(data))
+				// }
 				this.gainCompany()
 			},
 			// evalsum(el) {
@@ -656,38 +656,38 @@
 
 
 			// },
-			gainList() {
-				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
-						this.svip = true
-						this.modalHelper.afterOpen();
-					} else {
-						this.data.pageNo = 1
-						this.rank = 1
-						this.start = ''
-						this.end = ''
-						this.isajax = false;
-						// this.loading = true
-						this.allstr = this.allarr.join(",")
-						this.data.qualCode = this.allstr
-						// this.data.minCapital = this.low
-						// this.data.maxCapital = this.high
-						// sessionStorage.setItem('Rank', '1') // 页面刷新用于判断资金值得从哪里来
-						sessionStorage.setItem('comselect', JSON.stringify(this.data))
-						this.again()
-					}
-				} else {
-					this.$confirm(this.qjTipTxt, '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
-						this.$router.push('/logo')
-					}).catch(() => {
+			// gainList() {
+			// 	if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+			// 		if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
+			// 			this.svip = true
+			// 			this.modalHelper.afterOpen();
+			// 		} else {
+			// 			this.data.pageNo = 1
+			// 			// this.rank = 1
+			// 			// this.start = ''
+			// 			// this.end = ''
+			// 			this.isajax = false;
+			// 			// this.loading = true
+			// 			this.allstr = this.allarr.join(",")
+			// 			this.data.qualCode = this.allstr
+			// 			// this.data.minCapital = this.low
+			// 			// this.data.maxCapital = this.high
+			// 			// sessionStorage.setItem('Rank', '1') // 页面刷新用于判断资金值得从哪里来
+			// 			sessionStorage.setItem('comselect', JSON.stringify(this.data))
+			// 			this.again()
+			// 		}
+			// 	} else {
+			// 		this.$confirm(this.qjTipTxt, '提示', {
+			// 			confirmButtonText: '确定',
+			// 			cancelButtonText: '取消',
+			// 			type: 'warning'
+			// 		}).then(() => {
+			// 			this.$router.push('/logo')
+			// 		}).catch(() => {
 
-					});
-				}
-			},
+			// 		});
+			// 	}
+			// },
 			transt() {
 				this.five = true
 				if (this.two) {
@@ -714,14 +714,14 @@
 					this.five = false
 				}
 			},
-			fade() {
-				this.rank = 1
-				this.start = ''
-				this.end = ''
-				this.data.pageNo = 1
-				this.isajax = false;
-				// this.again()
-			},
+			// fade() {
+			// 	this.rank = 1
+			// 	this.start = ''
+			// 	this.end = ''
+			// 	this.data.pageNo = 1
+			// 	this.isajax = false;
+			// 	// this.again()
+			// },
 			ftwo() {
 				this.two = false
 			},
@@ -918,7 +918,7 @@
 				// this.loading = true
 				this.allstr = this.allarr.join(",")
 				this.data.qualCode = this.allstr
-				sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
+				// sessionStorage.setItem('Rank', this.rank) // 页面刷新用于判断资金值得从哪里来
 				sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				// if(this.rank == 0 ) {
 				this.gainCompany()
@@ -1017,20 +1017,20 @@
 					this.last = {
             source:this.data.regisAddress
           }
-					if (sessionStorage.getItem('Rank')) { // 注册资金的选项
-						let isRank = sessionStorage.getItem('Rank')
-						if (isRank == 0) {
-							this.start = this.data.minCapital
-							this.end = this.data.maxCapital
-							this.low = ''
-							this.high = ''
-						} else {
-							this.low = this.data.minCapital
-							this.high = this.data.maxCapital
-							this.start = ''
-							this.end = ''
-						}
-					}
+					// if (sessionStorage.getItem('Rank')) { // 注册资金的选项
+					// 	let isRank = sessionStorage.getItem('Rank')
+					// 	if (isRank == 0) {
+					// 		this.start = this.data.minCapital
+					// 		this.end = this.data.maxCapital
+					// 		this.low = ''
+					// 		this.high = ''
+					// 	} else {
+					// 		this.low = this.data.minCapital
+					// 		this.high = this.data.maxCapital
+					// 		this.start = ''
+					// 		this.end = ''
+					// 	}
+					// }
 				}
 			},
 			GqualCode() { // 资质得填充
@@ -1148,7 +1148,7 @@
 		},
 		beforeDestroy() {
 			sessionStorage.removeItem('comselect');
-			sessionStorage.removeItem('Rank');
+			// sessionStorage.removeItem('Rank');
 		},
 	}
 </script>
@@ -1214,39 +1214,39 @@
 				margin-top: 5px;
 			}
 
-			.ttt {
-				display: flex;
+			// .ttt {
+			// 	display: flex;
 
-				.el-input {
-					width: 30%;
-				}
+			// 	.el-input {
+			// 		width: 30%;
+			// 	}
 
-				.el-input__inner {
-					height: 30px;
-					line-height: 30px;
-				}
+			// 	.el-input__inner {
+			// 		height: 30px;
+			// 		line-height: 30px;
+			// 	}
 
-				.in-line {
-					width: 26px;
-					height: 1px;
-					background-color: #999;
-					margin: auto 14px;
-				}
+			// 	.in-line {
+			// 		width: 26px;
+			// 		height: 1px;
+			// 		background-color: #999;
+			// 		margin: auto 14px;
+			// 	}
 
-				.t-btn {
-					width: 50px;
-					height: 26px;
-					text-align: center;
-					line-height: 26px;
-					margin-left: 30px;
-					background-color: #FE6603;
-					font-size: 14px;
-					color: #fff;
-					border-radius: 5px;
-					margin-top: 2px;
-					cursor: pointer;
-				}
-			}
+			// 	.t-btn {
+			// 		width: 50px;
+			// 		height: 26px;
+			// 		text-align: center;
+			// 		line-height: 26px;
+			// 		margin-left: 30px;
+			// 		background-color: #FE6603;
+			// 		font-size: 14px;
+			// 		color: #fff;
+			// 		border-radius: 5px;
+			// 		margin-top: 2px;
+			// 		cursor: pointer;
+			// 	}
+			// }
 
 			.el-select {
 				width: 225px;
@@ -1311,9 +1311,10 @@
 				line-height: 25px;
 				text-align: center;
 				font-size: 14px;
-				margin-right: 30px;
+				margin-right: 15px;
 				cursor: pointer;
 				padding: 0 9px;
+				color: #666;
 			}
 		}
 
