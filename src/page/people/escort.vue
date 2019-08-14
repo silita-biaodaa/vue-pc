@@ -68,9 +68,8 @@
 			}
 		},
 		created() {
-			this.innerid = this.$route.query.innerid
-			console.log(this.$route.query.innerid);
-
+			let data=JSON.parse(sessionStorage.getItem('peopleData'));
+			this.innerid = data.innerid
 			this.gainList()
 		},
 		components: {}

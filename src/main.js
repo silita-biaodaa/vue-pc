@@ -3,24 +3,26 @@
 import Vue from 'vue'
 import App from './App'
 
-import {Select,Option,Input,Checkbox,Button,Carousel,Icon,Row,Col,MessageBox,CarouselItem,Dropdown,DropdownMenu,DropdownItem,Loading,DatePicker} from 'element-ui';
+// import {Select,Option,Input,Checkbox,Button,Carousel,Icon,Row,Col,MessageBox,CarouselItem,Dropdown,DropdownMenu,DropdownItem,Loading,DatePicker} from 'element-ui';
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 // import "babel-polyfill"
-Vue.use(Row);
-Vue.use(Col);
-Vue.use(Select);
-Vue.use(Option);
-Vue.use(Input);
-Vue.use(Checkbox);
-Vue.use(Button);
-Vue.use(Carousel);
-Vue.use(Icon);
-Vue.use(CarouselItem);
-Vue.use(Dropdown);
-Vue.use(DropdownMenu);
-Vue.use(DropdownItem);
-Vue.use(Loading.directive);
-Vue.use(DatePicker);
+// Vue.use(Row);
+// Vue.use(Col);
+// Vue.use(Select);
+// Vue.use(Option);
+// Vue.use(Input);
+// Vue.use(Checkbox);
+// Vue.use(Button);
+// Vue.use(Carousel);
+// Vue.use(Icon);
+// Vue.use(CarouselItem);
+// Vue.use(Dropdown);
+// Vue.use(DropdownMenu);
+// Vue.use(DropdownItem);
+// Vue.use(Loading.directive);
+// Vue.use(DatePicker);
 // import moment from 'moment'
 // Vue.prototype.$moment = moment;
 import sha1 from 'sha1'
@@ -29,8 +31,8 @@ import router from './router'
 // import 'babel-polyfill'
 import funcom from './util/util'
 Vue.prototype.funcom = funcom
-Vue.prototype.$alert = MessageBox.alert;
-Vue.prototype.$confirm = MessageBox.confirm;
+// Vue.prototype.$alert = MessageBox.alert;
+// Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false
 import  companyJump  from '@/components/companyJump';
 import  navPage  from '@/components/paging';

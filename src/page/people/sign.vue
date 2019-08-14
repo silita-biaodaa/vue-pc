@@ -50,13 +50,6 @@
 	export default {
 		data() {
 			return {
-				name: '',
-				sex: '',
-				idCard: '',
-				certNo: '',
-				comId: '',
-				comName: '',
-				tabCode: '',
 				list: [],
 				total: 0,
 				ishow: false
@@ -64,16 +57,9 @@
 		},
 		methods: {
 			gainList() {
-				persond({
-					certNo: this.certNo,
-					comId: this.comId,
-					comName: this.comName,
-					idCard: this.idCard,
-					sex: this.sex,
-					tabCode: this.tabCode,
-					tabType: 'registerCert',
-					name: this.name
-				}).then(res => {
+				let data=JSON.parse(sessionStorage.getItem('peopleData'));
+				data.tabType='registerCert';
+				persond(data).then(res => {
 					if (res.code == 1) {
 						this.total = res.data.personQualificat.length
 						this.list = res.data.personQualificat
@@ -88,13 +74,6 @@
 			}
 		},
 		created() {
-			this.name = this.$route.query.name
-			this.idCard = this.$route.query.idCard
-			this.sex = this.$route.query.sex
-			this.certNo = this.$route.query.certNo
-			this.comId = this.$route.query.comId
-			this.comName = this.$route.query.comName
-			this.tabCode = this.$route.query.tabCode
 			this.gainList()
 		},
 		components: {}

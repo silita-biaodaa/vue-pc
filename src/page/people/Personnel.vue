@@ -89,16 +89,6 @@
 				}
 				this.$router.push({
 					path: el.to,
-					query: {
-						certNo: this.certNo,
-						comId: this.comId,
-						comName: this.comName,
-						idCard: this.idCard,
-						sex: this.sex,
-						tabCode: this.tabCode,
-						name: this.name,
-						innerid: this.innerid
-					}
 				})
 				this.tab.forEach(el => {
 					el.i = false
@@ -124,14 +114,10 @@
 			}
 		},
 		created() {
-			this.name = this.$route.query.name
-			this.idCard = this.$route.query.idCard
-			this.sex = this.$route.query.sex
-			this.certNo = this.$route.query.certNo
-			this.comId = this.$route.query.comId
-			this.comName = this.$route.query.comName
-			this.tabCode = this.$route.query.tabCode
-			this.innerid = this.$route.query.innerid
+			let data=JSON.parse(sessionStorage.getItem('peopleData'));
+			this.name = data.name
+			this.idCard = data.idCard
+			this.sex = data.sex
 			this.search()
 		},
 		components: {

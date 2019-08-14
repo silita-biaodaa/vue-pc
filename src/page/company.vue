@@ -26,7 +26,7 @@
 					</el-col>
 				</el-row>
 			</div> -->
-			<div class="select" v-if="data.regisAddress=='湖南省'">
+			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
 				<el-row>
 					<el-col :span="2" class="t-5">备案地区：</el-col>
 					<el-col :span="14">
@@ -34,7 +34,7 @@
 					</el-col>
 				</el-row>
 			</div>
-			<div class="select" v-if="data.regisAddress=='湖南省'">
+			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
 				<el-row>
 					<el-col :span="2" class="t-5">荣誉类别：</el-col>
 					<el-col :span="14">
@@ -42,7 +42,7 @@
 					</el-col>
 				</el-row>
 			</div>
-			<div class="select" v-if="honoraryList[0].istap">
+			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1&&honoraryList[0].istap">
 				<el-row>
 					<el-col :span="2" class="t-5">等&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级：</el-col>
 					<el-col :span="14">
