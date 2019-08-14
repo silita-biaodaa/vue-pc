@@ -429,11 +429,35 @@
 		},
 		methods: {
 			isBeiFn(el){//备案地区
+				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+					this.$confirm(this.qjTipTxt, '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						this.$router.push('/logo')
+					}).catch(() => {
+
+					});
+					return false
+				}
 				this.data.isBei=el.code;
 				// sessionStorage.setItem('comselect', JSON.stringify(this.data))
 				this.again()
 			},
 			honorCateFn(el){//荣誉类别
+				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+					this.$confirm(this.qjTipTxt, '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						this.$router.push('/logo')
+					}).catch(() => {
+
+					});
+					return false
+				}
 				el.istap=!el.istap;
 				this.honorCateEnter();
 			},
@@ -450,6 +474,18 @@
 				this.again()
 			},
 			levelFn(el){//等级
+				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+					this.$confirm(this.qjTipTxt, '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						this.$router.push('/logo')
+					}).catch(() => {
+
+					});
+					return false
+				}
 				if(el.name=='全部'){//全部
 					this.levelList[1].istap=false;
 					this.levelList[2].istap=false;
@@ -603,7 +639,7 @@
 				}
 				//每次切换省份，重置备案地区等值
 				this.data.honorCate='';
-				if(val.cur=='湖南省'){
+				if(val.cur.indexOf('湖南省')>-1){
 					this.data.isBei='hunan';
 				}else{
 					this.data.isBei='';
@@ -1332,7 +1368,7 @@
 				line-height: 25px;
 				text-align: center;
 				font-size: 14px;
-				margin-right: 15px;
+				margin-right: 5px;
 				cursor: pointer;
 				padding: 0 9px;
 				color: #666;

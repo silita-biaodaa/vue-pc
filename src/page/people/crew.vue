@@ -224,20 +224,22 @@
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
+						let data= {
+							certNo: el.certNo,
+							comId: el.comId,
+							comName: el.comName,
+							idCard: el.idCard,
+							sex: el.sex,
+							tabCode: el.tabCode,
+							name: el.name,
+							innerid: el.innerid,
+							sealNo:el.sealNo
+						}
+						sessionStorage.setItem('peopleData',JSON.stringify(data));
 						const {
 							href
 						} = this.$router.resolve({
 							path: '/personnel/escort',
-							query: {
-								certNo: el.certNo,
-								comId: el.comId,
-								comName: el.comName,
-								idCard: el.idCard,
-								sex: el.sex,
-								tabCode: el.tabCode,
-								name: el.name,
-								innerid: el.innerid
-							}
 						})
 						window.open(href, '_blank', )
 					}

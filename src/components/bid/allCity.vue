@@ -114,7 +114,7 @@ export default {
               this.$emit('Cnext', {cur:(this.area + '||' + this.cstr)})
            }
         } else {
-          this.all.splice(this.all.indexOf(el),1)
+          this.all.splice(this.all.indexOf(el.name),1)
           this.cstr = this.all.join(',')
           if(this.all.length == 0) {
              this.all = []
