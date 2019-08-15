@@ -429,7 +429,7 @@
 		},
 		methods: {
 			isBeiFn(el){//备案地区
-				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+				if (!sessionStorage.getItem('xtoken')&&!localStorage.getItem('Xtoken')){
 					this.$confirm(this.qjTipTxt, '提示', {
 						confirmButtonText: '确定',
 						cancelButtonText: '取消',
@@ -446,7 +446,7 @@
 				this.again()
 			},
 			honorCateFn(el){//荣誉类别
-				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+				if (!sessionStorage.getItem('xtoken')&&!localStorage.getItem('Xtoken')){
 					this.$confirm(this.qjTipTxt, '提示', {
 						confirmButtonText: '确定',
 						cancelButtonText: '取消',
@@ -474,7 +474,7 @@
 				this.again()
 			},
 			levelFn(el){//等级
-				if (!sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')){
+				if (!sessionStorage.getItem('xtoken')&&!localStorage.getItem('Xtoken')){
 					this.$confirm(this.qjTipTxt, '提示', {
 						confirmButtonText: '确定',
 						cancelButtonText: '取消',
