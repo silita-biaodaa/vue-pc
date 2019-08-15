@@ -28,25 +28,25 @@
 			</div> -->
 			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
 				<el-row>
-					<el-col :span="2" class="t-5">备案地区：</el-col>
+					<el-col :span="2">备案地区：</el-col>
 					<el-col :span="14">
-						<div class='left c-isbei t-5' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
+						<div class='left c-isbei' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div>
 			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
 				<el-row>
-					<el-col :span="2" class="t-5">荣誉类别：</el-col>
+					<el-col :span="2" >荣誉类别：</el-col>
 					<el-col :span="14">
-						<div class='left c-isbei t-5' v-for="(el,i) in honoraryList" :key='i' :class="el.istap?'current':''" @click='honorCateFn(el)'>{{el.name}}</div>
+						<div class='left c-isbei' v-for="(el,i) in honoraryList" :key='i' :class="el.istap?'current':''" @click='honorCateFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div>
 			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1&&honoraryList[0].istap">
 				<el-row>
-					<el-col :span="2" class="t-5">等&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级：</el-col>
+					<el-col :span="2">等&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级：</el-col>
 					<el-col :span="14">
-						<div class='left c-isbei t-5' v-for="(el,i) in levelList" :key='i' :class="el.istap?'current':''" @click='levelFn(el)'>{{el.name}}</div>
+						<div class='left c-isbei' v-for="(el,i) in levelList" :key='i' :class="el.istap?'current':''" @click='levelFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div>
@@ -1369,6 +1369,7 @@
 				text-align: center;
 				font-size: 14px;
 				margin-right: 5px;
+				margin-bottom: 6px;
 				cursor: pointer;
 				padding: 0 9px;
 				color: #666;

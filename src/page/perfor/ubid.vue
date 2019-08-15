@@ -384,7 +384,7 @@
 				border: 1px solid rgba(242, 242, 242, 1);
 				padding: 10px;
 				box-sizing: border-box;
-
+				text-align: center;
 				.auto-pop {
 					overflow-x: auto;
 					height: 420px;
