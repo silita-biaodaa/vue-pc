@@ -294,5 +294,14 @@ new Vue({
     }).catch(req =>{
       console.log(req);
     })
+    if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+      this.$http({
+        method:'post',
+        url:'/foundation/version',
+        data:{
+          loginChannel:'1003'
+        }
+      }).then();
+    }
   }
 })

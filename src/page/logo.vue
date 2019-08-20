@@ -107,6 +107,13 @@
 				}).then(res => {
 					this.loading = false;
 					if (res.code == 1) {
+						that.$http({
+							method:'post',
+							url:'/foundation/version',
+							data:{
+							loginChannel:'1003'
+							}
+						}).then();
 						let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
 						sessionStorage.setItem('ip', res.data.pkid)
 						localStorage.setItem('phoneNo', res.data.phoneNo)
