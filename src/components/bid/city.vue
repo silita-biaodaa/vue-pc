@@ -27,6 +27,9 @@
 		},
 		methods: {
 			evalclass(el) {
+				if(!this.$parent.isajax){
+					return false
+				}
 				if (el.code == '') {
 					this.citys = []
 					this.city.forEach(el => {

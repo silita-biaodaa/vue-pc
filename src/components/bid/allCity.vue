@@ -110,6 +110,9 @@
 				})
 			},
 			level(el) {
+				if(!this.$parent.isajax){
+					return false
+				}
 				if (el.name == '全部') {
 					this.all = []
 					this.cstr = '全部'
