@@ -207,9 +207,6 @@ figcaption:focus {
 .el-dropdown-menu {
   z-index: 2050 !important;
 }
-.synth .el-input {
-  width: 300px;
-}
 .synth .el-date-editor--daterange.el-input,
 .synth .el-date-editor--daterange.el-input__inner,
 .synth .el-date-editor--timerange.el-input,

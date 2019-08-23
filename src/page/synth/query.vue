@@ -10,56 +10,15 @@
 				</el-col>
 			</el-row>
 		</div>
-
-		<div class="select">
-			<el-row>
-				<el-col :span='2' class="titu-line">资质要求:</el-col>
-				<el-col :span='22'>
-					<!-- 资质关系  aptitude.vue -->
-					<q-titu @group='gainCo' :chan='fi'></q-titu>
-				</el-col>
-			</el-row>
-		</div>
-
-		<div class="select" v-for="(el,i) in aptitude" :key="i">
-			<el-row>
-				<el-col :span='2' class="titu-line blank">资质要求:</el-col>
-				<el-col :span='19'>
-					<!-- 资质关系  aptitude.vue -->
-					<q-titu @group='gainCode' :index='i' :clear='el.same'></q-titu>
-				</el-col>
-				<el-col :span='3' class="titu-line titu-del" @click.native="delap(i)">删除</el-col>
-			</el-row>
-		</div>
-
-		<div class="select se-btn">
-			<el-row>
-				<el-col :span='2' class="titu-line blank">资质要求:</el-col>
-				<el-col :span='22'>
-					<div class="query-btn" @click="addap">
-						<i class="el-icon-plus"></i>增加条件
-					</div>
-				</el-col>
-			</el-row>
-		</div>
-
-		<div class="select" v-show='five'>
-			<el-row>
-				<el-col :span="2" class="t-5">资质关系:</el-col>
-				<el-col :span="14">
-					<div class='left c-rela t-5' v-for="(el,i) in rela" :key='i' :class="el.key == rangeType? 'current':''" @click='crela(el)'>{{el.name}}</div>
-				</el-col>
-			</el-row>
-		</div>
-
-		<div class="select">
+		<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn'></v-screenzz>
+		<div class="select" style="margin-top: 20px;">
 			<el-row>
 				<el-col :span='2' class="se-center">业绩要求:</el-col>
 				<el-col :span='22'>
 					<div class="se-per left">
 						<div class="m-17">
 							业绩平台:&nbsp&nbsp&nbsp
-							<el-select v-model="terrace" placeholder="请选择业绩平台">
+							<el-select v-model="terrace" placeholder="请选择业绩平台" style="width:300px">
 								<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
 								</el-option>
 							</el-select>
@@ -70,10 +29,8 @@
 							</div>
 							<div class="contract">
 								<el-date-picker v-model="stateDate" type="date" placeholder="起始时间" value-format="yyyy-MM-dd"> </el-date-picker>
-								<!-- <input type="text" placeholder="最低金额(万)"  v-model="min"  class="contract-put" > -->
 								<span>至</span>
 								<el-date-picker v-model="endDate" type="date" placeholder="结束时间" value-format="yyyy-MM-dd"> </el-date-picker>
-								<!-- <input type="text" placeholder="最高金额(万)"  v-model="max"  class="contract-put" > -->
 							</div>
 						</div>
 					</div>
@@ -107,6 +64,7 @@
 	import {
 		report
 	} from '@/api/index';
+	import screenZZ from '@/components/screenZZ'
 	export default {
 		data() {
 			return {
@@ -224,38 +182,19 @@
 				name: '',
 				min: '',
 				max: '',
-				first: '',
-				fi: 1,
-				apfisrt: false,
-				aptitude: [
-
-				],
-				all: [],
 				allstr: '',
-				rangeType: 'and',
-				rela: [{
-						name: '和',
-						key: 'and'
-					},
-					{
-						name: '或',
-						key: 'or'
-					}
-				],
-				five: false,
+				companyQuals:[]
 			}
 		},
 		props: {
 			state: ''
 		},
+		components:{
+			'v-screenzz':screenZZ
+		},
 		watch: {
 			state(val) {
 				this.area = val
-				this.aptitude = []
-				this.first = ''
-				this.apfisrt = false
-				this.five = false
-				this.fi = this.fi + 1
 				this.stateDate = ''
 				this.endDate = ''
 				this.name = ''
@@ -264,120 +203,24 @@
 			}
 		},
 		methods: {
+			gainFilter() {
+				let data = JSON.parse(sessionStorage.getItem('filter'));
+				this.companyQuals = data.comQua;
+			},
+			screenzzFn(val){//接受资质变化抛出的值
+				this.allstr=val.str;
+				this.rangeType=val.type;
+				this.query()
+			},
 			charea(el) {
-				this.fi = this.fi + '1'
 				this.area = el.name
-				this.aptitude = []
-				this.first = ''
-				this.five = false
-				this.apfisrt = false
-				this.fi = this.fi + 1
 				this.stateDate = ''
 				this.endDate = ''
 				this.name = ''
 				this.min = ''
 				this.max = ''
 			},
-			crela(el) {
-				this.rangeType = el.key
-			},
-			gainCo(val) {
-				let sam = true
-				if (this.aptitude.length > 0) {
-					for (let i = 0; i < this.aptitude.length; i++) {
-						if (this.aptitude[i].value == val.cur && val.cur != '') {
-							this.$confirm('资质条件重复，请重新选择', '提示', {
-								type: 'warning',
-								showCancelButton: false,
-								showConfirmButton: false
-							})
-							this.fi = this.fi + 1
-							return sam = false
-						}
-					}
-				}
-				setTimeout(() => {
-					if (sam) {
-						this.first = val.cur
-						this.apfisrt = val.em
-						console.log(111);
-					}
-
-				}, 500);
-			},
-			gainCode(val) {
-
-				if (val.cur == this.first && val.cur != '') {
-					this.$confirm('资质条件重复，请重新选择', '提示', {
-						type: 'warning',
-						showCancelButton: false,
-						showConfirmButton: false
-					})
-					return this.aptitude[val.i].same = this.aptitude[val.i].same + 1
-				}
-
-				let mall = true
-				if (this.aptitude.length > 1) {
-					this.aptitude.forEach((el, i) => {
-
-						if (i != val.i) {
-							if (el.value == val.cur && val.cur != '') {
-								this.$confirm('资质条件重复，请重新选择', '提示', {
-									type: 'warning',
-									showCancelButton: false,
-									showConfirmButton: false
-								})
-								this.aptitude[val.i].same = this.aptitude[val.i].same + 1
-								mall = false
-							}
-						}
-					})
-				}
-
-				if (mall) {
-					this.aptitude[val.i].value = val.cur
-					this.aptitude[val.i].blank = val.em
-				}
-
-
-			},
-			addap() {
-				if (this.first) {
-					if (this.aptitude.length >= 1) {
-						for (let i = 0; i < this.aptitude.length; i++) {
-							if (this.aptitude[i].value == '') {
-								return this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
-									type: 'warning',
-									showCancelButton: false,
-									showConfirmButton: false
-								})
-							}
-						}
-					}
-					this.aptitude.push({
-						value: '',
-						blank: false,
-						same: 1
-					})
-					this.five = true
-				} else {
-					this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
-						type: 'warning',
-						showCancelButton: false,
-						showConfirmButton: false
-					})
-				}
-
-			},
-			delap(i) {
-				this.aptitude.splice(i, 1)
-				if (this.aptitude.length == 0) {
-					this.five = false
-				}
-			},
 			query() {
-				console.log(this.aptitude);
-
 				if (!(sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken'))) {
 					this.$confirm('查看更多信息，请立即登录', '提示', {
 						confirmButtonText: '确定',
@@ -388,13 +231,6 @@
 					})
 					return false
 				}
-				if (this.apfisrt) {
-					return this.$confirm('请选择完整的资质条件', '提示', {
-						type: 'warning',
-						showCancelButton: false,
-						showConfirmButton: false
-					})
-				}
 				if (this.name.trim() == '') {
 					return this.$confirm('项目名称不能为空', '提示', {
 						type: 'warning',
@@ -402,24 +238,6 @@
 						showConfirmButton: false
 					})
 				}
-				for (var i = 0; i < this.aptitude.length; i++) {
-					if (this.aptitude[i].blank) {
-						return this.$confirm('请选择完整的资质条件', '提示', {
-							type: 'warning',
-							showCancelButton: false,
-							showConfirmButton: false
-						})
-					}
-				}
-				this.all.push(this.first)
-				for (var i = 0; i < this.aptitude.length; i++) {
-					if (this.aptitude[i].value) {
-						this.all.push(this.aptitude[i].value)
-					}
-				}
-				console.log(this.all);
-
-				this.allstr = this.all.join(',')
 				let date = {
 					regisAddress: this.area + '省',
 					qualCode: this.allstr,
@@ -441,9 +259,8 @@
 			}
 		},
 		created() {
-
+			this.gainFilter();
 		},
-		components: {}
 	}
 </script>
 <style lang="less" scoped>
@@ -457,36 +274,10 @@
 		.select {
 			font-size: 16px;
 			margin-bottom: 20px;
-
-			.titu-line {
-				line-height: 40px;
-			}
-
-			.titu-del {
-				color: #FE6603;
-				cursor: pointer;
-			}
-
 			.current {
 				background-color: #FE6603 !important;
 				color: #fff !important;
 			}
-
-			.c-rela {
-				width: 60px;
-				height: 25px;
-				line-height: 25px;
-				background-color: #DDDDDD;
-				text-align: center;
-				font-size: 14px;
-				margin-right: 30px;
-				cursor: pointer;
-			}
-
-			.t-5 {
-				margin-top: 5px;
-			}
-
 			.pro {
 				li {
 					padding: 2px 9px;
@@ -555,32 +346,9 @@
 				}
 			}
 		}
-
-		.blank {
-			color: #fff;
-		}
-
-		.se-btn {
-			margin: 30px 0 36px;
-
-			.query-btn {
-				cursor: pointer;
-				height: 28px;
-				width: 92px;
-				border: 1px solid #FE6603;
-				border-radius: 5px;
-				color: #FE6603;
-				display: flex;
-				align-items: center;
-				font-size: 14px;
-				justify-content: center;
-			}
-		}
-
 		.syn-btn {
 			display: flex;
 			justify-content: center;
-
 			.btn {
 				width: 154px;
 				height: 46px;

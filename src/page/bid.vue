@@ -41,24 +41,8 @@
 					</el-col>
 				</el-row>
 			</div>
-			<div class="select">
-				资质要求:&nbsp
-				<el-select v-model="companyQual" placeholder="选择资质类型" clearable @change='Splice' @click.native='judvip'>
-					<el-option v-for="item in companyQuals" :key="item.name" :label="item.name" :value="item.code">
-					</el-option>
-				</el-select>
-
-				<el-select v-model="major" placeholder="请选择" clearable @change='spliceo' v-if="majors.length>0">
-					<el-option v-for="item in majors" :key="item.code" :label="item.name" :value="item.code">
-					</el-option>
-				</el-select>
-				<el-select v-model="grade" placeholder="请选择" clearable @change='splicet' v-if="grades.length>0">
-					<el-option v-for="item in grades" :key="item.name" :label="item.name" :value="item.code">
-					</el-option>
-				</el-select>
-			</div>
+			<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :type='data.rangeType' :zztype='data.zzType'></v-screenzz>
 		</div>
-
 		<div class="total">
 			共找到<span>{{total}}</span>条招标公告
 		</div>
@@ -125,6 +109,7 @@
 		queryList,
 		filter
 	} from '@/api/index';
+	import screenZZ from '@/components/screenZZ'
 	export default {
 		data() {
 			return {
@@ -138,13 +123,7 @@
 				projectTypes: [],
 				pbMode: [],
 				pbModes: [],
-				companyQual: '',
 				companyQuals: [],
-				major: '',
-				majors: [],
-				grade: '',
-				grades: [],
-				zType: [],
 				total: 0,
 				selects: [{
 						name: '招标',
@@ -191,25 +170,6 @@
 		},
 		inject: ['reload'],
 		watch: {
-			companyQual(val) {
-				this.zType = []
-				this.companyQuals.forEach(el => {
-					if (el.code == val) {
-						this.majors = el.data
-					}
-				});
-			},
-			major(val) {
-				this.zType = []
-				this.majors.forEach(el => {
-					if (el.code == val) {
-						this.grades = el.data
-					}
-				});
-			},
-			grade(val) {
-				this.zType = []
-			},
 			state(val) {
 				if (val.source == '湖南省') {
 					this.Scity = true
@@ -230,7 +190,17 @@
 				}
 			}
 		},
+		components:{
+			'v-screenzz':screenZZ
+		},
 		methods: {
+			screenzzFn(val){//接受资质变化抛出的值
+				this.data.zzType=val.str;
+				this.data.rangeType=val.type;
+				this.data.pageNo = 1
+				this.isajax = false;
+				this.gainQueryList()
+			},
 			gainC(val) {
 				if (val.cur.length == 0) {
 					this.data.regions = this.area
@@ -386,56 +356,6 @@
 				this.data.pageNo = 1
 				this.isajax = false;
 				this.gainQueryList()
-			},
-			Splice() {
-				// this.data.zzType=''
-				// if(this.companyQual){
-				//   this.data.zzType = this.companyQual
-				// }
-				//每次切换重置值
-				this.majors = [];
-				this.major = '';
-				this.grades = [];
-				this.grade = '';
-				// this.queryLists=[];
-				this.data.pageNo = 1
-				// this.isajax=false;      
-				// this.gainQueryList()
-			},
-			spliceo() {
-				// this.zType.push(this.major)
-				this.data.zzType = this.major
-				this.grades = [];
-				this.grade = '';
-				this.data.pageNo = 1
-				this.isajax = false;
-				this.gainQueryList()
-			},
-			splicet() {
-				this.zType.push(this.major, this.grade)
-				this.data.zzType = this.zType.join('/')
-				this.data.pageNo = 1
-				this.isajax = false;
-				this.gainQueryList()
-			},
-			judvip() {
-				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1) {
-						this.svip = true
-						this.modalHelper.afterOpen();
-						// this.pbMode = [""]
-					}
-				} else {
-					this.$confirm(this.qjTipTxt, '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
-						this.$router.push('/logo')
-					}).catch(() => {
-
-					});
-				}
 			},
 			gainFilter() {
 				let data = JSON.parse(sessionStorage.getItem('filter'));
@@ -615,44 +535,11 @@
 						}
 					}
 				}
-				//资质
-				if (data.zzType && data.zzType != '') {
-					let arr1 = data.zzType.split('/');
-					// this.companyQual=arr1[0];
-					for (let x of this.companyQuals) {
-						for (let y of x.data) {
-							if (y.code == arr1[0]) {
-								this.companyQual = x.code;
-								break
-							}
-						}
-					}
-					// for(let x of this.companyQuals){
-					//   if(arr1[0]==x.code){
-					//     this.majors=x.list
-					//     break
-					//   }
-					// }
-					this.major = arr1[0];
-					// for(let y of this.majors){
-					//   if(arr1[1]==y.code){
-					//     this.grades=y.list
-					//     break
-					//   }
-					// }
-					this.grade = arr1[1]
-				}
 			}
 			this.gainFilter();
 			this.SHcity()
 			this.toTop()
 			this.gainQueryList()
-			if ((sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) && localStorage.getItem('permissions') !=
-				'' && localStorage.getItem('permissions').indexOf('bidFilter') != -1) {
-				this.isCompanyQual = false;
-				this.isMajor = false;
-				this.isGrade = false;
-			}
 		},
 		beforeDestroy() {
 			sessionStorage.removeItem('bidSerach')
