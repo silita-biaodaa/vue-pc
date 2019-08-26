@@ -1,8 +1,18 @@
 <template>
     <div class="screenZZ">
+        <div class="search-b">
+            <span>资质要求:&nbsp&nbsp</span>
+            <el-input
+                placeholder="请输入内容"
+                prefix-icon="el-icon-search"
+                v-model="seachTxt">
+            </el-input>
+            <ul class="search-list" v-if="isshow">
+                <li v-for="(o,i) of searchList" :key="i" @click="listClickFn(o)">{{o.quaName}}</li>
+            </ul>
+        </div>
         <!-- 资质筛选 -->
-        <div v-for="(el,i) of lengthList" :key="i" class="screen" :class="i!=0?'padding-l':''">
-            <span v-if="i==0">资质要求:&nbsp&nbsp</span>
+        <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
             <el-select placeholder="选择资质类型" clearable v-model="el.one.code" @change="oneChangeFn(el)"  @click.native='judvip'>
                 <el-option v-for="item in el.one.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
@@ -38,6 +48,7 @@ export default {
     name:'screenZZ',    
     data () {
         return {
+            seachTxt:'',
             svip: false,
             rela: [
                 {
@@ -66,7 +77,9 @@ export default {
                     },
                     str:''//记录选择的值
                 }
-            ]
+            ],
+            searchList:[],
+            isshow:false,
         }
     },
     props:{
@@ -80,7 +93,112 @@ export default {
             default:''
         }
     },
+    watch:{
+        seachTxt(val,oldVal){
+            if(val==''){
+                this.isshow=false
+                return 
+            }
+            this.isshow=true
+            this.seachFn(val);
+            // let that=this
+            // this.$http({
+            //     method:'post',
+            //     url:'/new/common/filter/qual',
+            //     data:{
+            //         bizType:1,
+            //         keyWord:val
+            //     }
+            // }).then(res =>{
+            //     that.searchList=res.data.data
+            //     that.isshow=true
+            // })
+        }
+    },
     methods: {
+        seachFn(val){
+            let arr=[]
+            for(let x of this.qualList){
+                for(let y of x.data){
+                    let data={
+                        quaName:x.name+'-'+y.name,
+                        quaCode:x.code+'-'+y.code,
+                    }
+                    if(y.name.indexOf(val)>-1){
+                        arr.push(data)
+                    }
+                }
+            }
+            this.searchList=arr;
+        },
+        listIsIn(){//是否add
+            for(let x of this.lengthList){
+                if(x.three.code==''){//第三级没填，就重复覆盖
+                    if(x.two.code!=''&&x.three.list.length!=0){//
+                        return x
+                    }else if(x.one.code==''){
+                        return x
+                    }else if(x.two.code==''){
+                        return x
+                    }
+                    
+                }
+            }
+            return false
+        },
+        listClickFn(o){//联想搜索的点击
+            this.isshow=false;
+            let arr=o.quaCode.split('-');
+            if(this.listIsIn()){
+                let x=this.listIsIn();
+                for(let y of this.qualList){
+                    if(arr[0]==y.code){
+                        x.two.list=y.data//取第二层
+                        for(let z of y.data){//循环第二层
+                            if(arr[1]==z.code){
+                                x.three.list=z.data;//取第三层
+                                break
+                            }
+                        }
+                        break
+                    }
+                }
+                x.one.code=arr[0];
+                x.two.code=arr[1];
+            }else{
+                let data={
+                    one:{
+                        list:this.qualList,//用作显示
+                        code:'',
+                    },
+                    two:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    three:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    str:''//记录选择的值
+                }
+
+                for(let y of this.qualList){
+                    if(arr[0]==y.code){
+                        data.two.list=y.data//取第二层
+                        for(let z of y.data){//循环第二层
+                            if(arr[1]==z.code){
+                                data.three.list=z.data;//取第三层
+                                break
+                            }
+                        }
+                        break
+                    }
+                }
+                data.one.code=arr[0];
+                data.two.code=arr[1];
+                this.lengthList.push(data);
+            }
+        },
         closeload(val) {
             this.svip = val.cur
         },
@@ -153,7 +271,7 @@ export default {
             }
             this.returnStr()
         },
-        forinFn(){
+        forinFn(){//匹配是否重复
             if(this.lengthList.length>1){
                 for(let x in this.lengthList){
                     if(x==1){
@@ -234,8 +352,10 @@ export default {
             this.returnStr();
         },
     },
+    // mounted(){
+    //     this.arrRead()
+    // },
     created(){
-        this.lengthList[0].one.list=this.qualList;
         //根据父级的值，还原状态
         if(this.type&&this.type!=''){
             this.rangeType=this.type
@@ -260,14 +380,22 @@ export default {
                             }
                             data.two.list=y.data;
                             data.two.code=z.code;
-                            for(let x of z.data){
-                                if(x.code==arr1[1]){
-                                    data.three={
-                                        list:'',
-                                        code:''
+                            if(arr1.length>1&&arr1[1]!=''){
+                                for(let x of z.data){
+                                    if(x.code==arr1[1]){
+                                        data.three={
+                                            list:'',
+                                            code:''
+                                        }
+                                        data.three.list=z.data;
+                                        data.three.code=x.code;
+                                        break
                                     }
-                                    data.three.list=z.data;
-                                    data.three.code=x.code;
+                                }
+                            }else{
+                                data.three={
+                                    list:z.data,
+                                    code:''
                                 }
                             }
                         }
@@ -277,6 +405,8 @@ export default {
                 }
                 this.lengthList[o]=data
             }
+        }else{
+            this.lengthList[0].one.list=this.qualList;
         }
     }
 }
@@ -315,7 +445,7 @@ export default {
     }
     .red{
         color: red;
-        font-size: 12px;
+        font-size: 14px;
     }
     .rela-item{
         width: 60px;
@@ -333,5 +463,34 @@ export default {
         background-color: #FE6603;
         color: #fff;
     }
+    .search-b{
+        margin-bottom: 10px;
+        position: relative;
+        .search-list{
+            position: absolute;
+            left: 82px;
+            z-index: 999;
+            top: 40px;
+            border: 1px solid #f2f2f2;
+            background: #fff;
+            max-height: 132px;
+            width: 470px;
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            li{
+                padding: 10px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            li:hover{
+                background-color: #FE6603;
+                color: #fff;
+            }
+        }
+        .el-input{
+            width: auto;
+        }
+    }
+    
 }
 </style>

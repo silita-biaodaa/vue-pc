@@ -17,7 +17,7 @@
                    </li>
                 </ul>
                 <div style="position:relative;">
-                   <el-input :placeholder="placeTxt" v-model="select" class="input-with-select" clearable>
+                   <el-input :placeholder="placeTxt" v-model="select" class="input-with-select" clearable @clear="searchFn">
                       <el-button slot="append" @click="searchFn">搜索</el-button>
                    </el-input>
                    <div class="right  syn"  @click="jump" >
