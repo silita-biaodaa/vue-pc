@@ -3,7 +3,7 @@
         <div class="search-b">
             <span>资质要求:&nbsp&nbsp</span>
             <el-input
-                placeholder="请输入内容"
+                placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
                 v-model="seachTxt">
             </el-input>
@@ -13,13 +13,13 @@
         </div>
         <!-- 资质筛选 -->
         <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
-            <el-select placeholder="选择资质类型" clearable v-model="el.one.code" @change="oneChangeFn(el)"  @click.native='judvip'>
+            <el-select placeholder="选择资质类型" clearable v-model="el.one.code" @change="oneChangeFn(el,i)"  @click.native='judvip'>
                 <el-option v-for="item in el.one.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
-            <el-select placeholder="请选择" clearable v-model="el.two.code"  @change="twoChangeFn(el)" v-if="el.two.list.length>0">
+            <el-select placeholder="请选择" clearable v-model="el.two.code"  @change="twoChangeFn(el,i)" v-if="el.two.list.length>0">
                 <el-option v-for="item in el.two.list" :key="item.code" :label="item.name" :value="item.code"></el-option>
             </el-select>
-            <el-select placeholder="请选择" clearable  v-model="el.three.code" @change="threeChangeFn(el)" v-if="el.three.list.length>0">
+            <el-select placeholder="请选择" clearable v-model="el.three.code" @change="threeChangeFn(el,i)" v-if="el.three.list.length>0">
                 <el-option v-for="item in el.three.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
             <span class='del-btn' @click='delFn(i)' v-if="i!=0">删除</span>
@@ -122,7 +122,7 @@ export default {
         }
     },
     methods: {
-        seachFn(val){
+        seachFn(val){//资质查询
             let arr=[]
             for(let x of this.qualList){
                 for(let y of x.data){
@@ -154,6 +154,7 @@ export default {
         },
         listClickFn(o){//联想搜索的点击
             this.isshow=false;
+            this.seachTxt='';
             let arr=o.quaCode.split('-');
             if(this.listIsIn()){
                 let x=this.listIsIn();
@@ -171,6 +172,7 @@ export default {
                 }
                 x.one.code=arr[0];
                 x.two.code=arr[1];
+                x.str=arr[1];
             }else{
                 if(this.lengthList.length==3&&!this.query){
                     this.$confirm('最多只可添加三条资质', '提示', {
@@ -209,8 +211,10 @@ export default {
                 }
                 data.one.code=arr[0];
                 data.two.code=arr[1];
+                data.str=arr[1];
                 this.lengthList.push(data);
             }
+            this.returnStr()
         },
         closeload(val) {
             this.svip = val.cur
@@ -237,7 +241,7 @@ export default {
             this.rangeType=el.key;
             this.returnStr()
         },
-        oneChangeFn(o){//第一级资质变化
+        oneChangeFn(o,i){//第一级资质变化
             o.two.code='';
             o.two.list=[];
             o.three.code='';
@@ -247,8 +251,9 @@ export default {
                     o.two.list=x.data
                 }
             }
+            this.$set(this.lengthList,i,this.lengthList[i])
         },
-        twoChangeFn(o){//第二级资质变化
+        twoChangeFn(o,i){//第二级资质变化
             o.three.code='';
             o.three.list=[];
             for(let x of o.two.list){
@@ -257,6 +262,7 @@ export default {
                 }
             }
             o.str=o.two.code;//将code扔到大list上
+            this.$set(this.lengthList,i,this.lengthList[i])
             if(this.forinFn()){
                 o.two.code='';
                 this.$confirm('资质条件重复，请重新选择', '提示', {
@@ -268,11 +274,12 @@ export default {
             }
             this.returnStr()
         },
-        threeChangeFn(o){//第三级资质变化
+        threeChangeFn(o,i){//第三级资质变化
             let arr=[];
             arr[0]=o.two.code;
             arr[1]=o.three.code;
             o.str=arr.join('/');//斜线分割
+            this.$set(this.lengthList,i,this.lengthList[i])
             if(this.forinFn()){
                 o.three.code='';
                 this.$confirm('资质条件重复，请重新选择', '提示', {
