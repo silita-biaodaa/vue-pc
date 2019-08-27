@@ -10,7 +10,7 @@
 				</el-col>
 			</el-row>
 		</div>
-		<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn'></v-screenzz>
+		<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :query='true'></v-screenzz>
 		<div class="select" style="margin-top: 20px;">
 			<el-row>
 				<el-col :span='2' class="se-center">业绩要求:</el-col>
@@ -210,7 +210,6 @@
 			screenzzFn(val){//接受资质变化抛出的值
 				this.allstr=val.str;
 				this.rangeType=val.type;
-				this.query()
 			},
 			charea(el) {
 				this.area = el.name

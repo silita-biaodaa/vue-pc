@@ -123,7 +123,7 @@
 						</div>
 					</div>
 
-					<div class="main-table" style="backgroundColor: #fff;" v-show="pect">
+					<div class="main-table" style="backgroundColor: #fff;" v-show="pect" v-if="debid.exploreOrg||debid.exploreOrgCode||debid.exploreProvince">
 						<div style="width:205px;" class="bor">
 							勘察单位
 						</div>
@@ -137,7 +137,7 @@
 							{{debid.exploreProvince}}
 						</div>
 					</div>
-					<div class="main-table" style="backgroundColor: #fff;" v-show="design">
+					<div class="main-table" style="backgroundColor: #fff;" v-show="design" v-if="debid.designOrg||debid.designOrgCode||debid.designProvince">
 						<div style="width:205px;" class="bor">
 							设计单位
 						</div>

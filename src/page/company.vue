@@ -1,6 +1,6 @@
 <template>
 	<div class="company">
-		<en-search @vague='entitle' :all='total' @company='entitle'></en-search>
+		<en-search @vague='entitle' :title="data.keyWord" :all='total' @company='entitle'></en-search>
 		<div class="option-box">
 			<all-city :city='last' @Cnext='eval'></all-city>
 			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
@@ -128,7 +128,6 @@
 				companylisy: [],
 				five: false,
 				total: 0,
-				title: '',
 				present: 9,
 				last: '',
 				recordList:[//备案地区
@@ -181,7 +180,7 @@
 					pageSize: 20,
 					levelRank: '',
 					rangeType: '', // 资质关联
-					keyWord: this.title, // 关键字 
+					keyWord:'', // 关键字 
 					isBei:'hunan',//备案地区
 					honorCate:'',//荣誉类别
 				},
@@ -356,8 +355,6 @@
 					return false
 				}
 				this.isSerach = true;
-				this.allstr = this.allarr.join(",")
-				this.data.qualCode = this.allstr
 				this.again()
 			},
 			again() {
@@ -406,8 +403,6 @@
 				this.data.pageNo = 1;
 				this.isajax = false;
 				this.data.regisAddress = val.cur
-				this.allstr = this.allarr.join(",");
-				this.data.qualCode = this.allstr;
 				this.gainCompany()
 			},
 			Goto(val) {
@@ -416,18 +411,13 @@
 				this.funcom.toList(590)
 				this.companylisy = [];
 				this.isajax = false;
-				this.allstr = this.allarr.join(",")
-				this.data.qualCode = this.allstr
 				this.gainCompany()
 			},
 			entitle(val) {
-				this.title = val.cur;
 				this.data.keyWord = val.cur;
 				this.data.pageNo = 1;
 				this.companylisy = [];
 				this.isajax = false;
-				this.allstr = this.allarr.join(",")
-				this.data.qualCode = this.allstr
 				this.gainCompany()
 			},
 			store(el) {

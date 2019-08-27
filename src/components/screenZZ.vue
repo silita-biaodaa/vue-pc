@@ -17,7 +17,7 @@
                 <el-option v-for="item in el.one.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
             <el-select placeholder="请选择" clearable v-model="el.two.code"  @change="twoChangeFn(el)" v-if="el.two.list.length>0">
-                <el-option v-for="item in el.two.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
+                <el-option v-for="item in el.two.list" :key="item.code" :label="item.name" :value="item.code"></el-option>
             </el-select>
             <el-select placeholder="请选择" clearable  v-model="el.three.code" @change="threeChangeFn(el)" v-if="el.three.list.length>0">
                 <el-option v-for="item in el.three.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
@@ -25,14 +25,14 @@
             <span class='del-btn' @click='delFn(i)' v-if="i!=0">删除</span>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box" v-if="lengthList.length<3">
+        <div class="spacing-box" v-if="lengthList.length<3||query">
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
             </div>
         </div>
         <div class="spacing-box red" v-else>资质最多只可添加3条</div>
         <!-- 资质关系 -->
-        <div class="rela">
+        <div class="rela" v-if="!bid">
             <el-row>
                 <el-col :span="2">资质关系:</el-col>
                 <el-col :span="14">
@@ -60,7 +60,7 @@ export default {
                     key: 'or'
                 }
             ],
-            rangeType:'and',
+            rangeType:'or',
             lengthList:[//资质数组，外层条数
                 {
                     one:{
@@ -86,11 +86,17 @@ export default {
         qualList:{
             type:Array
         },
-        zztype:{
+        zztype:{//资质内容
             default:''
         },
-        type:{
+        type:{//资质关系
             default:''
+        },
+        bid:{//是否招标
+            default:false
+        },
+        query:{//是否综合查询
+            default:false
         }
     },
     watch:{
@@ -166,6 +172,14 @@ export default {
                 x.one.code=arr[0];
                 x.two.code=arr[1];
             }else{
+                if(this.lengthList.length==3&&!this.query){
+                    this.$confirm('最多只可添加三条资质', '提示', {
+                        type: 'warning',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    })
+                    return
+                }
                 let data={
                     one:{
                         list:this.qualList,//用作显示
@@ -181,7 +195,6 @@ export default {
                     },
                     str:''//记录选择的值
                 }
-
                 for(let y of this.qualList){
                     if(arr[0]==y.code){
                         data.two.list=y.data//取第二层
@@ -366,7 +379,7 @@ export default {
                 let data={};
                 data.str=arr[o]
                 data.one={
-                    list:'',//用作显示
+                    list:[],//用作显示
                     code:'',
                 };
                 data.one.list=this.qualList
@@ -375,7 +388,7 @@ export default {
                     for(let z of y.data){
                         if(z.code==arr1[0]){
                             data.two={
-                                list:'',
+                                list:[],
                                 code:'',
                             }
                             data.two.list=y.data;
@@ -384,7 +397,7 @@ export default {
                                 for(let x of z.data){
                                     if(x.code==arr1[1]){
                                         data.three={
-                                            list:'',
+                                            list:[],
                                             code:''
                                         }
                                         data.three.list=z.data;
@@ -398,10 +411,11 @@ export default {
                                     code:''
                                 }
                             }
+                            data.one.code=y.code;
+                            break
                         }
                     }
-                    data.one.code=y.code;
-                    break
+                    
                 }
                 this.lengthList[o]=data
             }
@@ -418,6 +432,9 @@ export default {
     }
     .el-select{
         margin-right: 10px;
+        width: 225px;
+    }
+    .el-input{
         width: 225px;
     }
     .padding-l{
@@ -487,10 +504,6 @@ export default {
                 color: #fff;
             }
         }
-        .el-input{
-            width: auto;
-        }
     }
-    
 }
 </style>

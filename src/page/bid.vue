@@ -41,7 +41,7 @@
 					</el-col>
 				</el-row>
 			</div>
-			<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :type='data.rangeType' :zztype='data.zzType'></v-screenzz>
+			<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :bid='true' :zztype='data.zzType'></v-screenzz>
 		</div>
 		<div class="total">
 			共找到<span>{{total}}</span>条招标公告
