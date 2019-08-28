@@ -136,11 +136,11 @@ export default {
         listIsIn(){//是否add
             for(let x of this.lengthList){
                 if(!x.three.code||x.three.code==''){//第三级没填，就重复覆盖
-                    if(x.two.code!=''&&x.three.list.length!=0){//
+                    if((x.two.code&&x.two.code!='')&&x.three.list.length!=0){//
                         return x
-                    }else if(x.one.code==''){
+                    }else if(!x.two.code||x.one.code==''){
                         return x
-                    }else if(x.two.code==''){
+                    }else if(!x.two.code||x.two.code==''){
                         return x
                     }
                     
@@ -242,12 +242,14 @@ export default {
             o.two.list=[];
             o.three.code='';
             o.three.list=[];
+            o.str='';
             for(let x of o.one.list){
                 if(x.code==o.one.code){
                     o.two.list=x.data
                 }
             }
             this.$set(this.lengthList,i,this.lengthList[i])
+            this.returnStr();
         },
         twoChangeFn(o,i){//第二级资质变化
             o.three.code='';
@@ -337,7 +339,13 @@ export default {
             }
             // 会员拦截 end
             for(let x of this.lengthList){
-                if(x.str==''){
+                if(!x.three.code||x.two.code==''){
+                    return this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
+                        type: 'warning',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    })
+                }else if(x.three.list.length!=0&&(!x.three.code||x.three.code=='')){
                     return this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
                         type: 'warning',
                         showCancelButton: false,
@@ -380,6 +388,21 @@ export default {
             let arr=this.zztype.split(',');
             for(let o in arr){
                 if(arr[o]==''){
+                    this.lengthList[o]={
+                        one:{
+                            list:this.qualList,//用作显示
+                            code:'',
+                        },
+                        two:{
+                            list:[],//用作显示
+                            code:'',
+                        },
+                        three:{
+                            list:[],//用作显示
+                            code:'',
+                        },
+                        str:''//记录选择的值
+                    }
                     continue
                 }
                 let data={};
