@@ -1,7 +1,7 @@
 <template>
     <div class="screenZZ">
         <div class="search-b">
-            <span>资质要求:&nbsp&nbsp</span>
+            <span class="font16">资质要求:&nbsp&nbsp</span>
             <el-input
                 placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
@@ -10,6 +10,7 @@
             <ul class="search-list" v-if="isshow">
                 <li v-for="(o,i) of searchList" :key="i" @click="listClickFn(o)">{{o.quaName}}</li>
             </ul>
+            <span v-if="length0" class="search-tips">暂未找到该资质，请输入其他关键字</span>
         </div>
         <!-- 资质筛选 -->
         <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
@@ -32,7 +33,7 @@
         </div>
         <div class="spacing-box red" v-else>资质最多只可添加3条</div>
         <!-- 资质关系 -->
-        <div class="rela" v-if="!bid">
+        <div class="rela" v-if="!bid&&lengthList.length>1">
             <el-row>
                 <el-col :span="2">资质关系:</el-col>
                 <el-col :span="14">
@@ -80,6 +81,7 @@ export default {
             ],
             searchList:[],
             isshow:false,
+            length0:false
         }
     },
     props:{
@@ -101,24 +103,13 @@ export default {
     },
     watch:{
         seachTxt(val,oldVal){
+            this.length0=false
             if(val==''){
                 this.isshow=false
                 return 
             }
             this.isshow=true
             this.seachFn(val);
-            // let that=this
-            // this.$http({
-            //     method:'post',
-            //     url:'/new/common/filter/qual',
-            //     data:{
-            //         bizType:1,
-            //         keyWord:val
-            //     }
-            // }).then(res =>{
-            //     that.searchList=res.data.data
-            //     that.isshow=true
-            // })
         }
     },
     methods: {
@@ -135,11 +126,16 @@ export default {
                     }
                 }
             }
-            this.searchList=arr;
+            if(arr.length==0){
+                this.length0=true;
+                this.isshow=false
+            }else{
+                this.searchList=arr;
+            }
         },
         listIsIn(){//是否add
             for(let x of this.lengthList){
-                if(x.three.code==''){//第三级没填，就重复覆盖
+                if(!x.three.code||x.three.code==''){//第三级没填，就重复覆盖
                     if(x.two.code!=''&&x.three.list.length!=0){//
                         return x
                     }else if(x.one.code==''){
@@ -383,6 +379,9 @@ export default {
         if(this.zztype&&this.zztype!=''){
             let arr=this.zztype.split(',');
             for(let o in arr){
+                if(arr[o]==''){
+                    continue
+                }
                 let data={};
                 data.str=arr[o]
                 data.one={
@@ -434,6 +433,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .screenZZ{
+    font-size: 16px;
     .screen{
         margin-bottom: 10px
     }
@@ -510,6 +510,11 @@ export default {
                 background-color: #FE6603;
                 color: #fff;
             }
+        }
+        .search-tips{
+            font-size: 14px;
+            color: #FE6603;
+            margin-left: 30px;
         }
     }
 }
