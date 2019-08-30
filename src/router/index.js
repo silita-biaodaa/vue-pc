@@ -84,9 +84,9 @@ import annualDetail from '@/components/business/annualDetail'
 
 
 
-
 // escort
-
+//活动
+import hdDetail from'@/page/hdDetail'
 
 
 
@@ -569,10 +569,15 @@ export default new Router({
         tabNo: 7
       }
     },
-    {
+    {//年报详情
       path:'/annualDetail',
       name:'annualDetail',
       component:annualDetail,
+    },
+    {
+      path:'/hdDetail',
+      name:'hdDetail',
+      component:hdDetail
     }
   ],
   scrollBehavior (to, from, savedPosition) {
