@@ -27,7 +27,7 @@
 				<div class="left " style="width:260px;">项目名称</div>
 				<div class="left" style="width:160px;">标段名称</div>
 				<div class="left" style="width:200px;">施工单位</div>
-				<div class="left" style="width:140px;">合同金额</div>
+				<div class="left" style="width:140px;">投资金额</div>
 				<div class="left" style="width:100px;">交工日期</div>
 				<div class="left" style="width:100px;">项目属地</div>
 			</div>

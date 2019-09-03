@@ -80,6 +80,13 @@
 				</a>
 			</div>
 		</div>
+		<div class="hd-mask" v-if="hdMask">
+			<div class="hd-box">
+				<img src="../assets/img/hd.png"/>
+				<i class="el-icon-circle-close-outline" @click="closeFix"></i>
+				<button @click="jumpDetail"></button>
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -224,7 +231,8 @@
 				biddings: [],
 				companys: [],
 				biding: true,
-				tendering: true
+				tendering: true,
+				hdMask:false,//被前端控制
 			}
 		},
 		props: {
@@ -458,7 +466,30 @@
 				localStorage.removeItem('name')
 				localStorage.setItem('id', el.comId)
 				localStorage.setItem('name', el.comName)
+			},
+			//活动
+			closeFix(){
+				this.hdMask=false;
+			},
+			jumpDetail(){
+				this.hdMask=false;
+				const { href } = this.$router.resolve({
+				path:'/hdDetail'
+				})
+				window.open(href, '_blank', )
 			}
+		},
+		beforeCreate(){
+			let that=this;
+			this.$http({
+				method:'post',
+				url:'/activity/entrance',
+				data:{}
+			}).then(res =>{
+				if(res.data.data){
+					that.hdMask=true
+				}
+			})
 		},
 		created() {
 			this.area = localStorage.getItem('area')
@@ -632,7 +663,41 @@
 			border-radius: 50%;
 			opacity: 0.5;
 		}
-
+		.hd-mask{
+			width: 100%;
+			height: 100vh;
+			position: fixed;
+			background: rgba(0, 0, 0, .5);
+			top: 0;
+			z-index: 9999;
+			.hd-box{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				text-align: center;
+				img{
+					width: 500px;
+					display: block;
+					margin-bottom: 24px;
+				}
+				.el-icon-circle-close-outline{
+					cursor: pointer;
+					font-size: 40px;
+					color: #fff;
+				}
+				button{
+					opacity: 0;
+					position: absolute;
+					left: calc(50% - 5px);
+					width: 227px;
+					height: 60px;
+					bottom: 95px;
+					cursor: pointer;
+					transform: translateX(-50%);
+				}
+			}
+		}
 		// .i-loading {
 		//   position: fixed;
 		//   width: 100%;

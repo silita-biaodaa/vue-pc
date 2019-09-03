@@ -27,7 +27,7 @@
 				<div class="left" style="width:80px;">序号</div>
 				<div class="left" style="width:350px;">项目名称</div>
 				<div class="left" style="width:120px;">项目类别</div>
-				<div class="left" style="width:180px;">合同金额</div>
+				<div class="left" style="width:180px;">投资总额</div>
 				<div class="left" style="width:150px;">竣工日期</div>
 				<div class="left" style="width:140px;">项目属地</div>
 			</div>

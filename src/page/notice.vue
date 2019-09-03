@@ -2,7 +2,7 @@
 	<v-maxw :type="'notice'">
 		<div class="notice"  slot="left">
 			<div class="n-title fa">
-				<p class="n-fp">{{articles.title}}</p>
+				<p class="n-fp" style="padding: 0 40px">{{articles.title}}</p>
 				<div class="n-tp">
 					<span>{{articles.openDate}}</span>
 					<span>浏览量: <i>{{clickCount}}</i></span>

@@ -82,7 +82,7 @@ import lawDetail from '@/page/lawDetail'//法务详情
 
 import annualDetail from '@/components/business/annualDetail'
 
-
+import feedback from '@/page/feedback'//意见反馈
 
 // escort
 //活动
@@ -573,12 +573,17 @@ export default new Router({
       path:'/annualDetail',
       name:'annualDetail',
       component:annualDetail,
+    },{//意见反馈
+      path:'/feedback',
+      name:'feedback',
+      component:feedback
     },
-    {
+    {//活动详情
       path:'/hdDetail',
       name:'hdDetail',
       component:hdDetail
-    }
+    },
+    
   ],
   scrollBehavior (to, from, savedPosition) {
 			return { x: 0, y: 0 }

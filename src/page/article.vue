@@ -2,7 +2,7 @@
 	<v-maxw :type="'notice'">
 		<div class="article" slot="left">
 			<div style="height:126px;"></div>
-			<div class="title">
+			<div class="title" style="padding:32px 60px 0">
 				<p class="font-18">
 					{{articles.title}}
 				</p>

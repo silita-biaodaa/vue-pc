@@ -4,7 +4,7 @@
         <div class="box">
             <slot name="left"></slot>
         </div>
-        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'100px')}">
+        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'100px')}" v-if="list.length>0">
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
                 <h5>相关公告({{list.length}})</h5>
@@ -145,6 +145,8 @@ export default {
         li:hover{
             text-overflow:clip;
             white-space: normal;
+            color: #FE6603;
+            line-height: 2;
         }
     }
 }

@@ -123,13 +123,6 @@
 				</div>
 			</div>
 		</div>
-    <div class="hd-mask" v-if="hdMask&&hdMask1">
-      <div class="hd-box">
-        <img src="./assets/img/hd.png"/>
-        <i class="el-icon-circle-close-outline" @click="closeFix"></i>
-        <button @click="jumpDetail"></button>
-      </div>
-    </div>
 	</div>
 </template>
 
@@ -220,8 +213,6 @@
 				select: '',
 				name: '?',
         isarea: false,
-				hdMask:true,//被前端控制
-				hdMask1:false,//被后台值控制
 				allcity: [{
 						name: '华东',
 						next: [{
@@ -501,37 +492,8 @@
 					})
 				}
       },
-      //活动
-      closeFix(){
-        this.hdMask=false;
-        sessionStorage.setItem('hdMask',1)
-      },
-      jumpDetail(){
-        this.hdMask=false;
-        sessionStorage.setItem('hdMask',1)
-        const { href } = this.$router.resolve({
-          path:'/hdDetail'
-        })
-        window.open(href, '_blank', )
-      }
-    },
-    beforeCreate(){
-      let that=this;
-      this.$http({
-        method:'post',
-        url:'/activity/entrance',
-        data:{}
-      }).then(res =>{
-        if(res.data.data){
-          that.hdMask1=true
-        }
-      })
     },
 		created() {
-      //活动弹窗控制
-      if(sessionStorage.getItem('hdMask')&&sessionStorage.getItem('hdMask')==1){//如果看过，则不继续打开
-        this.hdMask=false;
-      }      
 			if (localStorage.getItem('history')) {
 				localStorage.removeItem('history')
 			}
@@ -595,7 +557,7 @@
 				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' || this.$route.name ==
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
-					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail') {
+					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback') {
 					return false
 				} else {
 					return true
@@ -945,41 +907,7 @@
 			border-radius: 3px;
 		}
 	}
-  .hd-mask{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    background: rgba(0, 0, 0, .5);
-    top: 0;
-    z-index: 9999;
-    .hd-box{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      text-align: center;
-      img{
-        width: 500px;
-        display: block;
-        margin-bottom: 24px;
-      }
-      .el-icon-circle-close-outline{
-        cursor: pointer;
-        font-size: 40px;
-        color: #fff;
-      }
-      button{
-        opacity: 0;
-        position: absolute;
-        left: calc(50% - 5px);
-        width: 227px;
-        height: 60px;
-        bottom: 95px;
-        cursor: pointer;
-        transform: translateX(-50%);
-      }
-    }
-  }
+  
 	body .el-loading-spinner .path {
 		stroke: #FE6603;
 	}
