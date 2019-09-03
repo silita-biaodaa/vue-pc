@@ -150,7 +150,7 @@ export default {
       color: #fff;
     }
     .top-text {
-        width: 1160px;
+        width: 1020px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;

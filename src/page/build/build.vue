@@ -306,7 +306,7 @@
 		padding-top: 85px;
 
 		.build-put {
-			width: 1160px;
+			width: 1020px;
 			margin: 0 auto;
 			box-sizing: border-box;
 			height: 282px;
@@ -364,7 +364,7 @@
 		}
 
 		.build-list {
-			width: 1160px;
+			width: 1020px;
 			margin: 0 auto;
 			background-color: #fff;
 			margin-bottom: 125px;
@@ -399,7 +399,7 @@
 			}
 
 			.noneS {
-				width: 1160px;
+				width: 1020px;
 				margin: 0 auto;
 				background-color: #fff;
 				height: 582px;

@@ -171,7 +171,7 @@
 
 			.n-fp {
 				color: #333;
-				font-size: 24px;
+				font-size: 18px;
 				font-weight: 500;
 				margin-bottom: 17px;
 				text-align: center;
@@ -190,8 +190,8 @@
 				-webkit-justify-content: space-around;
 				justify-content: space-around;
 				align-items: center;
-				color: #666;
-				font-size: 18px;
+				font-size: 12px;
+				color: #999;
 
 				i {
 					color: #EC7522;
@@ -225,15 +225,15 @@
 			}
 
 			.n-thp {
-				color: #666;
-				font-size: 16px;
+				color: #999;
+				font-size: 14px;
 				overflow: hidden;
 				margin-top: 20px;
 			}
 		}
 
 		.n-detail {
-			margin: 40px auto 20px;
+			margin: 28px auto 20px;
 
 			.n-nav {
 				height: 70px;

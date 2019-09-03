@@ -54,7 +54,7 @@ export default {
   width: 100%;
   background-color: #fff;
   .l-nav {
-    width: 1160px;
+    width: 1020px;
     height: 60px;
     margin: 0 auto;
     display: flex;

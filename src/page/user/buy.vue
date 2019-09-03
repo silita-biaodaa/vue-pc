@@ -560,7 +560,7 @@
 		}
 
 		.buy-img {
-			min-width: 1160px;
+			min-width: 1020px;
 			height: 368px;
 			background: url(../../assets/img/pic-banner.png) no-repeat;
 			background-position: center;
@@ -599,7 +599,7 @@
 		}
 
 		.buy-limit {
-			width: 1160px;
+			width: 1020px;
 			margin: 0 auto;
 			background-color: #fff;
 			padding-bottom: 50px;

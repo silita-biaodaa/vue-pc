@@ -122,7 +122,7 @@
 </script>
 <style lang="less" scoped>
 	.history {
-		width: 1160px;
+		width: 1020px;
 		margin: 0 auto 150px;
 		min-height: calc(~'100vh - 450px');
 

@@ -595,7 +595,7 @@
 				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' || this.$route.name ==
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
-					'info' || this.$route.name == 'dwDetail') {
+					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail') {
 					return false
 				} else {
 					return true
@@ -647,7 +647,7 @@
 
 			.contact {
 				height: 33px;
-				min-width: 1160px;
+				min-width: 1020px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -762,7 +762,7 @@
 			align-items: center;
 
 			ul {
-				min-width: 1160px;
+				min-width: 1020px;
 				box-sizing: border-box;
 
 				li {
@@ -829,7 +829,7 @@
 			justify-content: center;
 
 			.f-content {
-				width: 1160px;
+				width: 1020px;
 				height: 100%;
 				box-sizing: border-box;
 				padding-top: 26px;

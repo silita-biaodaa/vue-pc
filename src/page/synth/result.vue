@@ -350,7 +350,7 @@
 </script>
 <style lang="less" scoped>
 	.result {
-		width: 1160px;
+		width: 1020px;
 		margin: 0 auto;
 		padding-top: 80px;
 		position: relative;
@@ -364,7 +364,7 @@
 
 		.re-text {
 			padding: 20px 18px 10px;
-			width: 1160px;
+			width: 1020px;
 			box-sizing: border-box;
 			border-bottom: 1px solid #F2F2F2;
 			background-color: #fff;

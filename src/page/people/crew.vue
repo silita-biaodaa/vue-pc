@@ -292,7 +292,7 @@
 		padding-top: 85px;
 
 		.crew-option {
-			width: 1160px;
+			width: 1020px;
 			box-sizing: border-box;
 			padding: 15px 10px 10px;
 			background-color: #fff;
@@ -306,7 +306,7 @@
 		}
 
 		.build-list {
-			width: 1160px;
+			width: 1020px;
 			margin: 0 auto;
 			background-color: #fff;
 			margin-bottom: 125px;
@@ -354,7 +354,7 @@
 			}
 
 			.noneS {
-				width: 1160px;
+				width: 1020px;
 				margin: 0 auto;
 				background-color: #fff;
 				height: 582px;

@@ -142,6 +142,10 @@ export default {
         li:last-child{
             border-bottom: none;
         }
+        li:hover{
+            text-overflow:clip;
+            white-space: normal;
+        }
     }
 }
 </style>
