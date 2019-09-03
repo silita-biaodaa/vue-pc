@@ -31,7 +31,7 @@ export default {
   width: 100%;
   background-color: #fafafa;
   .d-top {
-    width: 1020px;
+    width: 1160px;
     margin: 0 auto;
     height: 50px;
     line-height: 30px;

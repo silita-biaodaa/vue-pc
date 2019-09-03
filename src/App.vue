@@ -123,7 +123,7 @@
 				</div>
 			</div>
 		</div>
-    <div class="hd-mask" v-if="hdMask">
+    <div class="hd-mask" v-if="hdMask&&hdMask1">
       <div class="hd-box">
         <img src="./assets/img/hd.png"/>
         <i class="el-icon-circle-close-outline" @click="closeFix"></i>
@@ -220,7 +220,8 @@
 				select: '',
 				name: '?',
         isarea: false,
-        hdMask:false,
+				hdMask:true,//被前端控制
+				hdMask1:false,//被后台值控制
 				allcity: [{
 						name: '华东',
 						next: [{
@@ -376,9 +377,11 @@
 								sessionStorage.setItem('ip', res.data.pkid)
 								localStorage.setItem('permissions', res.data.permissions)
 								localStorage.setItem('phoneNo', res.data.phoneNo)
-							} else {
-								this.$alert(res.msg);
 							}
+							//  else {
+							// 	// this.$alert(res.msg);
+							// 	// alert(res.msg);
+							// }
 
 						})
 					}
@@ -520,7 +523,7 @@
         data:{}
       }).then(res =>{
         if(res.data.data){
-          that.hdMask=true
+          that.hdMask1=true
         }
       })
     },
@@ -644,7 +647,7 @@
 
 			.contact {
 				height: 33px;
-				min-width: 1020px;
+				min-width: 1160px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -759,7 +762,7 @@
 			align-items: center;
 
 			ul {
-				min-width: 1020px;
+				min-width: 1160px;
 				box-sizing: border-box;
 
 				li {
@@ -826,7 +829,7 @@
 			justify-content: center;
 
 			.f-content {
-				width: 1020px;
+				width: 1160px;
 				height: 100%;
 				box-sizing: border-box;
 				padding-top: 26px;

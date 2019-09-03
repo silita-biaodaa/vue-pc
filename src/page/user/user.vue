@@ -267,7 +267,7 @@
 			background-color: #fff;
 
 			.in-nav {
-				width: 1020px;
+				width: 1160px;
 				margin: 0 auto;
 				height: 100%;
 				display: flex;
@@ -277,7 +277,7 @@
 		}
 
 		.user-text {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			display: flex;
 			justify-content: space-between;

@@ -153,7 +153,7 @@
 </script>
 <style lang="less" scoped>
 	.conform {
-		width: 1020px;
+		width: 1160px;
 		margin: 0 auto;
 		padding-top: 86px;
 

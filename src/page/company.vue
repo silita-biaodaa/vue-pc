@@ -525,7 +525,7 @@
 		}
 
 		.noneS {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			background-color: #fff;
 			height: 582px;
@@ -581,7 +581,7 @@
 			}
 		}
 		.firm {
-			width: 1020px;
+			width: 1160px;
 			background: #fff;
 			margin: 0 auto;
 			overflow: hidden;

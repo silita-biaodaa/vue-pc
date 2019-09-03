@@ -158,7 +158,7 @@
 <style lang="less" scoped>
 	.wdetail {
 		padding-top: 86px;
-		width: 1020px;
+		width: 1160px;
 		box-sizing: border-box;
 		margin: 0 auto;
 

@@ -2,7 +2,7 @@
     padding: 15px 10px 10px;
     background-color: #fff;
     font-size: 16px;
-    width: 1020px;
+    width: 1160px;
     margin: 20px auto 0;
     box-sizing: border-box;
 }
@@ -26,7 +26,7 @@
     color:#fff;
 }
 .total {
-    width: 1020px;
+    width: 1160px;
     color:#666;
     font-size: 14px;
     margin: 10px auto;
@@ -41,7 +41,7 @@
     justify-content: center;
 }
 .c-page {
-    width:1020px;
+    width:1160px;
     margin: 0 auto;
     background-color:#fff;
     padding-top: 50px;

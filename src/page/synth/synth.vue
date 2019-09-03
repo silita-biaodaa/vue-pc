@@ -171,7 +171,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .synth {
-  width: 1020px;
+  width: 1160px;
   margin: 0 auto ;
   min-height: calc(~'100vh - 450px');
   padding-top: 80px;

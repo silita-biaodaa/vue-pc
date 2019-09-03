@@ -540,7 +540,7 @@ export default {
     background-color: #fff;
   }
   .app-search {
-     width: 1020px;
+     width: 1160px;
      margin: 0 auto;
   }
   .bor {

@@ -488,7 +488,7 @@
 
 		.b-content {
 			margin-top: 10px;
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			clear: both;
 			background: #fff;
@@ -597,7 +597,7 @@
 		}
 
 		.carousel {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			height: 390px;
 			margin-bottom: 16px;

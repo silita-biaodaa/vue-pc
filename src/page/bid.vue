@@ -565,7 +565,7 @@
 		}
 
 		.noneS {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			background-color: #fff;
 			height: 582px;
@@ -577,7 +577,7 @@
 
 		.options {
 			margin: 0 auto;
-			width: 1020px;
+			width: 1160px;
 			margin-top: 20px;
 			//  height: 290px;
 			background: #fff;
@@ -617,7 +617,7 @@
 		.bid-content {
 			min-height: 240px;
 			margin: 0 auto;
-			width: 1020px;
+			width: 1160px;
 			box-sizing: border-box;
 			background: #fff;
 			font-size: 16px;

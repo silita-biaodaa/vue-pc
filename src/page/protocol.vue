@@ -50,7 +50,7 @@ export default {
   .p-text {
     padding: 50px;
     background-color: #fff;
-    width: 1020px;
+    width: 1160px;
      margin: 0 auto;
     box-sizing: border-box;
   }

@@ -100,7 +100,7 @@
 <style lang="less" scoped>
 	.about {
 		.we-content {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto 200px;
 			padding-top: 20px;
 			background-color: #fff;
@@ -176,7 +176,7 @@
 			}
 
 			.left-img {
-				width: 1020px;
+				width: 1160px;
 				margin-top: 20px;
 
 				img {

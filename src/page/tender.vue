@@ -520,7 +520,7 @@
 		}
 
 		.noneS {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			background-color: #fff;
 			height: 582px;
@@ -578,7 +578,7 @@
 		}
 
 		.t-list {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 			background-color: #fff;
 			box-sizing: border-box;

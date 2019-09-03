@@ -1,38 +1,39 @@
 <template>
-	<div class="notice">
-		<div class="n-title fa">
-			<p class="n-fp">{{articles.title}}</p>
+	<v-maxw :type="'notice'">
+		<div class="notice"  slot="left">
+			<div class="n-title fa">
+				<p class="n-fp">{{articles.title}}</p>
+				<div class="n-tp">
+					<span>{{articles.openDate}}</span>
+					<span>浏览量: <i>{{clickCount}}</i></span>
+					<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
+					<!-- <div class="right" > -->
+					<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
+						<i class="el-icon-plus"></i>{{collect}}
+					</div>
+					<!-- </div>  -->
 
-			<div class="n-tp">
-				<span>{{articles.openDate}}</span>
-				<span>浏览量: <i>{{clickCount}}</i></span>
-				<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
-				<!-- <div class="right" > -->
-				<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-					<i class="el-icon-plus"></i>{{collect}}
 				</div>
-				<!-- </div>  -->
+				<p class="n-thp">
+					<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
+					<v-comjump v-if="articles.oneName" class="left" :type="1" :name="articles.oneName"></v-comjump>
+					<span v-else class="left">第一候选人:详见原文</span>
+					<span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
+					<span class="right" v-else>中标金额：详见原文</span>
+				</p>
+			</div>
+			<div class="n-detail fa">
+				<div class="n-nav">
+					<span class="left">原文</span>
+					<span class="right n-color" @click="text">访问原文出处>></span>
+				</div>
+				<div class="n-text" v-html="articles.content">
 
+				</div>
 			</div>
-			<p class="n-thp">
-				<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
-				<v-comjump v-if="articles.oneName" class="left" :type="1" :name="articles.oneName"></v-comjump>
-				<span v-else class="left">第一候选人:详见原文</span>
-				<span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
-				<span class="right" v-else>中标金额：详见原文</span>
-			</p>
+			<com-ment id="divId" :type="'zhongbiao'" class="no-comL" ref="comment"></com-ment>
 		</div>
-		<div class="n-detail fa">
-			<div class="n-nav">
-				<span class="left">原文</span>
-				<span class="right n-color" @click="text">访问原文出处>></span>
-			</div>
-			<div class="n-text" v-html="articles.content">
-
-			</div>
-		</div>
-		<com-ment id="divId" :type="'zhongbiao'" class="no-comL" ref="comment"></com-ment>
-	</div>
+	</v-maxw>
 </template>
 <script>
 	import {
@@ -40,6 +41,7 @@
 		collectionNotice,
 		nocollectionNotice
 	} from '@/api/index'
+	import maxWfixBox from '@/components/maxWfixBox'
 	export default {
 		data() {
 			return {
@@ -150,20 +152,18 @@
 		mounted() {
 			this.toskip()
 		},
-		components: {}
+		components: {
+			'v-maxw':maxWfixBox
+		}
 	}
 </script>
 <style lang="less" scoped>
 	.notice {
 		width: 100%;
 		padding-top: 86px;
-
 		.fa {
-			width: 1020px;
-			margin: 0 auto;
 			background-color: #fff;
 		}
-
 		.n-title {
 			margin-top: 40px;
 			box-sizing: border-box;
@@ -256,12 +256,10 @@
 
 			table {
 				width: 100%;
-				max-width: 1020px;
 			}
 		}
 
 		.no-comL {
-			width: 1020px;
 			margin: 0 auto;
 			box-sizing: border-box;
 			margin-bottom: 200px;

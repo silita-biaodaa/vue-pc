@@ -77,7 +77,7 @@
 		flex-direction: column;
 
 		.per-nav {
-			width: 1020px;
+			width: 1160px;
 			height: 56px;
 			line-height: 56px;
 			background-color: #fff;
@@ -100,7 +100,7 @@
 		}
 
 		.per-list {
-			width: 1020px;
+			width: 1160px;
 			margin: 0 auto;
 		}
 	}

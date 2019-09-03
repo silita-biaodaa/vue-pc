@@ -38,7 +38,7 @@ export default {
   }
   .f-size {
     margin-top: 10px;
-    width: 1020px;
+    width: 1160px;
     margin: 0 auto;
     text-align: center;
     font-size: 16px;

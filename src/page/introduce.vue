@@ -285,7 +285,7 @@
 </script>
 <style lang="less" scoped>
 	.introduce {
-		width: 1020px;
+		width: 1160px;
 		padding-top: 86px;
 		margin: 0 auto;
 
@@ -392,7 +392,7 @@
 		}
 
 		.anchor {
-			width: 1020px;
+			width: 1160px;
 			overflow: hidden;
 			margin-top: 16px;
 			box-sizing: border-box;

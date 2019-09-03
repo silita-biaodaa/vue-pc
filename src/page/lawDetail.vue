@@ -85,7 +85,7 @@
 <style lang='less' scoped>
 	.lawDetail {
 		padding-top: 126px;
-		width: 1020px;
+		width: 1160px;
 		margin: 0 auto;
 		background: #FAFAFA;
 	}

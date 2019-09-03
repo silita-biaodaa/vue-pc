@@ -1,65 +1,64 @@
 <template>
-	<div class="article">
-		<div style="height:126px;">
+	<v-maxw :type="'notice'">
+		<div class="article" slot="left">
+			<div style="height:126px;"></div>
+			<div class="title">
+				<p class="font-18">
+					{{articles.title}}
+				</p>
+				<div class="date">
+					<span>{{articles.openDate}}</span>
+					<span>浏览量：<i>{{clickCount}}</i></span>
+					<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
+					<!-- <div> -->
+					<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
+						<i class="el-icon-plus"></i>{{collect}}
+					</div>
+					<!-- </div> -->
 
-		</div>
-		<div class="title">
-			<p>
-				{{articles.title}}
-			</p>
-			<div class="date">
-				<span>{{articles.openDate}}</span>
-				<span>浏览量：<i>{{clickCount}}</i></span>
-				<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
-				<!-- <div> -->
-				<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-					<i class="el-icon-plus"></i>{{collect}}
 				</div>
-				<!-- </div> -->
-
 			</div>
+
+			<div class="detail">
+				<div class="area a-f">
+					<span>
+						项目地区：{{articles.projDq}}
+					</span>
+					<span class="m-d">
+						评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
+					</span>
+
+				</div>
+				<div class="a-t a-f">
+					资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
+				</div>
+				<div class="font-18">
+					符合资质要求企业：<a class="a-color" @click="breakto">{{relCompanySize ? relCompanySize + '家>' : 0 }}</a>
+				</div>
+			</div>
+
+			<div class="conten">
+				<div class="link">
+					<span>原文</span>
+					<span @click="text">访问原文出处>></span>
+				</div>
+				<div class="essay" v-html="articles.content">
+
+				</div>
+			</div>
+			<!-- <div > -->
+			<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
+			<!-- </div> -->
 		</div>
-
-		<div class="detail">
-			<div class="area a-f">
-				<span>
-					项目地区：{{articles.projDq}}
-				</span>
-				<span class="m-d">
-					评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
-				</span>
-
-			</div>
-			<div class="a-t a-f">
-				资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
-			</div>
-			<div class="a-f">
-				符合资质要求企业：<a class="a-color" @click="breakto">{{relCompanySize ? relCompanySize + '家>' : 0 }}</a>
-			</div>
-		</div>
-
-		<div class="conten">
-			<div class="link">
-				<span>原文</span>
-				<span @click="text">访问原文出处>></span>
-			</div>
-			<div class="essay" v-html="articles.content">
-
-			</div>
-		</div>
-		<!-- <div > -->
-		<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
-		<!-- </div> -->
-
-	</div>
+	</v-maxw>
 </template>
 <script>
-	import axios from 'axios'
 	import {
 		getJsonData,
 		collectionNotice,
 		nocollectionNotice
 	} from '@/api/index'
+	import maxWfixBox from '@/components/maxWfixBox'
 	export default {
 		data() {
 			return {
@@ -192,27 +191,25 @@
 			this.gainDetail()
 
 		},
-		components: {}
+		components: {
+			'v-maxw':maxWfixBox
+		}
 	}
 </script>
 <style lang="less" scoped>
 	.article {
-		width: 1020px;
-		margin: 0 auto;
-		background: #FAFAFA;
-
 		.a-color {
 			color: #EC7522;
 			cursor: pointer;
 		}
-
+		.font-18{
+			font-size: 18px;
+			color: #333;
+		}
 		.title {
-			width: 1020px;
 			background: #fff;
 			padding-top: 27px;
-
 			p {
-				font-size: 30px;
 				text-align: center;
 				margin-bottom: 17px;
 				//  height: 40px;
@@ -229,27 +226,23 @@
 				display: -webkit-flex;
 				/* NEW - Chrome */
 				display: flex;
-				-webkit-justify-content: space-around;
 				justify-content: space-around;
-				//  width: 575px;
-				font-size: 18px;
-
-				//  margin-bottom: 10px;
+				align-items: center;
+				font-size: 12px;
+				color: #999;
 				i {
 					color: #EC7522;
 				}
-
 				.attention {
 					margin-left: 20px;
-					width: 62px;
-					line-height: 22px;
+					width: 50px;
+					line-height: 20px;
 					border: 1px solid #FE6603;
 					text-align: center;
 					font-size: 14px;
 					border-radius: 5px;
 					color: #FE6603;
 					cursor: pointer;
-
 					i {
 						font-size: 12px;
 					}
@@ -269,9 +262,8 @@
 		.detail {
 			background: #fff;
 			box-sizing: border-box;
-			width: 1020px;
 			height: 163px;
-			margin-bottom: 11px;
+			margin-bottom:28px;
 			padding: 15px 19px 0;
 
 			.area {
@@ -291,7 +283,7 @@
 			}
 
 			.a-f {
-				color: #666;
+				color: #999;
 				font-size: 14px;
 				font-weight: 550;
 			}
@@ -299,12 +291,10 @@
 
 		.conten {
 			background: #fff;
-			width: 1020px;
 			padding: 0 20px;
 			box-sizing: border-box;
 
 			.link {
-				width: 980px;
 				height: 69px;
 				line-height: 69px;
 				font-size: 20px;
@@ -319,7 +309,6 @@
 			}
 
 			.essay {
-				width: 980px;
 				padding: 26px 0 80px;
 				overflow: hidden;
 			}

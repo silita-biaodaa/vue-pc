@@ -24,7 +24,7 @@ export default {
 .hdDetail {
   .hd-img {
     margin: 0 auto;
-    width: 1020px;
+    width: 1160px;
     margin-bottom: 200px;
   }
  
