@@ -4,21 +4,39 @@
         <div class="box">
             <slot name="left"></slot>
         </div>
-        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'100px')}" v-if="list.length>0">
+        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
                 <h5>相关公告({{list.length}})</h5>
                 <ul>
-                    <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">{{i+1}}、{{o.title}}</li>
+                    <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">
+                        <p>{{i+1}}、{{o.title}}</p>
+                    </li>
                 </ul>
             </template>
             <!-- 平台公示 -->
             <template v-else-if="type=='publicity'">
-
+                <h5 class="tit">
+                    <span>行业资讯</span>
+                    <span class="more" @click="jumpZx">更多>></span>
+                </h5>
+                <ul class="second">
+                    <li v-for="(o,i) of list" :key="i" @click="publicityTap(o)">
+                        <p>{{o.title}}</p>
+                    </li>
+                </ul>
             </template>
             <!-- 行业资讯 -->
             <template v-else>
-
+                <h5 class="tit">
+                    <span>平台公示</span>
+                    <span class="more" @click="jumpGs">更多>></span>
+                </h5>
+                <ul class="second">
+                    <li v-for="(o,i) of list" :key="i" @click="informationTap(o)">
+                        <p>{{o.title}}</p>
+                    </li>
+                </ul>
             </template>
         </div>
     </div>
@@ -60,6 +78,35 @@ export default {
                     that.list=res.data.data
                 }
             })
+        }else if(this.type=='publicity'){//平台公示
+            this.$http({
+                method:'post',
+                url:'/notice/queryArticleList',
+                data:{
+                    pageNo:1,
+                    pageSize:10,
+                    type:'0'
+                }
+            }).then(res =>{
+                if(res.data.code==1){
+                    that.list=res.data.data
+                }
+            })
+        }else{
+            this.$http({
+                method:'post',
+                url:'/platform/notice/list',
+                data:{
+                    pageNo:1,
+                    pageSize:10,
+                    type:'version'
+                }
+            }).then(res =>{
+                if(res.data.code==1){
+                    that.list=res.data.data
+                }
+            })
+            
         }
     },
     beforeMount() {
@@ -85,7 +132,7 @@ export default {
     },
     methods: {
         // 方法 集合
-        jumpNotice(o){
+        jumpNotice(o){//跳到公告详情
             let path='/notice'
             if(o.type==1){
                 path='/article'
@@ -100,6 +147,24 @@ export default {
                 }
             })
             window.open(href, '_blank')
+        },
+        publicityTap(o){
+            alert('跳到相关资讯详情')
+        },
+        informationTap(){
+            alert('跳到平台公示详情')
+        },
+        jumpZx(){//打开资讯列表
+            const {href} = this.$router.resolve({
+                path: '/information',
+            })
+            window.open(href, '_blank', )
+        },
+        jumpGs(){//打开公示列表
+            const {href} = this.$router.resolve({
+                path: '/publicity',
+            })
+            window.open(href, '_blank', )
         }
     }
 
@@ -123,30 +188,65 @@ export default {
         font-size: 18px;
         color: #333;
         padding-left: 18px;
+        padding-right: 6px;
         line-height: 40px;
         border-bottom: 1px solid #F0F0F0;
     }
     ul{
         padding: 0 2px 0 8px;
         li{
-            line-height: 44px;
+            min-height: 44px;
+            line-height:1.5;
+            display: flex;
+            align-items: center;
             padding-left: 8px;
             color: #666;
             font-size: 14px;
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
             border-bottom: 1px solid #F2F2F2;
             cursor: pointer;
+            p{
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+            }
         }
         li:last-child{
             border-bottom: none;
         }
-        li:hover{
+        li:hover p{
             text-overflow:clip;
             white-space: normal;
             color: #FE6603;
-            line-height: 2;
+        }
+    }
+
+    .tit{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .more{
+            color: #FE6603;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    }
+    .second{
+        li{
+            min-height: 48px;
+            padding: 0 16px 0 36px;
+            position: relative;
+        }
+        li:before{
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-left:8px solid #FE6603;
+            border-bottom: 8px solid transparent;
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
 }

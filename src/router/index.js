@@ -83,7 +83,8 @@ import lawDetail from '@/page/lawDetail'//法务详情
 import annualDetail from '@/components/business/annualDetail'
 
 import feedback from '@/page/feedback'//意见反馈
-
+import publicity from '@/page/publicity'//平台公示列表
+import information from '@/page/information'//相关资讯列表
 // escort
 //活动
 import hdDetail from'@/page/hdDetail'
@@ -577,6 +578,14 @@ export default new Router({
       path:'/feedback',
       name:'feedback',
       component:feedback
+    },{//平台公示
+      path:'/publicity',
+      name:'publicity',
+      component:publicity
+    },{//相关资讯
+      path:'/information',
+      name:'information',
+      component:information
     },
     {//活动详情
       path:'/hdDetail',
