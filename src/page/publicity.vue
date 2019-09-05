@@ -11,13 +11,13 @@
                         <!-- 有数据 -->
                         <template v-if="list&&list.length>0">
                             <ul>
-                                <li v-for="(o,i) of list" :key="i">
+                                <li v-for="(o,i) of list" :key="i" @click="jump(o)">
                                     <h4>{{o.title}}</h4>
                                     <p>{{o.remark}}</p>
                                 </li>
                             </ul>
                             <div class="page">
-                                <nav-page :all='total' :pageSize="10" :currents='pageNo' @skip='Goto'></nav-page>
+                                <nav-page :all='total' :pageSize="15" :currents='pageNo' @skip='Goto'></nav-page>
                             </div>
                         </template>
                         <!-- 无数据  -->
@@ -88,7 +88,7 @@
                     url:'/platform/notice/list',
                     data:{
                         pageNo:this.pageNo,
-                        pageSize:10,
+                        pageSize:15,
                         type:'version'
                     }
                 }).then(res =>{
@@ -105,7 +105,18 @@
             //刷新
 			recoldFn() {
 				this.reload();
-			}
+            },
+            jump(o){
+                const {
+                    href
+                } = this.$router.resolve({
+                    path: '/detail',
+                    query: {
+                        time: o.releaseTime,
+                    }
+                })
+                window.open(href, '_blank', )
+            }
 		}
 
 	}

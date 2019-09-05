@@ -8,7 +8,7 @@
                 <div class="main-box">
                     <span>意见类别：</span>
                     <div>
-                        <p v-for="(o,i) of btnList" :key="i" :class="i==btnNum?'active':''" @click="btnNum=i">
+                        <p v-for="(o,i) of btnList" :key="i" :class="o==btnNum?'active':''" @click="btnNum=o">
                             <em>{{o}}</em>
                             <i class="el-icon-check"></i>
                         </p>
@@ -30,7 +30,7 @@
                     <input type="type" v-model="tel" placeholder="请留下您的联系方式，以便我们将处理结果及时告知您~"/>
                 </div>
             </div>
-            <button>提交反馈</button>
+            <button @click="upData">提交反馈</button>
         </div>
 	</div>
 </template>
@@ -42,7 +42,7 @@
 			return {
                 // 数据模型
                 btnList:['产品建议','程序错误','吐槽'],
-                btnNum:0,
+                btnNum:'产品建议',
                 remark:'',
                 tel:''
 			}
@@ -60,7 +60,29 @@
 			// console.group('创建完毕状态===============》created');
 		},
 		methods: {
-			// 方法 集合
+            // 方法 集合
+            upData(){
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/foundation/addFeedback',
+                    data:{
+                        problem:this.remark,
+                        type:this.btnNum,
+                        loginChannel:'1003',
+                        contactWay:this.tel
+                    }
+                }).then(res =>{
+                    if(res.data.code==1){
+                        this.$alert('提交成功', '提示', {
+                            confirmButtonText: '确定',
+                            callback:function(){
+                                that.$router.push('/')
+                            }
+                        })
+                    }
+                })
+            }
 		}
 
 	}

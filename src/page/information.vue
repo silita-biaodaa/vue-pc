@@ -17,7 +17,7 @@
                                 </li>
                             </ul>
                             <div class="page">
-                                <nav-page :all='total' :pageSize="10" :currents='pageNo' @skip='Goto'></nav-page>
+                                <nav-page :all='total' :pageSize="15" :currents='pageNo' @skip='Goto'></nav-page>
                             </div>
                         </template>
                         <!-- 无数据  -->
@@ -88,7 +88,7 @@
                     url:'/notice/queryArticleList',
                     data:{
                         pageNo:this.pageNo,
-                        pageSize:10,
+                        pageSize:15,
                         type:'0'
                     }
                 }).then(res =>{

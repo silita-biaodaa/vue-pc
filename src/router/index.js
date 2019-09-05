@@ -85,6 +85,7 @@ import annualDetail from '@/components/business/annualDetail'
 import feedback from '@/page/feedback'//意见反馈
 import publicity from '@/page/publicity'//平台公示列表
 import information from '@/page/information'//相关资讯列表
+import detail from '@/page/detail'//相关资讯及平台公示详情
 // escort
 //活动
 import hdDetail from'@/page/hdDetail'
@@ -586,6 +587,10 @@ export default new Router({
       path:'/information',
       name:'information',
       component:information
+    },{//相关资讯及平台公示详情
+      path:'/detail',
+      name:'detail',
+      component:detail
     },
     {//活动详情
       path:'/hdDetail',
@@ -595,7 +600,11 @@ export default new Router({
     
   ],
   scrollBehavior (to, from, savedPosition) {
-			return { x: 0, y: 0 }
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
 	}
 })
 

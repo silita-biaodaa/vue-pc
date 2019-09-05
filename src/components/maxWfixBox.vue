@@ -1,8 +1,8 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="maxWfixBox">
-        <div class="box">
-            <slot name="left"></slot>
+        <div class="box" :class="list.length>0?'isshow':''">
+            <slot name="left" style="width:750px"></slot>
         </div>
         <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
             <!-- 相关公告 -->
@@ -174,15 +174,18 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .box{
-    width:750px;
+    width:1020px;
     margin: 0 auto;
     background: #FAFAFA;
+}
+.isshow>div{
+    width: 750px;
 }
 .fix-box{
     width: 260px;
     position: fixed;
     background: #fff;
-    margin-left:387px;
+    margin-left:250px;
     left: 50%;
     h5{
         font-size: 18px;

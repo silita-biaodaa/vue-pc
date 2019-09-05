@@ -1,5 +1,6 @@
 <template>
-	<div id="app">
+	<div id="app" ref="top">
+		<!-- 头部 -->
 		<div class="fixation" v-show="excom">
 			<div class="app-header">
 				<div class="contact">
@@ -76,11 +77,11 @@
 			</div>
 		</div>
 
-
+		<!-- 内容 -->
 		<div class="content">
 			<router-view :state='source' v-if="isRouter" />
 		</div>
-
+		<!-- 底部 -->
 		<div class="footer footer-b " v-show="exploit">
 			<div class="f-content">
 				<div class="f-detail left">
@@ -123,6 +124,46 @@
 				</div>
 			</div>
 		</div>
+
+		<!--右侧悬浮-->
+		<div class="fix-right">
+			<div class="block qrbox">
+				<div class="hover-before">
+					<img src="./assets/img/icon-app1.png"/>
+				</div>
+				<div class="hover-after">App下载</div>
+				<div class="qrcode-box">
+					<img src="./assets/img/app.png"/>
+				</div>
+			</div>
+			<div class="block qrbox">
+				<div class="hover-before">
+					<img src="./assets/img/icon-app2.png"/>
+				</div>
+				<div class="hover-after">官方微信</div>
+				<div class="qrcode-box">
+					<img src="./assets/img/gzh.png"/>
+				</div>
+			</div>
+			<div class="block" @click="jump('/feedback')">
+				<div class="hover-before">
+					<img src="./assets/img/icon-app3.png"/>
+				</div>
+				<div class="hover-after">意见反馈</div>
+			</div>
+			<div class="block">
+				<div class="hover-before">
+					<img src="./assets/img/icon-app4.png"/>
+				</div>
+				<div class="hover-after">新手指引</div>
+			</div>
+			<div class="block" @click="goTop">
+				<div class="hover-before">
+					<img src="./assets/img/icon-app5.png"/>
+				</div>
+				<div class="hover-after">回到顶部</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -137,6 +178,8 @@
 		name: 'App',
 		data() {
 			return {
+				app:false,
+				gzh:false,
 				isRouter: true,
 				show: true,
 				isshow: true,
@@ -212,7 +255,7 @@
 				],
 				select: '',
 				name: '?',
-        isarea: false,
+        		isarea: false,
 				allcity: [{
 						name: '华东',
 						next: [{
@@ -491,7 +534,17 @@
 						}
 					})
 				}
-      },
+      		},
+			jump(path){//新开页跳转
+				let routeUrl = this.$router.resolve({
+					path:path,
+				});
+				window.open(routeUrl.href, '_blank');
+			},
+			goTop(){//回到顶部
+				let top=this.$refs.top;
+				top.scrollIntoView({block: "start",behavior: "smooth"})
+			}
     },
 		created() {
 			if (localStorage.getItem('history')) {
@@ -909,7 +962,62 @@
 			border-radius: 3px;
 		}
 	}
-  
+	/*右侧悬浮*/
+	.fix-right{
+		position: fixed;
+		width: 80px;
+		// overflow: hidden;
+		right: 15px;
+		transform: translateY(-50%);
+		top: 50%;
+		z-index: 999;
+		border: 1px solid #f2f2f2;
+		.block{
+			position: relative;
+			cursor: pointer;
+			background: #fff;
+			padding: 0 4px;
+			.hover-before{
+				border-bottom: 1px solid #F2F2F2;
+				height: 80px;
+				display: flex;
+				align-items: center;
+    			justify-content: center;
+			}
+			.hover-after{
+				text-align: center;
+				position: absolute;
+				top: 0;
+				right:-100%;
+				background: #FE6603;
+				color: #fff;
+				width: 100%;
+				height: 100%;
+				box-sizing: border-box;
+				padding: 20px;
+				transition: all 1s;
+				opacity: 0;
+			}
+			/*二维码*/
+			.qrcode-box{
+				position: absolute;
+				top: -200%;
+				right: 94px;
+				opacity: 0;
+				transition: all 1s;
+			}
+		}
+		.block:hover .hover-after{
+			opacity: 1;
+			right: 0;
+		}
+		.qrbox:hover .qrcode-box{
+			opacity: 1;
+			top: -25px;
+		}
+		
+	}
+
 	body .el-loading-spinner .path {
 		stroke: #FE6603;
 	}
