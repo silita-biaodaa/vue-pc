@@ -1,10 +1,10 @@
 <!-- 模型： DOM 结构 -->
 <template>
 	<div class="information">
-        <v-head :headTxt="'相关资讯'"></v-head>
+        <v-head :headTxt="'行业资讯'"></v-head>
         <v-maxw :type="'information'">
             <div slot="left">
-                <div class="con-nav">首页 > 相关资讯</div>
+                <div class="con-nav">首页 > 行业资讯</div>
                 <div class="main">
                     <!-- 判断是否加载中 -->
                     <template v-if="isajax">
@@ -24,7 +24,7 @@
                         <template v-else-if="list&&list.length==0">
                             <div class="no-toast">
                                 <img src="../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有相关资讯信息</span>
+                                <span>Sorry，没有行业资讯信息</span>
                             </div>
                         </template>
                         <!-- 加载失败 -->

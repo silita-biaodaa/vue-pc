@@ -974,10 +974,10 @@
 		border: 1px solid #f2f2f2;
 		.block{
 			position: relative;
-			cursor: pointer;
 			background: #fff;
 			padding: 0 4px;
 			.hover-before{
+				cursor: pointer;
 				border-bottom: 1px solid #F2F2F2;
 				height: 80px;
 				display: flex;
@@ -985,6 +985,7 @@
     			justify-content: center;
 			}
 			.hover-after{
+				cursor: pointer;
 				text-align: center;
 				position: absolute;
 				top: 0;
@@ -1001,10 +1002,13 @@
 			/*二维码*/
 			.qrcode-box{
 				position: absolute;
-				top: -200%;
+				// top: -200%;
+				top: -25px;
 				right: 94px;
-				opacity: 0;
+				// opacity: 0;
 				transition: all 1s;
+				z-index: -1;
+				display: none;
 			}
 		}
 		.block:hover .hover-after{
@@ -1012,8 +1016,9 @@
 			right: 0;
 		}
 		.qrbox:hover .qrcode-box{
-			opacity: 1;
-			top: -25px;
+			// opacity: 1;
+			display: block;
+			// z-index: 1;
 		}
 		
 	}

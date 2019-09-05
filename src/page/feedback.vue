@@ -30,7 +30,7 @@
                     <input type="type" v-model="tel" placeholder="请留下您的联系方式，以便我们将处理结果及时告知您~"/>
                 </div>
             </div>
-            <button @click="upData">提交反馈</button>
+            <button @click="upData" :class="isTap?'ban':''">提交反馈</button>
         </div>
 	</div>
 </template>
@@ -44,7 +44,8 @@
                 btnList:['产品建议','程序错误','吐槽'],
                 btnNum:'产品建议',
                 remark:'',
-                tel:''
+                tel:'',
+                isTap:false
 			}
 		},
 		watch: {
@@ -62,6 +63,10 @@
 		methods: {
             // 方法 集合
             upData(){
+                if(this.isTap){
+                    return false
+                }
+                this.isTap=true;
                 let that=this;
                 this.$http({
                     method:'post',
@@ -74,6 +79,7 @@
                     }
                 }).then(res =>{
                     if(res.data.code==1){
+                        this.isTap=false;
                         this.$alert('提交成功', '提示', {
                             confirmButtonText: '确定',
                             callback:function(){
@@ -180,7 +186,12 @@
             line-height: 34px;
             color: #fff;
             border-radius: 10px;
-            background: #FE6603
+            background: #FE6603;
+            cursor: pointer;
+        }
+        .ban{
+            opacity: .8;
+            cursor: wait;
         } 
     }
 }
