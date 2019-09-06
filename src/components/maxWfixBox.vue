@@ -84,7 +84,7 @@ export default {
                 url:'/notice/queryArticleList',
                 data:{
                     pageNo:1,
-                    pageSize:10,
+                    pageSize:5,
                     type:'0'
                 }
             }).then(res =>{
@@ -98,7 +98,7 @@ export default {
                 url:'/platform/notice/list',
                 data:{
                     pageNo:1,
-                    pageSize:10,
+                    pageSize:5,
                     type:'version'
                 }
             }).then(res =>{

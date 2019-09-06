@@ -24,7 +24,9 @@
                         </tr>
                         <tr v-for="(o,i) of data.list" :key="i">
                             <td>{{i+1}}</td>
-                            <td>{{o.comName}}</td>
+                            <td>
+                                <v-comjump :name="o.comName"></v-comjump>
+                            </td>
                             <td v-if="$route.query.type==1">{{o.num}}</td>
                             <template v-else>
                                 <!-- 信誉积分 -->
