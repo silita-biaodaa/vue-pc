@@ -11,7 +11,7 @@
                         <!-- 有数据 -->
                         <template v-if="list&&list.length>0">
                             <ul>
-                                <li v-for="(o,i) of list" :key="i">
+                                <li v-for="(o,i) of list" :key="i" @click="jump(o)">
                                     <h4>{{o.title}}</h4>
                                     <p>{{o.contentDescribe}}</p>
                                 </li>
@@ -105,7 +105,16 @@
             //刷新
 			recoldFn() {
 				this.reload();
-			}
+            },
+            jump(o){
+                const {href}=this.$router.push({
+                    path:'/detail',
+                    query:{
+                        id:o.id
+                    }
+                })
+                window.open(href, '_blank', )
+            }
 		}
 
 	}

@@ -21,7 +21,7 @@
 				<div class="tit-right" @click="seeMore">查看更多></div>
 			</h4>
 			<ul>
-				<li v-for="(o,i) of showList" :key="i">
+				<li v-for="(o,i) of showList" :key="i" @click="jump(o)">
 					<div class="list-l">
 						<i>{{i+1}}</i>
 						<span>{{o.title}}</span>
@@ -512,6 +512,26 @@
 				}else{
 					this.$router.push('/publicity')
 				}
+			},
+			jump(o){
+				let data='';
+				if(this.tabNum==0){//行业资讯
+					data = this.$router.resolve({
+						path:'/detail',
+						query:{
+							id:o.id
+						}
+					})
+				}else{//平台公示
+					data = this.$router.resolve({
+						path:'/detail',
+						query:{
+							time:o.releaseTime,
+							type:o.type
+						}
+					})
+				}
+				window.open(data.href, '_blank', )
 			}
 		},
 		beforeCreate(){
@@ -802,6 +822,7 @@
 				justify-content: space-between;
 				height: 64px;
 				align-items: center;
+				cursor: pointer;
 				.list-l{
 					display: flex;
 					align-items: center;

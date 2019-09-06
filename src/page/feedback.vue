@@ -18,7 +18,7 @@
                     <span>反馈内容：</span>
                     <div>
                         <textarea 
-                            placeholder="请简述您在使用时遇到的问题或意见建议（15-500字），我们将不断改进~"
+                            placeholder="请简述您在使用时遇到的问题或意见建议（最多500字），我们将不断改进~"
                             maxlength="500"
                             minlength='15'
                             v-model="remark"

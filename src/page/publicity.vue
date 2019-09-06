@@ -113,6 +113,7 @@
                     path: '/detail',
                     query: {
                         time: o.releaseTime,
+                        type:o.type
                     }
                 })
                 window.open(href, '_blank', )

@@ -611,7 +611,7 @@
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
-					'publicity'||this.$route.name=='information'
+					'publicity'||this.$route.name=='information'||this.$route.name=='detail'
 				) {
 					return false
 				} else {
@@ -634,7 +634,9 @@
 	@import './style/common';
 	@import './assets/iconfont.css';
 	@import './base/base.css';
-
+	body{
+		width: 100% !important;
+	}
 	#app {
 		background-color: #FAFAFA;
 
@@ -965,7 +967,7 @@
 	/*右侧悬浮*/
 	.fix-right{
 		position: fixed;
-		width: 80px;
+		width: 60px;
 		// overflow: hidden;
 		right: 15px;
 		transform: translateY(-50%);
@@ -979,7 +981,7 @@
 			.hover-before{
 				cursor: pointer;
 				border-bottom: 1px solid #F2F2F2;
-				height: 80px;
+				height: 60px;
 				display: flex;
 				align-items: center;
     			justify-content: center;
@@ -989,21 +991,22 @@
 				text-align: center;
 				position: absolute;
 				top: 0;
-				right:-100%;
+				right:0;
 				background: #FE6603;
 				color: #fff;
 				width: 100%;
 				height: 100%;
 				box-sizing: border-box;
-				padding: 20px;
+				padding: 10px;
 				transition: all 1s;
-				opacity: 0;
+				opacity: 1;
+				display: none;
 			}
 			/*二维码*/
 			.qrcode-box{
 				position: absolute;
 				// top: -200%;
-				top: -25px;
+				top: -35px;
 				right: 94px;
 				// opacity: 0;
 				transition: all 1s;
@@ -1012,8 +1015,9 @@
 			}
 		}
 		.block:hover .hover-after{
-			opacity: 1;
-			right: 0;
+			// opacity: 1;
+			// right: 0;
+			display: block;
 		}
 		.qrbox:hover .qrcode-box{
 			// opacity: 1;

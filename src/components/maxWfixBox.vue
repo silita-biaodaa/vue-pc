@@ -149,10 +149,23 @@ export default {
             window.open(href, '_blank')
         },
         publicityTap(o){
-            alert('跳到相关资讯详情')
+            const {href}=this.$router.push({
+                path:'/detail',
+                query:{
+                    id:o.id
+                }
+            })
+            window.open(href, '_blank', )
         },
         informationTap(){
-            alert('跳到平台公示详情')
+            const {href}=this.$router.push({
+                path:'/detail',
+                query:{
+                    time:o.releaseTime,
+                    type:o.type
+                }
+            })
+            window.open(href, '_blank', )
         },
         jumpZx(){//打开资讯列表
             const {href} = this.$router.resolve({
@@ -177,6 +190,7 @@ export default {
     width:1020px;
     margin: 0 auto;
     background: #FAFAFA;
+    min-height: 685px;
 }
 .isshow>div{
     width: 750px;
