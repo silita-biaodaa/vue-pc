@@ -67,6 +67,10 @@
                 if(this.isTap){
                     return false
                 }
+                if(this.remark==''){
+                    this.$alert('请填写反馈内容')
+                    return false
+                }
                 this.isTap=true;
                 this.btnTxt='提交中'
                 let that=this;

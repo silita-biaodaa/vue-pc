@@ -86,6 +86,12 @@ import feedback from '@/page/feedback'//意见反馈
 import publicity from '@/page/publicity'//平台公示列表
 import information from '@/page/information'//相关资讯列表
 import detail from '@/page/detail'//相关资讯及平台公示详情
+import novice from '@/page/novice' //新手指引
+import novice1 from '@/page/novice/1' //新手指引1
+import novice2 from '@/page/novice/2' //新手指引2
+import novice3 from '@/page/novice/3' //新手指引2
+import novice4 from '@/page/novice/4' //新手指引2
+import novice5 from '@/page/novice/5' //新手指引2
 // escort
 //活动
 import hdDetail from'@/page/hdDetail'
@@ -591,6 +597,49 @@ export default new Router({
       path:'/detail',
       name:'detail',
       component:detail
+    },{//新手指引
+      path:'/novice',
+      name:'novice',
+      component:novice,
+      redirect: '/novice/1',
+      children:[
+        {
+          path:'1',
+          name:'novice',
+          component:novice1,
+          meta:{
+            i:0
+          }
+        },{
+          path:'2',
+          name:'novice',
+          component:novice2,
+          meta:{
+            i:1
+          }
+        },{
+          path:'3',
+          name:'novice',
+          component:novice3,
+          meta:{
+            i:2
+          }
+        },{
+          path:'4',
+          name:'novice',
+          component:novice4,
+          meta:{
+            i:3
+          }
+        },{
+          path:'5',
+          name:'novice',
+          component:novice5,
+          meta:{
+            i:4
+          }
+        }
+      ]
     },
     {//活动详情
       path:'/hdDetail',

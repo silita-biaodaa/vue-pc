@@ -151,7 +151,7 @@
 				</div>
 				<div class="hover-after">意见反馈</div>
 			</div>
-			<div class="block">
+			<div class="block" @click="jump('/novice')">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app4.png"/>
 				</div>
@@ -611,7 +611,7 @@
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
-					'publicity'||this.$route.name=='information'||this.$route.name=='detail'
+					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'
 				) {
 					return false
 				} else {
