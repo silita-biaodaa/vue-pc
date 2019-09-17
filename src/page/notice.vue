@@ -16,10 +16,10 @@
 				</div>
 				<p class="n-thp">
 					<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
-					<v-comjump v-if="articles.oneName" class="left" :type="1" :name="articles.oneName"></v-comjump>
-					<span v-else class="left">第一候选人:详见原文</span>
-					<span class="right" v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
-					<span class="right" v-else>中标金额：详见原文</span>
+					<v-comjump v-if="articles.oneName" :type="1" :name="articles.oneName"></v-comjump>
+					<span v-else >第一候选人:详见原文</span>
+					<span v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
+					<span v-else>中标金额：详见原文</span>
 				</p>
 			</div>
 			<div class="n-detail fa">
@@ -229,6 +229,8 @@
 				font-size: 14px;
 				overflow: hidden;
 				margin-top: 20px;
+				display: flex;
+				justify-content: space-between;
 			}
 		}
 

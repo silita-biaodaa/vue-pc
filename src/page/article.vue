@@ -271,11 +271,6 @@
 				font-size: 18px;
 				padding-bottom: 15px;
 			}
-
-			.m-d {
-				margin-left: 320px;
-			}
-
 			.a-t {
 				padding-bottom: 20px;
 				border-bottom: 1px solid #F2F2F2;
@@ -286,6 +281,8 @@
 				color: #999;
 				font-size: 14px;
 				font-weight: 550;
+				display: flex;
+				justify-content: space-between;
 			}
 		}
 
