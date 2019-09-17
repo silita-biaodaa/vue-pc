@@ -5,7 +5,7 @@
         <h5>功能介绍：</h5>
         <p>通过设置地区、资质、业绩条件自定义组合，查询出符合条件的建筑业企业。</p>
         <h5 style="margin-top:60px">使用方法：</h5>
-        <p>1、打开标大大，在每个模块的搜索栏旁都可找到<span style="background:#FBB2D2">综合查询</span>模块，点击进入综合查询功能页；</p>
+        <p>1、打开标大大，找到图中标红的<span style="background:#FBB2D2">综合查询</span>模块，点击进入综合查询功能页；</p>
         <img src="../../assets/img/novice/5-1.png"/>
         <p>2、您可根据所需条件，进行<span style="background:#FBB2D2">自由组合</span><span style="background:#F9C9A3">可增加</span><span style="background:#ADE1FA">删减条件</span>然后点击<span style="background:#C4CDF8">查询</span>,跳转到查询页面；</p>
         <img src="../../assets/img/novice/5-2.png"/>

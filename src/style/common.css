@@ -131,14 +131,6 @@ figcaption:focus {
   background-color: #FE6603;
   color: #fff;
 }
-.logo-img {
-  width: 100%;
-  background: url(../assets/img/logoB.png) no-repeat;
-  background-position-x: center;
-  height: 523px;
-  position: relative;
-  overflow: hidden;
-}
 .e-enroll {
   margin-top: 55px;
   text-align: center;

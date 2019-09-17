@@ -183,6 +183,14 @@
 	}
 </script>
 <style lang="less" scoped>
+	.logo-img {
+		width: 100%;
+		background: url(../assets/img/logoB.png) no-repeat;
+		background-position-x: center;
+		height: 523px;
+		position: relative;
+		overflow: hidden;
+	}
 	.logo {
 		overflow: hidden;
 		width: 100%;

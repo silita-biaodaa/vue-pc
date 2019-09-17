@@ -7,7 +7,7 @@
         <h5 style="margin-top:60px">使用方法：</h5>
         <p>1、打开“标大大”首页，点击图中标红<span style="background:#FBB2D2">在建</span>模块，进入查在建功能页；</p>
         <img src="../../assets/img/novice/4-1.png"/>
-        <p>2、您可根据<span style="background:#FBB2D2">姓名</span> 或 <span style="background:#F9C9A3">身份证号</span>查询人员在建情况；（不能同事输入人员姓名和身份证哦，仅支持查询湖南省在建信息）</p>
+        <p>2、您可根据<span style="background:#FBB2D2">姓名</span> 或 <span style="background:#F9C9A3">身份证号</span>查询人员在建情况；（不能同时输入人员姓名和身份证哦，仅支持查询湖南省在建信息）</p>
         <img src="../../assets/img/novice/4-2.png"/>
     </div>
 </template>
