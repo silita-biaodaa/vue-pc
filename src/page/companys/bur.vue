@@ -26,7 +26,7 @@
 			<template v-if="allArr&&allArr.length>0">
 				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el)">
 					<div class="left" style="width:54px">
-						{{(current-1)*10+(i+1)}}
+						{{(current-1)*20+(i+1)}}
 					</div>
 					<div class="left  p-10" style="width:200px">
 						{{el.proName ? el.proName: '--'}}
@@ -44,8 +44,8 @@
 						{{el.province ? el.province: '--'}}
 					</div>
 				</div>
-				<div class="e-page" v-if="total>10">
-					<nav-page :all='total' :pageSize='10' :currents='current' @skip='Goto'></nav-page>
+				<div class="e-page" v-if="total>20">
+					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 				</div>
 			</template>
 			<!-- 无数据  -->
@@ -126,7 +126,7 @@
 					comName: this.$route.query.name,
 					pageNo: this.current,
 					tabType: 'project',
-					pageSize: 10,
+					pageSize: 20,
 					proName: this.search
 				}).then(res => {
 					that.isajax=true;

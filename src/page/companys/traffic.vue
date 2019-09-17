@@ -15,7 +15,7 @@
 			<!-- 有数据 -->
 			<template v-if="allArr&&allArr.length>0">
 				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el,i)">
-					<div class="left" style="width:54px">{{(current-1)*10+(i+1)}}</div>
+					<div class="left" style="width:54px">{{(current-1)*20+(i+1)}}</div>
 					<div class="left p-10" style="width:160px">{{el.proName ? el.proName: '--'}}</div>
 					<div class="left p-10" style="width:130px">{{el.section ? el.section: '--'}}</div>
 					<div class="left" style="width:130px">{{el.comName ? el.comName: '--'}}</div>
@@ -23,8 +23,8 @@
 					<div class="left" style="width:90px">{{el.build ? el.build: '--'}}</div>
 					<div class="left" style="width:100px">{{el.proWhere ? el.proWhere: '--'}}</div>
 				</div>
-				<div class="e-page" v-if="total>10">
-					<nav-page :all='total' :pageSize='10' :currents='current' @skip='Goto'></nav-page>
+				<div class="e-page" v-if="total>20">
+					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 				</div>
 			</template>
 			<!-- 无数据  -->
@@ -105,7 +105,7 @@
 					comName: this.$route.query.name,
 					pageNo: this.current,
 					tabType: 'jiaotong',
-					pageSize: 10,
+					pageSize: 20,
 					proName: this.search
 				}).then(res => {
 					that.isajax=true;
