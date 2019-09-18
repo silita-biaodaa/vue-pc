@@ -640,11 +640,21 @@
 	#app {
 		background-color: #FAFAFA;
 
-		table {
-			// table-layout:fixed
+		.article table {
 			max-width: 100%;
+			width: 100% !important;
+			margin-left: 0 !important;
 		}
-
+		.notice table{
+			max-width: 100%;
+			width: 100% !important;
+			margin-left: 0 !important;
+		}
+		.detail table{
+			max-width: 100%;
+			width: 100% !important;
+			margin-left: 0 !important;
+		}
 		.content {
 			width: 100%;
 		}
