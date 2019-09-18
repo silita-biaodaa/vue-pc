@@ -235,7 +235,7 @@
 				}
 				.attention {
 					margin-left: 20px;
-					width: 50px;
+					width: 62px;
 					line-height: 20px;
 					border: 1px solid #FE6603;
 					text-align: center;
