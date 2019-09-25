@@ -20,7 +20,7 @@
 				<div class="left law-row" style="width:200px;lineHeight:15px">{{el.qualName ? el.qualName: '--'}}</div>
 				<div class="left law-row" style="width:150px">{{el.certNo ? el.certNo: '--'}}</div>
 				<div class="left law-row" style="width:250px">{{el.certOrg ? el.certOrg: '--'}}</div>
-				<div class="left law-row" style="width:100px">{{el.certDate ? el.certDate: '--'}}</div>
+				<div class="left law-row" style="width:100px">{{el.validDate ? el.validDate: '--'}}</div>
 			</div>
 			<div class="no-toast" v-show="result">
 				<img src="../../assets/img/bank_card @2x.png" alt="">
