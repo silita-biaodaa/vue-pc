@@ -64,10 +64,10 @@
 						</div>
 						<div class="aptitude">
 							<p class="left surplus">
-								<span :title='el.oneName'>第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
+								<span :title='el.oneName' v-if="el.oneName">第一候选人:{{el.oneName}}</span>
 							</p>
 							<p class="right">
-								<span>中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
+								<span v-if="el.oneOffer">中标金额:{{el.oneOffer}}</span>
 							</p>
 						</div>
 					</a>

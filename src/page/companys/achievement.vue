@@ -25,10 +25,10 @@
 					</div>
 					<div class="e-peo">
 						<p>
-							{{el.oneName ? '第一候选人:' + el.oneName : '详见原文'}}
+							{{el.oneName ? '第一候选人:' + el.oneName : ''}}
 						</p>
 						<div>
-							中标金额:{{el.oneOffer ?   el.oneOffer + "万" : '详见原文'}}
+							中标金额:{{el.oneOffer ?   el.oneOffer + "万" : ''}}
 						</div>
 					</div>
 

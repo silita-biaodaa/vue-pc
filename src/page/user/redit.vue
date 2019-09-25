@@ -78,9 +78,31 @@
 									{{el.msgContent}}
 								</div>
 							</div>
-							<div class="msg-btn">
+							<!-- <div class="msg-btn">
 								<button class="right" @click="jumpVip">查看详情 ></button>
+							</div> -->
+						</div>
+					</template>
+					<!-- 其他 -->
+					<template v-else>
+						<div class="msg-company-box">
+							<div class="msg-tit">
+								<p>{{el.msgTitle}}</p>
+								<p>{{el.pushd}}</p>
 							</div>
+							<div class="msg-con">
+								<div class="list-cli">
+									<div class="list-true" v-if="!el.textShow"></div>
+									<img src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+								</div>
+								<div>
+									<div class="no-read" v-if="el.isRead == 0"></div>
+									{{el.msgContent}}
+								</div>
+							</div>
+							<!-- <div class="msg-btn">
+								<button class="right">查看详情 ></button>
+							</div> -->
 						</div>
 					</template>
 				</div>

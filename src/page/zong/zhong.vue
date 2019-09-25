@@ -23,11 +23,11 @@
           </div>
       </div>
       <div class="detail">
-        <div class="left">
-          第一候选人：{{el.oneName ? el.oneName : '详见原文'}}
+        <div class="left" v-if="el.oneName">
+          第一候选人：{{el.oneName}}
         </div>
-        <div class="right">
-          中标金额：{{el.oneOffer ? el.oneOffer + '万' : '详见原文' }}
+        <div class="right" v-if="el.oneOffer">
+          中标金额：{{el.oneOffer}}
         </div>
       </div>
     </a>

@@ -78,6 +78,24 @@
 							</div>
 						</div>
 					</template>
+					<!-- 其他 -->
+					<template v-else>
+						<div class="msg-company-box">
+							<div class="msg-tit">
+								<p>{{el.msgTitle}}</p>
+								<p>{{el.pushd}}</p>
+							</div>
+							<div class="msg-con">
+								<div>
+									<div class="no-read" v-if="el.isRead == 0"></div>
+									{{el.msgContent}}
+								</div>
+							</div>
+							<!-- <div class="msg-btn">
+								<button class="right">查看详情 ></button>
+							</div> -->
+						</div>
+					</template>
 				</div>
 				<div class="page" v-if="total>10">
 					<nav-page :all='total' :currents='pageNo' :pageSize='pageSize' @skip='Goto'></nav-page>

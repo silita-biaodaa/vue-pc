@@ -174,7 +174,14 @@ Vue.prototype.formatDate = function(param, type=null) {
   return b;
 }
 
-
+/*新开页跳转*/
+Vue.prototype.openNewLink = function(path,query=null){
+  const {href} = router.resolve({
+    path:path,
+    query: query
+  })
+  window.open(href, '_blank', )
+}
 //获取url参数
 const getParam=function(name){  //获取参数
   var url=window.location.search;  //获取问号之后的字0符

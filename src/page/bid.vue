@@ -64,11 +64,11 @@
 							</p>
 						</div>
 						<div class="aptitude">
-							<p class="left surplus" :title='el.certificate'>
-								资质要求:{{el.certificate ? el.certificate : '详见原文' }}
+							<p class="left surplus" :title='el.certificate' v-if="el.certificate ">
+								资质要求:{{el.certificate }}
 							</p>
-							<p class="right">
-								评标办法:{{el.pbMode ? el.pbMode : '详见原文'}}
+							<p class="right" v-if="el.pbMode">
+								评标办法:{{el.pbMode}}
 							</p>
 						</div>
 					</a>

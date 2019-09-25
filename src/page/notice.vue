@@ -17,9 +17,7 @@
 				<p class="n-thp">
 					<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
 					<v-comjump v-if="articles.oneName" :type="1" :name="articles.oneName"></v-comjump>
-					<span v-else >第一候选人:详见原文</span>
 					<span v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
-					<span v-else>中标金额：详见原文</span>
 				</p>
 			</div>
 			<div class="n-detail fa">

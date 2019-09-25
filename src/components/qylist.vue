@@ -17,8 +17,8 @@
               <div class="left project" @click="qjump(el)" >
                 <div>
                   <p class="list-til">{{el.comName}}</p>
-                  <p class="list-z">法定代表：{{el.legalPerson ? el.legalPerson : '详见原文'}}</p>
-                  <p class="list-z">注册资金：{{el.regisCapital ? el.regisCapital : '详见原文'}}</p>       
+                  <p class="list-z" v-if="el.legalPerson">法定代表：{{el.legalPerson}}</p>
+                  <p class="list-z" v-if="el.regisCapital">注册资金：{{el.regisCapital}}</p>       
                 </div>
               </div>
               <div class="left operate  ">
@@ -41,7 +41,7 @@
       <template v-else-if="bidlists&&bidlists.length==0">
           <div class="no-toast">
           <img src="../assets/img/bank_card @2x.png" alt="">
-          <span>暂无关注的企业</span>
+          <span>暂无关注的企业信息，去<u class="herf-txt" @click="$router.push('/company')">企业列表</u>看看吧</span>
           </div>
       </template>
       <!-- 加载失败 -->

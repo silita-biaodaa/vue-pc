@@ -3,7 +3,7 @@
 		<en-search @vague='entitle' :title="data.keyWord" :all='total' @company='entitle'></en-search>
 		<div class="option-box">
 			<all-city :city='last' @Cnext='eval'></all-city>
-			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
+			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1||data.regisAddress.indexOf('重庆')>-1">
 				<el-row>
 					<el-col :span="2">备案地区：</el-col>
 					<el-col :span="14">
@@ -151,6 +151,10 @@
 						name:'安全考评优良企业',
 						istap:false,
 						code:'reviewFine'
+					},{
+						name:'长沙市公共资源交易中心入库企业',
+						istap:false,
+						code:'111'
 					}
 				],
 				levelList:[
@@ -396,6 +400,32 @@
 				this.data.honorCate='';
 				if(val.cur.indexOf('湖南省')>-1){
 					this.data.isBei='hunan';
+					this.recordList=[//备案地区
+						{
+							name:'湘内企业',
+							code:'hunan'
+						},{
+							name:'入湘企业',
+							code:'enterCompany'
+						},{
+							name:'湘内企业+入湘企业',
+							code:'enterHunan'
+						},
+					]
+				}else if(val.cur.indexOf('重庆')>-1){
+					this.data.isBei='chongqing';
+					this.recordList=[//备案地区
+						{
+							name:'渝内企业',
+							code:'chongqing'
+						},{
+							name:'入渝企业',
+							code:'chongqing1'
+						},{
+							name:'渝内企业+入渝企业',
+							code:'chongqing2'
+						},
+					]
 				}else{
 					this.data.isBei='';
 				}
@@ -464,6 +494,33 @@
 					this.last = {
 						source:this.data.regisAddress
 					}
+				}
+				if(this.last.source.indexOf('重庆')>-1){
+					this.recordList=[//备案地区
+						{
+							name:'渝内企业',
+							code:'chongqing'
+						},{
+							name:'入渝企业',
+							code:'chongqing1'
+						},{
+							name:'渝内企业+入渝企业',
+							code:'chongqing2'
+						},
+					]
+				}else if(this.last.source.indexOf('湖南')>-1){
+					this.recordList=[//备案地区
+						{
+							name:'湘内企业',
+							code:'hunan'
+						},{
+							name:'入湘企业',
+							code:'enterCompany'
+						},{
+							name:'湘内企业+入湘企业',
+							code:'enterHunan'
+						},
+					]
 				}
 			},
 			//刷新

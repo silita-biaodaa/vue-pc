@@ -17,7 +17,7 @@
               <div class="left project" @click="tjump(el)" >
                 <div>
                   <p class="list-til">{{el.title}}</p>
-                  <p class="list-z">第一候选人：{{el.oneName ? el.oneName : '详见原文'}}</p>       
+                  <p class="list-z" v-if="el.oneName">第一候选人：{{el.oneName}}</p>       
                 </div>
               </div>
               <div class="left operate  ">
@@ -40,7 +40,7 @@
       <template v-else-if="bidlists&&bidlists.length==0">
           <div class="no-toast">
           <img src="../assets/img/bank_card @2x.png" alt="">
-          <span>暂无关注的中标公告</span>
+          <span>暂无关注的中标信息，去<u class="herf-txt" @click="$router.push('/tender')">中标列表</u>看看吧</span>
           </div>
       </template>
       <!-- 加载失败 -->
