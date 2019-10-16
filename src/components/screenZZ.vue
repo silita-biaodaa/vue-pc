@@ -291,16 +291,13 @@ export default {
         },
         forinFn(){//匹配是否重复
             if(this.lengthList.length>1){
-                for(let x in this.lengthList){
-                    if(x==1){
-                        if(this.lengthList[x].str==this.lengthList[x-1].str){
-                            return true
-                        }
-                    }else if(x==2){
-                        if(this.lengthList[x].str==this.lengthList[0].str){
-                            return true
-                        }
-                    }
+                let arr=[],arr1=[];
+                for(let x of this.lengthList){
+                    arr.push(x.str)
+                }
+                arr1=new Set(arr);
+                if(arr.length!=arr1.size){
+                    return true
                 }
             }
         },

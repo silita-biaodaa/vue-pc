@@ -3,19 +3,21 @@
     <div class="maxWfixBox">
         <div class="box" :class="list.length>0?'isshow':''">
             <slot name="left" style="width:750px"></slot>
-        </div>
-        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
-                <h5>相关公告({{list.length}})</h5>
-                <ul>
-                    <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">
-                        <p>{{i+1}}、{{o.title}}</p>
-                    </li>
-                </ul>
+                <div class="fix-box positionBox">
+                    <h5>相关公告({{list.length}})</h5>
+                    <ul>
+                        <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">
+                            <p>{{i+1}}、{{o.title}}</p>
+                        </li>
+                    </ul>
+                </div>
             </template>
+        </div>
+        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
             <!-- 平台公示 -->
-            <template v-else-if="type=='publicity'">
+            <template v-if="type=='publicity'">
                 <h5 class="tit">
                     <span>行业资讯</span>
                     <span class="more" @click="jumpZx">更多>></span>
@@ -27,7 +29,7 @@
                 </ul>
             </template>
             <!-- 行业资讯 -->
-            <template v-else>
+            <template v-else-if="type=='information'">
                 <h5 class="tit">
                     <span>平台公示</span>
                     <span class="more" @click="jumpGs">更多>></span>
@@ -191,6 +193,20 @@ export default {
     margin: 0 auto;
     background: #FAFAFA;
     min-height: 685px;
+    position: relative;
+    .fix-box.positionBox{
+        position: absolute;
+        top: 125px;
+        width: 260px;
+        background: #fff;
+        li{
+            line-height: 24px;
+            p{
+                text-overflow:clip;
+                white-space: normal;
+            }
+        }
+    }
 }
 .isshow>div{
     width: 750px;

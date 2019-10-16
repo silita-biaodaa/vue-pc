@@ -24,13 +24,13 @@
 					<span>
 						项目地区：{{articles.projDq}}
 					</span>
-					<span class="m-d" v-if="articles.pbMode">
-						评标办法：{{articles.pbMode}}
+					<span class="m-d">
+						评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
 					</span>
 
 				</div>
-				<div class="a-t a-f" v-if="articles.zzRank">
-					资质要求：{{articles.zzRank}}
+				<div class="a-t a-f">
+					资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
 				</div>
 				<div class="font-18">
 					符合资质要求企业：<a class="a-color" @click="breakto">{{relCompanySize ? relCompanySize + '家>' : 0 }}</a>
