@@ -3,20 +3,38 @@
 import Vue from 'vue'
 import App from './App'
 
+// import {Select,Option,Input,Checkbox,Button,Carousel,Icon,Row,Col,MessageBox,CarouselItem,Dropdown,DropdownMenu,DropdownItem,Loading,DatePicker} from 'element-ui';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import "babel-polyfill"
 Vue.use(ElementUI);
-import moment from 'moment'
-Vue.prototype.$moment = moment;
+// import "babel-polyfill"
+// Vue.use(Row);
+// Vue.use(Col);
+// Vue.use(Select);
+// Vue.use(Option);
+// Vue.use(Input);
+// Vue.use(Checkbox);
+// Vue.use(Button);
+// Vue.use(Carousel);
+// Vue.use(Icon);
+// Vue.use(CarouselItem);
+// Vue.use(Dropdown);
+// Vue.use(DropdownMenu);
+// Vue.use(DropdownItem);
+// Vue.use(Loading.directive);
+// Vue.use(DatePicker);
+// import moment from 'moment'
+// Vue.prototype.$moment = moment;
 import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
-import 'babel-polyfill'
+// import 'babel-polyfill'
 import funcom from './util/util'
 Vue.prototype.funcom = funcom
-
+// Vue.prototype.$alert = MessageBox.alert;
+// Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false
+import  companyJump  from '@/components/companyJump';
 import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
 import  logoNav from '@/components/logoNav'
@@ -80,7 +98,7 @@ Vue.component('com-ment', comment)
 Vue.component('re-ply', reply)
 Vue.component('re-dit', redit)
 Vue.component('user-center', usercenter)
-
+Vue.component('v-comjump',companyJump)
 
 
 
@@ -156,7 +174,14 @@ Vue.prototype.formatDate = function(param, type=null) {
   return b;
 }
 
-
+/*新开页跳转*/
+Vue.prototype.openNewLink = function(path,query=null){
+  const {href} = router.resolve({
+    path:path,
+    query: query
+  })
+  window.open(href, '_blank', )
+}
 //获取url参数
 const getParam=function(name){  //获取参数
   var url=window.location.search;  //获取问号之后的字0符
@@ -276,5 +301,14 @@ new Vue({
     }).catch(req =>{
       console.log(req);
     })
+    if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+      this.$http({
+        method:'post',
+        url:'/foundation/version',
+        data:{
+          loginChannel:'1003'
+        }
+      }).then();
+    }
   }
 })

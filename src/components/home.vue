@@ -17,8 +17,8 @@
                    </li>
                 </ul>
                 <div style="position:relative;">
-                   <el-input :placeholder="placeTxt" v-model="select" class="input-with-select">
-                      <el-button slot="append" @click="searchFn">搜索</el-button>
+                   <el-input :placeholder="placeTxt" v-model="select" class="input-with-select" clearable autofocus @clear="clearFn" ref="iput">
+                      <el-button slot="append" @click="searchFn" >搜索</el-button>
                    </el-input>
                    <div class="right  syn"  @click="jump" >
                       综合查询
@@ -90,6 +90,10 @@ export default {
     }
   },
   methods: {
+    clearFn(){
+      this.$refs.iput.focus();
+      this.searchFn();
+    },
     seaI(el) {
       this.rank = el.i
       if(el.i==6){

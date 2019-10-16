@@ -73,17 +73,17 @@
 			},
 			gainTime() {
 				var myDate = new Date();
-				var time = myDate.toLocaleDateString().split('/')
-				var times = myDate.toLocaleDateString().split('/')
-				this.province[1].new = time.join('-')
-				this.province[2].new = time.join('-')
-				var year = time[0]
-				var three = time.splice(1, 2)
-				var five = times.splice(1, 2)
-				three.unshift(year - 3)
-				five.unshift(year - 5)
-				this.province[1].old = three.join('-')
-				this.province[2].old = five.join('-')
+				let y=myDate.getFullYear(),
+					mon=myDate.getMonth()+1,
+					day=myDate.getDate();
+				mon=mon<10?'0'+mon:mon;
+				day=day<10?'0'+day:day;
+				if(mon=='02'&&day==29){
+					day=28
+				}
+				this.province[1].old=(y-3)+'-'+mon+'-'+day;
+				this.province[2].old=(y-5)+'-'+mon+'-'+day;
+
 			}
 		},
 		watch: {

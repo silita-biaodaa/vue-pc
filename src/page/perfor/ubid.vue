@@ -33,7 +33,9 @@
 						{{el.zhongbiaoCompany}}
 					</div>
 					<div class="" style="width:130px;">
-						{{el.zhongbiaoAmount + '万元'}}
+						<template v-if="el.zhongbiaoAmount">
+							{{el.zhongbiaoAmount + '万元'}}
+						</template>
 					</div>
 					<div class="" style="width:145px;">
 						{{el.zhaobiaoType}}
@@ -116,7 +118,9 @@
 							中标金额（万元）
 						</div>
 						<div class="show-text " style="width:291px;border:none">
-							{{debid.zhongbiaoAmount + '万元'}}
+							<template  v-if="debid.zhongbiaoAmount">
+								{{debid.zhongbiaoAmount + '万元'}}
+							</template>
 						</div>
 					</div>
 					<div class="show-del">
@@ -268,8 +272,6 @@
 				}).then(res => {
 					this.company = res.data
 					if (this.company.length == 0) {
-						console.log(1);
-
 						this.ubl = true
 					} else {
 						this.ubl = false
@@ -384,7 +386,7 @@
 				border: 1px solid rgba(242, 242, 242, 1);
 				padding: 10px;
 				box-sizing: border-box;
-
+				text-align: center;
 				.auto-pop {
 					overflow-x: auto;
 					height: 420px;

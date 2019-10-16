@@ -102,6 +102,7 @@ export default {
             }).then(function(res){
                 if(res.data.code==1){
                     that.mask=true;
+                    that.modalHelper.afterOpen();
                     that.detail=res.data.data;
                 }else{
                     that.$alert(res.data.msg);

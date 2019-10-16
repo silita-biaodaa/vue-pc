@@ -20,54 +20,85 @@
 				项目属地
 			</div>
 		</div>
-		<div class="law-text" v-for="(el,i) in allArr" :key="i" v-show="result" @click="decide(el)">
-			<div class="left" style="width:54px">
-				{{($parent.current-1)*10+(i+1)}}
-			</div>
-			<div class="left  p-10" style="width:200px">
-				{{el.proName ? el.proName: '--'}}
-			</div>
-			<div class="left" style="width:140px">
-				{{el.proType ? el.proType: '--'}}
-			</div>
-			<div class="left" style="width:140px">
-				{{el.amount ? el.amount + '万': '--'}}
-			</div>
-			<div class="left" style="width:120px">
-				{{el.buildEnd ? el.buildEnd: '--'}}
-			</div>
-			<div class="left" style="width:120px">
-				{{el.province ? el.province: '--'}}
-			</div>
-		</div>
-		<div class="no-toast" v-show="!result">
-			<img src="../../assets/img/bank_card @2x.png" alt="">
-			<span>Sorry，暂未查询到该公司住建部业绩信息</span>
-		</div>
+		<!-- 判断是否加载中 -->
+		<template v-if="isajax">
+			<!-- 有数据 -->
+			<template v-if="allArr&&allArr.length>0">
+				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el)">
+					<div class="left" style="width:54px">
+						{{(current-1)*20+(i+1)}}
+					</div>
+					<div class="left  p-10" style="width:200px">
+						{{el.proName ? el.proName: '--'}}
+					</div>
+					<div class="left" style="width:140px">
+						{{el.proType ? el.proType: '--'}}
+					</div>
+					<div class="left" style="width:140px">
+						{{el.amount ? el.amount + '万': '--'}}
+					</div>
+					<div class="left" style="width:120px">
+						{{el.buildEnd ? el.buildEnd: '--'}}
+					</div>
+					<div class="left" style="width:120px">
+						{{el.province ? el.province: '--'}}
+					</div>
+				</div>
+				<div class="e-page" v-if="total>20">
+					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
+				</div>
+			</template>
+			<!-- 无数据  -->
+			<template v-else-if="allArr&&allArr.length==0">
+				<div class="no-toast">
+					<img src="../../assets/img/bank_card @2x.png" alt="">
+					<span>Sorry，暂未查询到该公司住建部业绩信息</span>
+				</div>
+			</template>
+			<!-- 加载失败 -->
+			<template v-else-if="!allArr">
+				<div class="ajax-erroe">
+					<img src="../../assets/img/pic-zoudiu.png" />
+					<span @click="recoldFn">刷新</span>
+				</div>
+			</template>
+		</template>
+		<template v-else>
+			<div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+		</template>
 		<f-vip @toChildEvent='closeload' v-if='svip'></f-vip>
 	</div>
 </template>
 <script>
+	import {Project} from '@/api/index'
 	export default {
 		data() {
 			return {
-				result: true,
 				allArr: [],
-				svip: false
+				svip: false,
+				current: 1,
+				total:0,
+				loading:true,
+				isajax:false,
 			}
 		},
-		props: ['arr'],
-		watch: {
-			arr(val) {
-				this.allArr = val
-				if (this.allArr.length == 0) {
-					this.result = false
-				} else {
-					this.result = true
-				}
-			}
-		},
+		props: ['search'],
+		inject: ['reload'],
 		methods: {
+			Goto(val) {
+				this.allArr=[];
+				this.isajax=false;
+				this.current = val.cur
+				this.ajax()
+				this.funcom.toList(180)
+			},
+			searchFn(){
+				this.allArr=[];
+				this.isajax=false;
+				this.current = 1
+				this.ajax()
+				this.funcom.toList(180)
+			},
 			decide(el) {
 				if (localStorage.getItem('permissions') == '') {
 					this.svip = true
@@ -87,11 +118,35 @@
 			closeload(val) {
 				this.svip = val.cur
 			},
+			ajax(){
+				let that=this;
+				Project({
+					comId: this.$route.query.id,
+					type: 'page',
+					comName: this.$route.query.name,
+					pageNo: this.current,
+					tabType: 'project',
+					pageSize: 20,
+					proName: this.search
+				}).then(res => {
+					that.isajax=true;
+					if (res.code == 1) {
+						this.total = res.total
+						this.allArr = res.data
+					}
+				}).catch(function(){
+					that.isajax=true;
+					that.allArr=null;
+				})
+			},
+			//刷新
+			recoldFn() {
+				this.reload();
+			}
 		},
 		created() {
-			this.allArr = this.arr
+			this.ajax();
 		},
-		components: {}
 	}
 </script>
 <style lang="less">

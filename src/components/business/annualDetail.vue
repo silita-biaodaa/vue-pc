@@ -85,13 +85,13 @@
                     <td class="bg">网址</td>
                 </tr>
                 <tr v-for="(o,i) of data.website" :key="'wd'+i">
-                    <td>
-                        <template v-if="o.webType==1">
+                    <td>{{o.webType}}
+                        <!-- <template v-if="o.webType==1">
                             网站
                         </template>
                         <template v-else>
                             网店
-                        </template>
+                        </template> -->
                     </td>
                     <td>{{o.webSitName}}</td>
                     <td>

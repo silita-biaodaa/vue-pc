@@ -65,6 +65,7 @@ export default {
         // 方法 集合
         closeFn(){
             this.$parent.mask=false
+            this.modalHelper.beforeClose();
         }
     }
 

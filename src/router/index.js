@@ -12,7 +12,7 @@ const Icbc = resolve => require(['@/page/companys/icbc'], resolve)
 const Personnel = resolve => require(['@/page/companys/personnel'], resolve)
 const Intell = resolve => require(['@/page/companys/intelligence'], resolve)
 const Law = resolve => require(['@/page/companys/law'], resolve)
-const Good = resolve => require(['@/page/companys/good'], resolve)
+const Good = resolve => require(['@/page/companys/sincerity'], resolve)
 
 
 
@@ -82,11 +82,19 @@ import lawDetail from '@/page/lawDetail'//法务详情
 
 import annualDetail from '@/components/business/annualDetail'
 
-
-
-
+import feedback from '@/page/feedback'//意见反馈
+import publicity from '@/page/publicity'//平台公示列表
+import information from '@/page/information'//相关资讯列表
+import detail from '@/page/detail'//相关资讯及平台公示详情
+import novice from '@/page/novice' //新手指引
+import novice1 from '@/page/novice/1' //新手指引1
+import novice2 from '@/page/novice/2' //新手指引2
+import novice3 from '@/page/novice/3' //新手指引2
+import novice4 from '@/page/novice/4' //新手指引2
+import novice5 from '@/page/novice/5' //新手指引2
 // escort
-
+//活动
+import hdDetail from'@/page/hdDetail'
 
 
 
@@ -569,14 +577,83 @@ export default new Router({
         tabNo: 7
       }
     },
-    {
+    {//年报详情
       path:'/annualDetail',
       name:'annualDetail',
       component:annualDetail,
-    }
+    },{//意见反馈
+      path:'/feedback',
+      name:'feedback',
+      component:feedback
+    },{//平台公示
+      path:'/publicity',
+      name:'publicity',
+      component:publicity
+    },{//相关资讯
+      path:'/information',
+      name:'information',
+      component:information
+    },{//相关资讯及平台公示详情
+      path:'/detail',
+      name:'detail',
+      component:detail
+    },{//新手指引
+      path:'/novice',
+      name:'novice',
+      component:novice,
+      redirect: '/novice/1',
+      children:[
+        {
+          path:'1',
+          name:'novice',
+          component:novice1,
+          meta:{
+            i:0
+          }
+        },{
+          path:'2',
+          name:'novice',
+          component:novice2,
+          meta:{
+            i:1
+          }
+        },{
+          path:'3',
+          name:'novice',
+          component:novice3,
+          meta:{
+            i:2
+          }
+        },{
+          path:'4',
+          name:'novice',
+          component:novice4,
+          meta:{
+            i:3
+          }
+        },{
+          path:'5',
+          name:'novice',
+          component:novice5,
+          meta:{
+            i:4
+          }
+        }
+      ]
+    },
+    {//活动详情
+      path:'/hdDetail',
+      name:'hdDetail',
+      component:hdDetail
+    },
+    
   ],
   scrollBehavior (to, from, savedPosition) {
-			return { x: 0, y: 0 }
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
 	}
 })
 
