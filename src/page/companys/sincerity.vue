@@ -18,15 +18,15 @@
 				<v-prize :data="prizeList"></v-prize>
 			</template>
 			<!-- 公路信用等级 -->
-			<!-- <template v-else-if="navNum==2">
-				<v-highway></v-highway>
-			</template> -->
-			<!-- 水利信用等级 -->
-			<!-- <template v-else-if="navNum==3">
-				<v-water></v-water>
-			</template> -->
-			<!-- 不良信息 -->
 			<template v-else-if="navNum==2">
+				<v-highway :data="highwayList"></v-highway>
+			</template>
+			<!-- 水利信用等级 -->
+			<template v-else-if="navNum==3">
+				<v-water :data="shuiliList"></v-water>
+			</template>
+			<!-- 不良信息 -->
+			<template v-else-if="navNum==4">
 				<v-bad :data="badList"></v-bad>
 			</template>
 		</template>
@@ -55,15 +55,15 @@
 					length: 0,
 					isAjax: false,
 				}, 
-				// {
-				// 	name: '公路信用等级',
-				// 	length: 0,
-				// 	isAjax: false,
-				// }, {
-				// 	name: '水利信用等级',
-				// 	length: 0,
-				// 	isAjax: false,
-				// }, 
+				{
+					name: '公路信用等级',
+					length: 0,
+					isAjax: false,
+				}, {
+					name: '水利信用等级',
+					length: 0,
+					isAjax: false,
+				}, 
 				{
 					name: '不良信息',
 					length: 0,
@@ -71,6 +71,8 @@
 				}],
 				honorList:[],
 				prizeList:[],
+				highwayList:[],
+				shuiliList:[],
 				badList:[],
 				isajax:false,
 				loading:true,
@@ -99,6 +101,8 @@
 					if(res.data.code==1){
 						that.honorList=res.data.data.companyAwards
 						that.prizeList=res.data.data.projectAwards
+						that.highwayList=res.data.data.highway
+						that.shuiliList=res.data.data.shuili
 						that.badList=res.data.data.under
 					}else{
 						that.$alert(res.data.msg);

@@ -1041,6 +1041,9 @@
 			}
 
 		}
+		.block:last-child .hover-before{
+			border-bottom:none
+		}
 		.block:hover .hover-after{
 			// opacity: 1;
 			// right: 0;

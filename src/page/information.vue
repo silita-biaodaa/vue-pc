@@ -122,6 +122,9 @@
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style lang='less' scoped>
 .information{
+    .page{
+        width: 1020px;
+    }
     .con-nav{
         line-height: 40px;
         font-size: 12px;
