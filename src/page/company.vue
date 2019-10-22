@@ -44,10 +44,10 @@
 					<div class="firm">
 						<div class='firm-ul'>
 							<div>
-								<div class="left t-size" style="width:80px;">
+								<div class="left t-size" style="width:70px;">
 									序号
 								</div>
-								<div class="left t-size" style="width:300px;">
+								<div class="left t-size" style="width:310px;">
 									企业名称
 								</div>
 								<div class="left t-size" style="width:120px;">
@@ -64,10 +64,10 @@
 								</div>
 							</div>
 							<a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'>
-								<div class="left " style="width:80px;">
+								<div class="left " style="width:70px;">
 									{{(data.pageNo-1)*20+(i+1)}}
 								</div>
-								<div class="left" style="width:300px;">
+								<div class="left" style="width:310px;">
 									<span class='c-col'>{{el.comName}}</span>
 								</div>
 								<div class="left" style="width:120px;">

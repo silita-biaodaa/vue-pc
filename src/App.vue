@@ -1,7 +1,7 @@
 <template>
 	<div id="app" ref="top">
 		<!-- 头部 -->
-		<div class="fixation" v-show="excom">
+		<div class="fixation" v-if="excom">
 			<div class="app-header">
 				<div class="contact">
 					<div class="contact-l">
@@ -82,7 +82,7 @@
 			<router-view :state='source' v-if="isRouter" />
 		</div>
 		<!-- 底部 -->
-		<div class="footer footer-b " v-show="exploit">
+		<div class="footer footer-b " v-if="exploit">
 			<div class="f-content">
 				<div class="f-detail left">
 					<div class="f-we">
@@ -126,10 +126,11 @@
 		</div>
 
 		<!--右侧悬浮-->
-		<div class="fix-right">
+		<div class="fix-right" v-if="$route.name!='error'">
 			<div class="block qrbox">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app1.png"/>
+					<p>App下载</p>
 				</div>
 				<div class="hover-after">App下载</div>
 				<div class="qrcode-box">
@@ -139,6 +140,7 @@
 			<div class="block qrbox">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app2.png"/>
+					<p>官方微信</p>
 				</div>
 				<div class="hover-after">官方微信</div>
 				<div class="qrcode-box">
@@ -148,18 +150,21 @@
 			<div class="block" @click="jump('/feedback')">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app3.png"/>
+					<p>意见反馈</p>
 				</div>
 				<div class="hover-after">意见反馈</div>
 			</div>
 			<div class="block" @click="jump('/novice')">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app4.png"/>
+					<p>新手指引</p>
 				</div>
 				<div class="hover-after">新手指引</div>
 			</div>
 			<div class="block" @click="goTop">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app5.png"/>
+					<p>回到顶部</p>
 				</div>
 				<div class="hover-after">回到顶部</div>
 			</div>
@@ -599,7 +604,7 @@
 			},
 			// 底部是否消失
 			exploit() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll') {
+				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' ||this.$route.name=='error') {
 					return false
 				} else {
 					return true
@@ -611,7 +616,7 @@
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
-					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'
+					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
 				) {
 					return false
 				} else {
@@ -977,7 +982,7 @@
 	/*右侧悬浮*/
 	.fix-right{
 		position: fixed;
-		width: 60px;
+		width: 80px;
 		// overflow: hidden;
 		right: 15px;
 		transform: translateY(-50%);
@@ -987,16 +992,27 @@
 		.block{
 			position: relative;
 			background: #fff;
-			padding: 0 4px;
+			padding: 8px 4px 3px;
+			text-align: center;
 			.hover-before{
 				cursor: pointer;
 				border-bottom: 1px solid #F2F2F2;
 				height: 60px;
-				display: flex;
-				align-items: center;
-    			justify-content: center;
+				// display: flex;
+				padding-bottom: 8px;
+				// align-items: center;
+				// justify-content: center;
+				img{
+					width: 36%;
+				}
+				p{
+					font-size: 12px;
+					color: #333;
+					margin-top: 5px
+				}
 			}
 			.hover-after{
+    			align-items: center;
 				cursor: pointer;
 				text-align: center;
 				position: absolute;
@@ -1023,11 +1039,12 @@
 				z-index: -1;
 				display: none;
 			}
+
 		}
 		.block:hover .hover-after{
 			// opacity: 1;
 			// right: 0;
-			display: block;
+			display: flex;
 		}
 		.qrbox:hover .qrcode-box{
 			// opacity: 1;
