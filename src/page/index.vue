@@ -526,8 +526,8 @@
 					data = this.$router.resolve({
 						path:'/detail',
 						query:{
-							time:o.releaseTime,
-							type:o.type
+							id:o.pkid,
+							type:'ptgs'
 						}
 					})
 				}

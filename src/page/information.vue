@@ -107,7 +107,7 @@
 				this.reload();
             },
             jump(o){
-                const {href}=this.$router.push({
+                const {href}=this.$router.resolve({
                     path:'/detail',
                     query:{
                         id:o.id

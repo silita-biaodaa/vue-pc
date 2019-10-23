@@ -62,19 +62,17 @@
 		},
 		created() {
             // console.group('创建完毕状态===============》created');
-            if(this.$route.query.time){//平台公示
+            if(this.$route.query.type=='ptgs'){//平台公示
                 this.$http({
                     method:'post',
                     url:'/count/list',
                     data:{
-                        statDate:this.$route.query.time,
-                        type:this.$route.query.type
+                        pkid:this.$route.query.id
                     }
                 }).then(res =>{
                     this.data=res.data.data
                 })
-            }
-            if(this.$route.query.id){//行业资讯
+            }else{//行业资讯
                 this.headTxt='行业资讯'
                 this.$http({
                     method:'post',

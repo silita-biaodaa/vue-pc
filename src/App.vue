@@ -403,7 +403,7 @@
 			valley() {
 				if (localStorage.getItem('Xtoken')) {
 					let today = new Date().getTime() - localStorage.getItem('valid')
-					if (Math.ceil(today / 3600 / 24 / 1000) >= 15) {
+					if (Math.ceil(today / 3600 / 24 / 1000) > 15) {
 						alert('用户信息已失效，请重新登录')
 						this.$router.push('/logo')
 					} else {

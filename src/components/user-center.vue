@@ -66,7 +66,7 @@ export default {
               sessionStorage.removeItem('xtoken')
               localStorage.removeItem('Xtoken')
               localStorage.removeItem('permissions')
-               this.$confirm('用户登录失效，请重新登录', '提示', {
+               this.$confirm('用户信息已失效，请重新登录', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',
                   type: 'warning'
