@@ -217,7 +217,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('isvip')) {
+                if (!localStorage.getItem('isvip')) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
