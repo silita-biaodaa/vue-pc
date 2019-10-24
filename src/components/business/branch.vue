@@ -94,7 +94,7 @@ export default {
         getBranch() {//分支机构
             let that=this;
             let data={comId:this.$route.query.id};
-            if(localStorage.getItem('permissions')&&localStorage.getItem('permissions')!=''){
+            if(localStorage.getItem('isvip')&&localStorage.getItem('isvip')!=''){
                 data.isVip = 1
             } else {
                 data.isVip = 0 
@@ -107,7 +107,7 @@ export default {
                     this.list.forEach( el => {
                         if(el.phone) {
                         iar = el.phone.split(';')
-                        // if( localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comPhone') == -1  ) {
+                        // if( !localStorage.getItem('isvip') ) {
                         //     el.phone = this.resetPhone(iar[0])
                         // } else {
                             el.phone = iar[0]

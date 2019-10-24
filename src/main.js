@@ -253,7 +253,7 @@ router.beforeEach((to, from, next) => {
               if(resd.data){
                 sessionStorage.setItem('xtoken',resd.data.xtoken);
                 localStorage.setItem('Bname',resd.data.nikeName);
-                localStorage.setItem('permissions',resd.data.permissions);
+                localStorage.setItem('isvip',resd.data.isVip);
                 next({
                   name:'home',
                   params:{

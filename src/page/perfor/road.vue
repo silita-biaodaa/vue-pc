@@ -195,7 +195,7 @@
 			},
 			decide(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions')) {
+					if (localStorage.getItem('isvip')) {
 						el.is = true
 						const {
 							href

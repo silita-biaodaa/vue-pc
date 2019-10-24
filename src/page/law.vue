@@ -83,8 +83,8 @@
 		},
 		methods: {
 			gaintime(val) {
-				this.data.start = val.old
-				this.data.end = val.new
+				this.data.start = val.old==''?null:val.old
+				this.data.end = val.new==''?null:val.new
 				if (val.old == '' && val.new == '') {
 					this.data.start = null
 					this.data.end = null
@@ -107,7 +107,7 @@
 			toDetail(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
 					// this.perlist[el].is = true
-					if (localStorage.getItem('permissions')) {
+					if (localStorage.getItem('isvip')) {
 						el.is = true
 						const {
 							href

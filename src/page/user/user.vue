@@ -158,7 +158,7 @@
 					sessionStorage.removeItem('xtoken')
 					localStorage.removeItem('Bname')
 					localStorage.removeItem('Xtoken')
-					localStorage.removeItem('permissions')
+					localStorage.removeItem('isvip')
 					this.$router.push('/home')
 				} else {
 					this.name = el.name
@@ -215,7 +215,7 @@
 				localStorage.removeItem('Bname')
 				localStorage.removeItem('Xtoken')
 				localStorage.removeItem('valid')
-				localStorage.removeItem('permissions')
+				localStorage.removeItem('isvip')
 				this.$router.push('/home')
 			},
 			isroot() {

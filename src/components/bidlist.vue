@@ -88,7 +88,7 @@ export default {
         if(res.code = 1 ) {
           this.total = res.total
           this.bidlists = res.data
-         if( localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+         if( localStorage.getItem('isvip') == null || localStorage.getItem('isvip') == '') {
               for(let x of this.bidlists){
                  if(x.certificate){
                    x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')

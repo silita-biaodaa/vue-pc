@@ -98,7 +98,7 @@
 					source: this.source,
 					pageNo: this.current
 				};
-				if (localStorage.getItem('permissions')) {
+				if (localStorage.getItem('isvip')) {
 					dataParam.isVip = 1
 				} else {
 					dataParam.isVip = 0
@@ -107,7 +107,7 @@
 				getJsonData("/company/qual/list/" + this.id, dataParam).then(res => {
 					this.isajax = true;
 					if (res.code == 1) {
-						// if(localStorage.getItem('permissions')){
+						// if(localStorage.getItem('isvip')){
 						let arr = []
 						res.data.forEach(el => {
 							if (el.phone) {

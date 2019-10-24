@@ -78,7 +78,7 @@
 				this.funcom.toList(200)
 			},
 			jumpDetail(id) {
-				if (localStorage.getItem('permissions') == '') {
+				if (!localStorage.getItem('isvip')) {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {

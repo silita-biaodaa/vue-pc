@@ -93,8 +93,7 @@
 						} else {
 							this.collect = '关注'
 						}
-						if (localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem(
-								'permissions').indexOf('bidFilter') == -1) {
+						if (!localStorage.getItem('isvip')) {
 							if (this.articles.zzRank) {
 								this.articles.zzRank = this.articles.zzRank.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g, '*')
 							}

@@ -149,7 +149,7 @@
 		},
 		methods: {
 			entitle(val) {
-				if (localStorage.getItem('permissions') == '') {
+				if (!localStorage.getItem('isvip')) {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					return
@@ -218,7 +218,7 @@
 			},
 			tobuild(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions') == '') {
+					if (!localStorage.getItem('isvip')) {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
@@ -271,7 +271,7 @@
 				this.gainList()
 			},
 			companyFn(val) { //企业搜索
-				if (localStorage.getItem('permissions') == '') {
+				if (!localStorage.getItem('isvip')) {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					return

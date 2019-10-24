@@ -217,7 +217,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('permissions') == '') {
+                if (localStorage.getItem('isvip')) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
@@ -317,7 +317,7 @@ export default {
         },
         addFn(){//增加条件
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (!localStorage.getItem('permissions')||localStorage.getItem('permissions') == '') {
+                if (!localStorage.getItem('isvip')) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                     return false

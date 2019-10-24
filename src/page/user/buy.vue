@@ -501,7 +501,7 @@
 							getUserTemp({}).then(res => {
 								if (res.code == 1) {
 									sessionStorage.setItem('ip', res.data.pkid)
-									localStorage.setItem('permissions', res.data.permissions)
+									localStorage.setItem('isvip', res.data.isVip)
 									localStorage.setItem('isFirst', res.data.isFirst)
 
 									// localStorage.setItem('ip', res.data.pkid)

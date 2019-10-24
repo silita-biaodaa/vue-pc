@@ -98,7 +98,7 @@
 				})
 			},
 			toPer(el) {
-				//  if(localStorage.getItem('permissions') == '') {
+				//  if(!localStorage.getItem('isvip')) {
 				//     this.svip = true
 				//     this.modalHelper.afterOpen();
 				//  } else {
@@ -124,7 +124,7 @@
 
 			},
 			jumpya(el) {
-				if (localStorage.getItem('permissions') == '') {
+				if (!localStorage.getItem('isvip')) {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {

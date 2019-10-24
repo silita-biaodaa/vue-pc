@@ -119,7 +119,7 @@ export default {
             localStorage.removeItem('Bname')
             localStorage.removeItem('Xtoken')
             localStorage.removeItem('valid')
-            localStorage.removeItem('permissions')
+            localStorage.removeItem('isvip')
             this.$router.replace({
                 path: '/home',
             })

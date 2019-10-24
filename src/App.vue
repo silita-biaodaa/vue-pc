@@ -414,7 +414,7 @@
 								localStorage.setItem('Bname', name)
 								localStorage.setItem('isFirst', res.data.isFirst)
 								sessionStorage.setItem('ip', res.data.pkid)
-								localStorage.setItem('permissions', res.data.permissions)
+								localStorage.setItem('isvip', res.data.isVip)
 								localStorage.setItem('phoneNo', res.data.phoneNo)
 							}
 							//  else {
@@ -473,7 +473,7 @@
 				localStorage.removeItem('Bname')
 				localStorage.removeItem('Xtoken')
 				localStorage.removeItem('valid')
-				localStorage.removeItem('permissions')
+				localStorage.removeItem('isvip')
 				this.$router.replace({
 					path: '/home',
 					query: {
@@ -595,7 +595,6 @@
 			}
 		},
 		destroyed() {
-			// localStorage.removeItem('permissions')
 		},
 		computed: {
 			tabNo() {
@@ -1023,7 +1022,7 @@
 				width: 100%;
 				height: 100%;
 				box-sizing: border-box;
-				padding: 10px;
+				padding: 18px;
 				transition: all 1s;
 				opacity: 1;
 				display: none;

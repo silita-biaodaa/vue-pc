@@ -317,7 +317,7 @@
 				let data = {}
 				let that = this;
 				data = this.data
-				if (localStorage.getItem('permissions')) {
+				if (localStorage.getItem('isvip')) {
 					data.isVip = 1
 				} else {
 					data.isVip = 0
@@ -325,7 +325,7 @@
 				companys(data).then(res => {
 					this.isajax = true;
 					this.isSerach = false;
-					if (localStorage.getItem('permissions')) {
+					if (localStorage.getItem('isvip')) {
 						let arr = []
 						res.data.forEach(el => {
 							if (el.phone) {
@@ -359,7 +359,7 @@
 			},
 			again() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('comFilter') == -1) {
+					if (!localStorage.getItem('isvip')) {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {

@@ -92,7 +92,7 @@
 				this.funcom.toList(180)
 			},
 			decide(el) {
-				if (localStorage.getItem('permissions') == '') {
+				if (!localStorage.getItem('isvip')) {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {

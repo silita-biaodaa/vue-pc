@@ -87,7 +87,7 @@ export default {
         if(res.code = 1 ) {
           this.total = res.total
           this.bidlists = res.data
-           if(  localStorage.getItem('permissions') == null || localStorage.getItem('permissions') == '' || localStorage.getItem('permissions').indexOf('tenderFilter') == -1  ) {
+           if(!localStorage.getItem('isvip')) {
                            this.bidlists.forEach( el => {
                                if(el.oneName)  {
                                   if(el.oneName.indexOf('公司') == -1) {

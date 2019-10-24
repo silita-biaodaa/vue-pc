@@ -229,7 +229,7 @@
 			decide(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
 					// this.perlist[el].is = true
-					if (localStorage.getItem('permissions')) {
+					if (localStorage.getItem('isvip')) {
 						el.is = true
 						const {
 							href
