@@ -2,12 +2,12 @@
 	<div class="company">
 		<en-search @vague='entitle' :title="data.keyWord" :all='total' @company='entitle'></en-search>
 		<div class="option-box">
-			<all-city :city='last' @Cnext='eval'></all-city>
-			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
+			<all-city :city='last' :type="1" @Cnext='eval'></all-city>
+			<div class="select" v-if="data.regisAddress!=''">
 				<el-row>
 					<el-col :span="2">备案地区：</el-col>
 					<el-col :span="14">
-						<div class='left c-isbei' v-for="(el,i) in recordList" :key='i' :class="el.code==data.isBei?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
+						<div class='left c-isbei' v-for="(el,i) in recordList" :key='i' :class="el.code==data.joinRegion?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
 					</el-col>
 				</el-row>
 			</div>
@@ -132,14 +132,17 @@
 				last: '',
 				recordList:[//备案地区
 					{
+						name:'湘内企业+入湘企业',
+						code:'all_in'
+					},{
 						name:'湘内企业',
-						code:'hunan'
+						code:'in'
 					},{
 						name:'入湘企业',
-						code:'enterCompany'
+						code:'enter'
 					},{
-						name:'湘内企业+入湘企业',
-						code:'enterHunan'
+						name:'长沙资源交易中心',
+						code:'changsha'
 					},
 				],
 				honoraryList:[//荣誉类别
@@ -181,7 +184,7 @@
 					levelRank: '',
 					rangeType: '', // 资质关联
 					keyWord:'', // 关键字 
-					isBei:'hunan',//备案地区
+					joinRegion:'all_in',//备案地区
 					honorCate:'',//荣誉类别
 				},
 			}
@@ -207,6 +210,29 @@
 				handler(val,old){
 					sessionStorage.setItem('comselect',JSON.stringify(val));
 				}
+			},
+			'data.regisAddress':function(name,old){
+				if(name==''){
+					return
+				}
+				let str=''
+				for(let x of this.areas){
+					if(x.name==name){
+						str=x.shortName
+						break
+					}
+				}
+				this.recordList[0].name='入'+str+'+'+str+'内企业';
+				this.recordList[1].name=str+'内企业';
+				this.recordList[2].name='入'+str+'企业';
+				if(name=='湖南省'){
+					this.recordList[3]={
+						name:'长沙资源交易中心',
+						code:'changsha'
+					}
+				}else{
+					this.recordList.length=3;
+				}
 			}
 		},
 		methods: {
@@ -230,7 +256,12 @@
 					});
 					return false
 				}
-				this.data.isBei=el.code;
+				if (localStorage.getItem('isvip')=='false') {
+					this.svip = true
+					this.modalHelper.afterOpen();
+					return false
+				}
+				this.data.joinRegion=el.code;
 				this.again()
 			},
 			honorCateFn(el){//荣誉类别
@@ -244,6 +275,11 @@
 					}).catch(() => {
 
 					});
+					return false
+				}
+				if (localStorage.getItem('isvip')=='false') {
+					this.svip = true
+					this.modalHelper.afterOpen();
 					return false
 				}
 				el.istap=!el.istap;
@@ -271,6 +307,11 @@
 					}).catch(() => {
 
 					});
+					return false
+				}
+				if (localStorage.getItem('isvip')=='false') {
+					this.svip = true
+					this.modalHelper.afterOpen();
 					return false
 				}
 				if(el.name=='全部'){//全部
@@ -317,7 +358,7 @@
 				let data = {}
 				let that = this;
 				data = this.data
-				if (localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='true') {
 					data.isVip = 1
 				} else {
 					data.isVip = 0
@@ -325,7 +366,7 @@
 				companys(data).then(res => {
 					this.isajax = true;
 					this.isSerach = false;
-					if (localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='true') {
 						let arr = []
 						res.data.forEach(el => {
 							if (el.phone) {
@@ -338,10 +379,12 @@
 					this.companylisy = res.data
 					this.present = res.pageNum
 					this.total = res.total
-				}).catch(function(res) {
+				}).catch(function(error) {
 					that.isajax = true;
 					that.isSerach = false;
 					that.companylisy = null;
+					console.log(error);
+					that.$alert(error.data.msg)
 				})
 			},
 			// 获取公司企业列表
@@ -359,7 +402,7 @@
 			},
 			again() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (!localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
@@ -389,21 +432,43 @@
 
 			},
 			eval(val) {
-				if (!this.isajax) {
-					return
-				}
 				//每次切换省份，重置备案地区等值
+					// this.data.regisAddress=val.cur.name;
+					// this.recordList[0].name='入'+val.cur.shortName+'+'+val.cur.shortName+'内企业';
+					// this.recordList[1].name=val.cur.shortName+'内企业';
+					// this.recordList[2].name='入'+val.cur.shortName+'企业';
+					// if(this.data.regisAddress=='湖南省'){
+					// 	this.recordList[3]={
+					// 		name:'长沙资源交易中心',
+					// 		code:'changsha'
+					// 	}
+					// }else{
+					// 	this.recordList.splice(3,1)
+					// }
 				this.data.honorCate='';
-				if(val.cur.indexOf('湖南省')>-1){
-					this.data.isBei='hunan';
-				}else{
-					this.data.isBei='';
-				}
 				this.companylisy = [];
 				this.data.pageNo = 1;
 				this.isajax = false;
 				this.data.regisAddress = val.cur
 				this.gainCompany()
+			},
+			newRecordList(name){
+				let str=''
+				for(let x of this.areas){
+					if(x.name==name){
+						str=x.shortName
+						break
+					}
+				}
+				this.recordList[0].name='入'+str+'+'+str+'内企业';
+				this.recordList[1].name=str+'内企业';
+				this.recordList[2].name='入'+str+'企业';
+				if(name=='湖南省'){
+					this.recordList[3]={
+						name:'长沙资源交易中心',
+						code:'changsha'
+					}
+				}
 			},
 			Goto(val) {
 				this.data.pageNo = val.cur;

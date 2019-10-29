@@ -94,7 +94,7 @@ export default {
         getBranch() {//分支机构
             let that=this;
             let data={comId:this.$route.query.id};
-            if(localStorage.getItem('isvip')&&localStorage.getItem('isvip')!=''){
+            if(localStorage.getItem('isvip')=='true'){
                 data.isVip = 1
             } else {
                 data.isVip = 0 

@@ -219,31 +219,31 @@
 			closeload(val) {
 				this.svip = val.cur
 			},
-			gainlist() {
-				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (!localStorage.getItem('isvip')) {
-						this.svip = true
-						this.modalHelper.afterOpen();
-					} else {
-						this.data.pageNo = 1
-						this.isajax = false;
-						this.gainQueryList()
-					}
-				} else {
+			// gainlist() {
+			// 	if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+			// 		if (!localStorage.getItem('isvip')) {
+			// 			this.svip = true
+			// 			this.modalHelper.afterOpen();
+			// 		} else {
+			// 			this.data.pageNo = 1
+			// 			this.isajax = false;
+			// 			this.gainQueryList()
+			// 		}
+			// 	} else {
 
-					this.$confirm(this.qjTipTxt, '提示', {
-						confirmButtonText: '确定',
-						cancelButtonText: '取消',
-						type: 'warning'
-					}).then(() => {
+			// 		this.$confirm(this.qjTipTxt, '提示', {
+			// 			confirmButtonText: '确定',
+			// 			cancelButtonText: '取消',
+			// 			type: 'warning'
+			// 		}).then(() => {
 
-						this.$router.push('/logo')
-					}).catch(() => {
+			// 			this.$router.push('/logo')
+			// 		}).catch(() => {
 
-					});
-				}
+			// 		});
+			// 	}
 
-			},
+			// },
 			gainQueryList() {
 				if (sessionStorage.getItem('searchType') || this.searchType == 1) {
 					this.data.comName = this.serach
@@ -262,7 +262,7 @@
 					if (res.data.code == 1) {
 						//  this.loading = false
 						that.total = res.data.total
-						if (!localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='false') {
 							for (let x of res.data.data) {
 								if (x.certificate) {
 									x.certificate = x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g, '*')
@@ -287,7 +287,7 @@
 			},
 			pbmodeFn(i) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (!localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 						this.pbMode = [];
@@ -421,7 +421,7 @@
 			},
 			evalclass(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (!localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {

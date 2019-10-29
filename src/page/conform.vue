@@ -98,7 +98,7 @@
 					source: this.source,
 					pageNo: this.current
 				};
-				if (localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='true') {
 					dataParam.isVip = 1
 				} else {
 					dataParam.isVip = 0

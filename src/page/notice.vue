@@ -73,7 +73,7 @@
 						} else {
 							this.collect = '关注'
 						}
-						if (!localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='false') {
 							if (this.articles.oneName) {
 								if (this.articles.oneName.indexOf('公司') == -1) {
 									this.articles.oneName = '***********'

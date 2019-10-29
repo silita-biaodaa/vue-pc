@@ -225,7 +225,7 @@
 			},
 			evalsum(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='true') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
@@ -271,7 +271,7 @@
 				if (this.rank == 0) {
 					queryList(data).then(res => {
 						if (res.code == 1) {
-							if (!localStorage.getItem('isvip')) {
+							if (localStorage.getItem('isvip')=='false') {
 								res.data.forEach(el => {
 									if (el.oneName) {
 										if (el.oneName.indexOf('公司') == -1) {
@@ -319,7 +319,7 @@
 					data.projSumEnd = data.high;
 					queryList(data).then(res => {
 						if (res.code == 1) {
-							if (!localStorage.getItem('isvip')) {
+							if (localStorage.getItem('isvip')=='false') {
 								res.data.forEach(el => {
 									if (el.oneName) {
 										if (el.oneName.indexOf('公司') == -1) {
@@ -360,7 +360,7 @@
 			},
 			fade() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='true') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {

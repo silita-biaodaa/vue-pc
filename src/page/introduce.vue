@@ -206,7 +206,7 @@
 						var arr = []
 						if (this.details.phone) {
 							arr = this.details.phone.split(';')
-							if (!localStorage.getItem('isvip')) {
+							if (localStorage.getItem('isvip')=='false') {
 								this.details.phone = this.resetPhone(arr[0])
 							} else {
 								this.details.phone = arr[0]
@@ -247,7 +247,7 @@
 				window.open(href, '_blank')
 			},
 			updateFn() { //更新
-				if (!localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					this.pbMode = [];

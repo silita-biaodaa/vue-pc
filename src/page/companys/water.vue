@@ -92,7 +92,7 @@
 				this.funcom.toList(180)
 			},
 			decide(el) {
-				if (!localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {

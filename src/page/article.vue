@@ -93,7 +93,7 @@
 						} else {
 							this.collect = '关注'
 						}
-						if (!localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='false') {
 							if (this.articles.zzRank) {
 								this.articles.zzRank = this.articles.zzRank.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g, '*')
 							}

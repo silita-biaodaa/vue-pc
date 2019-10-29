@@ -185,7 +185,7 @@
 			},
 			toPer(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					// if(!localStorage.getItem('isvip')) {
+					// if(localStorage.getItem('isvip')=='false') {
 					//   this.svip = true
 					//   this.modalHelper.afterOpen();
 					// } else {
@@ -220,7 +220,7 @@
 			},
 			jumpya(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (!localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {

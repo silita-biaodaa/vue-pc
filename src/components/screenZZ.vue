@@ -103,11 +103,16 @@ export default {
     },
     watch:{
         seachTxt(val,oldVal){
-            this.length0=false
             if(val==''){
                 this.isshow=false
                 return 
             }
+            if (localStorage.getItem('isvip')=='false'&&!this.query) {
+                this.svip = true
+                this.modalHelper.afterOpen();
+                return false
+            }
+            this.length0=false
             this.isshow=true
             this.seachFn(val);
         }
@@ -217,7 +222,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (!localStorage.getItem('isvip')) {
+                if (localStorage.getItem('isvip')=='false'&&!query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
@@ -317,7 +322,7 @@ export default {
         },
         addFn(){//增加条件
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (!localStorage.getItem('isvip')) {
+                if (localStorage.getItem('isvip')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                     return false

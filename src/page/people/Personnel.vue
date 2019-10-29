@@ -81,7 +81,7 @@
 			},
 			jumpto(el) {
 				if (el.name == '押证详情') {
-					if (!localStorage.getItem('isvip')) {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 						return

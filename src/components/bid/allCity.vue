@@ -44,7 +44,7 @@
 			}
 		},
 		props: {
-			city: ''
+			city: '',
 		},
 		watch: {
 			city() {
@@ -75,9 +75,9 @@
 			},
 			eval(el) {
 				// sessionStorage.setItem('address',el.name);
-        this.area = el.name
-        this.all=[];
-        this.cstr='全部'
+				this.area = el.name
+				this.all=[];
+				this.cstr='全部'
 				if (this.area == '全部') {
 					this.allt = false
 					this.$emit('Cnext', {
@@ -95,7 +95,6 @@
 				}
 			},
 			marry() {
-				console.log(this.area)
 				this.areas.forEach(el => {
 					if (el.name != '全部') {
 						el.data.unshift({

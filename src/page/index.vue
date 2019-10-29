@@ -387,7 +387,7 @@
 				}).then(res => {
 					if (res.data.code == 1) {
 						//  this.loading = false
-						if (!localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='false') {
 							for (let x of res.data.data) {
 								if (x.certificate) {
 									x.certificate = x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g, '*')
@@ -426,7 +426,7 @@
 						} else {
 							this.tendering = true
 						}
-						if (!localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='false') {
 							this.biddings.forEach(el => {
 								if (el.oneName) {
 									if (el.oneName.indexOf('公司') == -1) {
@@ -462,7 +462,7 @@
 					regisAddress: this.state.source,
 					limit: 8
 				}
-				if (localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='true') {
 					data.isVip = 1
 				} else {
 					data.isVip = 0
@@ -473,7 +473,7 @@
 						res.data.forEach(el => {
 							el.data = moment(el.created).format('YYYY年MM月DD日')
 						})
-						if (localStorage.getItem('isvip')) {
+						if (localStorage.getItem('isvip')=='true') {
 							let arr = []
 							res.data.forEach(el => {
 								if (el.phone) {

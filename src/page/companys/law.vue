@@ -78,7 +78,7 @@
 				this.funcom.toList(200)
 			},
 			jumpDetail(id) {
-				if (!localStorage.getItem('isvip')) {
+				if (localStorage.getItem('isvip')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {
