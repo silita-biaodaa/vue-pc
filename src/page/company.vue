@@ -40,7 +40,7 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="companylisy&&companylisy.length>0">
-				<div>
+				<div style="margin-bottom: 125px;">
 					<div class="firm">
 						<div class='firm-ul'>
 							<div>

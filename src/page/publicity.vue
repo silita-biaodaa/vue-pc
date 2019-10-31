@@ -10,7 +10,7 @@
                     <template v-if="isajax">
                         <!-- 有数据 -->
                         <template v-if="list&&list.length>0">
-                            <ul>
+                            <ul style="min-height:400px">
                                 <li v-for="(o,i) of list" :key="i" @click="jump(o)">
                                     <h4>{{o.title}}</h4>
                                     <p>{{o.remark}}</p>
