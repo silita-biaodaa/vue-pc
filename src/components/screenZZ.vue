@@ -222,7 +222,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('isvip')=='false'&&!query) {
+                if (localStorage.getItem('isvip')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
