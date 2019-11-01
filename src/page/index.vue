@@ -525,7 +525,8 @@
 						path:'/detail',
 						query:{
 							id:o.pkid,
-							type:'ptgs'
+							type:o.type,
+							types:'ptgs'
 						}
 					})
 				}

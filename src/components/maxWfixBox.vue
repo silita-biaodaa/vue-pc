@@ -168,8 +168,9 @@ export default {
             const {href}=this.$router.resolve({
                 path:'/detail',
                 query:{
-                    time:o.releaseTime,
-                    type:o.type
+                    id:o.pkid,
+                    type:o.type,
+                    types:'ptgs'
                 }
             })
             window.open(href, '_blank', )

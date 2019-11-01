@@ -62,7 +62,7 @@
 		},
 		created() {
             // console.group('创建完毕状态===============》created');
-            if(this.$route.query.type=='ptgs'){//平台公示
+            if(this.$route.query.types=='ptgs'){//平台公示
                 this.$http({
                     method:'post',
                     url:'/count/list',

@@ -261,7 +261,12 @@ export default {
             o.three.list=[];
             for(let x of o.two.list){
                 if(x.code==o.two.code){
-                    o.three.list=x.data
+                    if(x.data){
+                        o.three.list=x.data
+                    }else{
+                        o.three.list=[]
+                    }
+                    
                 }
             }
             o.str=o.two.code;//将code扔到大list上
