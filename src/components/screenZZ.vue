@@ -26,12 +26,12 @@
             <span class='del-btn' @click='delFn(i)' v-if="i!=0">删除</span>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box" v-if="lengthList.length<3||query">
+        <div class="spacing-box">
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
             </div>
         </div>
-        <div class="spacing-box red" v-else>资质最多只可添加3条</div>
+        <!-- <div class="spacing-box red" v-else>资质最多只可添加3条</div> -->
         <!-- 资质关系 -->
         <div class="rela" v-if="!bid&&lengthList.length>1">
             <el-row>
@@ -175,14 +175,14 @@ export default {
                 x.two.code=arr[1];
                 x.str=arr[1];
             }else{
-                if(this.lengthList.length==3&&!this.query){
-                    this.$confirm('最多只可添加三条资质', '提示', {
-                        type: 'warning',
-                        showCancelButton: false,
-                        showConfirmButton: false
-                    })
-                    return
-                }
+                // if(this.lengthList.length==3&&!this.query){
+                //     this.$confirm('最多只可添加三条资质', '提示', {
+                //         type: 'warning',
+                //         showCancelButton: false,
+                //         showConfirmButton: false
+                //     })
+                //     return
+                // }
                 let data={
                     one:{
                         list:this.qualList,//用作显示

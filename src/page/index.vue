@@ -10,6 +10,8 @@
 				</el-carousel-item>
 			</el-carousel>
 		</div>
+		<!-- 专查 -->
+		
 		<!-- 平台公示/行业资讯 -->
 		<div class="ptgs-hyzx">
 			<h4>

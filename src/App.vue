@@ -616,6 +616,7 @@
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
+					||this.$route.name=='ZJquery'
 				) {
 					return false
 				} else {
@@ -635,9 +636,9 @@
 </script>
 
 <style lang="less">
-	@import './style/common';
 	@import './assets/iconfont.css';
 	@import './base/base.css';
+	@import './style/common.css';
 	body{
 		width: 100% !important;
 	}

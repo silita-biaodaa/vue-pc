@@ -23,7 +23,7 @@
 								<div class="re-list">
 									<div class="list-cli">
 										<div class="list-true" v-show="!el.textShow"></div>
-										<img src="../../assets/img/icon-dui.png @2x.png" alt="" v-show="el.textShow">
+										<img src="../../assets/img/icon-dui.png" alt="" v-show="el.textShow">
 									</div>
 									<div class='list-img'>
 										<img :src="el.reImage != null ? el.reImage : avatar" alt="">
@@ -49,7 +49,7 @@
 							<div class="msg-con">
 								<div class="list-cli">
 									<div class="list-true" v-if="!el.textShow"></div>
-									<img src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+									<img src="../../assets/img/icon-dui.png" alt="" v-else>
 								</div>
 								<div>
 									<div class="no-read" v-if="el.isRead == 0"></div>
@@ -71,7 +71,7 @@
 							<div class="msg-con">
 								<div class="list-cli">
 									<div class="list-true" v-if="!el.textShow"></div>
-									<img src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+									<img src="../../assets/img/icon-dui.png" alt="" v-else>
 								</div>
 								<div>
 									<div class="no-read" v-if="el.isRead == 0"></div>
@@ -93,7 +93,7 @@
 							<div class="msg-con">
 								<div class="list-cli">
 									<div class="list-true" v-if="!el.textShow"></div>
-									<img src="../../assets/img/icon-dui.png @2x.png" alt="" v-else>
+									<img src="../../assets/img/icon-dui.png" alt="" v-else>
 								</div>
 								<div>
 									<div class="no-read" v-if="el.isRead == 0"></div>

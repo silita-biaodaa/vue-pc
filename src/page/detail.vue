@@ -6,6 +6,7 @@
             <div class="con-nav">首页 > {{headTxt}} > 正文</div>
             <div class="box">
                 <template v-if="headTxt=='行业资讯'">
+                    <h4>{{data.title}}</h4>
                     <div class="content" v-html="data.content"></div>
                 </template>
                 <template v-else>
@@ -107,6 +108,12 @@
         background: #fff;
         padding:26px 36px 80px;
         margin-bottom: 200px;
+        h4{
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
         h5{
             font-size: 24px;
             color: #333;

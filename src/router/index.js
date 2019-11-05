@@ -92,11 +92,13 @@ import novice2 from '@/page/novice/2' //新手指引2
 import novice3 from '@/page/novice/3' //新手指引2
 import novice4 from '@/page/novice/4' //新手指引2
 import novice5 from '@/page/novice/5' //新手指引2
+//专查
+import ZJquery from '@/page/query/ZJquery'
 //404
 import error from'@/page/404'
 // escort
 //活动
-import hdDetail from'@/page/hdDetail'
+// import hdDetail from'@/page/hdDetail'
 
 
 
@@ -642,17 +644,21 @@ export default new Router({
           }
         }
       ]
+    },{//住建专查
+      path:'/ZJquery',
+      name:'ZJquery',
+      component:ZJquery
     },
     {//404
       path:'*',
       name:'error',
       component:error
     },
-    {//活动详情
-      path:'/hdDetail',
-      name:'hdDetail',
-      component:hdDetail
-    },
+    // {//活动详情
+    //   path:'/hdDetail',
+    //   name:'hdDetail',
+    //   component:hdDetail
+    // },
     
   ],
   scrollBehavior (to, from, savedPosition) {
