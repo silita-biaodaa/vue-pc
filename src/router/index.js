@@ -94,6 +94,7 @@ import novice4 from '@/page/novice/4' //新手指引2
 import novice5 from '@/page/novice/5' //新手指引2
 //专查
 import ZJquery from '@/page/query/ZJquery'
+import queryList from '@/page/query/queryList'
 //404
 import error from'@/page/404'
 // escort
@@ -648,6 +649,10 @@ export default new Router({
       path:'/ZJquery',
       name:'ZJquery',
       component:ZJquery
+    },{//查询列表
+      path:'/queryList',
+      name:'queryList',
+      component:queryList
     },
     {//404
       path:'*',

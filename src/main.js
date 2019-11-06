@@ -292,23 +292,53 @@ new Vue({
   components: { App },
   template: '<App/>',
   created(){
-    this.$http({
-      method:'post',
-      url:'/new/common/condition',
-      data:{}
-    }).then(res => {
-      sessionStorage.setItem('filter',JSON.stringify(res.data.data));
-    }).catch(req =>{
-      console.log(req);
-    })
-    if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+    // this.$http({
+    //   method:'post',
+    //   url:'/new/common/condition',
+    //   data:{}
+    // }).then(res => {
+    //   sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+    // }).catch(req =>{
+    //   console.log(req);
+    // })
+    // this.$http({
+    //   method:'post',
+    //   url:'/person/cate',
+    //   data:{}
+    // }).then(res =>{
+    //   sessionStorage.setItem('people',JSON.stringify(res.data.data));
+    //   history.go(0)
+    // })
+    //资质，地区筛选
+    if(!sessionStorage.getItem('filter')){
       this.$http({
-        method:'post',
-        url:'/foundation/version',
-        data:{
-          loginChannel:'1003'
-        }
-      }).then();
+          method:'post',
+          url:'/new/common/condition',
+          data:{}
+      }).then(res => {
+          sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+      }).catch(req =>{
+          console.log(req);
+      })
     }
+    if(!sessionStorage.getItem('people')){
+      //人员筛选
+      this.$http({
+          method:'post',
+          url:'/person/cate',
+          data:{}
+      }).then(res =>{
+        sessionStorage.setItem('people',JSON.stringify(res.data.data));
+      })
+    }
+    // if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+    //   this.$http({
+    //     method:'post',
+    //     url:'/foundation/version',
+    //     data:{
+    //       loginChannel:'1003'
+    //     }
+    //   }).then();
+    // }
   }
 })

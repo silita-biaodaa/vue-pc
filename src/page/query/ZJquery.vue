@@ -34,9 +34,9 @@
                         <el-col :span="1">项目关键字：</el-col>
                         <el-input placeholder="请输入内容,多个关键字用空格隔开"  v-model="data.project.keywords"></el-input>
                         <el-radio-group v-model="data.project.opt">
-                            <el-radio label="title" class="radio">根据标题搜索</el-radio>
-                            <el-radio label="scope" class="radio">根据建设规模搜索</el-radio>
-                            <el-radio label="title_and_scope" class="radio">根据标题和建设规模搜索</el-radio>
+                            <el-radio label="title">根据标题搜索</el-radio>
+                            <el-radio label="scope">根据建设规模搜索</el-radio>
+                            <el-radio label="title_and_scope">根据标题和建设规模搜索</el-radio>
                         </el-radio-group>
                     </el-row>
                     <!-- 业绩所含子项 -->
@@ -126,78 +126,11 @@
             </div>
             
         </div>
-        <!-- 列表 -->
-        <div class="list  maxW-box" v-if="gosee">
-            <!-- 判断是否加载中 -->
-            <template v-if="isajax">
-                <!-- 有数据 -->
-                <template v-if="list&&list.length>0">
-                    <ul>
-                        <li v-for="(o,i) of list" :key="'list'+i" @click="jumpDetail(o.comId)">
-                            <div class="top">
-                                <h5>{{o.comName}}</h5>
-                                <div class="right-label"  v-if="o.joinRegion.length>0">
-                                    <span class="label r-delta" v-for="(x,y) of o.joinRegion" :key="y">{{x}}</span>
-                                    <!-- <template v-if="o.joinRegion.length>7">
-                                        <span class="label">更多</span>.slice(0,5)
-                                    </template>
-                                    <template v-else>
-                                        <span class="label">{{o.joinRegion[6]}}</span>
-                                    </template> -->
-                                </div>
-                                <!-- <span class="label">入渝</span> -->
-                            </div>
-                            <div class="bottom">
-                                <p>注册地：<font>{{o.regisAddress}}</font></p>
-                                <p v-if="data.qualCode!=null&&data.qualCode!=''">符合要求资质：<font>{{o.qualCount}}</font></p>
-                                <!-- <font>符合要求人员：<font>1</font></p> -->
-                                <p v-if="isyj">符合要求业绩：<font>{{o.projectCount}}</font></p>
-                            </div>
-                        </li>
-                    </ul>
-                    <v-page :all='total' :currents='data.pageNo' :pageSize='data.pageSize' @skip='Goto'></v-page>
-                </template>
-                <!-- 无数据  -->
-                <template v-else-if="list&&list.length==0">
-                    <div class="no-toast">
-                        <img src="../../assets/img/bank_card @2x.png" alt="">
-                        <span>Sorry，没有找到符合条件的企业信息</span>
-                    </div>
-                </template>
-                <!-- 加载失败 -->
-                <template v-else-if="!list">
-                    <div class="ajax-erroe">
-                        <img src="../../assets/img/pic-zoudiu.png" />
-                        <span @click="recoldFn">刷新</span>
-                    </div>
-                </template>
-            </template>
-            <template v-else>
-                <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-            </template>
-            <!-- <ul>
-                
-                <li>
-                    <div class="top">
-                        <h5 class="title">湖南耀邦建设有限公司</h5>
-                        <span class="label yn">渝内</span>
-                    </div>
-                    <div class="bottom">
-                        <p>注册地：<font>湖南省</font></p>
-                        <p>符合要求资质：<font>1</font></p>
-                        <p>符合要求人员：<font>1</font></p>
-                        <p>符合要求业绩：<font>1</font></p>
-                    </div>
-                </li>
-            </ul> -->
-            
-        </div>
     </div>
 </template>
 <script>
 import screenZZ from '@/components/screenZZ'
 import screenRY from '@/components/screenRY'
-import paging from '@/components/paging'
 import heads from '@/components/head3'
 export default {
     name: 'ZJquery', // 结构名称
@@ -368,12 +301,8 @@ export default {
                 },
                 person:[]
             },
-            list:[],
             total:0,
-            loading:true,
-            isajax:false,
             isyj:false,
-            gosee:false
         }
     },
     watch: {
@@ -407,7 +336,6 @@ export default {
     components:{
         'v-screenzz':screenZZ,
         'v-screenry':screenRY,
-        'v-page':paging,
         'v-head': heads,
     },
     beforeCreate() {
@@ -416,16 +344,16 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         let data = JSON.parse(sessionStorage.getItem('filter'));
-        for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
-            if(data.comQua[x].name=='公路养护'){
-                data.comQua.splice(x,1);
-            }
-        }
-        for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
-            if(data.comQua[x].name=='地质灾害防治单位'){
-                data.comQua.splice(x,1);
-            }
-        }
+        // for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
+        //     if(data.comQua[x].name=='公路养护'){
+        //         data.comQua.splice(x,1);
+        //     }
+        // }
+        // for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
+        //     if(data.comQua[x].name=='地质灾害防治单位'){
+        //         data.comQua.splice(x,1);
+        //     }
+        // }
         for(let x of data.area){
             x.code=x.name
         }
@@ -568,10 +496,6 @@ export default {
             this.data.pageNo=1;
             // this.ajax()
         },
-        Goto(val){
-            this.data.pageNo = val.cur;
-            // this.ajax()
-        },
         ajax(){//查询
             this.list=[];
             this.total=0;
@@ -584,21 +508,17 @@ export default {
             //     pageSize:10
             // }
             let that=this;
-            this.$http({
-                method:'post',
-                url:'query/zonghe/list/company',
-                data:data
-            }).then(res =>{
-                that.isajax=true;
-                that.list=res.data.data;
-                that.total=res.data.total;
-            }).catch(req =>{
-                that.list=null
-            })
-        },
-        //刷新
-        recoldFn() {
-            this.reload();
+            // this.$http({
+            //     method:'post',
+            //     url:'query/zonghe/list/company',
+            //     data:data
+            // }).then(res =>{
+            //     that.isajax=true;
+            //     that.list=res.data.data;
+            //     that.total=res.data.total;
+            // }).catch(req =>{
+            //     that.list=null
+            // })
         },
         //跳转
         jumpDetail(id){
@@ -608,30 +528,22 @@ export default {
                 ||d.project.proWhere||d.project.proUse||d.project.proType||d.project.amountStart
                 ||d.project.amountEnd||d.project.contractStart||d.project.contractEnd||d.project.completeStart
                 ||d.project.completeEnd||d.project.areaStart||d.project.areaEnd||d.person.length>0||d.qualCode){//查询了资质或人员或业绩
-                this.$http({
-                    method:'post',
-                    url:'/query/zonghe/save/condition',
-                    data:this.data
-                }).then(res =>{
-                    const {href} = this.$router.resolve({
-                        path: '/skyDetail',
-                        query: {
-                            id:id,
-                            key:res.data.data
-                        }
-                    })
-                    window.open(href, '_blank', )
-                }).catch(function(error){
-                    that.$alert(error);
-                })
-            }else{
-                const {href} = this.$router.resolve({
-                    path: '/companyDetail',
-                    query: {
-                        id:id,
-                    }
-                })
-                window.open(href, '_blank', )
+                // this.$http({
+                //     method:'post',
+                //     url:'/query/zonghe/save/condition',
+                //     data:this.data
+                // }).then(res =>{
+                //     const {href} = this.$router.resolve({
+                //         path: '/skyDetail',
+                //         query: {
+                //             id:id,
+                //             key:res.data.data
+                //         }
+                //     })
+                //     window.open(href, '_blank', )
+                // }).catch(function(error){
+                //     that.$alert(error);
+                // })
             }
         },
     }

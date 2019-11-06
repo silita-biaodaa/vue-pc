@@ -360,7 +360,7 @@
 			},
 			fade() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('isvip')=='true') {
+					if (localStorage.getItem('isvip')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
