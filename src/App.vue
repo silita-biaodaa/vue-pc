@@ -404,8 +404,9 @@
 				if (localStorage.getItem('Xtoken')) {
 					let today = new Date().getTime() - localStorage.getItem('valid')
 					if (Math.ceil(today / 3600 / 24 / 1000) > 15) {
-						alert('用户信息已失效，请重新登录')
+						this.$alert('用户信息已失效，请重新登录')
 						this.$router.push('/logo')
+						localStorage.removeItem('valid')
 					} else {
 						getUserTemp({}).then(res => {
 							if (res.code == 1) {
@@ -594,7 +595,10 @@
 				deep: true
 			}
 		},
-		destroyed() {
+		beforeDestroy() {
+			if(!localStorage.getItem('valid')){
+				localStorage.removeItem('Xtoken')
+			}
 		},
 		computed: {
 			tabNo() {
@@ -616,7 +620,7 @@
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
-					||this.$route.name=='ZJquery'||this.$route.name=='queryList'
+					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'
 				) {
 					return false
 				} else {

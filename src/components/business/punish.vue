@@ -22,7 +22,7 @@
                         <div style="width:200px">{{el.illegActType}}</div>
                         <div style="width:200px" >{{el.penContent}}</div>
                         <div style="width:100px" >{{el.penAuth_CN}}</div>
-                        <div style="width:100px">{{formatDate(el.penDecIssDate)}}</div>
+                        <div style="width:100px">{{el.publicDate}}</div>
                     </div>
                 </template>
                 <!-- 无数据 -->

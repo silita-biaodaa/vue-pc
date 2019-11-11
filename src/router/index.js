@@ -94,7 +94,9 @@ import novice4 from '@/page/novice/4' //新手指引2
 import novice5 from '@/page/novice/5' //新手指引2
 //专查
 import ZJquery from '@/page/query/ZJquery'
+import GLquery from '@/page/query/GLquery'
 import queryList from '@/page/query/queryList'
+import queryDetail from '@/page/query/queryDetail'
 //404
 import error from'@/page/404'
 // escort
@@ -649,10 +651,18 @@ export default new Router({
       path:'/ZJquery',
       name:'ZJquery',
       component:ZJquery
+    },{//公路专查
+      path:'/GLquery',
+      name:'GLquery',
+      component:GLquery
     },{//查询列表
       path:'/queryList',
       name:'queryList',
       component:queryList
+    },{//查询详情
+      path:'/queryDetail',
+      name:'queryDetail',
+      component:queryDetail
     },
     {//404
       path:'*',

@@ -292,23 +292,6 @@ new Vue({
   components: { App },
   template: '<App/>',
   created(){
-    // this.$http({
-    //   method:'post',
-    //   url:'/new/common/condition',
-    //   data:{}
-    // }).then(res => {
-    //   sessionStorage.setItem('filter',JSON.stringify(res.data.data));
-    // }).catch(req =>{
-    //   console.log(req);
-    // })
-    // this.$http({
-    //   method:'post',
-    //   url:'/person/cate',
-    //   data:{}
-    // }).then(res =>{
-    //   sessionStorage.setItem('people',JSON.stringify(res.data.data));
-    //   history.go(0)
-    // })
     //资质，地区筛选
     if(!sessionStorage.getItem('filter')){
       this.$http({
@@ -329,6 +312,17 @@ new Vue({
           data:{}
       }).then(res =>{
         sessionStorage.setItem('people',JSON.stringify(res.data.data));
+      })
+    }
+    
+    if(!sessionStorage.getItem('proType')){
+      //建设状态及项目类型
+      this.$http({
+          method:'post',
+          url:'/screen/proTypeInBuild',
+          data:{}
+      }).then(res =>{
+        sessionStorage.setItem('proType',JSON.stringify(res.data.data));
       })
     }
     // if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
