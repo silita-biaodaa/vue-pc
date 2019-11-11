@@ -254,12 +254,10 @@
 		.n-text {
 			padding: 26px 20px 70px;
 			overflow: hidden;
-
 			table {
 				width: 100%;
 			}
 		}
-
 		.no-comL {
 			margin: 0 auto;
 			box-sizing: border-box;

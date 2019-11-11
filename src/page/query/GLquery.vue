@@ -91,11 +91,11 @@
                     <el-row>
                         <el-col :span="1">评价类型：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of areasList" :key="'a'+i" :class="el.istap?'current':''" @click="areaTap(el)">{{el.areaShortName}}</div>
+                            <div class="areas" v-for="(el,i) of creditTypeList" :key="'a'+i" :class="el.istap?'current':''" @click="areaTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 评价省份 -->
-                    <el-row>
+                    <el-row v-if="data.credit.creditType=='施工'||data.credit.creditType=='设计'">
                         <el-col :span="1">评价省份：</el-col>
                         <div class="condition">
                             <div class="areas" v-for="(el,i) of areasList" :key="'a'+i" :class="el.istap?'current':''" @click="areaTap(el)">{{el.areaShortName}}</div>
@@ -172,6 +172,7 @@ export default {
             areasList:[],
             peopleList:[],
             proBuildList:[],//建设状态
+            creditTypeList:['施工','设计','监理'],
             data:{
                 joinRegion:'all_in',//备案地区
                 qualCode:null,//资质
@@ -189,7 +190,14 @@ export default {
                     optType:'or'
                 },
                 person:[],
-                zhuanchaType:'gonglu'
+                zhuanchaType:'gonglu',
+                credit:{
+                    province:'',//评价省份
+                    creditType:'施工',//评价类型
+                    scoreStart:'',//最低评分
+                    scoreEnd:'',//最高评分
+                    evaluateYear:'',//评价年份 示例：2018/AA,B;2017/B,C
+                }
             },
             total:0,
             isyj:false,
