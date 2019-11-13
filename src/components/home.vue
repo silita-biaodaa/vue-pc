@@ -1,8 +1,8 @@
 <template>
-  <div class="l-search" @keydown.13="searchFn">
+  <div class="l-search" @keydown.13="searchFn" :class="isHome?'ishome':''">
     <div class="app-fff">
       <el-row class="app-search">
-        <el-col :span="7">
+        <el-col :span="7" v-if="!isHome">
           <div class="bor">
             <div class="logo left" @click="$router.push('/home')"></div>
           </div>
@@ -30,7 +30,7 @@
               >
                 <el-button slot="append" @click="searchFn">搜索</el-button>
               </el-input>
-              <div class="right syn" @click="jump">综合查询</div>
+              <!-- <div class="right syn" @click="jump">综合查询</div> -->
               <div
                 class="company-serach"
                 v-if="(!company&&select!=null&&select.length>0)&&tipsShow"
@@ -48,7 +48,7 @@
         </el-col>
       </el-row>
     </div>
-    <!-- <v-canvas :w="wi" :h="584"></v-canvas> -->
+    <v-canvas v-if="isHome"></v-canvas>
   </div>
 </template>
 <script>
@@ -99,7 +99,7 @@ export default {
       placeTxt: "请输入公告名称或企业名称",
       serachList: [],
       list: [],
-      tipsShow: true
+      tipsShow: true,
     };
   },
   methods: {
@@ -121,12 +121,12 @@ export default {
         this.way = this.$route.fullPath;
       }
     },
-    jump() {
-      let url = this.$router.resolve({
-        path: "/synth"
-      });
-      window.open(url.href, "_blank");
-    },
+    // jump() {
+    //   let url = this.$router.resolve({
+    //     path: "/synth"
+    //   });
+    //   window.open(url.href, "_blank");
+    // },
     forinList() {
       if (this.select != "" && this.serachList.length > 0) {
         for (let x of this.serachList) {
@@ -474,6 +474,13 @@ export default {
   computed: {
     wi(){
       return document.body.clientWidth
+    },
+    isHome(){
+      if(this.$route.name=='home'){
+        return true
+      }else{
+        return false
+      }
     }
     // synth() {
     //   if(this.$route.name == 'company') {
@@ -568,6 +575,7 @@ export default {
 </script>
 <style lang="less" >
 .l-search {
+  position: relative;
   .app-fff {
     width: 100%;
     background-color: #fff;
@@ -582,15 +590,15 @@ export default {
     //  clear: both;
     .el-input-group {
       width: 588px;
-      font-size: 18px;
+      font-size: 16px;
       .el-input-group__append,
       .el-input-group__prepend {
         width: 113px;
         padding: 0;
-        background-color: #ec7522;
+        background-color: #FE6603;
         text-align: center;
         color: #fff;
-        border: 1px solid #ec7522;
+        border: 1px solid #FE6603;
         font-weight: 500;
         .el-button {
           font-family: Tahoma, Arial, "Helvetica Neue", "Hiragino Sans GB",
@@ -617,7 +625,7 @@ export default {
         color: #fe6603;
       }
       li {
-        width: 13%;
+        width: 10%;
         cursor: pointer;
       }
     }
@@ -651,7 +659,7 @@ export default {
 
   /*历史记录*/
   .hisgory {
-    margin-top: 18px;
+    margin-top: 15px;
     max-width: calc(100% - 207px);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -665,6 +673,32 @@ export default {
     span:first-child {
       margin-right: 0;
       cursor: default;
+    }
+  }
+}
+.ishome.l-search{
+  .app-fff{
+    position: absolute;
+    background: transparent;
+  }
+  .el-col-16{
+    float:none;
+    margin: 0 auto;
+    width: 57.66667%;
+  }
+  .bor{
+    .search{
+      color: #fff;
+    }
+    .el-input-group{
+      border: 2px solid #FE6603;
+      border-radius: 4px;
+    }
+    .hisgory{
+      color: #fff;
+      span{
+        color:#fff;
+      }
     }
   }
 }

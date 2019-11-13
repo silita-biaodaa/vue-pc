@@ -3,15 +3,31 @@
 
 		<en-search></en-search>
 		<!-- banner -->
-		<div class="carousel">
+		<!-- <div class="carousel">
 			<el-carousel>
 				<el-carousel-item v-for="item in imgs" :key="item.id">
 					<img :src="item.imagesrc" alt="">
 				</el-carousel-item>
 			</el-carousel>
-		</div>
+		</div> -->
 		<!-- 专查 -->
-		
+		<div class="query-box">
+			<div @click="jumpQuery('ZJquery')">
+				<img src="../assets/img/zj.png"/>
+				<h5>住建信息专查</h5>
+				<p>全国住建企业资质、人员、业绩、信息 综合查询</p>
+			</div>
+			<div @click="jumpQuery('GLquery')">
+				<img src="../assets/img/gl.png"/>
+				<h5>公路信息专查</h5>
+				<p>全国公路企业资质、人员、业绩、备案、 信用等级综合查询</p>
+			</div>
+			<div @click="jumpQuery('SLquery')">
+				<img src="../assets/img/sl.png"/>
+				<h5>水利信息专查</h5>
+				<p>全国水利企业资质、人员、业绩、备案、 信用等级综合查询</p>
+			</div>
+		</div>
 		<!-- 平台公示/行业资讯 -->
 		<div class="ptgs-hyzx">
 			<h4>
@@ -506,6 +522,12 @@
 				})
 				window.open(href, '_blank', )
 			},
+			jumpQuery(path){//专查
+				const { href } = this.$router.resolve({
+					path:path
+				})
+				window.open(href, '_blank', )
+			},
 			seeMore(){//查看更多
 				if(this.tabNum==0){//行业资讯
 					this.$router.push('/information')
@@ -589,272 +611,302 @@
 	}
 </script>
 <style lang="less">
-	.home {
-		width: 100%;
-		margin-bottom: 200px;
-		padding-top: 86px;
-		.over {
-			overflow: hidden;
-		}
+.home {
+	width: 100%;
+	margin-bottom: 200px;
+	padding-top: 83px;
+	.over {
+		overflow: hidden;
+	}
 
-		.right-20 {
-			margin-right: 18px;
-			cursor: pointer;
-		}
+	.right-20 {
+		margin-right: 18px;
+		cursor: pointer;
+	}
 
-		.b-content {
-			margin-top: 10px;
-			width: 1020px;
-			margin: 0 auto;
-			clear: both;
-			background: #fff;
-			overflow: hidden;
-			margin-bottom: 20px;
+	.b-content {
+		margin-top: 10px;
+		width: 1020px;
+		margin: 0 auto;
+		clear: both;
+		background: #fff;
+		overflow: hidden;
+		margin-bottom: 20px;
 
-			.title {
-				height: 63px;
+		.title {
+			height: 63px;
+			padding-left: 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 2px solid #F2F2F2;
+
+			p {
 				padding-left: 15px;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				border-bottom: 2px solid #F2F2F2;
-
-				p {
-					padding-left: 15px;
-					font-size: 22px;
-					font-weight: 500;
-					height: 28px;
-					position: relative;
-					border-left: 2px solid #FF6000;
-				}
-
-				span {
-					color: #999;
-					font-size: 12px;
-				}
+				font-size: 22px;
+				font-weight: 500;
+				height: 28px;
+				position: relative;
+				border-left: 2px solid #FF6000;
 			}
 
-			.matter {
-				padding: 15px 15px 0;
+			span {
+				color: #999;
+				font-size: 12px;
+			}
+		}
+
+		.matter {
+			padding: 15px 15px 0;
+
+			p {
+				font-family: "SourceHanSansCN-Regular";
+				font-weight: 550;
+				color: #333;
+			}
+
+			.t-line::after {
+				position: absolute;
+				content: '';
+				bottom: 0;
+				height: 2px;
+				background-color: #F2F2F2;
+				width: calc(100% - 56px);
+				right: 0;
+			}
+
+			.t-line::before {
+				position: absolute;
+				content: '';
+				bottom: 0;
+				height: 2px;
+				left: 0;
+				width: 56px;
+				background-color: #EC7522;
+			}
+
+			.t-line {
+				position: relative;
+				box-sizing: border-box;
+				padding: 5px 0;
+
+			}
+
+			a {
+				width: 20%;
+				margin-left: 62px;
+				display: block;
+				box-sizing: border-box;
+				margin-bottom: 45px;
 
 				p {
-					font-family: "SourceHanSansCN-Regular";
-					font-weight: 550;
-					color: #333;
+					font-size: 14px;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
+					padding: 4px 0;
+					cursor: pointer;
 				}
 
-				.t-line::after {
-					position: absolute;
-					content: '';
-					bottom: 0;
-					height: 2px;
-					background-color: #F2F2F2;
-					width: calc(100% - 56px);
-					right: 0;
-				}
-
-				.t-line::before {
-					position: absolute;
-					content: '';
-					bottom: 0;
-					height: 2px;
-					left: 0;
-					width: 56px;
-					background-color: #EC7522;
-				}
-
-				.t-line {
-					position: relative;
-					box-sizing: border-box;
-					padding: 5px 0;
-
-				}
-
-				a {
-					width: 20%;
-					margin-left: 62px;
-					display: block;
-					box-sizing: border-box;
-					margin-bottom: 45px;
+				.m-detail {
+					margin-top: 18px;
+					width: 90%;
 
 					p {
-						font-size: 14px;
-						text-overflow: ellipsis;
-						overflow: hidden;
-						white-space: nowrap;
-						padding: 4px 0;
-						cursor: pointer;
-					}
-
-					.m-detail {
-						margin-top: 18px;
-						width: 90%;
-
-						p {
-							padding-bottom: 4px;
-							font-size: 12px;
-							color: #333;
-						}
-
-						span {
-							color: #EC7522;
-						}
-					}
-				}
-
-				a:first-child {
-					margin-left: 0;
-				}
-
-				a:nth-child(5) {
-					margin-left: 0;
-				}
-			}
-		}
-
-		.carousel {
-			width: 1020px;
-			margin: 0 auto;
-			height: 390px;
-			margin-bottom: 16px;
-			overflow: hidden;
-
-			img {
-				width: 100%;
-			}
-		}
-
-		.el-carousel__container {
-			height: 390px;
-		}
-
-		.el-carousel__arrow {
-			height: 56px;
-			width: 56px;
-			font-size: 28px;
-		}
-
-		.el-carousel__indicator {
-			padding: 10px 6px;
-		}
-
-		.el-carousel__indicators {
-			bottom: 30px;
-		}
-
-		.el-carousel__button {
-			width: 14px;
-			height: 14px;
-			border-radius: 50%;
-			opacity: 0.5;
-		}
-		.hd-mask{
-			width: 100%;
-			height: 100vh;
-			position: fixed;
-			background: rgba(0, 0, 0, .5);
-			top: 0;
-			z-index: 9999;
-			.hd-box{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%,-50%);
-				text-align: center;
-				img{
-					width: 500px;
-					display: block;
-					margin-bottom: 24px;
-				}
-				.el-icon-circle-close-outline{
-					cursor: pointer;
-					font-size: 40px;
-					color: #fff;
-				}
-				button{
-					opacity: 0;
-					position: absolute;
-					left: calc(50% - 5px);
-					width: 227px;
-					height: 60px;
-					bottom: 95px;
-					cursor: pointer;
-					transform: translateX(-50%);
-				}
-			}
-		}
-
-		// 平台公示/行业资讯
-		.ptgs-hyzx{
-			width: 1020px;
-			margin: 0 auto;
-			background: #fff;
-			margin-bottom: 20px;
-			h4{
-				height: 72px;
-				font-size: 22px;
-				color: #999;
-				font-weight: normal;
-				padding: 0 20px;
-				display: flex;
-				justify-content: space-between;
-				.tit-left{
-					span{
-						display: inline-block;
-						padding: 16px 0;
-						cursor: pointer;
-					}
-					.active{
-						color: #FE6603;
-						border-bottom: 2px solid #FE6603
-					}
-				}
-				.tit-right{
-					font-size: 12px;
-					color: #999;
-					line-height: 72px;
-					cursor: pointer;
-				}
-			}
-			li{
-				border-top: 1px solid #F2F2F2;
-				display: flex;
-				padding: 0 20px;
-				justify-content: space-between;
-				height: 64px;
-				align-items: center;
-				cursor: pointer;
-				.list-l{
-					display: flex;
-					align-items: center;
-					color: #333;
-					i{
-						font-style: normal;
-						color: #fff;
-						width: 20px;
-						height: 20px;
-						background: #FFA317;
-						display: inline-block;
-						text-align: center;
-						line-height: 20px;
-						border-radius: 5px;
+						padding-bottom: 4px;
 						font-size: 12px;
-						margin-right: 14px;
+						color: #333;
 					}
-					span{
-						font-weight: 550;
-						max-width: 800px;
-						display: inline-block;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-						cursor: pointer;
+
+					span {
+						color: #EC7522;
 					}
 				}
-				.list-r{
-					color: #999
-				}
+			}
+
+			a:first-child {
+				margin-left: 0;
+			}
+
+			a:nth-child(5) {
+				margin-left: 0;
 			}
 		}
 	}
+
+	.carousel {
+		width: 1020px;
+		margin: 0 auto;
+		height: 390px;
+		margin-bottom: 16px;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.el-carousel__container {
+		height: 390px;
+	}
+
+	.el-carousel__arrow {
+		height: 56px;
+		width: 56px;
+		font-size: 28px;
+	}
+
+	.el-carousel__indicator {
+		padding: 10px 6px;
+	}
+
+	.el-carousel__indicators {
+		bottom: 30px;
+	}
+
+	.el-carousel__button {
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		opacity: 0.5;
+	}
+	.hd-mask{
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		background: rgba(0, 0, 0, .5);
+		top: 0;
+		z-index: 9999;
+		.hd-box{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			text-align: center;
+			img{
+				width: 500px;
+				display: block;
+				margin-bottom: 24px;
+			}
+			.el-icon-circle-close-outline{
+				cursor: pointer;
+				font-size: 40px;
+				color: #fff;
+			}
+			button{
+				opacity: 0;
+				position: absolute;
+				left: calc(50% - 5px);
+				width: 227px;
+				height: 60px;
+				bottom: 95px;
+				cursor: pointer;
+				transform: translateX(-50%);
+			}
+		}
+	}
+
+	// 平台公示/行业资讯
+	.ptgs-hyzx{
+		width: 1020px;
+		margin: 0 auto;
+		background: #fff;
+		margin-bottom: 20px;
+		h4{
+			height: 72px;
+			font-size: 22px;
+			color: #999;
+			font-weight: normal;
+			padding: 0 20px;
+			display: flex;
+			justify-content: space-between;
+			.tit-left{
+				span{
+					display: inline-block;
+					padding: 16px 0;
+					cursor: pointer;
+				}
+				.active{
+					color: #FE6603;
+					border-bottom: 2px solid #FE6603
+				}
+			}
+			.tit-right{
+				font-size: 12px;
+				color: #999;
+				line-height: 72px;
+				cursor: pointer;
+			}
+		}
+		li{
+			border-top: 1px solid #F2F2F2;
+			display: flex;
+			padding: 0 20px;
+			justify-content: space-between;
+			height: 64px;
+			align-items: center;
+			cursor: pointer;
+			.list-l{
+				display: flex;
+				align-items: center;
+				color: #333;
+				i{
+					font-style: normal;
+					color: #fff;
+					width: 20px;
+					height: 20px;
+					background: #FFA317;
+					display: inline-block;
+					text-align: center;
+					line-height: 20px;
+					border-radius: 5px;
+					font-size: 12px;
+					margin-right: 14px;
+				}
+				span{
+					font-weight: 550;
+					max-width: 800px;
+					display: inline-block;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					cursor: pointer;
+				}
+			}
+			.list-r{
+				color: #999
+			}
+		}
+	}
+
+	// 专查
+	.query-box{
+		display: flex;
+		width: 1020px;
+		justify-content: space-between;
+		margin: 20px auto;
+		div{
+			width: calc((100% - 60px)/3);
+			background: #fff;
+			text-align: center;
+			box-sizing: border-box;
+			padding: 30px 40px;
+			cursor: pointer;
+			img{
+				max-width: 50px;
+				margin-bottom: 20px;
+			}
+			h5{
+				font-size: 20px;
+				color: #333;
+				margin-bottom: 15px;
+				font-weight: normal;
+			}
+			p{
+				font-size: 14px;
+				text-align: left;
+			}
+		}
+	}
+}
 </style>

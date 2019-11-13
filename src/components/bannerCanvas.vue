@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="bannerCanvas">
-        <canvas ref="canvas" :style="{width:w+'px',height:h+'px'}"></canvas>
+        <canvas ref="canvas">你的浏览器居然不支持Canvas？！赶快换一个吧！！</canvas>
     </div>
 </template>
 <script>
@@ -12,86 +12,77 @@ export default {
             // 数据模型a
             vertices:[],
             vertexCount:6000,
-            oceanWidth:64,
-            gridSize:32,
-            vertexSize:3,
-            oceanHeight:-160,
-            waveSize:50,
-            perspective:500,
+            oceanWidth:54,
+            gridSize:82,
+            vertexSize:1,
+            oceanHeight:20,
+            waveSize:80,
+            perspective:800,
             c:null,
-            postctx:null,
+            frame:0,
+            depth:null,
         }
     },
     props:{
-        w:{
-            type:Number
-        },
-        h:{
-            type:Number
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.c = document.createElement('canvas').getContext('2d');
-        this.postctx = document.body.appendChild(document.createElement('canvas')).getContext('2d');
-
-        for (let i = 0; i < this.vertexCount; i++) {
-            let x = i % this.oceanWidth
-            let y = 0
-            let z = i / this.oceanWidth >> 0
-            let offset = this.oceanWidth / 2
-            this.vertices.push([(-offset + x) * this.gridSize, y * this.gridSize, z * this.gridSize])
-        }
-        this.loop()
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
-        this.$nextTick(function() {
+        // this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
-        });
+            this.c =this.$refs.canvas.getContext('2d');
+            for (let i = 0; i < this.vertexCount; i++) {
+                let x = i % this.oceanWidth
+                let y = 0
+                let z = i / this.oceanWidth >> 0
+                let offset = this.oceanWidth / 2
+                this.vertices.push([(-offset + x) * this.gridSize, y * this.gridSize, z * this.gridSize])
+            }
+            this.depth = this.vertexCount / this.oceanWidth * this.gridSize
+            requestAnimationFrame(this.loop)
+        // });
     },
     methods: {
         // 方法 集合
         loop(){
+            let that=this;
             let c=this.c;
-            let postctx=this.postctx;
             let canvas=c.canvas;
-            
-
-            let depth = (this.vertexCount / this.oceanWidth * this.gridSize)
-            let frame = 0
             let { sin, cos, tan, PI } = Math
-            let rad = sin(frame / 100) * PI / 20
-            let rad2 = sin(frame / 50) * PI / 10
-            frame++
-            // if (postctx.canvas.width !== postctx.canvas.offsetWidth || postctx.canvas.height !== postctx.canvas.offsetHeight) { 
-            //     postctx.canvas.width = canvas.width = postctx.canvas.offsetWidth
-            //     postctx.canvas.height = canvas.height = postctx.canvas.offsetHeight
+            let rad = sin(that.frame / 100) * PI / 20
+            let rad2 = sin(that.frame / 50) * PI / 10
+            that.frame++
+            // let img=new Image();
+            // img.src='../assets/img/logoB.png';
+            // img.onload=function(){
+            //     let pattern=c.createPattern(img,'repeat');
+            //     c.fillStyle=pattern;
+            //     c.fillRect(0,0,canvas.width,canvas.height);
             // }
-            let gr=c.createRadialGradient(this.w/2,this.h/2,40,this.w/2,this.h/2,this.w/2);
-            gr.addColorStop(0,'#381402');
-            gr.addColorStop(1,'#150700');
+            let gr=c.createRadialGradient(canvas.width/2,canvas.height/2,5,canvas.width/2,canvas.height/2,canvas.width/2);
+            gr.addColorStop(0,'#EC7522');//'#381402'
+            gr.addColorStop(1,'#381402');
             c.fillStyle=gr;
-            c.fillRect(0,0,this.w,this.h);
-                // c.fillStyle = `rgb(255,102,3)`
-            // c.fillRect(0, 0, canvas.width, canvas.height)
+            c.fillRect(0,0,canvas.width,canvas.height);
             c.save()
             // c.translate(this.w/ 2,this.h/ 2)
             
-            c.beginPath()
-            this.vertices.forEach((vertex, i) => {
-                let ni = i + this.oceanWidth
-                let x = vertex[0] - frame % (this.gridSize * 2)
-                let z = vertex[2] - frame * 2 % this.gridSize + (i % 2 === 0 ? this.gridSize / 2 : 0)
-                let wave = (cos(frame / 45 + x / 50) - sin(frame / 20 + z / 50) + sin(frame / 30 + z*x / 10000))
-                let y = vertex[1] + wave * this.waveSize
-                let a = Math.max(0, 1 - (Math.sqrt(x ** 2 + z ** 2)) / depth)
+            // c.beginPath()
+            that.vertices.forEach((vertex, i) => {
+                let ni = i + that.oceanWidth
+                let x = vertex[0] - that.frame % (that.gridSize * 2)
+                let z = vertex[2] - that.frame * 2 % that.gridSize + (i % 2 === 0 ? that.gridSize / 2 : 0)
+                let wave = (cos(that.frame / 45 + x / 50) - sin(that.frame / 20 + z / 50) + sin(that.frame / 30 + z*x / 10000))
+                let y = vertex[1] + wave * that.waveSize
+                let a = Math.max(0, 1 - (Math.sqrt(x ** 2 + z ** 2)) / this.depth)
                 let tx, ty, tz
                 
-                y -= this.oceanHeight
+                y -= that.oceanHeight
                 
                 // Transformation variables
                 tx = x
@@ -123,8 +114,8 @@ export default {
                 y = ty;
                 z = tz;
 
-                x /= z / this.perspective
-                y /= z / this.perspective
+                x /= z / that.perspective
+                y /= z / that.perspective
                 
                 
                     
@@ -134,20 +125,11 @@ export default {
                 
                 c.globalAlpha = a
                 c.fillStyle = `rgb(255,255,255)`
-                c.fillRect(x - a * this.vertexSize / 2, y - a * this.vertexSize / 2, a * this.vertexSize, a * this.vertexSize)
+                c.fillRect(x - a * that.vertexSize / 2, y - a * that.vertexSize / 2, a * that.vertexSize, a * that.vertexSize)
                 c.globalAlpha = 1
             })
             c.restore()
-            
-            // Post-processing
-            postctx.drawImage(canvas, 0, 0)
-            postctx.globalCompositeOperation = "screen"
-            // postctx.filter = 'blur(16px)'
-            postctx.drawImage(canvas, 0, 0)
-            // postctx.filter = 'blur(0)'
-            postctx.globalCompositeOperation = "source-over"
-            
-            requestAnimationFrame(this.loop())
+            requestAnimationFrame(this.loop)
         }
     }
 
@@ -156,5 +138,11 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-
+canvas {
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+   width: 100%;
+   height:400px;
+}
 </style>
