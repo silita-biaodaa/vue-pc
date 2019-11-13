@@ -95,6 +95,7 @@ import novice5 from '@/page/novice/5' //新手指引2
 //专查
 import ZJquery from '@/page/query/ZJquery'
 import GLquery from '@/page/query/GLquery'
+import SLquery from '@/page/query/SLquery'
 import queryList from '@/page/query/queryList'
 import queryDetail from '@/page/query/queryDetail'
 //404
@@ -655,6 +656,10 @@ export default new Router({
       path:'/GLquery',
       name:'GLquery',
       component:GLquery
+    },{//水利专查
+      path:'/SLquery',
+      name:'SLquery',
+      component:SLquery
     },{//查询列表
       path:'/queryList',
       name:'queryList',

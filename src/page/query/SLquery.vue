@@ -3,8 +3,8 @@
     
     <div class="ZJquery">
         <!-- 头 -->
-		<v-head :headTxt="'公路信息综合查询系统'"></v-head>
-        <div class="nav-menu">首页 > 公路信息综合查询系统</div>
+		<v-head :headTxt="'水利信息综合查询系统'"></v-head>
+        <div class="nav-menu">首页 > 水利信息综合查询系统</div>
         <!-- 筛选 -->
         <div class="select maxW-box">
             <div class="bottom-bor">
@@ -35,8 +35,8 @@
                         <el-input placeholder="请输入内容,多个关键字用空格隔开"  v-model="data.project.keywords"></el-input>
                         <el-radio-group v-model="data.project.opt">
                             <el-radio label="title">根据标题搜索</el-radio>
-                            <el-radio label="scope">根据主要工程量搜索</el-radio>
-                            <el-radio label="title_and_scope">根据标题和主要工程量搜索</el-radio>
+                            <el-radio label="scope">根据关键指标搜索</el-radio>
+                            <el-radio label="title_and_scope">根据标题和关键指标搜索</el-radio>
                         </el-radio-group>
                     </el-row>
                     <!-- 多个关键词之间的关系 -->
@@ -53,30 +53,23 @@
                             <div class="areas" v-for="(el,i) of areasList" :key="'a'+i" :class="el.istap?'current':''" @click="areaTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
-                    <!-- 建设状态 -->
+                    <!-- 项目状态 -->
                     <el-row>
-                        <el-col :span="1">建设状态：</el-col>
+                        <el-col :span="1">项目状态：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of proBuildList" :key="'a'+i" :class="el.istap?'current':''" @click="proBuildTap(el)">{{el.name}}</div>
-                        </div>
-                    </el-row>
-                    <!-- 项目类型 -->
-                    <el-row>
-                        <el-col :span="1">项目类型：</el-col>
-                        <div class="condition">
-                            <div class="areas" v-for="(el,i) of typeList" :key="'a'+i" :class="el.istap?'current':''" @click="typeTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of proStateList" :key="'a'+i" :class="el.istap?'current':''" @click="proStateTap(el)">{{el.name}}</div>
                         </div>
                     </el-row>
                     <!-- 项目金额 -->
                     <el-row>
-                        <el-col :span="1">中标金额/合同金额：</el-col>
+                        <el-col :span="1">项目金额：</el-col>
                         <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" class="inputW" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
                         ——
                         <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" class="inputW r" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
                     </el-row>
                     <!-- 竣工验收日期 -->
                     <el-row>
-                        <el-col :span="1">竣工验收日期：</el-col>
+                        <el-col :span="1">完工日期：</el-col>
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeStart" type="date" placeholder="起始日期" class="inputW"></el-date-picker>
                         ——
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeEnd" type="date" placeholder="结束日期" class="inputW r"></el-date-picker>
@@ -87,33 +80,19 @@
             <el-row class="bottom-bor" >
                 <el-col :span="2">信用等级：</el-col>
                 <el-col :span="22">
-                    <!-- 评价类型 -->
+                    <!-- 申请类型 -->
                     <el-row>
-                        <el-col :span="1">评价类型：</el-col>
+                        <el-col :span="1">申请类型：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of creditTypeList" :key="'a'+i" :class="data.credit.creditType==el?'current':''" @click="creditTypeFn(el)">{{el}}</div>
+                            <div class="areas" v-for="(el,i) of applyList" :key="'a'+i" :class="el.istap?'current':''" @click="applyTap(el)">{{el.name}}</div>
                         </div>
                     </el-row>
-                    <!-- 评价省份 -->
-                    <el-row v-if="data.credit.creditType=='施工'||data.credit.creditType=='设计'">
-                        <el-col :span="1">评价省份：</el-col>
-                        <div class="condition">
-                            <div class="areas" v-for="(el,i) of pjareasList" :key="'a'+i"  :class="el.code==data.credit.province?'current':''" @click="pjareaTap(el)">{{el.areaShortName}}</div>
-                        </div>
-                    </el-row>
-                    <!-- 年份评分 -->
-                    <el-row v-for="(el,i) of evaluateList" :key="'a'+i">
-                        <el-col :span="1">{{el.year}}年度：</el-col>
-                        <div class="condition">
-                            <div class="areas" v-for="(x,y) of el.list" :key="'a'+y" :class="x.istap?'current':''" @click="yearTap(el,x)">{{x.name}}</div>
-                        </div>
-                    </el-row>
-                    <!-- 评分 -->
+                    <!-- 信用等级 -->
                     <el-row>
-                        <el-col :span="1">等级评分：</el-col>
-                        <el-input placeholder="最低分(小数)" v-model="data.credit.scoreStart" class="inputW" @keyup.native="returnInt(0)"></el-input>
-                        ——
-                        <el-input placeholder="最高分(小数)" v-model="data.credit.scoreEnd" class="inputW r" @keyup.native="returnInt(1)"></el-input>
+                        <el-col :span="1">信用等级：</el-col>
+                        <div class="condition">
+                            <div class="areas" v-for="(el,i) of levelsList" :key="'a'+i" :class="el.istap?'current':''" @click="levelsTap(el)">{{el.name}}</div>
+                        </div>
                     </el-row>
                 </el-col>
             </el-row>
@@ -173,15 +152,50 @@ export default {
                     code:'and'
                 }
             ],
-            typeList:[],
             addressList:[],
             companyQuals:[],
             areasList:[],
-            pjareasList:[],
             peopleList:[],
-            proBuildList:[],//建设状态
-            creditTypeList:['施工','设计','监理'],
-            evaluateList:[],//评价年份等级
+            proStateList:[],//项目状态
+            applyList:[//申请类型
+                {
+                    name:'不限',
+                    istap:true
+                },{
+                    name:'勘察',
+                    istap:false
+                },{
+                    name:'设计',
+                    istap:false
+                },{
+                    name:'施工',
+                    istap:false
+                },{
+                    name:'监理',
+                    istap:false
+                }
+            ],
+            levelsList:[//信用等级
+                {
+                    name:'不限',
+                    istap:true
+                },{
+                    name:'AAA',
+                    istap:false
+                },{
+                    name:'AA',
+                    istap:false
+                },{
+                    name:'A',
+                    istap:false
+                },{
+                    name:'BBB',
+                    istap:false
+                },{
+                    name:'CCC',
+                    istap:false
+                }
+            ],
             data:{
                 joinRegion:'all_in',//备案地区
                 qualCode:null,//资质
@@ -190,8 +204,7 @@ export default {
                     opt:'title',//搜索类型
                     keywords:'',//搜索关键字
                     proWhere:null,//项目属地
-                    proBuild:'',//建设状态
-                    proType:null,//业绩类型
+                    proState:null,//项目状态
                     amountStart:null,//最低价
                     amountEnd:null,//最高价
                     completeStart:null,//竣工起始日期
@@ -199,13 +212,10 @@ export default {
                     optType:'or'
                 },
                 person:[],
-                zhuanchaType:'gonglu',
+                zhuanchaType:'shuili',
                 credit:{
-                    province:'',//评价省份
-                    creditType:'施工',//评价类型
-                    scoreStart:'',//最低评分
-                    scoreEnd:'',//最高评分
-                    evaluateYear:'',//评价年份 示例：2018/AA,B;2017/B,C
+                    levels:null,//信用等级
+                    creditType:null,//申请类型
                 }
             },
             total:0,
@@ -287,36 +297,20 @@ export default {
             areaShortName:'不限',
             istap:true,
         })
-        this.pjareasList=JSON.parse(JSON.stringify(this.addressList));
-
         let ryData=JSON.parse(sessionStorage.getItem('people'));
         this.peopleList=ryData
         let proBuildData=JSON.parse(sessionStorage.getItem('proType'));
-        for(let x of proBuildData.gonglu.build){
+        for(let x of proBuildData.shuili.proType){
             let d={
                 name:x,
                 istap:false
             }
-            this.proBuildList.push(d)
+            this.proStateList.push(d)
         }
-        for(let x of proBuildData.gonglu.proType){
-            let d={
-                name:x,
-                istap:false
-            }
-            x=d
-            this.typeList.push(d)
-        }
-        this.proBuildList.unshift({
+        this.proStateList.unshift({
             name:'不限',
             istap:true,
         })
-        this.typeList.unshift({
-            name:'不限',
-            istap:true,
-        })
-        this.evaluateListFn();
-        this.data.credit.province=this.$parent.source.source
         // this.data=this.$store.state.queryData;
         this.ajax()
     },
@@ -363,39 +357,6 @@ export default {
                 this.recordList[2].name='入'+el.shortName+'+'+el.shortName+'内企业';
             }
             // this.ajax()
-        },
-        evaluateListFn(){
-            let arr=[];
-            let nowYear=new Date().getFullYear();
-            let l=[//评价年份等级
-                {
-                    name:'不限',
-                    istap:true,
-                },{
-                    name:'AA',
-                    istap:false,
-                },{
-                    name:'A',
-                    istap:false,
-                },{
-                    name:'B',
-                    istap:false,
-                },{
-                    name:'C',
-                    istap:false,
-                },{
-                    name:'D',
-                    istap:false,
-                }
-            ]
-            for(let x=1;x<4;x++){
-                let d={
-                    year:nowYear-x,
-                    list:JSON.parse(JSON.stringify(l))
-                }
-                arr.push(d)
-            }
-            this.evaluateList=arr;
         },
         isBeiFn(el){//备案地区
             this.data.joinRegion=el.code;
@@ -462,45 +423,16 @@ export default {
             this.data.project.proWhere=this.forArrStr(this.areasList);
             // this.ajax()
         },
-        typeTap(el){//项目类型
-            this.selectFn(el,this.typeList)
-            this.data.project.proType=this.forArrStr(this.typeList);
-            // this.ajax()
-        },
-        proBuildTap(el){
-            this.selectFn(el,this.proBuildList)
-            this.data.project.proBuild=this.forArrStr(this.proBuildList);
-        },
         optGxFn(el){//多个关键词之间的关系
             this.data.project.optType=el.code;
         },
-        creditTypeFn(el){//评价类型
-            if(el!='监理'){
-                this.data.credit.province=this.$parent.source.source
-            }else{
-                this.data.credit.province=''
-            }
-            this.data.credit.creditType=el;
+        applyTap(el){//申请类型
+            this.selectFn(el,this.applyList)
+            this.data.credit.creditType=this.forArrStr(this.applyList);
         },
-        pjareaTap(el){//评价省份
-            if(el.areaShortName=='全国'){
-                this.data.credit.province=''
-            }else{
-                this.data.credit.province=el.code;
-            }
-            // this.data.credit.province=this.forArrStr(this.pjareasList);
-        },
-        yearTap(el,x){//评价年份
-            this.selectFn(x,el.list)
-            // let str=this.forArrStr(el.list);
-            let arr=[];
-            for(let o in this.evaluateList){
-                if(this.forArrStr(this.evaluateList[o].list)&&this.forArrStr(this.evaluateList[o].list)!=''){
-                    let str=this.evaluateList[o].year+'/'+this.forArrStr(this.evaluateList[o].list)
-                    arr.push(str)
-                }
-            }
-            this.data.credit.evaluateYear=arr.join(';')
+        levelsTap(el){//信用等级
+            this.selectFn(el,this.levelsList)
+            this.data.credit.levels=this.forArrStr(this.levelsList);
         },
         ajax(){//查询
             this.total=0;
