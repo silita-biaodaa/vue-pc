@@ -114,6 +114,27 @@
                         <el-input placeholder="最低分(小数)" v-model="data.credit.scoreStart" class="inputW" @keyup.native="returnInt(0)"></el-input>
                         ——
                         <el-input placeholder="最高分(小数)" v-model="data.credit.scoreEnd" class="inputW r" @keyup.native="returnInt(1)"></el-input>
+                        <div class="rule">
+                            <span class="color-font">评分规则？</span>
+                            <div class="rule-box">
+                                <h5>评分规则</h5>
+                                <ul>
+                                    <li v-for="(el,i) of ruleList" :key="i">
+                                        <span>{{el.year}}：</span>
+                                        <div>
+                                            <span>
+                                                <font>AA</font>
+                                                <font>{{el.int1}}</font>
+                                            </span>
+                                            <span>
+                                                <font>A</font>
+                                                <font>{{el.int2}}</font>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </el-row>
                 </el-col>
             </el-row>
@@ -211,6 +232,21 @@ export default {
             total:0,
             isyj:false,
             isoptType:false,
+            ruleList:[
+                {
+                    year:'近1年',
+                    int1:0.5,
+                    int2:0.3,
+                },{
+                    year:'近2年',
+                    int1:0.3,
+                    int2:0.2,
+                },{
+                    year:'近3年',
+                    int1:0.2,
+                    int2:0.1,
+                }
+            ]
         }
     },
     computed:{
@@ -535,7 +571,61 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 @import '../../style/query.less';
-
+.rule{
+    margin-left: 20px;
+    position: relative;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    .color-font{
+        color: @color;
+    }
+    .rule-box{
+        display: none;
+        position: absolute;
+        background: #fff;
+        width: 520px;
+        height: 200px;
+        bottom: calc(-100% + 40px);
+        transform: translateX(-50%);
+        left:50%;
+        border-radius: 5px;
+        box-shadow:4px 2px 10px 0px rgba(0, 0, 0, 0.1);
+        h5{
+            line-height: 52px;
+            font-size: 16px;
+            text-align: center;
+            border-bottom: 1px solid #f2f2f2
+        }
+        ul{
+            height:147px;
+            padding:20px 40px;
+            box-sizing: border-box; 
+            li{
+                height:calc(100% / 3);
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+                div{
+                    flex-grow:2;
+                    display: flex;
+                    justify-content: space-between;
+                    span{
+                        font:last-child{
+                            margin-left: 15px
+                        }
+                    }
+                }
+                span{
+                    flex-grow:1;
+                }
+            }
+        }
+    }
+}
+.rule:hover .rule-box{
+    display: block
+}
 
 
 </style>
