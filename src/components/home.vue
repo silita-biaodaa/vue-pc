@@ -48,7 +48,7 @@
         </el-col>
       </el-row>
     </div>
-    <v-canvas v-if="isHome"></v-canvas>
+    <!-- <v-canvas v-if="isHome"></v-canvas> -->
   </div>
 </template>
 <script>
@@ -678,8 +678,10 @@ export default {
 }
 .ishome.l-search{
   .app-fff{
-    position: absolute;
-    background: transparent;
+    // position: absolute;
+    // background: transparent;
+    background: url('../assets/img/logoB.png');
+    height: 400px;
   }
   .el-col-16{
     float:none;

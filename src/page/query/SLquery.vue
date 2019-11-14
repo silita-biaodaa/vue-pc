@@ -57,7 +57,7 @@
                     <el-row>
                         <el-col :span="1">项目状态：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of proStateList" :key="'a'+i" :class="el.istap?'current':''" @click="proStateTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of proStateList" :key="'a'+i" :class="data.project.proState==el.code?'current':''" @click="proStateTap(el)">{{el.name}}</div>
                         </div>
                     </el-row>
                     <!-- 项目金额 -->
@@ -84,14 +84,14 @@
                     <el-row>
                         <el-col :span="1">申请类型：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of applyList" :key="'a'+i" :class="el.istap?'current':''" @click="applyTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of applyList" :key="'a'+i" :class="el.istap?'current':''" @click="applyTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 信用等级 -->
                     <el-row>
                         <el-col :span="1">信用等级：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of levelsList" :key="'a'+i" :class="el.istap?'current':''" @click="levelsTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of levelsList" :key="'a'+i" :class="el.istap?'current':''" @click="levelsTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                 </el-col>
@@ -159,40 +159,40 @@ export default {
             proStateList:[],//项目状态
             applyList:[//申请类型
                 {
-                    name:'不限',
+                    areaShortName:'不限',
                     istap:true
                 },{
-                    name:'勘察',
+                    areaShortName:'勘察',
                     istap:false
                 },{
-                    name:'设计',
+                    areaShortName:'设计',
                     istap:false
                 },{
-                    name:'施工',
+                    areaShortName:'施工',
                     istap:false
                 },{
-                    name:'监理',
+                    areaShortName:'监理',
                     istap:false
                 }
             ],
             levelsList:[//信用等级
                 {
-                    name:'不限',
+                    areaShortName:'不限',
                     istap:true
                 },{
-                    name:'AAA',
+                    areaShortName:'AAA',
                     istap:false
                 },{
-                    name:'AA',
+                    areaShortName:'AA',
                     istap:false
                 },{
-                    name:'A',
+                    areaShortName:'A',
                     istap:false
                 },{
-                    name:'BBB',
+                    areaShortName:'BBB',
                     istap:false
                 },{
-                    name:'CCC',
+                    areaShortName:'CCC',
                     istap:false
                 }
             ],
@@ -303,13 +303,13 @@ export default {
         for(let x of proBuildData.shuili.proStatus){
             let d={
                 name:x,
-                istap:false
+                code:x
             }
             this.proStateList.push(d)
         }
         this.proStateList.unshift({
             name:'不限',
-            istap:true,
+            code:null
         })
         // this.data=this.$store.state.queryData;
     },
@@ -374,11 +374,11 @@ export default {
             let str=''
             for(let x of arr){
                 if(x.istap){
-                    if(x.name=='不限'){
+                    if(x.areaShortName=='不限'){
                         str=null
                         return str
                     }
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             str=a.join(',')
@@ -388,7 +388,7 @@ export default {
             let a=[];
             for(let x of arr){
                 if(x.istap){
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             if(a.length==0){
@@ -399,13 +399,13 @@ export default {
         },
         backSelect(arr){//选不限时，其他取消选择
             for(let x of arr){
-                if(x.name!='不限'){
+                if(x.areaShortName!='不限'){
                     x.istap=false
                 }
             }
         },
         selectFn(el,arr){//选择
-            if(el.name=='不限'){
+            if(el.areaShortName=='不限'){
                 el.istap=true
                 this.backSelect(arr)
             }else{
@@ -432,6 +432,9 @@ export default {
         levelsTap(el){//信用等级
             this.selectFn(el,this.levelsList)
             this.data.credit.levels=this.forArrStr(this.levelsList);
+        },
+        proStateTap(el){//项目状态
+            this.data.project.proState=el.code
         },
         ajax(){//查询
             this.total=0;

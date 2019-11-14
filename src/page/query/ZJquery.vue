@@ -50,7 +50,7 @@
                     <el-row>
                         <el-col :span="1">业绩所含子项:</el-col>
                         <div class="condition">
-                            <div class='item' v-for="(el,i) in itemList" :key='i' :class="el.istap?'current':''" @click="itemFn(el)">{{el.name}}</div>
+                            <div class='item' v-for="(el,i) in itemList" :key='i' :class="el.istap?'current':''" @click="itemFn(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 项目属地 -->
@@ -64,14 +64,14 @@
                     <el-row>
                         <el-col :span="1">工程用途：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of purposeList" :key="'a'+i" :class="el.istap?'current':''" @click="purposeTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of purposeList" :key="'a'+i" :class="el.istap?'current':''" @click="purposeTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 业绩类型 -->
                     <el-row>
                         <el-col :span="1">业绩类型：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of typeList" :key="'a'+i" :class="el.istap?'current':''" @click="typeTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of typeList" :key="'a'+i" :class="el.istap?'current':''" @click="typeTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 中标金额/合同金额 -->
@@ -158,124 +158,124 @@ export default {
             ],
             itemList:[//业绩所含子项
                 {
-                    name:'招投标',
+                    areaShortName:'招投标',
                     istap:false,
                 },{
-                    name:'施工图审查',
+                    areaShortName:'施工图审查',
                     istap:false,
                 },{
-                    name:'合同备案',
+                    areaShortName:'合同备案',
                     istap:false,
                 },{
-                    name:'施工许可证',
+                    areaShortName:'施工许可证',
                     istap:false,
                 },{
-                    name:'竣工验收',
+                    areaShortName:'竣工验收',
                     istap:false,
                 }
             ],
             purposeList:[//工程用途
                 {
-                    name:'不限',
+                    areaShortName:'不限',
                     istap:true,
                 },{
-                    name:'公共建筑',
+                    areaShortName:'公共建筑',
                     istap:false,
                 },{
-                    name:'公共建筑配套工程',
+                    areaShortName:'公共建筑配套工程',
                     istap:false,
                 },{
-                    name:'办公建筑',
+                    areaShortName:'办公建筑',
                     istap:false,
                 },{
-                    name:'居住建筑',
+                    areaShortName:'居住建筑',
                     istap:false,
                 },{
-                    name:'居住建筑配套工程',
+                    areaShortName:'居住建筑配套工程',
                     istap:false,
                 },{
-                    name:'工业建筑',
+                    areaShortName:'工业建筑',
                     istap:false,
                 },{
-                    name:'工业建筑配套工程',
+                    areaShortName:'工业建筑配套工程',
                     istap:false,
                 },{
-                    name:'商业建筑',
+                    areaShortName:'商业建筑',
                     istap:false,
                 },{
-                    name:'商住楼',
+                    areaShortName:'商住楼',
                     istap:false,
                 },{
-                    name:'农业建筑',
+                    areaShortName:'农业建筑',
                     istap:false,
                 },{
-                    name:'农业建筑配套工程',
+                    areaShortName:'农业建筑配套工程',
                     istap:false,
                 },{
-                    name:'交通运输类',
+                    areaShortName:'交通运输类',
                     istap:false,
                 },{
-                    name:'公共交通',
+                    areaShortName:'公共交通',
                     istap:false,
                 },{
-                    name:'旅游建筑',
+                    areaShortName:'旅游建筑',
                     istap:false,
                 },{
-                    name:'科教文卫建筑',
+                    areaShortName:'科教文卫建筑',
                     istap:false,
                 },{
-                    name:'给水',
+                    areaShortName:'给水',
                     istap:false,
                 },{
-                    name:'排水',
+                    areaShortName:'排水',
                     istap:false,
                 },{
-                    name:'道路',
+                    areaShortName:'道路',
                     istap:false,
                 },{
-                    name:'桥隧',
+                    areaShortName:'桥隧',
                     istap:false,
                 },{
-                    name:'环境园林',
+                    areaShortName:'环境园林',
                     istap:false,
                 },{
-                    name:'风景园林',
+                    areaShortName:'风景园林',
                     istap:false,
                 },{
-                    name:'热力',
+                    areaShortName:'热力',
                     istap:false,
                 },{
-                    name:'燃气',
+                    areaShortName:'燃气',
                     istap:false,
                 },{
-                    name:'通信建筑',
+                    areaShortName:'通信建筑',
                     istap:false,
                 }
             ],
             typeList:[//业绩类型
                 {
-                    name:'不限',
+                    areaShortName:'不限',
                     istap:true,
                 },{
-                    name:'施工',
+                    areaShortName:'施工',
                     istap:false,
                 },{
-                    name:'设计',
+                    areaShortName:'设计',
                     istap:false,
                 },{
-                    name:'勘察',
+                    areaShortName:'勘察',
                     istap:false,
                 },{
-                    name:'监理',
+                    areaShortName:'监理',
                     istap:false,
                 },{
-                    name:'施工设计一体化',
+                    areaShortName:'施工设计一体化',
                     istap:false,
                 },{
-                    name:'劳务',
+                    areaShortName:'劳务',
                     istap:false,
                 },{
-                    name:'项目管理',
+                    areaShortName:'项目管理',
                     istap:false,
                 }
             ],
@@ -451,11 +451,11 @@ export default {
             let str=''
             for(let x of arr){
                 if(x.istap){
-                    if(x.name=='不限'){
+                    if(x.areaShortName=='不限'){
                         str=null
                         return str
                     }
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             str=a.join(',')
@@ -465,7 +465,7 @@ export default {
             let a=[];
             for(let x of arr){
                 if(x.istap){
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             if(a.length==0){
@@ -476,13 +476,13 @@ export default {
         },
         backSelect(arr){//选不限时，其他取消选择
             for(let x of arr){
-                if(x.name!='不限'){
+                if(x.areaShortName!='不限'){
                     x.istap=false
                 }
             }
         },
         selectFn(el,arr){//选择
-            if(el.name=='不限'){
+            if(el.areaShortName=='不限'){
                 el.istap=true
                 this.backSelect(arr)
             }else{

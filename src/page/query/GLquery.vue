@@ -57,14 +57,14 @@
                     <el-row>
                         <el-col :span="1">建设状态：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of proBuildList" :key="'a'+i" :class="el.istap?'current':''" @click="proBuildTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of proBuildList" :key="'a'+i" :class="el.istap?'current':''" @click="proBuildTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 项目类型 -->
                     <el-row>
                         <el-col :span="1">项目类型：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(el,i) of typeList" :key="'a'+i" :class="el.istap?'current':''" @click="typeTap(el)">{{el.name}}</div>
+                            <div class="areas" v-for="(el,i) of typeList" :key="'a'+i" :class="el.istap?'current':''" @click="typeTap(el)">{{el.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 项目金额 -->
@@ -105,7 +105,7 @@
                     <el-row v-for="(el,i) of evaluateList" :key="'a'+i">
                         <el-col :span="1">{{el.year}}年度：</el-col>
                         <div class="condition">
-                            <div class="areas" v-for="(x,y) of el.list" :key="'a'+y" :class="x.istap?'current':''" @click="yearTap(el,x)">{{x.name}}</div>
+                            <div class="areas" v-for="(x,y) of el.list" :key="'a'+y" :class="x.istap?'current':''" @click="yearTap(el,x)">{{x.areaShortName}}</div>
                         </div>
                     </el-row>
                     <!-- 评分 -->
@@ -330,25 +330,25 @@ export default {
         let proBuildData=JSON.parse(sessionStorage.getItem('proType'));
         for(let x of proBuildData.gonglu.build){
             let d={
-                name:x,
+                areaShortName:x,
                 istap:false
             }
             this.proBuildList.push(d)
         }
         for(let x of proBuildData.gonglu.proType){
             let d={
-                name:x,
+                areaShortName:x,
                 istap:false
             }
             x=d
             this.typeList.push(d)
         }
         this.proBuildList.unshift({
-            name:'不限',
+            areaShortName:'不限',
             istap:true,
         })
         this.typeList.unshift({
-            name:'不限',
+            areaShortName:'不限',
             istap:true,
         })
         this.evaluateListFn();
@@ -404,22 +404,22 @@ export default {
             let nowYear=new Date().getFullYear();
             let l=[//评价年份等级
                 {
-                    name:'不限',
+                    areaShortName:'不限',
                     istap:true,
                 },{
-                    name:'AA',
+                    areaShortName:'AA',
                     istap:false,
                 },{
-                    name:'A',
+                    areaShortName:'A',
                     istap:false,
                 },{
-                    name:'B',
+                    areaShortName:'B',
                     istap:false,
                 },{
-                    name:'C',
+                    areaShortName:'C',
                     istap:false,
                 },{
-                    name:'D',
+                    areaShortName:'D',
                     istap:false,
                 }
             ]
@@ -449,11 +449,11 @@ export default {
             let str=''
             for(let x of arr){
                 if(x.istap){
-                    if(x.name=='不限'){
+                    if(x.areaShortName=='不限'){
                         str=null
                         return str
                     }
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             str=a.join(',')
@@ -463,7 +463,7 @@ export default {
             let a=[];
             for(let x of arr){
                 if(x.istap){
-                    a.push(x.name)
+                    a.push(x.areaShortName)
                 }
             }
             if(a.length==0){
@@ -474,13 +474,13 @@ export default {
         },
         backSelect(arr){//选不限时，其他取消选择
             for(let x of arr){
-                if(x.name!='不限'){
+                if(x.areaShortName!='不限'){
                     x.istap=false
                 }
             }
         },
         selectFn(el,arr){//选择
-            if(el.name=='不限'){
+            if(el.areaShortName=='不限'){
                 el.istap=true
                 this.backSelect(arr)
             }else{
