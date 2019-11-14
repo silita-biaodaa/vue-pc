@@ -98,6 +98,7 @@ import GLquery from '@/page/query/GLquery'
 import SLquery from '@/page/query/SLquery'
 import queryList from '@/page/query/queryList'
 import queryDetail from '@/page/query/queryDetail'
+import queryPay from '@/page/query/queryPay'
 //404
 import error from'@/page/404'
 // escort
@@ -668,6 +669,10 @@ export default new Router({
       path:'/queryDetail',
       name:'queryDetail',
       component:queryDetail
+    },{//专查支付
+      path:'/queryPay',
+      name:'queryPay',
+      component:queryPay
     },
     {//404
       path:'*',

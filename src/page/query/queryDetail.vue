@@ -177,7 +177,7 @@
 <script>
 import paging from '@/components/paging'
 import heads from '@/components/head3'
-import joinRegion from '@/components/joinRegion'
+import joinRegion from '@/components/zhuancha/joinRegion'
 export default {
     name: 'queryDetail', // 结构名称
     data() {

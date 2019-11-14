@@ -1,8 +1,8 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="bannerCanvas">
-        <canvas ref="canvas">你的浏览器居然不支持Canvas？！赶快换一个吧！！</canvas>
-    </div>
+  <div class="bannerCanvas">
+    <canvas ref="canvas">你的浏览器居然不支持Canvas？！赶快换一个吧！！</canvas>
+  </div>
 </template>
 <script>
 export default {
@@ -10,17 +10,10 @@ export default {
     data() {
         return {
             // 数据模型a
-            vertices:[],
-            vertexCount:6000,
-            oceanWidth:54,
-            gridSize:82,
-            vertexSize:1,
-            oceanHeight:20,
-            waveSize:80,
-            perspective:800,
-            c:null,
-            frame:0,
-            depth:null,
+            num:600,
+            size:0.5,
+            speed:20000,
+            particles:[]
         }
     },
     props:{
@@ -33,103 +26,98 @@ export default {
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
-        // this.$nextTick(function() {
+        this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
-            this.c =this.$refs.canvas.getContext('2d');
-            for (let i = 0; i < this.vertexCount; i++) {
-                let x = i % this.oceanWidth
-                let y = 0
-                let z = i / this.oceanWidth >> 0
-                let offset = this.oceanWidth / 2
-                this.vertices.push([(-offset + x) * this.gridSize, y * this.gridSize, z * this.gridSize])
-            }
-            this.depth = this.vertexCount / this.oceanWidth * this.gridSize
-            requestAnimationFrame(this.loop)
-        // });
+            this.startAnimation();
+        });
     },
     methods: {
         // 方法 集合
-        loop(){
-            let that=this;
-            let c=this.c;
-            let canvas=c.canvas;
-            let { sin, cos, tan, PI } = Math
-            let rad = sin(that.frame / 100) * PI / 20
-            let rad2 = sin(that.frame / 50) * PI / 10
-            that.frame++
-            // let img=new Image();
-            // img.src='../assets/img/logoB.png';
-            // img.onload=function(){
-            //     let pattern=c.createPattern(img,'repeat');
-            //     c.fillStyle=pattern;
-            //     c.fillRect(0,0,canvas.width,canvas.height);
-            // }
-            let gr=c.createRadialGradient(canvas.width/2,canvas.height/2,5,canvas.width/2,canvas.height/2,canvas.width/2);
-            gr.addColorStop(0,'#EC7522');//'#381402'
-            gr.addColorStop(1,'#381402');
-            c.fillStyle=gr;
-            c.fillRect(0,0,canvas.width,canvas.height);
-            c.save()
-            // c.translate(this.w/ 2,this.h/ 2)
-            
-            // c.beginPath()
-            that.vertices.forEach((vertex, i) => {
-                let ni = i + that.oceanWidth
-                let x = vertex[0] - that.frame % (that.gridSize * 2)
-                let z = vertex[2] - that.frame * 2 % that.gridSize + (i % 2 === 0 ? that.gridSize / 2 : 0)
-                let wave = (cos(that.frame / 45 + x / 50) - sin(that.frame / 20 + z / 50) + sin(that.frame / 30 + z*x / 10000))
-                let y = vertex[1] + wave * that.waveSize
-                let a = Math.max(0, 1 - (Math.sqrt(x ** 2 + z ** 2)) / this.depth)
-                let tx, ty, tz
-                
-                y -= that.oceanHeight
-                
-                // Transformation variables
-                tx = x
-                ty = y
-                tz = z
-
-                // Rotation Y
-                tx = x * cos(rad) + z * sin(rad)
-                tz = -x * sin(rad) + z * cos(rad)
-                
-                x = tx
-                y = ty
-                z = tz
-                
-                // Rotation Z
-                tx = x * cos(rad) - y * sin(rad)
-                ty = x * sin(rad) + y * cos(rad) 
-                
-                x = tx;
-                y = ty;
-                z = tz;
-                
-                // Rotation X
-                
-                ty = y * cos(rad2) - z * sin(rad2)
-                tz = y * sin(rad2) + z * cos(rad2)
-                
-                x = tx;
-                y = ty;
-                z = tz;
-
-                x /= z / that.perspective
-                y /= z / that.perspective
-                
-                
-                    
-                if (a < 0.01) return
-                if (z < 0) return
-            
-                
-                c.globalAlpha = a
-                c.fillStyle = `rgb(255,255,255)`
-                c.fillRect(x - a * that.vertexSize / 2, y - a * that.vertexSize / 2, a * that.vertexSize, a * that.vertexSize)
-                c.globalAlpha = 1
+        rand(low, high) {
+            return Math.random() * (high - low) + low;
+        },
+        createParticle(canvas) {
+            const colour = {
+                r: 255,
+                g: this.randomNormal({ mean: 125, dev: 20 }),
+                b: 50,
+                a: this.rand(0, 1),
+            };
+            return {
+                x: -2,
+                y: -2,
+                diameter: Math.max(0, this.randomNormal({ mean: this.size, dev: this.size / 2 })),
+                duration: this.randomNormal({ mean: this.speed, dev: this.speed * 0.1 }),
+                amplitude: this.randomNormal({ mean: 16, dev: 2 }),
+                offsetY: this.randomNormal({ mean: 0, dev: 10 }),
+                arc: Math.PI * 2,
+                startTime: performance.now() - this.rand(0, this.speed),
+                colour: `rgba(${colour.r}, ${colour.g}, ${colour.b}, ${colour.a})`,
+            }
+        },
+        moveParticle(particle, canvas, time) {
+            const progress = ((time - particle.startTime) % particle.duration) / particle.duration;
+            return {
+                ...particle,
+                x: progress,
+                y: ((Math.sin(progress * particle.arc) * particle.amplitude) + particle.offsetY),
+            };
+        },
+        normalPool(o){var r=0;do{var a=Math.round(normal({mean:o.mean,dev:o.dev}));if(a<o.pool.length&&a>=0)return o.pool[a];r++}while(r<100)},
+        randomNormal(o){if(o=Object.assign({mean:0,dev:1,pool:[]},o),Array.isArray(o.pool)&&o.pool.length>0)return this.normalPool(o);var r,a,n,e,l=o.mean,t=o.dev;do{r=(a=2*Math.random()-1)*a+(n=2*Math.random()-1)*n}while(r>=1);return e=a*Math.sqrt(-2*Math.log(r)/r),t*e+l},
+        drawParticle(particle, canvas, ctx) {
+            canvas = this.$refs.canvas;
+            const vh = canvas.height / 100;
+            ctx.fillStyle = particle.colour;
+            ctx.beginPath();
+            ctx.ellipse(
+                particle.x * canvas.width,
+                particle.y * vh + (canvas.height / 2),
+                particle.diameter * vh,
+                particle.diameter * vh,
+                0,
+                0,
+                2 * Math.PI
+            );
+            ctx.fill();
+        },
+        draw(time, canvas, ctx) {
+            let that=this
+            // Move particles
+            that.particles.forEach((particle, index) => {
+                that.particles[index] = that.moveParticle(particle, canvas, time);
             })
-            c.restore()
-            requestAnimationFrame(this.loop)
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Draw the particles
+            that.particles.forEach((particle) => {
+                that.drawParticle(particle, canvas, ctx);
+            })
+            // Schedule next frame
+            requestAnimationFrame((time) => that.draw(time, canvas, ctx));
+        },
+        initializeCanvas() {
+            let canvas = this.$refs.canvas;
+            canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+            canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+            let ctx = canvas.getContext("2d");
+
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+                canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+                ctx = canvas.getContext("2d");
+            })
+
+            return [canvas, ctx];
+        },
+        startAnimation() {
+            let that=this
+            const [canvas, ctx] = this.initializeCanvas();
+            // Create a bunch of particles
+            for (let i = 0; i < this.num; i++) {
+                that.particles.push(this.createParticle(canvas));
+            }
+            requestAnimationFrame((time) => this.draw(time, canvas, ctx));
         }
     }
 
@@ -139,10 +127,9 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 canvas {
-//    position: absolute;
-//    top: 0;
-//    left: 0;
-   width: 100%;
-   height:400px;
+    width: 100%;
+    height: 400px;
+    // background: linear-gradient(to bottom, rgb(10, 10, 50) 0%,rgb(60, 10, 60) 100%);
+    background: url('../assets/img/logoB.png')
 }
 </style>

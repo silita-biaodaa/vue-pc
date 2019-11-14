@@ -145,7 +145,7 @@
 </template>
 <script>
 import screenZZ from '@/components/screenZZ'
-import screenRY from '@/components/screenRY'
+import screenRY from '@/components/zhuancha/screenRY'
 import heads from '@/components/head3'
 export default {
     name: 'ZJquery', // 结构名称
@@ -166,7 +166,7 @@ export default {
             ],
             optGxList:[
                 {
-                    name:'任意满足一个',
+                    name:'满足任意一个',
                     code:'or'
                 },{
                     name:'满足所有',
@@ -318,7 +318,6 @@ export default {
         this.evaluateListFn();
         this.data.credit.province=this.$parent.source.source
         // this.data=this.$store.state.queryData;
-        this.ajax()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -512,7 +511,7 @@ export default {
                 url:'/gonglu/count',
                 data:data
             }).then(res =>{
-                that.total=res.data.data;
+                that.total=res.data.data.count;
             })
         },
         jump(){

@@ -3,7 +3,7 @@
     <div class="heads">
         <div class="top-text" >
             <div class="top-left" >
-            <div class="img-bor" >
+            <div class="img-bor" :class="headTxt==''?'rightNone':''">
                 <img src="../assets/img/pic-guanywm.png@2x.png" alt=""  @click="jumps" >
             </div>
                 {{headTxt}}
@@ -156,19 +156,22 @@ export default {
         justify-content: space-between;
         height: 40px;
         .top-left {
-        cursor: pointer;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        color: #fff;
-        font-size: 12px;
-        .img-bor {
             cursor: pointer;
-            height: 24px;
-            border-right: 1px solid #fff;
-            padding-right: 10px;
-            margin-right: 10px;
-        }
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            font-size: 12px;
+            .img-bor {
+                cursor: pointer;
+                height: 24px;
+                border-right: 1px solid #fff;
+                padding-right: 10px;
+                margin-right: 10px;
+            }
+            .rightNone{
+                border-right: none
+            }
         }
     }
     .user-name {

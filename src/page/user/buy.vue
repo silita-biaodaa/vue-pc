@@ -249,7 +249,7 @@
 						<div class="puy-img" id="qrcode" v-loading='isload' element-loading-text="二维码生成中">
 						</div>
 						<div class="puy-hint">
-							<img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+							<img src="../../assets/img/icon-weixin.png" alt="">&nbsp&nbsp微信扫码支付
 						</div>
 					</div>
 				</div>

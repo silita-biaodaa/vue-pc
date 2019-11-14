@@ -90,7 +90,7 @@
 					<!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
 				</div>
 				<div class="puy-hint">
-					<img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+					<img src="../../assets/img/icon-weixin.png" alt="">&nbsp&nbsp微信扫码支付
 				</div>
 			</div>
 		</div>

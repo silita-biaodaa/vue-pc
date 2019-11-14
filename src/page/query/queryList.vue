@@ -5,30 +5,7 @@
         <!-- 头 -->
 		<v-head :headTxt="'住建信息综合查询系统'"></v-head>
         <div class="nav-menu">首页 > 住建信息综合查询系统</div>
-        <!-- 查询条件 -->
-        <div class="search-box">
-            <h4>您的查询条件为：</h4>
-            <div class="search-content">
-                <el-row>
-                    <el-col :span="2">企业地区：</el-col>
-                    <el-col :span="22">湖南省</el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="2">资质要求：</el-col>
-                    <el-col :span="22">
-                        <p>建筑业资质-建筑工程施工总承包-一级及以上</p>
-                        <p>建筑业资质-建筑工程施工总承包-一级及以上</p>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="2">人员要求：</el-col>
-                    <el-col :span="22">
-                        <p>注册建造师 - 一级注册建造师 - 建筑工程，水利工程 - 1</p>
-                        <p>注册建造师 - 一级注册建造师 - 建筑工程，水利工程 - 1 + 注册建造师 - 一级注册建造师 - 建筑工程，水利工程 - 1</p>
-                    </el-col>
-                </el-row>
-            </div>
-        </div>
+        <v-query></v-query>
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>
@@ -82,7 +59,8 @@
 <script>
 import paging from '@/components/paging'
 import heads from '@/components/head3'
-import joinRegion from '@/components/joinRegion'
+import joinRegion from '@/components/zhuancha/joinRegion'
+import queryCondition from '@/components/zhuancha/queryCondition'
 export default {
     name: 'queryList', // 结构名称
     data() {
@@ -125,7 +103,8 @@ export default {
     components:{
         'v-page':paging,
         'v-head': heads,
-        'v-region':joinRegion
+        'v-region':joinRegion,
+        'v-query':queryCondition
     },
     methods: {
         // 方法 集合
@@ -169,18 +148,6 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 @import '../../style/query.less';
-.search-box{
-    background: #fff;
-    width: 1020px;
-    margin:0 auto 10px;
-    padding-left: 5px;
-    padding-top: 28px;
-    h4{
-        color: #333;
-        font-size: 16px;
-        margin-bottom: 17px;
-    }
-}
 .t-tit{
     height: 60px;
     padding-left: 5px;

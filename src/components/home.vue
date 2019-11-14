@@ -692,7 +692,7 @@ export default {
     }
     .el-input-group{
       border: 2px solid #FE6603;
-      border-radius: 4px;
+      border-radius: 6px;
     }
     .hisgory{
       color: #fff;
