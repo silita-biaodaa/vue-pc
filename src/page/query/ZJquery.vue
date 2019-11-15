@@ -320,6 +320,7 @@ export default {
             total:0,
             isyj:false,
             isoptType:false,
+            id:null
         }
     },
     watch: {
@@ -397,7 +398,7 @@ export default {
         let ryData=JSON.parse(sessionStorage.getItem('people'));
         this.peopleList=ryData
         // this.data=this.$store.state.queryData;
-        // this.ajax()
+        this.ajax()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -532,19 +533,26 @@ export default {
                 url:'/gonglu/count',
                 data:data
             }).then(res =>{
-                that.total=res.data.data.count;
+                if(res.data.code==1){
+                    that.total=res.data.data.count;
+                    that.id=res.data.data.pkid;
+                }else{
+                    that.$alert(res.data.msg)
+                }
             })
         },
         jump(){
             if(this.total==0){
                 return false
             }
+            let id=this.id
             const {href} = this.$router.resolve({
                 path: '/queryPay',
-                // query: {
-                //     id:id,
-                //     key:res.data.data
-                // }
+                query: {
+                    id:id,
+                    type:'zj',
+                    num:this.total
+                }
             })
             window.open(href, '_blank', )
         }

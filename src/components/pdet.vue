@@ -77,7 +77,7 @@ export default {
       updateUserTemp({inCompany:this.firm.trim(),sex:this.sex,nikeName:this.nickname.trim(),position:this.duty.trim(),userName:this.name.trim()}).then(res => {
         console.log(res);
         if(res.code == 1) {
-            localStorage.setItem('isvip',res.data.isVip)
+            localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee',res.data.isVip)
             localStorage.setItem('isFirst',res.data.isFirst)
             localStorage.setItem('Bname',this.nickname.trim())
            if(sessionStorage.getItem('xtoken')) {

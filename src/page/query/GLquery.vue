@@ -222,11 +222,11 @@ export default {
                 person:[],
                 zhuanchaType:'gonglu',
                 credit:{
-                    province:'',//评价省份
-                    creditType:'施工',//评价类型
-                    scoreStart:'',//最低评分
-                    scoreEnd:'',//最高评分
-                    evaluateYear:'',//评价年份 示例：2018/AA,B;2017/B,C
+                    province:null,//评价省份
+                    creditType:null,//评价类型
+                    scoreStart:null,//最低评分
+                    scoreEnd:null,//最高评分
+                    evaluateYear:null,//评价年份 示例：2018/AA,B;2017/B,C
                 }
             },
             total:0,
@@ -246,11 +246,9 @@ export default {
                     int1:0.2,
                     int2:0.1,
                 }
-            ]
+            ],
+            id:null
         }
-    },
-    computed:{
-        
     },
     watch: {
         // 监控集合
@@ -352,7 +350,7 @@ export default {
             istap:true,
         })
         this.evaluateListFn();
-        this.data.credit.province=this.$parent.source.source
+        this.ajax();
         // this.data=this.$store.state.queryData;
     },
     beforeMount() {
@@ -406,7 +404,8 @@ export default {
                 {
                     areaShortName:'不限',
                     istap:true,
-                },{
+                },
+                {
                     areaShortName:'AA',
                     istap:false,
                 },{
@@ -510,16 +509,23 @@ export default {
             this.data.project.optType=el.code;
         },
         creditTypeFn(el){//评价类型
-            if(el!='监理'){
+            if(el!='监理'&&el!=''){
                 this.data.credit.province=this.$parent.source.source
             }else{
-                this.data.credit.province=''
+                this.data.credit.province=null
             }
-            this.data.credit.creditType=el;
+            if(this.data.credit.creditType==el){
+                this.data.credit.creditType=null
+                this.data.credit.province=null
+            }else{
+                this.data.credit.creditType=el;
+            }
+            
+            
         },
         pjareaTap(el){//评价省份
             if(el.areaShortName=='全国'){
-                this.data.credit.province=''
+                this.data.credit.province=null
             }else{
                 this.data.credit.province=el.code;
             }
@@ -547,19 +553,26 @@ export default {
                 url:'/gonglu/count',
                 data:data
             }).then(res =>{
-                that.total=res.data.data.count;
+                if(res.data.code==1){
+                    that.total=res.data.data.count;
+                    that.id=res.data.data.pkid;
+                }else{
+                    that.$alert(res.data.msg)
+                }
             })
         },
         jump(){
             if(this.total==0){
                 return false
             }
+            let id=this.id
             const {href} = this.$router.resolve({
-                path: '/queryList',
-                // query: {
-                //     id:id,
-                //     key:res.data.data
-                // }
+                path: '/queryPay',
+                query: {
+                    id:id,
+                    type:'gl',
+                    num:this.total
+                }
             })
             window.open(href, '_blank', )
         }

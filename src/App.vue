@@ -415,7 +415,7 @@
 								localStorage.setItem('Bname', name)
 								localStorage.setItem('isFirst', res.data.isFirst)
 								sessionStorage.setItem('ip', res.data.pkid)
-								localStorage.setItem('isvip', res.data.isVip)
+								localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee', res.data.isVip)
 								localStorage.setItem('phoneNo', res.data.phoneNo)
 							}
 							//  else {
@@ -474,7 +474,7 @@
 				localStorage.removeItem('Bname')
 				localStorage.removeItem('Xtoken')
 				localStorage.removeItem('valid')
-				localStorage.removeItem('isvip')
+				localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
 				this.$router.replace({
 					path: '/home',
 					query: {

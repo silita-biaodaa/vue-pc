@@ -42,7 +42,7 @@ export default {
         localStorage.removeItem('Bname')
         localStorage.removeItem('Xtoken')
         localStorage.removeItem('valid')
-        localStorage.removeItem('isvip')
+        localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
           this.$router.replace({
            path: '/home',
            query: {
@@ -65,7 +65,7 @@ export default {
             } else {
               sessionStorage.removeItem('xtoken')
               localStorage.removeItem('Xtoken')
-              localStorage.removeItem('isvip')
+              localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
                this.$confirm('用户信息已失效，请重新登录', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',

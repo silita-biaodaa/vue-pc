@@ -240,7 +240,7 @@
 				this.isload = true
 				let ip = sessionStorage.getItem('ip')
 				let uip = localStorage.getItem('uip')
-				if (localStorage.getItem('isvip')=='true') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					this.price = this.vip.price
 					this.code = this.vip.stdCode
 				} else {
@@ -334,7 +334,7 @@
 				this.noShow = false
 			},
 			openV() {
-				if (localStorage.getItem('isvip')=='true') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					this.toVip = false
 				} else {
 					this.toVip = true

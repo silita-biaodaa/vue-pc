@@ -256,7 +256,7 @@
 					});
 					return false
 				}
-				if (localStorage.getItem('isvip')=='false') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					return false
@@ -277,7 +277,7 @@
 					});
 					return false
 				}
-				if (localStorage.getItem('isvip')=='false') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					return false
@@ -309,7 +309,7 @@
 					});
 					return false
 				}
-				if (localStorage.getItem('isvip')=='false') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 					return false
@@ -358,7 +358,7 @@
 				let data = {}
 				let that = this;
 				data = this.data
-				if (localStorage.getItem('isvip')=='true') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					data.isVip = 1
 				} else {
 					data.isVip = 0
@@ -366,7 +366,7 @@
 				companys(data).then(res => {
 					this.isajax = true;
 					this.isSerach = false;
-					if (localStorage.getItem('isvip')=='true') {
+					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 						let arr = []
 						res.data.forEach(el => {
 							if (el.phone) {
@@ -402,7 +402,7 @@
 			},
 			again() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('isvip')=='false') {
+					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {

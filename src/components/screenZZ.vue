@@ -107,7 +107,7 @@ export default {
                 this.isshow=false
                 return 
             }
-            if (localStorage.getItem('isvip')=='false'&&!this.query) {
+            if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
                 this.svip = true
                 this.modalHelper.afterOpen();
                 return false
@@ -223,7 +223,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('isvip')=='false'&&!this.query) {
+                if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
@@ -328,7 +328,7 @@ export default {
         },
         addFn(){//增加条件
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('isvip')=='false'&&!this.query) {
+                if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                     return false

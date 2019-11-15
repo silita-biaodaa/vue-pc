@@ -117,7 +117,7 @@
 						let name = res.data.nikeName ? res.data.nikeName : res.data.phoneNo
 						sessionStorage.setItem('ip', res.data.pkid)
 						localStorage.setItem('phoneNo', res.data.phoneNo)
-						localStorage.setItem('isvip', res.data.isVip)
+						localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee', res.data.isVip)
 						localStorage.setItem('isFirst', res.data.isFirst)
 						localStorage.setItem('Bname', name)
 						if (this.checked) {

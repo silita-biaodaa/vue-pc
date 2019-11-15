@@ -81,7 +81,7 @@
 			},
 			jumpto(el) {
 				if (el.name == '押证详情') {
-					if (localStorage.getItem('isvip')=='false') {
+					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 						return

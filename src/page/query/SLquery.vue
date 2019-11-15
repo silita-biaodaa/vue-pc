@@ -221,10 +221,8 @@ export default {
             total:0,
             isyj:false,
             isoptType:false,
+            id:null
         }
-    },
-    computed:{
-        
     },
     watch: {
         // 监控集合
@@ -311,6 +309,7 @@ export default {
             name:'不限',
             code:null
         })
+        this.ajax()
         // this.data=this.$store.state.queryData;
     },
     beforeMount() {
@@ -446,19 +445,26 @@ export default {
                 url:'/gonglu/count',
                 data:data
             }).then(res =>{
-                that.total=res.data.data.count;
+                if(res.data.code==1){
+                    that.total=res.data.data.count;
+                    that.id=res.data.data.pkid;
+                }else{
+                    that.$alert(res.data.msg)
+                }
             })
         },
         jump(){
             if(this.total==0){
                 return false
             }
+            let id=this.id
             const {href} = this.$router.resolve({
-                path: '/queryList',
-                // query: {
-                //     id:id,
-                //     key:res.data.data
-                // }
+                path: '/queryPay',
+                query: {
+                    id:id,
+                    type:'sl',
+                    num:this.total
+                }
             })
             window.open(href, '_blank', )
         }

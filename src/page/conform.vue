@@ -98,7 +98,7 @@
 					source: this.source,
 					pageNo: this.current
 				};
-				if (localStorage.getItem('isvip')=='true') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					dataParam.isVip = 1
 				} else {
 					dataParam.isVip = 0

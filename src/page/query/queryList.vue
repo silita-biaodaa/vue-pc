@@ -3,9 +3,9 @@
     
     <div class="queryList">
         <!-- 头 -->
-		<v-head :headTxt="'住建信息综合查询系统'"></v-head>
-        <div class="nav-menu">首页 > 住建信息综合查询系统</div>
-        <v-query></v-query>
+		<v-head :headTxt="title"></v-head>
+        <div class="nav-menu">首页 > {{title}}</div>
+        <v-query :data="condition"></v-query>
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>
@@ -66,45 +66,49 @@ export default {
     data() {
         return {
             // 数据模型
-            list:[{"qualCount":0,"regisAddress":"四川省","comName":"核工业西南勘察设计研究院有限公司","comId":"e4b758d3e5877f1e6dc450a4b50bd6e7","projectCount":5048,"joinRegion":["入闽","入藏","入黔","入沪","入湘","入皖","入新","入冀","入豫","入赣","入甘","入鲁","入浙","入青"]},{"qualCount":0,"regisAddress":"浙江省","comName":"浙江山川有色勘察设计有限公司","comId":"b73a7e81e1ecf6688e8c9cfd2c14db4f","projectCount":4847,"joinRegion":["入皖","入赣"]},{"qualCount":0,"regisAddress":"四川省","comName":"中国建筑西南勘察设计研究院有限公司","comId":"f19f1c3a976a6fdd903026e49aa14eb0","projectCount":4635,"joinRegion":["入闽","入藏","入黔","入沪","入湘","入皖","入新","入苏","入宁","入冀","入豫","入渝","入赣","入京","入鲁","入陕","入浙","入青"]},{"qualCount":0,"regisAddress":"安徽省","comName":"安徽建材地质工程勘察院有限公司","comId":"e5607c61a8dc0e82ae8669b5204d193b","projectCount":4236,"joinRegion":["入湘"]},{"qualCount":0,"regisAddress":"河南省","comName":"河南省防腐企业集团有限公司","comId":"99cbefefbc03ca7d4db3b9ee430e0c44","projectCount":4132,"joinRegion":["入新","入苏","入吉","入京","入浙","入晋"]},{"qualCount":0,"regisAddress":"四川省","comName":"四川省兴发规划建筑设计有限公司","comId":"f36f7dd720d940cd597cc4f328f0cdb3","projectCount":3421,"joinRegion":["入藏","入黔","入新","入冀","入青"]},{"qualCount":0,"regisAddress":"浙江省","comName":"华汇工程设计集团股份有限公司","comId":"9df42efbd42440fd001345796b20bfdf","projectCount":3169,"joinRegion":["入藏","入黔","入沪","入湘","入皖","入新","入宁","入赣","入青","入黑","入晋"]},{"qualCount":0,"regisAddress":"上海市","comName":"上海市政工程设计研究总院（集团）有限公司","comId":"cc2c6f20fa53b20a26337281f4dbfdc8","projectCount":3117,"joinRegion":["入闽","入藏","入黔","入湘","入皖","入新","入苏","入吉","入宁","入冀","入豫","入赣","入鲁","入浙","入青","入黑","入晋"]},{"qualCount":0,"regisAddress":"浙江省","comName":"浙江省工程物探勘察院","comId":"9ee6568ad5707b6aae44068555340869","projectCount":3085,"joinRegion":["入黔","入沪","入皖","入豫"]},{"qualCount":0,"regisAddress":"北京市","comName":"中国建筑技术集团有限公司","comId":"a985c400505ba2d36aebf95cf12e3b00","projectCount":3062,"joinRegion":["入闽","入藏","入黔","入沪","入湘","入皖","入新","入苏","入吉","入宁","入冀","入豫","入渝","入赣","入甘","入鲁","入陕","入浙","入青","入黑","入晋"]}],
             total:0,
+            list:[],
             loading:true,
             isajax:true,
+            condition:null,//查询条件
             data:{
-                joinRegion:'all_in',//备案地区
-                qualCode:null,//资质
                 pageNo:1,
-                pageSize:10,
-                regisAddress:'',
-                project:{
-                    opt:'title',//搜索类型
-                    keywords:'',//搜索关键字
-                    childProject:null,//业务所含子项
-                    proWhere:null,//项目属地
-                    proUse:null,//工程用途
-                    proType:null,//业绩类型
-                    amountStart:null,//最低价
-                    amountEnd:null,//最高价
-                    contractStart:null,//起始日期
-                    contractEnd:null,//结束日期
-                    completeStart:null,//竣工起始日期
-                    completeEnd:null,//竣工结束日期
-                    areaStart:null,//最小面积
-                    areaEnd:null,//最大面积
-                    proCount:0,//符合业绩条件的数量
-                },
-                person:[]
+                pageSize:20,
+                orderNo:null
             },
         }
     },
     watch: {
         // 监控集合
     },
+    computed:{
+        title(){
+            if(this.$route.query.type=='zj'){
+                return '住建信息综合查询系统'
+            }else if(this.$route.query.type=='gl'){
+                return '公路信息综合查询系统'
+            }else if(this.$route.query.type=='sl'){
+                return '水利信息综合查询系统'
+            }
+        }
+    },
     components:{
         'v-page':paging,
         'v-head': heads,
         'v-region':joinRegion,
         'v-query':queryCondition
+    },
+    created(){
+        this.$http({
+            method:'post',
+            url:'/gonglu/get/conditions',
+            data:{
+                pkid:this.$route.query.id
+            }
+        }).then(res =>{
+            this.condition=res.data.data.condition
+            this.ajax()
+        })
     },
     methods: {
         // 方法 集合
@@ -113,28 +117,22 @@ export default {
             // this.ajax()
         },
         ajax(){//查询
+            let that=this;
             this.list=[];
-            this.total=0;
             this.isajax=false;
-            let data=this.data
-            data.project.keywords=data.project.keywords.replace(/ /g,',');
-            // let data={
-            //     regisAddress:"湖南省",
-            //     pageNo:1,
-            //     pageSize:10
-            // }
+            this.data.orderNo=this.$route.query.n;
             // let that=this;
-            // this.$http({
-            //     method:'post',
-            //     url:'/query/zonghe/list/company',
-            //     data:data
-            // }).then(res =>{
-            //     that.isajax=true;
-            //     that.list=res.data.data;
-            //     that.total=res.data.total;
-            // }).catch(req =>{
-            //     that.list=null
-            // })
+            this.$http({
+                method:'post',
+                url:'/gonglu/list',
+                data:this.data
+            }).then(res =>{
+                that.isajax=true;
+                that.list=res.data.data;
+                that.total=res.data.total;
+            }).catch(req =>{
+                that.list=null
+            })
         },
         //刷新
         recoldFn() {

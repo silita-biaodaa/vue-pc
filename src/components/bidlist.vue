@@ -88,7 +88,7 @@ export default {
         if(res.code = 1 ) {
           this.total = res.total
           this.bidlists = res.data
-         if( localStorage.getItem('isvip')=='false') {
+         if( localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
               for(let x of this.bidlists){
                  if(x.certificate){
                    x.certificate=x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g,'*')

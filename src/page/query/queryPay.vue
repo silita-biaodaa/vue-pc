@@ -5,21 +5,21 @@
 		<v-head></v-head>
         <div class="maxW">
             <div class="top-box">
-                <h2>公路信息专查</h2>
-                <div class="total-box">共为您找到符合要求企业111家</div>
+                <h2>{{title}}信息专查</h2>
+                <div class="total-box">共为您找到符合要求企业{{$route.query.num}}家</div>
             </div>
-            <v-query :ispay="true"></v-query>
+            <v-query></v-query>
             <div class="price-box">
                 <p>本次为付费查询，限时折扣价<span class="color-font">￥50</span>，会员享受专享价：<span class="color-font">¥20</span></p>
                 <button class="openVip">开通会员</button>
             </div>
             <div class="pay-box">
-                <img src="../../assets/img/accounts.png"/>
+                <div class="puy-img" id="qrcode" v-loading='isload' element-loading-text="二维码生成中"></div>
                 <p class="wxpay">
                     <img src="../../assets/img/icon-weixin.png"/>
                     微信支付
                 </p>
-                <p style="margin-bottom:34px">支付成功，点击查看详情 ></p>
+                <p class="goDetail" v-if="payed" @click="jumpList">支付成功，点击查看详情 ></p>
                 <div class="tip">注：同一用户24小时内查询同一条件无需再次支付,不小心关闭可在我的订单中再次打开查看</div>
             </div>
         </div>
@@ -28,11 +28,16 @@
 <script>
 import heads from '@/components/head3'
 import queryCondition from '@/components/zhuancha/queryCondition'
+import QRCode from 'qrcodejs2'
+import { setTimeout, clearTimeout } from 'timers';
 export default {
     name: 'queryPay', // 结构名称
     data() {
         return {
             // 数据模型a
+            isload:true,
+            orderNo:null,
+            payed:false,//是否已支付
         }
     },
     watch: {
@@ -41,11 +46,62 @@ export default {
     props: {
         // 集成父级参数
     },
+    computed:{
+        title(){
+            if(this.$route.query.type=='zj'){
+                return '住建'
+            }else if(this.$route.query.type=='gl'){
+                return '公路'
+            }else if(this.$route.query.type=='sl'){
+                return '水利'
+            }
+        }
+    },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        let channel='special_query_';
+        let str=''
+        let that=this;
+        if(localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true'){
+            str='vip'
+        }else{
+            str='com'
+        }
+        channel=channel+str+'_'+this.$route.query.type
+        //获取价格
+        this.$http({
+            method:'post',
+            url:'/vip/getFeeStandard',
+            data:{
+                channel:channel
+            }
+        }).then(res =>{
+            that.$http({
+                method:'post',
+                url:'/wxPay/report/unifiedOrder',
+                data:{
+                    channel:channel,
+                    userId:sessionStorage.getItem('ip'),
+                    stdCode:res.data.data[0].stdCode,
+                    ip:localStorage.getItem('uip'),
+                    tradeType:'NATIVE'
+                }
+            }).then(r =>{
+                that.isload=false;
+                that.orderNo=r.data.orderNo;
+                let code = new QRCode("qrcode", {
+                    text: r.data.data.codeUrl,
+                    width: 180,
+                    height: 180,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                });
+                that.getOrderNo()
+            })
+        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -64,12 +120,42 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+        clearTimeout(that.t);
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
     },
     methods: {
         // 方法 集合
+        getOrderNo(){
+            let that=this
+            this.$http({
+                method:'post',
+                url:'/wxPay/queryOrderStatus',
+                data:{
+                    orderNo:this.orderNo,
+                    type:'report'
+                }
+            }).then(res =>{
+                let state=res.data.trade_state;
+                if(state=='SUCCESS'){
+                    that.payed=true;
+                    clearTimeout(that.t);
+                }else{
+                    that.t=setTimeout(that.getOrderNo,1000)
+                }
+            })
+        },
+        jumpList(){
+            this.$router.replace({
+                path: '/queryList',
+                query:{
+                    type:'zj',
+                    n:this.orderNo,
+                    id:this.$route.query.id
+                }
+            })
+        }
     },
     components:{
         'v-head': heads,
@@ -133,9 +219,11 @@ export default {
     padding:36px 16px 64px;
     background: #fff;
     text-align: center;
-    p{
+    .goDetail{
         text-align: center;
         font-size: 14px;
+        margin-bottom:34px;
+        cursor: pointer;
     }
     .wxpay{
         display: flex;
@@ -152,6 +240,11 @@ export default {
         font-size: 12px;
         color: #999;
         text-align: left
+    }
+    #qrcode{
+        height: 180px;
+        width: 180px;
+        margin: 0 auto;
     }
 }
 

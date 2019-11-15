@@ -253,7 +253,7 @@ router.beforeEach((to, from, next) => {
               if(resd.data){
                 sessionStorage.setItem('xtoken',resd.data.xtoken);
                 localStorage.setItem('Bname',resd.data.nikeName);
-                localStorage.setItem('isvip',resd.data.isVip);
+                localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee',resd.data.isVip);
                 next({
                   name:'home',
                   params:{

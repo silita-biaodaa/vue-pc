@@ -5,11 +5,6 @@
         <div class="search-box">
             <h4>
                 <span>您的查询条件为：</span>
-                <span class="return-go">
-                    <template v-if="ispay">
-                        返回修改 >
-                    </template>
-                </span>
             </h4>
             <div class="search-content">
                 <el-row>
@@ -47,8 +42,9 @@ export default {
     },
     props: {
         // 集成父级参数
-        ispay:{
-            default:false
+        data:{
+            default:null,
+            type:Object
         }
     },
     beforeCreate() {
