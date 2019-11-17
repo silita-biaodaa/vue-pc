@@ -35,6 +35,7 @@ export default {
     data() {
         return {
             // 数据模型a
+            data:{}
         }
     },
     watch: {
@@ -42,9 +43,9 @@ export default {
     },
     props: {
         // 集成父级参数
-        data:{
-            default:null,
-            type:Object
+        pkid:{
+            default:'',
+            type:String
         }
     },
     beforeCreate() {
@@ -52,6 +53,15 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.$http({
+            method:'post',
+            url:'/gonglu/get/conditions',
+            data:{
+                pkid:this.pkid
+            }
+        }).then(res =>{
+            this.data=res.data.data.condition
+        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

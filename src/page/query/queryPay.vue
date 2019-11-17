@@ -8,9 +8,9 @@
                 <h2>{{title}}信息专查</h2>
                 <div class="total-box">共为您找到符合要求企业{{$route.query.num}}家</div>
             </div>
-            <v-query></v-query>
+            <v-query :pkid="$route.query.id"></v-query>
             <div class="price-box">
-                <p>本次为付费查询，限时折扣价<span class="color-font">￥50</span>，会员享受专享价：<span class="color-font">¥20</span></p>
+                <p>本次为付费查询，限时折扣价<span class="color-font">￥{{comPrice}}</span>，会员享受专享价：<span class="color-font">¥{{vipPrice}}</span></p>
                 <button class="openVip">开通会员</button>
             </div>
             <div class="pay-box">
@@ -38,6 +38,8 @@ export default {
             isload:true,
             orderNo:null,
             payed:false,//是否已支付
+            vipPrice:0,
+            comPrice:0,
         }
     },
     watch: {
@@ -79,13 +81,21 @@ export default {
                 channel:channel
             }
         }).then(res =>{
+            let stdCode=''
+            if(localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true'){
+                stdCode=res.data.data.vipStdCode
+            }else{
+                stdCode=res.data.data.comStdCode
+            }
+            that.vipPrice=res.data.data.vipPrice;
+            that.comPrice=res.data.data.comPrice;
             that.$http({
                 method:'post',
                 url:'/wxPay/report/unifiedOrder',
                 data:{
                     channel:channel,
                     userId:sessionStorage.getItem('ip'),
-                    stdCode:res.data.data[0].stdCode,
+                    stdCode:stdCode,
                     ip:localStorage.getItem('uip'),
                     tradeType:'NATIVE'
                 }
@@ -99,7 +109,7 @@ export default {
                     colorDark: "#000000",
                     colorLight: "#ffffff",
                 });
-                that.getOrderNo()
+                // that.getOrderNo()
             })
         })
     },
