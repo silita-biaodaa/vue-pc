@@ -212,6 +212,9 @@
 				}
 			},
 			'data.regisAddress':function(name,old){
+				if(name.indexOf('||')>-1){
+					return
+				}
 				if(name==''){
 					return
 				}

@@ -70,14 +70,12 @@
 						<div class="ta-list">
 							<div class="list-vip">
 								<div class="left" style="width:230px;textAlign:left">
-									<div style="fontSize:16px" class="m-6">企业资质·业绩查询报告-体验版
+									<div style="fontSize:16px" class="m-6">
+										<template v-if="el.report.repTitle">{{el.report.repTitle}}</template>
+										<template v-else>企业资质·业绩查询报告-体验版</template>
 									</div>
-									<div style="fontSize:12px" class="m-6">
-										订单编号:{{el.orderNo}}
-									</div>
-									<div style="fontSize:12px" class="m-6">
-										发送邮箱:{{el.report.email}}
-									</div>
+									<div style="fontSize:12px" class="m-6">订单编号:{{el.orderNo}}</div>
+									<div style="fontSize:12px" class="m-6" v-if="!el.report.repTitle">发送邮箱:{{el.report.email}}</div>
 								</div>
 
 								<div class="left" style="width:80px;fontSize:14px;">
@@ -101,7 +99,9 @@
 							<div class="ta-report">
 								<div class="left" style="width:190px;textAlign:left">
 									<div style="fontSize:12px">
-										报告格式:PDF
+										报告格式:
+										<template v-if="el.report.repTitle">{{el.report.pattern}}</template>
+										<template v-else>PDF</template>
 									</div>
 								</div>
 								<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
@@ -110,7 +110,7 @@
 								<div class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}" v-show="el.orderStatus != '1'">
 									<!-- <span @click='dowloadFn(el)'>下载</span> -->
 									<span @click="look(el)">查看</span>
-									<!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
+									<a :download="el.report.reportPath" :href="el.report.reportPath" v-if="el.report.reportPath">下载</a>
 								</div>
 							</div>
 						</div>
