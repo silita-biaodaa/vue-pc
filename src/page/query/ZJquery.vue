@@ -525,7 +525,7 @@ export default {
         },
         ajax(){//查询
             this.total=0;
-            let data=this.data
+            let data=JSON.parse(JSON.stringify(this.data))
             data.project.keywords=data.project.keywords.replace(/ /g,',');
             let that=this;
             this.$http({

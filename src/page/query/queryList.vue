@@ -5,7 +5,7 @@
         <!-- 头 -->
 		<v-head :headTxt="title"></v-head>
         <div class="nav-menu">首页 > {{title}}</div>
-        <v-query :data="condition"></v-query>
+        <v-query :pkid="$route.query.id"></v-query>
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>
@@ -26,10 +26,9 @@
                                 </div>
                             </div>
                             <div class="bottom">
+                                <p>法人：<font>{{o.legalPerson}}</font></p>
+                                <p>电话：<font>{{o.phone}}</font></p>
                                 <p>注册地：<font>{{o.regisAddress}}</font></p>
-                                <p>符合要求资质：<font>{{o.qualCount}}</font></p>
-                                <!-- <font>符合要求人员：<font>1</font></p> -->
-                                <p>符合要求业绩：<font>{{o.projectCount}}</font></p>
                             </div>
                         </li>
                     </ul>
@@ -70,7 +69,6 @@ export default {
             list:[],
             loading:true,
             isajax:true,
-            condition:null,//查询条件
             data:{
                 pageNo:1,
                 pageSize:20,
@@ -81,6 +79,7 @@ export default {
     watch: {
         // 监控集合
     },
+    inject: ['reload'],
     computed:{
         title(){
             if(this.$route.query.type=='zj'){
@@ -99,22 +98,13 @@ export default {
         'v-query':queryCondition
     },
     created(){
-        this.$http({
-            method:'post',
-            url:'/gonglu/get/conditions',
-            data:{
-                pkid:this.$route.query.id
-            }
-        }).then(res =>{
-            this.condition=res.data.data.condition
-            this.ajax()
-        })
+        this.ajax()
     },
     methods: {
         // 方法 集合
         Goto(val){
-            // this.data.pageNo = val.cur;
-            // this.ajax()
+            this.data.pageNo = val.cur;
+            this.ajax()
         },
         ajax(){//查询
             let that=this;
@@ -133,6 +123,17 @@ export default {
             }).catch(req =>{
                 that.list=null
             })
+        },
+        jumpDetail(id){
+            const {href} = this.$router.resolve({
+                path: '/queryDetail',
+                query: {
+                    id:id,
+                    type:'zj',
+                    n:this.$route.query.n
+                }
+            })
+            window.open(href, '_blank', )
         },
         //刷新
         recoldFn() {

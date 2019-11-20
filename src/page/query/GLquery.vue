@@ -211,7 +211,7 @@ export default {
                     opt:'title',//搜索类型
                     keywords:'',//搜索关键字
                     proWhere:null,//项目属地
-                    proBuild:'',//建设状态
+                    proBuild:null,//建设状态
                     proType:null,//业绩类型
                     amountStart:null,//最低价
                     amountEnd:null,//最高价

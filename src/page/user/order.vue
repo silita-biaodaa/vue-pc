@@ -51,28 +51,13 @@
 				<div class="ta-list" v-if="el.report == null">
 					<div class="list-vip">
 						<div class="left" style="width:230px;textAlign:left">
-							<div style="fontSize:16px" class="m-6">会员服务
-							</div>
-							<div style="fontSize:12px" class="m-6">
-								订单编号:{{el.orderNo}}
-							</div>
-							<div style="fontSize:12px" class="m-6">
-								服务时长:{{el.vipDays | months }}
-							</div>
+							<div style="fontSize:16px" class="m-6">会员服务</div>
+							<div style="fontSize:12px" class="m-6">订单编号:{{el.orderNo}}</div>
+							<div style="fontSize:12px" class="m-6">服务时长:{{el.vipDays | months }}</div>
 						</div>
-
-						<div class="left" style="width:80px;fontSize:14px;">
-							{{el.orderStatus | status  }}
-						</div>
-
-						<div class="left" style="width:100px;color:#FF0000">
-							{{el.fee/100}}元
-						</div>
-
-						<div class="left" style="width:160px;">
-							{{el.updateTime ? el.updateTime : el.createTime | times }}
-						</div>
-
+						<div class="left" style="width:80px;fontSize:14px;">{{el.orderStatus | status  }}</div>
+						<div class="left" style="width:100px;color:#FF0000">{{el.fee/100}}元</div>
+						<div class="left" style="width:160px;">{{el.updateTime ? el.updateTime : el.createTime | times }}</div>
 						<div class="left" style="width:100px;">
 							<div class="again" @click="again(el)">
 								{{el.orderStatus==1 ? '立即购买' : '再次购买'}}
@@ -81,8 +66,6 @@
 					</div>
 				</div>
 				<div>
-
-
 					<div v-if="el.report ">
 						<div class="ta-list">
 							<div class="list-vip">

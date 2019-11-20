@@ -81,36 +81,42 @@ export default {
                 channel:channel
             }
         }).then(res =>{
-            let stdCode=''
-            if(localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true'){
-                stdCode=res.data.data.vipStdCode
-            }else{
-                stdCode=res.data.data.comStdCode
-            }
-            that.vipPrice=res.data.data.vipPrice;
-            that.comPrice=res.data.data.comPrice;
-            that.$http({
-                method:'post',
-                url:'/wxPay/report/unifiedOrder',
-                data:{
-                    channel:channel,
-                    userId:sessionStorage.getItem('ip'),
-                    stdCode:stdCode,
-                    ip:localStorage.getItem('uip'),
-                    tradeType:'NATIVE'
+            if(res.data.code==1){
+                let stdCode=''
+                if(localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true'){
+                    stdCode=res.data.data.vipStdCode
+                }else{
+                    stdCode=res.data.data.comStdCode
                 }
-            }).then(r =>{
-                that.isload=false;
-                that.orderNo=r.data.orderNo;
-                let code = new QRCode("qrcode", {
-                    text: r.data.data.codeUrl,
-                    width: 180,
-                    height: 180,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                });
-                // that.getOrderNo()
-            })
+                that.vipPrice=res.data.data.vipPrice;
+                that.comPrice=res.data.data.comPrice;
+                that.$http({
+                    method:'post',
+                    url:'/wxPay/report/unifiedOrder',
+                    data:{
+                        channel:channel,
+                        userId:sessionStorage.getItem('ip'),
+                        stdCode:stdCode,
+                        ip:localStorage.getItem('uip'),
+                        tradeType:'NATIVE',
+                        pkid:that.$route.query.id
+                    }
+                }).then(r =>{
+                    that.isload=false;
+                    that.orderNo=r.data.orderNo;
+                    let code = new QRCode("qrcode", {
+                        text: r.data.data.codeUrl,
+                        width: 180,
+                        height: 180,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                    });
+                    that.getOrderNo()
+                })
+            }else{
+                this.$alert(res.data.msg)
+            }
+            
         })
     },
     beforeMount() {
@@ -160,7 +166,7 @@ export default {
             this.$router.replace({
                 path: '/queryList',
                 query:{
-                    type:'zj',
+                    type:this.$route.query.type,
                     n:this.orderNo,
                     id:this.$route.query.id
                 }

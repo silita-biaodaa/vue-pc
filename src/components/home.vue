@@ -105,6 +105,9 @@ export default {
   methods: {
     clearFn() {
       this.$refs.iput.focus();
+      if(this.$route.path=='/home'){
+        return false
+      }
       this.searchFn();
     },
     seaI(el) {

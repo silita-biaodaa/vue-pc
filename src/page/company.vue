@@ -539,7 +539,6 @@
 		created() {
 			this.gainFilter()
 			this.gainAera()
-			// this.GqualCode()
 			if (sessionStorage.getItem('pageNo')) {
 				this.data.pageNo = sessionStorage.getItem('pageNo') * 1;
 			}

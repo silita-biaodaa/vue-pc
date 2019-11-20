@@ -15,10 +15,6 @@
                 <div>
                     <p class="bg">统一社会信用代码</p>
                     <p>{{basic.creditCode}}</p>
-                    <!-- <template>
-                        <p class="bg">在渝负责人</p>
-                        <p>曹长卿</p>
-                    </template> -->
                 </div>
                 <div>
                     <p class="bg">企业法定代表人</p>
@@ -105,7 +101,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
+                            <v-page :all='tabList[1].num' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="ryList&&ryList.length==0">
@@ -127,7 +123,7 @@
                     </template>
                 </template>
                 <!-- 业绩 -->
-                <template v-else>
+                <template v-else-if="tabNum=='符合要求项目'">
                     <!-- 加载中 -->
                     <template v-if="yjIsajax">
                         <template v-if="yjList&&yjList.length>0">
@@ -149,7 +145,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
+                            <v-page :all='tabList[2].num' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">
@@ -160,6 +156,52 @@
                         </template>
                         <!-- 加载失败 -->
                         <template v-else-if="!yjList">
+                            <div class="ajax-erroe">
+                                <img src="../../assets/img/pic-zoudiu.png" />
+                                <span @click="recoldFn">刷新</span>
+                            </div>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+                    </template>
+                </template>
+                <!-- 信用等级 -->
+                <template v-else>
+                    <!-- 加载中 -->
+                    <template v-if="xyIsajax">
+                        <template v-if="xyList&&xyList.length>0">
+                            <table ref="yj">
+                                <thead>
+                                    <td style="width:32px">序号</td>
+                                    <td>评价类型</td>
+                                    <td>评价年度</td>
+                                    <td>信用等级</td>
+                                    <td>颁发日期</td>
+                                    <td>有效期至</td>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(o,i) of xyList" :key="i">
+                                        <td>{{(xyData.pageNo-1)*20+i+1}}</td>
+                                        <td>{{o.creditType}}</td>
+                                        <td>{{o.years}}</td>
+                                        <td>{{o.level}}</td>
+                                        <td>{{o.issued}}</td>
+                                        <td>{{o.valied}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <v-page :all='tabList[3].num' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></v-page>
+                        </template>
+                        <!-- 无数据  -->
+                        <template v-else-if="xyList&&xyList.length==0">
+                            <div class="no-toast">
+                                <img src="../../assets/img/bank_card @2x.png" alt="">
+                                <span>Sorry，没有找到符合条件的信用等级</span>
+                            </div>
+                        </template>
+                        <!-- 加载失败 -->
+                        <template v-else-if="!xyList">
                             <div class="ajax-erroe">
                                 <img src="../../assets/img/pic-zoudiu.png" />
                                 <span @click="recoldFn">刷新</span>
@@ -194,7 +236,10 @@ export default {
                 },{
                     name:'符合要求项目',
                     num:0
-                },
+                },{
+                    name:'信用等级',
+                    num:0
+                }
             ],
             tabNum:'符合要求资质',
             conditionList:[{
@@ -227,6 +272,13 @@ export default {
             ryTotal:0,
             ryList:[],
             ryIsajax:false,
+            xyData:{
+                pageNo:1,
+                pageSize:20,
+                type:'credit'
+            },
+            xyList:[],
+            xyIsajax:false,
             data:{}
 
         }
@@ -251,47 +303,44 @@ export default {
         //     spinner:'el-icon-loading',
         //     background:'rgba(0,0,0,.7)'
         // })
-        // let id =this.$route.query.key*1;
-        // //根据ID查筛选条件
-        // this.$http({
-        //     method:'post',
-        //     url:'/query/zonghe/get/condition',
-        //     data:{
-        //         pkid:id
-        //     }
-        // }).then(res =>{
-        //     //基本信息
-        //     let data=JSON.parse(JSON.stringify(res.data.data))
-        //     this.data=JSON.parse(JSON.stringify(data))
-        //     data.comId=this.$route.query.id;
-        //     data.type='detail'
-        //     this.$http({
-        //         method:'post',
-        //         url:'/query/zonghe/detail/company',
-        //         data:data
-        //     }).then(res =>{
-        //         this.basic=res.data.data;
-        //         this.tabList[0].num=res.data.data.qualCount;
-        //         this.tabList[1].num=res.data.data.personCount;
-        //         this.tabList[2].num=res.data.data.projectCount;
-        //         if(this.tabList[0].num>0){
-        //             this.tabNum='符合要求资质'
-        //             this.zzAjax(data);
-        //         }else if(this.tabList[1].num>0){
-        //             this.tabNum='符合要求人员'
-        //             this.ryData.regisAddress=res.data.data.regisAddress;
-        //             this.ryData.person=JSON.parse(JSON.stringify(this.data.person));
-        //             this.ryData.comId=this.$route.query.id;
-        //             this.ryAjax();
-        //         }else{
-        //             this.tabNum='符合要求项目'
-        //             this.yjData.project=JSON.parse(JSON.stringify(this.data.project));
-        //             this.yjData.comId=this.$route.query.id;
-        //             this.yjAjax();
-        //         }
-        //         loading.close();
-        //     })
-        // })
+        //基本信息
+        let data={
+            comId:this.$route.query.id,
+            type:'detail',
+            orderNo:this.$route.query.n
+        }
+        this.$http({
+            method:'post',
+            url:'/gonglu/zhauncha/detail/company',
+            data:data
+        }).then(res =>{
+            this.basic=res.data.data;
+            this.tabList[0].num=res.data.data.qualCount;
+            this.tabList[1].num=res.data.data.personCount;
+            this.tabList[2].num=res.data.data.projectCount;
+            this.tabList[3].num=res.data.data.creditCount;
+            if(this.tabList[0].num>0){
+                this.tabNum='符合要求资质'
+                this.zzAjax(data);
+            }else if(this.tabList[1].num>0){
+                // this.tabNum='符合要求人员'
+                // this.ryData.regisAddress=res.data.data.regisAddress;
+                // this.ryData.person=JSON.parse(JSON.stringify(this.data.person));
+                // this.ryData.comId=this.$route.query.id;
+                // this.ryAjax();
+            }else if(this.tabList[2].num>0){
+                this.tabNum='符合要求项目'
+                this.yjData.orderNo=this.$route.query.n;
+                this.yjData.comId=this.$route.query.id;
+                this.yjAjax();
+            }else{
+                this.tabNum='信用等级'
+                this.xyData.orderNo=this.$route.query.n;
+                this.xyData.comId=this.$route.query.id;
+                this.xyAjax();
+            }
+            // loading.close();
+        })
     },
     created() {
         // console.group('创建完毕状态===============》created');
@@ -334,9 +383,11 @@ export default {
         },
         jumpCompanyAll(){//跳到企业完整信息
             const {href} = this.$router.resolve({
-                path: '/companyDetail',
+                path: '/introduce/icbc',
                 query: {
-                    id:this.$route.query.id,
+                    id:this.basic.comId,
+                    name:this.basic.comName,
+                    source:this.basic.regisAddress
                 }
             })
             window.open(href, '_blank', )
@@ -359,12 +410,11 @@ export default {
             let that=this;
             this.$http({
                 method:'post',
-                url:'/query/zonghe/detail/company',
+                url:'/gonglu/zhauncha/detail/company',
                 data:{
-                    qualCode:data.qualCode,
-                    joinRegion:data.joinRegion,
-                    comId:data.comId,
-                    type:'qual'
+                    comId:this.$route.query.id,
+                    type:'qual',
+                    orderNo:this.$route.query.n
                 }
             }).then(res =>{
                 let arr=[],num=0;
@@ -395,7 +445,7 @@ export default {
             this.yjList=[];
             this.$http({
                 method:'post',
-                url:"/query/zonghe/detail/company",
+                url:"/gonglu/zhauncha/detail/company",
                 data:this.yjData
             }).then(res => {
                 this.yjList=res.data.data;
@@ -447,8 +497,30 @@ export default {
             }
             this.ryTotal=0;
             this.ryAjax();
-        }
+        },
         /** 人员  end**/
+        /**信用等级**/ 
+        xyAjax(){
+            let that=this;
+            this.xyIsajax=false;
+            this.xyList=[];
+            this.$http({
+                method:'post',
+                url:"/gonglu/zhauncha/detail/company",
+                data:this.xyData
+            }).then(res => {
+                that.xyIsajax=true
+                that.xyList=res.data.data;
+                console.log(res)
+            }).catch(req =>{
+                that.xyList=null
+                that.xyIsajax=true
+            })
+        },
+        xyGoto(val){
+            this.xyData.pageNo = val.cur
+            this.xyAjax()
+        }
     }
 
 }

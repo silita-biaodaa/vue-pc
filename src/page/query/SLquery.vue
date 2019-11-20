@@ -11,13 +11,7 @@
                 <el-row>
                     <el-col :span="2">企业地区：</el-col>
                     <el-col :span="22"  class="condition">
-                        <div v-for="(el,i) in addressList" :key='i' :class="el.code==data.regisAddress?'current':''" @click='addressFn(el)'>{{el.areaShortName}}</div>
-                    </el-col>
-                </el-row>
-                <el-row v-if="data.regisAddress!=''">
-                    <el-col :span="2">备案地区：</el-col>
-                    <el-col :span="22" class="condition">
-                        <div v-for="(el,i) in recordList" :key='i' :class="el.code==data.joinRegion?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
+                        <div v-for="(el,i) in addressList" :key='i' :class="el.istap?'current':''" @click='addressFn(el)'>{{el.areaShortName}}</div>
                     </el-col>
                 </el-row>
             </div>
@@ -131,18 +125,6 @@ export default {
     data() {
         return {
             // 数据模型
-            recordList:[//备案地区
-                {
-                    name:'渝内企业',
-                    code:'in',
-                },{
-                    name:'入渝企业',
-                    code:'enter',
-                },{
-                    name:'入渝+渝内企业',
-                    code:'all_in',
-                },
-            ],
             optGxList:[
                 {
                     name:'满足任意一个',
@@ -197,7 +179,6 @@ export default {
                 }
             ],
             data:{
-                joinRegion:'all_in',//备案地区
                 qualCode:null,//资质
                 regisAddress:'',
                 project:{
@@ -280,16 +261,15 @@ export default {
         // }
         for(let x of data.area){
             x.code=x.name
+            x.istap=false
         }
         this.addressList=JSON.parse(JSON.stringify(data.area));
         this.addressList.unshift({
             areaShortName:'全国',
-            code:''
+            code:'',
+            istap:true
         })
         this.companyQuals = data.comQua;
-        for(let x of data.area){
-            x.istap=false
-        }
         this.areasList= data.area;
         this.areasList.unshift({
             areaShortName:'不限',
@@ -346,18 +326,8 @@ export default {
             
         },
         addressFn(el){
-            if(el.areaShortName=='全国'){
-                this.data.regisAddress=''
-            }else{
-                this.data.regisAddress=el.name;
-                this.recordList[0].name=el.shortName+'内企业';
-                this.recordList[1].name='入'+el.shortName+'企业';
-                this.recordList[2].name='入'+el.shortName+'+'+el.shortName+'内企业';
-            }
-            // this.ajax()
-        },
-        isBeiFn(el){//备案地区
-            this.data.joinRegion=el.code;
+            this.selectFn(el,this.addressList,'全国')
+            this.data.regisAddress=this.forArrStr(this.addressList,'全国');
             // this.ajax()
         },
         screenzzFn(val){//接受资质变化抛出的值
@@ -368,16 +338,20 @@ export default {
             this.data.person=val;
             // this.ajax()
         },
-        forArrStr(arr){//从数组中取出对应值
+        forArrStr(arr,str1='不限'){//从数组中取出对应值
             let a=[];
             let str=''
             for(let x of arr){
                 if(x.istap){
-                    if(x.areaShortName=='不限'){
+                    if(x.areaShortName==str1){
                         str=null
                         return str
                     }
-                    a.push(x.areaShortName)
+                    if(str1=='不限'){
+                        a.push(x.areaShortName)
+                    }else{
+                        a.push(x.name)
+                    }
                 }
             }
             str=a.join(',')
@@ -396,15 +370,15 @@ export default {
                 return false
             }
         },
-        backSelect(arr){//选不限时，其他取消选择
+        backSelect(arr,str='不限'){//选不限时，其他取消选择
             for(let x of arr){
-                if(x.areaShortName!='不限'){
+                if(x.areaShortName!=str){
                     x.istap=false
                 }
             }
         },
-        selectFn(el,arr){//选择
-            if(el.areaShortName=='不限'){
+        selectFn(el,arr,str='不限'){//选择
+            if(el.areaShortName==str){
                 el.istap=true
                 this.backSelect(arr)
             }else{
