@@ -106,7 +106,7 @@
                     </span>
                     家
                 </p>
-                <button class="btn" :class="total==0?'ban':''" @click="jump">查看详情</button>
+                <button class="btn" :class="total==0||isNoSee?'ban':''" @click="jump">查看详情</button>
             </div>
             <div class="rightr">
                 <p class="up">服务电话：0731-85076077</p>
@@ -203,7 +203,9 @@ export default {
             total:0,
             isyj:false,
             isoptType:false,
-            id:null
+            id:null,
+            dataStr:'',
+            isNoSee:true,
         }
     },
     watch: {
@@ -214,6 +216,11 @@ export default {
         data:{
             deep:true,
             handler(newVal,oldVal){
+                if(JSON.stringify(newVal)==this.dataStr){
+                    this.isNoSee=true;
+                    return
+                }
+                this.isNoSee=false;
                 this.ajax()
             }
         },
@@ -227,6 +234,7 @@ export default {
                         this.isyj=true;
                 }else{
                     this.isyj=false;
+                    this.data.project.proCount=0;
                 }
                 let arr=newval.keywords.split(',');
                 if(arr.length>1){
@@ -250,6 +258,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         let data = JSON.parse(sessionStorage.getItem('filter'));
+        this.dataStr=JSON.stringify(this.data);
         // for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
         //     if(data.comQua[x].name=='公路养护'){
         //         data.comQua.splice(x,1);
@@ -430,19 +439,16 @@ export default {
             })
         },
         jump(){
-            if(this.total==0){
+            if(this.total==0||this.isNoSee){
                 return false
             }
             let id=this.id
-            const {href} = this.$router.resolve({
-                path: '/queryPay',
-                query: {
-                    id:id,
-                    type:'sl',
-                    num:this.total
-                }
-            })
-            window.open(href, '_blank', )
+            let query= {
+                id:id,
+                type:'sl',
+                num:this.total
+            }
+            this.openNewLink('/queryPay',query)
         }
     }
 

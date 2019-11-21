@@ -51,31 +51,50 @@
 				<div class="ta-list" v-if="el.report == null">
 					<div class="list-vip">
 						<div class="left" style="width:230px;textAlign:left">
-							<div style="fontSize:16px" class="m-6">会员服务</div>
-							<div style="fontSize:12px" class="m-6">订单编号:{{el.orderNo}}</div>
-							<div style="fontSize:12px" class="m-6">服务时长:{{el.vipDays | months }}</div>
+							<div style="fontSize:16px" class="m-6">会员服务
+							</div>
+							<div style="fontSize:12px" class="m-6">
+								订单编号:{{el.orderNo}}
+							</div>
+							<div style="fontSize:12px" class="m-6">
+								服务时长:{{el.vipDays | months }}
+							</div>
 						</div>
-						<div class="left" style="width:80px;fontSize:14px;">{{el.orderStatus | status  }}</div>
-						<div class="left" style="width:100px;color:#FF0000">{{el.fee/100}}元</div>
-						<div class="left" style="width:160px;">{{el.updateTime ? el.updateTime : el.createTime | times }}</div>
+
+						<div class="left" style="width:80px;fontSize:14px;">
+							{{el.orderStatus | status  }}
+						</div>
+
+						<div class="left" style="width:100px;color:#FF0000">
+							{{el.fee/100}}元
+						</div>
+
+						<div class="left" style="width:160px;">
+							{{el.updateTime ? el.updateTime : el.createTime | times }}
+						</div>
+
 						<div class="left" style="width:100px;">
 							<div class="again" @click="again(el)">
 								{{el.orderStatus==1 ? '立即购买' : '再次购买'}}
 							</div>
 						</div>
 					</div>
-				</div>
+			    </div>
 				<div>
-					<div v-if="el.report ">
+
+
+					<div v-if="el.report.repTitle == '企业资质+业绩查询报告-体验版' ">
 						<div class="ta-list">
 							<div class="list-vip">
 								<div class="left" style="width:230px;textAlign:left">
-									<div style="fontSize:16px" class="m-6">
-										<template v-if="el.report.repTitle">{{el.report.repTitle}}</template>
-										<template v-else>企业资质·业绩查询报告-体验版</template>
+									<div style="fontSize:16px" class="m-6">企业资质·业绩查询报告-体验版
 									</div>
-									<div style="fontSize:12px" class="m-6">订单编号:{{el.orderNo}}</div>
-									<div style="fontSize:12px" class="m-6" v-if="!el.report.repTitle">发送邮箱:{{el.report.email}}</div>
+									<div style="fontSize:12px" class="m-6">
+										订单编号:{{el.orderNo}}
+									</div>
+									<div style="fontSize:12px" class="m-6">
+										发送邮箱:{{el.report.email}}
+									</div>
 								</div>
 
 								<div class="left" style="width:80px;fontSize:14px;">
@@ -99,9 +118,7 @@
 							<div class="ta-report">
 								<div class="left" style="width:190px;textAlign:left">
 									<div style="fontSize:12px">
-										报告格式:
-										<template v-if="el.report.repTitle">{{el.report.pattern}}</template>
-										<template v-else>PDF</template>
+										报告格式:PDF
 									</div>
 								</div>
 								<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
@@ -110,11 +127,58 @@
 								<div class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}" v-show="el.orderStatus != '1'">
 									<!-- <span @click='dowloadFn(el)'>下载</span> -->
 									<span @click="look(el)">查看</span>
-									<a :download="el.report.reportPath" :href="el.report.reportPath" v-if="el.report.reportPath">下载</a>
+									<!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<div v-if="el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查'">
+						<div class="ta-list">
+							<div class="list-vip">
+								<div class="left" style="width:230px;textAlign:left">
+									<div style="fontSize:16px" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : '水利') }}系统专查·综合查询
+									</div>
+									<div style="fontSize:12px" class="m-6">
+										订单编号:{{el.orderNo}}
+									</div>
+								</div>
+
+								<div class="left" style="width:80px;fontSize:14px;">
+									{{el.orderStatus | status  }}
+								</div>
+
+								<div class="left" style="width:100px;color:#FF0000">
+									{{el.fee/100}}元
+								</div>
+
+								<div class="left" style="width:160px;">
+									{{el.updateTime ? el.updateTime : el.createTime | times }}
+								</div>
+
+								<div class="left" style="width:100px;">
+									<div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)">
+										{{el.orderStatus == '1' ? '立即购买' : '重新发送' }}
+									</div>
+								</div>
+							</div>
+							<div class="ta-report">
+								<div class="left" style="width:190px;textAlign:left">
+									<div style="fontSize:12px">
+										报告格式: &nbspEXCEL
+									</div>
+								</div>
+								<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
+									{{el.report.reportPath | nopath }}
+								</div>
+								<div class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}" v-show="el.orderStatus != '1'">
+									<span @click="look(el)">查看</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
 				</div>
 			</div>
 

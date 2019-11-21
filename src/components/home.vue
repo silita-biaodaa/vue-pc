@@ -684,6 +684,7 @@ export default {
     // position: absolute;
     // background: transparent;
     background: url('../assets/img/logoB.png');
+    background-size: 100% 100%;
     height: 400px;
   }
   .el-col-16{

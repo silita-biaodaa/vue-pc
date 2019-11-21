@@ -17,6 +17,13 @@
                         <p v-for="(o,i) of qualList" :key="i">{{o.name}}</p>
                     </el-col>
                 </el-row>
+                <el-row v-if="qualList.length>1">
+                    <el-col :span="2">多个资质之间的关系：</el-col>
+                    <el-col :span="22">
+                        <template v-if="data.rangeType=='or'">或</template>
+                        <template v-else-if="data.rangeType=='and'">和</template>
+                    </el-col>
+                </el-row>
                 <el-row v-if="peopleList.length>0">
                     <el-col :span="2">人员要求：</el-col>
                     <el-col :span="22">

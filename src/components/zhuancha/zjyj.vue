@@ -34,6 +34,11 @@
             <div :span="1">工程用途：</div>
             <div>{{project.proUse}}</div>
         </div>
+        <!-- 业绩类型 -->
+        <div class="fx-box" v-if="project.proType&&project.proType!=''">
+            <div :span="1">业绩类型：</div>
+            <div>{{project.proType}}</div>
+        </div>
         <!-- 中标金额/合同金额 -->
         <div class="fx-box" v-if="(project.amountStart&&project.amountStart!='')||(project.amountEnd&&project.amountEnd!='')">
             <div :span="1">中标金额/合同金额：</div>

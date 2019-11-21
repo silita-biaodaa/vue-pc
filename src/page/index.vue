@@ -28,6 +28,8 @@
 				<p>全国水利企业资质、人员、业绩、备案、 信用等级综合查询</p>
 			</div>
 		</div>
+		<!-- 广告图 -->
+		<div class="b-content poster-box"></div>
 		<!-- 平台公示/行业资讯 -->
 		<div class="ptgs-hyzx">
 			<h4>
@@ -523,10 +525,23 @@
 				window.open(href, '_blank', )
 			},
 			jumpQuery(path){//专查
-				const { href } = this.$router.resolve({
-					path:path
-				})
-				window.open(href, '_blank', )
+				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
+					const { href } = this.$router.resolve({
+						path:path
+					})
+					window.open(href, '_blank', )
+				}else{
+					this.$confirm(this.qjTipTxt, '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning'
+					}).then(() => {
+						this.$router.push('/logo')
+					}).catch(() => {
+
+					});
+				}
+				
 			},
 			seeMore(){//查看更多
 				if(this.tabNum==0){//行业资讯
@@ -568,7 +583,6 @@
 					that.hdMask=true
 				}
 			})
-
 			//平台公示
 			this.$http({
 				method:'post',
@@ -602,7 +616,6 @@
 		created() {
 			this.area = localStorage.getItem('area')
 			this.gainfoundation()
-
 			this.gainqueryList()
 			this.gainten()
 			this.gainCompany()
@@ -907,6 +920,12 @@
 				text-align: left;
 			}
 		}
+	}
+	//广告图
+	.poster-box{
+		height: 200px;
+		background: url(../assets/img/gg.png);
+		background-size: 100% 100%;
 	}
 }
 </style>

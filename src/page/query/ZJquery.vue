@@ -125,7 +125,7 @@
                     </span>
                     家
                 </p>
-                <button class="btn" :class="total==0?'ban':''" @click="jump">查看详情</button>
+                <button class="btn" :class="total==0||isNoSee?'ban':''" @click="jump">查看详情</button>
             </div>
             <div class="rightr">
                 <p class="up">服务电话：0731-85076077</p>
@@ -293,35 +293,37 @@ export default {
             areasList:[],
             peopleList:[],
             data:{
-                joinRegion:'all_in',//备案地区
-                qualCode:null,//资质
-                rangeType:null,
-                regisAddress:'',
+                joinRegion:"all_in",//备案地区
+                qualCode:"",//资质
+                rangeType:"",
+                regisAddress:"",
                 project:{
-                    opt:'title',//搜索类型
-                    keywords:'',//搜索关键字
-                    childProject:null,//业务所含子项
-                    proWhere:null,//项目属地
-                    proUse:null,//工程用途
-                    proType:null,//业绩类型
-                    amountStart:null,//最低价
-                    amountEnd:null,//最高价
-                    contractStart:null,//起始日期
-                    contractEnd:null,//结束日期
-                    completeStart:null,//竣工起始日期
-                    completeEnd:null,//竣工结束日期
-                    areaStart:null,//最小面积
-                    areaEnd:null,//最大面积
+                    opt:"title",//搜索类型
+                    keywords:"",//搜索关键字
+                    childProject:"",//业务所含子项
+                    proWhere:"",//项目属地
+                    proUse:"",//工程用途
+                    proType:"",//业绩类型
+                    amountStart:"",//最低价
+                    amountEnd:"",//最高价
+                    contractStart:"",//起始日期
+                    contractEnd:"",//结束日期
+                    completeStart:"",//竣工起始日期
+                    completeEnd:"",//竣工结束日期
+                    areaStart:"",//最小面积
+                    areaEnd:"",//最大面积
                     proCount:0,//符合业绩条件的数量
-                    optType:'or'
+                    optType:"or"
                 },
                 person:[],
-                zhuanchaType:'zhujian'
+                zhuanchaType:"zhujian"
             },
             total:0,
             isyj:false,
             isoptType:false,
-            id:null
+            id:null,
+            dataStr:'',
+            isNoSee:true,
         }
     },
     watch: {
@@ -332,6 +334,11 @@ export default {
         data:{
             deep:true,
             handler(newVal,oldVal){
+                if(JSON.stringify(newVal)==this.dataStr){
+                    this.isNoSee=true;
+                    return
+                }
+                this.isNoSee=false;
                 this.ajax()
             }
         },
@@ -345,6 +352,7 @@ export default {
                         this.isyj=true;
                 }else{
                     this.isyj=false;
+                    this.data.project.proCount=0;
                 }
                 let arr=newval.keywords.split(',');
                 if(arr.length>1){
@@ -368,6 +376,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         let data = JSON.parse(sessionStorage.getItem('filter'));
+        this.dataStr=JSON.stringify(this.data);
         // for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
         //     if(data.comQua[x].name=='公路养护'){
         //         data.comQua.splice(x,1);
@@ -535,7 +544,7 @@ export default {
             })
         },
         jump(){
-            if(this.total==0){
+            if(this.total==0||this.isNoSee){
                 return false
             }
             let id=this.id
