@@ -2,8 +2,8 @@
 <template>
     <div class="queryDetail">
         <!-- 头 -->
-		<v-head :headTxt="'住建信息综合查询系统'"></v-head>
-        <div class="nav-menu">首页 > 住建信息综合查询系统</div>
+		<v-head :headTxt="title"></v-head>
+        <div class="nav-menu">首页 > {{title}}统</div>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
@@ -177,8 +177,13 @@
                                     <td>评价类型</td>
                                     <td>评价年度</td>
                                     <td>信用等级</td>
-                                    <td>颁发日期</td>
-                                    <td>有效期至</td>
+                                    <template v-if="$route.query.type=='sl'">
+                                        <td>颁发日期</td>
+                                        <td>有效期至</td>
+                                    </template>
+                                    <template v-else-if="$route.query.type=='gl'">
+                                        <td>评价省份</td>
+                                    </template>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of xyList" :key="i">
@@ -186,8 +191,13 @@
                                         <td>{{o.creditType}}</td>
                                         <td>{{o.years}}</td>
                                         <td>{{o.level}}</td>
-                                        <td>{{o.issued}}</td>
-                                        <td>{{o.valied}}</td>
+                                        <template v-if="$route.query.type=='sl'">
+                                            <td>{{o.issued}}</td>
+                                            <td>{{o.valied}}</td>
+                                        </template>
+                                        <template v-else-if="$route.query.type=='gl'">
+                                            <td>{{o.issueProvince}}</td>
+                                        </template>
                                     </tr>
                                 </tbody>
                             </table>
@@ -292,6 +302,17 @@ export default {
         'v-head': heads,
         'v-region':joinRegion
     },
+    computed:{
+        title(){
+            if(this.$route.query.type=='zj'){
+                return '住建信息综合查询系统'
+            }else if(this.$route.query.type=='gl'){
+                return '公路信息综合查询系统'
+            }else if(this.$route.query.type=='sl'){
+                return '水利信息综合查询系统'
+            }
+        }
+    },
     props: {
         // 集成父级参数
     },
@@ -324,8 +345,8 @@ export default {
                 this.zzAjax(data);
             }else if(this.tabList[1].num>0){
                 this.tabNum='符合要求人员'
-                this.yjData.orderNo=this.$route.query.n;
-                this.yjData.comId=this.$route.query.id;
+                this.ryData.orderNo=this.$route.query.n;
+                this.ryData.comId=this.$route.query.id;
                 this.ryAjax();
             }else if(this.tabList[2].num>0){
                 this.tabNum='符合要求项目'
@@ -396,8 +417,8 @@ export default {
             if(o.name=='符合要求资质'){
                 this.zzAjax(data);
             }else if(o.name=='符合要求人员'){
-                this.yjData.orderNo=this.$route.query.n;
-                this.yjData.comId=this.$route.query.id;
+                this.ryData.orderNo=this.$route.query.n;
+                this.ryData.comId=this.$route.query.id;
                 this.ryAjax();
             }else if(o.name=='符合要求项目'){
                 this.yjData.orderNo=this.$route.query.n;

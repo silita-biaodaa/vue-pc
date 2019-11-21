@@ -295,6 +295,7 @@ export default {
             data:{
                 joinRegion:'all_in',//备案地区
                 qualCode:null,//资质
+                rangeType:null,
                 regisAddress:'',
                 project:{
                     opt:'title',//搜索类型
@@ -429,22 +430,19 @@ export default {
                 this.recordList[1].name='入'+el.shortName+'企业';
                 this.recordList[2].name='入'+el.shortName+'+'+el.shortName+'内企业';
             }
-            this.data.pageNo=1;
             // this.ajax()
         },
         isBeiFn(el){//备案地区
             this.data.joinRegion=el.code;
-            this.data.pageNo=1;
             // this.ajax()
         },
         screenzzFn(val){//接受资质变化抛出的值
             this.data.qualCode=val.str;
-            this.data.pageNo=1;
+            this.data.rangeType=val.type;
             // this.ajax()
         },
         screenryFn(val){//接受人员变化抛出的值
             this.data.person=val;
-            this.data.pageNo=1;
             // this.ajax()
         },
         forArrStr(arr){//从数组中取出对应值
@@ -498,30 +496,25 @@ export default {
         itemFn(el){//业绩所含子项
             el.istap=!el.istap;
             this.data.project.childProject=this.forArrStr(this.itemList);
-            this.data.pageNo=1;
             // this.ajax()
         },
         areaTap(el){//项目属地
             this.selectFn(el,this.areasList)
             this.data.project.proWhere=this.forArrStr(this.areasList);
-            this.data.pageNo=1;
             // this.ajax()
         },
         typeTap(el){//业绩类型
             this.selectFn(el,this.typeList)
             this.data.project.proType=this.forArrStr(this.typeList);
-            this.data.pageNo=1;
             // this.ajax()
         },
         purposeTap(el){//工程用途
             this.selectFn(el,this.purposeList)
             this.data.project.proUse=this.forArrStr(this.purposeList);
-            this.data.pageNo=1;
             // this.ajax()
         },
         optGxFn(el){//多个关键词之间的关系
             this.data.project.optType=el.code;
-            this.data.pageNo=1;
         },
         ajax(){//查询
             this.total=0;

@@ -129,7 +129,7 @@ export default {
                 path: '/queryDetail',
                 query: {
                     id:id,
-                    type:'zj',
+                    type:this.$route.query.type,
                     n:this.$route.query.n
                 }
             })

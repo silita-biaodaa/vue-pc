@@ -188,6 +188,7 @@ export default {
             data:{
                 joinRegion:'all_in',//备案地区
                 qualCode:null,//资质
+                rangeType:null,//资质关系
                 regisAddress:'',
                 project:{
                     opt:'title',//搜索类型
@@ -408,6 +409,7 @@ export default {
         },
         screenzzFn(val){//接受资质变化抛出的值
             this.data.qualCode=val.str;
+            this.data.rangeType=val.type;
             // this.ajax()
         },
         screenryFn(val){//接受人员变化抛出的值
