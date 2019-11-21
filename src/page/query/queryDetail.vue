@@ -323,11 +323,10 @@ export default {
                 this.tabNum='符合要求资质'
                 this.zzAjax(data);
             }else if(this.tabList[1].num>0){
-                // this.tabNum='符合要求人员'
-                // this.ryData.regisAddress=res.data.data.regisAddress;
-                // this.ryData.person=JSON.parse(JSON.stringify(this.data.person));
-                // this.ryData.comId=this.$route.query.id;
-                // this.ryAjax();
+                this.tabNum='符合要求人员'
+                this.yjData.orderNo=this.$route.query.n;
+                this.yjData.comId=this.$route.query.id;
+                this.ryAjax();
             }else if(this.tabList[2].num>0){
                 this.tabNum='符合要求项目'
                 this.yjData.orderNo=this.$route.query.n;
@@ -394,15 +393,20 @@ export default {
         },
         tabFn(o,i){//tab切换
             this.tabNum=o.name;
-            if(o.name=='符合要求人员'){//人员
-                this.ryData.regisAddress=this.basic.regisAddress;
-                this.ryData.person=JSON.parse(JSON.stringify(this.data.person));
-                this.ryData.comId=this.$route.query.id;
+            if(o.name=='符合要求资质'){
+                this.zzAjax(data);
+            }else if(o.name=='符合要求人员'){
+                this.yjData.orderNo=this.$route.query.n;
+                this.yjData.comId=this.$route.query.id;
                 this.ryAjax();
-            }else if(o.name=='符合要求项目'){//业绩
-                this.yjData.project=JSON.parse(JSON.stringify(this.data.project));
+            }else if(o.name=='符合要求项目'){
+                this.yjData.orderNo=this.$route.query.n;
                 this.yjData.comId=this.$route.query.id;
                 this.yjAjax();
+            }else{
+                this.xyData.orderNo=this.$route.query.n;
+                this.xyData.comId=this.$route.query.id;
+                this.xyAjax();
             }
         },
         /**资质 */
@@ -468,7 +472,7 @@ export default {
             this.ryList=[];
             this.$http({
                 method:'post',
-                url:"/query/zonghe/detail/company",
+                url:"/gonglu/zhauncha/detail/company",
                 data:this.ryData
             }).then(res => {
                 if(res.data.data.categorys){

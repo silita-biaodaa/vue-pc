@@ -256,7 +256,7 @@ export default {
             this.returnStr();
         },
         twoChangeFn(o,i,el=null){
-            o.three.cateName='';
+            o.three.cateName=[];
             o.three.list=[];
             o.str=o.two.cateName;
             for(let x of o.two.list){
@@ -349,7 +349,7 @@ export default {
     }
     .el-select{
         margin-right: 10px;
-        width: 225px;
+        width: 200px;
     }
     .padding-l{
         padding-left: 98px;
