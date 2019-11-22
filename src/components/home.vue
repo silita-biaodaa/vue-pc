@@ -586,6 +586,7 @@ export default {
   .app-search {
     width: 1020px;
     margin: 0 auto;
+    padding-top: 60px;
   }
   .bor {
     //  overflow: hidden;

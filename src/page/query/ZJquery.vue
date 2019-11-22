@@ -30,7 +30,7 @@
                 <el-col :span="2">业绩要求：</el-col>
                 <el-col :span="22">
                     <!-- 项目关键字 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">项目关键字：</el-col>
                         <el-input placeholder="请输入内容,多个关键字用空格隔开"  v-model="data.project.keywords"></el-input>
                         <el-radio-group v-model="data.project.opt">
@@ -75,28 +75,28 @@
                         </div>
                     </el-row>
                     <!-- 中标金额/合同金额 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">中标金额/合同金额：</el-col>
                         <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" class="inputW" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
                         ——
                         <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" class="inputW r" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
                     </el-row>
                     <!-- 中标日期/合同签订日期 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">中标日期/合同签订日期：</el-col>
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.contractStart" type="date" placeholder="起始日期" class="inputW"></el-date-picker>
                         ——
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.contractEnd" type="date" placeholder="结束日期" class="inputW r"></el-date-picker>
                     </el-row>
                     <!-- 竣工验收日期 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">竣工验收日期：</el-col>
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeStart" type="date" placeholder="起始日期" class="inputW"></el-date-picker>
                         ——
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeEnd" type="date" placeholder="结束日期" class="inputW r"></el-date-picker>
                     </el-row>
                     <!-- 面积 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">面积（平方米）：</el-col>
                         <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" class="inputW" @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"></el-input>
                         ——
@@ -354,7 +354,7 @@ export default {
                     this.isyj=false;
                     this.data.project.proCount=0;
                 }
-                let arr=newval.keywords.split(',');
+                let arr=newval.keywords.split(' ');
                 if(arr.length>1){
                     this.isoptType=true
                 }else{
@@ -547,16 +547,18 @@ export default {
             if(this.total==0||this.isNoSee){
                 return false
             }
-            let id=this.id
-            const {href} = this.$router.resolve({
-                path: '/queryPay',
-                query: {
-                    id:id,
-                    type:'zj',
-                    num:this.total
-                }
-            })
-            window.open(href, '_blank', )
+            if(this.isyj||this.data.qualCode!=''||this.data.person.length>0){
+                let id=this.id
+                let query= {
+                        id:id,
+                        type:'zj',
+                        num:this.total
+                    }
+                this.openNewLink('/queryPay',query)
+            }else{
+                this.$alert('请至少筛选人员，资质，业绩中的一项')
+            }
+            
         }
     }
 

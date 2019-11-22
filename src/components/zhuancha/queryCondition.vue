@@ -18,7 +18,7 @@
                     </el-col>
                 </el-row>
                 <el-row v-if="qualList.length>1">
-                    <el-col :span="2">多个资质之间的关系：</el-col>
+                    <el-col :span="2">资质关系：</el-col>
                     <el-col :span="22">
                         <template v-if="data.rangeType=='or'">或</template>
                         <template v-else-if="data.rangeType=='and'">和</template>

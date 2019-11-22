@@ -157,9 +157,24 @@
 								</div>
 
 								<div class="left" style="width:100px;">
-									<div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)">
+									<!-- <div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)">
 										{{el.orderStatus == '1' ? '立即购买' : '重新发送' }}
-									</div>
+									</div> -->
+									<!-- 支付成功 -->
+									<template v-if="el.orderStatus=='9'">
+										<template v-if="timeOutFn(el)">
+											<!-- 查看详情 -->
+											<div class="again" @click="jumpQueryList(el)">查看详情</div>
+										</template>
+										<template>
+											<!-- 再次查询 -->
+											<div class="again" @click="jumpQuery(el)">再次查询</div>
+										</template>
+									</template>
+									<!-- 未支付 -->
+									<template v-else>
+										<div class="again">去支付</div>
+									</template>
 								</div>
 							</div>
 							<div class="ta-report">
@@ -171,8 +186,8 @@
 								<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
 									{{el.report.reportPath | nopath }}
 								</div>
-								<div class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}" v-show="el.orderStatus != '1'">
-									<span @click="look(el)">查看</span>
+								<div class="left" style="width:300px;" v-if="el.report.reportPath">
+									<a :download="el.report.reportPath" :href="el.report.reportPath">下载</a>
 								</div>
 							</div>
 						</div>
@@ -337,6 +352,42 @@
 			}
 		},
 		methods: {
+			jumpQuery(el){//跳到查询页
+				if(el.report.zhuanchaType=='gonglu'){
+					this.openNewLink('/GLquery')
+				}else if(el.report.zhuanchaType=='zhujian'){
+					this.openNewLink('/ZJquery')
+				}else if(el.report.zhuanchaType=='shuili'){
+					this.openNewLink('/SLquery')
+				}
+			},
+			jumpQueryList(el){
+				let query={
+						type:'',
+						n:el.orderNo,
+						id:el.report.pkid
+				}
+				if(el.report.zhuanchaType=='gonglu'){
+					query.type='gl'
+					this.openNewLink('/queryList',query)
+				}else if(el.report.zhuanchaType=='zhujian'){
+					query.type='zj'
+					this.openNewLink('/ZJquery',query)
+				}else if(el.report.zhuanchaType=='shuili'){
+					query.type='sl'
+					this.openNewLink('/SLquery',query)
+				}
+			},
+			timeOutFn(el){//判断是否超过24小时
+				let payDate=el.report.payDate;
+				payDate=new Date(payDate).getTime();
+				let nowTime=new Date().getTime();
+				if(nowTime-payDate>24*60*60*1000){//大于24小时
+					return false
+				}else{//小于等于24小时
+					return true
+				}
+			},
 			close() {
 				this.egg = false
 			},
@@ -707,8 +758,8 @@
 			}
 		},
 		created() {
-			this.gainList()
-			this.gainWin()
+			this.gainList()//查询初始化订单
+			this.gainWin()//查询支付成功订单
 		},
 		components: {}
 	}

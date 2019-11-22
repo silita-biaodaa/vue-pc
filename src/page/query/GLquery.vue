@@ -24,7 +24,7 @@
                 <el-col :span="2">业绩要求：</el-col>
                 <el-col :span="22">
                     <!-- 项目关键字 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">项目关键字：</el-col>
                         <el-input placeholder="请输入内容,多个关键字用空格隔开"  v-model="data.project.keywords"></el-input>
                         <el-radio-group v-model="data.project.opt">
@@ -62,14 +62,14 @@
                         </div>
                     </el-row>
                     <!-- 项目金额 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">中标金额/合同金额：</el-col>
                         <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" class="inputW" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
                         ——
                         <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" class="inputW r" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
                     </el-row>
                     <!-- 竣工验收日期 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">竣工验收日期：</el-col>
                         <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeStart" type="date" placeholder="起始日期" class="inputW"></el-date-picker>
                         ——
@@ -103,7 +103,7 @@
                         </div>
                     </el-row>
                     <!-- 评分 -->
-                    <el-row>
+                    <el-row class="flex-center">
                         <el-col :span="1">等级评分：</el-col>
                         <el-input placeholder="最低分(小数)" v-model="data.credit.scoreStart" class="inputW" @keyup.native="returnInt(0)"></el-input>
                         ——
@@ -186,30 +186,29 @@ export default {
             creditTypeList:['施工','设计','监理'],
             evaluateList:[],//评价年份等级
             data:{
-                joinRegion:'all_in',//备案地区
-                qualCode:null,//资质
-                rangeType:null,//资质关系
-                regisAddress:'',
+                qualCode:"",//资质
+                rangeType:"",//资质关系
+                regisAddress:"",
                 project:{
-                    opt:'title',//搜索类型
-                    keywords:'',//搜索关键字
-                    proWhere:null,//项目属地
-                    proBuild:null,//建设状态
-                    proType:null,//业绩类型
-                    amountStart:null,//最低价
-                    amountEnd:null,//最高价
-                    completeStart:null,//竣工起始日期
-                    completeEnd:null,//竣工结束日期
-                    optType:'or'
+                    opt:"title",//搜索类型
+                    keywords:"",//搜索关键字
+                    proWhere:"",//项目属地
+                    proBuild:"",//建设状态
+                    proType:"",//业绩类型
+                    amountStart:"",//最低价
+                    amountEnd:"",//最高价
+                    completeStart:"",//竣工起始日期
+                    completeEnd:"",//竣工结束日期
+                    optType:"or"
                 },
                 person:[],
-                zhuanchaType:'gonglu',
+                zhuanchaType:"gonglu",
                 credit:{
-                    province:null,//评价省份
-                    creditType:null,//评价类型
-                    scoreStart:null,//最低评分
-                    scoreEnd:null,//最高评分
-                    evaluateYear:null,//评价年份 示例：2018/AA,B;2017/B,C
+                    province:"",//评价省份
+                    creditType:"",//评价类型
+                    scoreStart:"",//最低评分
+                    scoreEnd:"",//最高评分
+                    evaluateYear:"",//评价年份 示例：2018/AA,B;2017/B,C
                 }
             },
             total:0,
@@ -263,7 +262,7 @@ export default {
                     this.isyj=false;
                     this.data.project.proCount=0;
                 }
-                let arr=newval.keywords.split(',');
+                let arr=newval.keywords.split(' ');
                 if(arr.length>1){
                     this.isoptType=true
                 }else{
@@ -531,7 +530,7 @@ export default {
         },
         ajax(){//查询
             this.total=0;
-            let data=this.data
+            let data=JSON.parse(JSON.stringify(this.data))
             data.project.keywords=data.project.keywords.replace(/ /g,',');
             let that=this;
             this.$http({
@@ -551,13 +550,17 @@ export default {
             if(this.total==0||this.isNoSee){
                 return false
             }
-            let id=this.id
-            let query= {
-                id:id,
-                type:'gl',
-                num:this.total
+            if(this.isyj||this.data.qualCode!=''||this.data.person.length>0||(this.data.credit.province!=''||this.data.credit.creditType!=''||this.data.credit.scoreStart!=''||this.data.credit.scoreEnd!=''||this.data.credit.evaluateYear!='')){
+                let id=this.id
+                let query= {
+                    id:id,
+                    type:'gl',
+                    num:this.total
+                }
+                this.openNewLink('/queryPay',query)
+            }else{
+                this.$alert('请至少筛选人员，资质，业绩,信用等级中的一项')
             }
-            this.openNewLink('/queryPay',query)
         }
     }
 

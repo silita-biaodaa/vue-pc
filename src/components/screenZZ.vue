@@ -1,7 +1,7 @@
 <template>
     <div class="screenZZ">
         <div class="search-b">
-            <span class="font16">资质要求:&nbsp&nbsp</span>
+            <span class="font16">资质要求：</span>
             <el-input
                 placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
@@ -53,12 +53,12 @@ export default {
             svip: false,
             rela: [
                 {
-                    name: '和',
-                    key: 'and'
+                    name: '满足任意一个',
+                    key: 'or'
                 },
                 {
-                    name: '或',
-                    key: 'or'
+                    name: '满足所有',
+                    key: 'and'
                 }
             ],
             rangeType:'or',
@@ -480,14 +480,14 @@ export default {
         width: 225px;
     }
     .padding-l{
-        padding-left: 82px;
+        padding-left: 84px;
         .del-btn{
             color: #FE6603;
             cursor: pointer;
         }
     }
     .spacing-box{
-        padding-left: 82px;
+        padding-left: 84px;
         margin-top: 20px;
         margin-bottom: 20px;
         .btn{

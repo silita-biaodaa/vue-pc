@@ -1,7 +1,7 @@
 <template>
     <div class="screenRY">
         <div class="search-b">
-            <el-col :span="2">人员要求:</el-col>
+            <el-col :span="2" style="line-height:40px">人员要求：</el-col>
         </div>
         <!-- 人员 -->
         <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
@@ -352,7 +352,7 @@ export default {
         width: 200px;
     }
     .padding-l{
-        padding-left: 98px;
+        padding-left: 84px;
         .del-btn{
             color: @color;
             cursor: pointer;
@@ -361,8 +361,7 @@ export default {
     }
     .spacing-box{
         display: flex;
-
-        padding-left: 98px;
+        padding-left: 84px;
         margin-top: 20px;
         margin-bottom: 20px;
     }
