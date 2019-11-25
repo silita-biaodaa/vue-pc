@@ -507,12 +507,12 @@ export default {
         font-size: 14px;
     }
     .rela-item{
-        width: 60px;
+        padding: 0 9px;
         height: 25px;
         line-height: 25px;
-        background-color: #DDDDDD;
+        // background-color: #DDDDDD;
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 30px;
         cursor: pointer;
         display: inline-block;

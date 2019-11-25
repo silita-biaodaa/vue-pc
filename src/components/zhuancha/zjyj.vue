@@ -96,7 +96,7 @@ export default {
     props: {
         // 集成父级参数
         project:{
-            default:{},
+            // type:Object
         },
     },
     beforeCreate() {
@@ -104,6 +104,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

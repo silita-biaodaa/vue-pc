@@ -173,7 +173,15 @@
 									</template>
 									<!-- 未支付 -->
 									<template v-else>
-										<div class="again">去支付</div>
+										<template v-if="surplusTime(el,i)">
+											<!-- 可以支付 -->
+											<div class="again" @click="jumpPay(el)">去支付</div>
+											<p class="surplus-time">剩余支付时间：{{el.min}}:{{el.s}}</p>
+										</template>
+										<template v-else>
+											<!-- 失效 -->
+											<div class="again noBtn">已失效</div>
+										</template>
 									</template>
 								</div>
 							</div>
@@ -260,6 +268,7 @@
 		send,
 		nowxPay
 	} from '@/api/index'
+import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 	let moment = require("moment");
 	export default {
 		data() {
@@ -352,6 +361,24 @@
 			}
 		},
 		methods: {
+			jumpPay(el){//跳到支付页
+				let query={
+					id:el.report.pkid,
+					num:el.report.pkid,
+				}
+				if(el.report.zhuanchaType=='gonglu'){
+					query.type='gl'
+				}else if(el.report.zhuanchaType=='zhujian'){
+					query.type='zj'
+				}else if(el.report.zhuanchaType=='shuili'){
+					query.type='sl'
+				}
+				// this.$router.push({
+				// 	path:'/queryPay',
+				// 	query:query
+				// })
+				this.openNewLink('/queryPay',query)
+			},
 			jumpQuery(el){//跳到查询页
 				if(el.report.zhuanchaType=='gonglu'){
 					this.openNewLink('/GLquery')
@@ -388,6 +415,53 @@
 					return true
 				}
 			},
+			surplusTime(el,i){//计算剩余时间
+				let t=el.createTime;
+				let nowTime=new Date().getTime();
+				if(nowTime-t>60*60*1000){//大于60分钟
+					return false
+				}else{//小于60分钟
+					this.residueTime(el,i);
+					return true
+				}
+			},
+			residueTime(el,i){
+				let that=this;
+				let t=el.createTime;
+				t=t+60*60*1000;
+				let nowTime=new Date().getTime();
+				let min=parseInt((t-nowTime)/60000);
+				let s=parseInt(((t-nowTime)/1000)%60);
+				if(t-nowTime>1000){
+					// return min+':'+s
+					if(min<10){
+						min='0'+min;
+					}
+					if(s<10){
+						s='0'+s;
+					}
+					el.min=min;
+					el.s=s;
+					// setTimeout(that.residueTime(el,i),1000);
+					that.returnTime(el,i)
+				}
+			},
+			returnTime(el,i){
+				let that=this;
+				let t=setTimeout(function(){
+					el.s--;
+					if(el.s<0){
+						el.s=59;
+						el.min--;
+						if(el.min<0){
+							return
+						}
+					}
+					that.$set(that.allList,i,el);
+					that.returnTime(el,i);
+					clearTimeout(t);
+				},1000)
+			},
 			close() {
 				this.egg = false
 			},
@@ -406,7 +480,7 @@
 					pageSize: '100',
 					pageNo: '1',
 					orderStatus: '1',
-					channelNo: '1003'
+					channelNo: ''
 				}).then(res => {
 					if (res.code == 1) {
 						this.feat = res.data
@@ -848,7 +922,11 @@
 					line-height: 23px;
 
 				}
-
+				.surplus-time{//剩余时间
+					font-size: 12px;
+					color: red;
+					margin-top: 10px;
+				}
 				.noBtn {
 					border-color: #999;
 					color: #999;

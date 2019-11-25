@@ -303,7 +303,7 @@
 </script>
 <style lang="less" scoped>
 	.build {
-		padding-top: 85px;
+		padding-top: 84px;
 
 		.build-put {
 			width: 1020px;

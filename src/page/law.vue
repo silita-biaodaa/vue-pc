@@ -187,7 +187,7 @@
 <style lang="less" scoped>
 	.law {
 		background: #fafafa;
-		padding-top: 85px;
+		padding-top: 84px;
 
 		.build-put {
 			width: 1020px;

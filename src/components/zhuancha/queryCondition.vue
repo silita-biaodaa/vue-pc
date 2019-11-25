@@ -11,6 +11,12 @@
                     <el-col :span="2">企业地区：</el-col>
                     <el-col :span="22">{{data.regisAddress}}</el-col>
                 </el-row>
+                <el-row v-if="data.regisAddress!=''&&data.joinRegion!='all_in'">
+                    <el-col :span="2">备案地区：</el-col>
+                    <el-col :span="22">
+                        {{data.joinRegion | joinRegion(data.regisAddress) }}
+                    </el-col>
+                </el-row>
                 <el-row v-if="qualList.length>0">
                     <el-col :span="2">资质要求：</el-col>
                     <el-col :span="22">
@@ -20,8 +26,8 @@
                 <el-row v-if="qualList.length>1">
                     <el-col :span="2">资质关系：</el-col>
                     <el-col :span="22">
-                        <template v-if="data.rangeType=='or'">或</template>
-                        <template v-else-if="data.rangeType=='and'">和</template>
+                        <template v-if="data.rangeType=='or'">满足任意一个</template>
+                        <template v-else-if="data.rangeType=='and'">满足所有</template>
                     </el-col>
                 </el-row>
                 <el-row v-if="peopleList.length>0">
@@ -31,12 +37,12 @@
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
-                <el-row v-if="(data.project.keywords!=''&&data.project.opt=='title'&&data.project.optType=='or')||
-                data.project.childProject||data.project.proWhere||data.project.proUse||data.project.proType||data.project.proState||data.project.proBuild||
+                <el-row v-if="data.project&&((data.project.keywords!=''&&data.project.opt=='title'&&data.project.optType=='or')||
+                data.project.childProject!=''||data.project.proWhere!=''||data.project.proUse!=''||data.project.proType!=''||data.project.proState!=''||data.project.proBuild!=''||
                 ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
                 ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
                 ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
-                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!=''))
+                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!='')))
                 ">
                     <el-col :span="2">业绩要求：</el-col>
                     <el-col :span="22">
@@ -146,6 +152,23 @@ export default {
                         this.peopleList.push(data)
                     }
                 }
+            }
+        }
+    },
+    filters:{
+        joinRegion(bei,address){
+            let addressList=JSON.parse(sessionStorage.getItem('filter')).area;
+            let shortName=''
+            for(let x of addressList){
+                if(address==x.name){
+                    shortName=x.shortName;
+                    break
+                }
+            }
+            if(bei=='in'){
+                return shortName+'内企业'
+            }else if(bei=='enter'){
+                return '入'+shortName+'企业'
             }
         }
     },

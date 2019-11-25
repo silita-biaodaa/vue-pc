@@ -289,7 +289,7 @@
 </script>
 <style lang="less" scoped>
 	.crew {
-		padding-top: 85px;
+		padding-top: 84px;
 
 		.crew-option {
 			width: 1020px;

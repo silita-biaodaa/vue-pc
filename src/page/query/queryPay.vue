@@ -11,7 +11,7 @@
             <v-query :pkid="$route.query.id"></v-query>
             <div class="price-box">
                 <p>本次为付费查询，限时折扣价<span class="color-font">￥{{comPrice}}</span>，会员享受专享价：<span class="color-font">¥{{vipPrice}}</span></p>
-                <button class="openVip">开通会员</button>
+                <button class="openVip" v-if="!isVip" @click="jumpVip">开通会员</button>
             </div>
             <div class="pay-box">
                 <div class="puy-img" id="qrcode" v-loading='isload' element-loading-text="二维码生成中"></div>
@@ -40,6 +40,7 @@ export default {
             payed:false,//是否已支付
             vipPrice:0,
             comPrice:0,
+            isVip:false,
         }
     },
     watch: {
@@ -68,8 +69,10 @@ export default {
         let str=''
         let that=this;
         if(localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true'){
+            this.isVip=true;
             str='vip'
         }else{
+            this.isVip=false;
             str='com'
         }
         channel=channel+str+'_'+this.$route.query.type
@@ -111,7 +114,7 @@ export default {
                         colorDark: "#000000",
                         colorLight: "#ffffff",
                     });
-                    that.getOrderNo()
+                    // that.getOrderNo()
                 })
             }else{
                 this.$alert(res.data.msg)
@@ -171,6 +174,11 @@ export default {
                     id:this.$route.query.id
                 }
             })
+        },
+        jumpVip(){
+            this.$router.replace({
+                path:'/buy'
+            })
         }
     },
     components:{
@@ -226,6 +234,7 @@ export default {
         color: @color;
         border-radius: 6px;
         background: #fff;
+        cursor: pointer;
     }
 }
 .pay-box{

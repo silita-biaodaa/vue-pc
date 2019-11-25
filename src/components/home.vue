@@ -33,7 +33,7 @@
               <!-- <div class="right syn" @click="jump">综合查询</div> -->
               <div
                 class="company-serach"
-                v-if="(!company&&select!=null&&select.length>0)&&tipsShow"
+                v-if="(!company&&select!=null&&select.length>0)&&tipsShow&&serachList.length>0"
               >
                 <ul>
                   <li v-for="(o,i) of serachList" :key="i" @click="comNameFn(o)">{{o.com_name}}</li>
@@ -586,7 +586,6 @@ export default {
   .app-search {
     width: 1020px;
     margin: 0 auto;
-    padding-top: 60px;
   }
   .bor {
     //  overflow: hidden;
@@ -687,6 +686,9 @@ export default {
     background: url('../assets/img/logoB.png');
     background-size: 100% 100%;
     height: 400px;
+  }
+  .app-search{
+    padding-top: 60px;
   }
   .el-col-16{
     float:none;

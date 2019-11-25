@@ -550,7 +550,7 @@
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		padding-top: 86px;
+		padding-top: 84px;
 
 		.el-loading-spinner .path {
 			stroke: #FE6603;
