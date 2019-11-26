@@ -37,8 +37,10 @@
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
-                <el-row v-if="data.project&&((data.project.keywords!=''&&data.project.opt=='title'&&data.project.optType=='or')||
-                data.project.childProject!=''||data.project.proWhere!=''||data.project.proUse!=''||data.project.proType!=''||data.project.proState!=''||data.project.proBuild!=''||
+                <el-row v-if="data.project&&((data.project.keywords!=''&&data.project.opt!='title'&&data.project.optType!='or')||
+                (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
+                (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
+                (data.project.proType&&data.project.proType!='')||(data.project.proWhere&&data.project.proWhere!='')||
                 ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
                 ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
                 ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
@@ -194,6 +196,18 @@ export default {
             }
         }).then(res =>{
             this.data=res.data.data.condition
+            let data= this.data;
+            if(data.project&&((data.project.keywords!=''&&data.project.opt!='title'&&data.project.optType!='or')||
+                (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
+                (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
+                (data.project.proType&&data.project.proType!='')||
+                data.project.proWhere!=''||
+                ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
+                ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
+                ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
+                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!='')))){
+
+                }
         })
     },
     methods: {

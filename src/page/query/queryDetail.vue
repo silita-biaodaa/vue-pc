@@ -95,7 +95,12 @@
                                         </td>
                                         <td class="cate-key">
                                             <div v-for="(x,y) of o.categorys" :key="y">
-                                                <p v-for="(a,b) of x.cateList" :key="b">{{a}}</p>
+                                                <template v-if="x.cateList.length>0">
+                                                    <p v-for="(a,b) of x.cateList" :key="b">{{a}}</p>
+                                                </template>
+                                                <template v-else>
+                                                    <p>&nbsp;</p>
+                                                </template>
                                             </div>
                                         </td>
                                     </tr>
@@ -591,5 +596,22 @@ export default {
 .curpon{
     cursor: pointer;
     color: @color
+}
+.cate{
+    p{
+        border-bottom: 1px solid #f2f2f2
+    }
+    p:last-child{
+        border-bottom: none
+    }
+
+}
+.cate-key{
+    div{
+        border-bottom: 1px solid #f2f2f2
+    }
+    div:last-child{
+        border-bottom: none
+    }
 }
 </style>
