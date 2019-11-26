@@ -7,11 +7,11 @@
                 <span>您的查询条件为：</span>
             </h4>
             <div class="search-content">
-                <el-row v-if="data.regisAddress!=''">
+                <el-row v-if="data.regisAddress&&data.regisAddress!=''">
                     <el-col :span="2">企业地区：</el-col>
                     <el-col :span="22">{{data.regisAddress}}</el-col>
                 </el-row>
-                <el-row v-if="data.regisAddress!=''&&data.joinRegion!='all_in'">
+                <el-row v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''&&data.joinRegion!='all_in'">
                     <el-col :span="2">备案地区：</el-col>
                     <el-col :span="22">
                         {{data.joinRegion | joinRegion(data.regisAddress) }}
@@ -197,17 +197,6 @@ export default {
         }).then(res =>{
             this.data=res.data.data.condition
             let data= this.data;
-            if(data.project&&((data.project.keywords!=''&&data.project.opt!='title'&&data.project.optType!='or')||
-                (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
-                (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
-                (data.project.proType&&data.project.proType!='')||
-                data.project.proWhere!=''||
-                ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
-                ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
-                ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
-                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!='')))){
-
-                }
         })
     },
     methods: {
