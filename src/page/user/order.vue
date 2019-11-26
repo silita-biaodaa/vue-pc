@@ -166,7 +166,7 @@
 											<!-- 查看详情 -->
 											<div class="again" @click="jumpQueryList(el)">查看详情</div>
 										</template>
-										<template>
+										<template v-else>
 											<!-- 再次查询 -->
 											<div class="again" @click="jumpQuery(el)">再次查询</div>
 										</template>
@@ -399,10 +399,10 @@ import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 					this.openNewLink('/queryList',query)
 				}else if(el.report.zhuanchaType=='zhujian'){
 					query.type='zj'
-					this.openNewLink('/ZJquery',query)
+					this.openNewLink('/queryList',query)
 				}else if(el.report.zhuanchaType=='shuili'){
 					query.type='sl'
-					this.openNewLink('/SLquery',query)
+					this.openNewLink('/queryList',query)
 				}
 			},
 			timeOutFn(el){//判断是否超过24小时
