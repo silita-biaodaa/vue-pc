@@ -59,7 +59,7 @@
                 </el-row>
                 <!-- 信用等级 -->
                 <template v-if="$route.query.type!='zj'">
-                    <el-row v-if="JSON.stringify(data.credit)!='{}'&&(data.credit.creditType||data.credit.evaluateYear!=''||data.credit.province||data.credit.scoreEnd!=''||data.credit.scoreStart!=''||data.credit.creditType||data.credit.levels)">
+                    <el-row v-if="data.credit&&(data.credit.creditType||data.credit.evaluateYear!=''||data.credit.province||data.credit.scoreEnd!=''||data.credit.scoreStart!=''||data.credit.creditType||data.credit.levels)">
                         <el-col :span="2">信用等级：</el-col>
                         <el-col :span="22">
                             <template v-if="$route.query.type=='gl'">

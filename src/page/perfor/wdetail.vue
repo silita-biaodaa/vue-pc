@@ -254,7 +254,7 @@
 </script>
 <style lang="less" scoped>
 	.wdetail {
-		padding-top: 86px;
+		padding: 84px 0 200px;
 		width: 1020px;
 		box-sizing: border-box;
 		margin: 0 auto;
@@ -357,10 +357,10 @@
 			}
 		}
 
-		.irr-pro {
-			margin-top: 0;
-			margin-bottom: 200px;
-			padding-bottom: 20px;
-		}
+		// .irr-pro {
+		// 	margin-top: 0;
+		// 	margin-bottom: 200px;
+		// 	padding-bottom: 20px;
+		// }
 	}
 </style>

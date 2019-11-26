@@ -87,7 +87,7 @@
                                 <tbody>
                                     <tr v-for="(o,i) of ryList" :key="i">
                                         <td>{{(ryData.pageNo-1)*20+i+1}}</td>
-                                        <td>{{o.name}}</td>
+                                        <td class="curpon" @click="jumpRyDetail(o)">{{o.name}}</td>
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
                                         <td class="cate">
@@ -101,7 +101,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='tabList[1].num' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
+                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="ryList&&ryList.length==0">
@@ -138,14 +138,14 @@
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
                                         <td>{{(yjData.pageNo-1)*20+i+1}}</td>
-                                        <td>{{o.proName}}</td>
+                                        <td class="curpon" @click="jumpYjDetail(o.proId)">{{o.proName}}</td>
                                         <td>{{o.type}}</td>
                                         <td>{{o.amount}}</td>
                                         <td>{{o.buildEnd?formatDate(o.buildEnd):''}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='tabList[2].num' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
+                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">
@@ -201,7 +201,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='tabList[3].num' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></v-page>
+                            <v-page :all='xyTotal' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="xyList&&xyList.length==0">
@@ -289,6 +289,7 @@ export default {
             },
             xyList:[],
             xyIsajax:false,
+            xyTotal:0,
             data:{}
 
         }
@@ -338,8 +339,11 @@ export default {
             this.basic=res.data.data;
             this.tabList[0].num=res.data.data.qualCount;
             this.tabList[1].num=res.data.data.personCount;
+            this.ryTotal=res.data.data.personCount;
             this.tabList[2].num=res.data.data.projectCount;
+            this.yjTotal=res.data.data.projectCount;
             this.tabList[3].num=res.data.data.creditCount;
+            this.xyTotal=res.data.data.creditCount;
             if(this.tabList[0].num>0){
                 this.tabNum='符合要求资质'
                 this.zzAjax(data);
@@ -481,6 +485,20 @@ export default {
                 that.yjIsajax=true
             })
         },
+        jumpYjDetail(id){//跳转到业绩详情
+            let path=''
+            if(this.$route.query.type=='zj'){
+                path='/urban'
+            }else if(this.$route.query.type=='gl'){
+                path='/traffic'
+            }else if(this.$route.query.type=='sl'){
+                path='/irrigation'
+            }
+            let query={
+                id: id
+            }
+            this.openNewLink(path,query)
+        },
         /*业绩 end*/
         /** 人员   start**/
         ryGoto(val){
@@ -514,6 +532,7 @@ export default {
             })
         },
         ryTabFn(o,i){
+            this.ryData.pageNo=1
             this.ryTabName=o.cate
             if(o.cate=='全部'){
                 this.ryData.category=null
@@ -522,6 +541,21 @@ export default {
             }
             this.ryTotal=0;
             this.ryAjax();
+        },
+        jumpRyDetail(el){//跳转到人员详情
+            let data= {
+                certNo: el.certNo,
+                comId: el.comId,
+                comName: el.comName,
+                idCard: el.idCard,
+                sex: el.sex,
+                tabCode: el.tabCode,
+                name: el.name,
+                innerid: el.innerid,
+                sealNo:el.sealNo
+            }
+            sessionStorage.setItem('peopleData',JSON.stringify(data));
+            this.openNewLink('/personnel')
         },
         /** 人员  end**/
         /**信用等级**/ 
@@ -554,4 +588,8 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 @import '../../style/query.less';
+.curpon{
+    cursor: pointer;
+    color: @color
+}
 </style>
