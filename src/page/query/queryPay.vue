@@ -115,7 +115,7 @@ export default {
                         colorDark: "#000000",
                         colorLight: "#ffffff",
                     });
-                    // that.getOrderNo()
+                    that.getOrderNo()
                 })
             }else{
                 this.$alert(res.data.msg)
