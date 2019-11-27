@@ -253,7 +253,7 @@ export default {
                     }
                 }
             }
-            this.returnStr();
+            // this.returnStr();
         },
         twoChangeFn(o,i,el=null){
             o.three.cateName=[];
@@ -316,6 +316,9 @@ export default {
             for(let x of this.lengthList){
                 let obj
                 if(x.type==0){
+                    if(x.str==''){
+                        continue
+                    }
                     obj={
                         perType:"not",
                         num:x.num,

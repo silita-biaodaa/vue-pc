@@ -197,7 +197,6 @@ export default {
         }).then(res =>{
             this.data=res.data.data.condition
             this.$parent.total=res.data.data.condition.totals
-            let data= this.data;
             // totals
         })
     },
