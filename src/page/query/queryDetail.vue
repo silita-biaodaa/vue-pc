@@ -324,12 +324,12 @@ export default {
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
-        // const loading=this.$loading({
-        //     lock:true,
-        //     text:'稍等，稍等一哈子',
-        //     spinner:'el-icon-loading',
-        //     background:'rgba(0,0,0,.7)'
-        // })
+        const loading=this.$loading({
+            lock:true,
+            text:'稍等，稍等一哈子',
+            spinner:'el-icon-loading',
+            background:'rgba(0,0,0,.7)'
+        })
         //基本信息
         let data={
             comId:this.$route.query.id,
@@ -341,34 +341,38 @@ export default {
             url:'/gonglu/zhauncha/detail/company',
             data:data
         }).then(res =>{
-            this.basic=res.data.data;
-            this.tabList[0].num=res.data.data.qualCount;
-            this.tabList[1].num=res.data.data.personCount;
-            this.ryTotal=res.data.data.personCount;
-            this.tabList[2].num=res.data.data.projectCount;
-            this.yjTotal=res.data.data.projectCount;
-            this.tabList[3].num=res.data.data.creditCount;
-            this.xyTotal=res.data.data.creditCount;
-            if(this.tabList[0].num>0){
-                this.tabNum='符合要求资质'
-                this.zzAjax(data);
-            }else if(this.tabList[1].num>0){
-                this.tabNum='符合要求人员'
-                this.ryData.orderNo=this.$route.query.n;
-                this.ryData.comId=this.$route.query.id;
-                this.ryAjax();
-            }else if(this.tabList[2].num>0){
-                this.tabNum='符合要求项目'
-                this.yjData.orderNo=this.$route.query.n;
-                this.yjData.comId=this.$route.query.id;
-                this.yjAjax();
+            loading.close();
+            if(res.data.code==1){
+                this.basic=res.data.data;
+                this.tabList[0].num=res.data.data.qualCount;
+                this.tabList[1].num=res.data.data.personCount;
+                this.ryTotal=res.data.data.personCount;
+                this.tabList[2].num=res.data.data.projectCount;
+                this.yjTotal=res.data.data.projectCount;
+                this.tabList[3].num=res.data.data.creditCount;
+                this.xyTotal=res.data.data.creditCount;
+                if(this.tabList[0].num>0){
+                    this.tabNum='符合要求资质'
+                    this.zzAjax(data);
+                }else if(this.tabList[1].num>0){
+                    this.tabNum='符合要求人员'
+                    this.ryData.orderNo=this.$route.query.n;
+                    this.ryData.comId=this.$route.query.id;
+                    this.ryAjax();
+                }else if(this.tabList[2].num>0){
+                    this.tabNum='符合要求项目'
+                    this.yjData.orderNo=this.$route.query.n;
+                    this.yjData.comId=this.$route.query.id;
+                    this.yjAjax();
+                }else{
+                    this.tabNum='信用等级'
+                    this.xyData.orderNo=this.$route.query.n;
+                    this.xyData.comId=this.$route.query.id;
+                    this.xyAjax();
+                }
             }else{
-                this.tabNum='信用等级'
-                this.xyData.orderNo=this.$route.query.n;
-                this.xyData.comId=this.$route.query.id;
-                this.xyAjax();
+                this.$alert(res.data.msg);
             }
-            // loading.close();
         })
     },
     created() {

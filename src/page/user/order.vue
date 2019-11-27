@@ -173,15 +173,15 @@
 									</template>
 									<!-- 未支付 -->
 									<template v-else>
-										<template v-if="surplusTime(el,i)">
+										<template>
 											<!-- 可以支付 -->
 											<div class="again" @click="jumpPay(el)">去支付</div>
-											<p class="surplus-time">剩余支付时间：{{el.min}}:{{el.s}}</p>
+											<v-time :end="el.createTime+(60*60*1000)"></v-time>
 										</template>
-										<template v-else>
-											<!-- 失效 -->
+										<!-- 失效 -->
+										<!-- <template v-else>
 											<div class="again noBtn">已失效</div>
-										</template>
+										</template> -->
 									</template>
 								</div>
 							</div>
@@ -269,6 +269,7 @@
 		nowxPay
 	} from '@/api/index'
 import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
+import countTime from '@/components/countTime'
 	let moment = require("moment");
 	export default {
 		data() {
@@ -413,53 +414,6 @@ import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 				}else{//小于等于24小时
 					return true
 				}
-			},
-			surplusTime(el,i){//计算剩余时间
-				let t=el.createTime;
-				let nowTime=new Date().getTime();
-				if(nowTime-t>60*60*1000){//大于60分钟
-					return false
-				}else{//小于60分钟
-					this.residueTime(el,i);
-					return true
-				}
-			},
-			residueTime(el,i){
-				let that=this;
-				let t=el.createTime;
-				t=t+60*60*1000;
-				let nowTime=new Date().getTime();
-				let min=parseInt((t-nowTime)/60000);
-				let s=parseInt(((t-nowTime)/1000)%60);
-				if(t-nowTime>1000){
-					// return min+':'+s
-					if(min<10){
-						min='0'+min;
-					}
-					if(s<10){
-						s='0'+s;
-					}
-					el.min=min;
-					el.s=s;
-					// setTimeout(that.residueTime(el,i),1000);
-					that.returnTime(el,i)
-				}
-			},
-			returnTime(el,i){
-				let that=this;
-				let t=setTimeout(function(){
-					el.s--;
-					if(el.s<0){
-						el.s=59;
-						el.min--;
-						if(el.min<0){
-							return
-						}
-					}
-					that.$set(that.allList,i,el);
-					that.returnTime(el,i);
-					clearTimeout(t);
-				},1000)
 			},
 			close() {
 				this.egg = false
@@ -834,7 +788,9 @@ import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 			this.gainList()//查询初始化订单
 			this.gainWin()//查询支付成功订单
 		},
-		components: {}
+		components: {
+			'v-time':countTime
+		}
 	}
 </script>
 <style lang="less" scoped>
