@@ -26,9 +26,9 @@
                                 </div>
                             </div>
                             <div class="bottom">
-                                <p>法人：<font>{{o.legalPerson}}</font></p>
-                                <p>电话：<font>{{o.phone}}</font></p>
-                                <p>注册地：<font>{{o.regisAddress}}</font></p>
+                                <p class="people">法人：<font>{{o.legalPerson}}</font></p>
+                                <p class="phone">电话：<font>{{o.phone}}</font></p>
+                                <p class="address">地址：<font>{{o.comAddress}}</font></p>
                             </div>
                         </li>
                     </ul>
@@ -177,8 +177,21 @@ export default {
 .el-col-22{
     color: #999;
 }
-.paging{
-    padding: 60px 0 120px;
-    text-align: center;
+li{
+    .bottom{
+        font-size: 14px;
+        .address{
+            max-width: 382px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+        .phone{
+            width: 142px;
+        }
+        .people{
+            width: 90px;
+        }
+    }
 }
 </style>
