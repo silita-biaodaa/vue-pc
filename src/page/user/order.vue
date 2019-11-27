@@ -364,7 +364,6 @@ import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 			jumpPay(el){//跳到支付页
 				let query={
 					id:el.report.pkid,
-					num:el.report.pkid,
 				}
 				if(el.report.zhuanchaType=='gonglu'){
 					query.type='gl'

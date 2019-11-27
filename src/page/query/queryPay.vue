@@ -6,7 +6,7 @@
         <div class="maxW">
             <div class="top-box">
                 <h2>{{title}}信息专查</h2>
-                <div class="total-box">共为您找到符合要求企业{{$route.query.num}}家</div>
+                <div class="total-box">共为您找到符合要求企业{{total}}家</div>
             </div>
             <v-query :pkid="$route.query.id"></v-query>
             <div class="price-box">
@@ -41,6 +41,7 @@ export default {
             vipPrice:0,
             comPrice:0,
             isVip:false,
+            total:0
         }
     },
     watch: {
@@ -114,7 +115,7 @@ export default {
                         colorDark: "#000000",
                         colorLight: "#ffffff",
                     });
-                    that.getOrderNo()
+                    // that.getOrderNo()
                 })
             }else{
                 this.$alert(res.data.msg)

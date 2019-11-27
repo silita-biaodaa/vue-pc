@@ -447,7 +447,6 @@ export default {
                 let query= {
                     id:id,
                     type:'sl',
-                    num:this.total
                 }
                 this.openNewLink('/queryPay',query)
             }else{

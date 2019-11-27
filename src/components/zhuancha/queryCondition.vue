@@ -37,7 +37,7 @@
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
-                <el-row v-if="data.project&&((data.project.keywords!=''&&data.project.opt!='title'&&data.project.optType!='or')||
+                <el-row v-if="data.project&&((data.project.keywords!=''||data.project.opt!='title'||data.project.optType!='or')||
                 (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
                 (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
                 (data.project.proType&&data.project.proType!='')||(data.project.proWhere&&data.project.proWhere!='')||
@@ -196,7 +196,9 @@ export default {
             }
         }).then(res =>{
             this.data=res.data.data.condition
+            this.$parent.total=res.data.data.condition.totals
             let data= this.data;
+            // totals
         })
     },
     methods: {

@@ -555,7 +555,6 @@ export default {
                 let query= {
                     id:id,
                     type:'gl',
-                    num:this.total
                 }
                 this.openNewLink('/queryPay',query)
             }else{
