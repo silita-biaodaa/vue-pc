@@ -98,7 +98,7 @@ export default {
                     method:'post',
                     url:'/wxPay/report/unifiedOrder',
                     data:{
-                        channel:channel,
+                        channel:'1003',
                         userId:sessionStorage.getItem('ip'),
                         stdCode:stdCode,
                         ip:localStorage.getItem('uip'),

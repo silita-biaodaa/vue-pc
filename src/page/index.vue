@@ -906,7 +906,8 @@
 			padding: 30px 40px;
 			cursor: pointer;
 			img{
-				max-width: 50px;
+				width: 50px;
+				height: 50px;
 				margin-bottom: 20px;
 			}
 			h5{

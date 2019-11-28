@@ -127,7 +127,6 @@ export default {
                         quaCode:x.code+'-'+y.code,
                     }
                     if(y.name.indexOf(val)>-1){
-                        debugger
                         arr.push(data)
                     }
                 }
@@ -142,7 +141,7 @@ export default {
         listIsIn(){//是否add
             for(let x of this.lengthList){
                 if(!x.three.code||x.three.code==''){//第三级没填，就重复覆盖
-                    if((x.two.code&&x.two.code!='')&&x.three.list.length!=0){//
+                    if((x.two.code&&x.two.code!='')&&x.three.list&&x.three.list.length!=0){//
                         return x
                     }else if(!x.two.code||x.one.code==''){
                         return x
@@ -165,7 +164,11 @@ export default {
                         x.two.list=y.data//取第二层
                         for(let z of y.data){//循环第二层
                             if(arr[1]==z.code){
-                                x.three.list=z.data;//取第三层
+                                if(z.data){
+                                    x.three.list=z.data;//取第三层
+                                }else{
+                                    x.three.list=[]
+                                }
                                 break
                             }
                         }
@@ -200,6 +203,8 @@ export default {
                     str:''//记录选择的值
                 }
                 for(let y of this.qualList){
+                    debugger
+                    console.log(y)
                     if(arr[0]==y.code){
                         data.two.list=y.data//取第二层
                         for(let z of y.data){//循环第二层

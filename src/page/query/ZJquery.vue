@@ -525,10 +525,26 @@ export default {
         optGxFn(el){//多个关键词之间的关系
             this.data.project.optType=el.code;
         },
+        filterParams(obj){
+            let _newPar = {};
+            for (let key in obj) {
+                //如果对象属性的值不为空，就保存该属性（这里我做了限制，如果属性的值为0，保存该属性。如果属性的值全部是空格，属于为空。）
+                if ((obj[key] === 0 || obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
+                    //记录属性
+                    _newPar[key] = obj[key];
+                }
+            }
+            //返回对象
+            return _newPar;
+        },
         ajax(){//查询
             this.total=0;
-            let data=JSON.parse(JSON.stringify(this.data))
-            data.project.keywords=data.project.keywords.replace(/ /g,',');
+            let data=JSON.parse(JSON.stringify(this.data));
+            if(data.project.keywords&&data.project.keywords!=''){
+                data.project.keywords=data.project.keywords.replace(/ /g,',');
+            }
+            data.project=this.filterParams(data.project);
+            data=this.filterParams(data);
             let that=this;
             this.$http({
                 method:'post',

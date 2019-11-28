@@ -432,7 +432,7 @@ import countTime from '@/components/countTime'
 					pageSize: '100',
 					pageNo: '1',
 					orderStatus: '1',
-					channelNo: ''
+					channelNo: '1003'
 				}).then(res => {
 					if (res.code == 1) {
 						this.feat = res.data
