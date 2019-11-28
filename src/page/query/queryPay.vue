@@ -140,6 +140,7 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+        let that=this;
         clearTimeout(that.t);
     },
     destroyed() {

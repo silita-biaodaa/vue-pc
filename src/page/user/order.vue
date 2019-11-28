@@ -195,6 +195,7 @@
 							</div>
 							<div class="left" style="width:300px;" v-if="el.report.reportPath">
 								<a :download="el.report.reportPath" :href="el.report.reportPath">下载</a>
+								<span @click="regenerateFn(el.orderNo)">重新生成</span>
 							</div>
 						</div>
 					</div>
@@ -361,6 +362,17 @@ import countTime from '@/components/countTime'
 			}
 		},
 		methods: {
+			regenerateFn(orNo){//重新生成
+				this.$http({
+					method:'get',
+					url:'/download/excel',
+					data:{
+						orderNo:orNo
+					}
+				}).then(res => {
+
+				})
+			},
 			jumpPay(el){//跳到支付页
 				let query={
 					id:el.report.pkid,
@@ -472,11 +484,11 @@ import countTime from '@/components/countTime'
 					}
 				})
 			},
-			dowloadFn(el) {
-				if (el.report.reportPath) {
-					window.open(el.report.reportPath)
-				}
-			},
+			// dowloadFn(el) {
+			// 	if (el.report.reportPath) {
+			// 		window.open(el.report.reportPath)
+			// 	}
+			// },
 			type(val) {
 				this.allList = []
 				this.allList = this.win.concat(this.feat)
@@ -776,9 +788,6 @@ import countTime from '@/components/countTime'
 				}
 
 			},
-			downLode() {
-
-			},
 			text() {
 				window.open('http://prefile.biaodaa.com/img/report.pdf')
 			}
@@ -894,7 +903,10 @@ import countTime from '@/components/countTime'
 					color: #999;
 					font-size: 12px;
 					text-align: center;
-
+					a{
+						text-decoration:none;
+						color:#FE6603;
+					}
 					.noBtn {
 						span {
 							color: #999;

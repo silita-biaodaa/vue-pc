@@ -29,8 +29,8 @@
                         <el-input placeholder="请输入内容,多个关键字用空格隔开"  v-model="data.project.keywords"></el-input>
                         <el-radio-group v-model="data.project.opt">
                             <el-radio label="title">根据标题搜索</el-radio>
-                            <el-radio label="scope">根据关键指标搜索</el-radio>
-                            <el-radio label="title_and_scope">根据标题和关键指标搜索</el-radio>
+                            <el-radio label="scope">根据合同内容搜索</el-radio>
+                            <el-radio label="title_and_scope">根据标题和合同内容搜索</el-radio>
                         </el-radio-group>
                     </el-row>
                     <!-- 多个关键词之间的关系 -->
@@ -227,10 +227,9 @@ export default {
         'data.project':{
             deep:true,
             handler(newval,oldVal){
-                if(newval.keywords!=''||newval.opt!='title'||newval.childProject
-                    ||newval.proWhere||newval.proUse||newval.proType||newval.amountStart
-                    ||newval.amountEnd||newval.contractStart||newval.contractEnd||newval.completeStart
-                    ||newval.completeEnd||newval.areaStart||newval.areaEnd){//如果筛选了业绩，则显示符合业绩数量
+                if(newval.keywords!=''||newval.opt!='title'||newval.proState
+                    ||newval.proWhere||newval.amountStart||newval.amountEn
+                    ||newval.completeStart||newval.completeEnd){//如果筛选了业绩，则显示符合业绩数量
                         this.isyj=true;
                 }else{
                     this.isyj=false;
@@ -423,7 +422,9 @@ export default {
         ajax(){//查询
             this.total=0;
             let data=JSON.parse(JSON.stringify(this.data))
-            data.project.keywords=data.project.keywords.replace(/ /g,',');
+            if(data.project.keywords&&data.project.keywords!=''){
+                data.project.keywords=data.project.keywords.replace(/ /g,',');
+            }
             let that=this;
             this.$http({
                 method:'post',
