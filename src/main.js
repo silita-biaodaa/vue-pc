@@ -182,85 +182,18 @@ Vue.prototype.openNewLink = function(path,query=null){
   })
   window.open(href, '_blank', )
 }
-/*比较对象是否相等*/
-Vue.prototype.deepCompare=function(x, y) {
-  var i, l, leftChain, rightChain;
-  function compare2Objects(x, y) {
-    var p;
-    if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
-      return true;
-    }
-    if (x === y) {
-      return true;
-    }
-    if ((typeof x === 'function' && typeof y === 'function') ||
-      (x instanceof Date && y instanceof Date) ||
-      (x instanceof RegExp && y instanceof RegExp) ||
-      (x instanceof String && y instanceof String) ||
-      (x instanceof Number && y instanceof Number)) {
-      return x.toString() === y.toString();
-    }
-    if (!(x instanceof Object && y instanceof Object)) {
-      return false;
-    }
-    if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
-      return false;
-    }
-    if (x.constructor !== y.constructor) {
-      return false;
-    }
-    if (x.prototype !== y.prototype) {
-      return false;
-    }
-    if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
-      return false;
-    }
-    for (p in y) {
-      if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-        return false;
-      } else if (typeof y[p] !== typeof x[p]) {
-        return false;
+/*对象中如果有值为空则删除该属性*/
+Vue.prototype.filterParams=function(obj){
+  let _newPar = {};
+  for (let key in obj) {
+      //如果对象属性的值不为空，就保存该属性（这里我做了限制，如果属性的值为0，保存该属性。如果属性的值全部是空格，属于为空。）
+      if ((obj[key] === 0 || obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
+          //记录属性
+          _newPar[key] = obj[key];
       }
-    }
-    for (p in x) {
-      if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-        return false;
-      } else if (typeof y[p] !== typeof x[p]) {
-        return false;
-      }
-      switch (typeof (x[p])) {
-        case 'object':
-        case 'function':
-          leftChain.push(x);
-          rightChain.push(y);
-          if (!compare2Objects(x[p], y[p])) {
-            return false;
-          }
-          leftChain.pop();
-          rightChain.pop();
-          break;
-        default:
-          if (x[p] !== y[p]) {
-            return false;
-          }
-          break;
-      }
-    }
-    return true;
   }
-  if (arguments.length < 1) {
-    return true; //Die silently? Don't know how to handle such case, please help...
-  }
-  for (i = 1, l = arguments.length; i < l; i++) {
-
-    leftChain = []; //Todo: this can be cached
-    rightChain = [];
-
-    if (!compare2Objects(arguments[0], arguments[i])) {
-      return false;
-    }
-  }
-  return true;
+  //返回对象
+  return _newPar;
 }
 
 

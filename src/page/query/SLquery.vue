@@ -425,6 +425,8 @@ export default {
             if(data.project.keywords&&data.project.keywords!=''){
                 data.project.keywords=data.project.keywords.replace(/ /g,',');
             }
+            data.project=this.filterParams(data.project);
+            data=this.filterParams(data);
             let that=this;
             this.$http({
                 method:'post',

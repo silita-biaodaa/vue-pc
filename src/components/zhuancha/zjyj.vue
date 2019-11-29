@@ -2,7 +2,7 @@
 <template>
     <div class="zjyj">
         <!-- 项目关键字 -->
-        <div class="fx-box" v-if="project.keywords!=''">
+        <div class="fx-box" v-if="project.keywords">
             <div :span="1">项目关键字：</div>
             <div>
                 {{project.keywords}}
@@ -12,7 +12,7 @@
             </div>
         </div>
         <!-- 多个关键词之间的关系 -->
-        <div class="fx-box" v-if="project.keywords.split(',').length>1">
+        <div class="fx-box" v-if="project.keywords&&project.keywords.split(',').length>1">
             <div :span="1">多个关键词之间的关系：</div>
             <div>
                 <template v-if="project.optType=='or'">满足任意一个</template>
@@ -20,27 +20,27 @@
             </div>
         </div>
         <!-- 业绩所含子项 -->
-        <div class="fx-box" v-if="project.childProject&&project.childProject!=''">
+        <div class="fx-box" v-if="project.childProject">
             <div :span="1">业绩所含子项：</div>
             <div>{{project.childProject}}</div>
         </div>
         <!-- 项目属地 -->
-        <div class="fx-box" v-if="project.proWhere&&project.proWhere!=''">
+        <div class="fx-box" v-if="project.proWhere">
             <div :span="1">项目属地：</div>
             <div>{{project.proWhere}}</div>
         </div>
         <!-- 工程用途 -->
-        <div class="fx-box" v-if="project.proUse&&project.proUse!=''">
+        <div class="fx-box" v-if="project.proUse">
             <div :span="1">工程用途：</div>
             <div>{{project.proUse}}</div>
         </div>
         <!-- 业绩类型 -->
-        <div class="fx-box" v-if="project.proType&&project.proType!=''">
+        <div class="fx-box" v-if="project.proType">
             <div :span="1">业绩类型：</div>
             <div>{{project.proType}}</div>
         </div>
         <!-- 中标金额/合同金额 -->
-        <div class="fx-box" v-if="(project.amountStart&&project.amountStart!='')||(project.amountEnd&&project.amountEnd!='')">
+        <div class="fx-box" v-if="project.amountStart||project.amountEnd">
             <div :span="1">中标金额/合同金额：</div>
             <div>
                 <template v-if="!project.amountStart||project.amountStart==''">小于{{project.amountEnd}}（万元）</template>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <!-- 中标日期/合同签订日期 -->
-        <div class="fx-box" v-if="(project.contractStart&&project.contractStart!='')||(project.contractEnd&&project.contractEnd!='')">
+        <div class="fx-box" v-if="project.contractStart||project.contractEnd">
             <div :span="1">中标日期/合同签订日期：</div>
             <div>
                 <template v-if="!project.contractStart||project.contractStart==''">{{project.contractEnd}}以前</template>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <!-- 竣工验收日期 -->
-        <div class="fx-box" v-if="(project.completeStart&&project.completeStart!='')||(project.completeEnd&&project.completeEnd!='')">
+        <div class="fx-box" v-if="project.completeStart||project.completeEnd">
             <div :span="1">竣工验收日期：</div>
             <div>
                 <template v-if="!project.completeStart||project.completeStart==''">{{project.completeEnd}}以前</template>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <!-- 面积（平方米）-->
-        <div class="fx-box" v-if="(project.areaStart&&project.areaStart!='')||(project.areaEnd&&project.areaEnd!='')">
+        <div class="fx-box" v-if="project.areaStart||project.areaEnd">
             <div :span="1">面积（平方米）：</div>
             <div>
                 <template v-if="!project.areaStart||project.areaStart==''">小于{{project.areaEnd}}</template>

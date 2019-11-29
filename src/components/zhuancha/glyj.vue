@@ -2,7 +2,7 @@
 <template>
     <div class="glyj">
         <!-- 项目关键字 -->
-        <div class="fx-box" v-if="project.keywords!=''">
+        <div class="fx-box" v-if="project.keywords">
             <div :span="1">项目关键字：</div>
             <div>
                 {{project.keywords}}
@@ -12,7 +12,7 @@
             </div>
         </div>
         <!-- 多个关键词之间的关系 -->
-        <div class="fx-box" v-if="project.keywords.split(',').length>1">
+        <div class="fx-box" v-if="project.keywords&&project.keywords.split(',').length>1">
             <div :span="1">多个关键词之间的关系：</div>
             <div>
                 <template v-if="project.optType=='or'">满足任意一个</template>
@@ -20,22 +20,22 @@
             </div>
         </div>
         <!-- 项目属地 -->
-        <div class="fx-box" v-if="project.proWhere&&project.proWhere!=''">
+        <div class="fx-box" v-if="project.proWhere">
             <div :span="1">项目属地：</div>
             <div>{{project.proWhere}}</div>
         </div>
         <!-- 建设状态 -->
-        <div class="fx-box" v-if="project.proBuild&&project.proBuild!=''">
+        <div class="fx-box" v-if="project.proBuild">
             <div :span="1">建设状态：</div>
             <div>{{project.proBuild}}</div>
         </div>
         <!-- 项目类型 -->
-        <div class="fx-box" v-if="project.proType&&project.proType!=''">
+        <div class="fx-box" v-if="project.proType">
             <div :span="1">项目类型：</div>
             <div>{{project.proType}}</div>
         </div>
         <!-- 中标金额/合同金额 -->
-        <div class="fx-box" v-if="(project.amountStart&&project.amountStart!='')||(project.amountEnd&&project.amountEnd!='')">
+        <div class="fx-box" v-if="project.amountStart||project.amountEnd">
             <div :span="1">中标金额/合同金额：</div>
             <div>
                 <template v-if="!project.amountStart||project.amountStart==''">小于{{project.amountEnd}}（万元）</template>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <!-- 竣工验收日期 -->
-        <div class="fx-box" v-if="(project.completeStart&&project.completeStart!='')||(project.completeEnd&&project.completeEnd!='')">
+        <div class="fx-box" v-if="project.completeStart||project.completeEnd">
             <div :span="1">竣工验收日期：</div>
             <div>
                 <template v-if="!project.completeStart||project.completeStart==''">{{project.completeEnd}}以前</template>

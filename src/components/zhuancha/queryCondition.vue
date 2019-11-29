@@ -37,14 +37,14 @@
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
-                <el-row v-if="data.project&&((data.project.keywords!=''||data.project.opt!='title'||data.project.optType!='or')||
-                (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
-                (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
-                (data.project.proType&&data.project.proType!='')||(data.project.proWhere&&data.project.proWhere!='')||
-                ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
-                ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
-                ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
-                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!='')))
+                <el-row v-if="data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
+                data.project.proUse||data.project.proState||
+                data.project.proBuild||data.project.childProject||
+                data.project.proType||data.project.proWhere||
+                (data.project.amountStart||data.project.amountEnd)||
+                (data.project.completeStart||data.project.completeEnd)||
+                (data.project.contractStart||data.project.contractEnd)||
+                (data.project.areaStart||data.project.areaEnd))
                 ">
                     <el-col :span="2">业绩要求：</el-col>
                     <el-col :span="22">
@@ -61,27 +61,27 @@
                 </el-row>
                 <!-- 信用等级 -->
                 <template v-if="$route.query.type!='zj'">
-                    <el-row v-if="data.credit&&(data.credit.creditType||data.credit.evaluateYear!=''||data.credit.province||data.credit.scoreEnd!=''||data.credit.scoreStart!=''||data.credit.creditType||data.credit.levels)">
+                    <el-row v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)">
                         <el-col :span="2">信用等级：</el-col>
                         <el-col :span="22">
                             <template v-if="$route.query.type=='gl'">
                                 <!-- 评价类型 -->
-                                <div class="fx-box" v-if="data.credit.creditType&&data.credit.creditType!=''">
+                                <div class="fx-box" v-if="data.credit.creditType">
                                     <div :span="1">评价类型：</div>
                                     <div>{{data.credit.creditType}}</div>
                                 </div>
                                 <!-- 评价省份 -->
-                                <div class="fx-box" v-if="data.credit.province&&data.credit.province!=''">
+                                <div class="fx-box" v-if="data.credit.province">
                                     <div :span="1">评价省份：</div>
                                     <div>{{data.credit.province}}</div>
                                 </div>
                                 <!-- 评价年份等级 -->
-                                <div class="fx-box" v-if="data.credit.evaluateYear&&data.credit.evaluateYear!=''">
+                                <div class="fx-box" v-if="data.credit.evaluateYear">
                                     <div :span="1">评价年份等级：</div>
                                     <div>{{data.credit.evaluateYear}}</div>
                                 </div>
                                 <!-- 等级评分-->
-                                <div class="fx-box" v-if="(data.credit.scoreStart&&data.credit.scoreStart!='')||(data.credit.scoreEnd&&data.credit.scoreEnd!='')">
+                                <div class="fx-box" v-if="data.credit.scoreStart||data.credit.scoreEnd">
                                     <div :span="1">等级评分：</div>
                                     <div>
                                         <template v-if="!data.credit.scoreStart||data.credit.scoreStart==''">小于{{data.credit.scoreEnd}}分</template>
@@ -92,12 +92,12 @@
                             </template>
                             <template v-else>
                                 <!-- 申请类型 -->
-                                <div class="fx-box" v-if="data.credit.creditType&&data.credit.creditType!=''">
+                                <div class="fx-box" v-if="data.credit.creditType">
                                     <div :span="1">申请类型：</div>
                                     <div>{{data.credit.creditType}}</div>
                                 </div>
                                 <!-- 信用等级 -->
-                                <div class="fx-box" v-if="data.credit.levels&&data.credit.levels!=''">
+                                <div class="fx-box" v-if="data.credit.levels">
                                     <div :span="1">信用等级：</div>
                                     <div>{{data.credit.levels}}</div>
                                 </div>
@@ -198,16 +198,16 @@ export default {
             this.data=res.data.data.condition
             this.$parent.total=res.data.data.condition.totals
             let data=this.data;
-            if(data.project&&((data.project.keywords!=''||data.project.opt!='title'||data.project.optType!='or')||
-                (data.project.proUse&&data.project.proUse!='')||(data.project.proState&&data.project.proState!='')||
-                (data.project.proBuild&&data.project.proBuild!='')||(data.project.childProject&&data.project.childProject!='')||
-                (data.project.proType&&data.project.proType!='')||(data.project.proWhere&&data.project.proWhere!='')||
-                ((data.project.amountStart&&data.project.amountStart!='')||(data.project.amountEnd&&data.project.amountEnd!=''))||
-                ((data.project.completeStart&&data.project.completeStart!='')||(data.project.completeEnd&&data.project.completeEnd!=''))||
-                ((data.project.contractStart&&data.project.contractStart!='')||(data.project.contractEnd&&data.project.contractEnd!=''))||
-                ((data.project.areaStart&&data.project.areaStart!='')||(data.project.areaEnd&&data.project.areaEnd!='')))
+            if(data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
+                data.project.proUse||data.project.proState||
+                data.project.proBuild||data.project.childProject||
+                data.project.proType||data.project.proWhere||
+                (data.project.amountStart||data.project.amountEnd)||
+                (data.project.completeStart||data.project.completeEnd)||
+                (data.project.contractStart||data.project.contractEnd)||
+                (data.project.areaStart||data.project.areaEnd))
                 ){
-
+                    console.log(1)
             }
             // totals
         })
