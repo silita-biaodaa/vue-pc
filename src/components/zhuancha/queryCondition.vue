@@ -207,7 +207,7 @@ export default {
                 (data.project.contractStart||data.project.contractEnd)||
                 (data.project.areaStart||data.project.areaEnd))
                 ){
-                    console.log(1)
+                    // console.log(1)
             }
             // totals
         })

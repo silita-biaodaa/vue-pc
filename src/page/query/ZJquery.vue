@@ -312,7 +312,7 @@ export default {
                     completeEnd:"",//竣工结束日期
                     areaStart:"",//最小面积
                     areaEnd:"",//最大面积
-                    proCount:0,//符合业绩条件的数量
+                    proCount:1,//符合业绩条件的数量
                     optType:"or"
                 },
                 person:[],
@@ -331,17 +331,6 @@ export default {
         // 'data.project.keywords'(newVal,oldVal){
         //     this.ajax()
         // },
-        data:{
-            deep:true,
-            handler(newVal,oldVal){
-                if(JSON.stringify(newVal)==this.dataStr){
-                    this.isNoSee=true;
-                    return
-                }
-                this.isNoSee=false;
-                this.ajax()
-            }
-        },
         'data.project':{
             deep:true,
             handler(newval,oldVal){
@@ -361,6 +350,17 @@ export default {
                     this.isoptType=false
                 }
                 // this.data.project.proCount=1;
+            }
+        },
+        data:{
+            deep:true,
+            handler(newVal,oldVal){
+                if(JSON.stringify(newVal)==this.dataStr){
+                    this.isNoSee=true;
+                    return
+                }
+                this.isNoSee=false;
+                this.ajax()
             }
         },
     },
@@ -530,6 +530,14 @@ export default {
             let data=JSON.parse(JSON.stringify(this.data));
             if(data.project.keywords&&data.project.keywords!=''){
                 data.project.keywords=data.project.keywords.replace(/ /g,',');
+            }else{
+                data.project.opt=''
+            }
+            if(!this.isyj){
+                data.project.proCount=''
+            }
+            if(!this.isoptType){
+                data.project.optType=''
             }
             data.project=this.filterParams(data.project);
             data=this.filterParams(data);

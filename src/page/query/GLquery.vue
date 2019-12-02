@@ -222,11 +222,11 @@ export default {
                 },{
                     year:'近2年',
                     int1:0.3,
-                    int2:0.2,
+                    int2:0.18,
                 },{
                     year:'近3年',
                     int1:0.2,
-                    int2:0.1,
+                    int2:0.12,
                 }
             ],
             id:null,
@@ -236,9 +236,23 @@ export default {
     },
     watch: {
         // 监控集合
-        // 'data.project.keywords'(newVal,oldVal){
-        //     this.ajax()
-        // },
+        'data.project':{
+            deep:true,
+            handler(newval,oldVal){
+                if(newval.keywords!=''||newval.opt!='title'||newval.proWhere||newval.proBuild||newval.proType||newval.amountStart
+                    ||newval.amountEnd||newval.completeStart||newval.completeEnd){//如果筛选了业绩，则显示符合业绩数量
+                        this.isyj=true;
+                }else{
+                    this.isyj=false;
+                }
+                let arr=newval.keywords.split(' ');
+                if(arr.length>1){
+                    this.isoptType=true
+                }else{
+                    this.isoptType=false
+                }
+            }
+        },
         data:{
             deep:true,
             handler(newVal,oldVal){
@@ -248,25 +262,6 @@ export default {
                 }
                 this.isNoSee=false;
                 this.ajax()
-            }
-        },
-        'data.project':{
-            deep:true,
-            handler(newval,oldVal){
-                if(newval.keywords!=''||newval.opt!='title'||newval.proWhere||newval.proBuild||newval.proType||newval.amountStart
-                    ||newval.amountEnd||newval.completeStart||newval.completeEnd){//如果筛选了业绩，则显示符合业绩数量
-                        this.isyj=true;
-                }else{
-                    this.isyj=false;
-                    this.data.project.proCount=0;
-                }
-                let arr=newval.keywords.split(' ');
-                if(arr.length>1){
-                    this.isoptType=true
-                }else{
-                    this.isoptType=false
-                }
-                // this.data.project.proCount=1;
             }
         },
     },
@@ -362,7 +357,7 @@ export default {
     methods: {
         // 方法 集合
         returnInt(i){//匹配小于1的保留一位的正小数
-            let t=/^(0|0\.[1-9])$/;
+            let t=/^(0|0\.[1-9]{1,2})$/;
             if(i==0){
                 if(!t.test(this.data.credit.scoreStart*1)){
                     this.data.credit.scoreStart=''
@@ -531,8 +526,17 @@ export default {
             let data=JSON.parse(JSON.stringify(this.data))
             if(data.project.keywords&&data.project.keywords!=''){
                 data.project.keywords=data.project.keywords.replace(/ /g,',');
+            }else{
+                data.project.opt=''
+            }
+            if(!this.isyj){
+                data.project.proCount=''
+            }
+            if(!this.isoptType){
+                data.project.optType=''
             }
             data.project=this.filterParams(data.project);
+            data.credit=this.filterParams(data.credit);
             data=this.filterParams(data);
             let that=this;
             this.$http({
@@ -611,6 +615,7 @@ export default {
                     display: flex;
                     justify-content: space-between;
                     span{
+                        width: 50%;
                         font:last-child{
                             margin-left: 15px
                         }

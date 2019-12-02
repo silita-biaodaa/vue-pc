@@ -213,17 +213,6 @@ export default {
         // 'data.project.keywords'(newVal,oldVal){
         //     this.ajax()
         // },
-        data:{
-            deep:true,
-            handler(newVal,oldVal){
-                if(JSON.stringify(newVal)==this.dataStr){
-                    this.isNoSee=true;
-                    return
-                }
-                this.isNoSee=false;
-                this.ajax()
-            }
-        },
         'data.project':{
             deep:true,
             handler(newval,oldVal){
@@ -233,7 +222,6 @@ export default {
                         this.isyj=true;
                 }else{
                     this.isyj=false;
-                    this.data.project.proCount=0;
                 }
                 let arr=newval.keywords.split(' ');
                 if(arr.length>1){
@@ -241,7 +229,17 @@ export default {
                 }else{
                     this.isoptType=false
                 }
-                // this.data.project.proCount=1;
+            }
+        },
+        data:{
+            deep:true,
+            handler(newVal,oldVal){
+                if(JSON.stringify(newVal)==this.dataStr){
+                    this.isNoSee=true;
+                    return
+                }
+                this.isNoSee=false;
+                this.ajax()
             }
         },
     },
@@ -424,8 +422,17 @@ export default {
             let data=JSON.parse(JSON.stringify(this.data))
             if(data.project.keywords&&data.project.keywords!=''){
                 data.project.keywords=data.project.keywords.replace(/ /g,',');
+            }else{
+                data.project.opt=''
+            }
+            if(!this.isyj){
+                data.project.proCount=''
+            }
+            if(!this.isoptType){
+                data.project.optType=''
             }
             data.project=this.filterParams(data.project);
+            data.credit=this.filterParams(data.credit);
             data=this.filterParams(data);
             let that=this;
             this.$http({

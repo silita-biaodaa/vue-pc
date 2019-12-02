@@ -195,7 +195,7 @@
 							</div>
 							<div class="left" style="width:300px;" v-if="el.report.reportPath">
 								<a :download="el.report.reportPath" :href="el.report.reportPath">下载</a>
-								<span @click="regenerateFn(el.orderNo)">重新生成</span>
+								<span @click="regenerateFn(el)">重新生成</span>
 							</div>
 						</div>
 					</div>
@@ -362,15 +362,15 @@ import countTime from '@/components/countTime'
 			}
 		},
 		methods: {
-			regenerateFn(orNo){//重新生成
+			regenerateFn(el){//重新生成
 				this.$http({
 					method:'get',
 					url:'/download/excel',
 					data:{
-						orderNo:orNo
+						orderNo:el.orderNo
 					}
 				}).then(res => {
-
+					el.report.reportPath=null
 				})
 			},
 			jumpPay(el){//跳到支付页
