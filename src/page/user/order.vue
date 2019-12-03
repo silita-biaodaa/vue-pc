@@ -402,8 +402,10 @@ import countTime from '@/components/countTime'
 					orderStatus: '1',
 					channelNo: '1003'
 				}).then(res => {
-					if (res.code != 1) {
-						this.feat = res.data
+					if (res.code == 1) {
+						if(res.data&&res.data.length>0){
+							this.feat = res.data
+						}
 					} else {
 						this.feat = []
 					}

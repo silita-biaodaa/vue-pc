@@ -40,7 +40,7 @@
             <div>
                 <template v-if="!project.amountStart||project.amountStart==''">小于{{project.amountEnd}}（万元）</template>
                 <template v-else-if="!project.amountEnd||project.amountEnd==''">大于{{project.amountStart}}（万元）</template>
-                <template>大于{{project.amountStart}}小于{{project.amountEnd}}（万元）</template>
+                <template v-else>大于{{project.amountStart}}（万元）小于{{project.amountEnd}}（万元）</template>
             </div>
         </div>
         <!-- 竣工验收日期 -->
@@ -49,7 +49,7 @@
             <div>
                 <template v-if="!project.completeStart||project.completeStart==''">{{project.completeEnd}}以前</template>
                 <template v-else-if="!project.completeEnd||project.completeEnd==''">{{project.completeStart}}以后</template>
-                <template>{{project.completeStart}}到{{project.completeEnd}}</template>
+                <template v-else>{{project.completeStart}}到{{project.completeEnd}}</template>
             </div>
         </div>
     </div>

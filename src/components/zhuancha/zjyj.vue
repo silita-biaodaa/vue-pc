@@ -45,7 +45,7 @@
             <div>
                 <template v-if="!project.amountStart||project.amountStart==''">小于{{project.amountEnd}}（万元）</template>
                 <template v-else-if="!project.amountEnd||project.amountEnd==''">大于{{project.amountStart}}（万元）</template>
-                <template>大于{{project.amountStart}}小于{{project.amountEnd}}（万元）</template>
+                <template v-else>大于{{project.amountStart}}（万元）小于{{project.amountEnd}}（万元）</template>
             </div>
         </div>
         <!-- 中标日期/合同签订日期 -->
@@ -54,7 +54,7 @@
             <div>
                 <template v-if="!project.contractStart||project.contractStart==''">{{project.contractEnd}}以前</template>
                 <template v-else-if="!project.contractEnd||project.contractEnd==''">{{project.contractStart}}以后</template>
-                <template>{{project.contractStart}}到{{project.contractEnd}}</template>
+                <template v-else>{{project.contractStart}}到{{project.contractEnd}}</template>
             </div>
         </div>
         <!-- 竣工验收日期 -->
@@ -63,16 +63,16 @@
             <div>
                 <template v-if="!project.completeStart||project.completeStart==''">{{project.completeEnd}}以前</template>
                 <template v-else-if="!project.completeEnd||project.completeEnd==''">{{project.completeStart}}以后</template>
-                <template>{{project.completeStart}}到{{project.completeEnd}}</template>
+                <template v-else>{{project.completeStart}}到{{project.completeEnd}}</template>
             </div>
         </div>
         <!-- 面积（平方米）-->
         <div class="fx-box" v-if="project.areaStart||project.areaEnd">
             <div :span="1">面积（平方米）：</div>
             <div>
-                <template v-if="!project.areaStart||project.areaStart==''">小于{{project.areaEnd}}</template>
-                <template v-else-if="!project.areaEnd||project.areaEnd==''">大于{{project.areaStart}}</template>
-                <template>大于{{project.areaStart}}小于{{project.areaEnd}}</template>
+                <template v-if="!project.areaStart||project.areaStart==''">小于{{project.areaEnd}}（平方米）</template>
+                <template v-else-if="!project.areaEnd||project.areaEnd==''">大于{{project.areaStart}}（平方米）</template>
+                <template v-else>大于{{project.areaStart}}（平方米）小于{{project.areaEnd}}（平方米）</template>
             </div>
         </div>
         <!-- 符合业绩条件的数量 -->

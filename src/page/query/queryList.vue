@@ -9,7 +9,7 @@
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>
-            <div class="downLoad">下载报告</div>
+            <!-- <div class="downLoad">下载报告</div> -->
         </div>
         <!-- 列表 -->
         <div class="list  maxW-box">
