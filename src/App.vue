@@ -224,11 +224,11 @@
 						url: require('./assets/img/icon-zaij.png'),
 						to: '/build',
 					},
-					{
-						name: '法务',
-						url: require('./assets/img/icon-fawu.png'),
-						to: '/law',
-					}
+					// {
+					// 	name: '法务',
+					// 	url: require('./assets/img/icon-fawu.png'),
+					// 	to: '/law',
+					// }
 				],
 				rank: 0,
 				way: '/bid',
@@ -806,7 +806,7 @@
 
 				li {
 					box-sizing: border-box;
-					width: 12%;
+					width: 14%;
 					height: 50px;
 					line-height: 50px;
 					float: left;

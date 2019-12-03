@@ -87,11 +87,11 @@ export default {
           to: "/build",
           i: 5
         },
-        {
-          name: "法务",
-          to: "/law",
-          i: 6
-        }
+        // {
+        //   name: "法务",
+        //   to: "/law",
+        //   i: 6
+        // }
       ],
       select: "",
       rank: 0,
@@ -177,10 +177,11 @@ export default {
           } else if (this.way == "/build") {
             this.forinHistory(obj.build, obj1);
             this.list = obj.build;
-          } else if (this.way == "/law") {
-            this.forinHistory(obj.law, obj1);
-            this.list = obj.law;
           }
+          //  else if (this.way == "/law") {
+          //   this.forinHistory(obj.law, obj1);
+          //   this.list = obj.law;
+          // }
           localStorage.setItem("historys", JSON.stringify(obj));
         } else {
           let obj = {
@@ -190,7 +191,7 @@ export default {
             perfor: [],
             crew: [],
             build: [],
-            law: []
+            // law: []
           };
           if (this.way == "/bid") {
             obj.bid.unshift(obj1);
@@ -210,10 +211,11 @@ export default {
           } else if (this.way == "/build") {
             obj.build.unshift(obj1);
             this.list = obj.build;
-          } else if (this.way == "/law") {
-            obj.law.unshift(obj1);
-            this.list = obj.law;
           }
+          //  else if (this.way == "/law") {
+          //   obj.law.unshift(obj1);
+          //   this.list = obj.law;
+          // }
           localStorage.setItem("historys", JSON.stringify(obj));
         }
       }
@@ -265,9 +267,10 @@ export default {
         this.rank = 4;
       } else if (this.$route.path == "/build") {
         this.rank = 5;
-      } else if (this.$route.path == "/law") {
-        this.rank = 6;
-      }
+      } 
+      // else if (this.$route.path == "/law") {
+      //   this.rank = 6;
+      // }
     },
     reloca() {
       if (this.$route.fullPath == localStorage.getItem("way")) {
@@ -534,10 +537,11 @@ export default {
       } else if (newValue == 5) {
         this.placeTxt = "请输入姓名或身份证号";
         this.list = obj.build || [];
-      } else if (newValue == 6) {
-        this.placeTxt = "请输入法务信息关键词";
-        this.list = obj.law || [];
-      }
+      } 
+      // else if (newValue == 6) {
+      //   this.placeTxt = "请输入法务信息关键词";
+      //   this.list = obj.law || [];
+      // }
     },
 
     select(newVal, old) {

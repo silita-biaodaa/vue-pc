@@ -296,7 +296,7 @@ export default {
             name:'不限',
             code:null
         })
-        this.ajax()
+        // this.ajax()
         // this.data=this.$store.state.queryData;
     },
     beforeMount() {

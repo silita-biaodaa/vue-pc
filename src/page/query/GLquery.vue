@@ -333,7 +333,7 @@ export default {
             istap:true,
         })
         this.evaluateListFn();
-        this.ajax();
+        // this.ajax();
         // this.data=this.$store.state.queryData;
     },
     beforeMount() {
@@ -611,7 +611,8 @@ export default {
                 align-items: center;
                 font-size: 16px;
                 div{
-                    flex-grow:2;
+                    width:calc((100% / 3)*2);
+                    // flex-grow:2;
                     display: flex;
                     justify-content: space-between;
                     span{

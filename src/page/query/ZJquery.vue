@@ -408,7 +408,7 @@ export default {
         let ryData=JSON.parse(sessionStorage.getItem('people'));
         this.peopleList=ryData
         // this.data=this.$store.state.queryData;
-        this.ajax()
+        // this.ajax()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

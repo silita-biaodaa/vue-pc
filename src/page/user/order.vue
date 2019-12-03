@@ -81,56 +81,6 @@
 					</div>
 			    </div>
 				<div>
-				<!-- 综合查询 -->
-				<div v-if="el.report&&el.report.repTitle == '企业资质+业绩查询报告-体验版' ">
-					<div class="ta-list">
-						<div class="list-vip">
-							<div class="left" style="width:230px;textAlign:left">
-								<div style="fontSize:16px" class="m-6">企业资质·业绩查询报告-体验版
-								</div>
-								<div style="fontSize:12px" class="m-6">
-									订单编号:{{el.orderNo}}
-								</div>
-								<div style="fontSize:12px" class="m-6">
-									发送邮箱:{{el.report.email}}
-								</div>
-							</div>
-
-							<div class="left" style="width:80px;fontSize:14px;">
-								{{el.orderStatus | status  }}
-							</div>
-
-							<div class="left" style="width:100px;color:#FF0000">
-								{{el.fee/100}}元
-							</div>
-
-							<div class="left" style="width:160px;">
-								{{el.updateTime ? el.updateTime : el.createTime | times }}
-							</div>
-
-							<div class="left" style="width:100px;">
-								<div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)">
-									{{el.orderStatus == '1' ? '立即购买' : '重新发送' }}
-								</div>
-							</div>
-						</div>
-						<div class="ta-report">
-							<div class="left" style="width:190px;textAlign:left">
-								<div style="fontSize:12px">
-									报告格式:PDF
-								</div>
-							</div>
-							<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
-								{{el.report.reportPath | nopath }}
-							</div>
-							<div class="left" style="width:300px;" :class="{'noBtn':!el.report.reportPath}" v-show="el.orderStatus != '1'">
-								<!-- <span @click='dowloadFn(el)'>下载</span> -->
-								<span @click="look(el)">查看</span>
-								<!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载</a> -->
-							</div>
-						</div>
-					</div>
-				</div>
 				<!-- 专查 -->
 				<div v-if="el.report&&(el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查')">
 					<div class="ta-list">
@@ -283,10 +233,10 @@ import countTime from '@/components/countTime'
 						label: '会员订单',
 						value: 'vip'
 					},
-					{
-						label: '综合查询',
-						value: 'query'
-					}
+					// {
+					// 	label: '综合查询',
+					// 	value: 'query'
+					// }
 				],
 				value: '',
 				pattern: '',
@@ -363,14 +313,20 @@ import countTime from '@/components/countTime'
 		},
 		methods: {
 			regenerateFn(el){//重新生成
+				el.report.reportPath=null
+				let that=this;
 				this.$http({
-					method:'get',
-					url:'/download/excel',
+					method:'post',
+					url:'/report/rebuild',
 					data:{
 						orderNo:el.orderNo
 					}
 				}).then(res => {
-					el.report.reportPath=null
+					if(res.data.code==1){
+						el.report.reportPath=null
+					}else{
+						that.$alert(res.data.msg)
+					}
 				})
 			},
 			jumpPay(el){//跳到支付页
@@ -446,7 +402,7 @@ import countTime from '@/components/countTime'
 					orderStatus: '1',
 					channelNo: '1003'
 				}).then(res => {
-					if (res.code == 1) {
+					if (res.code != 1) {
 						this.feat = res.data
 					} else {
 						this.feat = []
@@ -782,15 +738,6 @@ import countTime from '@/components/countTime'
 				}, 2000)
 
 			},
-			look(el) {
-				if (el.report.reportPath) {
-					window.open(el.report.reportPath, '_blank', )
-				}
-
-			},
-			text() {
-				window.open('http://prefile.biaodaa.com/img/report.pdf')
-			}
 		},
 		created() {
 			this.gainList()//查询初始化订单

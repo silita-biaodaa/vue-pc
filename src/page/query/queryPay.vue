@@ -103,7 +103,8 @@ export default {
                         stdCode:stdCode,
                         ip:localStorage.getItem('uip'),
                         tradeType:'NATIVE',
-                        pkid:that.$route.query.id
+                        pkid:that.$route.query.id*1,
+                        zhuanchaType:'zhuancha'
                     }
                 }).then(r =>{
                     that.isload=false;

@@ -48,10 +48,10 @@ import fcoll from '@/components/collect'
  
 import about from '@/page/About'    // 关于我们
 
-import synth from '@/page/synth/synth'    // 综合查询
-import result from '@/page/synth/result'    // 综合查询
-import query from '@/page/synth/query' 
-import hist from '@/page/synth/history' 
+// import synth from '@/page/synth/synth'    // 综合查询
+// import result from '@/page/synth/result'    // 综合查询
+// import query from '@/page/synth/query' 
+// import hist from '@/page/synth/history' 
 
 import perfor from '@/page/perfor/perfor' 
 import perlist from '@/page/perfor/perlist'
@@ -77,7 +77,7 @@ import dys from '@/page/people/dys'
 import modify from '@/page/people/modify' 
 import escort from '@/page/people/escort' 
 
-import lawList from '@/page/law'//法务列表
+// import lawList from '@/page/law'//法务列表
 import lawDetail from '@/page/lawDetail'//法务详情
 
 import annualDetail from '@/components/business/annualDetail'
@@ -149,14 +149,14 @@ export default new Router({
         tabNo: 2
       }
     },
-    {
-      path: '/law',  // 法务
-      name: 'law',
-      component: lawList,
-      meta: {
-        tabNo: 7
-      }
-    },
+    // {
+    //   path: '/law',  // 法务
+    //   name: 'law',
+    //   component: lawList,
+    //   meta: {
+    //     tabNo: 7
+    //   }
+    // },
     {
       path: '/article',  // 招标详情
       name: 'article',
@@ -391,39 +391,39 @@ export default new Router({
           }
         ] 
       },
-      {   // 综合查询页面
-        path: '/synth',
-        name: 'synth',
-        component: synth,
-        redirect: '/synth/query',
-        children: [
-          {
-            path: 'query',  // 综合查询页面
-            name: 'query',
-            component: query,
-            meta: {
-              tabNo: 3
-            }
-          },
-          {
-            path: 'hist',  // 历史订单
-            name: 'hist',
-            component: hist,
-            meta: {
-              tabNo: 3
-            }
-          }
-        ], 
+      // {   // 综合查询页面
+      //   path: '/synth',
+      //   name: 'synth',
+      //   component: synth,
+      //   redirect: '/synth/query',
+      //   children: [
+      //     {
+      //       path: 'query',  // 综合查询页面
+      //       name: 'query',
+      //       component: query,
+      //       meta: {
+      //         tabNo: 3
+      //       }
+      //     },
+      //     {
+      //       path: 'hist',  // 历史订单
+      //       name: 'hist',
+      //       component: hist,
+      //       meta: {
+      //         tabNo: 3
+      //       }
+      //     }
+      //   ], 
       
-      },
-      {   // 综合查询结果页面
-        path: '/result',
-        name: 'result',
-        component: result,
-        meta: {
-          tabNo: 3
-        }
-      },
+      // },
+      // {   // 综合查询结果页面
+      //   path: '/result',
+      //   name: 'result',
+      //   component: result,
+      //   meta: {
+      //     tabNo: 3
+      //   }
+      // },
     {  //  会员购买页面
       path: '/buy',
       name: 'buy',
