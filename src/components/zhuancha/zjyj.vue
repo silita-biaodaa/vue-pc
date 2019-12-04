@@ -76,7 +76,7 @@
             </div>
         </div>
         <!-- 符合业绩条件的数量 -->
-        <div class="fx-box">
+        <div class="fx-box" v-if="project.proCount">
             <div :span="1">符合业绩条件的数量：</div>
             <div>{{project.proCount}}</div>
         </div>
