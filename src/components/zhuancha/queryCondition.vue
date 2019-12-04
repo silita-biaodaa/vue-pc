@@ -11,7 +11,7 @@
                     <el-col :span="2">企业地区：</el-col>
                     <el-col :span="22">{{data.regisAddress}}</el-col>
                 </el-row>
-                <el-row v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''&&data.joinRegion!='all_in'">
+                <el-row v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''">
                     <el-col :span="2">备案地区：</el-col>
                     <el-col :span="22">
                         {{data.joinRegion | joinRegion(data.regisAddress) }}
@@ -37,8 +37,8 @@
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
-                <el-row v-if="data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
-                data.project.proUse||data.project.proState||
+                <el-row v-if="data.project&&JSON.stringify(data.project)!='{}'&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
+                data.project.proUse||data.project.proState||data.project.proCount||
                 data.project.proBuild||data.project.childProject||
                 data.project.proType||data.project.proWhere||
                 (data.project.amountStart||data.project.amountEnd)||
@@ -171,6 +171,8 @@ export default {
                 return shortName+'内企业'
             }else if(bei=='enter'){
                 return '入'+shortName+'企业'
+            }else{
+                return '入'+shortName+'+'+shortName+'内企业'
             }
         }
     },

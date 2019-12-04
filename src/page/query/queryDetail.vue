@@ -9,7 +9,7 @@
             <div class="title">
                 <img src="../../assets/img/company.png"/>
                 {{basic.comName}}
-                <v-region :data="basic.joinRegion"></v-region>
+                <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
             <div class="basic-box">
                 <div>
@@ -19,12 +19,10 @@
                 <div>
                     <p class="bg">企业法定代表人</p>
                     <p>{{basic.legalPerson}}</p>
-                    <p class="bg">企业登记注册类型</p>
-                    <p>{{basic.economicType}}</p>
                 </div>
                 <div>
-                    <p class="bg">企业注册属地</p>
-                    <p>{{basic.regisAddress}}</p>
+                    <p class="bg">电话</p>
+                    <p>{{basic.phone}}</p>
                 </div>
                 <div>
                     <p class="bg">企业经营地址</p>

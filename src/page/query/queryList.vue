@@ -118,8 +118,11 @@ export default {
                 data:this.data
             }).then(res =>{
                 that.isajax=true;
-                that.list=res.data.data;
-                that.total=res.data.total;
+                if(res.data.code==1){
+                    that.list=res.data.data;
+                    that.total=res.data.total;
+                }
+                
             }).catch(req =>{
                 that.list=null
             })

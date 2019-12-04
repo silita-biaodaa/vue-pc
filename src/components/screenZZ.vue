@@ -203,8 +203,6 @@ export default {
                     str:''//记录选择的值
                 }
                 for(let y of this.qualList){
-                    debugger
-                    console.log(y)
                     if(arr[0]==y.code){
                         data.two.list=y.data//取第二层
                         for(let z of y.data){//循环第二层
