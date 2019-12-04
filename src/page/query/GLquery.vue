@@ -21,7 +21,7 @@
             <v-screenry  class="bottom-bor" :qualList='peopleList' @contentChange='screenryFn'></v-screenry>
             <!-- 业绩要求 -->
             <el-row class="yj bottom-bor" >
-                <el-col :span="2">业绩要求：</el-col>
+                <el-col :span="2" style="line-height: 40px;">业绩要求：</el-col>
                 <el-col :span="22">
                     <!-- 项目关键字 -->
                     <el-row class="flex-center">
