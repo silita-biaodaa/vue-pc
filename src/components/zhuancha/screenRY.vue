@@ -253,7 +253,9 @@ export default {
                     }
                 }
             }
-            // this.returnStr();
+            if(!o.one.cateName){
+                this.returnStr();
+            }
         },
         twoChangeFn(o,i,el=null){
             o.three.cateName=[];

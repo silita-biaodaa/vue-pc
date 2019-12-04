@@ -459,7 +459,7 @@ export default {
         selectFn(el,arr,str='不限'){//选择
             if(el.areaShortName==str){
                 el.istap=true
-                this.backSelect(arr)
+                this.backSelect(arr,str)
             }else{
                 el.istap=!el.istap
                 if(this.forInLength(arr)){

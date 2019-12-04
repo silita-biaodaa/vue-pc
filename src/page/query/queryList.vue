@@ -191,9 +191,15 @@ li{
         }
         .phone{
             width: 142px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
         }
         .people{
             width: 90px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
         }
     }
 }
