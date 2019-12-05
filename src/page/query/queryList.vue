@@ -21,9 +21,9 @@
                         <li v-for="(o,i) of list" :key="'list'+i" @click="jumpDetail(o.comId)">
                             <div class="top">
                                 <h5>{{o.comName}}</h5>
-                                <!-- <div class="right-label"  v-if="$route.query.type=='zj'&&o.joinRegion.length>0">
+                                <div class="right-label"  v-if="$route.query.type=='zj'&&o.joinRegion&&o.joinRegion.length>0">
                                     <v-region :data="o.joinRegion"></v-region>
-                                </div> -->
+                                </div>
                             </div>
                             <div class="bottom">
                                 <p class="people">法人：<font>{{o.legalPerson}}</font></p>

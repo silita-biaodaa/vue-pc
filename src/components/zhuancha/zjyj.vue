@@ -137,6 +137,9 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .fx-box{
-    display: flex;
+    // display: -webkit-box;
+    div{
+        float: left;
+    }
 }
 </style>
