@@ -16,13 +16,13 @@
             </div>
             <div class="e-ipt ">
               <div class="e-i">
-                <i class="iconfont icon-ren111" ></i>
+                <i class="iconfont iconzhanghao" ></i>
               </div>
               <el-input v-model="mobile"  placeholder="请输入您的手机号"  autocomplete="new-password" ></el-input>
             </div>
             <div class="e-ipt e-my">
               <div class="e-i">
-                <i class="iconfont icon-mn_dunpai" ></i>
+                <i class="iconfont iconduanxin" ></i>
               </div>
               <el-input v-model="note"  placeholder="短信验证码"  autocomplete="new-password" ></el-input>
               <div class="e-code" @click="gainCode" :class="Message == '获取验证码' ? '' : (Message == '重新发送' ? '' : 'e-co')" > 
@@ -31,7 +31,7 @@
             </div>
             <div class="e-ipt">
               <div class="e-i">
-                <i class="iconfont icon-gongwenbao" ></i>
+                <i class="iconfont iconmima" ></i>
               </div>
               <el-input v-model="password" type="password"  autocomplete="new-password"  placeholder="请设置密码(不低于8位)"></el-input>
             </div>
@@ -181,6 +181,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.logo-img {
+		width: 100%;
+		background: url(../assets/img/logoB.png) no-repeat;
+		background-position-x: center;
+		height: 523px;
+		position: relative;
+    overflow: hidden;
+    background-size: auto 100%;
+	}
 .logo {
   overflow: hidden;
   width: 100%;
@@ -220,10 +229,9 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 8px;
             overflow: hidden;
             .iconfont {
-              font-size: 24px;
+              font-size: 16px;
             }
           }
           .e-code {

@@ -9,26 +9,26 @@
 							您好,欢迎来到标大大!
 						</p>
 						<p class="left">
-							<i class="iconfont icon-dianhua1 left calling"></i>
+							<i class="iconfont icondianhua"></i>
 							0731-85076077
 						</p>
 						<router-link :to="{path:'/download'}" tag="a" target='_blank' class="left">
-							<i class="iconfont icon-shouji left l-mobile"></i>
+							<i class="iconfont iconAPPxiazai"></i>
 							下载APP
 						</router-link>
 						<p class="left" style="cursor: pointer;" @click="tovip">
-							<i class="iconfont icon-VIP1 left person"></i>
+							<i class="iconfont iconhuiyuan"></i>
 							会员服务
 						</p>
-						<p class="left" style="cursor: pointer;verticalAlign:middle" @click="toinfo">
-							<i class="iconfont icon-youxiang left person we-us">
+						<p class="left" style="cursor: pointer;" @click="toinfo">
+							<i class="iconfont iconxiaoxi">
 								<div class="us-red" v-show="ishow"></div>
 							</i>
 							<span>我的消息</span>
 						</p>
 						<router-link :to="{path:'/about'}" tag="a" target='_blank' class="left">
 							<p class="left" style="cursor: pointer;">
-								<i class="iconfont icon-lianxiren left person"></i>
+								<i class="iconfont iconguanyuwomen"></i>
 								关于我们
 							</p>
 						</router-link>
@@ -46,7 +46,7 @@
 						</p>
 						<user-center v-else></user-center>
 						<div class="area">
-							<i class="iconfont icon-dizhi"></i>
+							<i class="iconfont iconweizhi"></i>
 							<span @click="selfa">{{source.source}}</span>
 							<div class="se-area" v-show="isarea">
 								<div class="a-line" v-for="(el,i) in allcity" :key="i">
@@ -69,7 +69,8 @@
 				<ul>
 					<router-link v-for="(el, i) in navlist" :key="i" :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
 						<div>
-							<img :src="el.url">
+							<!-- <img :src="el.url"> -->
+							<i class="iconfont" :class="el.iconName"></i>
 							<span class="left">{{el.name}}</span>
 						</div>
 					</router-link>
@@ -191,37 +192,37 @@
 				names: true,
 				navlist: [{
 						name: '首页',
-						url: require('./assets/img/icon-shouy.png'),
+						iconName: 'iconshouye',
 						to: '/'
 					},
 					{
 						name: '招标',
-						url: require('./assets/img/icon-zhaob.png'),
+						iconName:'iconzhaobiao',
 						to: '/bid',
 					},
 					{
 						name: '中标',
-						url: require('./assets/img/icon-zhongb.png'),
+						iconName:'iconzhongbiao',
 						to: '/tender',
 					},
 					{
 						name: '企业',
-						url: require('./assets/img/icon-qiy.png'),
+						iconName:'iconqiye',
 						to: '/company',
 					},
 					{
 						name: '业绩',
-						url: require('./assets/img/icon-yeji.png'),
+						iconName:'iconyeji',
 						to: '/perfor',
 					},
 					{
 						name: '人员',
-						url: require('./assets/img/icon-reny.png'),
+						iconName:'iconrenyuan',
 						to: '/crew',
 					},
 					{
 						name: '在建',
-						url: require('./assets/img/icon-zaij.png'),
+						iconName:'iconzaijian',
 						to: '/build',
 					},
 					// {
@@ -697,28 +698,14 @@
 				.contact-l {
 					width: calc(100% - 300px);
 
-					a,
-					p {
+					a,p {
 						margin-right: 25px;
 						color: #666;
 						line-height: 20px;
-
+						display: flex;
+						align-items: center;
 						i {
 							margin-right: 6px;
-						}
-
-						.l-mobile {
-							font-size: 16px;
-						}
-
-						.calling {
-							font-size: 16px;
-						}
-
-						.person {
-							font-size: 15px;
-							font-weight: 600;
-							cursor: pointer;
 						}
 					}
 				}
@@ -750,9 +737,7 @@
 						cursor: pointer;
 
 						i {
-							font-size: 16px;
-							font-weight: 600;
-							padding-top: 4px;
+							margin-right: 10px;
 						}
 
 						.se-area {
@@ -824,11 +809,10 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-
-						img {
+						.iconfont{
 							margin-right: 10px;
+							font-size: 18px;
 						}
-
 						span {
 							font-size: 18px;
 						}

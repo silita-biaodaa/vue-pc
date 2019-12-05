@@ -17,13 +17,13 @@
 						</div>
 						<div class="e-ipt">
 							<div class="e-i">
-								<i class="iconfont icon-ren111"></i>
+								<i class="iconfont iconzhanghao"></i>
 							</div>
 							<el-input v-model="mobile" ref='zh' placeholder="请输入您的手机号"></el-input>
 						</div>
 						<div class="e-ipt">
 							<div class="e-i">
-								<i class="iconfont icon-gongwenbao"></i>
+								<i class="iconfont iconmima"></i>
 							</div>
 							<el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
 						</div>
@@ -190,6 +190,7 @@
 		height: 523px;
 		position: relative;
 		overflow: hidden;
+		background-size: auto 100%;
 	}
 	.logo {
 		overflow: hidden;
@@ -231,11 +232,9 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					padding-top: 8px;
 					overflow: hidden;
-
 					.iconfont {
-						font-size: 24px;
+						font-size: 16px;
 					}
 				}
 

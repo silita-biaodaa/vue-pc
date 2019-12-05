@@ -3,8 +3,8 @@
     
     <div class="ZJquery">
         <!-- 头 -->
-		<v-head :headTxt="'水利信息综合查询系统'"></v-head>
-        <div class="nav-menu">首页 > 水利信息综合查询系统</div>
+		<v-head :headTxt="'水利信息综合查询'"></v-head>
+        <div class="nav-menu">首页 > 水利信息综合查询</div>
         <!-- 筛选 -->
         <div class="select maxW-box">
             <div class="bottom-bor">
