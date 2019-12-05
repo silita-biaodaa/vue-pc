@@ -154,7 +154,7 @@
 			}
 		},
 		created() {
-			let data = JSON.parse(sessionStorage.getItem('filter'));
+			let data = JSON.parse(localStorage.getItem('filter'));
 			this.gainFilter()
 			this.areas = data.area;
 			this.areas.unshift({

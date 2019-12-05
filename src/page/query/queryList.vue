@@ -83,11 +83,11 @@ export default {
     computed:{
         title(){
             if(this.$route.query.type=='zj'){
-                return '住建信息综合查询系统'
+                return '住建信息综合查询'
             }else if(this.$route.query.type=='gl'){
-                return '公路信息综合查询系统'
+                return '公路信息综合查询'
             }else if(this.$route.query.type=='sl'){
-                return '水利信息综合查询系统'
+                return '水利信息综合查询'
             }
         }
     },

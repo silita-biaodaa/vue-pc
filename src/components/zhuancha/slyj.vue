@@ -3,7 +3,7 @@
     <div class="slyj">
         <!-- 项目关键字 -->
         <div class="fx-box" v-if="project.keywords">
-            <div :span="1">项目关键字：</div>
+            <el-col :span="1">项目关键字：</el-col>
             <div>
                 {{project.keywords}}
                 <template v-if="project.opt=='title'">(根据标题搜索)</template>
@@ -13,7 +13,7 @@
         </div>
         <!-- 多个关键词之间的关系 -->
         <div class="fx-box" v-if="project.keywords&&project.keywords.split(',').length>1">
-            <div :span="1">多个关键词之间的关系：</div>
+            <el-col :span="1">多个关键词之间的关系：</el-col>
             <div>
                 <template v-if="project.optType=='or'">满足任意一个</template>
                 <template v-else>满足所有</template>
@@ -21,17 +21,17 @@
         </div>
         <!-- 项目属地 -->
         <div class="fx-box" v-if="project.proWhere">
-            <div :span="1">项目属地：</div>
+            <el-col :span="1">项目属地：</el-col>
             <div>{{project.proWhere}}</div>
         </div>
         <!-- 项目状态 -->
         <div class="fx-box" v-if="project.proState">
-            <div :span="1">项目状态：</div>
+            <el-col :span="1">项目状态：</el-col>
             <div>{{project.proState}}</div>
         </div>
         <!-- 项目金额 -->
         <div class="fx-box" v-if="project.amountStart||project.amountEnd">
-            <div :span="1">项目金额：</div>
+            <el-col :span="1">项目金额：</el-col>
             <div>
                 <template v-if="!project.amountStart||project.amountStart==''">小于{{project.amountEnd}}（万元）</template>
                 <template v-else-if="!project.amountEnd||project.amountEnd==''">大于{{project.amountStart}}（万元）</template>
@@ -40,7 +40,7 @@
         </div>
         <!-- 完工日期 -->
         <div class="fx-box" v-if="project.completeStart||project.completeEnd">
-            <div :span="1">完工日期：</div>
+            <el-col :span="1">完工日期：</el-col>
             <div>
                 <template v-if="!project.completeStart||project.completeStart==''">{{project.completeEnd}}以前</template>
                 <template v-else-if="!project.completeEnd||project.completeEnd==''">{{project.completeStart}}以后</template>
@@ -102,10 +102,7 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.fx-box{
-    // display: flex;
-    div{
-        float: left;
-    }
+.el-col-1{
+    width: auto;
 }
 </style>

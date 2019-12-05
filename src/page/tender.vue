@@ -183,7 +183,7 @@
 				}
 			},
 			gainFilter() {
-				let data = JSON.parse(sessionStorage.getItem('filter'));
+				let data = JSON.parse(localStorage.getItem('filter'));
 				this.areas = data.area;
 			},
 			closeload(val) {

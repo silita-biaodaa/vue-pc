@@ -309,38 +309,38 @@ new Vue({
   template: '<App/>',
   created(){
     //资质，地区筛选
-    if(!sessionStorage.getItem('filter')){
+    // if(!localStorage.getItem('filter')){
       this.$http({
           method:'post',
           url:'/new/common/condition',
           data:{}
       }).then(res => {
-          sessionStorage.setItem('filter',JSON.stringify(res.data.data));
+        localStorage.setItem('filter',JSON.stringify(res.data.data));
       }).catch(req =>{
           console.log(req);
       })
-    }
-    if(!sessionStorage.getItem('people')){
+    // }
+    // if(!localStorage.getItem('people')){
       //人员筛选
       this.$http({
           method:'post',
           url:'/person/cate',
           data:{}
       }).then(res =>{
-        sessionStorage.setItem('people',JSON.stringify(res.data.data));
+        localStorage.setItem('people',JSON.stringify(res.data.data));
       })
-    }
+    // }
     
-    if(!sessionStorage.getItem('proType')){
+    // if(!localStorage.getItem('proType')){
       //建设状态及项目类型
       this.$http({
           method:'post',
           url:'/screen/proTypeInBuild',
           data:{}
       }).then(res =>{
-        sessionStorage.setItem('proType',JSON.stringify(res.data.data));
+        localStorage.setItem('proType',JSON.stringify(res.data.data));
       })
-    }
+    // }
     // if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
     //   this.$http({
     //     method:'post',

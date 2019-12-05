@@ -159,7 +159,7 @@ export default {
     },
     filters:{
         joinRegion(bei,address){
-            let addressList=JSON.parse(sessionStorage.getItem('filter')).area;
+            let addressList=JSON.parse(localStorage.getItem('filter')).area;
             let shortName=''
             for(let x of addressList){
                 if(address==x.name){
@@ -217,7 +217,7 @@ export default {
     methods: {
         // 方法 集合
         forQualName(arr){//从资质list内取name
-            let qualList=JSON.parse(sessionStorage.getItem('filter')).comQua;
+            let qualList=JSON.parse(localStorage.getItem('filter')).comQua;
             let arr1=arr.split('/');
             let str=''
             for(let x of qualList){

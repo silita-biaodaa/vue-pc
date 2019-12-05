@@ -386,7 +386,7 @@
 							res.data.region = '西藏自治区'
 						}
 						sessionStorage.setItem('address', res.data.region);
-						let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+						let arr = JSON.parse(localStorage.getItem('filter')).area;
 						let that = this;
 						for (let x of arr) {
 							if (x.name.indexOf(res.data.region) > -1) {
@@ -431,7 +431,7 @@
 				this.isarea = !this.isarea
 			},
 			selarea(el) {
-				let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+				let arr = JSON.parse(localStorage.getItem('filter')).area;
 				let that = this;
 				for (let x of arr) {
 					if (x.name.indexOf(el.name) > -1) {
@@ -567,7 +567,7 @@
 			if (!sessionStorage.getItem('address')) {
 				this.gainaddress()
 			} else {
-				let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+				let arr = JSON.parse(localStorage.getItem('filter')).area;
 				let str = sessionStorage.getItem('address');
 				let that = this;
 				for (let x of arr) {

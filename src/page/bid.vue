@@ -357,7 +357,7 @@
 				this.gainQueryList()
 			},
 			gainFilter() {
-				let data = JSON.parse(sessionStorage.getItem('filter'));
+				let data = JSON.parse(localStorage.getItem('filter'));
 				this.areas = data.area;
 				this.companyQuals = data.noticeQua;
 				data.type.unshift({
@@ -384,7 +384,7 @@
 				}
 			},
 			getPbmode(code) {
-				let data = JSON.parse(sessionStorage.getItem('filter'));
+				let data = JSON.parse(localStorage.getItem('filter'));
 				let pbArr = data.pbMode;
 				for (let x of pbArr) {
 					if (x.provice == code) {

@@ -254,7 +254,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        let data = JSON.parse(sessionStorage.getItem('filter'));
+        let data = JSON.parse(localStorage.getItem('filter'));
         this.dataStr=JSON.stringify(this.data);
         // for(let x in data.comQua){//剔除公路养护及地质灾害防治单位条件
         //     if(data.comQua[x].name=='公路养护'){
@@ -282,9 +282,9 @@ export default {
             areaShortName:'不限',
             istap:true,
         })
-        let ryData=JSON.parse(sessionStorage.getItem('people'));
+        let ryData=JSON.parse(localStorage.getItem('people'));
         this.peopleList=ryData
-        let proBuildData=JSON.parse(sessionStorage.getItem('proType'));
+        let proBuildData=JSON.parse(localStorage.getItem('proType'));
         for(let x of proBuildData.shuili.proStatus){
             let d={
                 name:x,

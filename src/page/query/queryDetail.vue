@@ -3,7 +3,7 @@
     <div class="queryDetail">
         <!-- 头 -->
 		<v-head :headTxt="title"></v-head>
-        <div class="nav-menu">首页 > {{title}}统</div>
+        <div class="nav-menu">首页 > {{title}}</div>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
@@ -309,11 +309,11 @@ export default {
     computed:{
         title(){
             if(this.$route.query.type=='zj'){
-                return '住建信息综合查询系统'
+                return '住建信息综合查询'
             }else if(this.$route.query.type=='gl'){
-                return '公路信息综合查询系统'
+                return '公路信息综合查询'
             }else if(this.$route.query.type=='sl'){
-                return '水利信息综合查询系统'
+                return '水利信息综合查询'
             }
         }
     },

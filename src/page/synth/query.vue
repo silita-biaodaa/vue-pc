@@ -204,7 +204,7 @@
 		},
 		methods: {
 			gainFilter() {
-				let data = JSON.parse(sessionStorage.getItem('filter'));
+				let data = JSON.parse(localStorage.getItem('filter'));
 				this.companyQuals = data.comQua;
 			},
 			screenzzFn(val){//接受资质变化抛出的值

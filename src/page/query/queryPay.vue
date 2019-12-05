@@ -156,7 +156,9 @@ export default {
                 url:'/wxPay/queryOrderStatus',
                 data:{
                     orderNo:this.orderNo,
-                    type:'report'
+                    type:'report',
+                    pkid:that.$route.query.id*1,
+                    zhuanchaType:'zhuancha'
                 }
             }).then(res =>{
                 let state=res.data.trade_state;
