@@ -5,7 +5,7 @@
         <!-- 头 -->
 		<v-head :headTxt="title"></v-head>
         <div class="nav-menu">首页 > {{title}}</div>
-        <v-query :pkid="$route.query.id"></v-query>
+        <v-query></v-query>
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>

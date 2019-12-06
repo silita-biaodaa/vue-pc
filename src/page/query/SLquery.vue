@@ -458,7 +458,11 @@ export default {
                     id:id,
                     type:'sl',
                 }
-                this.openNewLink('/queryPay',query)
+                // this.openNewLink('/queryPay',query)
+                this.$router.push({
+                    path:'/queryPay',
+                    query:query
+                })
             }else{
                 this.$alert('请至少筛选人员，资质，业绩,信用等级中的一项')
             }

@@ -8,7 +8,7 @@
                 <h2>{{title}}信息专查</h2>
                 <div class="total-box">共为您找到符合要求企业{{total}}家</div>
             </div>
-            <v-query :pkid="$route.query.id"></v-query>
+            <v-query></v-query>
             <div class="price-box">
                 <p>本次为付费查询，限时折扣价<span class="color-font">￥{{comPrice}}</span>，会员享受专享价：<span class="color-font">¥{{vipPrice}}</span></p>
                 <button class="openVip" v-if="!isVip" @click="jumpVip">开通会员</button>

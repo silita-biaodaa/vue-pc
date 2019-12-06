@@ -562,7 +562,11 @@ export default {
                         id:id,
                         type:'zj',
                     }
-                this.openNewLink('/queryPay',query)
+                // this.openNewLink('/queryPay',query)
+                this.$router.push({
+                    path:'/queryPay',
+                    query:query
+                })
             }else{
                 this.$alert('请至少筛选人员，资质，业绩中的一项')
             }

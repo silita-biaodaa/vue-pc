@@ -178,10 +178,10 @@ export default {
     },
     props: {
         // 集成父级参数
-        pkid:{
-            default:'',
-            type:String
-        }
+        // pkid:{
+        //     default:'',
+        //     type:String
+        // }
     },
     components:{
         'v-zjyj':zjyj,
@@ -194,23 +194,23 @@ export default {
             method:'post',
             url:'/gonglu/get/conditions',
             data:{
-                pkid:this.pkid
+                pkid:this.$route.query.id
             }
         }).then(res =>{
             this.data=res.data.data.condition
             this.$parent.total=res.data.data.condition.totals
-            let data=this.data;
-            if(data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
-                data.project.proUse||data.project.proState||
-                data.project.proBuild||data.project.childProject||
-                data.project.proType||data.project.proWhere||
-                (data.project.amountStart||data.project.amountEnd)||
-                (data.project.completeStart||data.project.completeEnd)||
-                (data.project.contractStart||data.project.contractEnd)||
-                (data.project.areaStart||data.project.areaEnd))
-                ){
-                    // console.log(1)
-            }
+            // let data=this.data;
+            // if(data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
+            //     data.project.proUse||data.project.proState||
+            //     data.project.proBuild||data.project.childProject||
+            //     data.project.proType||data.project.proWhere||
+            //     (data.project.amountStart||data.project.amountEnd)||
+            //     (data.project.completeStart||data.project.completeEnd)||
+            //     (data.project.contractStart||data.project.contractEnd)||
+            //     (data.project.areaStart||data.project.areaEnd))
+            //     ){
+            //         // console.log(1)
+            // }
             // totals
         })
     },
