@@ -178,6 +178,7 @@ figcaption:focus {
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-size: 16px;
 }
 .cc-btn {
   height: 80px;
@@ -369,4 +370,14 @@ figcaption:focus {
   width: 5px;
   height: 5px;
   background-color: red;
+}
+
+
+
+
+.n-text>div{
+  height: auto !important;
+}
+.n-text>form>div{
+  height: auto !important;
 }

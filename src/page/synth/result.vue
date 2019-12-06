@@ -90,7 +90,7 @@
 					<!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
 				</div>
 				<div class="puy-hint">
-					<img src="../../assets/img/icon-weixin.png .png" alt="">&nbsp&nbsp微信扫码支付
+					<img src="../../assets/img/icon-weixin.png" alt="">&nbsp&nbsp微信扫码支付
 				</div>
 			</div>
 		</div>
@@ -240,7 +240,7 @@
 				this.isload = true
 				let ip = sessionStorage.getItem('ip')
 				let uip = localStorage.getItem('uip')
-				if (localStorage.getItem('permissions')) {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					this.price = this.vip.price
 					this.code = this.vip.stdCode
 				} else {
@@ -334,7 +334,7 @@
 				this.noShow = false
 			},
 			openV() {
-				if (localStorage.getItem('permissions')) {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='true') {
 					this.toVip = false
 				} else {
 					this.toVip = true

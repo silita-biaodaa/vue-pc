@@ -48,10 +48,10 @@ import fcoll from '@/components/collect'
  
 import about from '@/page/About'    // 关于我们
 
-import synth from '@/page/synth/synth'    // 综合查询
-import result from '@/page/synth/result'    // 综合查询
-import query from '@/page/synth/query' 
-import hist from '@/page/synth/history' 
+// import synth from '@/page/synth/synth'    // 综合查询
+// import result from '@/page/synth/result'    // 综合查询
+// import query from '@/page/synth/query' 
+// import hist from '@/page/synth/history' 
 
 import perfor from '@/page/perfor/perfor' 
 import perlist from '@/page/perfor/perlist'
@@ -77,7 +77,7 @@ import dys from '@/page/people/dys'
 import modify from '@/page/people/modify' 
 import escort from '@/page/people/escort' 
 
-import lawList from '@/page/law'//法务列表
+// import lawList from '@/page/law'//法务列表
 import lawDetail from '@/page/lawDetail'//法务详情
 
 import annualDetail from '@/components/business/annualDetail'
@@ -92,9 +92,18 @@ import novice2 from '@/page/novice/2' //新手指引2
 import novice3 from '@/page/novice/3' //新手指引2
 import novice4 from '@/page/novice/4' //新手指引2
 import novice5 from '@/page/novice/5' //新手指引2
+//专查
+import ZJquery from '@/page/query/ZJquery'
+import GLquery from '@/page/query/GLquery'
+import SLquery from '@/page/query/SLquery'
+import queryList from '@/page/query/queryList'
+import queryDetail from '@/page/query/queryDetail'
+import queryPay from '@/page/query/queryPay'
+//404
+import error from'@/page/404'
 // escort
 //活动
-import hdDetail from'@/page/hdDetail'
+// import hdDetail from'@/page/hdDetail'
 
 
 
@@ -140,14 +149,14 @@ export default new Router({
         tabNo: 2
       }
     },
-    {
-      path: '/law',  // 法务
-      name: 'law',
-      component: lawList,
-      meta: {
-        tabNo: 7
-      }
-    },
+    // {
+    //   path: '/law',  // 法务
+    //   name: 'law',
+    //   component: lawList,
+    //   meta: {
+    //     tabNo: 7
+    //   }
+    // },
     {
       path: '/article',  // 招标详情
       name: 'article',
@@ -382,39 +391,39 @@ export default new Router({
           }
         ] 
       },
-      {   // 综合查询页面
-        path: '/synth',
-        name: 'synth',
-        component: synth,
-        redirect: '/synth/query',
-        children: [
-          {
-            path: 'query',  // 综合查询页面
-            name: 'query',
-            component: query,
-            meta: {
-              tabNo: 3
-            }
-          },
-          {
-            path: 'hist',  // 历史订单
-            name: 'hist',
-            component: hist,
-            meta: {
-              tabNo: 3
-            }
-          }
-        ], 
+      // {   // 综合查询页面
+      //   path: '/synth',
+      //   name: 'synth',
+      //   component: synth,
+      //   redirect: '/synth/query',
+      //   children: [
+      //     {
+      //       path: 'query',  // 综合查询页面
+      //       name: 'query',
+      //       component: query,
+      //       meta: {
+      //         tabNo: 3
+      //       }
+      //     },
+      //     {
+      //       path: 'hist',  // 历史订单
+      //       name: 'hist',
+      //       component: hist,
+      //       meta: {
+      //         tabNo: 3
+      //       }
+      //     }
+      //   ], 
       
-      },
-      {   // 综合查询结果页面
-        path: '/result',
-        name: 'result',
-        component: result,
-        meta: {
-          tabNo: 3
-        }
-      },
+      // },
+      // {   // 综合查询结果页面
+      //   path: '/result',
+      //   name: 'result',
+      //   component: result,
+      //   meta: {
+      //     tabNo: 3
+      //   }
+      // },
     {  //  会员购买页面
       path: '/buy',
       name: 'buy',
@@ -640,12 +649,41 @@ export default new Router({
           }
         }
       ]
+    },{//住建专查
+      path:'/ZJquery',
+      name:'ZJquery',
+      component:ZJquery
+    },{//公路专查
+      path:'/GLquery',
+      name:'GLquery',
+      component:GLquery
+    },{//水利专查
+      path:'/SLquery',
+      name:'SLquery',
+      component:SLquery
+    },{//查询列表
+      path:'/queryList',
+      name:'queryList',
+      component:queryList
+    },{//查询详情
+      path:'/queryDetail',
+      name:'queryDetail',
+      component:queryDetail
+    },{//专查支付
+      path:'/queryPay',
+      name:'queryPay',
+      component:queryPay
     },
-    {//活动详情
-      path:'/hdDetail',
-      name:'hdDetail',
-      component:hdDetail
+    {//404
+      path:'*',
+      name:'error',
+      component:error
     },
+    // {//活动详情
+    //   path:'/hdDetail',
+    //   name:'hdDetail',
+    //   component:hdDetail
+    // },
     
   ],
   scrollBehavior (to, from, savedPosition) {

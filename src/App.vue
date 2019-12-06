@@ -1,7 +1,7 @@
 <template>
 	<div id="app" ref="top">
 		<!-- 头部 -->
-		<div class="fixation" v-show="excom">
+		<div class="fixation" v-if="excom">
 			<div class="app-header">
 				<div class="contact">
 					<div class="contact-l">
@@ -9,26 +9,26 @@
 							您好,欢迎来到标大大!
 						</p>
 						<p class="left">
-							<i class="iconfont icon-dianhua1 left calling"></i>
+							<i class="iconfont icondianhua"></i>
 							0731-85076077
 						</p>
 						<router-link :to="{path:'/download'}" tag="a" target='_blank' class="left">
-							<i class="iconfont icon-shouji left l-mobile"></i>
+							<i class="iconfont iconAPPxiazai"></i>
 							下载APP
 						</router-link>
 						<p class="left" style="cursor: pointer;" @click="tovip">
-							<i class="iconfont icon-VIP1 left person"></i>
+							<i class="iconfont iconhuiyuan"></i>
 							会员服务
 						</p>
-						<p class="left" style="cursor: pointer;verticalAlign:middle" @click="toinfo">
-							<i class="iconfont icon-youxiang left person we-us">
+						<p class="left" style="cursor: pointer;" @click="toinfo">
+							<i class="iconfont iconxiaoxi">
 								<div class="us-red" v-show="ishow"></div>
 							</i>
 							<span>我的消息</span>
 						</p>
 						<router-link :to="{path:'/about'}" tag="a" target='_blank' class="left">
 							<p class="left" style="cursor: pointer;">
-								<i class="iconfont icon-lianxiren left person"></i>
+								<i class="iconfont iconguanyuwomen"></i>
 								关于我们
 							</p>
 						</router-link>
@@ -46,7 +46,7 @@
 						</p>
 						<user-center v-else></user-center>
 						<div class="area">
-							<i class="iconfont icon-dizhi"></i>
+							<i class="iconfont iconweizhi"></i>
 							<span @click="selfa">{{source.source}}</span>
 							<div class="se-area" v-show="isarea">
 								<div class="a-line" v-for="(el,i) in allcity" :key="i">
@@ -69,7 +69,8 @@
 				<ul>
 					<router-link v-for="(el, i) in navlist" :key="i" :class="i==tabNo?'current':''" :to="{path: el.to}" tag="li">
 						<div>
-							<img :src="el.url">
+							<!-- <img :src="el.url"> -->
+							<i class="iconfont" :class="el.iconName"></i>
 							<span class="left">{{el.name}}</span>
 						</div>
 					</router-link>
@@ -82,7 +83,7 @@
 			<router-view :state='source' v-if="isRouter" />
 		</div>
 		<!-- 底部 -->
-		<div class="footer footer-b " v-show="exploit">
+		<div class="footer footer-b " v-if="exploit">
 			<div class="f-content">
 				<div class="f-detail left">
 					<div class="f-we">
@@ -126,10 +127,11 @@
 		</div>
 
 		<!--右侧悬浮-->
-		<div class="fix-right">
+		<div class="fix-right" v-if="$route.name!='error'">
 			<div class="block qrbox">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app1.png"/>
+					<p>App下载</p>
 				</div>
 				<div class="hover-after">App下载</div>
 				<div class="qrcode-box">
@@ -139,6 +141,7 @@
 			<div class="block qrbox">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app2.png"/>
+					<p>官方微信</p>
 				</div>
 				<div class="hover-after">官方微信</div>
 				<div class="qrcode-box">
@@ -148,18 +151,21 @@
 			<div class="block" @click="jump('/feedback')">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app3.png"/>
+					<p>意见反馈</p>
 				</div>
 				<div class="hover-after">意见反馈</div>
 			</div>
 			<div class="block" @click="jump('/novice')">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app4.png"/>
+					<p>新手指引</p>
 				</div>
 				<div class="hover-after">新手指引</div>
 			</div>
 			<div class="block" @click="goTop">
 				<div class="hover-before">
 					<img src="./assets/img/icon-app5.png"/>
+					<p>回到顶部</p>
 				</div>
 				<div class="hover-after">回到顶部</div>
 			</div>
@@ -186,44 +192,44 @@
 				names: true,
 				navlist: [{
 						name: '首页',
-						url: require('./assets/img/icon-shouy.png'),
+						iconName: 'iconshouye',
 						to: '/'
 					},
 					{
 						name: '招标',
-						url: require('./assets/img/icon-zhaob.png'),
+						iconName:'iconzhaobiao',
 						to: '/bid',
 					},
 					{
 						name: '中标',
-						url: require('./assets/img/icon-zhongb.png'),
+						iconName:'iconzhongbiao',
 						to: '/tender',
 					},
 					{
 						name: '企业',
-						url: require('./assets/img/icon-qiy.png'),
+						iconName:'iconqiye',
 						to: '/company',
 					},
 					{
 						name: '业绩',
-						url: require('./assets/img/icon-yeji.png'),
+						iconName:'iconyeji',
 						to: '/perfor',
 					},
 					{
 						name: '人员',
-						url: require('./assets/img/icon-reny.png'),
+						iconName:'iconrenyuan',
 						to: '/crew',
 					},
 					{
 						name: '在建',
-						url: require('./assets/img/icon-zaij.png'),
+						iconName:'iconzaijian',
 						to: '/build',
 					},
-					{
-						name: '法务',
-						url: require('./assets/img/icon-fawu.png'),
-						to: '/law',
-					}
+					// {
+					// 	name: '法务',
+					// 	url: require('./assets/img/icon-fawu.png'),
+					// 	to: '/law',
+					// }
 				],
 				rank: 0,
 				way: '/bid',
@@ -381,7 +387,7 @@
 							res.data.region = '西藏自治区'
 						}
 						sessionStorage.setItem('address', res.data.region);
-						let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+						let arr = JSON.parse(localStorage.getItem('filter')).area;
 						let that = this;
 						for (let x of arr) {
 							if (x.name.indexOf(res.data.region) > -1) {
@@ -398,9 +404,10 @@
 			valley() {
 				if (localStorage.getItem('Xtoken')) {
 					let today = new Date().getTime() - localStorage.getItem('valid')
-					if (Math.ceil(today / 3600 / 24 / 1000) >= 15) {
-						alert('用户信息已失效，请重新登录')
+					if (Math.ceil(today / 3600 / 24 / 1000) > 15) {
+						this.$alert('用户信息已失效，请重新登录')
 						this.$router.push('/logo')
+						localStorage.removeItem('valid')
 					} else {
 						getUserTemp({}).then(res => {
 							if (res.code == 1) {
@@ -409,7 +416,7 @@
 								localStorage.setItem('Bname', name)
 								localStorage.setItem('isFirst', res.data.isFirst)
 								sessionStorage.setItem('ip', res.data.pkid)
-								localStorage.setItem('permissions', res.data.permissions)
+								localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee', res.data.isVip)
 								localStorage.setItem('phoneNo', res.data.phoneNo)
 							}
 							//  else {
@@ -425,7 +432,7 @@
 				this.isarea = !this.isarea
 			},
 			selarea(el) {
-				let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+				let arr = JSON.parse(localStorage.getItem('filter')).area;
 				let that = this;
 				for (let x of arr) {
 					if (x.name.indexOf(el.name) > -1) {
@@ -468,7 +475,7 @@
 				localStorage.removeItem('Bname')
 				localStorage.removeItem('Xtoken')
 				localStorage.removeItem('valid')
-				localStorage.removeItem('permissions')
+				localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
 				this.$router.replace({
 					path: '/home',
 					query: {
@@ -561,7 +568,7 @@
 			if (!sessionStorage.getItem('address')) {
 				this.gainaddress()
 			} else {
-				let arr = JSON.parse(sessionStorage.getItem('filter')).area;
+				let arr = JSON.parse(localStorage.getItem('filter')).area;
 				let str = sessionStorage.getItem('address');
 				let that = this;
 				for (let x of arr) {
@@ -589,8 +596,10 @@
 				deep: true
 			}
 		},
-		destroyed() {
-			// localStorage.removeItem('permissions')
+		beforeDestroy() {
+			if(!localStorage.getItem('valid')){
+				localStorage.removeItem('Xtoken')
+			}
 		},
 		computed: {
 			tabNo() {
@@ -599,7 +608,7 @@
 			},
 			// 底部是否消失
 			exploit() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll') {
+				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' ||this.$route.name=='error') {
 					return false
 				} else {
 					return true
@@ -611,7 +620,9 @@
 					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
-					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'
+					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
+					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'||this.$route.name=='GLquery'
+					||this.$route.name=='SLquery'||this.$route.name=='queryPay'
 				) {
 					return false
 				} else {
@@ -631,9 +642,9 @@
 </script>
 
 <style lang="less">
-	@import './style/common';
 	@import './assets/iconfont.css';
 	@import './base/base.css';
+	@import './style/common.css';
 	body{
 		width: 100% !important;
 	}
@@ -687,28 +698,14 @@
 				.contact-l {
 					width: calc(100% - 300px);
 
-					a,
-					p {
+					a,p {
 						margin-right: 25px;
 						color: #666;
 						line-height: 20px;
-
+						display: flex;
+						align-items: center;
 						i {
 							margin-right: 6px;
-						}
-
-						.l-mobile {
-							font-size: 16px;
-						}
-
-						.calling {
-							font-size: 16px;
-						}
-
-						.person {
-							font-size: 15px;
-							font-weight: 600;
-							cursor: pointer;
 						}
 					}
 				}
@@ -740,9 +737,7 @@
 						cursor: pointer;
 
 						i {
-							font-size: 16px;
-							font-weight: 600;
-							padding-top: 4px;
+							margin-right: 10px;
 						}
 
 						.se-area {
@@ -796,7 +791,7 @@
 
 				li {
 					box-sizing: border-box;
-					width: 12%;
+					width: 14%;
 					height: 50px;
 					line-height: 50px;
 					float: left;
@@ -814,11 +809,10 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-
-						img {
+						.iconfont{
 							margin-right: 10px;
+							font-size: 18px;
 						}
-
 						span {
 							font-size: 18px;
 						}
@@ -977,7 +971,7 @@
 	/*右侧悬浮*/
 	.fix-right{
 		position: fixed;
-		width: 60px;
+		width: 80px;
 		// overflow: hidden;
 		right: 15px;
 		transform: translateY(-50%);
@@ -987,16 +981,27 @@
 		.block{
 			position: relative;
 			background: #fff;
-			padding: 0 4px;
+			padding: 8px 4px 3px;
+			text-align: center;
 			.hover-before{
 				cursor: pointer;
 				border-bottom: 1px solid #F2F2F2;
 				height: 60px;
-				display: flex;
-				align-items: center;
-    			justify-content: center;
+				// display: flex;
+				padding-bottom: 8px;
+				// align-items: center;
+				// justify-content: center;
+				img{
+					width: 36%;
+				}
+				p{
+					font-size: 12px;
+					color: #333;
+					margin-top: 5px
+				}
 			}
 			.hover-after{
+    			align-items: center;
 				cursor: pointer;
 				text-align: center;
 				position: absolute;
@@ -1007,7 +1012,7 @@
 				width: 100%;
 				height: 100%;
 				box-sizing: border-box;
-				padding: 10px;
+				padding: 18px;
 				transition: all 1s;
 				opacity: 1;
 				display: none;
@@ -1023,11 +1028,15 @@
 				z-index: -1;
 				display: none;
 			}
+
+		}
+		.block:last-child .hover-before{
+			border-bottom:none
 		}
 		.block:hover .hover-after{
 			// opacity: 1;
 			// right: 0;
-			display: block;
+			display: flex;
 		}
 		.qrbox:hover .qrcode-box{
 			// opacity: 1;

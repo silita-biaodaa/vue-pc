@@ -49,3 +49,11 @@
     display: flex;
     justify-content: center;
 }
+
+body .el-radio__input.is-checked .el-radio__inner{
+    border-color: #FE6603;
+    background: #FE6603;
+}
+body .el-radio__input.is-checked+.el-radio__label{
+    color: #FE6603
+}

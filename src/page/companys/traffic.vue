@@ -79,7 +79,7 @@
 				this.funcom.toList(180)
 			},
 			decide(el) {
-				if (localStorage.getItem('permissions') == '') {
+				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 					this.svip = true
 					this.modalHelper.afterOpen();
 				} else {

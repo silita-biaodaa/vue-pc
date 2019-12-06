@@ -1,7 +1,7 @@
 <template>
     <div class="screenZZ">
         <div class="search-b">
-            <span class="font16">资质要求:&nbsp&nbsp</span>
+            <span class="font16">资质要求：</span>
             <el-input
                 placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
@@ -26,12 +26,12 @@
             <span class='del-btn' @click='delFn(i)' v-if="i!=0">删除</span>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box" v-if="lengthList.length<3||query">
+        <div class="spacing-box">
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
             </div>
         </div>
-        <div class="spacing-box red" v-else>资质最多只可添加3条</div>
+        <!-- <div class="spacing-box red" v-else>资质最多只可添加3条</div> -->
         <!-- 资质关系 -->
         <div class="rela" v-if="!bid&&lengthList.length>1">
             <el-row>
@@ -53,12 +53,12 @@ export default {
             svip: false,
             rela: [
                 {
-                    name: '和',
-                    key: 'and'
+                    name: '满足任意一个',
+                    key: 'or'
                 },
                 {
-                    name: '或',
-                    key: 'or'
+                    name: '满足所有',
+                    key: 'and'
                 }
             ],
             rangeType:'or',
@@ -103,11 +103,16 @@ export default {
     },
     watch:{
         seachTxt(val,oldVal){
-            this.length0=false
             if(val==''){
                 this.isshow=false
                 return 
             }
+            if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
+                this.svip = true
+                this.modalHelper.afterOpen();
+                return false
+            }
+            this.length0=false
             this.isshow=true
             this.seachFn(val);
         }
@@ -136,7 +141,7 @@ export default {
         listIsIn(){//是否add
             for(let x of this.lengthList){
                 if(!x.three.code||x.three.code==''){//第三级没填，就重复覆盖
-                    if((x.two.code&&x.two.code!='')&&x.three.list.length!=0){//
+                    if((x.two.code&&x.two.code!='')&&x.three.list&&x.three.list.length!=0){//
                         return x
                     }else if(!x.two.code||x.one.code==''){
                         return x
@@ -159,7 +164,11 @@ export default {
                         x.two.list=y.data//取第二层
                         for(let z of y.data){//循环第二层
                             if(arr[1]==z.code){
-                                x.three.list=z.data;//取第三层
+                                if(z.data){
+                                    x.three.list=z.data;//取第三层
+                                }else{
+                                    x.three.list=[]
+                                }
                                 break
                             }
                         }
@@ -170,14 +179,14 @@ export default {
                 x.two.code=arr[1];
                 x.str=arr[1];
             }else{
-                if(this.lengthList.length==3&&!this.query){
-                    this.$confirm('最多只可添加三条资质', '提示', {
-                        type: 'warning',
-                        showCancelButton: false,
-                        showConfirmButton: false
-                    })
-                    return
-                }
+                // if(this.lengthList.length==3&&!this.query){
+                //     this.$confirm('最多只可添加三条资质', '提示', {
+                //         type: 'warning',
+                //         showCancelButton: false,
+                //         showConfirmButton: false
+                //     })
+                //     return
+                // }
                 let data={
                     one:{
                         list:this.qualList,//用作显示
@@ -217,7 +226,7 @@ export default {
         },
         judvip() {
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (localStorage.getItem('permissions') == '') {
+                if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                 }
@@ -256,7 +265,12 @@ export default {
             o.three.list=[];
             for(let x of o.two.list){
                 if(x.code==o.two.code){
-                    o.three.list=x.data
+                    if(x.data){
+                        o.three.list=x.data
+                    }else{
+                        o.three.list=[]
+                    }
+                    
                 }
             }
             o.str=o.two.code;//将code扔到大list上
@@ -317,7 +331,7 @@ export default {
         },
         addFn(){//增加条件
             if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-                if (!localStorage.getItem('permissions')||localStorage.getItem('permissions') == '') {
+                if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false'&&!this.query) {
                     this.svip = true
                     this.modalHelper.afterOpen();
                     return false
@@ -336,18 +350,22 @@ export default {
             }
             // 会员拦截 end
             for(let x of this.lengthList){
-                if(!x.three.code||x.two.code==''){
-                    return this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
+                if(x.two.code===''){
+                    this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
                         type: 'warning',
                         showCancelButton: false,
                         showConfirmButton: false
                     })
-                }else if(x.three.list.length!=0&&(!x.three.code||x.three.code=='')){
-                    return this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
-                        type: 'warning',
-                        showCancelButton: false,
-                        showConfirmButton: false
-                    })
+                    return false
+                }else{
+                    if(x.three.list.length!=0&&x.three.code==''){
+                        this.$confirm('请将上一级资质填充满,再添加下一级资质！', '提示', {
+                            type: 'warning',
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        })
+                        return false
+                    }
                 }
             }
             //不可重复 end
@@ -465,14 +483,14 @@ export default {
         width: 225px;
     }
     .padding-l{
-        padding-left: 82px;
+        padding-left: 84px;
         .del-btn{
             color: #FE6603;
             cursor: pointer;
         }
     }
     .spacing-box{
-        padding-left: 82px;
+        padding-left: 84px;
         margin-top: 20px;
         margin-bottom: 20px;
         .btn{
@@ -492,12 +510,12 @@ export default {
         font-size: 14px;
     }
     .rela-item{
-        width: 60px;
+        padding: 0 9px;
         height: 25px;
         line-height: 25px;
-        background-color: #DDDDDD;
+        // background-color: #DDDDDD;
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 30px;
         cursor: pointer;
         display: inline-block;

@@ -12,7 +12,7 @@
 					</div>
 				</div>
 				<div class="comment-about" v-show="!about">
-					<img src="../../assets/img/icon-dui.png @2x.png" alt="">
+					<img src="../../assets/img/icon-dui.png" alt="">
 					<div>
 						与我相关
 					</div>

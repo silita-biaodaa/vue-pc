@@ -51,7 +51,7 @@
 			}
 		},
 		created() {
-			let data = JSON.parse(sessionStorage.getItem('filter'));
+			let data = JSON.parse(localStorage.getItem('filter'));
 			this.area = (this.state == '' ? '全部' : this.state);
 			if (this.$route.fullPath == '/crew') {
 				this.area = (this.state.source == '' ? '全部' : this.state.source);

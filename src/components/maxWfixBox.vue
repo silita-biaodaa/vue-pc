@@ -5,7 +5,7 @@
             <slot name="left" style="width:750px"></slot>
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
-                <div class="fix-box positionBox">
+                <div class="fix-box positionBox" v-if="list.length>0">
                     <h5>相关公告({{list.length}})</h5>
                     <ul>
                         <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">
@@ -14,33 +14,38 @@
                     </ul>
                 </div>
             </template>
-        </div>
-        <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
             <!-- 平台公示 -->
             <template v-if="type=='publicity'">
-                <h5 class="tit">
-                    <span>行业资讯</span>
-                    <span class="more" @click="jumpZx">更多>></span>
-                </h5>
-                <ul class="second">
-                    <li v-for="(o,i) of list" :key="i" @click="publicityTap(o)">
-                        <p>{{o.title}}</p>
-                    </li>
-                </ul>
+                <div class="fix-box positionBox" v-if="list.length>0" style="top:40px">
+                    <h5 class="tit">
+                        <span>行业资讯</span>
+                        <span class="more" @click="jumpZx">更多>></span>
+                    </h5>
+                    <ul class="second">
+                        <li v-for="(o,i) of list" :key="i" @click="publicityTap(o)">
+                            <p>{{o.title}}</p>
+                        </li>
+                    </ul>
+                </div>
             </template>
             <!-- 行业资讯 -->
             <template v-else-if="type=='information'">
-                <h5 class="tit">
-                    <span>平台公示</span>
-                    <span class="more" @click="jumpGs">更多>></span>
-                </h5>
-                <ul class="second">
-                    <li v-for="(o,i) of list" :key="i" @click="informationTap(o)">
-                        <p>{{o.title}}</p>
-                    </li>
-                </ul>
+                <div class="fix-box positionBox" v-if="list.length>0" style="top:40px">
+                    <h5 class="tit">
+                        <span>平台公示</span>
+                        <span class="more" @click="jumpGs">更多>></span>
+                    </h5>
+                    <ul class="second">
+                        <li v-for="(o,i) of list" :key="i" @click="informationTap(o)">
+                            <p>{{o.title}}</p>
+                        </li>
+                    </ul>
+                </div>
             </template>
         </div>
+        <!-- <div class="fix-box" :style="{'top':(type=='notice'?'125px':'80px')}" v-if="list.length>0">
+            
+        </div> -->
     </div>
 </template>
 <script>
@@ -151,7 +156,7 @@ export default {
             window.open(href, '_blank')
         },
         publicityTap(o){
-            const {href}=this.$router.push({
+            const {href}=this.$router.resolve({
                 path:'/detail',
                 query:{
                     id:o.id
@@ -159,12 +164,13 @@ export default {
             })
             window.open(href, '_blank', )
         },
-        informationTap(){
-            const {href}=this.$router.push({
+        informationTap(o){
+            const {href}=this.$router.resolve({
                 path:'/detail',
                 query:{
-                    time:o.releaseTime,
-                    type:o.type
+                    id:o.pkid,
+                    type:o.type,
+                    types:'ptgs'
                 }
             })
             window.open(href, '_blank', )
@@ -266,7 +272,7 @@ export default {
     .second{
         li{
             min-height: 48px;
-            padding: 0 16px 0 36px;
+            padding: 5px 16px 5px 36px;
             position: relative;
         }
         li:before{

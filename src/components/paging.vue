@@ -224,7 +224,8 @@
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style lang="less" scoped>
 	.paging {
-
+		text-align: center;
+		margin:40px 0;
 		// margin-top:40px;
 		ul {
 			li {

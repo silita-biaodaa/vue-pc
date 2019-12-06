@@ -182,6 +182,22 @@ Vue.prototype.openNewLink = function(path,query=null){
   })
   window.open(href, '_blank', )
 }
+/*对象中如果有值为空则删除该属性*/
+Vue.prototype.filterParams=function(obj){
+  let _newPar = {};
+  for (let key in obj) {
+      //如果对象属性的值不为空，就保存该属性（这里我做了限制，如果属性的值为0，保存该属性。如果属性的值全部是空格，属于为空。）
+      if ((obj[key] === 0 || obj[key]) && obj[key].toString().replace(/(^\s*)|(\s*$)/g, '') !== '') {
+          //记录属性
+          _newPar[key] = obj[key];
+      }
+  }
+  //返回对象
+  return _newPar;
+}
+
+
+
 //获取url参数
 const getParam=function(name){  //获取参数
   var url=window.location.search;  //获取问号之后的字0符
@@ -253,7 +269,7 @@ router.beforeEach((to, from, next) => {
               if(resd.data){
                 sessionStorage.setItem('xtoken',resd.data.xtoken);
                 localStorage.setItem('Bname',resd.data.nikeName);
-                localStorage.setItem('permissions',resd.data.permissions);
+                localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee',resd.data.isVip);
                 next({
                   name:'home',
                   params:{
@@ -292,23 +308,47 @@ new Vue({
   components: { App },
   template: '<App/>',
   created(){
-    this.$http({
-      method:'post',
-      url:'/new/common/condition',
-      data:{}
-    }).then(res => {
-      sessionStorage.setItem('filter',JSON.stringify(res.data.data));
-    }).catch(req =>{
-      console.log(req);
-    })
-    if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+    //资质，地区筛选
+    // if(!localStorage.getItem('filter')){
       this.$http({
-        method:'post',
-        url:'/foundation/version',
-        data:{
-          loginChannel:'1003'
-        }
-      }).then();
-    }
+          method:'post',
+          url:'/new/common/condition',
+          data:{}
+      }).then(res => {
+        localStorage.setItem('filter',JSON.stringify(res.data.data));
+      }).catch(req =>{
+          console.log(req);
+      })
+    // }
+    // if(!localStorage.getItem('people')){
+      //人员筛选
+      this.$http({
+          method:'post',
+          url:'/person/cate',
+          data:{}
+      }).then(res =>{
+        localStorage.setItem('people',JSON.stringify(res.data.data));
+      })
+    // }
+    
+    // if(!localStorage.getItem('proType')){
+      //建设状态及项目类型
+      this.$http({
+          method:'post',
+          url:'/screen/proTypeInBuild',
+          data:{}
+      }).then(res =>{
+        localStorage.setItem('proType',JSON.stringify(res.data.data));
+      })
+    // }
+    // if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){
+    //   this.$http({
+    //     method:'post',
+    //     url:'/foundation/version',
+    //     data:{
+    //       loginChannel:'1003'
+    //     }
+    //   }).then();
+    // }
   }
 })

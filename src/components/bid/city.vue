@@ -73,7 +73,7 @@
 			}
 		},
 		created() {
-			let data = JSON.parse(sessionStorage.getItem('filter'));
+			let data = JSON.parse(localStorage.getItem('filter'));
 			for (let x of data.area[13].data) {
 				x.i = false;
 			}

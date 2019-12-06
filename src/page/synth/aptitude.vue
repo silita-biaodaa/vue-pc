@@ -41,7 +41,7 @@
 		},
 		methods: {
 			gainFilter() {
-				let data = JSON.parse(sessionStorage.getItem('filter'));
+				let data = JSON.parse(localStorage.getItem('filter'));
 				this.companyQuals = data.comQua;
 			},
 			Splice() {
