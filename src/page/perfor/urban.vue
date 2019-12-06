@@ -45,7 +45,7 @@
 				</el-row>
 				<el-row>
 					<el-col :span="7">
-						<p>投资总额：<span>{{detail.investAmount + '万'}}</span></p>
+						<p>投资总额：<span>{{detail.investAmount?detail.investAmount + '万':''}}</span></p>
 					</el-col>
 					<el-col :span="7">
 						<p>总面积：<span>{{detail.acreage}}</span></p>
