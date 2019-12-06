@@ -239,7 +239,7 @@ export default {
             }
         },
         forPeopleName(arr){
-            let peopleList=JSON.parse(sessionStorage.getItem('people'));
+            let peopleList=JSON.parse(localStorage.getItem('people'));
             let arr1=arr.split('/');
             let str=''
             for(let x of peopleList){
