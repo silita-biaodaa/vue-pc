@@ -16,7 +16,7 @@ export default {
 	},
     data() {
         return {
-            breadList: [{title:'重庆定制版查询系统'}], //面包屑列表
+            breadList: [{title:'重庆定制版查询系统'}], //面包屑列表,以对象形式添加;
         }
     }
 }
