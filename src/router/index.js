@@ -93,12 +93,14 @@ import novice3 from '@/page/novice/3' //新手指引2
 import novice4 from '@/page/novice/4' //新手指引2
 import novice5 from '@/page/novice/5' //新手指引2
 //专查
-import ZJquery from '@/page/query/ZJquery'
-import GLquery from '@/page/query/GLquery'
-import SLquery from '@/page/query/SLquery'
-import queryList from '@/page/query/queryList'
-import queryDetail from '@/page/query/queryDetail'
-import queryPay from '@/page/query/queryPay'
+import ZJquery from '@/page/query/ZJquery'//住建查询
+import GLquery from '@/page/query/GLquery'//公路查询
+import SLquery from '@/page/query/SLquery'//水利查询
+import queryList from '@/page/query/queryList'//查询结果列表
+import queryDetail from '@/page/query/queryDetail'//查询结果详情
+import queryPay from '@/page/query/queryPay'//查询支付页
+//重庆专查
+import cjDetail from '@/page/customize/detail'//详情页
 //404
 import error from'@/page/404'
 // escort
@@ -673,6 +675,10 @@ export default new Router({
       path:'/queryPay',
       name:'queryPay',
       component:queryPay
+    },{
+      path:'/cjDetail',
+      name:'cjDetail',
+      component:cjDetail
     },
     {//404
       path:'*',
