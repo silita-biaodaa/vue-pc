@@ -104,18 +104,8 @@ import error from'@/page/404'
 // escort
 //活动
 // import hdDetail from'@/page/hdDetail'
-
-
-
-
-
-
-
-
-
-
-
-
+//重庆版综合查询;
+import screenPage from '@/page/customize/screenPage'
 
 Vue.use(Router)
 
@@ -679,11 +669,11 @@ export default new Router({
       name:'error',
       component:error
     },
-    // {//活动详情
-    //   path:'/hdDetail',
-    //   name:'hdDetail',
-    //   component:hdDetail
-    // },
+    {//综合查询
+      path:'/screenPage',
+      name:'screenPage',
+      component:screenPage
+    },
     
   ],
   scrollBehavior (to, from, savedPosition) {

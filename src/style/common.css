@@ -371,10 +371,6 @@ figcaption:focus {
   height: 5px;
   background-color: red;
 }
-
-
-
-
 .n-text>div{
   height: auto !important;
 }
