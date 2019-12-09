@@ -57,3 +57,7 @@ body .el-radio__input.is-checked .el-radio__inner{
 body .el-radio__input.is-checked+.el-radio__label{
     color: #FE6603
 }
+.el-pager li.active,.el-pager li:hover,
+.el-pagination button:hover{
+    color: #EB651B
+}

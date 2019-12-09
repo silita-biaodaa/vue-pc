@@ -7,7 +7,7 @@
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
-                <img src="../../assets/img/company.png"/>
+                <i class="iconfont icongongsi"></i>
                 {{basic.comName}}
                 <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
@@ -15,18 +15,28 @@
                 <div>
                     <p class="bg">统一社会信用代码</p>
                     <p>{{basic.creditCode}}</p>
+                    <template>
+                        <p class="bg">在渝负责人</p>
+                        <p>曹长卿</p>
+                    </template>
                 </div>
                 <div>
                     <p class="bg">企业法定代表人</p>
                     <p>{{basic.legalPerson}}</p>
+                    <p class="bg">企业登记注册类型</p>
+                    <p>{{basic.economicType}}</p>
                 </div>
                 <div>
-                    <p class="bg">电话</p>
-                    <p>{{basic.phone}}</p>
+                    <p class="bg">企业注册属地</p>
+                    <p>{{basic.regisAddress}}</p>
                 </div>
                 <div>
                     <p class="bg">企业经营地址</p>
                     <p>{{basic.comAddress}}</p>
+                </div>
+                <div>
+                    <p class="bg">联系方式</p>
+                    <p>{{basic.phone}}</p>
                 </div>
             </div>
         </div>
@@ -35,8 +45,8 @@
             <div class="tab">
                 <template>
                     <ul>
-                        <span @click="jumpCompanyAll">查看企业完整信息</span>
-                        <li v-for="(o,i) of tabList" :key="i" :class="tabNum==o.name?'current':''" @click="tabFn(o,i)" v-if="o.num>0">{{o.name}}({{o.num}})</li>
+                        <span @click="jumpCompanyAll" class="iconfont iconchakan">查看企业完整信息</span>
+                        <li v-for="(o,i) of tabList" :key="i" :class="tabNum==o.name?'current':''" @click="tabFn(o,i)" v-if="o.num>0">{{o.name}}（{{o.num}}）</li>
                     </ul>
                 </template>
             </div>
@@ -89,7 +99,7 @@
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
                                         <td class="cate">
-                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*30+'px'}">{{x.cateKey}}</p>
+                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}</p>
                                         </td>
                                         <td class="cate-key">
                                             <div v-for="(x,y) of o.categorys" :key="y">
@@ -104,7 +114,15 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
+                            <el-pagination
+                                layout="total, prev, pager, next, jumper"
+                                :current-page="ryData.pageNo"
+                                :hide-on-single-page="true"
+                                :page-size="ryData.pageSize"
+                                :current-change="ryGoto"
+                                :total="ryTotal">
+                            </el-pagination>
+                            <!-- <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page> -->
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="ryList&&ryList.length==0">
@@ -133,9 +151,9 @@
                             <table ref="yj">
                                 <thead>
                                     <td style="width:32px">序号</td>
-                                    <td style="width:calc(100% - 300px)">项目名称</td>
+                                    <td style="width:calc(100% - 440px)">项目名称</td>
                                     <td style="width:92px">业绩类型</td>
-                                    <td style="width:90px">中标金额/合同金额（万元）</td>
+                                    <td style="width:230px">中标金额/合同金额（万元）</td>
                                     <td style="width:82px">竣工时间</td>
                                 </thead>
                                 <tbody>
@@ -148,7 +166,15 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
+                            <el-pagination
+                                layout="total, prev, pager, next, jumper"
+                                :current-page="yjData.pageNo"
+                                :hide-on-single-page="true"
+                                :page-size="yjData.pageSize"
+                                :current-change="yjGoto"
+                                :total="yjTotal">
+                            </el-pagination>
+                            <!-- <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page> -->
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">
@@ -230,7 +256,6 @@
     </div>
 </template>
 <script>
-import paging from '@/components/paging'
 import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
 export default {
@@ -302,20 +327,10 @@ export default {
         // 监控集合
     },
     components:{
-        'v-page':paging,
         'v-head': heads,
         'v-region':joinRegion
     },
     computed:{
-        title(){
-            if(this.$route.query.type=='zj'){
-                return '住建信息综合查询'
-            }else if(this.$route.query.type=='gl'){
-                return '公路信息综合查询'
-            }else if(this.$route.query.type=='sl'){
-                return '水利信息综合查询'
-            }
-        }
     },
     props: {
         // 集成父级参数
@@ -594,6 +609,10 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
+@color:#EB651B;
+@borderColor:#DDDFE4;
+@buleColor:#4494F0;
+@bgColor:#f4f4f4;
 .nav-menu{
     width: 1020px;
     margin: 0 auto;
@@ -605,82 +624,56 @@ export default {
     width: 1020px;
     margin: 0 auto;
 }
-@color:#FE6603;
 .detail{
     background: #fff;
     min-height: calc(100vh - 80px);
     padding-bottom: 80px;
-    h1{
-        text-align: center;
-    }
-    .maxW-box{
-        background: #fff;
-        box-sizing: border-box;
-    }
+    //基本信息
     .basic{
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         .title{
             display: flex;
-            font-size: 18px;
-            color: #333;
+            font-size: 34px;
             font-weight: bold;
-            // align-items: center;
-            margin-bottom: 15px;
-            img{
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-                border-radius: 5px;
+            align-items: center;
+            margin-bottom:20px;
+            .iconfont{
+                margin-right: 20px;
+                font-size: 34px;
             }
-            .joinRegion{
-                margin-left: 10px
-            }
-            // .tag{
-            //     display: inline-block;
-            //     font-size: 12px;
-            //     margin-left: 10px;
-            //     padding: 2px 5px;
-            //     text-align: center;
-            //     background: #E3E6FD;
-            //     color: #3A76F0;
-            //     font-weight: normal;
-            // }
         }
         .basic-box{
-            border: 1px solid rgb(228, 228, 228);
+            border: 1px solid @borderColor;
             border-bottom: none;
             div{
                 display: flex;
-                color: #333;
-                font-size: 14px;
-                border-bottom: 1px solid rgb(228, 228, 228);
+                font-size: 18px;
+                border-bottom: 1px solid @borderColor;
                 p{
-                    line-height: 40px;
+                    line-height: 48px;
                     text-align: center;
-                    min-width:25%;
-                    width: 100%;
-                    padding: 0 30px;
+                    min-width:230px;
+                    padding-left: 20px;
                     box-sizing: border-box;
                     display: flex;
                     align-items: center;
                 }
                 .bg{
-                    background: rgb(242, 242, 242);
+                    background: @bgColor;
                     font-weight: bold;
-                    width: 25%;
+                    width: 220px;
                     justify-content: center;
                 }
             }
         }
     }
-    
+    //list
     .list{
-        padding: 20px;
         .tab{
             margin-bottom: 20px;
             ul{
                 display: flex;
-                font-size: 14px;
+                font-size: 18px;
                 align-items: center;
                 position: relative;
                 .current{
@@ -689,75 +682,97 @@ export default {
                 li{
                     padding: 0 20px;
                     cursor: pointer;
-                    border-right: 1px solid #999;
+                    position: relative;
                 }
-                li:last-child {
-                    border-right: none;
+                li:after{
+                    content: '';
+                    position: absolute;
+                    width: 1px;
+                    height: 12px;
+                    background: @borderColor;
+                    transform: translateY(-50%);
+                    top: 50%;
+                    right: 0;
+                }
+                li:last-child::after{
+                    width: 0;
+                }
+                li:first-child{
+                    padding-left: 0;
                 }
                 span{
-                    font-size: 12px;
+                    font-size: 14px;
                     position: absolute;
                     cursor: pointer;
-                    display: inline-block;
                     right: 0;
-                    padding:8px;
-                    border: 1px solid  @color;
-                    color: @color;
-                    border-radius: 5px;
+                    color: @buleColor;
+                }
+                .iconchakan:before{
+                    margin-right: 10px;
                 }
             }
         }
         .list-box{
             font-size: 14px;
-            border: 1px solid #f2f2f2;
             .condition{
-                padding:10px 5px;
+                height: 48px;
+                padding-left: 30px;
+                display: flex;
+                align-items: center;
+                border: 1px solid @borderColor;
+                box-sizing: border-box;
+                border-bottom: none;
                 span{
                     display: inline-block;
-                    padding:0 10px;
-                    margin-right: 10px;
+                    height: 20px;
+                    margin-right: 40px;
                     cursor: pointer;
                 }
                 .current{
-                    background: @color;
-                    color: #fff;
+                    color:  @color;
+                    font-weight: bold;
                 }
             }
             table{
                 width: 100%;
                 border-collapse: collapse;
-                border-top: 1px solid #f2f2f2;
-                tr{
-                    // border-top: 1px solid #f2f2f2;
+                border-top: 1px solid @borderColor;
+                thead{
+                    background: @bgColor;
+                    font-weight: bold;
                 }
                 td{
                     text-align: center;
-                    line-height: 30px;
-                    border: 1px solid #f2f2f2;
+                    line-height:48px;
+                    border: 1px solid @borderColor;
+                }
+                .curpon{
+                    cursor: pointer;
+                    color:@buleColor
+                }
+                .cate{
+                    div{
+                        border-bottom: 1px solid @borderColor;
+                    }
+                    div:last-child{
+                        border-bottom: none
+                    }
+
+                }
+                .cate-key{
+                    p{
+                        border-bottom: 1px solid @borderColor;
+                    }
+                    p:last-child{
+                        border-bottom: none
+                    }
                 }
             }
         }
     }
 }
-.curpon{
-    cursor: pointer;
-    color: @color
-}
-.cate{
-    p{
-        border-bottom: 1px solid #f2f2f2
-    }
-    p:last-child{
-        border-bottom: none
-    }
-
-}
-.cate-key{
-    div{
-        border-bottom: 1px solid #f2f2f2
-    }
-    div:last-child{
-        border-bottom: none
-    }
+.el-pagination{
+    text-align: center;
+    margin-top: 28px;
 }
 </style>
