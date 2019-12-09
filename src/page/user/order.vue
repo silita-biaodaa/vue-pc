@@ -51,7 +51,7 @@
 				<div class="ta-list" v-if="!el.report">
 					<div class="list-vip">
 						<div class="left" style="width:230px;textAlign:left">
-							<div style="fontSize:16px" class="m-6">会员服务
+							<div style="fontSize:16px;color:#000;" class="m-6">会员服务
 							</div>
 							<div style="fontSize:12px" class="m-6">
 								订单编号:{{el.orderNo}}
@@ -65,7 +65,7 @@
 							{{el.orderStatus | status  }}
 						</div>
 
-						<div class="left" style="width:100px;color:#FF0000">
+						<div class="left" style="width:100px;">
 							{{el.fee/100}}元
 						</div>
 
@@ -86,7 +86,7 @@
 					<div class="ta-list">
 						<div class="list-vip">
 							<div class="left" style="width:230px;textAlign:left">
-								<div style="fontSize:16px" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : '水利') }}系统专查·综合查询
+								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : '水利') }}系统专查·综合查询
 								</div>
 								<div style="fontSize:12px" class="m-6">
 									订单编号:{{el.orderNo}}
@@ -97,7 +97,7 @@
 								{{el.orderStatus | status  }}
 							</div>
 
-							<div class="left" style="width:100px;color:#FF0000">
+							<div class="left" style="width:100px;">
 								{{el.fee/100}}元
 							</div>
 
@@ -113,11 +113,11 @@
 								<template v-if="el.orderStatus=='9'">
 									<template v-if="timeOutFn(el)">
 										<!-- 查看详情 -->
-										<div class="again" @click="jumpQueryList(el)">查看详情</div>
+										<div class="again  again-look" @click="jumpQueryList(el)">查看详情</div>
 									</template>
 									<template v-else>
 										<!-- 再次查询 -->
-										<div class="again" @click="jumpQuery(el)">再次查询</div>
+										<div class="again again-look" @click="jumpQuery(el)">再次查询</div>
 									</template>
 								</template>
 								<!-- 未支付 -->
@@ -135,17 +135,17 @@
 							</div>
 						</div>
 						<div class="ta-report">
-							<div class="left" style="width:190px;textAlign:left">
+							<div class="left" style="width:220px;textAlign:left">
 								<div style="fontSize:12px">
 									报告格式: &nbspEXCEL
 								</div>
 							</div>
-							<div class="left" style="width:180px;" v-show="el.orderStatus != '1'">
+							<div class="left" style="width:100px;color:#039E3B" v-show="el.orderStatus != '1'">
 								{{el.report.reportPath | nopath }}
 							</div>
-							<div class="left" style="width:300px;" v-if="el.report.reportPath">
-								<a :download="el.report.reportPath" :href="el.report.reportPath">下载</a>
+							<div class="left report-down" style="width:300px;" v-if="el.report.reportPath">
 								<span  v-if="timeOutFn(el)" @click="regenerateFn(el)">重新生成</span>
+								<a :download="el.report.reportPath" :href="el.report.reportPath">下载</a>
 							</div>
 						</div>
 					</div>
@@ -798,23 +798,26 @@ import countTime from '@/components/countTime'
 			.ta-top {
 				display: flex;
 				width: 100%;
-				height: 29px;
-				line-height: 29px;
+				height: 48px;
+				line-height: 48px;
 				text-align: center;
-				font-size: 12px;
+				font-size: 14px;
 				box-sizing: border-box;
+				border:1px solid rgba(221,223,228,1);
 				background-color: #F8F8F8;
+				padding-left: 20px;
 			}
 
 			.ta-list {
-				border-bottom: 1px solid #F2F2F2;
-
+				border:1px solid rgba(221,223,228,1);
+				margin-bottom: 20px;
 				.list-vip {
 					height: 93px;
 					display: flex;
 					align-items: center;
 					text-align: center;
-					color: #999;
+					color: #5A5A5A;
+					padding-left: 20px;
 				}
 
 				.m-6 {
@@ -829,10 +832,14 @@ import countTime from '@/components/countTime'
 					border: 1px solid rgba(254, 102, 3, 1);
 					border-radius: 5px;
 					color: #FE6603;
-					font-size: 12px;
+					font-size: 14px;
 					text-align: center;
 					line-height: 23px;
 
+				}
+				.again-look {
+					border:1px solid rgba(221,223,228,1);
+					color:#000;
 				}
 				.surplus-time{//剩余时间
 					font-size: 12px;
@@ -841,36 +848,45 @@ import countTime from '@/components/countTime'
 				}
 				.noBtn {
 					border-color: #999;
-					color: #999;
+					color: #5A5A5A;
 					cursor: default;
 				}
 
 				.ta-report {
 					height: 32px;
 					line-height: 32px;
-					background-color: #FAFDFF;
-					color: #999;
+					background-color: #F0FBFF;
+					color: #5A5A5A;
 					font-size: 12px;
 					text-align: center;
+					padding-left: 20px;
 					a{
-						text-decoration:none;
-						color:#FE6603;
+							text-decoration:underline;
+							color: #4494F0;
 					}
 					.noBtn {
 						span {
-							color: #999;
+							color: #5A5A5A;
 							cursor: default;
 						}
 					}
 
 					span {
-						color: #FE6603;
+						color: #4494F0;
 						margin-left: 40px;
+						text-decoration:underline;
 						cursor: pointer;
 					}
 
 					:first-child {
 						margin-left: 0;
+					}
+					.report-down {
+						display: flex;
+						justify-content: space-between;
+						padding: 0 20px;
+						box-sizing: border-box;
+						
 					}
 				}
 			}

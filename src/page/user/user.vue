@@ -2,7 +2,7 @@
 	<div class="user">
 		<div class="user-nav">
 			<div class="in-nav">
-				<img src="../../assets/img/logo2.png" alt="" @click="jump" style="cursor: pointer;">
+				<img src="../../assets/img/uselogo.png" alt="" @click="jump" style="cursor: pointer;">
 				<el-dropdown>
 					<span class="el-dropdown-link">
 						<span class="user-name">用户中心<i class="user-info" v-show="ishow"></i></span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
@@ -39,19 +39,20 @@
 						</div>
 					</div>
 					<div class="user-day">
-						剩余天数: <span class="p-color">{{day}}</span>天
+						剩余天数: <span class="use-color">{{day}}天</span>
 					</div>
 					<div class="user-btn" @click="jumpapp">{{vipname}}
 					</div>
 				</div>
+				<div class="user-line" > 
+					<div class="division" >
+
+					</div>
+				</div>
 				<div class="user-tab">
 					<div class="tab" v-for="(el,i) in tab" :key="i" :class="el.i ? 'current' : '' " @click='jumpto(el)'>
+						<i class="iconfont" :class="el.icon" ></i>
 						{{el.name}}
-						<div class="nav-rim" v-show="el.i">
-							<div class="triangle">
-
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -72,28 +73,34 @@
 				tab: [{
 						name: '个人信息',
 						to: 'pDet',
-						i: true
+						i: true,
+						icon:'icongerenxinxi'
 					},
 					{
 						name: '我的消息',
 						to: 'info',
-						i: false
+						i: false,
+						icon:'iconwodexiaoxi'
 					},
 					{
 						name: '我的关注',
 						to: 'fcoll',
-						i: false
+						i: false,
+						icon:'iconwodeguanzhu1'
 					}, {
 						name: '修改密码',
 						to: 'root',
-						i: false
+						i: false,
+						icon:'iconxiugaimima1'
 					}, {
 						name: '我的订单',
 						to: 'order',
-						i: false
+						i: false,
+						icon:'iconwodedingdan1'
 					}, {
 						name: '退出登录',
-						i: false
+						i: false,
+						icon:'icontuichudenglu1'
 					}
 				],
 				name: '个人信息',
@@ -258,13 +265,15 @@
 	.user {
 		width: 100%;
 		background-color: #fafafa;
-
+		.el-dropdown-link {
+			color:#fff;
+		}
 		//  padding-top: 100px;
 		.user-nav {
 			width: 100%;
-			height: 60px;
+			height: 58px;
 			margin-bottom: 16px;
-			background-color: #fff;
+			background-color: #EB651B;
 
 			.in-nav {
 				width: 1020px;
@@ -282,33 +291,45 @@
 			display: flex;
 			justify-content: space-between;
 			box-sizing: border-box;
-
+		
 			.text-nav {
 				.user-news {
-					width: 262px;
-					height: 300px;
-					background-color: #fff;
+					width: 280px;
+					height: 366px;
+					background-color: #FFEEE5;
 					display: flex;
 					align-items: center;
 					flex-direction: column;
-					margin-bottom: 16px;
+					// margin-bottom: 16px;
 					padding-top: 21px;
 
 					img {
 						border-radius: 50%;
-						width: 67px;
-						height: 67px;
+						width: 108px;
+						height: 108px;
 					}
 				}
 
 				.user-first {
-					margin-top: 16px;
-					margin-bottom: 14px;
+					margin-top: 30px;
+					margin-bottom: 25px;
+					display: flex;
+					align-items: center;
 				}
 
+				.user-line {
+					background-color: #FFEEE5;
+					padding-bottom: 25px;
+					.division {
+						width:224px;
+						height:1px;
+						background:rgba(221,223,228,1);
+						margin: 0 auto;
+					}
+				}
 				.user-name {
 					max-width: 180px;
-					font-size: 18px;
+					font-size: 14px;
 					font-weight: 500;
 					margin-right: 14px;
 					text-align: center;
@@ -319,66 +340,56 @@
 
 				.user-state {
 					padding: 0 10px;
-					line-height: 20px;
-					background-color: #E4FFF0;
-					font-size: 10px;
-					color: #53E493;
+					line-height: 30px;
+					background-color: #EB651B;
+					font-size: 14px;
+					color: #fff;
+					border-radius:4px;
 				}
 
 				.user-day {
 					width: 100%;
-					font-size: 12px;
-					color: #999;
+					font-size: 14px;
+					color: #5A5A5A;
 					text-align: center;
 					box-sizing: border-box;
 					margin-bottom: 60px;
 				}
-
+				.use-color {
+					color: #46BF72;
+				}
 				.user-btn {
-					width: 106px;
-					height: 37px;
+					width: 148px;
+					height: 48px;
 					border: 1px solid #FE6603;
-					border-radius: 8px;
+					border-radius: 4px;
 					text-align: center;
-					line-height: 37px;
-					font-size: 16px;
+					line-height: 48px;
+					font-size: 18px;
 					color: #FE6603;
-					font-weight: 550;
+					font-weight: 400;
+					background-color: #fff;
 					cursor: pointer;
 				}
 
 				.user-tab {
-					width: 262px;
-					font-size: 14px;
-					margin-bottom: 150px;
-
+					width: 280px;
+					font-size: 18px;
+					padding-bottom: 20px;
+					margin-bottom: 387px;
+				  background-color: #FFEEE5;
 					.tab {
-						width: 262px;
-						height: 50px;
+						width: 280px;
+						height: 55px;
 						line-height: 50px;
 						text-align: center;
-						font-weight: 550;
-						background-color: #fff;
+						font-weight: 500;
+						background-color: #FFEEE5;
 						position: relative;
 						cursor: pointer;
-
-						.nav-rim {
-							position: absolute;
-							width: 10px;
-							height: 54px;
-							right: -10px;
-							top: 0;
-							background-color: #FE6603;
-
-							.triangle {
-								width: 0;
-								height: 0;
-								border-top: 6px solid #FE6603;
-								border-right: 10px solid transparent;
-								position: absolute;
-								right: 0;
-								bottom: -6px;
-							}
+						i {
+							font-size: 22px;
+							margin-right: 20px;
 						}
 					}
 
@@ -403,11 +414,11 @@
 				position: absolute;
 				right: -6px;
 				top: -2px;
-				border: 1px solid red;
+				border: 1px solid #fff;
 				border-radius: 50%;
-				width: 5px;
-				height: 5px;
-				background-color: red;
+				width: 6px;
+				height: 6px;
+				background-color: #FF4343;
 			}
 		}
 	}
