@@ -9,7 +9,7 @@
         <!-- total -->
         <div class="t-tit">
             <div>共搜到<span>{{total}}</span>家企业</div>
-            <!-- <div class="downLoad">下载报告</div> -->
+            <div class="downLoad">请前往<span class="myorder" @click="openNewLink('/user/order')">我的订单</span>下载报告</div>
         </div>
         <!-- 列表 -->
         <div class="list  maxW-box">
@@ -168,13 +168,10 @@ export default {
         color: @color;
     }
     .downLoad{
-        background: @color;
-        width: 120px;
-        line-height: 36px;
-        text-align: center;
-        color: #fff;
-        border-radius: 8px;
-        font-size: 18px;
+        .myorder{
+            cursor: pointer;
+            color: @color;
+        }
     }
 }
 .el-col-22{
