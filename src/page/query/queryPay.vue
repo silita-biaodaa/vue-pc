@@ -20,7 +20,7 @@
                     微信支付
                 </p>
                 <p class="goDetail" v-if="payed" @click="jumpList">支付成功，点击查看详情 ></p>
-                <div class="tip">注：同一用户24小时内查询同一条件无需再次支付,不小心关闭可在我的订单中再次打开查看</div>
+                <div class="tip">注：付款后可在我的订单中查看详情及下载报告,不小心关闭可在我的订单中再次打开查看</div>
             </div>
         </div>
     </div>

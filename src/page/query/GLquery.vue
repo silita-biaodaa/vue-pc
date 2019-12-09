@@ -152,7 +152,7 @@
             </div>
             <div class="rightr">
                 <p class="up">服务电话：0731-85076077</p>
-                <p class="down">vip会员用户详情透视通道</p>
+                <p class="down">付费后可下载数据报告</p>
             </div>
             
         </div>
