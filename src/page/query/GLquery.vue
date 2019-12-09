@@ -503,7 +503,7 @@ export default {
         },
         pjareaTap(el){//评价省份
             if(el.areaShortName=='全国'){
-                this.data.credit.province=null
+                this.data.credit.province=''
             }else{
                 this.data.credit.province=el.code;
             }
