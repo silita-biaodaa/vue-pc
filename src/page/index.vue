@@ -15,17 +15,17 @@
 			<div @click="jumpQuery('ZJquery')">
 				<img src="../assets/img/zj.png"/>
 				<h5>住建信息专查</h5>
-				<p>全国住建企业资质、人员、业绩、信息 综合查询</p>
+				<p>全国住建企业资质、人员、业绩、备案、信息 综合查询</p>
 			</div>
 			<div @click="jumpQuery('GLquery')">
 				<img src="../assets/img/gl.png"/>
 				<h5>公路信息专查</h5>
-				<p>全国公路企业资质、人员、业绩、备案、 信用等级综合查询</p>
+				<p>全国公路企业资质、人员、业绩、信用等级综合查询</p>
 			</div>
 			<div @click="jumpQuery('SLquery')">
 				<img src="../assets/img/sl.png"/>
 				<h5>水利信息专查</h5>
-				<p>全国水利企业资质、人员、业绩、备案、 信用等级综合查询</p>
+				<p>全国水利企业资质、人员、业绩、信用等级综合查询</p>
 			</div>
 		</div>
 		<!-- 广告图 -->
