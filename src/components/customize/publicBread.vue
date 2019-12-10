@@ -8,9 +8,11 @@
 </template>
 <script>
 export default {
-    titleInfo: {
-        type: Array,
-        default: ""
+    props: {
+        breadList: {
+            type: Array,
+            default: ""
+        },
     },
     data() {
         return {
@@ -29,15 +31,18 @@ export default {
 </script>
 <style lang="less">
 @import "../../style/publicCSS";
-.el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
-    color: @textColor !important;
-}
-.el-breadcrumb__item .el-breadcrumb__separator,.el-breadcrumb__inner {
-    color: @textColor !important;
-}
 .el-breadcrumb__item .el-breadcrumb__inner a, .el-breadcrumb__inner.is-link {
     color: @contentColor !important;
     font-weight: 400 !important;
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
+    color: @textColor !important;
+}
+.el-breadcrumb__item .el-breadcrumb__separator {
+    color: @contentColor !important;
+}
+.el-breadcrumb__item:nth-last-child(2) .el-breadcrumb__separator {
+    color: @textColor !important;
 }
 </style>
 <style lang="less" scoped>
