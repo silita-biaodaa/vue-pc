@@ -42,7 +42,7 @@
             </div>
             <div class="list-box">
                 <!-- 资质 -->
-                <template v-if="tabNum=='符合要求资质'">
+                <template v-if="tabNum=='企业资质'">
                     <div class="condition">
                         <span v-for="(o,i) of conditionList" :key="i" :class="conditionName==o.name?'current':''" @click="conditionFn(o,i)">{{o.name}}({{o.num}})</span>
                     </div>
@@ -241,7 +241,7 @@ export default {
             loading:true,
             tabList:[
                 {
-                    name:'符合要求资质',
+                    name:'企业资质',
                     num:0
                 },{
                     name:'符合要求人员',
@@ -254,7 +254,7 @@ export default {
                     num:0
                 }
             ],
-            tabNum:'符合要求资质',
+            tabNum:'企业资质',
             conditionList:[{
                 name:'全部',
                 num:0
@@ -350,7 +350,7 @@ export default {
                 this.tabList[3].num=res.data.data.creditCount;
                 this.xyTotal=res.data.data.creditCount;
                 if(this.tabList[0].num>0){
-                    this.tabNum='符合要求资质'
+                    this.tabNum='企业资质'
                     this.zzAjax(data);
                 }else if(this.tabList[1].num>0){
                     this.tabNum='符合要求人员'
@@ -425,7 +425,7 @@ export default {
         },
         tabFn(o,i){//tab切换
             this.tabNum=o.name;
-            if(o.name=='符合要求资质'){
+            if(o.name=='企业资质'){
                 this.zzAjax(data);
             }else if(o.name=='符合要求人员'){
                 this.ryData.orderNo=this.$route.query.n;
