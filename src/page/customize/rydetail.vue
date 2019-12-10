@@ -7,37 +7,13 @@
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
-                <i class="iconfont icongongsi"></i>
-                {{basic.comName}}
+                <i class="iconfont iconshenfen"></i>
+                曹长卿
                 <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
-            <div class="basic-box">
-                <div>
-                    <p class="bg">统一社会信用代码</p>
-                    <p>{{basic.creditCode}}</p>
-                    <template>
-                        <p class="bg">在渝负责人</p>
-                        <p>曹长卿</p>
-                    </template>
-                </div>
-                <div>
-                    <p class="bg">企业法定代表人</p>
-                    <p>{{basic.legalPerson}}</p>
-                    <p class="bg">企业登记注册类型</p>
-                    <p>{{basic.economicType}}</p>
-                </div>
-                <div>
-                    <p class="bg">企业注册属地</p>
-                    <p>{{basic.regisAddress}}</p>
-                </div>
-                <div>
-                    <p class="bg">企业经营地址</p>
-                    <p>{{basic.comAddress}}</p>
-                </div>
-                <div>
-                    <p class="bg">联系方式</p>
-                    <p>{{basic.phone}}</p>
-                </div>
+            <div class="people-box">
+                <span>身份证号：4301011966*****</span>
+                <span>性别：男</span>
             </div>
         </div>
         <!--列表-->
@@ -561,28 +537,11 @@ export default {
                 font-size: 34px;
             }
         }
-        .basic-box{
-            border: 1px solid @borderColor;
-            border-bottom: none;
-            div{
-                display: flex;
-                font-size: 18px;
-                border-bottom: 1px solid @borderColor;
-                p{
-                    line-height: 48px;
-                    text-align: center;
-                    min-width:230px;
-                    padding-left: 20px;
-                    box-sizing: border-box;
-                    display: flex;
-                    align-items: center;
-                }
-                .bg{
-                    background: @bgColor;
-                    font-weight: bold;
-                    width: 220px;
-                    justify-content: center;
-                }
+        .people-box{
+            font-size: 18px;
+            padding-left: 58px;
+            span:first-child{
+                margin-right: 162px;
             }
         }
     }
