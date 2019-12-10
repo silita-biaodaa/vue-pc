@@ -357,7 +357,7 @@ export default {
     methods: {
         // 方法 集合
         returnInt(i){//匹配小于1的保留一位的正小数
-            let t=/^(0|0\.[1-9]{1,2})$/;
+            let t=/^(0|0\.[1-9]{1,2}|1)$/;
             if(i==0){
                 if(!t.test(this.data.credit.scoreStart*1)){
                     this.data.credit.scoreStart=''
