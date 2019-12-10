@@ -48,7 +48,7 @@
                     </el-row>
                     <!-- 业绩所含子项 -->
                     <el-row>
-                        <el-col :span="1">业绩所含子项:</el-col>
+                        <el-col :span="1">业绩所含子项：</el-col>
                         <div class="condition">
                             <div class='item' v-for="(el,i) in itemList" :key='i' :class="el.istap?'current':''" @click="itemFn(el)">{{el.areaShortName}}</div>
                         </div>
