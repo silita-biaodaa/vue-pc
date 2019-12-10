@@ -100,7 +100,8 @@ import queryList from '@/page/query/queryList'//查询结果列表
 import queryDetail from '@/page/query/queryDetail'//查询结果详情
 import queryPay from '@/page/query/queryPay'//查询支付页
 //重庆专查
-import cjDetail from '@/page/customize/detail'//详情页
+import qyDetail from '@/page/customize/qydetail'//企业详情页
+import ryDetail from '@/page/customize/rydetail'//人员详情页
 //404
 import error from'@/page/404'
 // escort
@@ -665,10 +666,14 @@ export default new Router({
       path:'/queryPay',
       name:'queryPay',
       component:queryPay
-    },{
-      path:'/cjDetail',
-      name:'cjDetail',
-      component:cjDetail
+    },{//重庆专查企业详情
+      path:'/companyDetail',
+      name:'companyDetail',
+      component:qyDetail
+    },{//重庆专查人员详情
+      path:'/peopleDetail',
+      name:'peopleDetail',
+      component:ryDetail
     },
     {//404
       path:'*',

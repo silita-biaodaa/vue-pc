@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="detail">
+    <div class="rydetail">
         <!-- 头 -->
 		<v-head :headTxt="'重庆定制版查询系统'"></v-head>
         <div class="nav-menu">首页 / 重庆定制版查询系统 / 查询结果 / {{basic.comName}}</div>
@@ -195,62 +195,6 @@
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
                     </template>
                 </template>
-                <!-- 信用等级 -->
-                <template v-else>
-                    <!-- 加载中 -->
-                    <template v-if="xyIsajax">
-                        <template v-if="xyList&&xyList.length>0">
-                            <table ref="yj">
-                                <thead>
-                                    <td style="width:32px">序号</td>
-                                    <td>评价类型</td>
-                                    <td>评价年度</td>
-                                    <td>信用等级</td>
-                                    <template v-if="$route.query.type=='sl'">
-                                        <td>颁发日期</td>
-                                        <td>有效期至</td>
-                                    </template>
-                                    <template v-else-if="$route.query.type=='gl'">
-                                        <td>评价省份</td>
-                                    </template>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(o,i) of xyList" :key="i">
-                                        <td>{{(xyData.pageNo-1)*20+i+1}}</td>
-                                        <td>{{o.creditType}}</td>
-                                        <td>{{o.years}}</td>
-                                        <td>{{o.level}}</td>
-                                        <template v-if="$route.query.type=='sl'">
-                                            <td>{{o.issued}}</td>
-                                            <td>{{o.valied}}</td>
-                                        </template>
-                                        <template v-else-if="$route.query.type=='gl'">
-                                            <td>{{o.issueProvince}}</td>
-                                        </template>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <v-page :all='xyTotal' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></v-page>
-                        </template>
-                        <!-- 无数据  -->
-                        <template v-else-if="xyList&&xyList.length==0">
-                            <div class="no-toast">
-                                <img src="../../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有找到符合条件的信用等级</span>
-                            </div>
-                        </template>
-                        <!-- 加载失败 -->
-                        <template v-else-if="!xyList">
-                            <div class="ajax-erroe">
-                                <img src="../../assets/img/pic-zoudiu.png" />
-                                <span @click="recoldFn">刷新</span>
-                            </div>
-                        </template>
-                    </template>
-                    <template v-else>
-                        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-                    </template>
-                </template>
             </div>
         </div>
     </div>
@@ -259,7 +203,7 @@
 import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
 export default {
-    name: 'detail', // 结构名称
+    name: 'rydetail', // 结构名称
     data() {
         return {
             // 数据模型a
@@ -273,9 +217,6 @@ export default {
                     num:0
                 },{
                     name:'符合要求项目',
-                    num:0
-                },{
-                    name:'信用等级',
                     num:0
                 }
             ],
@@ -310,14 +251,14 @@ export default {
             ryTotal:0,
             ryList:[],
             ryIsajax:false,
-            xyData:{
-                pageNo:1,
-                pageSize:20,
-                type:'credit'
-            },
-            xyList:[],
-            xyIsajax:false,
-            xyTotal:0,
+            // xyData:{
+            //     pageNo:1,
+            //     pageSize:20,
+            //     type:'credit'
+            // },
+            // xyList:[],
+            // xyIsajax:false,
+            // xyTotal:0,
             data:{}
 
         }
@@ -362,8 +303,8 @@ export default {
                 this.ryTotal=res.data.data.personCount;
                 this.tabList[2].num=res.data.data.projectCount;
                 this.yjTotal=res.data.data.projectCount;
-                this.tabList[3].num=res.data.data.creditCount;
-                this.xyTotal=res.data.data.creditCount;
+                // this.tabList[3].num=res.data.data.creditCount;
+                // this.xyTotal=res.data.data.creditCount;
                 if(this.tabList[0].num>0){
                     this.tabNum='符合要求资质'
                     this.zzAjax(data);
@@ -378,10 +319,10 @@ export default {
                     this.yjData.comId=this.$route.query.id;
                     this.yjAjax();
                 }else{
-                    this.tabNum='信用等级'
-                    this.xyData.orderNo=this.$route.query.n;
-                    this.xyData.comId=this.$route.query.id;
-                    this.xyAjax();
+                    // this.tabNum='信用等级'
+                    // this.xyData.orderNo=this.$route.query.n;
+                    // this.xyData.comId=this.$route.query.id;
+                    // this.xyAjax();
                 }
             }else{
                 this.$alert(res.data.msg);
@@ -451,9 +392,9 @@ export default {
                 this.yjData.comId=this.$route.query.id;
                 this.yjAjax();
             }else{
-                this.xyData.orderNo=this.$route.query.n;
-                this.xyData.comId=this.$route.query.id;
-                this.xyAjax();
+                // this.xyData.orderNo=this.$route.query.n;
+                // this.xyData.comId=this.$route.query.id;
+                // this.xyAjax();
             }
         },
         /**资质 */
@@ -580,28 +521,6 @@ export default {
             this.openNewLink('/personnel')
         },
         /** 人员  end**/
-        /**信用等级**/ 
-        xyAjax(){
-            let that=this;
-            this.xyIsajax=false;
-            this.xyList=[];
-            this.$http({
-                method:'post',
-                url:"/gonglu/zhauncha/detail/company",
-                data:this.xyData
-            }).then(res => {
-                that.xyIsajax=true
-                that.xyList=res.data.data;
-                console.log(res)
-            }).catch(req =>{
-                that.xyList=null
-                that.xyIsajax=true
-            })
-        },
-        xyGoto(val){
-            this.xyData.pageNo = val.cur
-            this.xyAjax()
-        }
     }
 
 }
@@ -624,7 +543,7 @@ export default {
     width: 1020px;
     margin: 0 auto;
 }
-.detail{
+.rydetail{
     background: #fff;
     min-height: calc(100vh - 80px);
     padding-bottom: 80px;
