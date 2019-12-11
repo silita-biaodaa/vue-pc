@@ -57,39 +57,40 @@
                         <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
                     </div>
                     <!-- 加载中 -->
-                    <template v-if="ryIsajax">
-                        <template v-if="ryList&&ryList.length>0">
-                            <table>
-                                <thead>
-                                    <td>序号</td>
-                                    <td>姓名</td>
-                                    <td>身份证号</td>
-                                    <td>证书数量</td>
-                                    <td>注册类别</td>
-                                    <td>注册专业</td>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(o,i) of ryList" :key="i">
-                                        <td>{{(ryData.pageNo-1)*20+i+1}}</td>
-                                        <td class="curpon" @click="jumpRyDetail(o)">{{o.name}}</td>
-                                        <td>{{o.idCard}}</td>
-                                        <td>{{o.num}}</td>
-                                        <td class="cate">
-                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}</p>
-                                        </td>
-                                        <td class="cate-key">
-                                            <div v-for="(x,y) of o.categorys" :key="y">
-                                                <template v-if="x.cateList.length>0">
-                                                    <p v-for="(a,b) of x.cateList" :key="b">{{a}}</p>
-                                                </template>
-                                                <template v-else>
-                                                    <p>&nbsp;</p>
-                                                </template>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- <template v-if="ryIsajax"> -->
+                        <!-- <template v-if="ryList&&ryList.length>0"> -->
+                            <ul class="certificate">
+                                <li>
+                                    <div class="box">
+                                        <div>
+                                            <span>注册类别：</span>
+                                            一级注册建筑师
+                                        </div>
+                                        <div>
+                                            <span>注册专业：</span>
+                                            土建
+                                        </div>
+                                        <div></div>
+                                        <div>
+                                            <span>证书编号：</span>
+                                            192231410
+                                        </div>
+                                        <div>
+                                            <span>执业印章号：</span>
+                                            281827-007
+                                        </div>
+                                        <div>
+                                            <span>有效期：</span>
+                                            2021-11-18
+                                        </div>
+                                        <div class="company-people">
+                                            <span>注册单位：</span>
+                                            湖南耀邦建设有限公司
+                                        </div>
+                                    </div>
+                                    <div class="num">1</div>
+                                </li>
+                            </ul>
                             <el-pagination
                                 layout="total, prev, pager, next, jumper"
                                 :current-page="ryData.pageNo"
@@ -99,16 +100,16 @@
                                 :total="ryTotal">
                             </el-pagination>
                             <!-- <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page> -->
-                        </template>
+                        <!-- </template> -->
                         <!-- 无数据  -->
-                        <template v-else-if="ryList&&ryList.length==0">
+                        <!-- <template v-else-if="ryList&&ryList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有找到符合条件的项目信息</span>
+                                <span>Sorry，没有找到符合条件的证书信息</span>
                             </div>
-                        </template>
+                        </template> -->
                         <!-- 加载失败 -->
-                        <template v-else-if="!ryList">
+                        <!-- <template v-else-if="!ryList">
                             <div class="ajax-erroe">
                                 <img src="../../assets/img/pic-zoudiu.png" />
                                 <span @click="recoldFn">刷新</span>
@@ -117,7 +118,7 @@
                     </template>
                     <template v-else>
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-                    </template>
+                    </template> -->
                 </template>
                 <!-- 业绩 -->
                 <template v-else-if="tabNum=='符合要求项目'">
@@ -126,11 +127,11 @@
                         <template v-if="yjList&&yjList.length>0">
                             <table ref="yj">
                                 <thead>
-                                    <td style="width:32px">序号</td>
-                                    <td style="width:calc(100% - 440px)">项目名称</td>
-                                    <td style="width:92px">业绩类型</td>
-                                    <td style="width:230px">中标金额/合同金额（万元）</td>
-                                    <td style="width:82px">竣工时间</td>
+                                    <td style="width:55px">序号</td>
+                                    <td style="width:calc(100% - 478px)">项目名称</td>
+                                    <td style="width:100px">业绩类型</td>
+                                    <td style="width:190px">中标金额/合同金额（万元）</td>
+                                    <td style="width:120px">竣工时间</td>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
@@ -256,7 +257,7 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
         const loading=this.$loading({
             lock:true,
-            text:'稍等，稍等一哈子',
+            text:'正在加载...',
             spinner:'el-icon-loading',
             background:'rgba(0,0,0,.7)'
         })
@@ -635,6 +636,36 @@ export default {
                     p:last-child{
                         border-bottom: none
                     }
+                }
+            }
+            .certificate li{
+                display: flex;
+                padding:0 43px 0 30px;
+                align-items: center;
+                justify-content: space-between;
+                border: 1px solid @borderColor;
+                .box{
+                    width:100%;
+                    height: 128px;
+                    display: grid;
+                    grid-template-columns: repeat(3,1fr);
+                    grid-template-rows:repeat(3,1fr);
+                    align-items:center;
+                    div{
+                        font-size: 14px;
+                        span{
+                            font-size: 14px;
+                            font-weight: bold;
+                            margin-right: 20px;
+                        }
+                    }
+                    .company-people{
+                        grid-column-start: 1;
+                        grid-column-end: 4;
+                    }
+                }
+                .num{
+                    font-size:38px;
                 }
             }
         }

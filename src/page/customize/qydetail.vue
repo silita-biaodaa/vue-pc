@@ -128,7 +128,7 @@
                         <template v-else-if="ryList&&ryList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有找到符合条件的项目信息</span>
+                                <span>Sorry，没有找到符合条件的人员信息</span>
                             </div>
                         </template>
                         <!-- 加载失败 -->
@@ -150,11 +150,11 @@
                         <template v-if="yjList&&yjList.length>0">
                             <table ref="yj">
                                 <thead>
-                                    <td style="width:32px">序号</td>
-                                    <td style="width:calc(100% - 440px)">项目名称</td>
-                                    <td style="width:92px">业绩类型</td>
-                                    <td style="width:230px">中标金额/合同金额（万元）</td>
-                                    <td style="width:82px">竣工时间</td>
+                                    <td style="width:55px">序号</td>
+                                    <td style="width:calc(100% - 478px)">项目名称</td>
+                                    <td style="width:100px">业绩类型</td>
+                                    <td style="width:190px">中标金额/合同金额（万元）</td>
+                                    <td style="width:120px">竣工时间</td>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
@@ -195,6 +195,61 @@
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
                     </template>
                 </template>
+                <!-- 行政处罚 -->
+                <template v-else>
+                    <!-- 加载中 -->
+                    <template v-if="xzIsajax">
+                        <template v-if="xzList&&xzList.length>0">
+                            <table ref="yj">
+                                <thead>
+                                    <td style="width:32px">序号</td>
+                                    <td>评价类型</td>
+                                    <td>评价年度</td>
+                                    <td>信用等级</td>
+                                    <template v-if="$route.query.type=='sl'">
+                                        <td>颁发日期</td>
+                                        <td>有效期至</td>
+                                    </template>
+                                    <template v-else-if="$route.query.type=='gl'">
+                                        <td>评价省份</td>
+                                    </template>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(o,i) of xzList" :key="i">
+                                        <td>{{(xzData.pageNo-1)*20+i+1}}</td>
+                                        <td>{{o.creditType}}</td>
+                                        <td>{{o.years}}</td>
+                                        <td>{{o.level}}</td>
+                                        <template v-if="$route.query.type=='sl'">
+                                            <td>{{o.issued}}</td>
+                                            <td>{{o.valied}}</td>
+                                        </template>
+                                        <template v-else-if="$route.query.type=='gl'">
+                                            <td>{{o.issueProvince}}</td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <!-- 无数据  -->
+                        <template v-else-if="xzList&&xzList.length==0">
+                            <div class="no-toast">
+                                <img src="../../assets/img/bank_card @2x.png" alt="">
+                                <span>Sorry，没有找到符合条件的信用等级</span>
+                            </div>
+                        </template>
+                        <!-- 加载失败 -->
+                        <template v-else-if="!xzList">
+                            <div class="ajax-erroe">
+                                <img src="../../assets/img/pic-zoudiu.png" />
+                                <span @click="recoldFn">刷新</span>
+                            </div>
+                        </template>
+                    </template>
+                    <template v-else>
+                        <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
+                    </template>
+                </template>
             </div>
         </div>
     </div>
@@ -217,6 +272,9 @@ export default {
                     num:0
                 },{
                     name:'符合要求项目',
+                    num:0
+                },{
+                    name:'行政处罚',
                     num:0
                 }
             ],
@@ -251,14 +309,14 @@ export default {
             ryTotal:0,
             ryList:[],
             ryIsajax:false,
-            // xyData:{
-            //     pageNo:1,
-            //     pageSize:20,
-            //     type:'credit'
-            // },
-            // xyList:[],
-            // xyIsajax:false,
-            // xyTotal:0,
+            xzData:{
+                pageNo:1,
+                pageSize:20,
+                type:'credit'
+            },
+            xzList:[],
+            xzIsajax:false,
+            xzTotal:0,
             data:{}
 
         }
@@ -280,7 +338,7 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
         const loading=this.$loading({
             lock:true,
-            text:'稍等，稍等一哈子',
+            text:'正在加载...',
             spinner:'el-icon-loading',
             background:'rgba(0,0,0,.7)'
         })
@@ -319,10 +377,10 @@ export default {
                     this.yjData.comId=this.$route.query.id;
                     this.yjAjax();
                 }else{
-                    // this.tabNum='信用等级'
-                    // this.xyData.orderNo=this.$route.query.n;
-                    // this.xyData.comId=this.$route.query.id;
-                    // this.xyAjax();
+                    this.tabNum='行政处罚'
+                    this.xzData.orderNo=this.$route.query.n;
+                    this.xzData.comId=this.$route.query.id;
+                    this.xzAjax();
                 }
             }else{
                 this.$alert(res.data.msg);
@@ -392,9 +450,9 @@ export default {
                 this.yjData.comId=this.$route.query.id;
                 this.yjAjax();
             }else{
-                // this.xyData.orderNo=this.$route.query.n;
-                // this.xyData.comId=this.$route.query.id;
-                // this.xyAjax();
+                this.xzData.orderNo=this.$route.query.n;
+                this.xzData.comId=this.$route.query.id;
+                this.xzAjax();
             }
         },
         /**资质 */
@@ -521,6 +579,27 @@ export default {
             this.openNewLink('/personnel')
         },
         /** 人员  end**/
+        /**行政处罚**/ 
+        xzAjax(){
+            let that=this;
+            this.xzIsajax=false;
+            this.xzList=[];
+            this.$http({
+                method:'post',
+                url:"/gonglu/zhauncha/detail/company",
+                data:this.xzData
+            }).then(res => {
+                that.xzIsajax=true
+                that.xzList=res.data.data;
+            }).catch(req =>{
+                that.xzList=null
+                that.xzIsajax=true
+            })
+        },
+        // xzGoto(val){
+        //     this.xzData.pageNo = val.cur
+        //     this.xzAjax()
+        // }
     }
 
 }

@@ -110,7 +110,7 @@
                         <template v-else-if="ryList&&ryList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有找到符合条件的项目信息</span>
+                                <span>Sorry，没有找到符合条件的人员信息</span>
                             </div>
                         </template>
                         <!-- 加载失败 -->
