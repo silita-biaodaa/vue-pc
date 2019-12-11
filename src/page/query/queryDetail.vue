@@ -132,11 +132,16 @@
                         <template v-if="yjList&&yjList.length>0">
                             <table ref="yj">
                                 <thead>
-                                    <td style="width:32px">序号</td>
+                                    <td style="width:55px">序号</td>
                                     <td style="width:calc(100% - 478px)">项目名称</td>
-                                    <td style="width:92px">业绩类型</td>
-                                    <td style="width:230px">中标金额/合同金额（万元）</td>
+                                    <td style="width:100px">业绩类型</td>
+                                    <td style="width:190px">中标金额/合同金额（万元）</td>
                                     <td style="width:120px">竣工时间</td>
+                                    <!-- <td>序号</td>
+                                    <td>项目名称</td>
+                                    <td>业绩类型</td>
+                                    <td>中标金额/合同金额（万元）</td>
+                                    <td>竣工时间</td> -->
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
@@ -324,7 +329,7 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
         const loading=this.$loading({
             lock:true,
-            text:'稍等，稍等一哈子',
+            text:'正在加载...',
             spinner:'el-icon-loading',
             background:'rgba(0,0,0,.7)'
         })
@@ -463,7 +468,7 @@ export default {
                     num+=x.list.length
                     this.conditionList.push(obj)
                 }
-                this.tabList[0].num=res.data.data.num
+                // this.tabList[0].num=res.data.data.num
                 this.conditionList[0].num=num
                 this.list=arr;
                 this.allList=arr;
@@ -603,19 +608,20 @@ export default {
     padding: 0 20px;
 }
 .cate{
-    p{
+    
+    div{
         border-bottom: 1px solid #f2f2f2
     }
-    p:last-child{
+    div:last-child{
         border-bottom: none
     }
 
 }
 .cate-key{
-    div{
+    p{
         border-bottom: 1px solid #f2f2f2
     }
-    div:last-child{
+    p:last-child{
         border-bottom: none
     }
 }
