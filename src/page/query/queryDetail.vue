@@ -68,7 +68,7 @@
                 <!-- 人员 -->
                 <template v-else-if="tabNum=='符合要求人员'">
                     <div class="condition">
-                        <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
+                        <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)"  v-if="o.count>0">{{o.cate}}({{o.count}})</span>
                     </div>
                     <!-- 加载中 -->
                     <template v-if="ryIsajax">
@@ -133,15 +133,15 @@
                             <table ref="yj">
                                 <thead>
                                     <td style="width:32px">序号</td>
-                                    <td style="width:calc(100% - 300px)">项目名称</td>
+                                    <td style="width:calc(100% - 478px)">项目名称</td>
                                     <td style="width:92px">业绩类型</td>
-                                    <td style="width:90px">中标金额/合同金额（万元）</td>
-                                    <td style="width:82px">竣工时间</td>
+                                    <td style="width:230px">中标金额/合同金额（万元）</td>
+                                    <td style="width:120px">竣工时间</td>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
                                         <td>{{(yjData.pageNo-1)*20+i+1}}</td>
-                                        <td class="curpon" @click="jumpYjDetail(o.proId)">{{o.proName}}</td>
+                                        <td class="curpon tdpading" @click="jumpYjDetail(o.proId)">{{o.proName}}</td>
                                         <td>{{o.type}}</td>
                                         <td>{{o.amount}}</td>
                                         <td>{{o.buildEnd?formatDate(o.buildEnd):''}}</td>
@@ -463,7 +463,7 @@ export default {
                     num+=x.list.length
                     this.conditionList.push(obj)
                 }
-                this.tabList[0].num=res.data.data.length
+                this.tabList[0].num=res.data.data.num
                 this.conditionList[0].num=num
                 this.list=arr;
                 this.allList=arr;
@@ -598,6 +598,9 @@ export default {
 .curpon{
     cursor: pointer;
     color: @color
+}
+.tdpading{
+    padding: 0 20px;
 }
 .cate{
     p{
