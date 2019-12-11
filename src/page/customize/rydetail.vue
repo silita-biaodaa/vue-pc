@@ -189,7 +189,7 @@ export default {
                     name:'符合要求资质',
                     num:0
                 },{
-                    name:'符合要求人员',
+                    name:'符合要求证书',
                     num:0
                 },{
                     name:'符合要求项目',
@@ -360,9 +360,9 @@ export default {
             if(o.name=='符合要求资质'){
                 this.zzAjax(data);
             }else if(o.name=='符合要求人员'){
-                this.ryData.orderNo=this.$route.query.n;
-                this.ryData.comId=this.$route.query.id;
-                this.ryAjax();
+                // this.ryData.orderNo=this.$route.query.n;
+                // this.ryData.comId=this.$route.query.id;
+                // this.ryAjax();
             }else if(o.name=='符合要求项目'){
                 this.yjData.orderNo=this.$route.query.n;
                 this.yjData.comId=this.$route.query.id;
