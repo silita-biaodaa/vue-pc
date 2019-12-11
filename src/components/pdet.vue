@@ -95,6 +95,7 @@ export default {
       })
     },
     getUser() {
+      let that=this;
       getUserTemp({}).then(res => {
         if(res.code == 1 ) {
             this.account = res.data.phoneNo
@@ -103,6 +104,12 @@ export default {
             this.sex = (res.data.sex == null ? '' : res.data.sex);
             this.firm = res.data.inCompany ? res.data.inCompany : ''
             this.duty = res.data.position ? res.data.position : ''
+        }else if(res.code==401){
+          this.$alert(res.msg).then(function(){
+            that.$router.push('/logo')
+          })
+        }else{
+          this.$alert(res.msg)
         }
       })
     }

@@ -510,6 +510,12 @@
 									} else {
 										sessionStorage.setItem('xtoken', res.data.xtoken)
 									}
+								}else if(res.code==401){
+									this.$alert(res.msg).then(function(){
+										that.$router.push('/logo')
+									})
+								}else{
+									this.$alert(res.msg)
 								}
 
 							})
