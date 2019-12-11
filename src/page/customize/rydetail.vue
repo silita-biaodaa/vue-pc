@@ -52,7 +52,7 @@
                     </table>
                 </template>
                 <!-- 人员 -->
-                <template v-else-if="tabNum=='符合要求人员'">
+                <template v-else-if="tabNum=='符合要求证书'">
                     <div class="condition">
                         <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
                     </div>
@@ -285,7 +285,7 @@ export default {
                     this.tabNum='符合要求资质'
                     this.zzAjax(data);
                 }else if(this.tabList[1].num>0){
-                    this.tabNum='符合要求人员'
+                    this.tabNum='符合要求证书'
                     this.ryData.orderNo=this.$route.query.n;
                     this.ryData.comId=this.$route.query.id;
                     this.ryAjax();
@@ -294,11 +294,6 @@ export default {
                     this.yjData.orderNo=this.$route.query.n;
                     this.yjData.comId=this.$route.query.id;
                     this.yjAjax();
-                }else{
-                    // this.tabNum='信用等级'
-                    // this.xyData.orderNo=this.$route.query.n;
-                    // this.xyData.comId=this.$route.query.id;
-                    // this.xyAjax();
                 }
             }else{
                 this.$alert(res.data.msg);
@@ -359,7 +354,7 @@ export default {
             this.tabNum=o.name;
             if(o.name=='符合要求资质'){
                 this.zzAjax(data);
-            }else if(o.name=='符合要求人员'){
+            }else if(o.name=='符合要求证书'){
                 // this.ryData.orderNo=this.$route.query.n;
                 // this.ryData.comId=this.$route.query.id;
                 // this.ryAjax();
@@ -367,10 +362,6 @@ export default {
                 this.yjData.orderNo=this.$route.query.n;
                 this.yjData.comId=this.$route.query.id;
                 this.yjAjax();
-            }else{
-                // this.xyData.orderNo=this.$route.query.n;
-                // this.xyData.comId=this.$route.query.id;
-                // this.xyAjax();
             }
         },
         /**资质 */

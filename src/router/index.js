@@ -108,7 +108,8 @@ import error from'@/page/404'
 //活动
 // import hdDetail from'@/page/hdDetail'
 //重庆版综合查询;
-import screenPage from '@/page/customize/screenPage'
+import screenPage from '@/page/customize/screenPage' //资质人员筛选
+import result from '@/page/customize/result' //资质人员查询结果
 // 重庆测试
 
 
@@ -687,6 +688,11 @@ export default new Router({
       name:'screenPage',
       component:screenPage
     },
+    {//资质人员查询结果
+      path: '/result',
+      name: 'result',
+      component: result
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
