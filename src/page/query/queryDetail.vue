@@ -89,7 +89,7 @@
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
                                         <td class="cate">
-                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*30+'px'}">{{x.cateKey}}</p>
+                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}</p>
                                         </td>
                                         <td class="cate-key">
                                             <div v-for="(x,y) of o.categorys" :key="y">
