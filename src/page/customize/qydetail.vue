@@ -749,19 +749,18 @@ export default {
                     color:@buleColor
                 }
                 .cate{
-                    div{
-                        border-bottom: 1px solid @borderColor;
-                    }
-                    div:last-child{
-                        border-bottom: none
-                    }
-
-                }
-                .cate-key{
                     p{
                         border-bottom: 1px solid @borderColor;
                     }
                     p:last-child{
+                        border-bottom: none
+                    }
+                }
+                .cate-key{
+                    div{
+                        border-bottom: 1px solid @borderColor;
+                    }
+                    div:last-child{
                         border-bottom: none
                     }
                 }
