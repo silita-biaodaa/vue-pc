@@ -10,7 +10,7 @@
 			<li class="borderNone" v-if="ellEnd">&hellip;</li>
 			<!-- <li v-if="ellEnd" @click="btnClick(allNum)">{{allNum}}</li> -->
 			<li class="btn " @click="jumpD">下一页</li>
-			<template v-if="$route.path.indexOf('introduce')>-1">
+			<template v-if="$route.path.indexOf('introduce')>-1||this.$route.path.indexOf('queryDetail')>-1">
 				<li @click="btnlast">尾页</li>
 			</template>
 			<template v-else>
@@ -91,7 +91,7 @@
 				if (this.current == this.total) {
 					return
 				}
-				if (this.$route.path.indexOf('introduce') > -1) {
+				if (this.$route.path.indexOf('introduce') > -1||this.$route.path.indexOf('queryDetail')>-1) {
 					this.$emit('skip', {
 						cur: this.allNum
 					});
@@ -168,7 +168,7 @@
 		},
 		computed: {
 			allNum() { //  当前总页数
-				if (this.$route.path.indexOf('introduce') > -1) { //企业详情
+				if (this.$route.path.indexOf('introduce') > -1||this.$route.path.indexOf('queryDetail')>-1) { //企业详情
 					this.total = Math.ceil(this.all / this.pageSize)
 					return Math.ceil(this.all / this.pageSize) == 0 ? 1 : Math.ceil(this.all / this.pageSize)
 				}
