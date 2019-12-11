@@ -109,6 +109,8 @@ import error from'@/page/404'
 // import hdDetail from'@/page/hdDetail'
 //重庆版综合查询;
 import screenPage from '@/page/customize/screenPage'
+// 重庆测试
+
 
 Vue.use(Router)
 
@@ -685,7 +687,6 @@ export default new Router({
       name:'screenPage',
       component:screenPage
     },
-    
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

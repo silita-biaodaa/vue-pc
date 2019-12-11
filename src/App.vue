@@ -608,7 +608,7 @@
 			},
 			// 底部是否消失
 			exploit() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' ||this.$route.name=='error') {
+				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' ||this.$route.name=='error' ||this.$route.name=='bidpop') {
 					return false
 				} else {
 					return true
@@ -623,6 +623,7 @@
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
 					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'||this.$route.name=='GLquery'
 					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'
+					||this.$route.name=='bidpop'
 				) {
 					return false
 				} else {
