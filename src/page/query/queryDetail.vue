@@ -68,7 +68,7 @@
                 <!-- 人员 -->
                 <template v-else-if="tabNum=='符合要求人员'">
                     <div class="condition">
-                        <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
+                        <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)"  v-if="o.count>0">{{o.cate}}({{o.count}})</span>
                     </div>
                     <!-- 加载中 -->
                     <template v-if="ryIsajax">
@@ -463,7 +463,7 @@ export default {
                     num+=x.list.length
                     this.conditionList.push(obj)
                 }
-                this.tabList[0].num=res.data.data.length
+                this.tabList[0].num=res.data.data.num
                 this.conditionList[0].num=num
                 this.list=arr;
                 this.allList=arr;
