@@ -198,21 +198,15 @@
                 <!-- 行政处罚 -->
                 <template v-else>
                     <!-- 加载中 -->
-                    <template v-if="xzIsajax">
-                        <template v-if="xzList&&xzList.length>0">
+                    <!-- <template v-if="xzIsajax"> -->
+                        <!-- <template v-if="xzList&&xzList.length>0"> -->
                             <table ref="yj">
                                 <thead>
-                                    <td style="width:32px">序号</td>
-                                    <td>评价类型</td>
-                                    <td>评价年度</td>
-                                    <td>信用等级</td>
-                                    <template v-if="$route.query.type=='sl'">
-                                        <td>颁发日期</td>
-                                        <td>有效期至</td>
-                                    </template>
-                                    <template v-else-if="$route.query.type=='gl'">
-                                        <td>评价省份</td>
-                                    </template>
+                                    <td>序号</td>
+                                    <td>处罚决定书文号</td>
+                                    <td>处罚类别</td>
+                                    <td>决定日期</td>
+                                    <td>处罚机关</td>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of xzList" :key="i">
@@ -220,26 +214,20 @@
                                         <td>{{o.creditType}}</td>
                                         <td>{{o.years}}</td>
                                         <td>{{o.level}}</td>
-                                        <template v-if="$route.query.type=='sl'">
-                                            <td>{{o.issued}}</td>
-                                            <td>{{o.valied}}</td>
-                                        </template>
-                                        <template v-else-if="$route.query.type=='gl'">
-                                            <td>{{o.issueProvince}}</td>
-                                        </template>
+                                        <td>{{o.issueProvince}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </template>
+                        <!-- </template> -->
                         <!-- 无数据  -->
-                        <template v-else-if="xzList&&xzList.length==0">
+                        <!-- <template v-else-if="xzList&&xzList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
                                 <span>Sorry，没有找到符合条件的信用等级</span>
                             </div>
-                        </template>
+                        </template> -->
                         <!-- 加载失败 -->
-                        <template v-else-if="!xzList">
+                        <!-- <template v-else-if="!xzList">
                             <div class="ajax-erroe">
                                 <img src="../../assets/img/pic-zoudiu.png" />
                                 <span @click="recoldFn">刷新</span>
@@ -248,7 +236,7 @@
                     </template>
                     <template v-else>
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-                    </template>
+                    </template> -->
                 </template>
             </div>
         </div>
@@ -275,7 +263,7 @@ export default {
                     num:0
                 },{
                     name:'行政处罚',
-                    num:0
+                    num:1
                 }
             ],
             tabNum:'符合要求资质',
