@@ -608,20 +608,18 @@ export default {
     padding: 0 20px;
 }
 .cate{
-    
-    div{
-        border-bottom: 1px solid #f2f2f2
-    }
-    div:last-child{
-        border-bottom: none
-    }
-
-}
-.cate-key{
     p{
         border-bottom: 1px solid #f2f2f2
     }
     p:last-child{
+        border-bottom: none
+    }
+}
+.cate-key{
+    div{
+        border-bottom: 1px solid #f2f2f2
+    }
+    div:last-child{
         border-bottom: none
     }
 }
