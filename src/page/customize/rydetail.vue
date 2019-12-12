@@ -21,7 +21,7 @@
             <div class="tab">
                 <template>
                     <ul>
-                        <span @click="jumpCompanyAll" class="iconfont iconchakan">查看企业完整信息</span>
+                        <span @click="jumpCompanyAll" class="iconfont iconchakan">查看人员完整信息</span>
                         <li v-for="(o,i) of tabList" :key="i" :class="tabNum==o.name?'current':''" @click="tabFn(o,i)" v-if="o.num>0">{{o.name}}（{{o.num}}）</li>
                     </ul>
                 </template>
@@ -340,7 +340,7 @@ export default {
         recoldFn() {
             this.reload();
         },
-        jumpCompanyAll(){//跳到企业完整信息
+        jumpCompanyAll(){//跳到人员完整信息
             const {href} = this.$router.resolve({
                 path: '/introduce/icbc',
                 query: {
