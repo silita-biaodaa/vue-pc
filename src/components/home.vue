@@ -1,52 +1,43 @@
 <template>
-  <div class="l-search" @keydown.13="searchFn" :class="isHome?'ishome':''">
+  <div class="l-search" @keydown.13="searchFn">
     <div class="app-fff">
-      <el-row class="app-search">
-        <el-col :span="7" v-if="!isHome">
-          <div class="bor">
-            <div class="logo left" @click="$router.push('/home')"></div>
-          </div>
-        </el-col>
-        <el-col :span="16">
-          <div class="bor">
-            <ul class="search">
-              <li
-                class="left"
-                v-for="(el,i) of selects "
-                :key="i"
-                @click="seaI(el)"
-                :class=" i == rank ? 'ranks' : ''"
-              >{{el.name}}</li>
+      <div class="logo left" @click="$router.push('/home')"></div>
+      <div class="bor">
+        <ul class="search">
+          <li
+            class="left"
+            v-for="(el,i) of selects "
+            :key="i"
+            @click="seaI(el)"
+            :class=" i == rank ? 'ranks' : ''"
+          >{{el.name}}</li>
+        </ul>
+        <div style="position:relative;">
+          <el-input
+            :placeholder="placeTxt"
+            v-model="select"
+            class="input-with-select"
+            clearable
+            autofocus
+            @clear="clearFn"
+            ref="iput"
+          >
+            <el-button slot="append" @click="searchFn">搜索</el-button>
+          </el-input>
+          <div
+            class="company-serach"
+            v-if="(!company&&select!=null&&select.length>0)&&tipsShow&&serachList.length>0"
+          >
+            <ul>
+              <li v-for="(o,i) of serachList" :key="i" @click="comNameFn(o)">{{o.com_name}}</li>
             </ul>
-            <div style="position:relative;">
-              <el-input
-                :placeholder="placeTxt"
-                v-model="select"
-                class="input-with-select"
-                clearable
-                autofocus
-                @clear="clearFn"
-                ref="iput"
-              >
-                <el-button slot="append" @click="searchFn">搜索</el-button>
-              </el-input>
-              <!-- <div class="right syn" @click="jump">综合查询</div> -->
-              <div
-                class="company-serach"
-                v-if="(!company&&select!=null&&select.length>0)&&tipsShow&&serachList.length>0"
-              >
-                <ul>
-                  <li v-for="(o,i) of serachList" :key="i" @click="comNameFn(o)">{{o.com_name}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="hisgory" v-if="list&&list.length>0">
-              <span>历史搜索：</span>
-              <span v-for="(o,i) of list" :key="'hisgory'+i" @click="hisgoryFn(o)">{{o.title}}</span>
-            </div>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+        <div class="hisgory" v-if="list&&list.length>0">
+          <span>历史搜索：</span>
+          <span v-for="(o,i) of list" :key="'hisgory'+i" @click="hisgoryFn(o)">{{o.title}}</span>
+        </div>
+      </div>
     </div>
     <!-- <v-canvas v-if="isHome"></v-canvas> -->
   </div>
@@ -124,12 +115,6 @@ export default {
         this.way = this.$route.fullPath;
       }
     },
-    // jump() {
-    //   let url = this.$router.resolve({
-    //     path: "/synth"
-    //   });
-    //   window.open(url.href, "_blank");
-    // },
     forinList() {
       if (this.select != "" && this.serachList.length > 0) {
         for (let x of this.serachList) {
@@ -488,13 +473,6 @@ export default {
         return false
       }
     }
-    // synth() {
-    //   if(this.$route.name == 'company') {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    // }
   },
   watch: {
     $route(to, form) {
@@ -583,64 +561,59 @@ export default {
 <style lang="less" >
 .l-search {
   position: relative;
+  width: 100%;
+  background-color: #fff;
   .app-fff {
-    width: 100%;
-    background-color: #fff;
-  }
-  .app-search {
     width: 1020px;
     margin: 0 auto;
+    height: 193px;
+    display: flex;
+    align-items: center;
+  }
+  .logo {
+    background: url(../assets/img/logo.png) no-repeat;
+    height: 55px;
+    width: 185px;
+    margin-right: 46px;
+    cursor: pointer;
+    margin-top: 35px;
   }
   .bor {
-    //  overflow: hidden;
-    height: 149px;
-    //  clear: both;
     .el-input-group {
-      width: 588px;
-      font-size: 16px;
+      width: 558px;
+      font-size: 18px;
       .el-input-group__append,
       .el-input-group__prepend {
-        width: 113px;
+        width: 90px;
         padding: 0;
-        background-color: #FE6603;
+        background:#424040;
         text-align: center;
         color: #fff;
-        border: 1px solid #FE6603;
-        font-weight: 500;
-        .el-button {
-          font-family: Tahoma, Arial, "Helvetica Neue", "Hiragino Sans GB",
-            Simsun, sans-self !important;
-          width: 100%;
-        }
+        border: 1px solid #424040;
+        font-weight:600;
       }
-    }
-    .logo {
-      background: url(../assets/img/logo.png) no-repeat;
-      margin-top: 75px;
-      height: 47px;
-      width: 158px;
-      margin-right: 21px;
-      cursor: pointer;
+      .el-input__inner{
+        line-height: 48px;
+        height: 48px;
+        padding-left: 20px;
+        background: #F4F4F4;
+        outline: none;
+        border-color: #DDDFE4;
+      }
     }
     .search {
-      margin-top: 50px;
       margin-bottom: 10px;
-      font-size: 16px;
-      width: 648px;
+      font-size: 18px;
       overflow: hidden;
+      padding-left: 20px;
       .ranks {
-        color: #fe6603;
+        color: #EB651B;
+        font-weight: bold;
       }
       li {
-        width: 10%;
         cursor: pointer;
+        margin-right: 30px
       }
-    }
-    .syn {
-      line-height: 40px;
-      font-size: 16px;
-      color: #fe6603;
-      cursor: pointer;
     }
   }
 
@@ -651,11 +624,12 @@ export default {
     position: absolute;
     border: 1px solid #d0dbe5;
     border-top: none;
-    width: calc(100% - 207px);
+    width: calc(100% - 92px);
     box-sizing: border-box;
+    border-radius: 0 0 5px 5px;
     ul li {
-      line-height: 24px;
-      padding-left: 10px;
+      line-height: 48px;
+      padding-left:20px;
       box-sizing: border-box;
       cursor: pointer;
     }
@@ -666,11 +640,12 @@ export default {
 
   /*历史记录*/
   .hisgory {
-    margin-top: 15px;
-    max-width: calc(100% - 207px);
+    margin-top: 10px;
+    max-width: calc(100% - 92px);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-left: 20px;
     span {
       margin-right: 15px;
       font-size: 14px;
