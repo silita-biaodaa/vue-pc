@@ -1,6 +1,12 @@
 <template>
     <div class="resultsList">
-        <div class="fs18 color-150">您的查询条件为：</div>
+        <div class="dfrcb">
+            <div class="fs18 color-150">您的查询条件为：</div>
+            <div class="color-449 fs18 cp" v-if="this.$parent.payPage">
+                <span class="mr10">返回修改</span>
+                <i class="iconfont iconfanhuixiugai"></i>
+            </div>
+        </div>
         <div class="mt10 pt20 pl20 pr20 bg-ffe list">
             <el-row v-for="(item,index) in showArr" :key="index" class="fs18 pb20">
                 <div class="dr">
@@ -12,7 +18,7 @@
                 <div class="line_left mr20"></div>
                 <div class="cp drc" @click="toggle">
                     <span class="color-449 fs14">{{showAll?'收起':'展开'}}</span>
-                    <i class="iconfont iconzhankai color-449 fs10 cp ml5"></i>
+                    <i class="iconfont color-449 fs10 cp ml5 iconzhankai" :class="{'iconshouqi':showAll}"></i>
                 </div>
                 <div class="line_right ml20"></div>
             </div>

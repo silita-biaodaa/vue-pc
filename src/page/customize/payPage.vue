@@ -6,7 +6,7 @@
         <div class="payPage_body bg-fff">
             <div>
                 <v-publicBread :breadList="breadList"></v-publicBread>
-                <div class="fs34">
+                <div class="fs34 mb40">
                     <i class="iconfont iconzonghechaxun mr20 fs34"></i>
                     <span class="fw600">重庆定制版综合查询-企业综合查询</span>
                 </div>
@@ -14,14 +14,30 @@
                     <h2>{{title}}信息专查</h2>
                     <div class="total-box">共为您找到符合要求企业{{total}}家</div>
                 </div> -->
-                <v-query></v-query>
-                <div class="price-box">
+                <!-- <v-query></v-query> -->
+                <v-result :payPage="payPage"></v-result>
+                <!-- <div class="price-box">
                     <p>
                         本次为付费查询，限时折扣价
                         <span class="color-font">￥{{comPrice}}</span>，会员享受专享价：
                         <span class="color-font">¥{{vipPrice}}</span>
                     </p>
                     <button class="openVip" v-if="!isVip" @click="jumpVip">开通会员</button>
+                </div> -->
+                <div class="price-box mt40 fs18">
+                    <div class="drc">
+                        <i class="iconfont iconwancheng color-eb6"></i>
+                        <div class="ml10">共为您找到<span class="fs28 color-eb6 fw600 ml10 mr10">12123名</span>符合要求的人员</div>
+                    </div>
+                    <div class="drc openVip">
+                        <div>本次为付费查询，限时折扣价¥8 / 会员专享价<span class="color-eb6">¥1元</span></div>
+                        <button class="fs18 cp">开通会员</button>
+                    </div>
+                    <div class="mb40">
+                        <span>本次支付金额：</span>
+                        <span class="color-eb6">¥8</span>
+                        <span>微信扫码支付成功后即可查看详情</span>
+                    </div>
                 </div>
                 <div class="pay-box">
                     <div
@@ -30,14 +46,13 @@
                         v-loading="isload"
                         element-loading-text="二维码生成中"
                     ></div>
-                    <p class="wxpay">
+                    <div class="wxpay text-c fs18">已支付</div>
+                    <!-- <p class="wxpay">
                         <img src="../../assets/img/icon-weixin.png" />
                         微信支付
-                    </p>
-                    <p class="goDetail" v-if="payed" @click="jumpList">支付成功，点击查看详情 ></p>
-                    <div
-                        class="tip"
-                    >注意事项：1、付款后可在我的订单中查看详情，24小时后失效；2、付款后可在我的订单下载数据报告，报告生成时间由数据量决定，预计生成时间5分钟；</div>
+                    </p> -->
+                    <p class="goDetail" @click="jumpList">支付成功，点击查看详情 ></p>
+                    <div class="fs18 color-5a5">注：同一用户24小时内查询同一条件无需再次支付，不小心关闭结果可在<span class="color-449 cp">我的订单</span>中再次打开查看</div>
                 </div>
             </div>
         </div>
@@ -47,13 +62,15 @@
 import heads from "@/components/head3";
 import queryCondition from "@/components/zhuancha/queryCondition";
 import publicBread from "@/components/customize/publicBread";
+import resultsList from "@/components/customize/resultsList";
 import QRCode from "qrcodejs2";
 import { setTimeout, clearTimeout } from "timers";
 export default {
     components: {
         "v-head": heads,
         "v-query": queryCondition,
-        "v-publicBread": publicBread
+        "v-publicBread": publicBread,
+        "v-result": resultsList,
     },
     name: "queryPay", // 结构名称
     data() {
@@ -66,7 +83,8 @@ export default {
             vipPrice: 0,
             comPrice: 0,
             isVip: false,
-            total: 0
+            total: 0,
+            payPage: true, //是否从支付页面
         };
     },
     watch: {
@@ -244,64 +262,52 @@ export default {
             }
         }
         .price-box {
-            margin: 0 auto;
-            box-sizing: border-box;
-            padding: 0 16px;
-            height: 64px;
-            background: #fff;
-            border-bottom: 1px solid #f2f2f2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 14px;
+            i {
+                font-size: 48px;
+            }
             .openVip {
-                width: 80px;
-                line-height: 28px;
-                text-align: center;
-                border: 1px solid @color;
-                color: @color;
-                border-radius: 6px;
-                background: #fff;
-                cursor: pointer;
+                margin-top: 28px;
+                margin-bottom: 26px;
+                button {
+                    width: 180px;
+                    height: 38px;
+                    border-radius:19px;
+                    background-color: @themeColor;
+                    color: @whiteColor;
+                    margin-left: 62px;
+                }
             }
         }
         .pay-box {
-            margin: 0 auto 108px;
+            margin: 0 auto 158px;
             box-sizing: border-box;
-            padding: 36px 16px 64px;
             background: #fff;
-            text-align: center;
             .goDetail {
                 text-align: center;
-                font-size: 14px;
+                font-size: 18px;
                 margin-bottom: 34px;
                 cursor: pointer;
             }
             .wxpay {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: @color;
-                font-size: 12px;
-                margin: 12px 0 32px;
+                width: 157px;
+                height: 38px;
+                line-height: 38px;
+                border-radius:4px;
+                margin: 20px auto;
+                border:1px solid @darkColor;
                 img {
                     margin-right: 12px;
                 }
             }
-            .tip {
-                font-size: 12px;
-                color: #999;
-                text-align: left;
+            span {
+                border-bottom: 1px solid #4494F0;
+                margin: 0 3px;
             }
             #qrcode {
                 height: 180px;
                 width: 180px;
                 margin: 0 auto;
             }
-        }
-
-        .color-font {
-            color: @color;
         }
     }
 }
