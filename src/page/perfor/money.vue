@@ -2,7 +2,7 @@
 	<div class="money">
 		<div class="select">
 			<el-row>
-				<el-col :span='2'>合同金额:</el-col>
+				<el-col :span='2'>投资总额:</el-col>
 				<el-col :span='9'>
 					<ul class='left pro'>
 						<li v-for='(el,i) in range' :key='i' class='left' :class="el.min == min ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
