@@ -41,6 +41,9 @@ export default {
 .el-breadcrumb__item .el-breadcrumb__separator {
     color: @contentColor !important;
 }
+.el-breadcrumb__inner {
+    color: @contentColor !important;
+}
 .el-breadcrumb__item:nth-last-child(2) .el-breadcrumb__separator {
     color: @textColor !important;
 }
