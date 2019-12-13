@@ -2,52 +2,55 @@
 	<div class="ubid">
 		<div class="ub-table">
 			<div class="ub-top">
-				<div class="left" style="width:60px;">
+				<div class="left ub-right" style="width:75px;">
 					序号
 				</div>
-				<div class="left" style="width:340px;">
+				<div class="left ub-right" style="width:320px;">
 					中标单位名称
 				</div>
-				<div class="left" style="width:130px;">
+				<div class="left ub-right" style="width:130px;">
 					中标金额(万元)
 				</div>
-				<div class="left" style="width:145px;">
+				<div class="left ub-right" style="width:145px;">
 					招标类型
 				</div>
-				<div class="left" style="width:130px;">
+				<div class="left ub-right" style="width:130px;">
 					招标方式
 				</div>
-				<div class="left" style="width:110px;">
+				<div class="left ub-right" style="width:110px;">
 					中标日期
 				</div>
-				<div class="left" style="width:80px;">
+				<div class="left " style="width:100px;">
 					查看
 				</div>
 			</div>
 			<div class="ub-text" v-for="(el,i) in company" :key="i">
 				<div class="show-l">
-					<div class="" style="width:60px;">
+					<div class="ub-full ub-right " style="width:75px;">
 						{{i+1}}
 					</div>
-					<div class="" style="width:340px;">
+					<div class="ub-full ub-right" style="width:320px;">
 						{{el.zhongbiaoCompany}}
 					</div>
-					<div class="" style="width:130px;">
+					<div class="ub-full ub-right" style="width:130px;">
 						<template v-if="el.zhongbiaoAmount">
 							{{el.zhongbiaoAmount + '万元'}}
 						</template>
 					</div>
-					<div class="" style="width:145px;">
+					<div class="ub-full ub-right" style="width:145px;">
 						{{el.zhaobiaoType}}
 					</div>
-					<div class="" style="width:130px;">
+					<div class="ub-full ub-right" style="width:130px;">
 						{{el.zhaobiaoWay}}
 					</div>
-					<div class="" style="width:110px;">
+					<div class="ub-full ub-right" style="width:110px;">
 						{{el.zhongbiaoDate}}
 					</div>
-					<div class="" style="width:88px;">
-						<img src="../../assets/img/icon-chakan.png" alt="" @click="gainPeo(el)">
+					<div class="" style="width:108px;"  >
+						<div @click="gainPeo(el)" class="ub-look" >
+								<i class="iconfont iconchakan" ></i> 查看
+						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -65,6 +68,9 @@
 					</div>
 				</div>
 				<div class="auto-pop">
+					<div class="ur-main">
+					  基本信息
+					</div>
 					<div class="show-del">
 						<div class="show-text blur " style="width:207px;">
 							项目编号
@@ -314,29 +320,41 @@
 <style lang="less" scoped>
 	.ubid {
 		background-color: #fff;
-		padding: 0 10px 30px;
+		padding: 0 0 30px;
 		margin-bottom: 200px;
-
 		.ub-table {
-			border: 1px solid #F2F2F2;
-
+			border: 1px solid #DDDFE4;
 			.ub-top {
-				height: 40px;
-				line-height: 40px;
-				border-bottom: 1px solid #F2F2F2;
+				height: 48px;
+				line-height: 48px;
+				border-bottom: 1px solid #DDDFE4;
 				text-align: center;
 				font-size: 14px;
 				color: #333;
 				font-weight: 550;
+				background-color: #F4F4F4;
 			}
-
+			.ub-right {
+				border-right: 1px solid #DDDFE4;
+				box-sizing: border-box;
+			}
+			.ub-full{
+				min-height: 55px;
+				display: flex;
+				align-items: center;
+				line-height:20px;
+				justify-content: center;
+			}
+			.ub-look {
+				color:#4494F0;
+				cursor: pointer;
+			}
 			.ub-text {
 				min-height: 56px;
 				overflow: hidden;
 				text-align: center;
 				font-size: 14px;
 				color: #333;
-
 				.show-l {
 					overflow: hidden;
 					display: flex;
@@ -345,16 +363,12 @@
 					align-items: center;
 					border-bottom: 1px solid #F2F2F2;
 				}
-
 				img {
 					vertical-align: bottom;
 					cursor: pointer;
 				}
-
 			}
-
 		}
-
 		.show-nou {
 			min-height: 55px;
 			line-height: 55px;
@@ -363,7 +377,6 @@
 			text-align: center;
 			border-bottom: 1px solid #F2F2F2;
 		}
-
 		.black-pop {
 			z-index: 99999;
 			width: 100%;
@@ -374,7 +387,6 @@
 			right: 0;
 			left: 0;
 			background: rgba(0, 0, 0, .5);
-
 			.ur-pop {
 				width: 998px;
 				height: auto;
@@ -384,37 +396,36 @@
 				transform: translateX(-50%);
 				background-color: #fff;
 				border: 1px solid rgba(242, 242, 242, 1);
-				padding: 10px;
 				box-sizing: border-box;
-				text-align: center;
+				border-radius:12px;
 				.auto-pop {
 					overflow-x: auto;
+					padding: 10px 30px;
 					height: 420px;
 				}
-
 				.ur-title {
 					height: 60px;
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
 					font-size: 20px;
-					color: #EC7522;
+					color: #150000;
+					padding: 0 30px;
 					font-weight: 550;
-
+					border-bottom: 1px solid #DDDFE4;
 					i {
 						font-size: 30px;
 						cursor: pointer;
 					}
 				}
-
 				.ur-main {
 					height: 60px;
 					line-height: 60px;
-					text-align: center;
+					font-weight: 550;
+					text-align: left !important;
 					font-size: 18px;
-					color: #FE6603;
+					color: #000;
 				}
-
 				.main-table {
 					height: 45px;
 					line-height: 45px;
@@ -423,42 +434,41 @@
 					text-align: center;
 					font-size: 14px;
 					color: #999;
-					border: 1px solid #F2F2F2;
-					background-color: #fafdff;
-
+					border: 1px solid #DDDFE4;
+					background-color: #F4F4F4;
 					.bor {
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 					}
 				}
-
 				.main-no {
 					height: 45px;
 					line-height: 45px;
 					font-size: 14px;
 					color: #999;
 					text-align: center;
-					border: 1px solid #F2F2F2;
+					border: 1px solid #DDDFE4;
 
 				}
-
 				.show-del {
 					display: flex;
 					flex-direction: row;
 					min-height: 40px;
-					border: 1px solid #F2F2F2;
+					border: 1px solid #DDDFE4;
 					font-size: 14px;
-
 					.show-text {
 						display: flex;
 						align-items: center;
 						justify-content: center;
 						padding: 5px 0;
-						border-right: 1px solid #F2F2F2;
-
+						border-right: 1px solid #DDDFE4;
 					}
 				}
 			}
 		}
-
+	}
+		.blur {
+		 background-color: #F4F4F4;
+		 color:#000;
+		 font-weight: 550;
 	}
 </style>

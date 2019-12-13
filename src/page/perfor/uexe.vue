@@ -2,42 +2,44 @@
 	<div class="ubid">
 		<div class="ub-table">
 			<div class="ub-top">
-				<div class="left" style="width:60px;">
+				<div class="left ub-right" style="width:60px;">
 					序号
 				</div>
-				<div class="left" style="width:240px;">
+				<div class="left ub-right" style="width:240px;">
 					勘察单位名称
 				</div>
-				<div class="left" style="width:200px;">
+				<div class="left ub-right" style="width:200px;">
 					设计单位名称
 				</div>
-				<div class="left" style="width:305px;">
+				<div class="left ub-right" style="width:305px;">
 					施工图审查机构名称
 				</div>
-				<div class="left" style="width:110px;">审查完成日期
+				<div class="left ub-right" style="width:110px;">审查完成日期
 				</div>
-				<div class="left" style="width:80px;">
+				<div class="left" style="width:95px;">
 					查看
 				</div>
 			</div>
 			<div class="ub-text" v-for="(el,i) in company" :key="i">
 				<div class="show-l">
-					<div class="" style="width:60px;">
+					<div class="ub-full ub-right" style="width:60px;">
 						{{i+1}}
 					</div>
-					<div class="" style="width:240px;">
+					<div class="ub-full ub-right" style="width:240px;">
 						{{el.exploreOrg}}
 					</div>
-					<div class="" style="width:200px;">
+					<div class="ub-full ub-right" style="width:200px;">
 						{{el.designOrg}}
 					</div>
-					<div class="" style="width:305px;">
+					<div class="ub-full ub-right" style="width:305px;">
 						{{el.checkOrg}}
 					</div>
-					<div class="" style="width:110px;">{{el.checkFinishDate}}
+					<div class="ub-full ub-right" style="width:110px;">{{el.checkFinishDate}}
 					</div>
-					<div class="" style="width:80px;">
-						<img src="../../assets/img/icon-chakan.png" alt="" @click="gainPeo(el)">
+					<div class="" style="width:95px;">
+						<div @click="gainPeo(el)" class="ub-look" >
+								<i class="iconfont iconchakan" ></i> 查看
+						</div>
 					</div>
 				</div>
 			</div>
@@ -59,13 +61,13 @@
 						<div class="show-text blur " style="width:207px;">
 							施工图审查机构名称
 						</div>
-						<div class="show-text" style="width:293px;">
+						<div class="show-text new-text" style="width:293px;">
 							{{debid.checkOrg}}
 						</div>
-						<div class="show-text blur" style="width:207px;">
+						<div class="show-text blur " style="width:207px;">
 							施工图审查机构组织机构代码
 						</div>
-						<div class="show-text " style="width:291px;border:none">
+						<div class="show-text new-text" style="width:291px;border:none">
 							{{debid.checkOrgCode}}
 						</div>
 					</div>
@@ -73,13 +75,13 @@
 						<div class="show-text blur " style="width:207px;">
 							施工图审查合格书编号
 						</div>
-						<div class="show-text" style="width:293px;">
+						<div class="show-text new-text" style="width:293px;">
 							{{debid.checkNo}}
 						</div>
 						<div class="show-text blur" style="width:207px;">
 							省级施工图审查合格书编号
 						</div>
-						<div class="show-text " style="width:291px;border:none">
+						<div class="show-text new-text" style="width:291px;border:none">
 							{{debid.checkNumber}}
 						</div>
 					</div>
@@ -87,10 +89,10 @@
 						<div class="show-text blur " style="width:207px;">
 							审查完成日期
 						</div>
-						<div class="show-text" style="width:293px;">
+						<div class="show-text new-text" style="width:293px;border:none">
 							{{debid.checkFinishDate}}
 						</div>
-						<div class="show-text blur" style="width:207px;">
+						<div class="show-text" style="width:207px;border:none">
 
 						</div>
 						<div class="show-text " style="width:291px;border:none">
@@ -101,7 +103,7 @@
 						<div class="show-text blur " style="width:207px;">
 							建设规模
 						</div>
-						<div class="show-text" style="width:791px;">{{debid.proScope}}
+						<div class="show-text new-text" style="width:791px;">{{debid.proScope}}
 						</div>
 					</div>
 
@@ -109,16 +111,16 @@
 						企业主体信息
 					</div>
 					<div class="main-table">
-						<div style="width:205px;" class="bor">
+						<div style="width:205px;fontWeight:550" class="bor">
 							涉及单位
 						</div>
-						<div style="width:310px;" class="bor">
+						<div style="width:310px;fontWeight:550" class="bor">
 							企业名称
 						</div>
-						<div style="width:300px;" class="bor">
+						<div style="width:300px;fontWeight:550" class="bor">
 							组织机构代码
 						</div>
-						<div style="width:150px;border:none" class="bor">
+						<div style="width:150px;border:nonefontWeight:550" class="bor">
 							所在省份
 						</div>
 					</div>
@@ -158,25 +160,25 @@
 						从业人员信息
 					</div>
 					<div class="main-table">
-						<div style="width:205px;" class="bor">
+						<div style="width:205px;fontWeight:550" class="bor">
 							所在企业
 						</div>
-						<div style="width:100px;" class="bor">
+						<div style="width:100px;fontWeight:550" class="bor">
 							专业名称
 						</div>
-						<div style="width:90px;" class="bor">
+						<div style="width:90px;fontWeight:550" class="bor">
 							担任角色
 						</div>
-						<div style="width:80px;" class="bor">
+						<div style="width:80px;fontWeight:550" class="bor">
 							姓名
 						</div>
-						<div style="width:175px;" class="bor">
+						<div style="width:175px;fontWeight:550" class="bor">
 							证件号码
 						</div>
-						<div style="width:160px;" class="bor">
+						<div style="width:160px;fontWeight:550" class="bor">
 							注册类型及等级
 						</div>
-						<div style="width:140px;border:none" class="bor">
+						<div style="width:140px;border:none;fontWeight:550" class="bor">
 							执业印章号
 						</div>
 					</div>
@@ -301,29 +303,41 @@
 <style lang="less" scoped>
 	.ubid {
 		background-color: #fff;
-		padding: 0 10px 30px;
+		padding: 0 0 30px;
 		margin-bottom: 200px;
-
 		.ub-table {
-			border: 1px solid #F2F2F2;
-
+			border: 1px solid #DDDFE4;
 			.ub-top {
-				height: 40px;
-				line-height: 40px;
-				border-bottom: 1px solid #F2F2F2;
+				height: 48px;
+				line-height: 48px;
+				border-bottom: 1px solid #DDDFE4;
 				text-align: center;
 				font-size: 14px;
 				color: #333;
 				font-weight: 550;
+				background-color: #F4F4F4;
 			}
-
+			.ub-right {
+				border-right: 1px solid #DDDFE4;
+				box-sizing: border-box;
+			}
+				.ub-full{
+				min-height: 55px;
+				display: flex;
+				align-items: center;
+				line-height:20px;
+				justify-content: center;
+			}
+			.ub-look {
+				color:#4494F0;
+				cursor: pointer;
+			}
 			.ub-text {
 				min-height: 56px;
 				overflow: hidden;
 				text-align: center;
 				font-size: 14px;
 				color: #333;
-
 				.show-l {
 					overflow: hidden;
 					display: flex;
@@ -332,16 +346,12 @@
 					align-items: center;
 					border-bottom: 1px solid #F2F2F2;
 				}
-
 				img {
 					vertical-align: bottom;
 					cursor: pointer;
 				}
-
 			}
-
 		}
-
 		.show-nou {
 			min-height: 55px;
 			line-height: 55px;
@@ -350,7 +360,6 @@
 			text-align: center;
 			border-bottom: 1px solid #F2F2F2;
 		}
-
 		.black-pop {
 			z-index: 99999;
 			width: 100%;
@@ -361,7 +370,6 @@
 			right: 0;
 			left: 0;
 			background: rgba(0, 0, 0, .5);
-
 			.ur-pop {
 				width: 998px;
 				height: auto;
@@ -371,48 +379,46 @@
 				transform: translateX(-50%);
 				background-color: #fff;
 				border: 1px solid rgba(242, 242, 242, 1);
-				padding: 10px;
 				box-sizing: border-box;
-
+				border-radius:12px;
 				.auto-pop {
 					overflow-x: auto;
+					padding: 10px 30px;
 					height: 420px;
 				}
-
 				.ur-title {
 					height: 60px;
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
 					font-size: 20px;
-					color: #EC7522;
+					color: #000000;
 					font-weight: 550;
-
+					padding: 10px 30px;
+					border-bottom: 1px solid #DDDFE4;
 					i {
 						font-size: 30px;
 						cursor: pointer;
 					}
 				}
-
 				.ur-main {
 					height: 60px;
 					line-height: 60px;
-					text-align: center;
+					// text-align: center;
 					font-size: 18px;
-					color: #FE6603;
+					color: #000000;
+					font-weight: 550;
 				}
-
 				.main-table {
 					min-height: 45px;
 					display: flex;
 					flex-direction: row;
 					font-size: 14px;
-					color: #999;
-					border: 1px solid #F2F2F2;
-					background-color: #fafdff;
-
+					color: #000;
+					border: 1px solid #DDDFE4;
+					background-color: #F4F4F4;
 					.bor {
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 						padding: 5px 6px;
 						display: flex;
 						align-items: center;
@@ -420,35 +426,40 @@
 						text-align: center;
 					}
 				}
-
 				.main-no {
 					height: 45px;
 					line-height: 45px;
 					font-size: 14px;
 					color: #999;
 					text-align: center;
-					border: 1px solid #F2F2F2;
-
+					border: 1px solid #DDDFE4;
 				}
-
 				.show-del {
 					display: flex;
 					flex-direction: row;
 					min-height: 40px;
-					border: 1px solid #F2F2F2;
+					border: 1px solid #DDDFE4;
 					font-size: 14px;
-
 					.show-text {
 						display: flex;
 						align-items: center;
 						justify-content: center;
+						box-sizing: border-box;
 						padding: 5px 0;
-						border-right: 1px solid #F2F2F2;
-
+						border-right: 1px solid #DDDFE4;
+					}
+					.new-text {
+						justify-content: flex-start;
+						padding: 0 25px;
 					}
 				}
 			}
 		}
 
 	}
-</style>
+	.blur {
+		 background-color: #F4F4F4;
+		 color:#000;
+		 font-weight: 550;
+	}
+	</style>
