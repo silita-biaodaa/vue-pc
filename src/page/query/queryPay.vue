@@ -94,18 +94,22 @@ export default {
                 }
                 that.vipPrice=res.data.data.vipPrice;
                 that.comPrice=res.data.data.comPrice;
+                let d={
+                    channel:'1003',
+                    userId:sessionStorage.getItem('ip'),
+                    stdCode:stdCode,
+                    ip:localStorage.getItem('uip'),
+                    tradeType:'NATIVE',
+                    pkid:that.$route.query.id*1,
+                    zhuanchaType:'zhuancha'
+                }
+                if(that.$route.query.n){
+                    d.orderNo=that.$route.query
+                }
                 that.$http({
                     method:'post',
                     url:'/wxPay/report/unifiedOrder',
-                    data:{
-                        channel:'1003',
-                        userId:sessionStorage.getItem('ip'),
-                        stdCode:stdCode,
-                        ip:localStorage.getItem('uip'),
-                        tradeType:'NATIVE',
-                        pkid:that.$route.query.id*1,
-                        zhuanchaType:'zhuancha'
-                    }
+                    data:d
                 }).then(r =>{
                     that.isload=false;
                     that.orderNo=r.data.orderNo;
