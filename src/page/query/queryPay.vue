@@ -104,7 +104,7 @@ export default {
                     zhuanchaType:'zhuancha'
                 }
                 if(that.$route.query.n){
-                    d.orderNo=that.$route.query
+                    d.orderNo=that.$route.query.n
                 }
                 that.$http({
                     method:'post',

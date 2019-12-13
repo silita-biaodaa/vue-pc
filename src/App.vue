@@ -644,6 +644,7 @@
 	@import './assets/iconfont.css';
 	@import './base/base.css';
 	@import './style/common.css';
+	@import './style/publicCSS.less';
 body{
 	width: 100% !important;
 }
