@@ -289,8 +289,6 @@
 </script>
 <style lang="less" scoped>
 	.crew {
-		padding-top: 84px;
-
 		.crew-option {
 			width: 1020px;
 			box-sizing: border-box;

@@ -91,15 +91,7 @@
                                     <div class="num">1</div>
                                 </li>
                             </ul>
-                            <el-pagination
-                                layout="total, prev, pager, next, jumper"
-                                :current-page="ryData.pageNo"
-                                :hide-on-single-page="true"
-                                :page-size="ryData.pageSize"
-                                :current-change="ryGoto"
-                                :total="ryTotal">
-                            </el-pagination>
-                            <!-- <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page> -->
+                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
                         <!-- </template> -->
                         <!-- 无数据  -->
                         <!-- <template v-else-if="ryList&&ryList.length==0">
@@ -143,15 +135,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <el-pagination
-                                layout="total, prev, pager, next, jumper"
-                                :current-page="yjData.pageNo"
-                                :hide-on-single-page="true"
-                                :page-size="yjData.pageSize"
-                                :current-change="yjGoto"
-                                :total="yjTotal">
-                            </el-pagination>
-                            <!-- <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page> -->
+                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">

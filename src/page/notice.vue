@@ -159,7 +159,6 @@
 <style lang="less" scoped>
 	.notice {
 		width: 100%;
-		padding-top: 86px;
 		.fa {
 			background-color: #fff;
 		}

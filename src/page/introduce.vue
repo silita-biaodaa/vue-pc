@@ -286,7 +286,6 @@
 <style lang="less" scoped>
 	.introduce {
 		width: 1020px;
-		padding-top: 86px;
 		margin: 0 auto;
 
 		.i-nav {

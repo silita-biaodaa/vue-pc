@@ -1,10 +1,9 @@
 .option-box{
-    padding: 15px 10px 10px;
-    background-color: #fff;
-    font-size: 16px;
+    padding:20px;
     width: 1020px;
-    margin: 20px auto 0;
+    margin: 0 auto 20px;
     box-sizing: border-box;
+    border: 1px solid #DDDFE4
 }
 /* .option-box .el-col-2{
     font-weight: bold;
@@ -27,12 +26,14 @@
 }
 .total {
     width: 1020px;
-    color:#666;
     font-size: 14px;
-    margin: 10px auto;
-}
-.total span {
-    color:#EC7522;
+    margin:0 auto;
+    background: #F4F4F4;
+    border: 1px solid #DDDFE4;
+    line-height: 48px;
+    padding-left: 20px;
+    font-weight: 600;
+    box-sizing: border-box;
 }
 .page {
     padding-bottom: 75px;

@@ -42,7 +42,7 @@
 					</button>
 				</div>
 			</li>
-			<li @click="jumpQuery('SLquery')" class="cp">
+			<li @click="jumpQuery('screenPage')" class="cp">
 				<div class="img-box">
 					<img src="../assets/img/cq.png"/>
 				</div>
@@ -194,8 +194,7 @@
 <style lang="less">
 @import "../style/publicCSS";
 .home {
-	width: 100%;
-	padding-top: 88px;
+	background-color: #FAFAFA;
 	// 平台公示/行业资讯
 	.ptgs-hyzx{
 		background: #fff;

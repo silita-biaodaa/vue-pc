@@ -71,7 +71,6 @@
 </script>
 <style lang="less">
 	.perfor {
-		padding-top: 84px;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
