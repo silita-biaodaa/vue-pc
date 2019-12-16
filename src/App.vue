@@ -83,49 +83,7 @@
 			<router-view :state='source' v-if="isRouter" />
 		</div>
 		<!-- 底部 -->
-		<!-- <div class="footer footer-b " v-if="exploit">
-			<div class="f-content">
-				<div class="f-detail left">
-					<div class="f-we">
-						<div class="left ">
-							<img src="./assets/img/pic-erweima.png" alt="" class="new-img">
-							<div class="Qrcode">扫一扫，下载APP</div>
-						</div>
-						<div class="left ma-16">
-							<img src="./assets/img/accounts.png" alt="">
-							<div class="Qrcode">关注公众号</div>
-						</div>
-						<div class="left f-call ma-29">
-							<p>
-								<i class="iconfont icon-dianhua"></i>
-								<span>联系电话：0731-85076077</span>
-							</p>
-							<p>
-								<i class="iconfont icon-linedesign-04"></i>
-								<span>服务时间：9：00-17：00</span>
-							</p>
-							<p>
-								<i class="iconfont icon-youxiang"></i>
-								<span>邮箱：hnsilita@163.com</span>
-							</p>
-							<p>
-								<i class="iconfont icon-dizhi"></i>
-								<span>地址：湖南省长沙市岳麓区杜鹃路768号金峰壹号院</span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="f-true right">
-					<div class="logo">
-						<img src="./assets/img/logo.png" class="right">
-					</div>
-					<p class="right top-60">
-						© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1
-					</p>
-				</div>
-			</div>
-		</div> -->
-		<div class="footer color-b6b">
+		<div class="footer color-b6b" v-if="exploit">
 			<div class="footer_content">
 				<div class="text-c logo_img fs14">
 					<img src="./assets/img/pic-erweima.png" alt="">

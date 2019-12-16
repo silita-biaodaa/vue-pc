@@ -332,6 +332,7 @@ import countTime from '@/components/countTime'
 			jumpPay(el){//跳到支付页
 				let query={
 					id:el.report.pkid,
+					n:el.orderNo
 				}
 				if(el.report.zhuanchaType=='gonglu'){
 					query.type='gl'
@@ -340,10 +341,6 @@ import countTime from '@/components/countTime'
 				}else if(el.report.zhuanchaType=='shuili'){
 					query.type='sl'
 				}
-				// this.$router.push({
-				// 	path:'/queryPay',
-				// 	query:query
-				// })
 				this.openNewLink('/queryPay',query)
 			},
 			jumpQuery(el){//跳到查询页

@@ -1,73 +1,76 @@
 <template>
-	<div class="wdetail">
-		<div class="irr-nav">
-			<span @click="junmpto">首页</span>
-			<span> > </span>
-			<span @click="junmpjiao">业绩</span>
-			<span> > </span>
-			<span>住建部业绩详情</span>
-		</div>
-		<div class="irr-detail">
-			<div class="irr-title">
-				{{detail.proName}}
-			</div>
+	<div class="all-b" >
+			<div class="wdetail">
+				<div class="irr-nav">
+					<span @click="junmpto">首页</span>
+					<span> / </span>
+					<span @click="junmpjiao">业绩</span>
+					<span> / </span>
+					<span>住建部业绩详情</span>
+				</div>
+				<div class="irr-detail">
+					<div class="irr-title">
+						<i class="iconfont iconxiangmu" ></i> {{detail.proName}}
+					</div>
+				<table  cellspacing="0" >
+					<tr>
+						 <td width='220' class="ur-title" >项目编号</td>
+						 <td width='180' >{{detail.projectNo}}</td>
+						 <td width='120' class="ur-title"  >省级项目编号</td>
+						 <td width='180' >{{detail.proNo}}</td>
+						 <td width='120' class="ur-title" >所在区域</td>
+						 <td width='210' >{{detail.proWhere}}</td>
+					</tr>
 
-			<div class="irr-table">
-				<el-row>
-					<el-col :span="7">
-						<p>项目编号：<span>{{detail.projectNo}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>省级项目编号：<span>{{detail.proNo}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>所在区划：<span>{{detail.proWhere}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="14">
-						<p>建设单位组织机构代码 （统一社会信用代码）：<span>{{detail.orgCode}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>建设单位：<span>{{detail.proOrg}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>项目类别：<span>{{detail.proType}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>建设性质：<span>{{detail.buildType}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>工程用途：<span>{{detail.proUse }}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>投资总额：<span>{{detail.investAmount?detail.investAmount + '万':''}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>总面积：<span>{{detail.acreage}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>立项级别：<span>{{detail.proLevel }}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="24">
-						<p>立项文号：<span>{{detail.approvalNum}}</span></p>
-					</el-col>
-				</el-row>
-			</div>
-		</div>
-		<div class="ub-nav">
-			<span v-for="(el,i) in navs" :key="i" :class="el.i  ? 'p-color' : '' " @click="jump(el)">{{el.name}} <span v-if="el.to">({{el.all}})</span>
-			</span>
-		</div>
-		<router-view :titles='detail.proName' :area='detail.proWhere'></router-view>
+					 <tr>
+						 <td width='220' class="ur-title" >建设单位组织机构代码 &nbsp&nbsp&nbsp&nbsp&nbsp（统一盛会信用代码）</td>
+						 <td colspan='3' >{{detail.orgCode}}</td>
+						 <td width='120' class="ur-title" >建设单位</td>
+						 <td  >{{detail.proOrg}}</td>
+				   </tr>
 
+					 <tr>
+						 <td width='220' class="ur-title" >项目类别</td>
+						 <td >{{detail.proType}}</td>
+						 <td width='120' class="ur-title"  >建设性质</td>
+						 <td>{{detail.buildType}}</td>
+						 <td width='120' class="ur-title" >工程用途</td>
+						 <td  >{{detail.proUse }}</td>
+				   </tr>
+
+					 <tr>
+						 <td width='220' class="ur-title" >投资总额</td>
+						 <td >{{detail.investAmount?detail.investAmount + '万':''}}</td>
+						 <td width='120' class="ur-title"  >总面积</td>
+						 <td>{{detail.acreage}}</td>
+						 <td width='120' class="ur-title" >立项级别</td>
+						 <td  >{{detail.proLevel }}</td>
+				   </tr>
+						
+						<tr>
+						 <td width='220' class="ur-title" >立项文号</td>
+						 <td  colspan='5' >{{detail.approvalNum}}</td>
+						
+				   </tr>					 
+							
+				</table>
+
+				</div>
+				<div class="ub-left" >
+					<div class="ub-nav">
+						<span v-for="(el,i) in navs" :key="i" :class="el.i  ? 'p-color' : '' " @click="jump(el)">{{el.name}} <span v-if="el.to">({{el.all}})</span>
+						</span>
+					</div>
+					<div class="ub-nav ub-form"  >
+						<i class="iconfont iconchakan" ></i> 查看数据来源
+					</div>
+				</div>
+			
+				<router-view :titles='detail.proName' :area='detail.proWhere'></router-view>
+
+			</div>
 	</div>
+
 </template>
 <script>
 	import {
@@ -86,7 +89,7 @@
 						i: false
 					},
 					{
-						name: '/',
+						name: '|',
 					},
 					{
 						name: '施工图审查',
@@ -95,7 +98,7 @@
 						i: false
 					},
 					{
-						name: '/',
+						name: '|',
 					},
 					{
 						name: '合同备案',
@@ -104,7 +107,7 @@
 						i: false
 					},
 					{
-						name: '/',
+						name: '|',
 					},
 					{
 						name: '施工许可',
@@ -113,7 +116,7 @@
 						i: false
 					},
 					{
-						name: '/',
+						name: '|',
 					},
 					{
 						name: '竣工验收备案',
@@ -190,6 +193,10 @@
 	}
 </script>
 <style lang="less" scoped>
+.all-b {
+	background-color: #fff;
+	width: 100%;
+}
 	.wdetail {
 		min-height: calc(~"100vh - 195px");
 		overflow: hidden;
@@ -197,7 +204,7 @@
 		width: 1020px;
 		box-sizing: border-box;
 		margin: 0 auto;
-
+    
 		.irr-nav {
 			height: 40px;
 			line-height: 40px;
@@ -208,32 +215,39 @@
 
 		.irr-detail {
 			background-color: #fff;
-			padding: 16px 12px 24px;
-
+			padding: 1px 0 24px;
 			.irr-title {
-				font-size: 20px;
-				color: #FE6603;
+				font-size: 34px;
+				color: #000;
 				font-weight: 550;
-			}
-
-			.irr-table {
-				background: rgba(250, 253, 255, 1);
-				border: 1px solid rgba(242, 242, 242, 1);
-				margin-top: 21px;
-				padding: 16px 16px 0;
-
-				p {
-					margin-bottom: 15px;
-					font-size: 12px;
-					color: #999;
-
-					span {
-						color: #333;
-					}
+				margin-bottom: 20px;
+				i {
+					font-size: 34px;
 				}
 			}
+			 table {
+				 border:1px solid rgba(221,223,228,1);
+				 border-collapse: collapse;
+					  td {
+      	  height: 48px;
+      	  line-height: 20px;
+      	  font-size: 14px;
+      	  border:1px solid rgba(221,223,228,1);
+					padding: 5px 15px;
+					color: #000;
+      	  box-sizing: border-box;
+				}
+				  .ur-title {
+    		  text-align: center;
+    		  font-weight: 550;
+    		  background:#F4F4F4;
+    		}
+			 }
 		}
-
+		.ub-left {
+			display: flex;
+			justify-content: space-between;
+		}
 		.ub-nav {
 			height: 60px;
 			line-height: 60px;
@@ -242,10 +256,16 @@
 			cursor: pointer;
 			margin-top: 40px;
 			background-color: #fff;
-			padding-left: 10px;
-
 			span {
-				margin-right: 6px;
+				margin-right: 15px;
+			}
+		}
+		.ub-form {
+			font-size: 14px;
+			cursor: pointer;
+			color: #4494F0;
+			i {
+				margin-right: 4px;
 			}
 		}
 	}
