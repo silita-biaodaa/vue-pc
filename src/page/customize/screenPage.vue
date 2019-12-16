@@ -23,7 +23,7 @@
                 <!-- 人员要求 -->
                 <v-newScreenRY></v-newScreenRY>
                 <!-- 业绩要求 -->
-                <el-row class="pt20" type="flex" :class="{'require': current == 1}">
+                <el-row class="pt20" type="flex" :class="{'require': current == 1 && typeList == '1'}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>
                     <el-col :span="22">
                         <el-row class="mb20">
@@ -175,7 +175,7 @@
                     </el-col>
                 </el-row>
                 <!-- 信用要求 -->
-                <el-row class="pt20 pb20 require" type="flex" :class="{'hide': current !== 1}">
+                <el-row class="pt20 pb20 require" type="flex" :class="{'hide': current !== 1 || typeList !== '1'}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">信用要求</el-col>
                     <el-col :span="16">
                         <el-row class="mb20">
@@ -244,14 +244,14 @@
                         <!-- 符合业绩条件的数量 -->
                         <el-row class="fs14 flex-center drc color-150">
                             <div>符合信用条件的数量：</div>
-                            <el-input-number v-model="data.project.proCoun" :min="1" size="mini"></el-input-number>
+                            <el-input-number v-model="data.project.proCount" :min="1" size="mini"></el-input-number>
                         </el-row>
                     </el-col>
                     <el-col :span="6" class="text-r">
                         <el-checkbox v-model="checked"  class="fs14 color-150">仅查询无行政处罚的企业</el-checkbox>
                     </el-col>
                 </el-row>
-                <el-row :class="{'hide': current !== 1}">
+                <el-row :class="{'hide': current !== 1 || typeList !== '1'}">
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
@@ -305,7 +305,7 @@ export default {
             breadList: [{ title: "重庆定制版查询系统" }], //面包屑列表,以对象形式添加;
             current: 1,
             currentZZ: 1, //资质切换
-            typeList: "1", //筛选框;
+            typeList: "1", //全国资质与重庆资质筛选框,1为全国,2为重庆;
             firmAlias: "",
             radio: 3, //单选勾选;
             typeLists: [
@@ -620,7 +620,10 @@ body .el-radio__input.is-checked+.el-radio__label {
     border-color: @themeColor !important;
 }
 .el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
-    border-color: @themeColor !important;
+    color: @themeColor !important;
+}
+.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
+    border-color: none !important;
 }
 </style>
 <style lang="less" scoped>

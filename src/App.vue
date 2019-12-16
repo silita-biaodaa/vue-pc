@@ -83,7 +83,7 @@
 			<router-view :state='source' v-if="isRouter" />
 		</div>
 		<!-- 底部 -->
-		<div class="footer footer-b " v-if="exploit">
+		<!-- <div class="footer footer-b " v-if="exploit">
 			<div class="f-content">
 				<div class="f-detail left">
 					<div class="f-we">
@@ -124,8 +124,40 @@
 					</p>
 				</div>
 			</div>
+		</div> -->
+		<div class="footer color-b6b">
+			<div class="footer_content">
+				<div class="text-c logo_img fs14">
+					<img src="./assets/img/pic-erweima.png" alt="">
+					<div class="mt30">扫一扫，下载APP</div>
+				</div>
+				<div class="text-c logo_img fs14">
+					<img src="./assets/img/accounts.png" alt="">
+					<div class="mt30">关注公众号</div>
+				</div>
+				<div class="fs14">
+					<div class="fs16 color-fff mb30">联系我们</div>
+					<div class="drc">
+						<ul class="mr40">
+							<li>联系电话</li>
+							<li>0731-85076077</li>
+							<li>邮箱</li>
+							<li>hnsilita@163.com</li>
+						</ul>
+						<ul>
+							<li>工作时间</li>
+							<li>8：30-19：30</li>
+							<li>地址</li>
+							<li>湖南省长沙市岳麓区杜鹃路768号金峰壹号院</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<img src="./assets/img/logo.png">
+				</div>
+			</div>
+			<div class="footer_mark text-c fs14">© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1</div>
 		</div>
-
 		<!--右侧悬浮-->
 		<div class="fix-right" v-if="$route.name!='error'">
 			<div class="block qrbox">
@@ -644,6 +676,7 @@
 	@import './assets/iconfont.css';
 	@import './base/base.css';
 	@import './style/common.css';
+	@import './style/publicCSS';
 body{
 	width: 100% !important;
 }
@@ -835,89 +868,29 @@ body{
 			}
 		}
 	}
-	/*像是底部的样式*/
+	/*底部样式*/
 	.footer {
-		height: 195px;
-		width: 100%;
-		background-color: #666666;
-		display: flex;
-		justify-content: center;
-
-		.f-content {
+		background-color: @pinkColor;
+		padding: 70px 0 30px 0;
+		.footer_content {
 			width: 1020px;
-			height: 100%;
-			box-sizing: border-box;
-			padding-top: 26px;
-
-			.f-detail {
-				width: 60%;
-				height: 100%;
-
-				.f-we {
-					overflow: hidden;
-					font-size: 18px;
-					color: #fff;
-
-					.new-img {
-						width: 113px;
-						height: 113px;
-					}
-
-					.Qrcode {
-						font-size: 12px;
-						color: #FE6603;
-						text-align: center;
-					}
-
-					.ma-16 {
-						margin-left: 16px;
-					}
-
-					p {
-						display: flex;
-						align-items: center;
-						margin-bottom: 11px;
-
-						i {
-							font-size: 16px;
-							margin-right: 10px;
-						}
-
-						span {
-							font-size: 12px;
-						}
-					}
-
-					.f-call {
-						margin-top: 12px;
-					}
-
-					.ma-29 {
-						margin-left: 29px;
-					}
-
-					.file {
-						margin-top: 108px;
-						font-size: 12px;
-					}
+			margin: 0 auto;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			.logo_img {
+				img {
+					width: 126px;
+					height: 126px;
 				}
 			}
-
-			.f-true {
-				width: 39%;
-				height: 100%;
-				box-sizing: border-box;
-
-				.logo {
-					margin-top: 14px;
-				}
-
-				.top-60 {
-					margin-top: 60px;
-					font-size: 12px;
-					color: #eee;
-				}
+			ul>li {
+				margin-bottom: 16px;
 			}
+		}
+		.footer_mark {
+			min-width: 1020px;
+			margin-top: 80px;
 		}
 	}
 }
@@ -1029,17 +1002,4 @@ body .el-loading-spinner .el-loading-text {
 #app .content {
 	min-height: calc(100vh - 320px);
 }
-
-	// @media screen and (min-width: 1919px){
-	//   #app{
-	//     min-height: 100vh;
-	//   }
-	//   #app .footer{
-	//     position: fixed;
-	//     bottom:0;
-	//   }
-	//   #app .content{
-	//     padding-bottom: 195px
-	//   }
-	// }
 </style>

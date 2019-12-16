@@ -13,7 +13,7 @@
                 <!-- <div class="top-box">
                     <h2>{{title}}信息专查</h2>
                     <div class="total-box">共为您找到符合要求企业{{total}}家</div>
-                </div> -->
+                </div>-->
                 <!-- <v-query></v-query> -->
                 <v-result :payPage="payPage"></v-result>
                 <!-- <div class="price-box">
@@ -23,14 +23,20 @@
                         <span class="color-font">¥{{vipPrice}}</span>
                     </p>
                     <button class="openVip" v-if="!isVip" @click="jumpVip">开通会员</button>
-                </div> -->
+                </div>-->
                 <div class="price-box mt40 fs18">
                     <div class="drc">
                         <i class="iconfont iconwancheng color-eb6"></i>
-                        <div class="ml10">共为您找到<span class="fs28 color-eb6 fw600 ml10 mr10">12123名</span>符合要求的人员</div>
+                        <div class="ml10">
+                            共为您找到
+                            <span class="fs28 color-eb6 fw600 ml10 mr10">12123名</span>符合要求的人员
+                        </div>
                     </div>
                     <div class="drc openVip">
-                        <div>本次为付费查询，限时折扣价¥8 / 会员专享价<span class="color-eb6">¥1元</span></div>
+                        <div>
+                            本次为付费查询，限时折扣价¥8 / 会员专享价
+                            <span class="color-eb6">¥1元</span>
+                        </div>
                         <button class="fs18 cp">开通会员</button>
                     </div>
                     <div class="mb40">
@@ -50,9 +56,12 @@
                     <!-- <p class="wxpay">
                         <img src="../../assets/img/icon-weixin.png" />
                         微信支付
-                    </p> -->
+                    </p>-->
                     <p class="goDetail" @click="jumpList">支付成功，点击查看详情 ></p>
-                    <div class="fs18 color-5a5">注：同一用户24小时内查询同一条件无需再次支付，不小心关闭结果可在<span class="color-449 cp">我的订单</span>中再次打开查看</div>
+                    <div class="fs18 color-5a5">
+                        注：同一用户24小时内查询同一条件无需再次支付，不小心关闭结果可在
+                        <span class="color-449 cp">我的订单</span>中再次打开查看
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,12 +79,16 @@ export default {
         "v-head": heads,
         "v-query": queryCondition,
         "v-publicBread": publicBread,
-        "v-result": resultsList,
+        "v-result": resultsList
     },
     name: "queryPay", // 结构名称
     data() {
         return {
-            breadList: [{ title: '重庆定制版综合查询'},{ title: '查询结果'},{ title: '支付'}],
+            breadList: [
+                { title: "重庆定制版综合查询" },
+                { title: "查询结果" },
+                { title: "支付" }
+            ],
             // 数据模型a
             isload: true,
             orderNo: null,
@@ -84,7 +97,7 @@ export default {
             comPrice: 0,
             isVip: false,
             total: 0,
-            payPage: true, //是否从支付页面
+            payPage: true //是否从支付页面
         };
     },
     watch: {
@@ -271,7 +284,7 @@ export default {
                 button {
                     width: 180px;
                     height: 38px;
-                    border-radius:19px;
+                    border-radius: 19px;
                     background-color: @themeColor;
                     color: @whiteColor;
                     margin-left: 62px;
@@ -292,15 +305,15 @@ export default {
                 width: 157px;
                 height: 38px;
                 line-height: 38px;
-                border-radius:4px;
+                border-radius: 4px;
                 margin: 20px auto;
-                border:1px solid @darkColor;
+                border: 1px solid @darkColor;
                 img {
                     margin-right: 12px;
                 }
             }
             span {
-                border-bottom: 1px solid #4494F0;
+                border-bottom: 1px solid #4494f0;
                 margin: 0 3px;
             }
             #qrcode {
@@ -309,6 +322,9 @@ export default {
                 margin: 0 auto;
             }
         }
+    }
+    .payPage_body /deep/ .list {
+        background-color: @whiteColor;
     }
 }
 </style>

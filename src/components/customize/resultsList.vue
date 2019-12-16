@@ -1,13 +1,13 @@
 <template>
     <div class="resultsList">
-        <div class="dfrcb">
+        <div class="dfrcb mb10">
             <div class="fs18 color-150">您的查询条件为：</div>
             <div class="color-449 fs18 cp" v-if="this.$parent.payPage">
                 <span class="mr10">返回修改</span>
                 <i class="iconfont iconfanhuixiugai"></i>
             </div>
         </div>
-        <div class="mt10 pt20 pl20 pr20 bg-ffe list">
+        <div class="pt20 pl20 pr20 bg-ffe list">
             <el-row v-for="(item,index) in showArr" :key="index" class="fs18 pb20">
                 <div class="dr">
                     <el-col :span="2.5" class="fw600">{{item.title}}</el-col>
@@ -18,7 +18,10 @@
                 <div class="line_left mr20"></div>
                 <div class="cp drc" @click="toggle">
                     <span class="color-449 fs14">{{showAll?'收起':'展开'}}</span>
-                    <i class="iconfont color-449 fs10 cp ml5 iconzhankai" :class="{'iconshouqi':showAll}"></i>
+                    <i
+                        class="iconfont color-449 fs10 cp ml5 iconzhankai"
+                        :class="{'iconshouqi':showAll}"
+                    ></i>
                 </div>
                 <div class="line_right ml20"></div>
             </div>
@@ -54,11 +57,12 @@ export default {
             ],
             showTotal: true,
             showArr: [],
-            showAll: false,
+            showAll: false
         };
     },
     methods: {
-        showList() {//超过四行隐藏
+        showList() {
+            //超过四行隐藏
             if (this.resultList.length > 4) {
                 for (let i = 0; i < 4; i++) {
                     this.showArr.push(this.resultList[i]);
@@ -69,14 +73,15 @@ export default {
                 this.showArr = this.resultList;
             }
         },
-        toggle() {//点击展开收起
+        toggle() {
+            //点击展开收起
             this.showAll = !this.showAll;
             this.showArr = [];
-            if(this.showAll) {
+            if (this.showAll) {
                 this.showArr = this.resultList;
-            }else {
-                for(let i = 0; i < 4; i++) {
-                   this.showArr.push(this.resultList[i]); 
+            } else {
+                for (let i = 0; i < 4; i++) {
+                    this.showArr.push(this.resultList[i]);
                 }
                 return this.showArr;
             }
@@ -93,9 +98,12 @@ export default {
     .list {
         border: 1px solid @initColor;
         .list_bottom {
-            .line_left {
+            .line_left,
+            .line_right {
                 width: 444px;
                 height: 1px;
+            }
+            .line_left {
                 background: linear-gradient(
                     90deg,
                     rgba(121, 198, 249, 0) 0%,
@@ -103,8 +111,6 @@ export default {
                 );
             }
             .line_right {
-                width: 444px;
-                height: 1px;
                 background: linear-gradient(
                     -90deg,
                     rgba(121, 198, 249, 0) 0%,
