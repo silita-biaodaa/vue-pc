@@ -305,7 +305,7 @@
 		width: 1020px;
 		height: 160px;
 		margin: 0 auto 40px;
-		background: url(/static/img/gg.6aa7075.png);
+		background: url(../assets/img/gg.png);
 		background-size: 100% 100%;
 		border-radius: 4px;
 	}
