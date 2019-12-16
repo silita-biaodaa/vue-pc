@@ -1,5 +1,5 @@
 <template>
-    <div class="screenPage">
+    <div class="screenPage bg-fff">
         <v-head3></v-head3>
         <div class="screenPage_body">
             <v-bread :breadList="breadList"></v-bread>
@@ -632,7 +632,6 @@ body .el-radio__input.is-checked+.el-radio__label {
     .screenPage_body {
         width: 1020px;
         margin: 0 auto;
-        background-color: @whiteColor;
         .select {
             li {
                 color: @lightColor;

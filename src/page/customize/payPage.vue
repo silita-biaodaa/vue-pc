@@ -1,9 +1,9 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="payPage">
+    <div class="payPage bg-fff">
         <!-- 头 -->
         <v-head></v-head>
-        <div class="payPage_body bg-fff">
+        <div class="payPage_body">
             <div>
                 <v-publicBread :breadList="breadList"></v-publicBread>
                 <div class="fs34 mb40">

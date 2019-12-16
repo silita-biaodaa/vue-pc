@@ -1,7 +1,7 @@
 <template>
-    <div class="result">
+    <div class="result bg-fff">
         <v-head3></v-head3>
-        <div class="result_body bg-fff">
+        <div class="result_body">
             <v-publicBread :breadList="breadList"></v-publicBread>
             <v-result></v-result>
             <!-- 资质查询结果 -->

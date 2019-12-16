@@ -84,7 +84,7 @@
 		</div>
 		<!-- 底部 -->
 		<div class="footer color-b6b" v-if="exploit">
-			<div class="footer_content">
+			<div class="footer_content dfrb">
 				<div class="text-c logo_img fs14">
 					<img src="./assets/img/pic-erweima.png" alt="">
 					<div class="mt30">扫一扫，下载APP</div>
@@ -833,9 +833,6 @@ body{
 		.footer_content {
 			width: 1020px;
 			margin: 0 auto;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
 			.logo_img {
 				img {
 					width: 126px;
