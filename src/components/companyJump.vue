@@ -61,7 +61,7 @@ export default {
                 that.$alert('网络链接不稳定，请重新点击');
                 that.tapName = false;
             })
-        }
+        },
     },
 }
 </script>

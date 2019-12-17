@@ -21,7 +21,7 @@
             </template>
             <!-- 一人多证 -->
             <template v-else>
-                <div class="box">
+                <div class="box bg-f4f">
                     <!-- 条件 -->
                     <el-row v-for="(x,y) of el.list" :key="'a'+y">
                         <el-select placeholder="请选择证书类别" clearable v-model="x.one.cateName"  @change="oneChangeFn(x,y)">
@@ -417,7 +417,7 @@ export default {
         }
     }
     .box{
-        border: 1px solid #f2f2f2;
+        border: 1px solid @initColor;
         padding: 20px;
         position: relative;
         .el-row{

@@ -641,6 +641,7 @@ body{
 }
 #app {
 	/*详情内页接口表格问题*/
+	background-color: @whiteColor;
 	.article table {
 		max-width: 100%;
 		width: 100% !important;

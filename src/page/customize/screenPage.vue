@@ -61,11 +61,19 @@
                                 </el-input>
                             </el-col>
                             <el-col :span="11">
-                                <el-radio-group v-model="radio" text-color="#EB651B" fill="#EB651B">
+                                <!-- <el-radio-group v-model="radio" text-color="#EB651B" fill="#EB651B">
                                     <el-radio :label="3">根据标题搜索</el-radio>
                                     <el-radio :label="6">根据规模搜索</el-radio>
                                     <el-radio :label="9">根据标题和规模搜索</el-radio>
-                                </el-radio-group>
+                                </el-radio-group> -->
+                                <ul class="drc">
+                                    <li class="cp fs14 color-5a5 mr15" v-for="(item,index) in selectList" :key="index" @click="handleSelect(index)" :class="{'activeZZ': item.id == selectTab}">
+                                        <!-- <i class="iconfont icondanxuan-daixuan" :class="{'icondanxuan-xuanzhong': item.id == selectTab}"></i> -->
+                                        <i class="iconfont icondanxuan-daixuan" :class="{'hide': item.id == selectTab}"></i>
+                                        <i class="iconfont icondanxuan-xuanzhong hide" :class="{'block': item.id == selectTab}"></i>
+                                        <span>{{item.content}}</span>
+                                    </li>
+                                </ul>
                             </el-col>
                         </el-row>
                         <!-- 资质条件筛选 -->
@@ -307,7 +315,7 @@ export default {
             currentZZ: 1, //资质切换
             typeList: "1", //全国资质与重庆资质筛选框,1为全国,2为重庆;
             firmAlias: "",
-            radio: 3, //单选勾选;
+            selectTab: "0", //选择id
             typeLists: [
                 {
                     id: "1",
@@ -453,6 +461,20 @@ export default {
                     istap:false,
                 }
             ],
+            selectList: [//选择查询条件
+                {
+                    id: "0",
+                    content: "根据标题搜索"
+                },
+                {
+                    id: "1",
+                    content: "根据规模搜索"
+                },
+                {
+                    id: "2",
+                    content: "根据标题和规模搜索"
+                },
+            ],
             data:{
                 joinRegion:"all_in",//备案地区
                 qualCode:"",//资质
@@ -490,6 +512,9 @@ export default {
         },
         handleClickZZ (index) {
             this.currentZZ = index;
+        },
+        handleSelect (index) {
+            this.selectTab = index;
         },
         changetable() {
         },
@@ -621,6 +646,7 @@ body .el-radio__input.is-checked+.el-radio__label {
 }
 .el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
     color: @themeColor !important;
+    border-color: @themeColor !important;
 }
 .el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
     border-color: none !important;
@@ -684,7 +710,6 @@ body .el-radio__input.is-checked+.el-radio__label {
             }
         }
         .total {
-            color: @themeColor;
             font-size: 24px;
         }
         .link_fun {
