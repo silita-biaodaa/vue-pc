@@ -30,6 +30,12 @@
 </template>
 <script>
 export default {
+    props: {
+        payPage: {
+            type: String,
+            default: ""
+        }
+    },
     data() {
         return {
             resultList: [

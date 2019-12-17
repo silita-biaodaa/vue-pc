@@ -46,7 +46,7 @@ export default {
         return 2
       }
     }
-  }
+  },
 }
 </script>
 <style lang="less">

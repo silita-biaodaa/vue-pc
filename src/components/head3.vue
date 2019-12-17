@@ -9,7 +9,7 @@
                 {{headTxt}}
             </div>
             <div class="top-left" >
-            <div v-if="names" ><span @click="tologo" >登录</span>&nbsp&nbsp<span @click="toenroll" >注册</span></div> 
+            <div v-if="names" ><span @click="tologo" >登录</span>&nbsp;&nbsp;<span @click="toenroll" >注册</span></div> 
                 <el-dropdown  v-else trigger="click"   >
                 <span class="el-dropdown-link">
                     <span class="user-name" >{{name}}<i class="user-info" v-show="ishow" ></i></span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>

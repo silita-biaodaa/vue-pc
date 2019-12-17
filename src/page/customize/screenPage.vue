@@ -1,5 +1,5 @@
 <template>
-    <div class="screenPage bg-fff">
+    <div class="screenPage">
         <v-head3></v-head3>
         <div class="screenPage_body">
             <v-bread :breadList="breadList"></v-bread>
@@ -279,7 +279,7 @@
                     </span>
                     家
                 </p>
-                <button class="info_btn fs18 cp" @click="jump">查看详情</button>
+                <button class="info_btn fs18 cp color-eb6 bg-fff" @click="jump">查看详情</button>
             </div>
             <div class="link_fun mr40">
                 <p class="up mb5 pb5">服务电话：0731-85076077</p>
@@ -697,8 +697,6 @@ body .el-radio__input.is-checked+.el-radio__label {
             height: 48px;
             border-radius:8px;
             border: 1px solid @themeColor;
-            background: @whiteColor;
-            color: @themeColor;
             margin-left: 60px;
         }
     }

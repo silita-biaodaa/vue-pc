@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="payPage bg-fff">
+    <div class="payPage">
         <!-- 头 -->
         <v-head></v-head>
         <div class="payPage_body">

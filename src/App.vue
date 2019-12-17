@@ -611,7 +611,8 @@
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
 					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'||this.$route.name=='GLquery'
-					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'||this.$route.name=='result'
+					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'
+					||this.$route.name=='result' || this.$route.name == 'payPage'
 				) {
 					return false
 				} else {

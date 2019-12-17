@@ -1,11 +1,11 @@
 <template>
-    <div class="result bg-fff">
+    <div class="result">
         <v-head3></v-head3>
         <div class="result_body">
             <v-publicBread :breadList="breadList"></v-publicBread>
             <v-result></v-result>
             <!-- 资质查询结果 -->
-            <div class="result_content mt35" v-if="resultZZ">
+            <!-- <div class="result_content mt35" v-if="resultZZ">
                 <ul>
                     <li class="dfrcb result_num fs14 bg-f4f">
                         <div class="fw600">共找到12123名人员</div>
@@ -33,7 +33,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
             <!-- 人员查询 -->
             <div class="result_content mt35">
                 <ul>
