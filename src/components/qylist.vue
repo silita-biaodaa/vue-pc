@@ -124,10 +124,11 @@ export default {
 <style lang="less" scoped>
 .bidlist {
   .bid-bor {
-    border: 1px solid #F2F2F2;
+    border: 1px solid #DDDFE4;
   }
   .list-top {
-    border-bottom: 1px solid #F2F2F2;
+    border-bottom: 1px solid #DDDFE4;
+    background-color: #F4F4F4;
     height: 40px;
     line-height: 40px;
     font-size: 14px;
@@ -150,13 +151,14 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #F2F2F2;
+    border-bottom: 1px solid #DDDFE4;
     cursor: pointer;
     .list-til {
       font-size: 12px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      margin-bottom: 10px;
       width: 568px;
     }
     .list-z{
@@ -171,8 +173,8 @@ export default {
       line-height: 26px;
       width: 68px;
       border-radius: 8px;
-      border: 1px solid #FE6603;
-      color:#FE6603;
+      border: 1px solid #DDDFE4;
+      color:#000;
       font-size: 12px;
       text-align: center;
       cursor: pointer;

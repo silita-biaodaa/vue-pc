@@ -18,6 +18,9 @@
 				</el-dropdown>
 			</div>
 		</div>
+		<div class="user-new" >
+			<span>首页</span> <i>/</i>
+		</div>
 		<div class="user-text">
 			<div class="text-nav">
 				<div class='user-news'>
@@ -272,7 +275,7 @@
 <style lang="less" scoped>
 	.user {
 		width: 100%;
-		background-color: #fafafa;
+		background-color: #fff;
 		.el-dropdown-link {
 			color:#fff;
 		}
@@ -280,9 +283,7 @@
 		.user-nav {
 			width: 100%;
 			height: 58px;
-			margin-bottom: 16px;
 			background-color: #EB651B;
-
 			.in-nav {
 				width: 1020px;
 				margin: 0 auto;
@@ -291,6 +292,13 @@
 				align-items: center;
 				justify-content: space-between;
 			}
+		}
+		.user-new {
+				width: 1020px;
+				margin: 0 auto;
+				line-height: 60px;
+				font-size: 14px;
+				color: #666;
 		}
 
 		.user-text {

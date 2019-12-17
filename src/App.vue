@@ -640,6 +640,7 @@ body{
 	width: 100% !important;
 }
 #app {
+	
 	/*详情内页接口表格问题*/
 	.article table {
 		max-width: 100%;

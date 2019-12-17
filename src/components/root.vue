@@ -23,7 +23,7 @@
           </span>
         </div>
       <div class="put-l ">
-        <div class=" put-w m-r">新密码:</div><el-input  type="password" name="password"  autocomplete="new-password"  v-model="newpass" placeholder="请输入新密码(不低于8位)" ></el-input>
+        <div class=" put-w m-r">新的密码:</div><el-input  type="password" name="password"  autocomplete="new-password"  v-model="newpass" placeholder="请输入新密码(不低于8位)" ></el-input>
       </div>
       <div class="put-t" >
         <span v-show="erpass">
@@ -206,7 +206,7 @@ export default {
         color:#666;
       }
       .p-color {
-        color: #FE6603;
+        color: #4494F0;
       }
       .m-r {
         margin-right: 10px;
