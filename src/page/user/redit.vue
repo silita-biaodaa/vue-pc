@@ -7,7 +7,8 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="textList&&textList.length>0">
-				<div v-for="(el,i) in textList" :key="i" class="re-bor" @click="jumA(el)">
+				<div v-for="(el,i) in textList" :key="i" class="re-bor" @click="jumA(el)" :class="textList.length == i +1 ? 'no-bor' :  ''" >
+
 					<!-- 评论 -->
 					<template v-if="el.msgType=='reply'">
 						<div class=" all-text">
@@ -78,9 +79,6 @@
 									{{el.msgContent}}
 								</div>
 							</div>
-							<!-- <div class="msg-btn">
-								<button class="right" @click="jumpVip">查看详情 ></button>
-							</div> -->
 						</div>
 					</template>
 					<!-- 其他 -->

@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div class="user-new" >
-			<span>首页</span> <i>/</i>
+			<span >首页</span> <i>/</i><span style="color:#000" >{{name}}</span>
 		</div>
 		<div class="user-text">
 			<div class="text-nav">
@@ -299,6 +299,9 @@
 				line-height: 60px;
 				font-size: 14px;
 				color: #666;
+				i {
+					margin: 0 2px;
+				}
 		}
 
 		.user-text {

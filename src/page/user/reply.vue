@@ -7,7 +7,7 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="textList&&textList.length>0">
-				<div v-for="(el,i) in textList" :key="i" class="re-bor">
+				<div v-for="(el,i) in textList" :key="i" class="re-bor"  :class="textList.length == i +1 ? 'no-bor' :  ''" >
 					<!-- 评论 -->
 					<template v-if="el.msgType=='reply'">
 						<div @click.stop="jumA(el)" class=" all-text">
@@ -58,7 +58,7 @@
 								{{el.msgContent}}
 							</div>
 							<div class="msg-btn">
-								<button class="right" @click="jumpCom(el)">查看详情 ></button>
+								<button class="right" @click="jumpCom(el)">查看详情</button>
 							</div>
 						</div>
 					</template>
@@ -74,7 +74,7 @@
 								{{el.msgContent}}
 							</div>
 							<div class="msg-btn">
-								<button class="right" @click="jumpVip(el)">查看详情 ></button>
+								<button class="right" @click="jumpVip(el)">查看详情</button>
 							</div>
 						</div>
 					</template>
@@ -362,9 +362,11 @@
 		}
 
 		.re-bor {
-			border-bottom: 1px solid #f2f2f2;
+			border-bottom: 4px solid #f2f2f2;
 		}
-
+		.no-bor {
+			border-bottom: none;
+		}
 		.re-new {
 			width: 50px;
 			height: 16px;
@@ -541,15 +543,19 @@
 		}
 
 		.msg-btn {
-			height: 50px;
-
+			height: 56px;
+			display: flex;
+			align-items: center;
+			flex-direction: row-reverse;
+			border-top: 1px dashed #DDDFE4;
 			button {
-				color: #fe6603;
-				border: 1px solid #fe6603;
+				color: #150000;
+				border: 1px solid #DDDFE4;
 				border-radius: 5px;
-				padding: 5px;
+				padding: 5px 17px;
 				background: #fff;
 				cursor: pointer;
+				font-size: 14px;
 			}
 		}
 	}

@@ -106,10 +106,6 @@
 							</div>
 
 							<div class="left" style="width:100px;">
-								<!-- <div class="again" :class="{'noBtn':!(el.report.reportPath || el.orderStatus == '1' ) }" @click="resend(el)">
-									{{el.orderStatus == '1' ? '立即购买' : '重新发送' }}
-								</div> -->
-								<!-- 支付成功 -->
 								<template v-if="el.orderStatus=='9'">
 									<template v-if="timeOutFn(el)">
 										<!-- 查看详情 -->
@@ -127,10 +123,6 @@
 										<div class="again" @click="jumpPay(el)">去支付</div>
 										<v-time :end="el.createTime+(60*60*1000)"></v-time>
 									</template>
-									<!-- 失效 -->
-									<!-- <template v-else>
-										<div class="again noBtn">已失效</div>
-									</template> -->
 								</template>
 							</div>
 						</div>
@@ -166,7 +158,7 @@
 			<i class="el-icon-success"></i>{{msg}}
 		</div>
 
-		<div class="re-puy" v-if="egg">
+		<!-- <div class="re-puy" v-if="egg">
 			<div class="puy-title">
 				<span>企业资质·业绩查询报告-体验版</span>
 				<i class="el-icon-close" @click="close"></i>
@@ -198,17 +190,12 @@
 
 			<div class="puy-code">
 				<div class="puy-img qrcode" id="qrcode" v-loading='isload' element-loading-text="二维码生成中">
-					<!-- <img src="../../assets/img/bank_card @2x.png" alt=""> -->
 				</div>
 				<div class="puy-hint">
 					<img src="../../assets/img/icon-weixin.png" alt="">&nbsp&nbsp微信扫码支付
 				</div>
 			</div>
-		</div>
-
-		<div class="loading" v-if="egg">
-
-		</div>
+		</div> -->
 	</div>
 </template>
 <script>
@@ -233,10 +220,10 @@ import countTime from '@/components/countTime'
 						label: '会员订单',
 						value: 'vip'
 					},
-					// {
-					// 	label: '综合查询',
-					// 	value: 'query'
-					// }
+					{
+						label: '综合查询',
+						value: 'query'
+					}
 				],
 				value: '',
 				pattern: '',
@@ -439,11 +426,6 @@ import countTime from '@/components/countTime'
 					}
 				})
 			},
-			// dowloadFn(el) {
-			// 	if (el.report.reportPath) {
-			// 		window.open(el.report.reportPath)
-			// 	}
-			// },
 			type(val) {
 				this.allList = []
 				this.allList = this.win.concat(this.feat)
