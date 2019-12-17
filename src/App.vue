@@ -633,7 +633,7 @@
 
 <style lang="less">
 	@import './assets/iconfont.css';
-	@import './base/base.css';
+	@import './base/base.less';
 	@import './style/common.css';
 	@import './style/publicCSS';
 body{
@@ -642,6 +642,7 @@ body{
 #app {
 	
 	/*详情内页接口表格问题*/
+	background-color: @whiteColor;
 	.article table {
 		max-width: 100%;
 		width: 100% !important;
