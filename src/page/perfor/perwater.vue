@@ -17,50 +17,36 @@
 			<per-time @time='gaintime'></per-time>
 		</div>
 		<div class="total">
-			共找到<span class="p-color">{{total}}</span>条水利部业绩信息
+			共找到<span>{{total}}</span>条水利部业绩信息
 		</div>
 
 
 		<div class="per-lists">
-			<div class="t-size per-navs">
-				<div class="left" style="width:60px;">序号</div>
-				<div class="left" style="width:280px;">项目名称</div>
-				<div class="left" style="width:220px;">施工单位</div>
-				<div class="left" style="width:140px;">合同金额</div>
-				<div class="left" style="width:80px;">业绩类别</div>
-				<div class="left" style="width:120px;">完工日期</div>
-				<div class="left" style="width:120px;">项目属地</div>
-			</div>
-
-
 			<!-- 判断是否加载中 -->
 			<template v-if="isajax">
 				<!-- 有数据 -->
 				<template v-if="perlist&&perlist.length>0">
-					<!--  :class="el.is ? 'vi-color' : 'per-color'"  -->
-					<a class="per-del per-color" v-for="(el,i) in perlist" :key="el.pkid" @click="decide(el,i)">
-						<div class="left " style="width:60px;">
-							{{(data.pageNo-1)*20+(i+1)}}
-						</div>
-						<div class="left show-f" style="width:280px;">{{el.proName}}
-						</div>
-						<div class="left show-f" style="width:220px;">
-							{{el.comName}}
-						</div>
-						<div class="left" style="width:140px;">
-							{{el.amount ? el.amount : '暂无'}}
-						</div>
-						<div class="left" style="width:80px;">
-							{{el.proType ? el.proType : '暂无'}}
-						</div>
-						<div class="left" style="width:120px;">
-							{{el.build ? el.build : ' '}}
-						</div>
-						<div class="left" style="width:120px;">
-							{{el.proWhere}}
-						</div>
-					</a>
-					<div class="c-page">
+					<table class="table-content">
+						<tr>
+							<td style="width:84px">序号</td>
+							<td style="width:calc(100% - 770px)">项目名称</td>
+							<td style="width:180px">施工单位</td>
+							<td style="width:176px">合同金额</td>
+							<td style="width:96px">业绩类别</td>
+							<td style="width:96px">完工日期</td>
+							<td style="width:138px">项目属地</td>
+						</tr>
+						<tr v-for='(el,i) in perlist' :key='i' @click='decide(el)'>
+							<td>{{(data.pageNo-1)*20+(i+1)}}</td>
+							<td class="key-text">{{el.proName}}</td>
+							<td>{{el.comName}}</td>
+							<td>{{el.amount ? el.amount : '暂无'}}</td>
+							<td>{{el.proType ? el.proType : '暂无'}}</td>
+							<td>{{el.build ? el.build : '--'}}</td>
+							<td>{{el.proWhere}}</td>
+						</tr>
+					</table>
+					<div class="page">
 						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
 					</div>
 				</template>
@@ -309,69 +295,5 @@
 		},
 	}
 </script>
-<style lang="less">
-	.perlist {
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
-
-			.el-select {
-				width: 225px;
-				margin-right: 10px;
-			}
-
-			.el-checkbox-button__inner {
-				border: none;
-				margin-bottom: 12px;
-				font-size: 15px;
-				padding: 5px 10px;
-				color: #666;
-			}
-
-			.el-checkbox-button.is-checked .el-checkbox-button__inner {
-				color: #fff;
-				background-color: #FE6603;
-				border-color: #FE6603;
-				box-shadow: -1px 0 0 0 #fff;
-			}
-
-			.el-checkbox-button:first-child .el-checkbox-button__inner {
-				border-radius: 0;
-			}
-		}
-
-		.per-lists {
-			background-color: #fff;
-			margin-bottom: 125px;
-
-			.t-size {
-				font-size: 14px;
-				color: #000;
-			}
-
-			.per-navs {
-				height: 70px;
-				line-height: 70px;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-			}
-
-			.per-del {
-				min-height: 70px;
-				display: flex;
-				align-items: center;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-			}
-
-			a:visited {
-				color: #FE6603
-			}
-
-			// a:visited{color:#FE6603}
-			a:hover {
-				color: #FE6603
-			}
-		}
-	}
+<style lang="less" scoped>
 </style>

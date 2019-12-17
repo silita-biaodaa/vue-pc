@@ -40,52 +40,26 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="companylisy&&companylisy.length>0">
-				<div style="margin-bottom: 125px;">
-					<div class="firm">
-						<div class='firm-ul'>
-							<div>
-								<div class="left t-size" style="width:70px;">
-									序号
-								</div>
-								<div class="left t-size" style="width:310px;">
-									企业名称
-								</div>
-								<div class="left t-size" style="width:120px;">
-									法定代表
-								</div>
-								<div class="left t-size" style="width:180px;">
-									注册资本
-								</div>
-								<div class="left t-size" style="width:200px;">
-									联系方式
-								</div>
-								<div class="left t-size" style="width:140px;">
-									所属地区
-								</div>
-							</div>
-							<a v-for='(el,i) in companylisy' :key='i' @click='decide(el)'>
-								<div class="left " style="width:70px;">
-									{{(data.pageNo-1)*20+(i+1)}}
-								</div>
-								<div class="left" style="width:310px;">
-									<span class='c-col'>{{el.comName}}</span>
-								</div>
-								<div class="left" style="width:120px;">
-									{{el.legalPerson}}
-								</div>
-								<div class="left" style="width:180px;">
-									{{el.regisCapital ? el.regisCapital : '暂无'}}
-								</div>
-								<div class="left" style="width:200px;">
-									{{el.phone ? el.phone : '暂无'}}
-								</div>
-								<div class="left" style="width:140px;">
-									{{el.regisAddress}}
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="c-page">
+				<div>
+					<table class="table-content">
+						<tr>
+							<td style="width:84px">序号</td>
+							<td style="width:calc(100% - 720px)">企业名称</td>
+							<td style="width:130px">法定代表</td>
+							<td style="width:176px">注册资本</td>
+							<td style="width:176px">联系方式</td>
+							<td style="width:154px">所属地区</td>
+						</tr>
+						<tr v-for='(el,i) in companylisy' :key='i' @click='decide(el)'>
+							<td>{{(data.pageNo-1)*20+(i+1)}}</td>
+							<td class="key-text">{{el.comName}}</td>
+							<td>{{el.legalPerson}}</td>
+							<td>{{el.regisCapital ? el.regisCapital : '暂无'}}</td>
+							<td>{{el.phone ? el.phone : '暂无'}}</td>
+							<td>{{el.regisAddress}}</td>
+						</tr>
+					</table>
+					<div class="page">
 						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
 					</div>
 				</div>
@@ -577,28 +551,9 @@
 		},
 	}
 </script>
-<style lang="less">
+<style lang="less" scoped>
 	.company {
-		background: #FAFAFA;
 		width: 100%;
-		.el-loading-spinner .path {
-			stroke: #FE6603;
-		}
-
-		.el-loading-spinner .el-loading-text {
-			color: #FE6603;
-		}
-
-		.noneS {
-			width: 1020px;
-			margin: 0 auto;
-			background-color: #fff;
-			height: 582px;
-			margin-bottom: 100px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
 		.select {
 			font-size: 16px;
 			margin-bottom: 10px;
@@ -643,37 +598,6 @@
 				cursor: pointer;
 				padding: 0 9px;
 				color: #666;
-			}
-		}
-		.firm {
-			width: 1020px;
-			background: #fff;
-			margin: 0 auto;
-			overflow: hidden;
-
-			.firm-ul {
-				a {
-					cursor: pointer;
-				}
-
-				a:hover .left {
-					color: #FE6603;
-				}
-
-				div,
-				a {
-					height: 70px;
-					line-height: 70px;
-					border-bottom: 1px solid #f2f2f2;
-					text-align: center;
-					overflow: hidden;
-					color: #999;
-
-					.t-size {
-						font-size: 14px;
-						color: #000;
-					}
-				}
 			}
 		}
 	}
