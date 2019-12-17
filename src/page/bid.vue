@@ -55,7 +55,7 @@
 						<div class="dfrcb mb10">
 							<div>
 								<span class="fs18 mr20 fw600">{{(present-1)*20+(i+1)}}</span>
-								<span class="fs18 fw600" :title='el.title'>{{el.title}}</span>
+								<span class="fs18 fw600 text-over" :title='el.title' style="max-width:750px;display: inline-block;">{{el.title}}</span>
 							</div>
 							<div class="fs14">
 								{{el.openDate}}

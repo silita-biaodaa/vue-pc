@@ -49,31 +49,29 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="queryLists&&queryLists.length>0">
-				<div class="t-list">
-					<a v-for="(el,i ) of queryLists" :key="i" @click="decide(el)">
-						<div class="m-bt">
-							<p class="left m-rg">
-								{{(data.pageNo-1)*20+(i+1)}}
-							</p>
-							<p class="left super" :title="el.title">
-								{{el.title}}
-							</p>
-							<p class="right">
+				<dl class="bid-content">
+					<dd v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'>
+						<div class="dfrcb mb10">
+							<div>
+								<span class="fs18 mr20 fw600">{{(data.pageNo-1)*20+(i+1)}}</span>
+								<span class="fs18 fw600 text-over" :title='el.title' style="max-width:750px;display: inline-block;">{{el.title}}</span>
+							</div>
+							<div class="fs14">
 								{{el.openDate}}
+							</div>
+						</div>
+						<div class="dfrcb" style="color:#666;padding-left:34px">
+							<p class="fs14" :title='el.oneName'>
+								第一候选人:{{el.oneName ? el.oneName : '详见原文' }}
+							</p>
+							<p class="fs14">
+								中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}
 							</p>
 						</div>
-						<div class="aptitude">
-							<p class="left surplus">
-								<span :title='el.oneName'>第一候选人:{{el.oneName ? el.oneName : '详见原文' }}</span>
-							</p>
-							<p class="right">
-								<span>中标金额:{{el.oneOffer ? el.oneOffer + '万' : '详见原文'}}</span>
-							</p>
-						</div>
-					</a>
-					<div class="page">
-						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
-					</div>
+					</dd>
+				</dl>
+				<div class="page">
+					<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
 				</div>
 			</template>
 			<!-- 无数据  -->
@@ -494,137 +492,98 @@
 	.tender {
 		width: 100%;
 
-		.el-loading-spinner .path {
-			stroke: #FE6603;
-		}
+		// .el-loading-spinner .path {
+		// 	stroke: #FE6603;
+		// }
 
-		.el-loading-spinner .el-loading-text {
-			color: #FE6603;
-		}
+		// .el-loading-spinner .el-loading-text {
+		// 	color: #FE6603;
+		// }
 
-		.t-btn {
-			width: 50px;
-			height: 26px;
-			text-align: center;
-			line-height: 26px;
-			margin-left: 30px;
-			background-color: #FE6603;
-			font-size: 14px;
-			color: #fff;
-			border-radius: 5px;
-			margin-top: 2px;
-			cursor: pointer;
-		}
+		// .t-btn {
+		// 	width: 50px;
+		// 	height: 26px;
+		// 	text-align: center;
+		// 	line-height: 26px;
+		// 	margin-left: 30px;
+		// 	background-color: #FE6603;
+		// 	font-size: 14px;
+		// 	color: #fff;
+		// 	border-radius: 5px;
+		// 	margin-top: 2px;
+		// 	cursor: pointer;
+		// }
 
-		.noneS {
-			width: 1020px;
+		// .noneS {
+		// 	width: 1020px;
+		// 	margin: 0 auto;
+		// 	background-color: #fff;
+		// 	height: 582px;
+		// 	margin-bottom: 100px;
+		// 	display: flex;
+		// 	align-items: center;
+		// 	justify-content: center;
+		// }
+
+		// .select {
+		// 	font-size: 16px;
+		// 	margin-bottom: 12px;
+
+		// 	.t-5 {
+		// 		// margin-top: 5px;
+		// 	}
+
+		// 	.ttt {
+		// 		display: flex;
+
+		// 		.el-input {
+		// 			width: 30%;
+		// 		}
+
+		// 		.el-input__inner {
+		// 			height: 30px;
+		// 			line-height: 30px;
+		// 		}
+
+		// 		.in-line {
+		// 			width: 26px;
+		// 			height: 1px;
+		// 			background-color: #999;
+		// 			margin: auto 14px;
+		// 		}
+
+		// 		.t-btn {
+		// 			width: 50px;
+		// 			height: 26px;
+		// 			text-align: center;
+		// 			line-height: 26px;
+		// 			margin-left: 30px;
+		// 			background-color: #FE6603;
+		// 			font-size: 14px;
+		// 			color: #fff;
+		// 			border-radius: 5px;
+		// 			margin-top: 2px;
+		// 		}
+		// 	}
+
+		// 	.el-select {
+		// 		width: 225px;
+		// 		margin-right: 10px;
+		// 	}
+		// }
+		.bid-content {
 			margin: 0 auto;
-			background-color: #fff;
-			height: 582px;
-			margin-bottom: 100px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
-
-			.t-5 {
-				// margin-top: 5px;
-			}
-
-			.ttt {
-				display: flex;
-
-				.el-input {
-					width: 30%;
-				}
-
-				.el-input__inner {
-					height: 30px;
-					line-height: 30px;
-				}
-
-				.in-line {
-					width: 26px;
-					height: 1px;
-					background-color: #999;
-					margin: auto 14px;
-				}
-
-				.t-btn {
-					width: 50px;
-					height: 26px;
-					text-align: center;
-					line-height: 26px;
-					margin-left: 30px;
-					background-color: #FE6603;
-					font-size: 14px;
-					color: #fff;
-					border-radius: 5px;
-					margin-top: 2px;
-				}
-			}
-
-			.el-select {
-				width: 225px;
-				margin-right: 10px;
-			}
-		}
-
-		.t-list {
 			width: 1020px;
-			margin: 0 auto;
-			background-color: #fff;
+			border: 1px solid #DDDFE4;
+			border-top: none;
+			border-bottom: none;
 			box-sizing: border-box;
-			margin-bottom: 125px;
-			font-size: 16px;
-
-			a {
-				height: 80px;
+			dd{
+				height: 95px;
 				box-sizing: border-box;
-				padding: 20px 22px 0 20px;
-				border-bottom: 1px solid #f2f2f2;
-				overflow: hidden;
-				display: block;
+				padding:20px;
+				border-bottom: 1px solid #DDDFE4;
 				cursor: pointer;
-				text-decoration: none;
-				out-line: none;
-				color: #333;
-
-				.m-rg {
-					width: 34px;
-				}
-
-				.m-bt {
-					margin-bottom: 5px;
-					overflow: hidden;
-					height: 25px;
-					line-height: 25px;
-				}
-
-				.super {
-					width: 750px;
-					text-overflow: ellipsis;
-					overflow: hidden;
-					margin-left: 10px;
-					white-space: nowrap;
-				}
-
-				.aptitude {
-					color: #EC7522;
-					font-size: 14px;
-					margin-left: 50px;
-
-					.surplus {
-						text-overflow: ellipsis;
-						overflow: hidden;
-						white-space: nowrap;
-						width: 260px;
-					}
-				}
 			}
 		}
 	}
