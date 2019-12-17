@@ -5,7 +5,7 @@
 			共找到<span class="p-color">{{total}}</span>条在建信息(仅查询湖南省在建信息)
 		</div>
 		<div class="build-list">
-			<div class="build-table">
+			<!-- <div class="build-table">
 				<div style="width:80px;">
 					序号
 				</div>
@@ -21,28 +21,27 @@
 				<div style="width:240px;">
 					岗位类别
 				</div>
-			</div>
+			</div> -->
 			<!-- 判断是否加载中 -->
 			<template v-if="isajax">
 				<!-- 有数据 -->
 				<template v-if="list&&list.length>0">
-					<a class="build-in" v-for="(el,i) in list" :key="i" @click="tobuild(el)">
-						<div style="width:80px;">
-							{{(data.pageNo-1)*20+(i+1)}}
-						</div>
-						<div style="width:150px;">
-							{{el.name}}
-						</div>
-						<div style="width:250px;">
-							{{el.unitOrg}}
-						</div>
-						<div style="width:300px;">
-							{{el.proName}}
-						</div>
-						<div style="width:240px;">
-							{{el.type}}
-						</div>
-					</a>
+					<table class="table-content">
+						<tr>
+							<td style="width:84px">序号</td>
+							<td style="width:108px">姓名</td>
+							<td style="width:296px">单位名称</td>
+							<td style="width:calc(100% - 704px)">工程名称</td>
+							<td style="width:216px">岗位类别</td>
+						</tr>
+						<tr v-for='(el,i) in list' :key='i' @click='tobuild(el)'>
+							<td>{{(data.pageNo-1)*20+(i+1)}}</td>
+							<td>{{el.name}}</td>
+							<td>{{el.unitOrg}}</td>
+							<td>{{el.proName}}</td>
+							<td>{{el.type}}</td>
+						</tr>
+					</table>
 					<div class="page">
 						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
 					</div>
@@ -302,111 +301,16 @@
 	}
 </script>
 <style lang="less" scoped>
-	.build {
-		.build-put {
-			width: 1020px;
-			margin: 0 auto;
-			box-sizing: border-box;
-			height: 282px;
-			background-color: #fff;
-			padding: 19px 20px;
-			margin-top: 20px;
-
-			.build-hint {
-				font-size: 12px;
-				color: #999;
-				position: relative;
-				overflow: hidden;
-
-				i {
-					color: red;
-					margin-right: 5px;
-					font-size: 20px;
-				}
-
-				span {
-					position: absolute;
-					top: -2px;
-				}
-
-			}
-
-			.mt-30 {
-				margin-top: 30px;
-			}
-
-			.put-id {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				font-size: 14px;
-			}
-
-			.build-btn {
-				display: flex;
-				justify-content: center;
-				margin-top: 60px;
-
-				.btn-name {
-					width: 154px;
-					height: 46px;
-					background: rgba(254, 102, 3, 1);
-					border-radius: 5px;
-					font-size: 16px;
-					color: #fff;
-					line-height: 46px;
-					text-align: center;
-					cursor: pointer;
-				}
-			}
+.build {
+	.table-content{
+		border: 1px dashed;
+		tr{
+			border: none;
+			border-bottom: 1px solid #DDDFE4
 		}
-
-		.build-list {
-			width: 1020px;
-			margin: 0 auto;
-			background-color: #fff;
-			margin-bottom: 125px;
-
-			.build-table {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				height: 60px;
-				font-size: 16px;
-				font-weight: 550;
-				color: #333;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-			}
-
-			.build-in {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-				min-height: 60px;
-				font-size: 16px;
-				color: #999;
-				cursor: pointer;
-
-			}
-
-			a:hover {
-				color: #FE6603
-			}
-
-			.noneS {
-				width: 1020px;
-				margin: 0 auto;
-				background-color: #fff;
-				height: 582px;
-				margin-bottom: 100px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
+		tr:last-child{
+			border-bottom: none;
 		}
-	}
+	} 
+}
 </style>

@@ -16,34 +16,35 @@
 			</div>
 		</div>
 		<div class="total">
-			共找到<span class="p-color">{{total}}</span>条人员信息
+			共找到<span>{{total}}</span>条人员信息
 		</div>
 		<div class="build-list">
-			<div class="build-table">
-				<div style="width:80px;">序号</div>
-				<div style="width:110px;">姓名</div>
-				<div style="width:250px;">注册单位</div>
-				<div style="width:160px;">注册类别</div>
-				<div style="width:180px;">证书编号</div>
-				<div style="width:110px;">专业</div>
-				<div style="width:130px;"> </div>
-			</div>
-
 			<!-- 判断是否加载中 -->
 			<template v-if="isajax">
 				<!-- 有数据 -->
 				<template v-if="person&&person.length>0">
-					<a class="build-in" v-for="(el,i) in person" :key="i" @click="toPer(el)">
-						<div style="width:80px;">{{(data.pageNo-1)*20+(i+1)}}</div>
-						<div style="width:110px;">{{el.name}}</div>
-						<div style="width:250px;">{{el.comName}}</div>
-						<div style="width:160px;">{{el.category}}</div>
-						<div style="width:180px;">{{el.certNo}}</div>
-						<div style="width:110px;">{{el.major ? el.major : '--'}}</div>
-						<div style="width:130px;" class="c-cen">
-							<div class="crew-btn" @click.stop="jumpya(el)" v-if="el.isUnder">押证</div>
-						</div>
-					</a>
+					<table class="table-content">
+						<tr>
+							<td style="width:84px">序号</td>
+							<td style="width:108px">姓名</td>
+							<td style="width:calc(100% - 784px)">注册单位</td>
+							<td style="width:182px">注册类别</td>
+							<td style="width:166px">证书编号</td>
+							<td style="width:136px">专业</td>
+							<td style="width:108px">操作</td>
+						</tr>
+						<tr v-for='(el,i) in person' :key='i' @click='toPer(el)'>
+							<td>{{(data.pageNo-1)*20+(i+1)}}</td>
+							<td>{{el.name}}</td>
+							<td>{{el.comName}}</td>
+							<td>{{el.category}}</td>
+							<td>{{el.certNo}}</td>
+							<td>{{el.major ? el.major : '--'}}</td>
+							<td>
+								<span class="isUnder" @click.stop="jumpya(el)" v-if="el.isUnder">押证</span>
+							</td>
+						</tr>
+					</table>
 					<div class="page">
 						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
 					</div>
@@ -288,79 +289,12 @@
 	}
 </script>
 <style lang="less" scoped>
-	.crew {
-		.crew-option {
-			width: 1020px;
-			box-sizing: border-box;
-			padding: 15px 10px 10px;
-			background-color: #fff;
-			font-size: 14px;
-			margin: 20px auto 0;
-
-			.select {
-				font-size: 16px;
-				margin-bottom: 12px;
-			}
-		}
-
-		.build-list {
-			width: 1020px;
-			margin: 0 auto;
-			background-color: #fff;
-			margin-bottom: 125px;
-
-			.build-table {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				height: 60px;
-				font-size: 16px;
-				font-weight: 550;
-				color: #333;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-			}
-
-			.build-in {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				text-align: center;
-				border-bottom: 1px solid #f2f2f2;
-				min-height: 60px;
-				font-size: 16px;
-				color: #999;
-				cursor: pointer;
-
-				.c-cen {
-					display: flex;
-					justify-content: center;
-				}
-
-				.crew-btn {
-					width: 80px;
-					line-height: 32px;
-					border: 1px solid rgba(254, 102, 3, 1);
-					border-radius: 5px;
-					color: #FE6603;
-					text-align: center;
-				}
-			}
-
-			a:hover {
-				color: #FE6603
-			}
-
-			.noneS {
-				width: 1020px;
-				margin: 0 auto;
-				background-color: #fff;
-				height: 582px;
-				margin-bottom: 100px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-		}
+.crew {
+	.isUnder{
+		border: 1px solid #EB651B;
+		color: #EB651B;
+		border-radius: 8px;
+		padding: 4px 14px;
 	}
+}
 </style>
