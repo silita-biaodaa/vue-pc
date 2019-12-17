@@ -35,7 +35,9 @@
 						<div class="user-name left">
 							{{userData.nikeName}}
 						</div>
-						<div class="user-state left">{{state}}
+						<div class="user-state left">
+							<i class="iconfont iconVIPbiaozhi" :class="state == '会员' ? 'have' : 'noh'" ></i>
+						
 						</div>
 					</div>
 					<div class="user-day">
@@ -345,12 +347,15 @@
 				}
 
 				.user-state {
-					padding: 0 10px;
-					line-height: 30px;
-					background-color: #EB651B;
-					font-size: 14px;
-					color: #fff;
-					border-radius:4px;
+					i {
+						 font-size: 28px;
+					}
+					.have {
+						color: #FE6603;
+					}
+					.noh {
+						color: #ccc;
+					} 
 				}
 
 				.user-day {
