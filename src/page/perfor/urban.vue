@@ -200,7 +200,6 @@
 	.wdetail {
 		min-height: calc(~"100vh - 195px");
 		overflow: hidden;
-		padding-top: 86px;
 		width: 1020px;
 		box-sizing: border-box;
 		margin: 0 auto;

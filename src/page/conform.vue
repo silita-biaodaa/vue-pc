@@ -155,7 +155,6 @@
 	.conform {
 		width: 1020px;
 		margin: 0 auto;
-		padding-top: 86px;
 
 		.con-nav {
 			font-size: 12px;

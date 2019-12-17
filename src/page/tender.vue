@@ -493,7 +493,6 @@
 <style lang="less">
 	.tender {
 		width: 100%;
-		padding-top: 84px;
 
 		.el-loading-spinner .path {
 			stroke: #FE6603;

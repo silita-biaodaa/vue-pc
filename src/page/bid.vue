@@ -50,31 +50,29 @@
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="queryLists&&queryLists.length>0">
-				<div class="bid-content">
-					<a v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'>
-						<div class="m-bt">
-							<p class="left m-rg">
-								{{(present-1)*20+(i+1)}}
-							</p>
-							<p class="left super" :title='el.title'>
-								{{el.title}}
-							</p>
-							<p class="right">
+				<dl class="bid-content">
+					<dd v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'>
+						<div class="dfrcb mb10">
+							<div>
+								<span class="fs18 mr20 fw600">{{(present-1)*20+(i+1)}}</span>
+								<span class="fs18 fw600" :title='el.title'>{{el.title}}</span>
+							</div>
+							<div class="fs14">
 								{{el.openDate}}
-							</p>
+							</div>
 						</div>
-						<div class="aptitude">
-							<p class="left surplus" :title='el.certificate'>
+						<div class="dfrcb" style="color:#666;padding-left:34px">
+							<p class="fs14" :title='el.certificate'>
 								资质要求:{{el.certificate ? el.certificate : '详见原文' }}
 							</p>
-							<p class="right">
+							<p class="fs14">
 								评标办法:{{el.pbMode ? el.pbMode : '详见原文'}}
 							</p>
 						</div>
-					</a>
-					<div class="page">
-						<nav-page :all='total' :currents='data.pageNo' @skip='Goto'></nav-page>
-					</div>
+					</dd>
+				</dl>
+				<div class="page">
+					<nav-page :all='total' :currents='data.pageNo'></nav-page>
 				</div>
 			</template>
 			<!-- 无数据  -->
@@ -95,10 +93,6 @@
 		<template v-else>
 			<div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
 		</template>
-		<!-- <div class="bid-content" v-loading="loading" element-loading-text="拼命加载中" > -->
-		<!-- <router-link tag='a'  v-for="(el,i ) of queryLists" :key="i" :to="{path:'/article',query:{id:el.id,source:el.source} }" target='_blank' > -->
-
-		<!-- </div> -->
 
 
 		<f-vip @toChildEvent='closeload' v-if='svip'></f-vip>
@@ -547,125 +541,20 @@
 </script>
 <style lang="less">
 	.bid {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		padding-top: 84px;
-
-		.el-loading-spinner .path {
-			stroke: #FE6603;
-		}
-
-		// .el-loading-spinner {
-		//   top: 10%;
-		// }
-		.el-loading-spinner .el-loading-text {
-			color: #FE6603;
-		}
-
-		.noneS {
-			width: 1020px;
-			margin: 0 auto;
-			background-color: #fff;
-			height: 582px;
-			margin-bottom: 100px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.options {
-			margin: 0 auto;
-			width: 1020px;
-			margin-top: 20px;
-			//  height: 290px;
-			background: #fff;
-			padding: 15px;
-			box-sizing: border-box;
-
-			.select {
-				font-size: 16px;
-				margin-bottom: 12px;
-
-				.el-select {
-					width: 225px;
-					margin-right: 10px;
-				}
-
-				.el-checkbox-button__inner {
-					border: none;
-					margin-bottom: 12px;
-					font-size: 15px;
-					padding: 5px 10px;
-					color: #666;
-				}
-
-				.el-checkbox-button.is-checked .el-checkbox-button__inner {
-					color: #fff;
-					background-color: #FE6603;
-					border-color: #FE6603;
-					box-shadow: -1px 0 0 0 #fff;
-				}
-
-				.el-checkbox-button:first-child .el-checkbox-button__inner {
-					border-radius: 0;
-				}
-			}
-		}
-
 		.bid-content {
-			min-height: 240px;
 			margin: 0 auto;
 			width: 1020px;
+			border: 1px solid #DDDFE4;
+			border-top: none;
+			border-bottom: none;
 			box-sizing: border-box;
-			background: #fff;
-			font-size: 16px;
-			margin-bottom: 125px;
-
-			//  ul {
-			a {
-				height: 80px;
+			dd{
+				height: 95px;
 				box-sizing: border-box;
-				padding: 20px 22px 0 20px;
-				border-bottom: 1px solid #f2f2f2;
+				padding:20px;
+				border-bottom: 1px solid #DDDFE4;
 				cursor: pointer;
-				display: block;
-				color: #333;
-
-				.m-rg {
-					margin-right: 12px;
-					width: 34px;
-				}
-
-				.m-bt {
-					margin-bottom: 5px;
-					overflow: hidden;
-					height: 25px;
-					line-height: 25px;
-				}
-
-				.super {
-					width: 750px;
-					text-overflow: ellipsis;
-					overflow: hidden;
-					white-space: nowrap;
-				}
-
-				.aptitude {
-					color: #EC7522;
-					font-size: 14px;
-					margin-left: 47px;
-
-					.surplus {
-						text-overflow: ellipsis;
-						overflow: hidden;
-						white-space: nowrap;
-						width: 300px;
-					}
-				}
 			}
-
-			//  }
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div id="app" ref="top">
+	<div id="app" ref="top" :class="{'excom':excom}">
 		<!-- 头部 -->
 		<div class="fixation" v-if="excom">
 			<div class="app-header">
@@ -611,8 +611,8 @@
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
 					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'||this.$route.name=='GLquery'
-					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'
-					||this.$route.name=='result' || this.$route.name == 'payPage'
+					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'||this.$route.name=='result'
+					||this.$route.name=='companyDetail'||this.$route.name=='peopleDetail'|| this.$route.name == 'payPage'
 				) {
 					return false
 				} else {
@@ -640,7 +640,6 @@ body{
 	width: 100% !important;
 }
 #app {
-	background-color: #FAFAFA;
 	/*详情内页接口表格问题*/
 	.article table {
 		max-width: 100%;
@@ -656,9 +655,6 @@ body{
 		max-width: 100%;
 		width: 100% !important;
 		margin-left: 0 !important;
-	}
-	.content {
-		width: 100%;
 	}
 	/*详情内页接口表格问题 勿动！*/
 	.fixation {
@@ -684,10 +680,8 @@ body{
 			font-size: 12px;
 			background-color: #fff;
 			font-weight: 400;
-
 			.contact-l {
 				width: calc(100% - 300px);
-
 				a,p {
 					margin-right: 25px;
 					color: #666;
@@ -699,24 +693,20 @@ body{
 					}
 				}
 			}
-
 			.contact-r {
 				width: 300px;
 				display: flex;
 				align-items: center;
 				flex-direction: row-reverse;
-
 				p {
 					cursor: pointer;
 				}
-
 				.line {
 					width: 1px;
 					height: 12px;
 					background-color: #939392;
 					margin: 0 15px;
 				}
-
 				.area {
 					margin-right: 20px;
 					color: #FE6603;
@@ -725,11 +715,9 @@ body{
 					align-items: center;
 					position: relative;
 					cursor: pointer;
-
 					i {
 						margin-right: 10px;
 					}
-
 					.se-area {
 						width: 420px;
 						height: 300px;
@@ -743,18 +731,15 @@ body{
 						box-sizing: border-box;
 						padding: 10px;
 						color: #000;
-
 						.a-line {
 							height: 40px;
 							line-height: 40px;
 							border-bottom: 1px solid #f2f3f8;
-
 							.allcity {
 								font-weight: 550;
 								font-size: 15px;
 								padding-right: 10px;
 							}
-
 							.district {
 								color: #646464;
 								padding: 0 5px;
@@ -774,11 +759,9 @@ body{
 		display: flex;
 		cursor: pointer;
 		align-items: center;
-
 		ul {
 			min-width: 1020px;
 			box-sizing: border-box;
-
 			li {
 				box-sizing: border-box;
 				width: 14%;
@@ -789,7 +772,6 @@ body{
 				display: flex;
 				align-items: center;
 				justify-content: center;
-
 				div {
 					border-right: 1px solid #fff;
 					font-size: 26px;
@@ -808,22 +790,15 @@ body{
 					}
 				}
 			}
-
 			li:last-child div {
 				border: none;
 			}
-
 			li:hover,
 			li:hover div {
 				background-color: #FF8400;
-				// border: none;
 			}
-
 			.current {
 				background-color: #FF8E4F;
-				//  div {
-				//    border: none;
-				//  }
 			}
 		}
 	}
@@ -955,7 +930,8 @@ body .el-loading-spinner .el-loading-text {
 	color: #FE6603
 }
 
-#app .content {
-	min-height: calc(100vh - 320px);
+#app.excom .content {
+	min-height: calc(100vh - 478px);
+	padding-top: 88px;
 }
 </style>
