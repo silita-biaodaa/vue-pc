@@ -539,22 +539,5 @@
 		},
 	}
 </script>
-<style lang="less">
-	.bid {
-		.bid-content {
-			margin: 0 auto;
-			width: 1020px;
-			border: 1px solid #DDDFE4;
-			border-top: none;
-			border-bottom: none;
-			box-sizing: border-box;
-			dd{
-				height: 95px;
-				box-sizing: border-box;
-				padding:20px;
-				border-bottom: 1px solid #DDDFE4;
-				cursor: pointer;
-			}
-		}
-	}
+<style lang="less" scoped>
 </style>

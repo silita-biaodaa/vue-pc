@@ -633,7 +633,7 @@
 
 <style lang="less">
 	@import './assets/iconfont.css';
-	@import './base/base.css';
+	@import './base/base.less';
 	@import './style/common.css';
 	@import './style/publicCSS';
 body{
