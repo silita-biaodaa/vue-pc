@@ -7,7 +7,7 @@
               <i class="iconfont iconshanchu" style="color:#DDDFE4;" @click="chqpop" ></i>
            </div>
            <div class="pop-title" style="height:59px;font-size:14px;"  >
-              <p>中标公共</p>
+              <p>中标公告</p>
               <div class="pop-look" @click="chqtable" >
                 <i class="iconfont iconchakan" ></i>
                 查看数据来源

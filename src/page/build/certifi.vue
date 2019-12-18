@@ -1,9 +1,18 @@
 <template>
 	<div class="certifi">
-		<div class="certifi-nav">
-			<span @click="$router.push('/')">首页</span>> <span @click="$router.push('/build')">在建</span>> {{detail.name}} > 在建详情
+		<v-bread :breadList="[{ title: '在建'},{title:xx},{title:'在建详情'}]"></v-bread>
+		<div class="certifi-name" >
+			<i class="iconfont iconshenfen" ></i> {{detail.name}}
 		</div>
-		<div class="certifi-text">
+		<div class="certifi-idcard" >
+			<div style="width:220px;" >
+				身份证号
+			</div>
+			<span>
+				{{detail.idCard}}
+			</span>
+		</div>
+		<!-- <div class="certifi-text">
 			<div>
 				<img src="../../assets/img/icon-nvxing.png" alt="" v-if="detail.sex == '女'">
 				<img src="../../assets/img/icon-nanxing.png" alt="" v-else>
@@ -12,50 +21,37 @@
 			<div class="certifi-del">
 				<p class="cer-name">{{detail.name}}</p>
 				<p>身份证号码：<span>{{detail.idCard}}</span></p>
-				<!-- <span v-if="detail.sex">性别：<span>{{detail.sex}}</span></p> -->
 			</div>
-		</div>
+		</div> -->
 		<div class="certifi-list">
 			<div class="certifi-top">
 				押证详情
 			</div>
 			<div class="certifi-table">
-				<div style="width:200px;">
+				<div style="width:326px;">
 					单位名称
 				</div>
-				<div style="width:150px;">
+				<div style="width:200px;">
 					岗位类别
 				</div>
-				<div style="width:230px;">
+				<div style="width:330px;">
 					工程名称
 				</div>
-				<!-- <div style="width:200px;" >
-         建设单位
-       </div>
-       <div style="width:120px;" >
-         所在市州
-       </div> -->
-				<div style="width:120px;">
+				<div style="width:175px;border:none">
 					押证时间
 				</div>
 			</div>
 			<div class="certifi-in" v-for="(el,i) in list" :key="i">
-				<div style="width:200px;">
+				<div style="width:326px;">
 					{{el.unitOrg}}
 				</div>
-				<div style="width:150px;">
+				<div style="width:200px;">
 					{{el.type}}
 				</div>
-				<div style="width:230px;">
+				<div style="width:330px;">
 					{{el.proName}}
 				</div>
-				<!-- <div style="width:200px;" >
-         {{el.proOrg}}
-       </div>
-       <div style="width:120px;" >
-         {{el.city}}
-       </div> -->
-				<div style="width:120px;">
+				<div style="width:175px;border:none">
 					{{el.date}}
 				</div>
 			</div>
@@ -66,6 +62,7 @@
 	</div>
 </template>
 <script>
+import publicBread from "@/components/customize/publicBread";
 	import {
 		underq
 	} from '@/api/index';
@@ -77,7 +74,8 @@
 				id: '',
 				detail: {},
 				list: [],
-				ishow: false
+				ishow: false,
+				xx:''
 			}
 		},
 		methods: {
@@ -90,6 +88,7 @@
 					}).then(res => {
 						if (res.code == 1) {
 							this.detail = res.data[0]
+							this.xx=res.data[0].name
 							this.list = res.data
 							if (this.list.length == 0) {
 								this.ishow = true
@@ -123,7 +122,9 @@
 		created() {
 			this.gaindel()
 		},
-		components: {}
+		components: {
+			"v-bread": publicBread,
+		}
 	}
 </script>
 <style lang="less" scoped>
@@ -141,44 +142,39 @@
 			color: #666;
 			cursor: pointer;
 		}
-
-		.certifi-text {
-			height: 130px;
-			padding: 17px 20px;
-			background-color: #fff;
-			box-sizing: border-box;
-			display: flex;
-			flex-direction: row;
-
-			.certifi-del {
-				margin-left: 20px;
-				font-size: 12px;
-				color: #333;
-
-				p {
-					margin-bottom: 6px;
-				}
-
-				.cer-name {
-					font-size: 18px;
-					font-weight: 550;
-					color: #000;
-					margin-bottom: 16px;
-				}
+		.certifi-name {
+			font-size: 34px;
+			font-weight: 550;
+			color: #150000;
+			i {
+				font-size: 34px;
+				margin-right: 7px;
 			}
+		}
+		.certifi-idcard {
+				 border: 1px solid #DDDFE4;
+				 display: flex;
+				 align-items: center;
+				 font-size: 18px;
+				 color: #000;
+				 margin-top: 20px;
+				 div {
+					 height: 48px;
+					 text-align: center;
+					 line-height: 48px;
+					 border-right: 1px solid #DDDFE4;
+					 font-weight: 550;
+					 background-color: #F4F4F4;
+					 margin-right: 20px;
+				 }
 		}
 
 		.certifi-list {
-			background-color: #fff;
-			margin-top: 28px;
-
 			.certifi-top {
-				line-height: 60px;
-				padding-left: 20px;
-				font-size: 18px;
-				color: #FE6603;
+				line-height: 57px;
+				font-size: 14px;
+				color: #150000;
 				font-weight: 550;
-				border-bottom: 1px solid #f2f2f2;
 			}
 
 			.certifi-table {
@@ -186,24 +182,34 @@
 				flex-direction: row;
 				align-items: center;
 				text-align: center;
-				justify-content: space-around;
-				height: 56px;
+				height: 48px;
 				color: #333;
 				font-size: 14px;
 				font-weight: 550;
-				border-bottom: 1px solid #f2f2f2;
+				border: 1px solid #DDDFE4;
+				background-color: #F4F4F4;
+				font-size: 14px;
+				div {
+					height: 100%;
+					line-height: 48px;
+					border-right: 1px solid #DDDFE4;
+				}
 			}
 
 			.certifi-in {
 				display: flex;
 				flex-direction: row;
-				justify-content: space-around;
-				align-items: center;
-				text-align: center;
-				min-height: 56px;
 				color: #999;
 				font-size: 14px;
-				border-bottom: 1px solid #f2f2f2;
+				border: 1px solid #DDDFE4;
+				div {
+					min-height: 68px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-right: 1px solid #DDDFE4;
+					line-height: 20px;
+				}
 			}
 		}
 

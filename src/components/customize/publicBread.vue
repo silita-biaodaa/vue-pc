@@ -25,7 +25,13 @@ export default {
         }
     },
     created() {
-        this.getInfo();
+        setTimeout(() => {
+            this.getInfo();
+        }, 580);
+        
+    },
+    mounted () {
+        
     }
 }
 </script>
