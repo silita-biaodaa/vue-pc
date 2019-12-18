@@ -353,8 +353,6 @@
 			}
 		}
 	}
-
-
 	.msg-con {
 		display: flex;
 		align-items: center;

@@ -383,263 +383,153 @@ import countTime from '@/components/countTime'
 				orderList({
 					pageSize: '100',
 					pageNo: '1',
-					orderStatus: '1',
+					orderStatus: '0',
 					channelNo: '1003'
 				}).then(res => {
 					if (res.code == 1) {
-						if(res.data&&res.data.length>0){
-							this.feat = res.data
-						}
-					} else {
-						this.feat = []
-					}
-				})
-			},
-			gainWin() {
-				orderList({
-					pageSize: '100',
-					pageNo: '1',
-					orderStatus: '9',
-					channelNo: ''
-				}).then(res => {
-					if (res.code == 1) {
-						this.win = res.data
-						setTimeout(() => {
-							this.allList = this.win.concat(this.feat)
+								this.win = res.data
+								this.allList = res.data
 							if (this.allList.length == 0) {
 								this.noShow = false
 							} else {
 								this.noShow = true
 							}
-						}, 100);
+					}
+				})
+			},
+			// gainWin() {
+			// 	orderList({
+			// 		pageSize: '100',
+			// 		pageNo: '1',
+			// 		orderStatus: '9',
+			// 		channelNo: ''
+			// 	}).then(res => {
+			// 		if (res.code == 1) {
+			// 			this.win = res.data
+			// 			setTimeout(() => {
+			// 				this.allList = this.win.concat(this.feat)
+			// 				if (this.allList.length == 0) {
+			// 					this.noShow = false
+			// 				} else {
+			// 					this.noShow = true
+			// 				}
+			// 			}, 100);
 
-					} else {
-						this.win = []
-						setTimeout(() => {
-							this.allList = this.win.concat(this.feat)
-							if (this.allList.length == 0) {
-								this.noShow = false
-							} else {
-								this.noShow = true
-							}
-						}, 100);
-					}
-				})
-			},
+			// 		} else {
+			// 			this.win = []
+			// 			setTimeout(() => {
+			// 				this.allList = this.win.concat(this.feat)
+			// 				if (this.allList.length == 0) {
+			// 					this.noShow = false
+			// 				} else {
+			// 					this.noShow = true
+			// 				}
+			// 			}, 100);
+			// 		}
+			// 	})
+			// },
 			type(val) {
 				this.allList = []
-				this.allList = this.win.concat(this.feat)
-				let arr = []
 				if (val == '') {
-					if (this.pattern == '') {
-						this.allList = []
-						this.allList = this.win.concat(this.feat)
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						this.allList.forEach(el => {
-							if (el.orderStatus == this.pattern) {
-								arr.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-
-					}
-
+					 if(this.pattern  == '') {
+						 this.allList = this.win
+					 } else {
+						 for (var el of this.win) {
+							  if(el.orderStatus == this.pattern ) {
+									 this.allList.push(el)
+								} 
+						 }
+					 }
+						
 				} else if (val == 'vip') {
-					if (this.pattern == '') {
-						this.allList.forEach(el => {
-							if (el.report == null) {
-								arr.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						this.allList.forEach(el => {
-							if (el.report == null && el.orderStatus == this.pattern) {
-								arr.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					}
+						if(this.pattern  == '') {
+						   for (var el of this.win) {
+							  if(el.report == null) {
+									 this.allList.push(el)
+								} 
+						 }
+					 } else {
+						 for (var el of this.win) {
+							  if(el.orderStatus == this.pattern &&  el.report == null) {
+									 this.allList.push(el)
+								} 
+						 }
+					 }
 				} else {
-					if (this.pattern == '') {
-						this.allList.forEach(el => {
-							if (el.report) {
-								arr.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						this.allList.forEach(el => {
-							if (el.report != null && el.orderStatus == this.pattern) {
-								arr.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					}
+						if(this.pattern  == '') {
+						   for (var el of this.win) {
+							  if(el.report != null) {
+									 this.allList.push(el)
+								} 
+						 }
+					 } else {
+						 for (var el of this.win) {
+							  if(el.orderStatus == this.pattern &&  el.report != null) {
+									 this.allList.push(el)
+								} 
+						 }
+					 }
 				}
 			},
 			Ctype(val) {
 				this.allList = []
-				this.allList = this.win.concat(this.feat)
-				let arr1 = []
 				if (val == '') {
-					if (this.value == '') {
-						this.allList = []
-						this.allList = this.win.concat(this.feat)
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						if (this.value == 'vip') {
-							this.allList.forEach(el => {
-								if (el.report == null) {
-									arr1.push(el)
+				 	if(this.value  == '') {
+						 this.allList = this.win
+					 } else {
+						 for (var el of this.win) {
+							  if(this.value == 'vip') {
+									if(el.report == null) {
+										this.allList.push(el)
+									}
+								} else {
+									if(el.report != null) {
+										this.allList.push(el)
+									}
 								}
-							})
-						} else {
-							this.allList.forEach(el => {
-								if (el.report) {
-									arr1.push(el)
-								}
-							})
-						}
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-
-					}
-
+						 }
+					 }
 				} else if (val == '9') {
-					if (this.value == '') {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '9') {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
+					if(this.value  == '') {
+						for (var el of this.win) {
+							  if(el.orderStatus == '9') {
+									 this.allList.push(el)
+								} 
+						 }
+					 } else {
+						 for (var el of this.win) {
+							  if(this.value == 'vip') {
+									if(el.report == null && el.orderStatus == '9' ) {
+										this.allList.push(el)
+									}
+								} else {
+									if(el.report != null && el.orderStatus == '9') {
+										this.allList.push(el)
+									}
+								}
+						 }
+					 }
 
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else if (this.value == 'vip') {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '9' && el.report == null) {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '9' && el.report) {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					}
 				} else {
-					if (this.value == '') {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '1') {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else if (this.value == 'vip') {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '1' && el.report == null) {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					} else {
-						this.allList.forEach(el => {
-							if (el.orderStatus == '1' && el.report) {
-								arr1.push(el)
-							}
-						})
-						this.allList = []
-						this.allList = arr1
-
-						if (this.allList.length == 0) {
-							this.noShow = false
-						} else {
-							this.noShow = true
-						}
-					}
+						if(this.value  == '') {
+						for (var el of this.win) {
+							  if(el.orderStatus == '1') {
+									 this.allList.push(el)
+								} 
+						 }
+					 } else {
+						 for (var el of this.win) {
+							  if(this.value == 'vip') {
+									if(el.report == null && el.orderStatus == '1' ) {
+										this.allList.push(el)
+									}
+								} else {
+									if(el.report != null && el.orderStatus == '1') {
+										this.allList.push(el)
+									}
+								}
+						 }
+					 }
 				}
 			},
 			resend(el) {
@@ -722,7 +612,7 @@ import countTime from '@/components/countTime'
 		},
 		created() {
 			this.gainList()//查询初始化订单
-			this.gainWin()//查询支付成功订单
+			// this.gainWin()//查询支付成功订单
 		},
 		components: {
 			'v-time':countTime
@@ -735,7 +625,6 @@ import countTime from '@/components/countTime'
 		width: 100%;
 		padding-bottom: 120px;
 		position: relative;
-
 		.det-nav {
 			line-height: 54px;
 			padding: 0 29px;
@@ -746,19 +635,16 @@ import countTime from '@/components/countTime'
 			display: flex;
 			justify-content: space-between;
 		}
-
 		.or-sel {
 			padding: 0 29px;
 			height: 70px;
 			line-height: 70px;
 		}
-
 		.orbtn {
 			height: 70px;
 			display: flex;
 			align-items: center;
 		}
-
 		.or-btn {
 			width: 64px;
 			height: 22px;
@@ -770,7 +656,6 @@ import countTime from '@/components/countTime'
 			font-size: 12px;
 			cursor: pointer;
 		}
-
 		.or-table {
 			padding: 0 29px;
 

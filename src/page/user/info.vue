@@ -78,14 +78,14 @@
 			}
 
 			.info-btn {
-				width: 64px;
-				height: 28px;
-				border: 1px solid rgba(254, 102, 3, 1);
+				height: 24px;
+				border: 1px solid #DDDFE4;
 				border-radius: 5px;
 				text-align-last: center;
-				line-height: 28px;
-				color: rgba(254, 102, 3, 1);
-				font-size: 12px;
+				line-height: 24px;
+				color: #150000;
+				font-size: 14px;
+				padding: 0 17px;
 				cursor: pointer;
 				margin-left: 10px;
 			}
