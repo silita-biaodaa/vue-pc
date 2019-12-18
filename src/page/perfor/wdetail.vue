@@ -282,22 +282,7 @@
     		  background:#F4F4F4;
     		}
 			 }
-			.irr-table {
-				background: rgba(250, 253, 255, 1);
-				border: 1px solid rgba(242, 242, 242, 1);
-				margin-top: 21px;
-				padding: 16px 16px 0;
 
-				p {
-					margin-bottom: 15px;
-					font-size: 12px;
-					color: #999;
-
-					span {
-						color: #333;
-					}
-				}
-			}
 		}
 		.irr-in {
 			background-color: #fff;

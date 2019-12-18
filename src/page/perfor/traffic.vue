@@ -1,76 +1,55 @@
 <template>
 	<div class="wdetail">
-		<div class="irr-nav">
-			<span @click="junmpto">首页</span>
-			<span> > </span>
-			<span @click="junmpjiao">交通</span>
-			<span> > </span>
-			<span>交通部业绩详情</span>
-		</div>
+		<v-bread :breadList="[{ title: '交通'},{title:'交通部业绩详情'}]"></v-bread>
 		<div class="irr-detail">
 			<div class="irr-title">
-				{{detail.proName}}
+						<i class="iconfont iconxiangmu" ></i> {{detail.proName}}
 			</div>
+				<table  cellspacing="0" >
+					<tr>
+						 <td width='220' class="ur-title" >施工单位</td>
+						 <td width='180' >{{detail.comName}}</td>
+						 <td width='120' class="ur-title"  >标段名称</td>
+						 <td width='180' >{{detail.section}}</td>
+						 <td width='120' class="ur-title" >所在省份</td>
+						 <td width='210' >{{detail.proWhere}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >建设状态</td>
+						 <td width='180' >{{detail.build}}</td>
+						 <td width='120' class="ur-title"  >项目类型</td>
+						 <td width='180' >{{detail.proType}}</td>
+						 <td width='120' class="ur-title" >技术等级</td>
+						 <td width='210' >{{detail.technicalGrade}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >开工日期</td>
+						 <td width='180' >{{detail.begined}}</td>
+						 <td width='120' class="ur-title"  >交工日期</td>
+						 <td width='180' >{{detail.ended}}</td>
+						 <td width='120' class="ur-title" >竣工日期</td>
+						 <td width='210' >{{detail.ended}}</td>
+					</tr>
+						<tr>
+						 <td width='220' class="ur-title" >质量评定情况</td>
+						 <td width='180' >{{detail.assess}}</td>
+						 <td width='120' class="ur-title"  >合同金额</td>
+						 <td width='180' >{{detail.contractAmount + '万'}}</td>
+						 <td width='120' class="ur-title" >结算金额</td>
+						 <td width='210' >{{detail.clearingAmount}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >开始桩号</td>
+						 <td width='180' >{{detail.stakeBegin}}</td>
+						 <td width='120' class="ur-title"  >结束桩号</td>
+						 <td width='180' colspan='3' >{{detail.stakeEnd}}</td>
+					</tr>
 
-			<div class="irr-table">
-				<el-row>
-					<el-col :span="7">
-						<p>施工单位：<span>{{detail.comName}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>标段名称：<span>{{detail.section}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>所在省份：<span>{{detail.proWhere}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>建设状态：<span>{{detail.build}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>项目类型：<span>{{detail.proType}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>技术等级：<span>{{detail.technicalGrade}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>开工日期：<span>{{detail.begined}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>交工日期：<span>{{detail.ended}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>竣工日期：<span>{{detail.ended }}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>质量评定情况：<span>{{detail.assess}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>合同金额：<span>{{detail.contractAmount + '万'}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>结算金额：<span>{{detail.clearingAmount }}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7" class="cat-col">
-						<p style="wordWrap:break-word;display:flex;"><i style="width:60px;display: inline-block;">开始桩号：</i><span class="cat">{{detail.stakeBegin}}</span></p>
-					</el-col>
-					<el-col :span="7" class="cat-col">
-						<p style="wordWrap:break-word;display:flex;"><i style="width:60px;display: inline-block;">结束桩号：</i><span class="cat">{{detail.stakeEnd}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="24">
-						<p>主要工程量：<span>{{detail.remark}}</span></p>
-					</el-col>
-				</el-row>
-			</div>
+					<tr>
+						 <td width='220' class="ur-title" >主要工程量</td>
+						 <td  colspan='5' >{{detail.remark}}</td>
+				  </tr>			 
+				</table>
 		</div>
 
 		<div class="irr-in irr-b">
@@ -157,11 +136,10 @@
 </script>
 <style lang="less" scoped>
 	.wdetail {
-		padding: 84px 0 200px;
+		padding: 6px 0 200px;
 		width: 1020px;
 		box-sizing: border-box;
 		margin: 0 auto;
-
 		.irr-nav {
 			height: 40px;
 			line-height: 40px;
@@ -169,55 +147,52 @@
 			color: #666;
 			cursor: pointer;
 		}
-
 		.irr-detail {
 			background-color: #fff;
-			padding: 16px 12px 24px;
-
 			.irr-title {
-				font-size: 20px;
-				color: #FE6603;
+				font-size: 34px;
+				color: #000;
 				font-weight: 550;
-			}
-
-			.irr-table {
-				background: rgba(250, 253, 255, 1);
-				border: 1px solid rgba(242, 242, 242, 1);
-				margin-top: 21px;
-				padding: 16px 16px 0;
-
-				p {
-					margin-bottom: 15px;
-					font-size: 12px;
-					color: #999;
-
-					span {
-						color: #333;
-					}
+				margin-bottom: 20px;
+				white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+				i {
+					font-size: 34px;
 				}
 			}
+				table {
+				 border:1px solid rgba(221,223,228,1);
+				 border-collapse: collapse;
+					  td {
+      	  height: 48px;
+      	  line-height: 20px;
+      	  font-size: 14px;
+      	  border:1px solid rgba(221,223,228,1);
+					padding: 5px 15px;
+					color: #000;
+      	  box-sizing: border-box;
+				}
+				  .ur-title {
+    		  text-align: center;
+    		  font-weight: 550;
+    		  background:#F4F4F4;
+    		}
+			 }
 		}
-
 		.irr-in {
-			padding: 0 11px;
-			margin-top: 40px;
 			background-color: #fff;
-
 			.irr-nav {
 				height: 60px;
 				line-height: 60px;
-				font-size: 18px;
-				color: #FE6603;
+				font-size: 14px;
+				color: #000;
 				font-weight: 550;
 			}
-
 			.people-table {
-				border: 1px solid rgba(242, 242, 242, 1);
+				border: 1px solid #DDDFE4;
 				border-collapse: collapse;
-
 				.people-top {
-					background: rgba(250, 253, 255, 1);
-					border-bottom: 1px solid #F2F2F2;
+					background: #F4F4F4;
+					border-bottom: 1px solid #DDDFE4;
 					display: flex;
 					flex-direction: row;
 					height: 40px;
@@ -227,13 +202,13 @@
 
 					div {
 						text-align: center;
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 						border-collapse: collapse;
 					}
 				}
 
 				.people-dea {
-					border-bottom: 1px solid #F2F2F2;
+					border-bottom: 1px solid #DDDFE4;
 					display: flex;
 					flex-direction: row;
 					min-height: 40px;
@@ -241,7 +216,7 @@
 
 					div {
 						text-align: center;
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 						border-collapse: collapse;
 						height: auto;
 						display: flex;
