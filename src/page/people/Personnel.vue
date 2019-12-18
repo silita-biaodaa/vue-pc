@@ -27,7 +27,7 @@
 	</div>
 </template>
 <script>
-import publicBread from "@/components/customize/publicBread";
+// import publicBread from "@/components/customize/publicBread";
 	export default {
 		data() {
 			return {
@@ -114,9 +114,9 @@ import publicBread from "@/components/customize/publicBread";
 			this.sex = data.sex
 			this.search()
 		},
-		components: {
-			"v-bread": publicBread,
-		}
+		// components: {
+		// 	"v-bread": publicBread,
+		// }
 	}
 </script>
 <style lang="less" scoped>

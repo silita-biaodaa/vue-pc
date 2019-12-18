@@ -1,66 +1,53 @@
 <template>
 	<div class="wdetail">
-		<div class="irr-nav">
-			<span @click="junmpto">首页</span>
-			<span> > </span>
-			<span @click="junmpshui">水利</span>
-			<span> > </span>
-			<span>水利部业绩详情</span>
-		</div>
-		<div class="irr-detail">
-			<div class="irr-title">
-				{{detail.proName}}
-			</div>
+		<v-bread :breadList="[{ title: '水利'},{title:'水利部业绩详情'}]"></v-bread>
 
-			<div class="irr-table">
-				<el-row>
-					<el-col :span="7">
-						<p>施工单位：<span>{{detail.comName}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>建设单位：<span>{{detail.proOrg}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>所在地区：<span>{{detail.proWhere}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>工程状态：<span>{{detail.proStatus}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>合同金额：<span>{{detail.contractAmount}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>结算金额：<span>{{detail.clearingAmount}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>开工日期：<span>{{detail.worked}}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>完工日期：<span>{{detail.finished}}</span></p>
-					</el-col>
-					<el-col :span="10">
-						<p>合同工期：<span>{{detail.duration }}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="7">
-						<p>项目负责人：<span>{{prizes }}</span></p>
-					</el-col>
-					<el-col :span="7">
-						<p>技术负责人：<span>{{leaders}}</span></p>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="24">
-						<p>关键指标：<span>{{detail.majorTarget}}</span></p>
-						<p>合同主要内容：<span>{{detail.contractContent }}</span></p>
-					</el-col>
-				</el-row>
-			</div>
+		<div class="irr-detail">
+				<div class="irr-title">
+						<i class="iconfont iconxiangmu" ></i> {{detail.proName}}
+				</div>
+				<table  cellspacing="0" >
+					<tr>
+						 <td width='220' class="ur-title" >施工单位</td>
+						 <td width='180' >{{detail.comName}}</td>
+						 <td width='120' class="ur-title"  >建设单位</td>
+						 <td width='180' >{{detail.proOrg}}</td>
+						 <td width='120' class="ur-title" >所在地区</td>
+						 <td width='210' >{{detail.proWhere}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >工程状态</td>
+						 <td width='180' >{{detail.proStatus}}</td>
+						 <td width='120' class="ur-title"  >合同金额</td>
+						 <td width='180' >{{detail.contractAmount}}</td>
+						 <td width='120' class="ur-title" >结算金额</td>
+						 <td width='210' >{{detail.clearingAmount}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >开工日期</td>
+						 <td width='180' >{{detail.worked}}</td>
+						 <td width='120' class="ur-title"  >完工日期</td>
+						 <td width='180' >{{detail.finished}}</td>
+						 <td width='120' class="ur-title" >合同工期</td>
+						 <td width='210' >{{detail.duration}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >项目负责人</td>
+						 <td width='180' >{{prizes}}</td>
+						 <td width='120' class="ur-title"  >技术负责人</td>
+						 <td width='180' colspan='3' >{{leaders}}</td>
+					</tr>
+
+					<tr>
+						 <td width='220' class="ur-title" >关键指标</td>
+						 <td  colspan='5' >{{detail.majorTarget}}</td>
+				  </tr>	
+
+					<tr>
+						 <td width='220' class="ur-title" >合同主要内容</td>
+						 <td  colspan='5' >{{detail.contractContent}}</td>
+				  </tr>				 
+				</table>
 		</div>
 
 		<div class="irr-in">
@@ -72,7 +59,7 @@
 					<div style="width:80px;">
 						姓名
 					</div>
-					<div style="width:180px;">
+					<div style="width:160px;">
 						身份证号
 					</div>
 					<div style="width:100px;">
@@ -81,7 +68,7 @@
 					<div style="width:100px;">
 						职称
 					</div>
-					<div style="width:170px;">
+					<div style="width:190px;">
 						证书名称
 					</div>
 					<div style="width:170px;">
@@ -98,7 +85,7 @@
 					<div style="width:80px;">
 						{{el.姓名}}
 					</div>
-					<div style="width:180px;">
+					<div style="width:160px;">
 						{{el.身份证号}}
 					</div>
 					<div style="width:100px;">
@@ -107,7 +94,7 @@
 					<div style="width:100px;">
 						{{el.职称}}
 					</div>
-					<div style="width:170px;">
+					<div style="width:190px;">
 						{{el.证书名称}}
 					</div>
 					<div style="width:170px;">
@@ -254,11 +241,10 @@
 </script>
 <style lang="less" scoped>
 	.wdetail {
-		padding: 84px 0 200px;
+		padding: 6px 0 200px;
 		width: 1020px;
 		box-sizing: border-box;
 		margin: 0 auto;
-
 		.irr-nav {
 			height: 40px;
 			line-height: 40px;
@@ -266,17 +252,36 @@
 			color: #666;
 			cursor: pointer;
 		}
-
 		.irr-detail {
 			background-color: #fff;
-			padding: 16px 12px 24px;
-
 			.irr-title {
-				font-size: 20px;
-				color: #FE6603;
+				font-size: 34px;
+				color: #000;
 				font-weight: 550;
+				margin-bottom: 20px;
+				white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+				i {
+					font-size: 34px;
+				}
 			}
-
+			table {
+				 border:1px solid rgba(221,223,228,1);
+				 border-collapse: collapse;
+					  td {
+      	  height: 48px;
+      	  line-height: 20px;
+      	  font-size: 14px;
+      	  border:1px solid rgba(221,223,228,1);
+					padding: 5px 15px;
+					color: #000;
+      	  box-sizing: border-box;
+				}
+				  .ur-title {
+    		  text-align: center;
+    		  font-weight: 550;
+    		  background:#F4F4F4;
+    		}
+			 }
 			.irr-table {
 				background: rgba(250, 253, 255, 1);
 				border: 1px solid rgba(242, 242, 242, 1);
@@ -294,51 +299,42 @@
 				}
 			}
 		}
-
 		.irr-in {
-			padding: 0 11px;
-			margin-top: 40px;
 			background-color: #fff;
-
 			.irr-nav {
 				height: 60px;
 				line-height: 60px;
-				font-size: 18px;
-				color: #FE6603;
+				font-size: 14px;
+				color: #000;
 				font-weight: 550;
 			}
-
 			.people-table {
-				border: 1px solid rgba(242, 242, 242, 1);
+				border: 1px solid #DDDFE4;
 				border-collapse: collapse;
-
 				.people-top {
-					background: rgba(250, 253, 255, 1);
-					border-bottom: 1px solid #F2F2F2;
+					background: #F4F4F4;
+					border-bottom: 1px solid #DDDFE4;
 					display: flex;
 					flex-direction: row;
 					height: 40px;
 					font-size: 14px;
 					font-weight: 550;
 					line-height: 40px;
-
 					div {
 						text-align: center;
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 						border-collapse: collapse;
 					}
 				}
-
 				.people-dea {
-					border-bottom: 1px solid #F2F2F2;
+					border-bottom: 1px solid #DDDFE4;
 					display: flex;
 					flex-direction: row;
 					min-height: 40px;
 					font-size: 14px;
-
 					div {
 						text-align: center;
-						border-right: 1px solid #F2F2F2;
+						border-right: 1px solid #DDDFE4;
 						border-collapse: collapse;
 						height: auto;
 						display: flex;
@@ -346,7 +342,6 @@
 						justify-content: center;
 					}
 				}
-
 				.no-pro {
 					height: 40px;
 					line-height: 40px;
@@ -356,11 +351,5 @@
 				}
 			}
 		}
-
-		// .irr-pro {
-		// 	margin-top: 0;
-		// 	margin-bottom: 200px;
-		// 	padding-bottom: 20px;
-		// }
 	}
 </style>

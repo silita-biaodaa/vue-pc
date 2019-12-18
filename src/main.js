@@ -60,6 +60,7 @@ import reply from '@/page/user/reply'
 import redit from '@/page/user/redit'
 
 import usercenter from '@/components/user-center'
+import publicBread from "@/components/customize/publicBread";
 
 
 
@@ -99,6 +100,7 @@ Vue.component('re-ply', reply)
 Vue.component('re-dit', redit)
 Vue.component('user-center', usercenter)
 Vue.component('v-comjump',companyJump)
+Vue.component('v-bread', publicBread)
 
 
 
