@@ -1,8 +1,6 @@
 <template>
 	<div class="personnel">
-		<div class="personnel-nav">
-			<span @click="$router.push('/')">首页</span> > <span @click="$router.push('/crew')">人员</span>> {{name}} > {{names}}
-		</div>
+		<v-bread :breadList="[{ title: '人员'},{title:name},{title:names}]"></v-bread>
 		<div class="certifi-text">
 			<div>
 				<img src="../../assets/img/icon-nvxing.png" alt="" v-if="sex == '女'">
@@ -34,6 +32,7 @@
 	</div>
 </template>
 <script>
+import publicBread from "@/components/customize/publicBread";
 	export default {
 		data() {
 			return {
@@ -121,7 +120,7 @@
 			this.search()
 		},
 		components: {
-
+			"v-bread": publicBread,
 		}
 	}
 </script>

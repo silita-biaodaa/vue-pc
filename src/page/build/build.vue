@@ -2,26 +2,9 @@
 	<div class="build">
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="total">
-			共找到<span class="p-color">{{total}}</span>条在建信息(仅查询湖南省在建信息)
+			共找到<span>{{total}}</span>条在建信息(仅查询湖南省在建信息)
 		</div>
 		<div class="build-list">
-			<!-- <div class="build-table">
-				<div style="width:80px;">
-					序号
-				</div>
-				<div style="width:150px;">
-					姓名
-				</div>
-				<div style="width:250px;">
-					单位名称
-				</div>
-				<div style="width:300px;">
-					工程名称
-				</div>
-				<div style="width:240px;">
-					岗位类别
-				</div>
-			</div> -->
 			<!-- 判断是否加载中 -->
 			<template v-if="isajax">
 				<!-- 有数据 -->
@@ -302,15 +285,5 @@
 </script>
 <style lang="less" scoped>
 .build {
-	.table-content{
-		border: 1px dashed;
-		tr{
-			border: none;
-			border-bottom: 1px solid #DDDFE4
-		}
-		tr:last-child{
-			border-bottom: none;
-		}
-	} 
 }
 </style>

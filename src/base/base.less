@@ -19,9 +19,9 @@
             color:#666;
         }
         .current {
-            color: #EB651B;
-            // background-color: @themeColor;
-            // color:#fff;
+            color:@themeColor;
+            font-weight: 600;
+
         }
     }
 }
@@ -93,14 +93,14 @@ body .el-radio__input.is-checked+.el-radio__label{
     font-size:@contentSize;
     tr{
         cursor: pointer;
-        border: 1px dashed;
+        // border: 1px dashed;
         td{
-            border-right: 1px solid @initColor;
+            border: 1px solid @initColor;
             height: 48px;
         }
-        td:last-child{
-            border-right: none
-        }
+        // td:last-child{
+        //     border-right: none
+        // }
     }
     tr:first-child{
         cursor: auto;

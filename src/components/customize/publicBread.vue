@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         getInfo() {
-            this.parentsList = this.$parent.breadList;
+            this.parentsList = this.breadList;
         }
     },
     created() {
@@ -47,8 +47,4 @@ export default {
 .el-breadcrumb__item:nth-last-child(2) .el-breadcrumb__separator {
     color: @textColor !important;
 }
-</style>
-<style lang="less" scoped>
-@import "../../style/publicCSS";
-
 </style>

@@ -81,7 +81,7 @@
 					</div>
 				</li>
 			</ul>
-			<button  class="color-449 cp" @click="seeMore">查看更多 ></button>
+			<button  class="color-449 cp fs20" @click="seeMore">查看更多 ></button>
 		</div>
 	</div>
 </template>

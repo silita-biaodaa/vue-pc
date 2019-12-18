@@ -67,10 +67,4 @@
 	}
 </script>
 <style lang="less">
-	.perpor {
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
-		}
-	}
 </style>
