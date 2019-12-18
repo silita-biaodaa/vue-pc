@@ -1,23 +1,23 @@
 <template>
 	<div class="sign">
 		<div class="sign-top">
-			<span>变更记录（{{total}}）</span>
+			<p class="fw600 fs14 mb20">变更记录（{{total}}）</p>
 		</div>
-		<div class="sign-table">
-			<div class="certifi-table">
-				<div style="width:100px;">序号</div>
-				<div style="width:210px;">注册类别</div>
-				<div style="width:280px;">变更信息</div>
-				<div style="width:183px;">变更时间</div>
-			</div>
-			<div class="certifi-in" v-for="(el,i) in list" :key="i">
-				<div style="width:100px;">{{i + 1}}</div>
-				<div style="width:210px;">{{el.major}}</div>
-				<div style="width:280px;">{{el.remark}}</div>
-				<div style="width:183px;">{{el.changeDate}}</div>
-			</div>
-			<div class="certifi-no" v-show="ishow">暂无数据</div>
-		</div>
+		<table class="table-content">
+			<tr>
+				<td style="width:68px">序号</td>
+				<td style="width:298px">注册类别</td>
+				<td style="width:calc(100% - 500px)">变更信息</td>
+				<td style="width:134px">变更时间</td>
+			</tr>
+			<tr v-for='(el,i) in list' :key='i'>
+				<td>{{i+1}}</td>
+				<td>{{el.major}}</td>
+				<td>{{el.remark}}</td>
+				<td>{{el.changeDate}}</td>
+			</tr>
+			<tr v-show="ishow"><td colspan="4">暂无数据</td></tr>
+		</table>
 
 	</div>
 </template>
@@ -58,56 +58,5 @@
 	}
 </script>
 <style lang="less" scoped>
-	.sign {
-		background-color: #fff;
-		padding: 0 10px 31px;
-		box-sizing: border-box;
-		width: 100%;
-
-		.sign-top {
-			line-height: 44px;
-			font-size: 14px;
-			font-weight: 550;
-			color: #333;
-
-			span {
-				border-left: 2px solid #FE6603;
-				padding-left: 10px;
-			}
-		}
-
-		.sign-table {
-			border: 1px solid #f2f2f2;
-		}
-
-		.certifi-table {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			text-align: center;
-			height: 40px;
-			color: #333;
-			font-size: 14px;
-			font-weight: 550;
-			border-bottom: 1px solid #f2f2f2;
-		}
-
-		.certifi-in {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			text-align: center;
-			min-height: 56px;
-			color: #999;
-			font-size: 14px;
-			border-bottom: 1px solid #f2f2f2;
-		}
-
-		.certifi-no {
-			line-height: 56px;
-			text-align: center;
-			color: #999;
-			font-size: 14px;
-		}
-	}
+	
 </style>
