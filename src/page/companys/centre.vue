@@ -17,13 +17,16 @@
 
 		</div>
 		<div class="in-tabler">
-			<c-bur :search='search' v-if="pro" ref="burRef"></c-bur>
-			<c-water :search='search' v-if="water" ref="waterRef"></c-water>
-			<c-tra :search='search' v-if="tra" ref="traRef"></c-tra>
+			<v-bur :search='search' v-if="pro" ref="burRef"></v-bur>
+			<v-water :search='search' v-if="water" ref="waterRef"></v-water>
+			<v-traffic :search='search' v-if="tra" ref="traRef"></v-traffic>
 		</div>
 	</div>
 </template>
 <script>
+import bur from '@/page/companys/bur'
+import water from '@/page/companys/water'
+import traffic from '@/page/companys/traffic'
 	import {
 		Project
 	} from '@/api/index'
@@ -143,7 +146,11 @@
 			this.gainTra()
 			// this.gainList()
 		},
-		components: {}
+		components: {
+			'v-bur':bur,
+			'v-water':water,
+			'v-traffic':traffic
+		}
 	}
 </script>
 <style lang="less">

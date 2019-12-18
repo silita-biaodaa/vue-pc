@@ -14,11 +14,13 @@
 			</div>
 		</div>
 
-		<re-ply :current='current' @page='gaincur' @hide='inhide' v-if="btnS"></re-ply>
-		<re-dit :current='current' @page='gaincur' @hide='inhide' v-else :alles='alles' :allre='allre' :allde='allde'></re-dit>
+		<v-reply :current='current' @page='gaincur' @hide='inhide' v-if="btnS"></v-reply>
+		<v-redit :current='current' @page='gaincur' @hide='inhide' v-else :alles='alles' :allre='allre' :allde='allde'></v-redit>
 	</div>
 </template>
 <script>
+import reply from '@/page/user/reply'
+import redit from '@/page/user/redit'
 	import {} from "@/api/index";
 	export default {
 		data() {
@@ -52,7 +54,10 @@
 		created() {
 
 		},
-		components: {}
+		components: {
+			'v-reply':reply,
+			'v-redit':redit
+		}
 	}
 </script>
 <style lang="less" scoped>

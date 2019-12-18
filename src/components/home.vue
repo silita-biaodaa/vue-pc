@@ -586,6 +586,7 @@ export default {
         margin-top: 35px;
     }
     .bor {
+        width: calc(100% - 231px);
         .el-input-group {
             width: 558px;
             font-size: 18px;
@@ -648,7 +649,7 @@ export default {
     /*历史记录*/
     .hisgory {
         margin-top: 10px;
-        max-width: calc(100% - 92px);
+        max-width:558px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

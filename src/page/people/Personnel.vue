@@ -27,7 +27,6 @@
 	</div>
 </template>
 <script>
-// import publicBread from "@/components/customize/publicBread";
 	export default {
 		data() {
 			return {
@@ -114,9 +113,6 @@
 			this.sex = data.sex
 			this.search()
 		},
-		// components: {
-		// 	"v-bread": publicBread,
-		// }
 	}
 </script>
 <style lang="less" scoped>
