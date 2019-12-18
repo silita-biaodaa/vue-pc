@@ -1,10 +1,6 @@
 <template>
 	<div class="introduce">
-
-		<div class="i-nav m-15">
-			首页 > 企业 > {{title}} > {{name}}
-		</div>
-
+		<v-bread :breadList="[{ title: '企业'},{title:title},{title:name}]"></v-bread>
 		<div class="com-title">
 			<div class="com-img left">
 				<img src="../assets/img/company.png" alt="">
@@ -42,20 +38,13 @@
 			</div>
 
 		</div>
-
-
-		<div class="anchor">
-			<div class="i-nav left">
-				<div v-for="(el,i) in navs" :key="i" :class="el.name == name ? 'current':''" @click="anchor(el)">
+		<div class="left-right-box">
+			<div class="user-tab bor-r">
+				<div v-for="(el,i) in navs" class="tab" :key="i" :class="el.name == name ? 'current':''" @click="anchor(el)">
 					{{el.name}}
-					<div class="nav-rim" v-show="el.show">
-						<div class="triangle">
-
-						</div>
-					</div>
 				</div>
 			</div>
-			<div class="right standby">
+			<div class="right-box">
 				<router-view />
 			</div>
 		</div>
@@ -286,192 +275,128 @@
 <style lang="less" scoped>
 	.introduce {
 		width: 1020px;
-		margin: 0 auto;
+		margin: 0 auto 20px;
+		// .com-title {
+		// 	width: 100%;
+		// 	padding: 17px 0 20px 20px;
+		// 	overflow: hidden;
+		// 	background-color: #fff;
+		// 	box-sizing: border-box;
 
-		.i-nav {
-			font-size: 12px;
-			color: #666;
-		}
+		// 	.attention {
+		// 		margin-right: 30px;
+		// 		width: 62px;
+		// 		line-height: 22px;
+		// 		border: 1px solid #FE6603;
+		// 		text-align: center;
+		// 		font-size: 14px;
+		// 		border-radius: 5px;
+		// 		color: #FE6603;
+		// 		cursor: pointer;
 
-		.com-title {
-			width: 100%;
-			padding: 17px 0 20px 20px;
-			overflow: hidden;
-			background-color: #fff;
-			box-sizing: border-box;
+		// 		i {
+		// 			font-size: 12px;
+		// 		}
+		// 	}
 
-			.attention {
-				margin-right: 30px;
-				width: 62px;
-				line-height: 22px;
-				border: 1px solid #FE6603;
-				text-align: center;
-				font-size: 14px;
-				border-radius: 5px;
-				color: #FE6603;
-				cursor: pointer;
+		// 	.collect {
+		// 		color: #fff;
+		// 		background-color: #FE6603;
 
-				i {
-					font-size: 12px;
-				}
-			}
+		// 		i {
+		// 			color: #fff;
+		// 		}
+		// 	}
 
-			.collect {
-				color: #fff;
-				background-color: #FE6603;
+		// 	.com-img {
+		// 		height: 75px;
+		// 		width: 75px;
+		// 		border-radius: 5px;
+		// 		margin-right: 25px;
+		// 		overflow: hidden;
+		// 	}
 
-				i {
-					color: #fff;
-				}
-			}
+		// 	.com-detail {
+		// 		width: calc(100% - 100px);
 
-			.com-img {
-				height: 75px;
-				width: 75px;
-				border-radius: 5px;
-				margin-right: 25px;
-				overflow: hidden;
-			}
+		// 		.c-name {
+		// 			font-size: 18px;
+		// 			font-weight: 550;
+		// 		}
 
-			.com-detail {
-				width: calc(100% - 100px);
+		// 		.c-state {
 
-				.c-name {
-					font-size: 18px;
-					font-weight: 550;
-				}
+		// 			display: inline-block;
+		// 			padding: 0 5px;
+		// 			height: 16px;
+		// 			background-color: #E4FFF0;
+		// 			margin-left: 5px;
+		// 			margin-top: 9px;
+		// 			font-size: 12px;
+		// 			color: #53E494;
+		// 			text-align: center;
+		// 		}
 
-				.c-state {
+		// 		.c-all {
+		// 			font-size: 12px;
+		// 			color: #666666;
+		// 			padding: 13px 0 0 10px;
+		// 			width: 700px;
+		// 			overflow: hidden;
+		// 			background-color: #F5FAFF;
+		// 			margin-top: 5px;
 
-					display: inline-block;
-					padding: 0 5px;
-					height: 16px;
-					background-color: #E4FFF0;
-					margin-left: 5px;
-					margin-top: 9px;
-					font-size: 12px;
-					color: #53E494;
-					text-align: center;
-				}
+		// 			div {
+		// 				width: 50%;
 
-				.c-all {
-					font-size: 12px;
-					color: #666666;
-					padding: 13px 0 0 10px;
-					width: 700px;
-					overflow: hidden;
-					background-color: #F5FAFF;
-					margin-top: 5px;
+		// 				p {
+		// 					margin-bottom: 13px;
+		// 					text-overflow: ellipsis;
+		// 					overflow: hidden;
+		// 					white-space: nowrap;
 
-					div {
-						width: 50%;
+		// 					span {
+		// 						color: #FE6603;
+		// 						cursor: pointer;
+		// 					}
+		// 				}
+		// 			}
+		// 		}
 
-						p {
-							margin-bottom: 13px;
-							text-overflow: ellipsis;
-							overflow: hidden;
-							white-space: nowrap;
+		// 	}
+		// 	.c-over {
+		// 		font-size: 14px;
+		// 		margin-right: 20px;
+		// 		color: #333;
+		// 		font-weight: 550;
+		// 	}
+		// }
+		// .flex-box {
+		// 	display: flex;
+		// 	justify-content: space-between;
+		// 	align-items: center;
 
-							span {
-								color: #FE6603;
-								cursor: pointer;
-							}
-						}
-					}
-				}
+		// 	.right-box {
+		// 		display: flex;
+		// 		align-items: center;
 
-			}
+		// 		.update {
+		// 			background: #fff;
+		// 			border: 1px solid #FE6603;
+		// 			border-radius: 5px;
+		// 			cursor: pointer;
+		// 			color: #FE6603;
+		// 			width: 62px;
+		// 			line-height: 22px;
+		// 			text-align: center;
+		// 			display: inline-block;
+		// 		}
 
-			.c-over {
-				font-size: 14px;
-				margin-right: 20px;
-				color: #333;
-				font-weight: 550;
-			}
-		}
-
-		.anchor {
-			width: 1020px;
-			overflow: hidden;
-			margin-top: 16px;
-			box-sizing: border-box;
-			margin-bottom: 124px;
-			min-height: 360px;
-			.i-nav {
-				color: #333;
-				font-size: 14px;
-
-				div {
-					width: 200px;
-					height: 50px;
-					line-height: 50px;
-					text-align: center;
-					font-weight: 550;
-					background-color: #fff;
-					position: relative;
-					cursor: pointer;
-
-					.nav-rim {
-						position: absolute;
-						width: 10px;
-						height: 54px;
-						right: -10px;
-						top: 0;
-						background-color: #FE6603;
-
-						.triangle {
-							width: 0;
-							height: 0;
-							border-top: 6px solid #FE6603;
-							border-right: 10px solid transparent;
-							position: absolute;
-							right: 0;
-							bottom: -6px;
-						}
-					}
-				}
-
-				.current {
-					background-color: #FE6603;
-					color: #fff;
-				}
-			}
-
-			.standby {
-				width: 794px;
-			}
-		}
-
-		.m-15 {
-			margin: 10px 0;
-		}
-
-		.flex-box {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-
-			.right-box {
-				display: flex;
-				align-items: center;
-
-				.update {
-					background: #fff;
-					border: 1px solid #FE6603;
-					border-radius: 5px;
-					cursor: pointer;
-					color: #FE6603;
-					width: 62px;
-					line-height: 22px;
-					text-align: center;
-					display: inline-block;
-				}
-
-				span {
-					margin-right: 20px;
-					font-size: 14px;
-				}
-			}
-		}
+		// 		span {
+		// 			margin-right: 20px;
+		// 			font-size: 14px;
+		// 		}
+		// 	}
+		// }
 	}
 </style>

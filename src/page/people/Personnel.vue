@@ -13,13 +13,13 @@
 				<p>{{sex ? sex : '男'}}</p>
 			</div>
 		</div>
-		<div class="personnel-text">
+		<div class="left-right-box">
 			<div class="user-tab bor-r">
 				<div class="tab" v-for="(el,i) in tab" :key="i" :class="el.i ? 'current' : '' " @click='jumpto(el)'>
 					{{el.name}}
 				</div>
 			</div>
-			<div class="personnel-right">
+			<div class="right-box">
 				<router-view />
 			</div>
 		</div>
@@ -137,36 +137,6 @@
 					text-align: center;
 					font-size: 18px;
 				}
-			}
-		}
-		/*左侧tab*/
-		.personnel-text {
-			width: 1020px;
-			margin: 40px auto 0;
-			display: flex;
-			justify-content: space-between;
-			box-sizing: border-box;
-			.user-tab {
-				font-size: 18px;
-				.tab {
-					width: 140px;
-					line-height: 20px;
-					border-left: 4px solid transparent;
-					cursor: pointer;
-					padding-left: 10px;
-					margin-bottom: 30px;
-					box-sizing: border-box;
-				}
-				.current {
-					border-color: #EB651B;
-					color: #EB651B;
-					font-weight: 600;
-				}
-			}
-			.personnel-right {
-				width: 100%;
-				margin-left: 30px;
-				padding-bottom: 266px;
 			}
 		}
 	}
