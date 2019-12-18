@@ -38,14 +38,14 @@ import  companyJump  from '@/components/companyJump';
 import  navPage  from '@/components/paging';
 import  enSearch from '@/components/home'
 import  logoNav from '@/components/logoNav'
-import pDet from '@/components/pdet'
-import root from '@/components/root'
+// import pDet from '@/components/pdet'
+// import root from '@/components/root'
 import fvip from '@/components/fvip'
-import fcoll from '@/components/collect'
+// import fcoll from '@/components/collect'
 import bidlist from '@/components/bidlist'
 import tenlist from '@/components/tenlist'
 import qylist from '@/components/qylist'
-import aptitude from '@/page/synth/aptitude'
+// import aptitude from '@/page/synth/aptitude'
 import city from '@/components/bid/city'
 import allCity from '@/components/bid/allCity'
 import bur from '@/page/companys/bur'
@@ -78,14 +78,14 @@ import {getOpenid,ThirdLogin,refresh} from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
-Vue.component('p-Det', pDet)
-Vue.component('p-root', root)
+// Vue.component('p-Det', pDet)
+// Vue.component('p-root', root)
 Vue.component('f-vip', fvip)
-Vue.component('f-coll', fcoll)
+// Vue.component('f-coll', fcoll)
 Vue.component('ten-list', tenlist)
 Vue.component('bid-list', bidlist)
 Vue.component('qy-list', qylist)
-Vue.component('q-titu', aptitude)
+// Vue.component('q-titu', aptitude)
 Vue.component('c-ity', city)
 Vue.component('all-city', allCity)
 Vue.component('c-bur', bur)
