@@ -712,65 +712,70 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 @import "../../style/query.less";
+@import "../../style/publicCSS.less";
 .ZJquery_content {
     width: 1020px;
     margin: 0 auto;
-    .rule {
-    margin-left: 20px;
-    position: relative;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    .color-font {
-        color: @color;
+    .select {
+        border: 1px solid @initColor;
+        padding: 20px;
     }
-    .rule-box {
-        display: none;
-        position: absolute;
-        background: #fff;
-        width: 520px;
-        height: 200px;
-        bottom: calc(-100% + 40px);
-        transform: translateX(-50%);
-        left: 50%;
-        border-radius: 5px;
-        box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.1);
-        h5 {
-            line-height: 52px;
-            font-size: 16px;
-            text-align: center;
-            border-bottom: 1px solid #f2f2f2;
+    .rule {
+        margin-left: 20px;
+        position: relative;
+        display: inline-block;
+        font-size: 12px;
+        cursor: pointer;
+        .color-font {
+            color: @color;
         }
-        ul {
-            height: 147px;
-            padding: 20px 40px;
-            box-sizing: border-box;
-            li {
-                height: calc(100% / 3);
-                display: flex;
-                align-items: center;
+        .rule-box {
+            display: none;
+            position: absolute;
+            background: #fff;
+            width: 520px;
+            height: 200px;
+            bottom: calc(-100% + 40px);
+            transform: translateX(-50%);
+            left: 50%;
+            border-radius: 5px;
+            box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.1);
+            h5 {
+                line-height: 52px;
                 font-size: 16px;
-                div {
-                    width: calc((100% / 3) * 2);
-                    // flex-grow:2;
+                text-align: center;
+                border-bottom: 1px solid #f2f2f2;
+            }
+            ul {
+                height: 147px;
+                padding: 20px 40px;
+                box-sizing: border-box;
+                li {
+                    height: calc(100% / 3);
                     display: flex;
-                    justify-content: space-between;
-                    span {
-                        width: 50%;
-                        font:last-child {
-                            margin-left: 15px;
+                    align-items: center;
+                    font-size: 16px;
+                    div {
+                        width: calc((100% / 3) * 2);
+                        // flex-grow:2;
+                        display: flex;
+                        justify-content: space-between;
+                        span {
+                            width: 50%;
+                            font:last-child {
+                                margin-left: 15px;
+                            }
                         }
                     }
-                }
-                span {
-                    flex-grow: 1;
+                    span {
+                        flex-grow: 1;
+                    }
                 }
             }
         }
     }
-}
-.rule:hover .rule-box {
-    display: block;
-}
+    .rule:hover .rule-box {
+        display: block;
+    }
 }
 </style>

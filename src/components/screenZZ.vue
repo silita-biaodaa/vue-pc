@@ -1,7 +1,7 @@
 <template>
-    <div class="screenZZ">
+    <div class="screenZZ pt20 pb20">
         <div class="search-b">
-            <span class="font16">资质要求：</span>
+            <span class="fs16 color-150 fw600 mr20">资质要求</span>
             <el-input
                 placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
@@ -13,7 +13,7 @@
             <span v-if="length0" class="search-tips">暂未找到该资质，请输入其他关键字</span>
         </div>
         <!-- 资质筛选 -->
-        <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
+        <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l drc">
             <el-select placeholder="选择资质类型" clearable v-model="el.one.code" @change="oneChangeFn(el,i)"  @click.native='judvip'>
                 <el-option v-for="item in el.one.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
@@ -23,23 +23,27 @@
             <el-select placeholder="请选择" clearable v-model="el.three.code" @change="threeChangeFn(el,i)" v-if="el.three.list.length>0">
                 <el-option v-for="item in el.three.list" :key="item.name" :label="item.name" :value="item.code"></el-option>
             </el-select>
-            <span class='del-btn' @click='delFn(i)' v-if="i!=0">删除</span>
+            <div @click='delFn(i)' v-if="i!=0" class="color-449 cp">
+                <i class="iconfont iconshanchu"></i>
+                <span>删除</span>
+            </div>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box">
+        <div class="spacing-box mb20 mt20 dfrcb">
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
+            </div>
+            <div class="mr20 fs14 color-150 fw600">
+                <el-checkbox v-model="checkedZZ" @change="getRecordZZ">仅查询备案资质</el-checkbox>
             </div>
         </div>
         <!-- <div class="spacing-box red" v-else>资质最多只可添加3条</div> -->
         <!-- 资质关系 -->
         <div class="rela" v-if="!bid&&lengthList.length>1">
-            <el-row>
-                <el-col :span="2">资质关系:</el-col>
-                <el-col :span="14">
-                    <span v-for="(el,i) in rela" class="rela-item" :class="el.key == rangeType? 'current':''"  :key='i' @click='relaFn(el)'>{{el.name}}</span>
-                </el-col>
-            </el-row>
+            <div class="color-5a5 fs14">
+                <span>多个资质之间的关系：</span>
+                <span v-for="(el,i) in rela" class="text-c mr20 ml20 cp" :class="el.key == rangeType? 'current':''"  :key='i' @click='relaFn(el)'>{{el.name}}</span>
+            </div>
         </div>
         <f-vip @toChildEvent='closeload' v-if='svip'></f-vip>
     </div>
@@ -81,7 +85,8 @@ export default {
             ],
             searchList:[],
             isshow:false,
-            length0:false
+            length0:false,
+            checkedZZ: false, 
         }
     },
     props:{
@@ -390,6 +395,9 @@ export default {
             this.lengthList.splice(i,1);
             this.returnStr();
         },
+        getRecordZZ() {
+            this.$emit('recordZZ',this.checkedZZ);
+        }
     },
     // mounted(){
     //     this.arrRead()
@@ -469,9 +477,24 @@ export default {
     }
 }
 </script>
+<style lang="less">
+@import "../style/publicCSS";
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: @textColor !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color:  @themeColor !important;
+    border-color: @themeColor !important;
+}
+.el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
+    color: @themeColor !important;
+    border-color: @themeColor !important;
+}
+</style>
 <style lang="less" scoped>
+@import "../style/publicCSS";
 .screenZZ{
-    font-size: 16px;
+    border-bottom: 1px solid @initColor;
     .screen{
         margin-bottom: 10px
     }
@@ -483,21 +506,15 @@ export default {
         width: 225px;
     }
     .padding-l{
-        padding-left: 84px;
-        .del-btn{
-            color: #FE6603;
-            cursor: pointer;
-        }
+        padding-left: 87px;
     }
     .spacing-box{
-        padding-left: 84px;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        padding-left: 87px;
         .btn{
-            color: #FE6603;
+            color: @themeColor;
             height: 28px;
             line-height: 28px;
-            border: 1px solid #FE6603;
+            border: 1px solid @themeColor;
             width: 92px;
             border-radius: 5px;
             text-align: center;
@@ -509,21 +526,12 @@ export default {
         color: red;
         font-size: 14px;
     }
-    .rela-item{
-        padding: 0 9px;
-        height: 25px;
-        line-height: 25px;
-        // background-color: #DDDDDD;
-        text-align: center;
-        font-size: 16px;
-        margin-right: 30px;
-        cursor: pointer;
-        display: inline-block;
-        color: #000;
-    }
-    .current{
-        background-color: #FE6603;
-        color: #fff;
+    .rela {
+        margin-left: 87px;
+        .current{
+            color: @themeColor;
+            font-weight: 600;
+        }
     }
     .search-b{
         margin-bottom: 10px;

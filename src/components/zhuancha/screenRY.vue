@@ -1,7 +1,7 @@
 <template>
-    <div class="screenRY">
+    <div class="screenRY pt20 pb20">
         <div class="search-b">
-            <el-col :span="2" style="line-height:40px">人员要求：</el-col>
+            <el-col :span="2" style="line-height:40px" class="fs16 fw600 color-150">人员要求</el-col>
         </div>
         <!-- 人员 -->
         <div v-for="(el,i) of lengthList" :key="i" class="screen padding-l">
@@ -17,11 +17,15 @@
                 </el-select>
                 人员数量：
                 <el-input-number v-model="el.num" :min="1" size="mini" @change="returnStr"></el-input-number>
-                <span class='del-btn' v-if="i!=0" @click="delFn(i)">删除</span>
+                <!-- <span class='del-btn' v-if="i!=0" @click="delFn(i)">删除</span> -->
+                <span @click='delFn(i)' v-if="i!=0" class="color-449 cp ml15 fs14">
+                    <i class="iconfont iconshanchu"></i>
+                    <span>删除</span>
+                </span>
             </template>
             <!-- 一人多证 -->
             <template v-else>
-                <div class="box">
+                <div class="box bg-f4f">
                     <!-- 条件 -->
                     <el-row v-for="(x,y) of el.list" :key="'a'+y">
                         <el-select placeholder="请选择证书类别" clearable v-model="x.one.cateName"  @change="oneChangeFn(x,y)">
@@ -33,28 +37,34 @@
                         <el-select placeholder="请选择证书专业" multiple collapse-tags clearable v-model="x.three.cateName" @change="threeChangeFn(x,y,el)" v-if="x.three.list&&x.three.list.length>0">
                             <el-option v-for="item in x.three.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
                         </el-select>
+
                         <span class='del-btn' v-if="y!=0&&y!=1" @click="delFn(y,el)">删除</span>
                     </el-row>
-                    <div class="btn" @click="addFn(el)">
+                    <div class="addBtn mt20 mb20" @click="addFn(el)">
                         <i class='el-icon-plus'></i>增加条件
                     </div>
                     <div class="people-num">
                         人员数量：
                         <el-input-number v-model="el.num" :min="1" size="mini" @change="returnStr"></el-input-number>
                     </div>
-                    <div class="close" @click="delFn(i)">
-                        <i class="el-icon-error"></i>
+                    <div class="close fs14" @click="delFn(i)">
+                        取消
                     </div>
                 </div>
             </template>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box">
-            <div class="btn" @click="addFn()">
-                <i class='el-icon-plus'></i>增加条件
+        <div class="spacing-box dfrcb">
+            <div class="drc">
+                <div class="btn" @click="addFn()">
+                    <i class='el-icon-plus'></i>增加条件
+                </div>
+                <div class="btn" @click="addtoFn">
+                    <i class='el-icon-plus'></i>增加一人多证
+                </div>
             </div>
-            <div class="btn" @click="addtoFn">
-                <i class='el-icon-plus'></i>增加一人多证
+            <div class="mr20 fs14 color-150 fw600">
+                <el-checkbox v-model="checkedRY" @change="getRecordRY">仅查询备案人员</el-checkbox>
             </div>
         </div>
     </div>
@@ -82,7 +92,8 @@ export default {
                     type:0,//是否一人多证 0为不是，1为是
                     str:''
                 }
-            ]
+            ],
+            checkedRY: false,
         }
     },
     props:{
@@ -340,15 +351,34 @@ export default {
             }
             this.$emit('contentChange',arr)
         },
+        getRecordRY() {
+            this.$emit('recordRY',this.checkedRY);
+        }
     },
     created(){
         this.lengthList[0].one.list=this.qualList;
     }
 }
 </script>
+<style lang="less">
+@import "../../style/publicCSS";
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: @textColor !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color:  @themeColor !important;
+    border-color: @themeColor !important;
+}
+.el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
+    color: @themeColor !important;
+    border-color: @themeColor !important;
+}
+</style>
 <style lang="less" scoped>
-@color:#FE6603;
+@import "../../style/publicCSS";
+@color:#EB651B;
 .screenRY{
+    border-bottom: 1px solid @initColor;
     .screen{
         margin-bottom: 10px
     }
@@ -368,9 +398,12 @@ export default {
         display: flex;
         padding-left: 84px;
         margin-top: 20px;
-        margin-bottom: 20px;
     }
-    .btn{
+    .addBtn {
+        width: 96px;
+        height: 36px;
+    }
+    .btn,.addBtn{
         margin-right: 15px;
         color: @color;
         height: 28px;
@@ -416,7 +449,7 @@ export default {
         }
     }
     .box{
-        border: 1px solid #f2f2f2;
+        border: 1px solid @initColor;
         padding: 20px;
         position: relative;
         .el-row{
@@ -428,17 +461,11 @@ export default {
             right: 60px;
             margin-right: 0;
         }
-        // .people-num{
-        //     position: absolute;
-        //     bottom: 20px;
-        //     right: 60px;
-        // }
         .close{
             position: absolute;
-            right: 5px;
-            top: 5px;
-            font-size: 24px;
-            color: red;
+            right: 20px;
+            top: 20px;
+            color: #4494F0;
             cursor: pointer;
         }
     }

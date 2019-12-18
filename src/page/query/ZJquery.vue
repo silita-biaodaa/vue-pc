@@ -439,7 +439,7 @@ export default {
             // this.ajax()
         },
         isBeiFn(el){//备案地区
-            this.data.joinRegion=el.code;
+            this.data.joinRegion = el.code;
             // this.ajax()
         },
         screenzzFn(val){//接受资质变化抛出的值

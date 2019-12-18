@@ -47,6 +47,43 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
   });
 })
 
+/**
+ * 封装get方法
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+export function get(url,params={}){
+  return new Promise((resolve,reject) => {
+    axios.get(url,{
+      params:params
+    })
+    .then(response => {
+      resolve(response.data);
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+}
+
+  /**
+ * 封装post请求
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+
+export function post(url,data = {}){
+  return new Promise((resolve,reject) => {
+    axios.post(url,data)
+    .then(response => {
+      resolve(response.data);
+    },err => {
+      reject(err)
+    })
+  })
+}
 
 export const getJsonData = (url, params) => {
   return new Promise((resolve, reject) => {
@@ -297,4 +334,7 @@ export const single = params => {
 
 export const activity = params => {
   return axios.post('activity/save/phone', params).then(res => res.data)
+}
+export const screenConut = params => {
+  return axios.post('/chongq/company/count', params).then(res => res.data);
 }
