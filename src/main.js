@@ -1,104 +1,44 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 
-// import {Select,Option,Input,Checkbox,Button,Carousel,Icon,Row,Col,MessageBox,CarouselItem,Dropdown,DropdownMenu,DropdownItem,Loading,DatePicker} from 'element-ui';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
-// import "babel-polyfill"
-// Vue.use(Row);
-// Vue.use(Col);
-// Vue.use(Select);
-// Vue.use(Option);
-// Vue.use(Input);
-// Vue.use(Checkbox);
-// Vue.use(Button);
-// Vue.use(Carousel);
-// Vue.use(Icon);
-// Vue.use(CarouselItem);
-// Vue.use(Dropdown);
-// Vue.use(DropdownMenu);
-// Vue.use(DropdownItem);
-// Vue.use(Loading.directive);
-// Vue.use(DatePicker);
-// import moment from 'moment'
-// Vue.prototype.$moment = moment;
 import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
-// import 'babel-polyfill'
-import funcom from './util/util'
-Vue.prototype.funcom = funcom
-// Vue.prototype.$alert = MessageBox.alert;
-// Vue.prototype.$confirm = MessageBox.confirm;
+// import funcom from './util/util'
+// Vue.prototype.funcom = funcom
 Vue.config.productionTip = false
-import  companyJump  from '@/components/companyJump';
-import  navPage  from '@/components/paging';
-import  enSearch from '@/components/home'
+import  companyJump  from '@/components/companyJump';//点击跳转企业详情组件（包含接口查询）
+import  navPage  from '@/components/paging';//分页组件（封装element，方便统一控制）
+import  enSearch from '@/components/home'//顶部搜索框
 import  logoNav from '@/components/logoNav'
-// import pDet from '@/components/pdet'
-// import root from '@/components/root'
-import fvip from '@/components/fvip'
-// import fcoll from '@/components/collect'
-import bidlist from '@/components/bidlist'
-import tenlist from '@/components/tenlist'
-import qylist from '@/components/qylist'
-// import aptitude from '@/page/synth/aptitude'
+import fvip from '@/components/fvip'//无会员弹窗
+import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制）
+
 import city from '@/components/bid/city'
 import allCity from '@/components/bid/allCity'
-import bur from '@/page/companys/bur'
-import water from '@/page/companys/water'
-import traffic from '@/page/companys/traffic'
 import perpor from '@/page/perfor/perpor'
 import money from '@/page/perfor/money'
 import pertime from '@/page/perfor/pertime'
-
 import comment from '@/page/comment/comment'
-import reply from '@/page/user/reply'
-import redit from '@/page/user/redit'
 
-import usercenter from '@/components/user-center'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import {getOpenid,ThirdLogin,refresh} from "@/api/index"
+import {getOpenid,ThirdLogin} from "@/api/index"
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
-// Vue.component('p-Det', pDet)
-// Vue.component('p-root', root)
 Vue.component('f-vip', fvip)
-// Vue.component('f-coll', fcoll)
-Vue.component('ten-list', tenlist)
-Vue.component('bid-list', bidlist)
-Vue.component('qy-list', qylist)
-// Vue.component('q-titu', aptitude)
-Vue.component('c-ity', city)
-Vue.component('all-city', allCity)
-Vue.component('c-bur', bur)
-Vue.component('c-water', water)
-Vue.component('c-tra', traffic)
-Vue.component('per-por', perpor)
-Vue.component('m-oney', money)
-Vue.component('per-time', pertime)
-Vue.component('com-ment', comment)
-Vue.component('re-ply', reply)
-Vue.component('re-dit', redit)
-Vue.component('user-center', usercenter)
 Vue.component('v-comjump',companyJump)
+Vue.component('v-bread',publicBread)
+
+Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
+Vue.component('all-city', allCity)//用于企业市级筛选（优化后可删）
+Vue.component('per-por', perpor)//地区组件可把其与市级筛选合并，多个组件无意义（优化后可删）
+Vue.component('m-oney', money)//钱筛选组件,感觉其中逻辑不够灵活
+Vue.component('per-time', pertime)//时间筛选组件,感觉其中逻辑不够灵活
+
+Vue.component('com-ment', comment)//评论组件
 
 
 

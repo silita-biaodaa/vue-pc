@@ -53,15 +53,15 @@
 				<dl class="bid-content">
 					<dd v-for="(el,i ) of queryLists" :key="'3'+i" @click='decide(el)'>
 						<div class="dfrcb mb10">
-							<div>
-								<span class="fs18 mr20 fw600">{{(present-1)*20+(i+1)}}</span>
+							<div class="dfrcb">
+								<span class="fs18 mr20 fw600" style="min-width:20px">{{(present-1)*20+(i+1)}}</span>
 								<span class="fs18 fw600 text-over" :title='el.title' style="max-width:750px;display: inline-block;">{{el.title}}</span>
 							</div>
 							<div class="fs14">
 								{{el.openDate}}
 							</div>
 						</div>
-						<div class="dfrcb" style="color:#666;padding-left:34px">
+						<div class="dfrcb" style="color:#666;padding-left:40px">
 							<p class="fs14" :title='el.certificate'>
 								资质要求:{{el.certificate ? el.certificate : '详见原文' }}
 							</p>

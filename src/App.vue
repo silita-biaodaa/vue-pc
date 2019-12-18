@@ -44,7 +44,7 @@
 						<p @click="jumpl" v-if="names">
 							请登录
 						</p>
-						<user-center v-else></user-center>
+						<v-user v-else></v-user>
 						<div class="area">
 							<i class="iconfont iconweizhi"></i>
 							<span @click="selfa">{{source.source}}</span>
@@ -163,6 +163,7 @@
 </template>
 
 <script>
+import usercenter from '@/components/user-center'
 	import {
 		address,
 		getUserTemp,
@@ -346,6 +347,9 @@
 			return {
 				reload: this.reload
 			}
+		},
+		component:{
+			'v-user':usercenter
 		},
 		methods: {
 			reload() {
@@ -858,6 +862,7 @@ body{
 	transform: translateY(-50%);
 	top: 50%;
 	z-index: 999;
+	box-shadow:0px 0px 15px 0px rgba(0,0,0,0.15);
 	border: 1px solid #f2f2f2;
 	.block{
 		position: relative;

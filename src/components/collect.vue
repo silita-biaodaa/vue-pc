@@ -11,13 +11,16 @@
        </div>
    </div>
    <div class="coll-list">
-     <bid-list v-if="this.name =='招标公告'"></bid-list>
-     <ten-list v-if="this.name =='中标公告'"></ten-list>
-     <qy-list v-if="this.name =='企业信息'"></qy-list>
+     <v-bid v-if="this.name =='招标公告'"></v-bid>
+     <v-ten v-if="this.name =='中标公告'"></v-ten>
+     <v-qy v-if="this.name =='企业信息'"></v-qy>
    </div>
 </div>
 </template>
 <script>
+import bidlist from '@/components/bidlist'
+import tenlist from '@/components/tenlist'
+import qylist from '@/components/qylist'
 export default {
   data () {
     return {
@@ -48,6 +51,9 @@ export default {
     }
   },
   components: {
+    'v-bid':bidlist,
+    'v-ten':tenlist,
+    'v-qy':qylist
   }
 }
 </script>
