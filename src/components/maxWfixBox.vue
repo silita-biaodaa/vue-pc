@@ -2,17 +2,17 @@
 <template>
     <div class="maxWfixBox">
         <!-- list.length>0?'isshow':'' -->
-        <div class="box" :class="{'isshow':list.length>0,'no-notice':type!='notice'}">
+        <div class="box" :class="{'isshow':list.length>0,'no-notice':type!='notice','notice':type=='notice'}">
             <slot name="left" style="width:750px"></slot>
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
                 <div class="fix-box positionBox" v-if="list.length>0">
-                    <h5>相关公告({{list.length}})</h5>
-                    <ul>
-                        <li v-for="(o,i) of list" :key="i" @click="jumpNotice(o)">
+                    <h6 class="fs18 mb10">相关公告({{list.length}})</h6>
+                    <dl>
+                        <dd v-for="(o,i) in list" :key="i" @click="jumpNotice(o)" class="pt20 pb20" :class="{'bor-b':i!=list.length-1}">
                             <p>{{i+1}}、{{o.title}}</p>
-                        </li>
-                    </ul>
+                        </dd>
+                    </dl>
                 </div>
             </template>
             <!-- 平台公示 -->
@@ -197,8 +197,12 @@ export default {
 <style  lang='less' scoped>
 .box{
     position: relative;
+}
+.no-notice{
+    width:1020px;
+    margin: 0 auto;
+    min-height: 685px;
     .fix-box.positionBox{
-        position: absolute;
         top: 125px;
         width: 260px;
         box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.1);
@@ -212,14 +216,26 @@ export default {
         }
     }
 }
-.no-notice{
-    width:1020px;
-    margin: 0 auto;
-    min-height: 685px;
-}
-.isshow>div{
+.no-notice>div{
     width: 750px;
 }
+/*公告*/
+.notice.isshow{
+    .fix-box.positionBox{
+        position: absolute;
+        top: 285px;
+        margin-left:280px;
+    }
+}
+.notice.isshow /deep/ .main .maxw{
+    width: 750px;
+    border-right: 1px solid #DDDFE4
+}
+.notice.isshow /deep/ .main .maxw>div{
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+/*公告end*/
 .fix-box{
     width: 260px;
     position: fixed;

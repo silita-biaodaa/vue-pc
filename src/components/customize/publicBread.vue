@@ -53,4 +53,8 @@ export default {
 .el-breadcrumb__item:nth-last-child(2) .el-breadcrumb__separator {
     color: @textColor !important;
 }
+.publicBread{
+    width: 1020px;
+    margin: 0 auto;
+}
 </style>

@@ -3,7 +3,7 @@
     <div class="rydetail">
         <!-- 头 -->
 		<v-head :headTxt="'重庆定制版查询系统'"></v-head>
-        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:basic.comName}]"></v-bread>
+        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:曹长卿}]"></v-bread>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
@@ -569,9 +569,10 @@ export default {
         .list-box{
             font-size: 14px;
             .condition{
-                height: 48px;
+                min-height: 48px;
                 padding-left: 30px;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 border: 1px solid @borderColor;
                 box-sizing: border-box;

@@ -1,7 +1,10 @@
 <template>
 	<div class="comment">
-		<div class="comment-top">
-			<p class="comment-title">评论</p>
+		<div class="comment-top mb10">
+			<p class="comment-title fs14">
+				<i class="iconfont iconxiepinglun"></i>
+				评论
+			</p>
 			<div @click="switchs" v-if="!this.skip">
 				<div class="comment-about" v-show="about">
 					<div class="no-about">
@@ -23,7 +26,7 @@
 				全部评论
 			</div>
 		</div>
-		<textarea class="comment-text" placeholder="欢迎留言讨论~" style="resize:none" v-model="text" maxlength="300"></textarea>
+		<textarea class="comment-text bg-f4f borde" placeholder="欢迎留言讨论~" style="resize:none" v-model="text" maxlength="300" ></textarea>
 		<div class="comment-btn">
 			<div class="pu-btn" @click="publish" :class="{'have-val':textT}">发布
 			</div>
@@ -550,43 +553,30 @@
 </script>
 <style lang="less" scoped>
 	.comment {
-		margin-top: 25px;
-		margin-bottom: 200px;
+		margin-top: 40px;
+		padding-bottom: 200px;
 		background-color: #fff;
-		padding: 0 16px 5px;
-
 		.comment-top {
-			height: 56px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-
 			.all-from {
 				width: 64px;
 				height: 24px;
 				border: 1px solid rgba(254, 102, 3, 1);
 				border-radius: 5px;
-				font-size: 12px;
+				font-size: 14px;
 				color: rgba(254, 102, 3, 1);
 				line-height: 24px;
 				text-align: center;
 				cursor: pointer;
 			}
-
-			.comment-title {
-				font-size: 18px;
-				color: #333;
-				border-left: 3px solid #FE6603;
-				padding-left: 9px;
-			}
-
 			.comment-about {
 				cursor: pointer;
-				font-size: 12px;
+				font-size: 14px;
 				display: flex;
 				justify-content: space-between;
 				min-height: 18px;
-
 				.no-about {
 					height: 16px;
 					width: 16px;
@@ -594,7 +584,6 @@
 					border: 1px solid #999;
 
 				}
-
 				img {
 					margin-right: 2px;
 					width: 18px;
@@ -605,26 +594,22 @@
 		.comment-text {
 			width: 100%;
 			height: 100px;
-			border: 1px solid #f2f2f2;
-			padding: 5px;
+			padding: 10px;
 			box-sizing: border-box;
 		}
 
 		.comment-btn {
 			display: flex;
 			flex-direction: row-reverse;
-			margin-top: 4px;
-			margin-bottom: 30px;
-
+			margin-top:10px;
 			.pu-btn {
 				cursor: pointer;
-				width: 56px;
-				height: 24px;
+				width: 70px;
 				background-color: #FE6603;
 				opacity: 0.4;
 				color: #fff;
 				font-size: 14px;
-				line-height: 24px;
+				line-height: 36px;
 				text-align: center;
 			}
 

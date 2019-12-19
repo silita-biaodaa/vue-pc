@@ -678,13 +678,15 @@ export default {
         .list-box{
             font-size: 14px;
             .condition{
-                height: 48px;
+                min-height: 48px;
                 padding-left: 30px;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 border: 1px solid @borderColor;
                 box-sizing: border-box;
                 border-bottom: none;
+                flex-wrap: wrap;
                 span{
                     display: inline-block;
                     height: 20px;

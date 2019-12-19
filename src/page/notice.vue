@@ -1,37 +1,51 @@
 <template>
 	<v-maxw :type="'notice'">
 		<div class="notice"  slot="left">
-			<div class="n-title fa">
-				<p class="n-fp" style="padding: 0 40px">{{articles.title}}</p>
-				<div class="n-tp">
-					<span>{{articles.openDate}}</span>
-					<span>浏览量: <i>{{clickCount}}</i></span>
-					<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
-					<!-- <div class="right" > -->
-					<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-						<i class="el-icon-plus"></i>{{collect}}
+			<div class="top-box">
+				<div class="maxw">
+					<v-bread :breadList="[{ title: '公告详情'}]"></v-bread>
+					<h3 class="mb10">{{articles.title}}</h3>
+					<div class="dfrcb information-box mb20">
+						<div class="drc">
+							<i class="iconfont iconshijian"></i>
+							<span>发布时间：{{articles.openDate}}</span>
+						</div>
+						<div class="drc">
+							<i class="iconfont iconliulan"></i>
+							<span>浏览数量：{{clickCount}}</span>
+						</div>
+						<div @click="anchorJump" class="drc">
+							<i class="iconfont iconpinglun"></i>
+							<span>评论数量：{{allC}}</span>
+						</div>
+						<div class="attention drc" :class="iscollect ? 'collect' : ''" @click="gaincollect">
+							<i class="el-icon-plus"></i>{{collect}}
+						</div>
 					</div>
-					<!-- </div>  -->
-
-				</div>
-				<p class="n-thp">
-					<!-- <span class="left" :class="tapName?'tap-after':'tap-before'" v-if="articles.oneName" @click="jumpCompany(articles.oneName)">第一候选人：{{articles.oneName}}</span> -->
-					<v-comjump v-if="articles.oneName" :type="1" :name="articles.oneName"></v-comjump>
-					<span v-else >第一候选人:详见原文</span>
-					<span v-if="articles.oneOffer">中标金额：{{articles.oneOffer}}万</span>
-					<span v-else>中标金额：详见原文</span>
-				</p>
-			</div>
-			<div class="n-detail fa">
-				<div class="n-nav">
-					<span class="left">原文</span>
-					<span class="right n-color" @click="text">访问原文出处>></span>
-				</div>
-				<div class="n-text" v-html="articles.content">
-
+					<div class="term dfrcb pb20 fs18">
+						<span>
+							第一候选人：
+							<template v-if="articles.oneName">
+								<v-comjump :type="1" :name="articles.oneName"></v-comjump>
+							</template>
+							<template v-else>详见原文</template>
+						</span>
+						<span>
+							中标金额：{{articles.oneOffer ? articles.oneOffer : '详见原文'}}
+						</span>
+					</div>
 				</div>
 			</div>
-			<com-ment id="divId" :type="'zhongbiao'" class="no-comL" ref="comment"></com-ment>
+			<div class="main">
+				<div class="maxw">
+					<div class="link bor-b dfrb mb20">
+						<span class="fs18 fw600">原文</span>
+						<span class="color-449 txt-un cp fs14" @click="text">访问原文出处>></span>
+					</div>
+					<div class="essay bor-b pb20" v-html="articles.content"></div>
+					<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
+				</div>
+			</div>
 		</div>
 	</v-maxw>
 </template>
@@ -158,109 +172,47 @@
 </script>
 <style lang="less" scoped>
 	.notice {
-		width: 100%;
-		.fa {
-			background-color: #fff;
-		}
-		.n-title {
-			margin-top: 40px;
-			box-sizing: border-box;
-			padding: 32px 20px 20px;
-
-			.n-fp {
-				color: #333;
-				font-size: 18px;
-				font-weight: 500;
-				margin-bottom: 17px;
-				text-align: center;
-			}
-
-			.n-tp {
-				display: -webkit-box;
-				/* OLD - iOS 6-, Safari 3.1-6 */
-				display: -moz-box;
-				/* OLD - Firefox 19- (buggy but mostly works) */
-				display: -ms-flexbox;
-				/* TWEENER - IE 10 */
-				display: -webkit-flex;
-				/* NEW - Chrome */
-				display: flex;
-				-webkit-justify-content: space-around;
-				justify-content: space-around;
-				align-items: center;
-				font-size: 12px;
-				color: #999;
-
-				i {
-					color: #EC7522;
+		.top-box{
+			background: #F3F5F9;
+			.maxw{
+				width: 1020px;
+				margin: 0 auto;
+				h3{
+					font-size: 28px;
 				}
-
-				.attention {
-					margin-left: 20px;
-					width: 62px;
-					line-height: 22px;
-					border: 1px solid #FE6603;
-					text-align: center;
-					font-size: 14px;
-					border-radius: 5px;
-					color: #FE6603;
-					cursor: pointer;
-
-					i {
-						font-size: 12px;
+				.information-box{
+					color: #666;
+					.iconfont{
+						font-size: 14px;
+						margin-right: 6px;
+					}
+					span{
+						font-size: 14px;
+					}
+					/*关注按钮*/
+					.attention{
+						width:55px;
+						line-height: 18px;
+						border: 1px solid #EB651B;
+						color: #EB651B;
+						border-radius: 4px;
+						font-size: 14px;
+						text-align: center;
+						.el-icon-plus{
+							transform: scale(0.8);
+							font-size: 12px;
+							margin-left: 6px;
+						}
 					}
 				}
-
-				.collect {
-					color: #fff;
-					background-color: #FE6603;
-
-					i {
-						color: #fff;
-					}
-				}
-
-			}
-
-			.n-thp {
-				color: #999;
-				font-size: 14px;
-				overflow: hidden;
-				margin-top: 20px;
-				display: flex;
-				justify-content: space-between;
 			}
 		}
-
-		.n-detail {
-			margin: 28px auto 20px;
-
-			.n-nav {
-				height: 70px;
-				line-height: 70px;
-				padding: 0 20px;
-				border-bottom: 1px solid #f2f2f2;
-				font-size: 20px;
-				color: #333;
-			}
-
-			.n-color {
-				color: #EC7522;
-				cursor: pointer;
-			}
-		}
-
-		.n-text {
-			padding: 26px 20px 70px;
-			overflow: hidden;
-			table {
-				width: 100%;
-			}
-		}
-		.no-comL {
+		.main{
+			width: 1020px;
 			margin: 0 auto;
-			box-sizing: border-box;
-			margin-bottom: 200px;
+			.link{
+				line-height: 65px;
+			}
 		}
 	}
 </style>

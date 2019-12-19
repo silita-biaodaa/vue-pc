@@ -35,14 +35,14 @@
 				</div>
 			</div>
 			<div class="main">
-				<div class="conten">
-					<div class="link">
-						<span>原文</span>
-						<span @click="text">访问原文出处>></span>
+				<div class="maxw">
+					<div class="link bor-b dfrb mb20">
+						<span class="fs18 fw600">原文</span>
+						<span class="color-449 txt-un cp fs14" @click="text">访问原文出处>></span>
 					</div>
-					<div class="essay" v-html="articles.content"></div>
+					<div class="essay bor-b pb20" v-html="articles.content"></div>
+					<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
 				</div>
-				<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
 			</div>
 		</div>
 	</v-maxw>
@@ -233,6 +233,13 @@
 				.fs18{
 					line-height: 54px;
 				}
+			}
+		}
+		.main{
+			width: 1020px;
+			margin: 0 auto;
+			.link{
+				line-height: 65px;
 			}
 		}
 	}
