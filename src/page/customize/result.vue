@@ -172,6 +172,7 @@ export default {
         text-overflow: ellipsis;
     }
     .block {
+        width: 100%;
         margin-top: 43px;
         padding-bottom: 20px;
     }

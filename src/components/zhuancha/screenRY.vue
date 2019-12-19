@@ -15,7 +15,7 @@
                 <el-select placeholder="请选择证书专业" clearable multiple collapse-tags v-model="el.three.cateName" @change="threeChangeFn(el,i)" v-if="el.three.list&&el.three.list.length>0">
                     <el-option v-for="item in el.three.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
                 </el-select>
-                人员数量：
+                <span class="fs14">人员数量：</span>
                 <el-input-number v-model="el.num" :min="1" size="mini" @change="returnStr"></el-input-number>
                 <!-- <span class='del-btn' v-if="i!=0" @click="delFn(i)">删除</span> -->
                 <span @click='delFn(i)' v-if="i!=0" class="color-449 cp ml15 fs14">
@@ -44,7 +44,7 @@
                         <i class='el-icon-plus'></i>增加条件
                     </div>
                     <div class="people-num">
-                        人员数量：
+                        <span class="fs14">同时拥有以上证书的人员数量：</span>
                         <el-input-number v-model="el.num" :min="1" size="mini" @change="returnStr"></el-input-number>
                     </div>
                     <div class="close fs14" @click="delFn(i)">

@@ -32,41 +32,31 @@
 export default {
     props: {
         payPage: {
-            type: String,
+            type: Boolean,
             default: ""
         }
     },
     data() {
         return {
-            resultList: [
-                {
-                    title: "选择地区：",
-                    info: "渝内+入渝企业"
-                },
-                {
-                    title: "人员要求：",
-                    info: "注册建造师-二级建造师-建筑工程"
-                },
-                {
-                    title: "资质要求：",
-                    info: "建筑业资质 - 建筑工程施工总承包 - 一级及以上"
-                },
-                {
-                    title: "业绩要求：",
-                    info:
-                        "业绩来源 - 全国建筑市场监管公共服务平台,业绩来源 - 全国建筑市场监管公共服务平台业绩来源 - 全国建筑市场监管公共服务平台业绩来源 - 全国建筑市场监管公共服务平台业绩来源 - 全国建筑市场监管公共服务平台,业绩来源 - 全国建筑市场监管公共服务平台业绩来源 - 全国建筑市场监管公共服务平台业绩来源 - 全国建筑市场监管公共服务平台"
-                },
-                {
-                    title: "选择地区：",
-                    info: "渝内+入渝企业hahah"
-                }
-            ],
+            resultList: [],
             showTotal: true,
             showArr: [],
             showAll: false
         };
     },
     methods: {
+        getMainList() {
+            this.$http({
+            method:'post',
+            url:'/gonglu/get/conditions',
+            data:{
+                pkid:this.$route.query.pkid
+            }
+            }).then(res =>{
+                // this.data=res.data.data.condition
+                // this.$parent.total=res.data.data.condition.totals
+            })
+        },
         showList() {
             //超过四行隐藏
             if (this.resultList.length > 4) {
@@ -95,6 +85,7 @@ export default {
     },
     created() {
         this.showList();
+        this.getMainList();
     }
 };
 </script>

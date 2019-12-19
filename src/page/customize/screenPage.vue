@@ -35,7 +35,6 @@
                                     placeholder="请选择"
                                     style="width:50%"
                                     @change="changetable"
-                                    clearable
                                     class="ml10"
                                 >
                                     <el-option
@@ -50,7 +49,7 @@
                         <!-- 项目关键字 -->
                         <el-row class="drc mb20">
                             <el-col :span="13" class="fs14 color-150">
-                                项目关键字：
+                                {{data.projectSource !== 'all' ? '项目名称：':'项目关键字：'}}
                                 <el-input
                                     placeholder="例如：公建业绩、道路，多个关键字用空格隔开"
                                     clearable
@@ -60,7 +59,7 @@
                                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                                 </el-input>
                             </el-col>
-                            <el-col :span="11">
+                            <el-col :span="11" :class="{'hide':data.projectSource !== 'all'}">
                                 <ul class="drc">
                                     <li class="cp fs14 color-5a5 mr15" v-for="(item,index) in selectList" :key="index" @click="handleSelect(item)" :class="{'activeZZ': item.id == data.project.opt}">
                                         <i class="iconfont icondanxuan-daixuan" :class="{'hide': item.id == data.project.opt}"></i>
@@ -75,8 +74,8 @@
                             <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}" v-if="isoptType">
                                 <el-col>
                                     <span class="mr20">多个资质之间的关系：</span>
-                                    <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任一关键字</span>
-                                    <span class="cp ml20 color-5a5" @click="handleClickZZ(2)" :class="{activeZZ : currentZZ == 2}">满足所有关键字</span>
+                                    <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任一资质条件</span>
+                                    <span class="cp ml20 color-5a5" @click="handleClickZZ(2)" :class="{activeZZ : currentZZ == 2}">满足所有资质条件</span>
                                 </el-col>
                             </el-row>
                             <!-- 业绩子项 -->
@@ -117,7 +116,7 @@
                             </el-row>
                             <!-- 中标金额/合同金额 -->
                             <el-row class="flex-center drc color-150 fs14 mb20">
-                                <div>中标金额/合同金额：</div>
+                                <div>中标/合同金额：</div>
                                 <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" style="width: 20%;" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" style="width: 20%" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
@@ -143,8 +142,19 @@
                             <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
                                 <div>施工许可：</div>
                             </el-row>
+                            <!-- 项目状态 -->
+                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                                <ul class="dfrcsw">
+                                    <li class="mr20">项目状态：</li>
+                                    <li class="mr40 cp color-5a5" v-for="(el,i) in stateList" :key='i' :class="el.istap?'activeZZ':''" @click="stateTap(el)">{{el.areaShortName}}</li>
+                                </ul>
+                            </el-row>
+                            <!-- 竣工验收备案： -->
+                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                                <div>竣工验收备案：</div>
+                            </el-row>
                             <!-- 面积 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150">
+                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
                                 <div>面积（平方米）：</div>
                                 <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;" @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"></el-input>
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
@@ -157,16 +167,12 @@
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeEnd" type="date" placeholder="结束日期"></el-date-picker>
                             </el-row>
-                            <!-- 项目状态 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
-                                <ul class="dfrcsw">
-                                    <li class="mr20">项目状态：</li>
-                                    <li class="mr40 cp color-5a5" v-for="(el,i) in stateList" :key='i' :class="el.istap?'activeZZ':''" @click="stateTap(el)">{{el.areaShortName}}</li>
-                                </ul>
-                            </el-row>
-                            <!-- 竣工验收备案： -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
-                                <div>竣工验收备案：</div>
+                            <!-- 面积 -->
+                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'all'}">
+                                <div>面积（平方米）：</div>
+                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;" @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"></el-input>
+                                    &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;" @keyup.native="data.project.areaEnd=data.project.areaEnd.replace(/\D/g,'')"></el-input>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
                             <el-row class="fs14 flex-center drc color-150" v-if="isyj">
@@ -184,7 +190,15 @@
                             <!-- 信息来源 -->
                             <el-col :span="18" class="fs14 color-150">
                                 信息来源：
-                                <el-select
+                                <!-- <el-input
+                                    placeholder="请输入内容"
+                                    v-model="data.credit.creditSource"
+                                    :disabled="true"
+                                    style="width:50%"
+                                    class="ml10"
+                                >
+                                </el-input> -->
+                                <!-- <el-select
                                     v-model="data.credit.creditSource"
                                     placeholder="请选择"
                                     style="width:50%"
@@ -193,17 +207,17 @@
                                     class="ml10"
                                 >
                                     <el-option
-                                        v-for="item in typeLists"
+                                        v-for="item in sourceList"
                                         :key="item.id"
                                         :label="item.value"
                                         :value="item.id"
-                                    ></el-option>
-                                </el-select>
+                                    ></el-option> -->
+                                <!-- </el-select> -->
                             </el-col>
                         </el-row>
-                        <el-row class="mb20">
+                        <!-- <el-row class="mb20"> -->
                             <!-- 处罚类别 -->
-                            <el-col :span="18" class="fs14 color-150">
+                            <!-- <el-col :span="18" class="fs14 color-150">
                                 处罚类别：
                                 <el-select
                                     v-model="data.credit.punishType"
@@ -214,14 +228,14 @@
                                     class="ml10"
                                 >
                                     <el-option
-                                        v-for="item in typeLists"
+                                        v-for="item in punishList"
                                         :key="item.id"
                                         :label="item.value"
-                                        :value="item.id"
+                                        :value="item.value"
                                     ></el-option>
                                 </el-select>
                             </el-col>
-                        </el-row>
+                        </el-row> -->
                         <!-- 关键字 -->
                         <el-row class="drc mb20">
                             <el-col :span="13" class="fs14 color-150">
@@ -274,8 +288,8 @@
                     共为您找到符合企业
                     <span>
                         <span v-if="total">
-                            <span class="fw600 fs24 ml10 mr10" v-if="total==5000">5000+</span>
-                            <span class="fw600 fs24 ml10 mr10" v-else>{{total}}</span>
+                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+</span>
+                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-else>{{total}}</span>
                         </span>
                         <span class="fw600 fs24" v-else>0</span>
                     </span>
@@ -484,6 +498,40 @@ export default {
                     content: "根据标题和规模搜索"
                 },
             ],
+            punishList: [//处罚类别
+                {
+                    id: "0",
+                    value: "全部"
+                },
+                {
+                    id: "1",
+                    value: "罚款"
+                },
+                {
+                    id: "2",
+                    value: "行政拘留"
+                },
+                {
+                    id: "3",
+                    value: "警告"
+                },
+                {
+                    id: "4",
+                    value: "没收违法所得、没收非法财物"
+                },
+                {
+                    id: "5",
+                    value: "暂扣或者吊销许可证、暂扣或者吊销执照"
+                },
+                {
+                    id: "6",
+                    value: "责令停产停业"
+                },
+                {
+                    id: "7",
+                    value: "其他"
+                },
+            ],
             data:{
                 qualCode:"",//资质
                 regisAddress:"重庆市",
@@ -507,8 +555,8 @@ export default {
                     proCount:1,//符合业绩条件的数量
                 },
                 credit: {//信用筛选
-                    creditSource: "", //信用来源
-                    punishType: "", //处罚类别
+                    // creditSource: "信用中国-行政处罚", //信用来源
+                    // punishType: "全部", //处罚类别
                     creditKeyword: "", //信用关键字
                     punishStart: "", //处罚开始日期
                     punishEnd: "", //处罚结束日期
@@ -532,6 +580,7 @@ export default {
             isyj: false,
             isNoSee: true,
             isoptType: false,
+            pkid: "", //查询id;
         };
     },
     watch: {
@@ -589,7 +638,9 @@ export default {
             if(this.current == 1) {
                 screenConut(data).then(res => {
                     if(res.code == '1') {
-                        this.total = res.data.count;
+                        const {count, pkid } = res.data;
+                        this.total = count;
+                        this.pkid = pkid;
                     }else {
                         console.info(res.code);
                     }
@@ -723,14 +774,12 @@ export default {
                 return false
             }
             if(this.isyj||this.data.qualCode!=''||this.data.person.length>0){
-                let id=this.id
-                let query= {
-                        id:id,
-                        type:'zj',
-                    }
+                console.info('this.id',this.pkid);
                 this.$router.push({
                     path:'/payPage',
-                    query:query
+                    query: {
+                        pkid: this.pkid
+                    }
                 })
             }else{
                 this.$alert('请至少筛选人员，资质，业绩中的一项')
@@ -806,13 +855,17 @@ body .el-radio__input.is-checked+.el-radio__label {
 }
 .el-input-number--mini{
     width: 95px;
-    .el-input-number__decrease {
-        background: @initColor !important;
-    }
-    .el-input-number__increase  {
+    .el-input-number__increase,.el-input-number__decrease  {
         background: @pinkColor !important;
         color: @whiteColor !important;
     }
+}
+.el-input-number__decrease.is-disabled, .el-input-number__increase.is-disabled {
+    background-color: @initColor !important;
+    color: #C0C4CC !important;
+}
+.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
+    border-color: #DCDFE6 !important;
 }
 .el-checkbox__input.is-checked+.el-checkbox__label {
     color: @textColor !important;
@@ -824,9 +877,6 @@ body .el-radio__input.is-checked+.el-radio__label {
 .el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
     color: @themeColor !important;
     border-color: @themeColor !important;
-}
-.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
-    border-color: none !important;
 }
 .el-select-dropdown__item.selected {
     color: @themeColor !important;
