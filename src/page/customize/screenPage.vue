@@ -72,7 +72,7 @@
                         </el-row>
                         <!-- 资质条件筛选 -->
                         <div>
-                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}" v-if="isoptType">
                                 <el-col>
                                     <span class="mr20">多个资质之间的关系：</span>
                                     <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任一关键字</span>
@@ -244,22 +244,22 @@
                             <el-date-picker value-format="yyyy-MM-dd" v-model="data.credit.punishEnd" type="date" placeholder="结束日期"></el-date-picker>
                         </el-row>
                         <!-- 符合业绩条件的数量 -->
-                        <el-row class="fs14 flex-center drc color-150">
+                        <!-- <el-row class="fs14 flex-center drc color-150">
                             <div>符合信用条件的数量：</div>
                             <el-input-number v-model="data.credit.creCount" :min="1" size="mini"></el-input-number>
-                        </el-row>
+                        </el-row> -->
                     </el-col>
                     <el-col :span="6" class="text-r">
-                        <el-checkbox v-model="data.credit.creditQuery"  class="fs14 color-150">仅查询无行政处罚的企业</el-checkbox>
+                        <el-checkbox v-model="data.credit.creditQuery" @change="getCreditQuery"  class="fs14 color-150">仅查询无行政处罚的企业</el-checkbox>
                     </el-col>
                 </el-row>
                 <el-row :class="{'hide': current !== 1 || data.projectSource !== 'all'}">
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
-                        <el-input placeholder="最低分" v-model="data.project.scoreStart" style="width: 20%;" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
+                        <el-input placeholder="最低分" v-model="data.credit.scoreStart" style="width: 20%;" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
                             &nbsp;&nbsp;至&nbsp;&nbsp;
-                        <el-input placeholder="最高分" v-model="data.project.scoreEnd" style="width: 20%" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
+                        <el-input placeholder="最高分" v-model="data.credit.scoreEnd" style="width: 20%" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
                     </el-col>
                 </el-row>
             </div>
@@ -275,13 +275,13 @@
                     <span>
                         <span v-if="total">
                             <span class="fw600 fs24 ml10 mr10" v-if="total==5000">5000+</span>
-                            <span v-else>{{total}}</span>
+                            <span class="fw600 fs24 ml10 mr10" v-else>{{total}}</span>
                         </span>
                         <span class="fw600 fs24" v-else>0</span>
                     </span>
                     家
                 </p>
-                <button class="info_btn fs18 cp color-eb6 bg-fff" @click="jump" :class="total==0||isNoSee?'ban':''">查看详情</button>
+                <button class="info_btn fs18 cp color-eb6 bg-fff" @click="jump" :class="total==0||isNoSee?'notJump':''">查看详情</button>
             </div>
             <div class="link_fun mr40">
                 <p class="up mb5 pb5">服务电话：0731-85076077</p>
@@ -295,7 +295,7 @@ import publicBread from "@/components/customize/publicBread";
 import head3 from "@/components/head3";
 import screenZZ from '@/components/screenZZ'
 import screenRY from '@/components/zhuancha/screenRY'
-import { screenConut } from "@/api/index";
+import { screenConut, personConut } from "@/api/index";
 export default {
     components: {
         "v-bread": publicBread,
@@ -310,7 +310,7 @@ export default {
             currentZZ: 1, //资质切换
             firmAlias: "",
             selectTab: "0", //选择id
-            projectList: [], //项目属地
+            projectList: "", //项目属地
             areaList: [
                 {
                     value: "渝内企业",
@@ -490,7 +490,7 @@ export default {
                 joinRegion: "all_in",//选择地区
                 project:{
                     opt:"title",//搜索类型
-                    optType: "",
+                    optType: "or",
                     keywords:"",//搜索关键字
                     childProject:"",//业务所含子项
                     proWhere:"",//项目属地
@@ -505,7 +505,6 @@ export default {
                     areaStart:"",//最小面积
                     areaEnd:"",//最大面积
                     proCount:1,//符合业绩条件的数量
-                    optType:"or"
                 },
                 credit: {//信用筛选
                     creditSource: "", //信用来源
@@ -516,7 +515,7 @@ export default {
                     scoreStart: "", //综合开始得分
                     scoreEnd: "",//综合结束得分
                     creditQuery: "not", //是否查询
-                    creCount: 1, //符合信用的数量
+                    // creCount: 1, //符合信用的数量
                 },
                 person:[], //人员
                 zhuanchaType: "",
@@ -528,10 +527,11 @@ export default {
             checked: false,
             checkList: [],
             peopleList: [], //人员列表;
-            total: 5000, //查找数量
+            total: "", //查找数量
             codeZZ: "", //传给子组件的资质列表;
             isyj: false,
             isNoSee: true,
+            isoptType: false,
         };
     },
     watch: {
@@ -548,12 +548,12 @@ export default {
                     this.data.project.proCount = 0;
                 }
                 let arr=newval.keywords.split(' ');
-                // if(arr.length>1){
-                //     this.isoptType=true
-                // }else{
-                //     this.isoptType=false
-                // }
-                // this.data.project.proCount=1;
+                if(arr.length>1){
+                    this.isoptType=true
+                }else{
+                    this.isoptType=false
+                }
+                this.data.project.proCount=1;
             }
         },
         data:{
@@ -572,19 +572,39 @@ export default {
     methods: {
         companyCount() {
             let data=JSON.parse(JSON.stringify(this.data));
-            data.project=this.filterParams(data.project);
-            data=this.filterParams(data);
             if(data.project.keywords&&data.project.keywords!=''){
                 data.project.keywords=data.project.keywords.replace(/ /g,',');
             }else{
                 data.project.opt=''
             }
+            if(!this.isoptType){
+                data.project.optType=''
+            }
             if(!this.isyj){
                 data.project.proCount=''
             }
-            screenConut(data).then(res => {
-
-            })
+            data.project=this.filterParams(data.project);
+            data.credit = this.filterParams(data.credit);
+            data = this.filterParams(data);
+            if(this.current == 1) {
+                screenConut(data).then(res => {
+                    if(res.code == '1') {
+                        this.total = res.data.count;
+                    }else {
+                        console.info(res.code);
+                    }
+                })
+            }else {
+                this.data.zhuanchaType = "person";
+                data.project.proCount= "1";
+                personConut(data).then(res => {
+                    // if(res.code == '1') {
+                    //     this.total = res.data.count;
+                    // }else {
+                    //     console.info(res.code);
+                    // }
+                })
+            }
         },
         //从子组件获取值;
         getCodeZZ(data) {
@@ -607,12 +627,21 @@ export default {
                 this.data.personRecord = "not";
             }
         },
+        getCreditQuery () {
+            
+        },
         // getCodeRY
         handleClick(index) {
             this.current = index;
+            this.companyCount();
         },
         handleClickZZ (index) {
             this.currentZZ = index;
+            if(index == 1) {
+                this.data.project.optType = "or";
+            }else {
+                this.data.project.optType = "and";
+            }
         },
         handleSelect (data) {
             this.data.project.opt = data.id;
@@ -700,7 +729,7 @@ export default {
                         type:'zj',
                     }
                 this.$router.push({
-                    path:'/result',
+                    path:'/payPage',
                     query:query
                 })
             }else{
@@ -712,16 +741,17 @@ export default {
     created () {
         this.companyCount();
         this.codeZZ = JSON.parse(localStorage.getItem('filter'));
+        let data = JSON.parse(localStorage.getItem('filter'));
         let ryData=JSON.parse(localStorage.getItem('people'));
         this.peopleList=ryData;
-        for(let x of this.codeZZ.area){
+        for(let x of data.area){
             x.istap = false
         }
-        this.projectList= this.codeZZ.area;
-        this.projectList.unshift({
+        data.area.unshift({
             areaShortName:'不限',
             istap:true,
         })
+        this.projectList = data.area;
     }
 };
 </script>
@@ -878,6 +908,13 @@ body .el-radio__input.is-checked+.el-radio__label {
             border-radius:8px;
             border: 1px solid @themeColor;
             margin-left: 60px;
+        }
+        .notJump {
+            background: #CCC;
+            cursor: not-allowed;
+            opacity: 0.8;
+            border: none;
+            color: @whiteColor;
         }
     }
 }

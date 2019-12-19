@@ -335,6 +335,11 @@ export const single = params => {
 export const activity = params => {
   return axios.post('activity/save/phone', params).then(res => res.data)
 }
+// 企业综合查询
 export const screenConut = params => {
   return axios.post('/chongq/company/count', params).then(res => res.data);
+}
+//人员综合查询
+export const personConut = params => {
+  return axios.post('/chongq/person/count',params).then(res => res.data);
 }

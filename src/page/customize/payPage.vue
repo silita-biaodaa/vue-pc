@@ -29,19 +29,19 @@
                         <i class="iconfont iconwancheng color-eb6"></i>
                         <div class="ml10">
                             共为您找到
-                            <span class="fs28 color-eb6 fw600 ml10 mr10">12123名</span>符合要求的人员
+                            <span class="fs28 color-eb6 fw600 ml10 mr10">{{total}}名</span>符合要求的人员
                         </div>
                     </div>
                     <div class="drc openVip">
                         <div>
-                            本次为付费查询，限时折扣价¥8 / 会员专享价
-                            <span class="color-eb6">¥1元</span>
+                            本次为付费查询，限时折扣价¥{{comPrice}} / 会员专享价
+                            <span class="color-eb6">¥{{vipPrice}}元</span>
                         </div>
-                        <button class="fs18 cp">开通会员</button>
+                        <button class="fs18 cp" v-if="!isVip" @click="jumpVip">开通会员</button>
                     </div>
                     <div class="mb40">
                         <span>本次支付金额：</span>
-                        <span class="color-eb6">¥8</span>
+                        <span class="color-eb6">¥{{isVip?comPrice:vipPrice}}</span>
                         <span>微信扫码支付成功后即可查看详情</span>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         <img src="../../assets/img/icon-weixin.png" />
                         微信支付
                     </p>-->
-                    <p class="goDetail" @click="jumpList">支付成功，点击查看详情 ></p>
+                    <p class="goDetail" @click="jumpList" v-if="payed">支付成功，点击查看详情 ></p>
                     <div class="fs18 color-5a5">
                         注：同一用户24小时内查询同一条件无需再次支付，不小心关闭结果可在
                         <span class="color-449 cp">我的订单</span>中再次打开查看
