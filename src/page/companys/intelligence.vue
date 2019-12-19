@@ -8,10 +8,10 @@
 				<table class="table-content">
 						<tr>
 							<td style="width:74px">序号</td>
-							<td style="width:200px">资质名称</td>
+							<td style="width:380px">资质名称</td>
 							<td style="width:150px">资质证书号</td>
-							<td style="width:calc(100% - 524px)">发证机关</td>
-							<td style="width:100px">有效日期</td>
+							<td style="width:calc(100% - 724px)">发证机关</td>
+							<td style="width:120px">有效日期</td>
 						</tr>
 						<tr v-for="(el,i) in showArr" :key="i" v-show="!result">
 							<td>{{i+1}}</td>
@@ -111,7 +111,6 @@
 			.in-pdd {
 				padding: 0 5px;
 			}
-		
 			.in-po {
 				cursor: pointer;
 				margin-right: 30px;
