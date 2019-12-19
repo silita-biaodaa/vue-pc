@@ -137,6 +137,7 @@
 
 		}
 		.table-content {
+			width: 844px;
 			tr {
 				td {
 					padding: 0 10px;

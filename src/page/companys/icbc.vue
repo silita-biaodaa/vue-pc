@@ -1,12 +1,15 @@
 <template>
 	<div class="icbc">
 		<div class="ic-nav">
-			<span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
+			<div v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
 				{{o.name}}
 				<template v-if="o.length!=0">
 					(<span>{{o.length}}</span>)
 				</template>
-			</span>
+				<span class="nav-bor"  v-if="navNum==i" >
+
+				</span>
+			</div>
 		</div>
 		<!-- 基本信息 -->
 		<template v-if="navNum==0">
@@ -117,18 +120,6 @@
 					}
 				});
 			},
-			// resetPhone(phone) {//号码*号
-			//   var str = String(phone)
-			//   var len = str.length;
-			//   if (len >= 7) {
-			//       var reg = str.slice(-7, -3)
-			//       return str.replace(reg, "****")
-			//   } else if (len < 7 && len >= 6) {
-			//       //1234567
-			//       var reg = str.slice(-4, -2)
-			//       return str.replace(reg, "**")
-			//   }
-			// },
 			navTapFn(i) {
 				this.navNum = i;
 			}
@@ -152,34 +143,35 @@
 	.icbc {
 		background-color: #fff;
 		overflow: hidden;
-
 		.ic-nav {
 			font-size: 14px;
-			color: #999;
-			margin: 15px 0 14px 23px;
+			color: #000;
+			margin: 15px 0 14px ;
 			cursor: pointer;
 			font-weight: 550;
-
+			display: flex;
 			.navspan {
-				border-right: 1px solid #999;
-				padding: 0 10px;
+				line-height: 32px;
+				margin-right: 32px;
+				position: relative;
+				.nav-bor {
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 30px;
+					height: 4px;
+					background-color: #EB651B;
+				}
 			}
-
 			.navspan:last-child {
 				border-right: none;
 			}
 		}
-
 		.ic-dark {
 			color: #FE6603;
 		}
-
-		// .loading{
-		//   cursor: wait;
-		// }
-
 	}
-
 	.f-color {
 		background-color: #fff;
 

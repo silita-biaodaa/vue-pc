@@ -32,15 +32,6 @@
                 <div class="left line-f">企业地址</div>
                 <div class="left f-color line-r">{{details.comAddress}}</div>  
             </div>
-            <!-- 基本信息 新 end -->
-            <!-- <div class="ic-line">
-                <div class="left line-f">
-                注册号
-                </div>
-                <div class="left f-color line-r">
-                {{details.businessNum}}
-                </div>  
-            </div> -->
             <div class="ic-line">
                 <div class="left line-f">
                 企业类型
@@ -131,24 +122,24 @@ export default {
 <style  lang='less' scoped>
 .ic-basic {
     margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
+    border: 1px solid #DDDFE4;
     box-sizing: border-box;
     .ic-line{
         font-size: 12px;
         color:#333;
         font-weight: 550;
         min-height: 40px;
-        background-color: #FAFDFF;
+        background-color: #F4F4F4;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #f2f2f2;
+        border-bottom: 1px solid #DDDFE4;
         overflow: hidden;
         .line-f {
-            background-color: #FAFDFF;
+            background-color: #F4F4F4;
             padding-left: 19px;
             display: flex;
             align-items: center;
-            border-right: 1px solid #f2f2f2;
+            border-right: 1px solid #DDDFE4;
             min-width: 150px;
             max-height: 200px;
             min-height: 40px;
@@ -176,7 +167,7 @@ export default {
             min-height: 40px;
             box-sizing: border-box;
             padding: 16px 15px 15px 40px;
-            border-left: 1px solid #f2f2f2;
+            border-left: 1px solid #DDDFE4;
         }
     }
 }

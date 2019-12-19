@@ -101,6 +101,15 @@
 		.el-loading-spinner .el-loading-text {
 			color: #FE6603;
 		}
+		.table-content {
+			width: 844px;
+			tr {
+				td {
+					padding: 0 10px;
+					box-sizing: border-box;
+				}
+			}
+		}
 		.in-nav {
 			font-size: 14px;
 			color: #000;
