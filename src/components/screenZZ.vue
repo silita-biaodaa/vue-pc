@@ -33,7 +33,7 @@
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
             </div>
-            <div class="mr20 fs14 color-150 fw600">
+            <div class="mr20 fs14 color-150 fw600" v-if="this.$parent.chongq">
                 <el-checkbox v-model="checkedZZ" @change="getRecordZZ">仅查询备案资质</el-checkbox>
             </div>
         </div>
