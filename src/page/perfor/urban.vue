@@ -23,7 +23,7 @@
 					</tr>
 
 					 <tr>
-						 <td width='220' class="ur-title" >建设单位组织机构代码 &nbsp&nbsp&nbsp&nbsp&nbsp（统一盛会信用代码）</td>
+						 <td width='220' class="ur-title" >建设单位组织机构代码 &nbsp&nbsp&nbsp&nbsp&nbsp（统一社会信用代码）</td>
 						 <td colspan='3' >{{detail.orgCode}}</td>
 						 <td width='120' class="ur-title" >建设单位</td>
 						 <td  >{{detail.proOrg}}</td>
