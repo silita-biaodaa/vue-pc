@@ -1,7 +1,7 @@
 <template>
 <div class="lognnav">
   <div class="l-nav">
-    <img src="../assets/img/logo2.png" alt="" @click="jump">
+    <img src="../assets/img/logo.png" alt="" @click="jump">
     <div class="l-table" >
       <div class="l-switch left" v-for="(el,i) in logo" :key="i" :class="logoBc == el.i ? 'current' : '' " @click="jumps(el)">
          {{el.name}}
