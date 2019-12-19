@@ -1,27 +1,6 @@
 <template>
 	<div class="introduce">
 		<v-bread :breadList="[{ title: '企业'},{title:title},{title:name}]"></v-bread>
-		<!-- <div class="com-title">
-			<div class="com-img left">
-				<img src="../assets/img/company.png" alt="">
-			</div>
-			<div class="com-detail left">
-				<div class="flex-box">
-					<p class="c-name">{{details.comName}}</p>
-					<div class="right-box">
-						<span v-if="details.updated">更新时间:{{formatDate((details.updated)*1,1)}}</span>
-						<span class="update" @click="updateFn">更新</span>
-						<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-							<i class="el-icon-plus"></i>{{collect}}
-						</div>
-					</div>
-				</div>
-
-				<div class="c-state">
-					{{details.subsist}}&nbsp
-				</div>
-			</div>
-		</div> -->
 		<div class="com-head" >
 			<div class="com-title" >
 				<div class="com-name" >

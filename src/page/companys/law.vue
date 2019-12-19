@@ -6,20 +6,22 @@
 			</div>
 		</div>
 		<div class="law-list">
-			<div class="law-nav">
-				<div class="left" style="width:72px">序号</div>
-				<div class="left" style="width:250px">案件名称</div>
-				<div class="left" style="width:150px">法院</div>
-				<div class="left" style="width:200px">案号</div>
-				<div class="left" style="width:100px">时间</div>
-			</div>
-			<div class="law-text" @click="jumpDetail(el.id)" v-for="(el,i) in lawList" :key="i" v-show="!result">
-				<div class="left" style="width:72px">{{(current-1)*20+(i+1)}}</div>
-				<div class="left law-pdd" style="width:250px">{{el.title}}</div>
-				<div class="left" style="width:150px">{{el.court}}</div>
-				<div class="left" style="width:200px">{{el.caseNo}}</div>
-				<div class="left" style="width:100px">{{el.dateStr}}</div>
-			</div>
+				<table class="table-content">
+						<tr>
+							<td style="width:68px">序号</td>
+							<td style="width:394px">案件名称</td>
+							<td style="width:226px">法院</td>
+							<td style="width:calc(100% - 508px)">案号</td>
+							<td style="width:120px">时间</td>
+						</tr>
+						<tr @click="jumpDetail(el.id)" v-for="(el,i) in lawList" :key="i" v-show="!result">
+							<td>{{(current-1)*20+(i+1)}}</td>
+							<td>{{el.title}}</td>
+							<td>{{el.court}}</td>
+							<td>{{el.caseNo}}</td>
+							<td>{{el.dateStr}}</td>
+						</tr>
+			</table>
 			<div class="no-toast" v-show="result">
 				<img src="../../assets/img/bank_card @2x.png" alt="">
 				<span>Sorry，暂未查询到该公司的法务信息</span>
@@ -107,33 +109,26 @@
 	.law {
 		background-color: #fff;
 		padding: 0 9px;
-
 		.el-loading-spinner .path {
 			stroke: #FE6603;
 		}
-
 		.el-loading-spinner {
 			top: 10%;
 		}
-
 		.el-loading-spinner .el-loading-text {
 			color: #FE6603;
 		}
-
 		.law-search {
 			height: 56px;
 			line-height: 56px;
 			padding: 0 12px;
 			font-size: 14px;
 			color: #333;
-
 			.law-wei {
 				font-weight: 550;
 				margin-right: 25px;
 			}
-
 			.law-year {
-
 				.el-date-editor.el-input,
 				.el-date-editor.el-input__inner {
 					width: 140px;
@@ -141,46 +136,19 @@
 			}
 
 		}
-
-		.law-list {
-			border: 1px solid #f2f2f2;
-
-			.law-nav {
-				height: 40px;
-				border-bottom: 1px solid #f2f2f2;
-				line-height: 40px;
-				font-size: 12px;
-				color: #333;
-				text-align: center;
-				font-weight: 550;
-			}
-
-			.law-text {
-				cursor: pointer;
-				min-height: 40px;
-				border-bottom: 1px solid #f2f2f2;
-				font-size: 12px;
-				color: #333;
-				text-align: center;
-				font-weight: 550;
-				display: flex;
-				align-items: center;
-				box-sizing: border-box;
-
-				.law-pdd {
-					padding: 10px 20px;
+		.table-content {
+			tr {
+				td {
+					padding: 0 10px;
 					box-sizing: border-box;
 				}
 			}
 		}
-
 		.law-page {
-			// height: 200px;
 			display: flex;
 			justify-content: center;
 			padding-top: 50px;
 			padding-bottom: 75px;
-
 			.paging {
 				ul {
 					li {
@@ -189,7 +157,6 @@
 						padding: 0 8px;
 						margin-right: 5px;
 					}
-
 					.put-jump {
 						height: 30px;
 						line-height: 30px;
@@ -197,7 +164,6 @@
 				}
 			}
 		}
-
 		.no-search {
 			width: 100%;
 			height: 500px;
