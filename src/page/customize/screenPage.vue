@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- 资质要求 -->
-                <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ"></v-screenZZ>
+                <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ" :chongqi="chongqi"></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY @contentChange="getCodeRY" :qualList='peopleList' @recordRY="getRecordRY"></v-screenRY>
                 <!-- 业绩要求 -->
@@ -581,6 +581,7 @@ export default {
             isNoSee: true,
             isoptType: false,
             pkid: "", //查询id;
+            chongqi: true, //是否是重庆专查
         };
     },
     watch: {
