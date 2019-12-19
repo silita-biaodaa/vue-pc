@@ -3,7 +3,7 @@
     <div class="rydetail">
         <!-- 头 -->
 		<v-head :headTxt="'重庆定制版查询系统'"></v-head>
-        <div class="nav-menu">首页 / 重庆定制版查询系统 / 查询结果 / {{basic.comName}}</div>
+        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:basic.comName}]"></v-bread>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">

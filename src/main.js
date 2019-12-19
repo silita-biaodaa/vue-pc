@@ -7,8 +7,8 @@ Vue.use(ElementUI);
 import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
-// import funcom from './util/util'
-// Vue.prototype.funcom = funcom
+import funcom from './util/util'
+Vue.prototype.funcom = funcom
 Vue.config.productionTip = false
 import  companyJump  from '@/components/companyJump';//点击跳转企业详情组件（包含接口查询）
 import  navPage  from '@/components/paging';//分页组件（封装element，方便统一控制）
@@ -16,7 +16,7 @@ import  enSearch from '@/components/home'//顶部搜索框
 import  logoNav from '@/components/logoNav'
 import fvip from '@/components/fvip'//无会员弹窗
 import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制）
-
+import usercenter from '@/components/user-center'
 import city from '@/components/bid/city'
 import allCity from '@/components/bid/allCity'
 import perpor from '@/page/perfor/perpor'
@@ -25,6 +25,7 @@ import pertime from '@/page/perfor/pertime'
 import comment from '@/page/comment/comment'
 
 import {getOpenid,ThirdLogin} from "@/api/index"
+Vue.component('v-user',usercenter)
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)

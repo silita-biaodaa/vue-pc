@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import usercenter from '@/components/user-center'
+
 	import {
 		address,
 		getUserTemp,
@@ -347,9 +347,6 @@ import usercenter from '@/components/user-center'
 			return {
 				reload: this.reload
 			}
-		},
-		component:{
-			'v-user':usercenter
 		},
 		methods: {
 			reload() {

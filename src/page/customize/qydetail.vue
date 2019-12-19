@@ -3,7 +3,7 @@
     <div class="qydetail">
         <!-- 头 -->
 		<v-head :headTxt="'重庆定制版查询系统'"></v-head>
-        <div class="nav-menu">首页 / 重庆定制版查询系统 / 查询结果 / {{basic.comName}}</div>
+        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:basic.comName}]"></v-bread>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
@@ -583,13 +583,6 @@ export default {
 @borderColor:#DDDFE4;
 @buleColor:#4494F0;
 @bgColor:#f4f4f4;
-.nav-menu{
-    width: 1020px;
-    margin: 0 auto;
-    font-size: 14px;
-    color: #666;
-    padding: 20px 0;
-}
 .maxW-box{
     width: 1020px;
     margin: 0 auto;

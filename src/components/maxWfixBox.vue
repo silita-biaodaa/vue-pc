@@ -1,7 +1,8 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="maxWfixBox">
-        <div class="box" :class="list.length>0?'isshow':''">
+        <!-- list.length>0?'isshow':'' -->
+        <div class="box" :class="{'isshow':list.length>0,'no-notice':type!='notice'}">
             <slot name="left" style="width:750px"></slot>
             <!-- 相关公告 -->
             <template v-if="type=='notice'">
@@ -195,15 +196,12 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .box{
-    width:1020px;
-    margin: 0 auto;
-    background: #FAFAFA;
-    min-height: 685px;
     position: relative;
     .fix-box.positionBox{
         position: absolute;
         top: 125px;
         width: 260px;
+        box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.1);
         background: #fff;
         li{
             line-height: 24px;
@@ -213,6 +211,11 @@ export default {
             }
         }
     }
+}
+.no-notice{
+    width:1020px;
+    margin: 0 auto;
+    min-height: 685px;
 }
 .isshow>div{
     width: 750px;

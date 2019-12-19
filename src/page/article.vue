@@ -1,54 +1,49 @@
 <template>
 	<v-maxw :type="'notice'">
 		<div class="article" slot="left">
-			<div style="height:126px;"></div>
-			<div class="title" style="padding:32px 60px 0">
-				<p class="font-18">
-					{{articles.title}}
-				</p>
-				<div class="date">
-					<span>{{articles.openDate}}</span>
-					<span>浏览量：<i>{{clickCount}}</i></span>
-					<span style="cursor: pointer;" @click="anchorJump">评论数：<i>{{allC}}</i></span>
-					<!-- <div> -->
-					<div class="attention" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-						<i class="el-icon-plus"></i>{{collect}}
+			<div class="top-box">
+				<div class="maxw">
+					<v-bread :breadList="[{ title: '公告详情'}]"></v-bread>
+					<h3 class="mb10">{{articles.title}}</h3>
+					<div class="dfrcb information-box mb20">
+						<div class="drc">
+							<i class="iconfont iconshijian"></i>
+							<span>发布时间：{{articles.openDate}}</span>
+						</div>
+						<div class="drc">
+							<i class="iconfont iconliulan"></i>
+							<span>浏览数量：{{clickCount}}</span>
+						</div>
+						<div @click="anchorJump" class="drc">
+							<i class="iconfont iconpinglun"></i>
+							<span>评论数量：{{allC}}</span>
+						</div>
+						<div class="attention drc" :class="iscollect ? 'collect' : ''" @click="gaincollect">
+							<i class="el-icon-plus"></i>{{collect}}
+						</div>
 					</div>
-					<!-- </div> -->
-
+					<div class="term dfrcb">
+						<span>
+							项目地区：{{articles.projDq}}
+						</span>
+						<span>
+							评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
+						</span>
+					</div>
+					<div class="term">资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}</div>
+					<div class="fs18 bor-t">符合资质要求企业：<a class="color-eb6" @click="breakto">{{relCompanySize ? relCompanySize + '家 >' : 0 }}</a></div>
 				</div>
 			</div>
-
-			<div class="detail">
-				<div class="area a-f">
-					<span>
-						项目地区：{{articles.projDq}}
-					</span>
-					<span class="m-d">
-						评标办法：{{articles.pbMode ? articles.pbMode : '详见原文'}}
-					</span>
-
+			<div class="main">
+				<div class="conten">
+					<div class="link">
+						<span>原文</span>
+						<span @click="text">访问原文出处>></span>
+					</div>
+					<div class="essay" v-html="articles.content"></div>
 				</div>
-				<div class="a-t a-f">
-					资质要求：{{articles.zzRank ? articles.zzRank : '详见原文' }}
-				</div>
-				<div class="font-18">
-					符合资质要求企业：<a class="a-color" @click="breakto">{{relCompanySize ? relCompanySize + '家>' : 0 }}</a>
-				</div>
+				<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
 			</div>
-
-			<div class="conten">
-				<div class="link">
-					<span>原文</span>
-					<span @click="text">访问原文出处>></span>
-				</div>
-				<div class="essay" v-html="articles.content">
-
-				</div>
-			</div>
-			<!-- <div > -->
-			<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
-			<!-- </div> -->
 		</div>
 	</v-maxw>
 </template>
@@ -197,116 +192,47 @@
 </script>
 <style lang="less" scoped>
 	.article {
-		.a-color {
-			color: #EC7522;
-			cursor: pointer;
-		}
-		.font-18{
-			font-size: 18px;
-			color: #333;
-		}
-		.title {
-			background: #fff;
-			padding-top: 27px;
-			p {
-				text-align: center;
-				margin-bottom: 17px;
-				//  height: 40px;
-			}
-
-			.date {
-				//  margin-left: 275px;
-				display: -webkit-box;
-				/* OLD - iOS 6-, Safari 3.1-6 */
-				display: -moz-box;
-				/* OLD - Firefox 19- (buggy but mostly works) */
-				display: -ms-flexbox;
-				/* TWEENER - IE 10 */
-				display: -webkit-flex;
-				/* NEW - Chrome */
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				font-size: 12px;
-				color: #999;
-				i {
-					color: #EC7522;
+		.top-box{
+			background: #F3F5F9;
+			.maxw{
+				width: 1020px;
+				margin: 0 auto;
+				h3{
+					font-size: 28px;
 				}
-				.attention {
-					margin-left: 20px;
-					width: 62px;
-					line-height: 20px;
-					border: 1px solid #FE6603;
-					text-align: center;
-					font-size: 14px;
-					border-radius: 5px;
-					color: #FE6603;
-					cursor: pointer;
-					i {
-						font-size: 12px;
+				.information-box{
+					color: #666;
+					.iconfont{
+						font-size: 14px;
+						margin-right: 6px;
+					}
+					span{
+						font-size: 14px;
+					}
+					/*关注按钮*/
+					.attention{
+						width:55px;
+						line-height: 18px;
+						border: 1px solid #EB651B;
+						color: #EB651B;
+						border-radius: 4px;
+						font-size: 14px;
+						text-align: center;
+						.el-icon-plus{
+							transform: scale(0.8);
+							font-size: 12px;
+							margin-left: 6px;
+						}
 					}
 				}
-
-				.collect {
-					color: #fff;
-					background-color: #FE6603;
-
-					i {
-						color: #fff;
-					}
+				.term{
+					margin-bottom: 10px;
+					font-size: 18px;
 				}
-			}
-		}
-
-		.detail {
-			background: #fff;
-			box-sizing: border-box;
-			height: 163px;
-			margin-bottom:28px;
-			padding: 15px 19px 0;
-
-			.area {
-				width: 100%;
-				font-size: 18px;
-				padding-bottom: 15px;
-			}
-			.a-t {
-				padding-bottom: 20px;
-				border-bottom: 1px solid #F2F2F2;
-				margin-bottom: 20px;
-			}
-
-			.a-f {
-				color: #999;
-				font-size: 14px;
-				font-weight: 550;
-				display: flex;
-				justify-content: space-between;
-			}
-		}
-
-		.conten {
-			background: #fff;
-			padding: 0 20px;
-			box-sizing: border-box;
-
-			.link {
-				height: 69px;
-				line-height: 69px;
-				font-size: 20px;
-				display: flex;
-				justify-content: space-between;
-				border-bottom: 1px solid #F2F2F2;
-
-				span:nth-child(2) {
-					color: #EC7522;
-					cursor: pointer;
+				//符合二要求企业
+				.fs18{
+					line-height: 54px;
 				}
-			}
-
-			.essay {
-				padding: 26px 0 80px;
-				overflow: hidden;
 			}
 		}
 	}
