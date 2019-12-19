@@ -1,7 +1,7 @@
 <template>
 	<div class="introduce">
 		<v-bread :breadList="[{ title: '企业'},{title:title},{title:name}]"></v-bread>
-		<div class="com-title">
+		<!-- <div class="com-title">
 			<div class="com-img left">
 				<img src="../assets/img/company.png" alt="">
 			</div>
@@ -20,24 +20,54 @@
 				<div class="c-state">
 					{{details.subsist}}&nbsp
 				</div>
-				<div class="c-all">
-					<div class="left">
-						<p>电话：{{details.phone == 'NULL-' ? '' : details.phone}} <span @click="jumpapp">更多号码请下载APP</span></p>
-						<p>邮箱：{{ details.email == '(NULL)' || 'null' ? '--' : details.email }}</p>
-					</div>
-					<div class="left">
-						<p :title="details.comUrl">网址：
-							<template v-if="details.comUrl">
-								<span @click="jumpTo(details.comUrl)" class="urlCss">{{details.comUrl}}</span>
-							</template>
-							<template v-else>--</template>
-						</p>
-						<p :title="details.comAddress">地址：{{details.comAddress ? details.comAddress : '--' }}</p>
-					</div>
+			</div>
+		</div> -->
+		<div class="com-head" >
+			<div class="com-title" >
+				<div class="com-name" >
+					<i  class="iconfont icongongsi" ></i>{{details.comName}}
+				</div>
+				<div>
+					更新时间:{{formatDate((details.updated)*1,1)}}
 				</div>
 			</div>
-
+			<div class="com-state" >
+				<div class="state-left" >
+					{{details.subsist}}
+				</div>
+				<div>
+					<button @click="updateFn" >更新</button>
+					<button @click="gaincollect" >{{collect}}</button>
+				</div>
+			</div>
+				<table  cellspacing="0" >
+					<tr>
+						 <td width='220' class="ur-title" >统一社会信用代码</td>
+						 <td width='230' >{{details.creditCode}}</td>
+						 <td width='210' class="ur-title" >网址</td>
+						 <td width='360' ><a  @click="jumpTo(details.comUrl)" >{{details.comUrl}}</a></td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >企业法定代表人</td>
+						 <td width='230' >{{details.legalPerson}}</td>
+						 <td width='210' class="ur-title" >企业登记注册类型</td>
+						 <td width='360' >{{details.comType}}</td>
+					</tr>
+					<tr>
+						 <td width='220' class="ur-title" >邮箱</td>
+						 <td  colspan='3' >{{ details.email == '(NULL)' || 'null' ? '--' : details.email }}</td>
+				  </tr>
+					<tr>
+						 <td width='220' class="ur-title" >企业经营地址</td>
+						 <td  colspan='3' >{{details.comAddress ? details.comAddress : '--' }}</td>
+				  </tr>
+					<tr>
+						 <td width='220' class="ur-title" >联系方式</td>
+						 <td  colspan='3' >{{details.phone == 'NULL-' ? '' : details.phone}} <a v-if="svip" style="marginLeft:30px;" > <i  class="iconfont iconVIPbiaozhi" ></i> VIP用户可见</a> </td>
+				  </tr>			 
+				</table>
 		</div>
+
 		<div class="left-right-box">
 			<div class="user-tab bor-r">
 				<div v-for="(el,i) in navs" class="tab" :key="i" :class="el.name == name ? 'current':''" @click="anchor(el)">
@@ -192,15 +222,15 @@
 						} else {
 							this.collect = '关注'
 						}
-						var arr = []
-						if (this.details.phone) {
-							arr = this.details.phone.split(';')
-							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
-								this.details.phone = this.resetPhone(arr[0])
-							} else {
-								this.details.phone = arr[0]
-							}
-						}
+						// var arr = []
+						// if (this.details.phone) {
+						// 	arr = this.details.phone.split(';')
+						// 	if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+						// 		this.details.phone = this.resetPhone(arr[0])
+						// 	} else {
+						// 		this.details.phone = arr[0]
+						// 	}
+						// }
 					}
 				});
 			},
@@ -276,127 +306,64 @@
 	.introduce {
 		width: 1020px;
 		margin: 0 auto 20px;
-		// .com-title {
-		// 	width: 100%;
-		// 	padding: 17px 0 20px 20px;
-		// 	overflow: hidden;
-		// 	background-color: #fff;
-		// 	box-sizing: border-box;
-
-		// 	.attention {
-		// 		margin-right: 30px;
-		// 		width: 62px;
-		// 		line-height: 22px;
-		// 		border: 1px solid #FE6603;
-		// 		text-align: center;
-		// 		font-size: 14px;
-		// 		border-radius: 5px;
-		// 		color: #FE6603;
-		// 		cursor: pointer;
-
-		// 		i {
-		// 			font-size: 12px;
-		// 		}
-		// 	}
-
-		// 	.collect {
-		// 		color: #fff;
-		// 		background-color: #FE6603;
-
-		// 		i {
-		// 			color: #fff;
-		// 		}
-		// 	}
-
-		// 	.com-img {
-		// 		height: 75px;
-		// 		width: 75px;
-		// 		border-radius: 5px;
-		// 		margin-right: 25px;
-		// 		overflow: hidden;
-		// 	}
-
-		// 	.com-detail {
-		// 		width: calc(100% - 100px);
-
-		// 		.c-name {
-		// 			font-size: 18px;
-		// 			font-weight: 550;
-		// 		}
-
-		// 		.c-state {
-
-		// 			display: inline-block;
-		// 			padding: 0 5px;
-		// 			height: 16px;
-		// 			background-color: #E4FFF0;
-		// 			margin-left: 5px;
-		// 			margin-top: 9px;
-		// 			font-size: 12px;
-		// 			color: #53E494;
-		// 			text-align: center;
-		// 		}
-
-		// 		.c-all {
-		// 			font-size: 12px;
-		// 			color: #666666;
-		// 			padding: 13px 0 0 10px;
-		// 			width: 700px;
-		// 			overflow: hidden;
-		// 			background-color: #F5FAFF;
-		// 			margin-top: 5px;
-
-		// 			div {
-		// 				width: 50%;
-
-		// 				p {
-		// 					margin-bottom: 13px;
-		// 					text-overflow: ellipsis;
-		// 					overflow: hidden;
-		// 					white-space: nowrap;
-
-		// 					span {
-		// 						color: #FE6603;
-		// 						cursor: pointer;
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-
-		// 	}
-		// 	.c-over {
-		// 		font-size: 14px;
-		// 		margin-right: 20px;
-		// 		color: #333;
-		// 		font-weight: 550;
-		// 	}
-		// }
-		// .flex-box {
-		// 	display: flex;
-		// 	justify-content: space-between;
-		// 	align-items: center;
-
-		// 	.right-box {
-		// 		display: flex;
-		// 		align-items: center;
-
-		// 		.update {
-		// 			background: #fff;
-		// 			border: 1px solid #FE6603;
-		// 			border-radius: 5px;
-		// 			cursor: pointer;
-		// 			color: #FE6603;
-		// 			width: 62px;
-		// 			line-height: 22px;
-		// 			text-align: center;
-		// 			display: inline-block;
-		// 		}
-
-		// 		span {
-		// 			margin-right: 20px;
-		// 			font-size: 14px;
-		// 		}
-		// 	}
-		// }
+		.com-head {
+			.com-title {
+				display: flex;
+				justify-content: space-between;
+				line-height: 48px;
+				.com-name {
+					font-size: 34px;
+					i {
+						font-size: 34px;
+						margin-right: 12px;
+					}
+				}
+			}
+			.com-state {
+				display: flex;
+				justify-content: space-between;
+				padding-left: 50px;
+				margin: 10px 0 20px;
+				.state-left {
+					padding: 5px 20px;
+					font-size: 14px;
+					color: #46BF72;
+					background-color: #E6FFEF;
+				}
+				button {
+					background-color: #fff;
+					padding: 5px 20px;
+					border: 1px solid #DDDFE4;
+					margin-left: 40px;
+				}
+			}
+			table {
+				 border:1px solid rgba(221,223,228,1);
+				 border-collapse: collapse;
+					  td {
+      	  height: 48px;
+      	  line-height: 20px;
+      	  font-size: 14px;
+      	  border:1px solid rgba(221,223,228,1);
+					padding: 5px 15px;
+					color: #000;
+					box-sizing: border-box;
+					a {
+						color: #4494F0;
+						text-decoration: underline;
+						cursor: pointer;
+						i{
+							color:#EB651B;
+							margin-right: 8px;
+						}
+					}
+				}
+				  .ur-title {
+    		  text-align: center;
+    		  font-weight: 550;
+    		  background:#F4F4F4;
+    		}
+			 }
+		}
 	}
 </style>

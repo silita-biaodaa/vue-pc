@@ -259,7 +259,6 @@
 				color: #000;
 				font-weight: 550;
 				margin-bottom: 20px;
-				white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 				i {
 					font-size: 34px;
 				}
