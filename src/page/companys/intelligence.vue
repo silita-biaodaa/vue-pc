@@ -3,7 +3,6 @@
 		<div class="in-nav">
 			<span class="left in-po" :class="this.name == '全部' ? 'current' : ''" @click="allshow">全部</span>
 			<div class="left" v-for="(el,i) in allList" :key="i">
-				<span class="in-pdd">/</span>
 				<span class="in-po" :class=" name == el.qualType ? 'current' : ''" @click="changeList(el)">{{el.qualType}} ({{el.list.length}})</span>
 			</div>
 		</div>
@@ -91,19 +90,15 @@
 	.intell {
 		background-color: #fff;
 		padding-bottom: 50px;
-
 		.current {
 			color: #333;
 		}
-
 		.el-loading-spinner .path {
 			stroke: #FE6603;
 		}
-
 		.el-loading-spinner .el-loading-text {
 			color: #FE6603;
 		}
-
 		.in-nav {
 			font-size: 14px;
 			color: #999;
@@ -111,22 +106,18 @@
 			line-height: 44px;
 			padding-left: 22px;
 			font-weight: 550;
-
 			.in-pdd {
 				padding: 0 5px;
 			}
-
 			.in-po {
 				cursor: pointer;
 			}
 		}
-
 		.in-table {
 			margin: 0 9px;
 			border: 1px solid #f2f2f2;
 			font-size: 12px;
 			color: #333;
-
 			.law-nav {
 				min-height: 40px;
 				border-bottom: 1px solid #f2f2f2;
@@ -136,7 +127,6 @@
 				color: #333;
 				font-weight: 550;
 				text-align: center;
-
 				.law-row {
 					min-height: 40px;
 					display: flex;
@@ -145,7 +135,6 @@
 				}
 			}
 		}
-
 		.no-search {
 			width: 100%;
 			height: 500px;

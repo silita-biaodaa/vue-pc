@@ -2,7 +2,7 @@
     <div class="publicBread pt20 pb20">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-for="(item,index) in parentsList" :key="index">{{item.title}}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(item,index) in breadList" :key="index">{{item.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 </template>
@@ -16,18 +16,18 @@ export default {
     },
     data() {
         return {
-            parentsList: "",
+            // parentsList: "",
         }
     },
     methods: {
-        getInfo() {
-            this.parentsList = this.breadList;
-        }
+        // getInfo() {
+        //     this.parentsList = this.breadList;
+        // }
     },
     created() {
-        setTimeout(() => {
-            this.getInfo();
-        }, 580);
+        // setTimeout(() => {
+        //     this.getInfo();
+        // }, 580);
         
     },
     mounted () {
