@@ -3,11 +3,11 @@
     <div class="queryDetail">
         <!-- 头 -->
 		<v-head :headTxt="title"></v-head>
-        <div class="nav-menu">首页 > {{title}}</div>
+        <v-bread :breadList="[{ title: title},{title:'查询结果'},{title:basic.comName}]"></v-bread>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
-                <img src="../../assets/img/company.png"/>
+                <i class="iconfont icongongsi"></i>
                 {{basic.comName}}
                 <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
@@ -104,7 +104,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
+                            <div class="page">
+                                <nav-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></nav-page>
+                            </div>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="ryList&&ryList.length==0">
@@ -153,7 +155,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
+                            <div class="page">
+                                <nav-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></nav-page>
+                            </div>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">
@@ -209,7 +213,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='xyTotal' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></v-page>
+                            <div class="page">
+                                <nav-page :all='xyTotal' :currents='xyData.pageNo' :pageSize='xyData.pageSize' @skip='xyGoto'></nav-page>
+                            </div>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="xyList&&xyList.length==0">
@@ -235,7 +241,6 @@
     </div>
 </template>
 <script>
-import paging from '@/components/paging'
 import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
 export default {
@@ -307,7 +312,6 @@ export default {
         // 监控集合
     },
     components:{
-        'v-page':paging,
         'v-head': heads,
         'v-region':joinRegion
     },
@@ -599,28 +603,159 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-@import '../../style/query.less';
-.curpon{
-    cursor: pointer;
-    color: @color
+@color:#EB651B;
+@borderColor:#DDDFE4;
+@buleColor:#4494F0;
+@bgColor:#f4f4f4;
+.maxW-box{
+    width: 1020px;
+    margin: 0 auto;
 }
-.tdpading{
-    padding: 10px 20px;
-}
-.cate{
-    p{
-        border-bottom: 1px solid #f2f2f2
+.queryDetail{
+    background: #fff;
+    min-height: calc(100vh - 80px);
+    //基本信息
+    .basic{
+        margin-bottom: 40px;
+        .title{
+            display: flex;
+            font-size: 34px;
+            font-weight: bold;
+            align-items: center;
+            margin-bottom:20px;
+            .iconfont{
+                margin-right: 20px;
+                font-size: 34px;
+            }
+        }
+        .basic-box{
+            border: 1px solid @borderColor;
+            border-bottom: none;
+            div{
+                display: flex;
+                font-size: 18px;
+                border-bottom: 1px solid @borderColor;
+                p{
+                    line-height: 48px;
+                    text-align: center;
+                    min-width:230px;
+                    padding-left: 20px;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                }
+                .bg{
+                    background: @bgColor;
+                    font-weight: bold;
+                    width: 220px;
+                    justify-content: center;
+                }
+            }
+        }
     }
-    p:last-child{
-        border-bottom: none
-    }
-}
-.cate-key{
-    div{
-        border-bottom: 1px solid #f2f2f2
-    }
-    div:last-child{
-        border-bottom: none
+    //list
+    .list{
+        .tab{
+            margin-bottom: 20px;
+            ul{
+                display: flex;
+                font-size: 18px;
+                align-items: center;
+                position: relative;
+                .current{
+                    color: @color
+                }
+                li{
+                    padding: 0 20px;
+                    cursor: pointer;
+                    position: relative;
+                }
+                li:after{
+                    content: '';
+                    position: absolute;
+                    width: 1px;
+                    height: 12px;
+                    background: @borderColor;
+                    transform: translateY(-50%);
+                    top: 50%;
+                    right: 0;
+                }
+                li:last-child::after{
+                    width: 0;
+                }
+                li:first-child{
+                    padding-left: 0;
+                }
+                span{
+                    font-size: 14px;
+                    position: absolute;
+                    cursor: pointer;
+                    right: 0;
+                    color: @buleColor;
+                }
+                .iconchakan:before{
+                    margin-right: 10px;
+                }
+            }
+        }
+        .list-box{
+            font-size: 14px;
+            .condition{
+                min-height: 48px;
+                padding-left: 30px;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                border: 1px solid @borderColor;
+                box-sizing: border-box;
+                border-bottom: none;
+                flex-wrap: wrap;
+                span{
+                    display: inline-block;
+                    height: 20px;
+                    margin-right: 40px;
+                    cursor: pointer;
+                }
+                .current{
+                    color:  @color;
+                    font-weight: bold;
+                }
+            }
+            table{
+                width: 100%;
+                border-collapse: collapse;
+                border-top: 1px solid @borderColor;
+                thead{
+                    background: @bgColor;
+                    font-weight: bold;
+                }
+                td{
+                    text-align: center;
+                    line-height:48px;
+                    border: 1px solid @borderColor;
+                }
+                .curpon{
+                    cursor: pointer;
+                    color:@buleColor
+                }
+                .cate{
+                    p{
+                        border-bottom: 1px solid @borderColor;
+                    }
+                    p:last-child{
+                        border-bottom: none
+                    }
+                }
+                .cate-key{
+                    div{
+                        border-bottom: 1px solid @borderColor;
+                    }
+                    div:last-child{
+                        border-bottom: none
+                    }
+                }
+            }
+        }
     }
 }
 </style>

@@ -24,11 +24,10 @@
 					</div>
 					<div class="term dfrcb pb20 fs18">
 						<span>
-							第一候选人：
 							<template v-if="articles.oneName">
 								<v-comjump :type="1" :name="articles.oneName"></v-comjump>
 							</template>
-							<template v-else>详见原文</template>
+							<template v-else>第一候选人：详见原文</template>
 						</span>
 						<span>
 							中标金额：{{articles.oneOffer ? articles.oneOffer : '详见原文'}}

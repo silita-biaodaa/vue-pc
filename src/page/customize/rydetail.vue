@@ -91,7 +91,9 @@
                                     <div class="num">1</div>
                                 </li>
                             </ul>
-                            <v-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></v-page>
+                            <div class="page">
+                                <nav-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></nav-page>
+                            </div>
                         <!-- </template> -->
                         <!-- 无数据  -->
                         <!-- <template v-else-if="ryList&&ryList.length==0">
@@ -135,7 +137,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <v-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></v-page>
+                            <div class="page">
+                                <nav-page :all='yjTotal' :currents='yjData.pageNo' :pageSize='yjData.pageSize' @skip='yjGoto'></nav-page>
+                            </div>
                         </template>
                         <!-- 无数据  -->
                         <template v-else-if="yjList&&yjList.length==0">
@@ -484,13 +488,6 @@ export default {
 @borderColor:#DDDFE4;
 @buleColor:#4494F0;
 @bgColor:#f4f4f4;
-.nav-menu{
-    width: 1020px;
-    margin: 0 auto;
-    font-size: 14px;
-    color: #666;
-    padding: 20px 0;
-}
 .maxW-box{
     width: 1020px;
     margin: 0 auto;
@@ -498,7 +495,6 @@ export default {
 .rydetail{
     background: #fff;
     min-height: calc(100vh - 80px);
-    padding-bottom: 80px;
     //基本信息
     .basic{
         margin-bottom: 40px;
