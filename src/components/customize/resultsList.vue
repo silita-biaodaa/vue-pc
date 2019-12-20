@@ -4,10 +4,11 @@
         <!-- 查询条件 -->
         <div class="dfrcb mb10">
             <div class="fs18 color-150">您的查询条件为：</div>
-            <div class="color-449 fs18 cp" v-if="this.$parent.payPage">
+            <!-- 返回修改 -->
+            <!-- <div class="color-449 fs18 cp" v-if="this.$parent.payPage">
                 <span class="mr10">返回修改</span>
                 <i class="iconfont iconfanhuixiugai"></i>
-            </div>
+            </div> -->
         </div>
         <div class="pt20 pl20 pr20 bg-ffe list">
             <div class="fs18">
@@ -123,7 +124,7 @@
                         </el-col>
                     </el-row>
                 </template>
-                <div class="list_bottom dfcc mb20">
+                <!-- <div class="list_bottom dfcc mb20">
                     <div class="line_left mr20"></div>
                     <div class="cp drc">
                         <span class="color-449 fs14">{{showAll?'收起':'展开'}}</span>
@@ -133,7 +134,7 @@
                         ></i>
                     </div>
                     <div class="line_right ml20"></div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -151,6 +152,7 @@ export default {
             qualList: [],
             peopleList: [],
             showAll: false,
+            resultNum: "",
         };
     },
     watch: {
@@ -227,8 +229,7 @@ export default {
         //获取search-content底下所有子元素
         var arr = [];
         var tagName = document.getElementsByClassName("tagId");
-        var result = this.countTag(arr, tagName);
-        console.info("result", result);
+        this.resultNum = this.countTag(arr, tagName);
     },
     methods: {
         // 方法 集合
@@ -299,7 +300,7 @@ export default {
                 }
             }
             return tag;
-        }
+        },
     }
 };
 </script>
