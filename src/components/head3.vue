@@ -6,8 +6,7 @@
             <div class="img-bor" :class="headTxt==''?'rightNone':''">
                 <img src="../assets/img/pic-guanywm.png@2x.png" alt=""  @click="jumps" >
             </div>
-                <!-- {{headTxt}} -->
-                <span class="fs18 color-fff pl20 title">重庆定制版查询系统</span>
+                {{headTxt}}
             </div>
             <div class="top-left" >
             <div v-if="names" ><span @click="tologo" >登录</span>&nbsp;&nbsp;<span @click="toenroll" >注册</span></div> 

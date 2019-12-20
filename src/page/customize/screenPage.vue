@@ -1,6 +1,6 @@
 <template>
     <div class="screenPage">
-        <v-head3></v-head3>
+        <v-head3 :headTxt="titleList"></v-head3>
         <div class="screenPage_body">
             <v-bread :breadList="breadList"></v-bread>
             <!-- 企业人员筛选 -->
@@ -319,7 +319,8 @@ export default {
     },
     data() {
         return {
-            breadList: [{ title: "重庆定制版查询系统" }], //面包屑列表,以对象形式添加;
+            breadList: [{ title: "重庆定制版综合查询" }], //面包屑列表,以对象形式添加;
+            titleList: ["重庆定制版查询系统"],
             current: 1,
             currentZZ: 1, //资质切换
             firmAlias: "",
@@ -775,13 +776,19 @@ export default {
                 return false
             }
             if(this.isyj||this.data.qualCode!=''||this.data.person.length>0){
-                console.info('this.id',this.pkid);
+                var page = "";
+                if(this.current == 1) {
+                    page = "qy"
+                }else {
+                    page = "ry";
+                }
                 this.$router.push({
-                    path:'/payPage',
-                    query: {
-                        pkid: this.pkid
-                    }
-                })
+                        path:'/payPage',
+                        query: {
+                            pkid: this.pkid,
+                            page: page
+                        }
+                    })
             }else{
                 this.$alert('请至少筛选人员，资质，业绩中的一项')
             }

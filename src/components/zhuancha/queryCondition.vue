@@ -130,6 +130,7 @@ export default {
             deep:true,
             handler(newV,oldV){
                 if(newV.qualCode&&newV.qualCode!=''){
+                    console.info('newV.qualCode',newV.qualCode);
                     let arr=newV.qualCode.split(',');
                     let arr1=[];
                     for(let x of arr){

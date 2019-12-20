@@ -2,7 +2,7 @@
 <template>
     <div class="payPage">
         <!-- 头 -->
-        <v-head></v-head>
+        <v-head :headTxt="titleList"></v-head>
         <div class="payPage_body">
             <div>
                 <v-publicBread :breadList="breadList"></v-publicBread>
@@ -89,6 +89,7 @@ export default {
                 { title: "查询结果" },
                 { title: "支付" }
             ],
+            titleList: ["重庆定制版查询系统"],
             // 数据模型a
             isload: true,
             orderNo: null,
@@ -177,7 +178,7 @@ export default {
                         colorDark: "#000000",
                         colorLight: "#ffffff"
                     });
-                    that.getOrderNo();
+                    // that.getOrderNo();
                 });
             } else {
                 this.$alert(res.data.msg);

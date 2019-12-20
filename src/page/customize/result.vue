@@ -1,6 +1,6 @@
 <template>
     <div class="result">
-        <v-head3></v-head3>
+        <v-head3 :headTxt="titleList"></v-head3>
         <div class="result_body">
             <v-publicBread :breadList="breadList"></v-publicBread>
             <v-result></v-result>
@@ -92,6 +92,7 @@ export default {
     data() {
         return {
             breadList: [{ title: "查询列表" }], //面包屑列表,以对象形式添加;
+            titleList: ["重庆定制版查询系统"],
             infoList: [
                 {
                     name: "王二牛",
