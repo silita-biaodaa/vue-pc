@@ -135,9 +135,9 @@ export default {
         overflow: hidden;
         .line-f {
             background-color: #F4F4F4;
-            padding-left: 19px;
             display: flex;
             align-items: center;
+            justify-content: center;
             border-right: 1px solid #DDDFE4;
             min-width: 150px;
             max-height: 200px;
@@ -149,7 +149,7 @@ export default {
             display: flex;
             align-items: center;
             min-width: 150px;
-            padding-left: 19px;
+            justify-content: center;
             min-height: 40px;
             box-sizing: border-box;
         }

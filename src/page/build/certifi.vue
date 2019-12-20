@@ -199,7 +199,7 @@ import publicBread from "@/components/customize/publicBread";
 			.certifi-in {
 				display: flex;
 				flex-direction: row;
-				color: #999;
+				color: #000;
 				font-size: 14px;
 				border: 1px solid #DDDFE4;
 				div {
@@ -209,6 +209,7 @@ import publicBread from "@/components/customize/publicBread";
 					justify-content: center;
 					border-right: 1px solid #DDDFE4;
 					line-height: 20px;
+				
 				}
 			}
 		}

@@ -2,9 +2,12 @@
 <template>
     <div class="popup">
         <div class="pop">
-            <div class="title">
-                <i class="el-icon-close"  @click="closeFn"></i>
-            </div>
+            <template v-if="contentTxt">
+                <div class="title">
+                    <i class="el-icon-close"  @click="closeFn"></i>
+                </div>
+            </template>
+            
             <div class="box">
                 <template v-if="contentTxt">
                     {{contentTxt}}
@@ -88,10 +91,11 @@ export default {
     align-items: center;
 }
 .pop{
-    width: 998px;
+    width: 980px;
     background: #fff;
     padding: 10px;
     height: 600px;
+    border-radius:12px;
     .title{
         text-align: right;
         i{

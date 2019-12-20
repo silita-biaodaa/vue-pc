@@ -1,8 +1,12 @@
 <!-- 模型： DOM 结构 -->
 <template>
+<div class="popup">
+  <div class="pop">
+    <div class="pop-title" >
+       <p>{{data.comName}}{{data.year}}年度报告</p>
+        <i class="el-icon-close" @click="closeFn" ></i>
+    </div>    
     <div class="annualDetail">
-        <h5>{{data.comName}}{{data.year}}年度报告</h5>
-        <!--  -->
         <div class="box">
             <h6>企业基本信息</h6>
             <table class="four">
@@ -293,10 +297,12 @@
             </table>
         </div>
     </div>
+  </div> 
+ </div>  
 </template>
 <script>
 export default {
-    name: 'annualDetail', // 结构名称
+    name: 'popup', // 结构名称
     data() {
         return {
             // 数据模型
@@ -345,7 +351,12 @@ export default {
                 uri='http://'+uri;
             }
             window.open(uri,'_blank')
+        },
+        closeFn(){
+            this.$parent.mask=false
+            this.modalHelper.beforeClose();
         }
+
     }
 
 }
@@ -353,11 +364,45 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
+.popup{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .pop-title {
+       font-size: 18px;
+       color: #150000;
+       height: 66px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center; 
+       font-weight: 550;
+       padding: 0 22px;
+       border-bottom: 1px solid #DDDFE4;
+    }
+    .pop{
+        width: 980px;
+        background: #fff;
+        height: 600px;
+        border-radius:12px;
+        .annualDetail{
+            height:calc(600px - 106px);
+            overflow: auto;
+     }
+    } 
+}
 h5{
     text-align: center;
 }
 .box{
-    width: 80%;
+    width: 95%;
     margin: 0 auto;
     h6{
         padding: 15px 0;
@@ -368,10 +413,15 @@ table{
     border-collapse: collapse;
     width: 100%;
     td{
-        border: 1px solid #333;
+        border: 1px solid #DDDFE4;
         font-size: 14px;
+        height: 48px;
+        padding: 0 15px;
         text-align: center;
-        min-height: 50px;
+    }
+    .bg {
+        background-color: #F4F4F4;
+        
     }
 }
 .four{
@@ -388,9 +438,4 @@ table{
     cursor: pointer;
     color: #EC7522;
 }
-// .first{
-//     td{
-//         width: 25%;
-//     }
-// }
 </style>

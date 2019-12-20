@@ -5,7 +5,7 @@
 				<div class="left ub-right" style="width:60px;">序号</div>
 				<div class="left ub-right" style="width:240px;">施工许可证编号</div>
 				<div class="left ub-right" style="width:200px;">省级施工许可证编号</div>
-				<div class="left ub-right" style="width:150px;">合同金额（万元</div>
+				<div class="left ub-right" style="width:150px;">合同金额（万元)</div>
 				<div class="left ub-right" style="width:150px;">面积（平方米）</div>
 				<div class="left ub-right" style="width:110px;">发证日期</div>
 				<div class="left " style="width:105px;">查看</div>
@@ -114,10 +114,10 @@
 						<div class="show-text blur " style="width:207px;">
 							面积（平方米）
 						</div>
-						<div class="show-text" style="width:293px;">
+						<div class="show-text" style="width:293px;border:none">
 							{{debid.area}}
 						</div>
-						<div class="show-text blur" style="width:207px;">
+						<div class="show-text " style="width:207px;border:none">
 
 						</div>
 						<div class="show-text " style="width:291px;border:none">
@@ -129,16 +129,16 @@
 						企业主体信息
 					</div>
 					<div class="main-table">
-						<div style="width:205px;" class="bor">
+						<div style="width:205px;fontWeight:550;" class="bor">
 							涉及单位
 						</div>
-						<div style="width:310px;" class="bor">
+						<div style="width:310px;fontWeight:550;" class="bor">
 							企业名称
 						</div>
-						<div style="width:300px;" class="bor">
+						<div style="width:300px;fontWeight:550;" class="bor">
 							组织机构代码
 						</div>
-						<div style="width:150px;border:none" class="bor">
+						<div style="width:150px;border:none;fontWeight:550;" class="bor">
 							所在省份
 						</div>
 					</div>
@@ -263,6 +263,7 @@
 				align-items: center;
 				line-height:20px;
 				justify-content: center;
+
 			
 			}
 			.ub-look {
@@ -334,7 +335,7 @@
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
-					font-size: 20px;
+					font-size: 18px;
 					color: #150000;
 					padding: 0 30px;
 					font-weight: 550;
@@ -347,7 +348,7 @@
 				.ur-main {
 					height: 60px;
 					line-height: 60px;
-					font-size: 18px;
+					font-size: 14px;
 					color: #000;
 					font-weight: 550;
 				}
@@ -360,7 +361,6 @@
 					color: #999;
 					border: 1px solid #DDDFE4;
 					background-color: #F4F4F4;
-
 					.bor {
 						border-right: 1px solid #DDDFE4;
 						padding: 5px 6px;
@@ -368,9 +368,9 @@
 						align-items: center;
 						justify-content: center;
 						text-align: center;
+						color: #000;
 					}
 				}
-
 				.main-no {
 					height: 45px;
 					line-height: 45px;
@@ -378,23 +378,19 @@
 					color: #999;
 					text-align: center;
 					border: 1px solid #DDDFE4;
-
 				}
-
 				.show-del {
 					display: flex;
 					flex-direction: row;
 					min-height: 40px;
 					border: 1px solid #DDDFE4;
 					font-size: 14px;
-
 					.show-text {
 						display: flex;
 						align-items: center;
-						justify-content: center;
-						padding: 5px 0;
+						padding: 5px 15px;
 						border-right: 1px solid #DDDFE4;
-
+						text-align: center;
 					}
 				}
 			}
@@ -404,5 +400,6 @@
 		 background-color: #F4F4F4;
 		 color:#000;
 		 font-weight: 550;
+		 justify-content: center;
 	}
 </style>

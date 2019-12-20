@@ -57,6 +57,9 @@
 					</div>
 				</div>
 				<div class="auto-pop">
+					<div class="ur-main">
+						基本信息
+					</div>
 					<div class="show-del">
 						<div class="show-text blur " style="width:207px;">
 							施工图审查机构名称
@@ -391,7 +394,7 @@
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
-					font-size: 20px;
+					font-size: 18px;
 					color: #000000;
 					font-weight: 550;
 					padding: 10px 30px;
@@ -405,7 +408,7 @@
 					height: 60px;
 					line-height: 60px;
 					// text-align: center;
-					font-size: 18px;
+					font-size: 14px;
 					color: #000000;
 					font-weight: 550;
 				}
@@ -447,6 +450,7 @@
 						box-sizing: border-box;
 						padding: 5px 0;
 						border-right: 1px solid #DDDFE4;
+						text-align: center;
 					}
 					.new-text {
 						justify-content: flex-start;

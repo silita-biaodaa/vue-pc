@@ -410,9 +410,10 @@
 					.show-text {
 						display: flex;
 						align-items: center;
-						justify-content: center;
-						padding: 5px 0;
+						padding: 5px 10px;
 						border-right: 1px solid #DDDFE4;
+						box-sizing: border-box;
+						text-align: center;
 
 					}
 				}
@@ -423,5 +424,7 @@
 		 background-color: #F4F4F4;
 		 color:#000;
 		 font-weight: 550;
+		justify-content: center;
+
 	}
 </style>

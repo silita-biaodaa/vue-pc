@@ -38,9 +38,7 @@
             </template>
         </div>
         <!-- 弹窗 -->
-        <v-pop v-if="mask">
-            <v-annual-detail :data="detail"></v-annual-detail>
-        </v-pop>
+            <v-annual-detail v-if="mask" :data="detail"></v-annual-detail>
     </div>
 </template>
 <script>

@@ -8,9 +8,9 @@
 				<table class="table-content">
 						<tr>
 							<td style="width:74px">序号</td>
-							<td style="width:380px">资质名称</td>
+							<td style="width:290px">资质名称</td>
 							<td style="width:150px">资质证书号</td>
-							<td style="width:calc(100% - 724px)">发证机关</td>
+							<td style="width:calc(100% - 804px)">发证机关</td>
 							<td style="width:120px">有效日期</td>
 						</tr>
 						<tr v-for="(el,i) in showArr" :key="i" v-show="!result">

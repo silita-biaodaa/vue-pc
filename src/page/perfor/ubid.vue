@@ -190,10 +190,10 @@
 						<div class="show-text blur " style="width:207px;">
 							登记时间
 						</div>
-						<div class="show-text" style="width:293px;">
+						<div class="show-text" style="width:293px;border:none">
 							{{debid.recordDate}}
 						</div>
-						<div class="show-text blur" style="width:207px;">
+						<div class="show-text" style="width:207px;border:none">
 
 						</div>
 						<div class="show-text " style="width:291px;border:none">
@@ -204,19 +204,19 @@
 						主要参与人员
 					</div>
 					<div class="main-table">
-						<div style="width:150px;" class="bor">
+						<div style="width:150px;fontWeight: 550" class="bor">
 							姓名
 						</div>
-						<div style="width:180px;" class="bor">
+						<div style="width:180px;fontWeight: 550" class="bor">
 							人员类别
 						</div>
-						<div style="width:250px;" class="bor">
+						<div style="width:250px;fontWeight: 550" class="bor">
 							证书编号
 						</div>
-						<div style="width:250px;" class="bor">
+						<div style="width:250px;fontWeight: 550" class="bor">
 							安全证书编号
 						</div>
-						<div style="width:125px;">
+						<div style="width:125px;fontWeight: 550">
 							状态
 						</div>
 					</div>
@@ -438,6 +438,7 @@
 					background-color: #F4F4F4;
 					.bor {
 						border-right: 1px solid #DDDFE4;
+						color:#000;
 					}
 				}
 				.main-no {
@@ -458,9 +459,10 @@
 					.show-text {
 						display: flex;
 						align-items: center;
-						justify-content: center;
-						padding: 5px 0;
+						box-sizing: border-box;
+						padding: 5px 10px;
 						border-right: 1px solid #DDDFE4;
+						text-align: center;
 					}
 				}
 			}
@@ -470,5 +472,6 @@
 		 background-color: #F4F4F4;
 		 color:#000;
 		 font-weight: 550;
+		 justify-content: center;
 	}
 </style>
