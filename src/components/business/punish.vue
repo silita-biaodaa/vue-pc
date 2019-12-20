@@ -3,27 +3,27 @@
     <!-- 行政处罚 -->
     <div class="punish">
         <div class="ic-basic">
-            <div class="list-nav">
-                <div style="width:72px" >序号</div>
-                <div style="width:100px" >决定书文号</div>
-                <div style="width:200px" >违法行为类型</div>
-                <div style="width:200px" >行政处罚内容</div>
-                <div style="width:100px" >决定机关名称</div>
-                <div style="width:100px" >处罚决定日期</div>
-            </div>
             <template v-if="isajax">
                 <!-- 有数据 -->
                 <template v-if="list&&list.length>0">
-                    <div class="list-co" v-for="(el,i) in list" :key="i" >
-                        <div style="width:72px">{{i+1}}</div>
-                        <div style="width:100px">
-                            <span style="color:#FE6603" >{{el.penDecNo}}</span>
-                        </div>
-                        <div style="width:200px">{{el.illegActType}}</div>
-                        <div style="width:200px" >{{el.penContent}}</div>
-                        <div style="width:100px" >{{el.penAuth_CN}}</div>
-                        <div style="width:100px">{{el.publicDate}}</div>
-                    </div>
+                    <table class="table-content">
+						<tr>
+							<td style="width:52px" >序号</td>
+                            <td style="width:140px" >决定书文号</td>
+                            <td style="width:200px" >违法行为类型</td>
+                            <td style="width:200px" >行政处罚内容</td>
+                            <td style="width:100px" >决定机关名称</td>
+                            <td style="width:90px" >处罚决定日期</td>
+						</tr>
+						<tr v-for="(el,i) in list" :key="i">
+							<td>{{i+1}}</td>
+							<td>{{el.penDecNo}}</td>
+							<td>{{el.illegActType}}</td>
+							<td>{{el.penContent}}</td>
+							<td>{{el.penAuth_CN}}</td>
+                            <td>{{el.publicDate}}</td>
+						</tr>
+					</table>
                 </template>
                 <!-- 无数据 -->
                 <template v-else-if="list&&list.length==0">
@@ -126,29 +126,17 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .ic-basic {
-    margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
+    // border: 1px solid #f2f2f2;
     box-sizing: border-box;
-    .list-nav {
-        height: 40px;
-        line-height: 40px;
-        display: flex;
-        text-align: center;
-        font-size: 12px;
-        color:#333;
-        border-bottom: 1px solid #f2f2f2;
+    .table-content {
+        width: 844px;
+        tr {
+            td {
+                padding: 0 10px;
+            }
+        }
     }
-    .list-co {
-        color: #999;
-        text-align: center;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        padding: 5px 0;
-        box-sizing: border-box; 
-        border-bottom: 1px solid #f2f2f2
-    }
+
 
 }
 

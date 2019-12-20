@@ -3,37 +3,23 @@
     <!-- 股东信息 -->
     <div class="shareholder">
         <div class="ic-basic">
-            <div class="list-nav">
-                <div style="width:72px" >序号</div>
-                <div style="width:calc((100% - 72px)/3)">股东</div>
-                <div style="width:calc((100% - 72px)/3)">持股比例</div>
-                <div style="width:calc((100% - 72px)/3)">认缴出资金额</div>
-            </div>
             <template v-if="isajax">
                 <!-- 有数据 -->
                 <template v-if="list&&list.length>0">
-                    <div class="list-co" v-for="(el,i) in list" :key="i" >
-                        <div style="width:72px">{{i+1}}</div>
-                        <div style="width:calc((100% - 72px)/3)">
-                            <span style="color:#FE6603" >{{el.inv}}</span>
-                        </div>
-                        <div style="width:calc((100% - 72px)/3)">
-                            <template v-if="!isNaN(el.proportion)">
-                                {{el.proportion}}
-                            </template>
-                            <template v-else>
-                                暂无信息
-                            </template>
-                        </div>
-                        <div style="width:calc((100% - 72px)/3)">
-                            <template v-if="el.liSubConAm">
-                                {{el.liSubConAm}}万元
-                            </template>
-                            <template v-else>
-                                暂无信息
-                            </template>
-                        </div>
-                    </div>
+                     <table class="table-content">
+						<tr>
+							<td style="width:72px">序号</td>
+							<td style="width:calc((100% - 72px)/3)">股东</td>
+							<td style="width:calc((100% - 72px)/3)">持股比例</td>
+							<td style="width:calc((100% - 72px)/3)">认缴出资金额</td>
+						</tr>
+						<tr  v-for="(el,i) in list" :key="i">
+							<td>{{i+1}}</td>
+							<td>{{el.inv}}</td>
+							<td>{{el.proportion == null ? el.proportion : '暂无信息'}}</td>
+							<td>{{el.liSubConAm ? el.liSubConAm : '暂无信息'}}</td>
+						</tr>
+					</table>
                 </template>
                 <!-- 无数据 -->
                 <template v-else-if="list&&list.length==0">
@@ -147,30 +133,15 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .ic-basic {
-    margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
+    // border: 1px solid #f2f2f2;
     box-sizing: border-box;
-    .list-nav {
-        justify-content: space-between;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 12px;
-        display: flex;
-        color:#333;
-        border-bottom: 1px solid #f2f2f2;
-    }
-    .list-co {
-        color: #999;
-        text-align: center;
-        min-height: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 12px;
-        padding: 5px 0;
-        box-sizing: border-box; 
-        border-bottom: 1px solid #f2f2f2
+     .table-content {
+        width: 844px;
+        tr {
+            td {
+                padding: 0 10px;
+            }
+        }
     }
 }
 

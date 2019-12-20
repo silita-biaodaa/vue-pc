@@ -121,7 +121,6 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .ic-basic {
-    margin: 0 10px 15px 10px; 
     border: 1px solid #DDDFE4;
     box-sizing: border-box;
     .ic-line{
