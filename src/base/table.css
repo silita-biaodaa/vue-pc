@@ -57,3 +57,20 @@
 .chq-pop .pop-line {
   border-bottom: 1px solid #DDDFE4;
 }
+.ic-basic {
+  box-sizing: border-box;
+}
+.ic-basic .table-content {
+  width: 844px;
+}
+.ic-basic .table-content tr th {
+  border: 1px solid #DDDFE4;
+  height: 48px;
+}
+.ic-basic .table-content tr td {
+  padding: 0 10px;
+  color: #666;
+}
+.ic-basic .table-content tr td:nth-child(2) {
+  color: #000;
+}

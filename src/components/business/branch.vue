@@ -8,11 +8,11 @@
                 <template v-if="list&&list.length>0">
                     <table class="table-content">
 						<tr>
-							<td style="width:72px">序号</td>
-							<td style="width:200px">企业名称</td>
-							<td style="width:100px">负责人</td>
-							<td style="width:150px">联系方式</td>
-							<td style="width:250px">地址</td>
+							<th style="width:72px">序号</th>
+							<th style="width:200px">企业名称</th>
+							<th style="width:100px">负责人</th>
+							<th style="width:150px">联系方式</th>
+							<th style="width:250px">地址</th>
 						</tr>
 						<tr v-for="(el,i) in list" :key="i">
 							<td>{{i+1}}</td>
@@ -137,18 +137,5 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.ic-basic {
-    // border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    .table-content {
-        width: 844px;
-        tr {
-            td {
-                padding: 0 10px;
-            }
-        }
-    }
-
-}
-
+@import '../../base/table.less';
 </style>

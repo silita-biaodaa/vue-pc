@@ -124,7 +124,6 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .ic-basic {
-    // border: 1px solid #f2f2f2;
     box-sizing: border-box;
     .table-content {
         width: 844px;

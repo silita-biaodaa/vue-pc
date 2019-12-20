@@ -139,6 +139,7 @@
 		}
 	}
 </script>
+
 <style lang="less" scoped>
 	.icbc {
 		background-color: #fff;

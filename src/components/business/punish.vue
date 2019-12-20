@@ -8,12 +8,12 @@
                 <template v-if="list&&list.length>0">
                     <table class="table-content">
 						<tr>
-							<td style="width:52px" >序号</td>
-                            <td style="width:140px" >决定书文号</td>
-                            <td style="width:200px" >违法行为类型</td>
-                            <td style="width:200px" >行政处罚内容</td>
-                            <td style="width:100px" >决定机关名称</td>
-                            <td style="width:90px" >处罚决定日期</td>
+							<th style="width:52px" >序号</th>
+                            <th style="width:140px" >决定书文号</th>
+                            <th style="width:200px" >违法行为类型</th>
+                            <th style="width:200px" >行政处罚内容</th>
+                            <th style="width:100px" >决定机关名称</th>
+                            <th style="width:90px" >处罚决定日期</th>
 						</tr>
 						<tr v-for="(el,i) in list" :key="i">
 							<td>{{i+1}}</td>
@@ -125,19 +125,5 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.ic-basic {
-    // border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    .table-content {
-        width: 844px;
-        tr {
-            td {
-                padding: 0 10px;
-            }
-        }
-    }
-
-
-}
-
+@import '../../base/table.less';
 </style>

@@ -8,9 +8,9 @@
                 <template v-if="list&&list.length>0">
                     <table class="table-content">
 						<tr>
-							<td style="width:50px">序号</td>
-							<td >姓名</td>
-							<td >职务</td>
+							<th style="width:60px">序号</th>
+							<th >姓名</th>
+							<th >职务</th>
 						</tr>
 						<tr  v-for="(el,i) in list" :key="i">
 							<td>{{i+1}}</td>
@@ -119,18 +119,7 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.ic-basic {
-    // border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    .table-content {
-        width: 844px;
-        tr {
-            td {
-                padding: 0 10px;
-            }
-        }
-    }
-}
+@import '../../base/table.less';
 .position{
     width: 200px;
     img{
