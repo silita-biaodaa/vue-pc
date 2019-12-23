@@ -128,15 +128,16 @@ export default {
             })
         },
         jumpDetail(id){
-            const {href} = this.$router.resolve({
-                path: '/queryDetail',
-                query: {
-                    id:id,
-                    type:this.$route.query.type,
-                    n:this.$route.query.n
+            
+                let d={
+                    path: '/queryDetail',
+                    query: {
+                        id:id,
+                        type:this.$route.query.type,
+                        n:this.$route.query.n
+                    }
                 }
-            })
-            window.open(href, '_blank', )
+            this.openNewLink(d.path,d.query)    
         },
         //刷新
         recoldFn() {

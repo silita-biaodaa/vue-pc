@@ -9,15 +9,16 @@
             <div class="title">
                 <i class="iconfont icongongsi"></i>
                 {{basic.comName}}
+                <span class="tag ml20 fs14" :class="basic.joinRegion[0]=='入渝'?'':'yn'">{{basic.joinRegion[0]}}企业</span>
                 <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
             <div class="basic-box">
                 <div>
                     <p class="bg">统一社会信用代码</p>
                     <p>{{basic.creditCode}}</p>
-                    <template>
+                    <template v-if="basic.principal">
                         <p class="bg">在渝负责人</p>
-                        <p>曹长卿</p>
+                        <p>{{basic.principal}}</p>
                     </template>
                 </div>
                 <div>
@@ -186,8 +187,8 @@
                 <!-- 行政处罚 -->
                 <template v-else>
                     <!-- 加载中 -->
-                    <!-- <template v-if="xzIsajax"> -->
-                        <!-- <template v-if="xzList&&xzList.length>0"> -->
+                    <template v-if="xzIsajax">
+                        <template v-if="xzList&&xzList.length>0">
                             <table ref="yj">
                                 <thead>
                                     <td>序号</td>
@@ -199,23 +200,23 @@
                                 <tbody>
                                     <tr v-for="(o,i) of xzList" :key="i">
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
-                                        <td>{{o.creditType}}</td>
-                                        <td>{{o.years}}</td>
-                                        <td>{{o.level}}</td>
-                                        <td>{{o.issueProvince}}</td>
+                                        <td>{{o.punishCode}}</td>
+                                        <td>{{o.punishType}}</td>
+                                        <td>{{o.punishDate}}</td>
+                                        <td>{{o.punishOrg}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                        <!-- </template> -->
+                        </template>
                         <!-- 无数据  -->
-                        <!-- <template v-else-if="xzList&&xzList.length==0">
+                        <template v-else-if="xzList&&xzList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
-                                <span>Sorry，没有找到符合条件的信用等级</span>
+                                <span>Sorry，没有找到符合条件的行政处罚</span>
                             </div>
-                        </template> -->
+                        </template>
                         <!-- 加载失败 -->
-                        <!-- <template v-else-if="!xzList">
+                        <template v-else-if="!xzList">
                             <div class="ajax-erroe">
                                 <img src="../../assets/img/pic-zoudiu.png" />
                                 <span @click="recoldFn">刷新</span>
@@ -224,7 +225,7 @@
                     </template>
                     <template v-else>
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-                    </template> -->
+                    </template>
                 </template>
             </div>
         </div>
@@ -337,8 +338,8 @@ export default {
                 this.ryTotal=res.data.data.personCount;
                 this.tabList[2].num=res.data.data.projectCount;
                 this.yjTotal=res.data.data.projectCount;
-                // this.tabList[3].num=res.data.data.creditCount;
-                // this.xyTotal=res.data.data.creditCount;
+                this.tabList[3].num=res.data.data.creditCount;
+                this.xzTotal=res.data.data.creditCount;
                 if(this.tabList[0].num>0){
                     this.tabNum='符合要求资质'
                     this.zzAjax(data);
@@ -445,13 +446,15 @@ export default {
             }).then(res =>{
                 let arr=[],num=0;
                 for(let x of res.data.data){
-                    let obj={
-                        name:x.qualType,
-                        num:x.list.length
+                    if(x.list){
+                        let obj={
+                            name:x.qualType,
+                            num:x.list.length
+                        }
+                        arr=arr.concat(x.list)
+                        num+=x.list.length
+                        this.conditionList.push(obj)
                     }
-                    arr=arr.concat(x.list)
-                    num+=x.list.length
-                    this.conditionList.push(obj)
                 }
                 this.tabList[0].num=res.data.data.length
                 this.conditionList[0].num=num
@@ -483,18 +486,7 @@ export default {
             })
         },
         jumpYjDetail(id){//跳转到业绩详情
-            let path=''
-            if(this.$route.query.type=='zj'){
-                path='/urban'
-            }else if(this.$route.query.type=='gl'){
-                path='/traffic'
-            }else if(this.$route.query.type=='sl'){
-                path='/irrigation'
-            }
-            let query={
-                id: id
-            }
-            this.openNewLink(path,query)
+            
         },
         /*业绩 end*/
         /** 人员   start**/
@@ -587,6 +579,8 @@ export default {
 @borderColor:#DDDFE4;
 @buleColor:#4494F0;
 @bgColor:#f4f4f4;
+@tag1:#F08082;
+@tag2:#46BF72;
 .maxW-box{
     width: 1020px;
     margin: 0 auto;
@@ -606,6 +600,20 @@ export default {
             .iconfont{
                 margin-right: 20px;
                 font-size: 34px;
+            }
+            .tag{
+                font-weight: normal;
+                color: @tag1;
+                border: 1px solid @tag1;
+                border-radius: 4px;
+                width: 80px;
+                height: 25px;
+                text-align: center;
+                line-height: 25px;
+            }
+            .yn{
+                color: @tag2;
+                border-color: @tag2;
             }
         }
         .basic-box{
