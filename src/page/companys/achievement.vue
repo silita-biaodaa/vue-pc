@@ -5,7 +5,7 @@
 				中标公告({{total}})
 			</span>
 			<div>
-				<el-input placeholder="请输入关键字搜索" suffix-icon="el-icon-search" @change="searchBid" v-model="search">
+				<el-input placeholder="请输入关键字搜索" prefix-icon="el-icon-search" @change="searchBid" v-model="search">
 				</el-input>
 			</div>
 		</div>
@@ -131,6 +131,23 @@
 	.achievement {
 		.bid-content{
 			width: 844px;
+		
+		}
+		.e-nav {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 20px;
+			align-items: center;
+			.e-wei {
+				font-size: 14px;
+				font-weight: 550;
+			}
+			.el-input__inner {
+				background-color: #F4F4F4;
+				i {
+					color: #B6B6B6;
+				}
+			}
 		}
 	}
 </style>

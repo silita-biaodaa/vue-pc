@@ -1,28 +1,29 @@
 <template>
 	<div class="bur">
-
-		<div class="law-nav">
-			<div class="left" style="width:54px">序号</div>
-			<div class="left" style="width:160px">项目名称</div>
-			<div class="left" style="width:130px">标段名称</div>
-			<div class="left" style="width:130px">施工单位</div>
-			<div class="left" style="width:110px">合同金额</div>
-			<div class="left" style="width:90px">交工日期</div>
-			<div class="left" style="width:100px">项目属地</div>
-		</div>
 		<!-- 判断是否加载中 -->
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="allArr&&allArr.length>0">
-				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el,i)">
-					<div class="left" style="width:54px">{{(current-1)*20+(i+1)}}</div>
-					<div class="left p-10" style="width:160px">{{el.proName ? el.proName: '--'}}</div>
-					<div class="left p-10" style="width:130px">{{el.section ? el.section: '--'}}</div>
-					<div class="left" style="width:130px">{{el.comName ? el.comName: '--'}}</div>
-					<div class="left" style="width:110px">{{el.amount ? el.amount + '万' : '--'}}</div>
-					<div class="left" style="width:90px">{{el.build ? el.build: '--'}}</div>
-					<div class="left" style="width:100px">{{el.proWhere ? el.proWhere: '--'}}</div>
-				</div>
+				<table class="table-content">
+						<tr>
+							<td  style="width:54px">序号</td>
+							<td  style="width:160px">项目名称</td>
+							<td  style="width:130px">标段名称</td>
+							<td  style="width:130px">施工单位</td>
+							<td  style="width:110px">合同金额</td>
+							<td  style="width:90px">交工日期</td>
+							<td  style="width:100px">项目属地</td>
+						</tr>
+						<tr v-for="(el,i) in allArr" :key="i" @click="decide(el,i)">
+							<td >{{(current-1)*20+(i+1)}}</td>
+							<td >{{el.proName ? el.proName: '--'}}</td>
+							<td >{{el.section ? el.section: '--'}}</td>
+							<td >{{el.comName ? el.comName: '--'}}</td>
+							<td >{{el.amount ? el.amount + '万' : '--'}}</td>
+							<td >{{el.build ? el.build: '--'}}</td>
+							<td >{{el.proWhere ? el.proWhere: '--'}}</td>
+						</tr>
+					</table>
 				<div class="e-page" v-if="total>20">
 					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 				</div>
