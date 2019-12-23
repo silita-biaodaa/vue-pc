@@ -100,7 +100,7 @@
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
                                         <td class="cate">
-                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}</p>
+                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="x.joinRegion">{{x.joinRegion}}企业</span></p>
                                         </td>
                                         <td class="cate-key">
                                             <div v-for="(x,y) of o.categorys" :key="y">
@@ -742,6 +742,19 @@ export default {
                         border-bottom: none
                     }
                 }
+            }
+            .tag{
+                display: inline-block;
+                background: @tag1;
+                color: #fff;
+                border-radius: 4px;
+                width: 68px;
+                height: 20px;
+                text-align: center;
+                line-height: 20px;
+            }
+            .yn{
+                background: @tag2;
             }
         }
     }

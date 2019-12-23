@@ -43,6 +43,15 @@
 					<div class="essay bor-b pb20" v-html="articles.content"></div>
 					<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
 				</div>
+				<!-- 相关公告 -->
+				<div class="positionBox" v-if="list.length>0">
+					<h6 class="fs18 mb10">相关公告({{list.length}})</h6>
+					<dl>
+						<dd v-for="(o,i) in list" :key="i" @click="jumpNotice(o)" class="pt20 pb20" :class="{'bor-b':i!=list.length-1}">
+							<p class="cp">{{i+1}}、{{o.title}}</p>
+						</dd>
+					</dl>
+				</div>
 			</div>
 		</div>
 	</v-maxw>
@@ -67,6 +76,7 @@
 				skip: false,
 				allC: 0,
 				collType: '',
+				list:[]
 			}
 		},
 		methods: {
@@ -170,7 +180,23 @@
 				}
 				let h = this.$refs.comment.$el.offsetTop;
 				document.documentElement.scrollTop = h - 108;
-			}
+			},
+			jumpNotice(o){//跳到公告详情
+				let path='/notice'
+				if(o.type==1){
+					path='/article'
+				}
+				const {
+					href
+				} = this.$router.resolve({
+					path: path,
+					query: {
+						id: o.id,
+						source: o.source
+					}
+				})
+				window.open(href, '_blank')
+			},
 		},
 		mounted() {
 			this.toskip()
@@ -179,9 +205,23 @@
 			})
 		},
 		created() {
+			let that=this;
 			this.skip = this.$route.query.skip ? this.$route.query.skip : false;
 			this.id = this.$route.query.id;
 			this.source = this.$route.query.source;
+			/*相关公告*/
+			this.$http({
+                method:'post',
+                url:'/newnocite/correlation/list',
+                data:{
+                    source:this.$route.query.source,
+                    ntId:this.$route.query.id,
+                }
+            }).then(res =>{
+                if(res.data.code==1){
+                    that.list=res.data.data
+                }
+            })
 			this.gainDetail()
 
 		},
@@ -243,8 +283,14 @@
 		.main{
 			width: 1020px;
 			margin: 0 auto;
+			position: relative;
 			.link{
 				line-height: 65px;
+			}
+			.positionBox{
+				position: absolute;
+				top: 20px;
+				left: 790px;
 			}
 		}
 	}

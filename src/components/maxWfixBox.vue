@@ -4,17 +4,6 @@
         <!-- list.length>0?'isshow':'' -->
         <div class="box" :class="{'isshow':list.length>0,'no-notice':type!='notice','notice':type=='notice'}">
             <slot name="left" style="width:750px"></slot>
-            <!-- 相关公告 -->
-            <template v-if="type=='notice'">
-                <div class="fix-box positionBox" v-if="list.length>0">
-                    <h6 class="fs18 mb10">相关公告({{list.length}})</h6>
-                    <dl>
-                        <dd v-for="(o,i) in list" :key="i" @click="jumpNotice(o)" class="pt20 pb20" :class="{'bor-b':i!=list.length-1}">
-                            <p>{{i+1}}、{{o.title}}</p>
-                        </dd>
-                    </dl>
-                </div>
-            </template>
             <!-- 平台公示 -->
             <template v-if="type=='publicity'">
                 <div class="fix-box positionBox" v-if="list.length>0" style="top:40px">
@@ -74,18 +63,9 @@ export default {
         // console.group('创建完毕状态===============》created');
         let that=this;
         if(this.type=='notice'){//相关公告
-            this.$http({
-                method:'post',
-                url:'/newnocite/correlation/list',
-                data:{
-                    source:this.$route.query.source,
-                    ntId:this.$route.query.id,
-                }
-            }).then(res =>{
-                if(res.data.code==1){
-                    that.list=res.data.data
-                }
-            })
+            setTimeout(() => {
+                that.list=this.$parent.list
+            }, 1000);
         }else if(this.type=='publicity'){//平台公示
             this.$http({
                 method:'post',
@@ -140,22 +120,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        jumpNotice(o){//跳到公告详情
-            let path='/notice'
-            if(o.type==1){
-                path='/article'
-            }
-            const {
-                href
-            } = this.$router.resolve({
-                path: path,
-                query: {
-                    id: o.id,
-                    source: o.source
-                }
-            })
-            window.open(href, '_blank')
-        },
         publicityTap(o){
             const {href}=this.$router.resolve({
                 path:'/detail',
@@ -220,13 +184,6 @@ export default {
     width: 750px;
 }
 /*公告*/
-.notice.isshow{
-    .fix-box.positionBox{
-        position: absolute;
-        top: 285px;
-        margin-left:280px;
-    }
-}
 .notice.isshow /deep/ .main .maxw{
     width: 750px;
     border-right: 1px solid #DDDFE4

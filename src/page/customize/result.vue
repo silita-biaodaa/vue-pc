@@ -143,13 +143,15 @@ export default {
                 query:{
                     id:el.comId,
                     n:this.$route.query.orderNo,
-                    source:this.$route.query.source
                 }
             }
             if(type=='ry'){
                 d.path='peopleDetail'
+                d.query.name=el.name
+                d.query.perid=el.perId
             }else if(type=='qy'){
                 d.path='companyDetail'
+                d.query.source=this.$route.query.source
             }
             this.openNewLink(d.path,d.query)
         }
