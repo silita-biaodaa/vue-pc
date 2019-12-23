@@ -74,8 +74,8 @@
                             <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}" v-if="isoptType">
                                 <el-col>
                                     <span class="mr20">多个资质之间的关系：</span>
-                                    <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任一资质条件</span>
-                                    <span class="cp ml20 color-5a5" @click="handleClickZZ(2)" :class="{activeZZ : currentZZ == 2}">满足所有资质条件</span>
+                                    <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任意一个</span>
+                                    <span class="cp ml20 color-5a5" @click="handleClickZZ(2)" :class="{activeZZ : currentZZ == 2}">满足所有</span>
                                 </el-col>
                             </el-row>
                             <!-- 业绩子项 -->
@@ -117,9 +117,10 @@
                             <!-- 中标金额/合同金额 -->
                             <el-row class="flex-center drc color-150 fs14 mb20">
                                 <div>中标/合同金额：</div>
-                                <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" style="width: 20%;" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
+                                <!-- <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" minLength="1" maxlength="8" @input="data.project.amountStart=data.project.amountStart.replace(/[^\d.]/g,'')" style="width: 20%;"></el-input> -->
+                                <v-myInput :point="2" :max="99999" placeholder="请输入金额" v-model.number="data.project.amountStart"></v-myInput>
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" style="width: 20%" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
+                                <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" type="number" style="width: 20%"></el-input>
                             </el-row>
                             <!-- 中标公示 -->
                             <el-row class="flex-center drc color-150 fs14 mb20" :class="{'hide':data.projectSource !== 'chongq'}">
@@ -156,9 +157,9 @@
                             <!-- 面积 -->
                             <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
                                 <div>面积（平方米）：</div>
-                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;" @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"></el-input>
+                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;"></el-input>
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;" @keyup.native="data.project.areaEnd=data.project.areaEnd.replace(/\D/g,'')"></el-input>
+                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;"></el-input>
                             </el-row>
                             <!-- 竣工验收日期 -->
                             <el-row class="fs14 mb20 flex-center drc color-150">
@@ -170,9 +171,9 @@
                             <!-- 面积 -->
                             <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'all'}">
                                 <div>面积（平方米）：</div>
-                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;" @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"></el-input>
+                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;"></el-input>
                                     &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;" @keyup.native="data.project.areaEnd=data.project.areaEnd.replace(/\D/g,'')"></el-input>
+                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;"></el-input>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
                             <el-row class="fs14 flex-center drc color-150" v-if="isyj">
@@ -271,9 +272,9 @@
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
-                        <el-input placeholder="最低分" v-model="data.credit.scoreStart" style="width: 20%;" @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"></el-input>
+                        <el-input placeholder="最低分" v-model="data.credit.scoreStart" style="width: 20%;"></el-input>
                             &nbsp;&nbsp;至&nbsp;&nbsp;
-                        <el-input placeholder="最高分" v-model="data.credit.scoreEnd" style="width: 20%" @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"></el-input>
+                        <el-input placeholder="最高分" v-model="data.credit.scoreEnd" style="width: 20%"></el-input>
                     </el-col>
                 </el-row>
             </div>
@@ -545,14 +546,14 @@ export default {
                     proWhere:"",//项目属地
                     proUse:"",//工程用途
                     proType:"",//业绩类型
-                    amountStart:"",//最低价
-                    amountEnd:"",//最高价
+                    amountStart:null,//最低价
+                    amountEnd:null,//最高价
                     contractStart:"",//起始日期
                     contractEnd:"",//结束日期
                     completeStart:"",//竣工起始日期
                     completeEnd:"",//竣工结束日期
-                    areaStart:"",//最小面积
-                    areaEnd:"",//最大面积
+                    areaStart:null,//最小面积
+                    areaEnd:null,//最大面积
                     proCount:1,//符合业绩条件的数量
                 },
                 credit: {//信用筛选
@@ -801,7 +802,11 @@ export default {
                 this.$alert('请至少筛选人员，资质，业绩中的一项')
             }
             
-        }
+        },
+        // handleInput(e) {
+        //     console.info(e);
+        //     this.e = (e.) || null
+        // },
     },
     created () {
         this.companyCount();
@@ -821,7 +826,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import "../../style/publicCSS";
+@import "../../base/element";
 @font-face {
     font-family: "element-icons";
     src: url("//at.alicdn.com/t/font_1546736_e9vb389hamj.eot?t=1575882859526"); /* IE9 */
@@ -845,60 +850,6 @@ export default {
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-.el-select .el-input__inner {
-    color: @lightColor !important;
-}
-.el-icon-arrow-up:before {
-    content: "\e6a1" !important;
-}
-.el-icon-arrow-up,
-.el-icon-arrow-down {
-    font-size: @subContentSize !important;
-    transform: scale(0.6) !important;
-}
-.el-select .el-input .el-select__caret {
-    color: @darkColor !important;
-}
-.el-radio__inner:hover {
-    border-color: @themeColor !important;
-}
-.el-radio {
-    margin-right: 20px;
-}
-body .el-radio__input.is-checked+.el-radio__label {
-    font-weight: 700;
-}
-.el-input-number--mini{
-    width: 95px;
-    .el-input-number__increase,.el-input-number__decrease  {
-        background: @pinkColor !important;
-        color: @whiteColor !important;
-    }
-}
-.el-input-number__decrease.is-disabled, .el-input-number__increase.is-disabled {
-    background-color: @initColor !important;
-    color: #C0C4CC !important;
-}
-.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
-    border-color: #DCDFE6 !important;
-}
-.el-checkbox__input.is-checked+.el-checkbox__label {
-    color: @textColor !important;
-}
-.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-    background-color:  @themeColor !important;
-    border-color: @themeColor !important;
-}
-.el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
-    color: @themeColor !important;
-    border-color: @themeColor !important;
-}
-.el-select-dropdown__item.selected {
-    color: @themeColor !important;
-}
-.el-select .el-input.is-focus .el-input__inner,.el-select .el-input__inner:focus {
-    border-color: @themeColor !important;
 }
 </style>
 <style lang="less" scoped>

@@ -57,11 +57,11 @@ export default {
             svip: false,
             rela: [
                 {
-                    name: '满足任意一个',
+                    name: '满足任意一个资质条件',
                     key: 'or'
                 },
                 {
-                    name: '满足所有',
+                    name: '满足所有资质条件',
                     key: 'and'
                 }
             ],

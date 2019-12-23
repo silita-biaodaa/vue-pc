@@ -193,6 +193,7 @@ export default {
                     pkid: this.$route.query.pkid,
                     orderNo: this.orderNo,
                     page: this.$route.query.page,
+                    source: this.$route.query.source,
                 }
             });
         },

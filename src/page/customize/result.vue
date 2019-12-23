@@ -52,8 +52,7 @@
                     >
                         <div class="mb30 drc">
                             <span class="fw600 fs18">{{item.comName}}</span>
-                            <div class="ml20 text-c list_logo" :class="{'hide': item.joinRegion !== '入渝'}">入渝</div>
-                            <div class="ml20 text-c list_logo logo_color">渝内</div>
+                            <div class="ml20 text-c list_logo" :class="{'logo_color': item.joinRegion == '渝内'}">{{item.joinRegion == '渝内'?'渝内':'入渝'}}</div>
                         </div>
                         <div class="dfrcb fs14">
                             <span>法人：{{item.legalPerson}}</span>

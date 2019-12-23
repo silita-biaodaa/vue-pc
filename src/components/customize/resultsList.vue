@@ -20,7 +20,7 @@
                     v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''&&data.joinRegion !== 'all_in'"
                     class="pb20 tagId"
                 >
-                    <el-col :span="2.5" class="fw600">备案地区：</el-col>
+                    <el-col :span="2.5" class="fw600">选择地区：</el-col>
                     <el-col :span="21">{{data.joinRegion | joinRegion(data.regisAddress) }}</el-col>
                 </el-row>
                 <el-row v-if="qualList.length>0" class="pb20 tagId">
@@ -71,7 +71,7 @@
                 <!-- 信用等级 -->
                 <template>
                     <el-row
-                        v-if="data.credit"
+                        v-if="data.credit&&(data.credit.scoreStart||data.credit.scoreEnd)"
                         class="pb20 tagId"
                     >
                         <el-col :span="3.5" class="fw600">诚信综合评价：</el-col>
