@@ -3,17 +3,11 @@
 
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="option-box">
-			<div class="select">
-				<el-row>
-					<el-col :span='2'>
-						省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:
-					</el-col>
-					<el-col :span='22'>
-						<ul class='pro'>
-							<li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.name}}</li>
-						</ul>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b">
+				<div>省级区域</div>
+				<ul>
+					<li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
+				</ul>
 			</div>
 			<c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
 			<div class="select">
