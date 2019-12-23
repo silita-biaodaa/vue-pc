@@ -1,0 +1,75 @@
+@import "../style/publicCSS.less";
+//下拉选择样式start
+.el-select .el-input__inner {
+    color: @lightColor !important;
+}
+.el-icon-arrow-up:before {
+    content: "\e6a1" !important;
+}
+.el-icon-arrow-up,
+.el-icon-arrow-down {
+    font-size: @subContentSize !important;
+    transform: scale(0.6) !important;
+}
+.el-select .el-input .el-select__caret {
+    color: @darkColor !important;
+}
+.el-select-dropdown__item.selected {
+    color: @themeColor !important;
+}
+.el-select .el-input.is-focus .el-input__inner,.el-select .el-input__inner:focus {
+    border-color: @themeColor !important;
+}
+//下拉选择样式end
+//单选start
+.el-radio__inner:hover {
+    border-color: @themeColor !important;
+}
+.el-radio {
+    margin-right: 20px;
+}
+body .el-radio__input.is-checked+.el-radio__label {
+    font-weight: 700;
+}
+//单选end
+//输入框选择start
+.el-input-number--mini{
+    width: 95px;
+    .el-input-number__increase,.el-input-number__decrease  {
+        background: @pinkColor !important;
+        color: @whiteColor !important;
+    }
+}
+.el-input-number__decrease.is-disabled, .el-input-number__increase.is-disabled {
+    background-color: @initColor !important;
+    color: #C0C4CC !important;
+}
+.el-input-number__decrease:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled), .el-input-number__increase:hover:not(.is-disabled)~.el-input .el-input__inner:not(.is-disabled) {
+    border-color: #DCDFE6 !important;
+}
+//输入框选择end
+.el-checkbox__input.is-checked+.el-checkbox__label {
+    color: @textColor !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color:  @themeColor !important;
+    border-color: @themeColor !important;
+}
+.el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
+    color: @themeColor !important;
+    border-color: @themeColor !important;
+}
+//日期选择样式start
+.el-date-table td.today span {
+    color: @themeColor !important;
+}
+.el-date-table td.available:hover {
+    color: @themeColor !important;
+}
+.el-date-picker__header-label.active, .el-date-picker__header-label:hover {
+    color: @themeColor !important;
+}
+.el-picker-panel__icon-btn:hover {
+    color: @themeColor !important;
+}
+//日期选择样式end
