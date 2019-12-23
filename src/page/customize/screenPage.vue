@@ -21,7 +21,7 @@
                 <!-- 资质要求 -->
                 <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ" :query="true" :chongq="true"></v-screenZZ>
                 <!-- 人员要求 -->
-                <v-screenRY @contentChange="getCodeRY" :qualList='peopleList' @recordRY="getRecordRY"></v-screenRY>
+                <v-screenRY @contentChange="getCodeRY" :qualList='peopleList' @recordRY="getRecordRY" :chongq="true"></v-screenRY>
                 <!-- 业绩要求 -->
                 <el-row class="pt20" type="flex" :class="{'require': current == 1 && data.projectSource == 'all'}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>

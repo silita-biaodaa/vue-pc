@@ -63,7 +63,7 @@
                     <i class='el-icon-plus'></i>增加一人多证
                 </div>
             </div>
-            <div class="mr20 fs14 color-150 fw600">
+            <div class="mr20 fs14 color-150 fw600" v-if="this.$parent.chongq">
                 <el-checkbox v-model="checkedRY" @change="getRecordRY">仅查询备案人员</el-checkbox>
             </div>
         </div>
