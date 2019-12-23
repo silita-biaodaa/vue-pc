@@ -10,20 +10,7 @@
                     <i class="iconfont iconzonghechaxun mr20 fs34"></i>
                     <span class="fw600">重庆定制版综合查询-企业综合查询</span>
                 </div>
-                <!-- <div class="top-box">
-                    <h2>{{title}}信息专查</h2>
-                    <div class="total-box">共为您找到符合要求企业{{total}}家</div>
-                </div>-->
-                <!-- <v-query></v-query> -->
-                <v-result :payPage="payPage"></v-result>
-                <!-- <div class="price-box">
-                    <p>
-                        本次为付费查询，限时折扣价
-                        <span class="color-font">￥{{comPrice}}</span>，会员享受专享价：
-                        <span class="color-font">¥{{vipPrice}}</span>
-                    </p>
-                    <button class="openVip" v-if="!isVip" @click="jumpVip">开通会员</button>
-                </div>-->
+                <v-result :payPage="true"></v-result>
                 <div class="price-box mt40 fs18">
                     <div class="drc">
                         <i class="iconfont iconwancheng color-eb6"></i>
@@ -52,15 +39,14 @@
                         v-loading="isload"
                         element-loading-text="二维码生成中"
                     ></div>
-                    <div class="wxpay text-c fs18">已支付</div>
-                    <!-- <p class="wxpay">
+                    <div class="wxpay text-c fs18" @click="jumpList" v-if="payed">已支付</div>
+                    <div class="goDetail dfcc mt20" v-if="!payed">
                         <img src="../../assets/img/icon-weixin.png" />
-                        微信支付
-                    </p>-->
-                    <p class="goDetail" @click="jumpList" v-if="payed">支付成功，点击查看详情 ></p>
+                        <div class="ml10">微信支付</div>
+                    </div>
                     <div class="fs18 color-5a5">
                         注：同一用户24小时内查询同一条件无需再次支付，不小心关闭结果可在
-                        <span class="color-449 cp">我的订单</span>中再次打开查看
+                        <span class="color-449 cp" @click="jumpOrder">我的订单</span>中再次打开查看
                     </div>
                 </div>
             </div>
@@ -89,7 +75,7 @@ export default {
                 { title: "查询结果" },
                 { title: "支付" }
             ],
-            titleList: ["重庆定制版查询系统"],
+            titleList: "重庆定制版查询系统",
             // 数据模型a
             isload: true,
             orderNo: null,
@@ -98,7 +84,6 @@ export default {
             comPrice: 0,
             isVip: false,
             total: 0,
-            payPage: true //是否从支付页面
         };
     },
     watch: {
@@ -107,22 +92,7 @@ export default {
     props: {
         // 集成父级参数
     },
-    computed: {
-        title() {
-            if (this.$route.query.type == "zj") {
-                return "住建";
-            } else if (this.$route.query.type == "gl") {
-                return "公路";
-            } else if (this.$route.query.type == "sl") {
-                return "水利";
-            }
-        }
-    },
-    beforeCreate() {
-        // console.group('创建前状态  ===============》beforeCreate');
-    },
     created() {
-        // console.group('创建完毕状态===============》created');
         let channel = "special_query_";
         let str = "";
         let that = this;
@@ -178,39 +148,22 @@ export default {
                         colorDark: "#000000",
                         colorLight: "#ffffff"
                     });
-                    // that.getOrderNo();
+                    that.getOrderNo();
                 });
             } else {
                 this.$alert(res.data.msg);
             }
         });
     },
-    beforeMount() {
-        // console.group('挂载前状态  ===============》beforeMount');
-    },
-    mounted() {
-        // console.group('挂载结束状态===============》mounted');
-        this.$nextTick(function() {
-            // console.log('执行完后，执行===============》mounted');
-        });
-    },
-    beforeUpdate() {
-        // console.group('更新前状态  ===============》beforeUpdate');
-    },
-    updated() {
-        // console.group('更新完成状态===============》updated');
-    },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
         let that = this;
         clearTimeout(that.t);
     },
-    destroyed() {
-        // console.group('销毁完成状态===============》destroyed');
-    },
     methods: {
         // 方法 集合
         getOrderNo() {
+            console.info('that.$route.query.pkid',this.$route.query.pkid);
             let that = this;
             this.$http({
                 method: "post",
@@ -218,7 +171,7 @@ export default {
                 data: {
                     orderNo: this.orderNo,
                     type: "report",
-                    pkid: that.$route.query.id * 1,
+                    pkid: that.$route.query.pkid * 1,
                     zhuanchaType: "zhuancha"
                 }
             }).then(res => {
@@ -226,6 +179,9 @@ export default {
                 if (state == "SUCCESS") {
                     that.payed = true;
                     clearTimeout(that.t);
+                    setTimeout(() => {
+                        return this.jumpList();
+                    }, 1000);
                 } else {
                     that.t = setTimeout(that.getOrderNo, 1000);
                 }
@@ -233,11 +189,11 @@ export default {
         },
         jumpList() {
             this.$router.replace({
-                path: "/queryList",
+                path: "/result",
                 query: {
-                    type: this.$route.query.type,
-                    n: this.orderNo,
-                    id: this.$route.query.id
+                    pkid: this.$route.query.pkid,
+                    orderNo: this.orderNo,
+                    page: this.$route.query.page,
                 }
             });
         },
@@ -245,6 +201,11 @@ export default {
             this.$router.replace({
                 path: "/buy"
             });
+        },
+        jumpOrder() {
+            this.$router.push({
+                path: "/order"
+            })
         }
     }
 };

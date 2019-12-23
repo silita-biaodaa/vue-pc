@@ -341,5 +341,13 @@ export const screenConut = params => {
 }
 //人员综合查询
 export const personConut = params => {
-  return axios.post('/chongq/person/count',params).then(res => res.data);
+  return axios.post('/gonglu/count',params).then(res => res.data);
+}
+//企业综合查询列表
+export const screenList = params => {
+  return axios.post('/chongq/company/list',params).then(res => res.data);
+}
+//人员综合查询列表
+export const personList = params => {
+  return axios.post('/gonglu/list',params).then(res => res.data);
 }

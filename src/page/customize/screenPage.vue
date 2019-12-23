@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- 资质要求 -->
-                <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ" :chongqi="chongqi"></v-screenZZ>
+                <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ" :query="true" :chongq="true"></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY @contentChange="getCodeRY" :qualList='peopleList' @recordRY="getRecordRY"></v-screenRY>
                 <!-- 业绩要求 -->
@@ -186,11 +186,11 @@
                 <el-row class="pt20 pb20 require" type="flex" :class="{'hide': current !== 1 || data.projectSource !== 'all'}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">信用要求</el-col>
                     <el-col :span="16">
-                        <el-row class="mb20">
+                        <!-- <el-row class="mb20"> -->
                             <!-- 信息来源 -->
-                            <el-col :span="18" class="fs14 color-150">
+                            <!-- <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
                                 信息来源：
-                                <!-- <el-input
+                                <el-input
                                     placeholder="请输入内容"
                                     v-model="data.credit.creditSource"
                                     :disabled="true"
@@ -211,13 +211,13 @@
                                         :key="item.id"
                                         :label="item.value"
                                         :value="item.id"
-                                    ></el-option> -->
-                                <!-- </el-select> -->
-                            </el-col>
-                        </el-row>
+                                    ></el-option>
+                                </el-select> -->
+                            <!-- </el-col> -->
+                        <!-- </el-row> -->
                         <!-- <el-row class="mb20"> -->
                             <!-- 处罚类别 -->
-                            <!-- <el-col :span="18" class="fs14 color-150">
+                            <!-- <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
                                 处罚类别：
                                 <el-select
                                     v-model="data.credit.punishType"
@@ -234,11 +234,11 @@
                                         :value="item.value"
                                     ></el-option>
                                 </el-select>
-                            </el-col>
-                        </el-row> -->
+                            </el-col> -->
+                        <!-- </el-row> -->
                         <!-- 关键字 -->
                         <el-row class="drc mb20">
-                            <el-col :span="13" class="fs14 color-150">
+                            <el-col :span="13" class="fs14 color-150" v-if="this.data.credit">
                                 关键字：
                                 <el-input
                                     placeholder="请输入关键字"
@@ -251,7 +251,7 @@
                             </el-col>
                         </el-row>
                         <!-- 处罚决定日期 -->
-                        <el-row class="fs14 mb20 flex-center drc color-150">
+                        <el-row class="fs14 mb20 flex-center drc color-150" v-if="this.data.credit">
                             <div>处罚决定日期：</div>
                             <el-date-picker value-format="yyyy-MM-dd" v-model="data.credit.punishStart" type="date" placeholder="起始日期"></el-date-picker>
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
@@ -263,11 +263,11 @@
                             <el-input-number v-model="data.credit.creCount" :min="1" size="mini"></el-input-number>
                         </el-row> -->
                     </el-col>
-                    <el-col :span="6" class="text-r">
+                    <el-col :span="6" class="text-r" v-if="this.data.credit">
                         <el-checkbox v-model="data.credit.creditQuery" @change="getCreditQuery"  class="fs14 color-150">仅查询无行政处罚的企业</el-checkbox>
                     </el-col>
                 </el-row>
-                <el-row :class="{'hide': current !== 1 || data.projectSource !== 'all'}">
+                <el-row :class="{'hide': current !== 1 || data.projectSource !== 'all'}" v-if="this.data.credit">
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
@@ -320,7 +320,7 @@ export default {
     data() {
         return {
             breadList: [{ title: "重庆定制版综合查询" }], //面包屑列表,以对象形式添加;
-            titleList: ["重庆定制版查询系统"],
+            titleList: "重庆定制版查询系统",
             current: 1,
             currentZZ: 1, //资质切换
             firmAlias: "",
@@ -557,13 +557,13 @@ export default {
                 },
                 credit: {//信用筛选
                     // creditSource: "信用中国-行政处罚", //信用来源
-                    // punishType: "全部", //处罚类别
+                    // punishType: "", //处罚类别
                     creditKeyword: "", //信用关键字
                     punishStart: "", //处罚开始日期
                     punishEnd: "", //处罚结束日期
                     scoreStart: "", //综合开始得分
                     scoreEnd: "",//综合结束得分
-                    creditQuery: "not", //是否查询
+                    creditQuery: "", //是否查询
                     // creCount: 1, //符合信用的数量
                 },
                 person:[], //人员
@@ -582,7 +582,6 @@ export default {
             isNoSee: true,
             isoptType: false,
             pkid: "", //查询id;
-            chongqi: true, //是否是重庆专查
         };
     },
     watch: {
@@ -598,13 +597,12 @@ export default {
                     this.isyj=false;
                     this.data.project.proCount = 0;
                 }
-                let arr=newval.keywords.split(' ');
+                let arr = newval.keywords.split(' ');
                 if(arr.length>1){
                     this.isoptType=true
                 }else{
                     this.isoptType=false
                 }
-                this.data.project.proCount=1;
             }
         },
         data:{
@@ -649,13 +647,22 @@ export default {
                 })
             }else {
                 this.data.zhuanchaType = "person";
-                data.project.proCount= "1";
-                personConut(data).then(res => {
-                    // if(res.code == '1') {
-                    //     this.total = res.data.count;
-                    // }else {
-                    //     console.info(res.code);
-                    // }
+                data.project.proCount = 1;
+                //深拷贝不影响this.data的值;
+                let creditList = JSON.parse(JSON.stringify(this.data)) ;
+                for (let i in creditList) {
+                    if(i == "credit") {
+                        delete creditList[i];
+                    }
+                }
+                personConut(creditList).then(res => {
+                    if(res.code == '1') {
+                        const {count, pkid } = res.data;
+                        this.total = count;
+                        this.pkid = pkid;
+                    }else {
+                        console.info(res.code);
+                    }
                 })
             }
         },
@@ -786,7 +793,8 @@ export default {
                         path:'/payPage',
                         query: {
                             pkid: this.pkid,
-                            page: page
+                            page: page,
+                            source: this.data.projectSource,
                         }
                     })
             }else{

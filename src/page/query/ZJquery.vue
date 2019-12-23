@@ -328,9 +328,6 @@ export default {
     },
     watch: {
         // 监控集合
-        // 'data.project.keywords'(newVal,oldVal){
-        //     this.ajax()
-        // },
         'data.project':{
             deep:true,
             handler(newval,oldVal){

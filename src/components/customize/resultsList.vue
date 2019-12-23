@@ -10,14 +10,14 @@
                 <i class="iconfont iconfanhuixiugai"></i>
             </div> -->
         </div>
-        <div class="pt20 pl20 pr20 bg-ffe list">
+        <div class="pt20 pl20 pr20 bg-ffe list" v-loading="loading">
             <div class="fs18">
-                <el-row v-if="data.regisAddress&&data.regisAddress!=''" class="pb20 tagId">
+                <el-row v-if="data.regisAddress&&data.regisAddress!=''&&this.$parent.chongq" class="pb20 tagId">
                     <el-col :span="2.5" class="fw600">企业地区：</el-col>
                     <el-col :span="21">{{data.regisAddress}}</el-col>
                 </el-row>
                 <el-row
-                    v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''"
+                    v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''&&data.joinRegion !== 'all_in'"
                     class="pb20 tagId"
                 >
                     <el-col :span="2.5" class="fw600">备案地区：</el-col>
@@ -57,19 +57,19 @@
                 >
                     <el-col :span="2.5" class="fw600">业绩要求：</el-col>
                     <el-col :span="21">
-                        <template v-if="$route.query.type=='zj'">
+                        <template>
                             <v-zjyj :project="data.project"></v-zjyj>
                         </template>
-                        <template v-else-if="$route.query.type=='gl'">
+                        <!-- <template>
                             <v-glyj :project="data.project"></v-glyj>
-                        </template>
-                        <template v-else>
+                        </template> -->
+                        <!-- <template>
                             <v-slyj :project="data.project"></v-slyj>
-                        </template>
+                        </template> -->
                     </el-col>
                 </el-row>
                 <!-- 信用等级 -->
-                <template v-if="$route.query.type!='zj'">
+                <template>
                     <el-row
                         v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)"
                         class="pb20 tagId"
@@ -153,6 +153,8 @@ export default {
             peopleList: [],
             showAll: false,
             resultNum: "",
+            showArea: false,
+            loading: true,
         };
     },
     watch: {
@@ -223,8 +225,10 @@ export default {
                 pkid: this.$route.query.pkid
             }
         }).then(res => {
+            this.loading = false;
             this.data = res.data.data.condition;
             this.$parent.total = res.data.data.condition.totals;
+            this.$emit('getArea',this.data.joinRegion);
         });
         //获取search-content底下所有子元素
         var arr = [];
@@ -310,6 +314,7 @@ export default {
 .resultsList {
     .list {
         border: 1px solid @initColor;
+        min-height: 70px;
         h4 {
             color: #333;
             font-size: 18px;
