@@ -163,7 +163,6 @@ export default {
     methods: {
         // 方法 集合
         getOrderNo() {
-            console.info('that.$route.query.pkid',this.$route.query.pkid);
             let that = this;
             this.$http({
                 method: "post",

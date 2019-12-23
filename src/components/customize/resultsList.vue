@@ -71,12 +71,12 @@
                 <!-- 信用等级 -->
                 <template>
                     <el-row
-                        v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)"
+                        v-if="data.credit"
                         class="pb20 tagId"
                     >
-                        <el-col :span="2.5" class="fw600">信用等级：</el-col>
-                        <el-col :span="21">
-                            <template v-if="$route.query.type=='gl'">
+                        <el-col :span="3.5" class="fw600">诚信综合评价：</el-col>
+                        <el-col :span="20">
+                            <template>
                                 <!-- 评价类型 -->
                                 <div class="fx-box" v-if="data.credit.creditType">
                                     <div :span="1" class="fw600">评价类型：</div>
@@ -97,7 +97,7 @@
                                     class="fx-box"
                                     v-if="data.credit.scoreStart||data.credit.scoreEnd"
                                 >
-                                    <div :span="1" class="fw600">等级评分：</div>
+                                    <div :span="1">综合得分：</div>
                                     <div>
                                         <template
                                             v-if="!data.credit.scoreStart||data.credit.scoreStart==''"
@@ -109,18 +109,18 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-else>
+                            <!-- <template v-else> -->
                                 <!-- 申请类型 -->
-                                <div class="fx-box" v-if="data.credit.creditType">
+                                <!-- <div class="fx-box" v-if="data.credit.creditType">
                                     <div :span="1" class="fw600">申请类型：</div>
                                     <div>{{data.credit.creditType}}</div>
-                                </div>
+                                </div> -->
                                 <!-- 信用等级 -->
-                                <div class="fx-box" v-if="data.credit.levels">
+                                <!-- <div class="fx-box" v-if="data.credit.levels">
                                     <div :span="1" class="fw600">信用等级：</div>
                                     <div>{{data.credit.levels}}</div>
                                 </div>
-                            </template>
+                            </template> -->
                         </el-col>
                     </el-row>
                 </template>
