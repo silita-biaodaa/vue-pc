@@ -32,7 +32,6 @@ import traffic from '@/page/companys/traffic'
 		data() {
 			return {
 				id: '',
-				// loading: true,
 				showArr: [],
 				waterArr: [],
 				traArr: [],

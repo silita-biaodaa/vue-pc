@@ -131,7 +131,6 @@
 	.achievement {
 		.bid-content{
 			width: 844px;
-		
 		}
 		.e-nav {
 			display: flex;
