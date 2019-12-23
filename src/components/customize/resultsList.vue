@@ -8,11 +8,14 @@
             <!-- <div class="color-449 fs18 cp" v-if="this.$parent.payPage">
                 <span class="mr10">返回修改</span>
                 <i class="iconfont iconfanhuixiugai"></i>
-            </div> -->
+            </div>-->
         </div>
         <div class="pt20 pl20 pr20 bg-ffe list" v-loading="loading">
             <div class="fs18">
-                <el-row v-if="data.regisAddress&&data.regisAddress!=''&&this.$parent.chongq" class="pb20 tagId">
+                <el-row
+                    v-if="data.regisAddress&&data.regisAddress!=''&&this.$parent.chongq"
+                    class="pb20 tagId"
+                >
                     <el-col :span="2.5" class="fw600">企业地区：</el-col>
                     <el-col :span="21">{{data.regisAddress}}</el-col>
                 </el-row>
@@ -62,68 +65,45 @@
                         </template>
                         <!-- <template>
                             <v-glyj :project="data.project"></v-glyj>
-                        </template> -->
+                        </template>-->
                         <!-- <template>
                             <v-slyj :project="data.project"></v-slyj>
-                        </template> -->
+                        </template>-->
                     </el-col>
                 </el-row>
-                <!-- 信用等级 -->
-                <template>
-                    <el-row
-                        v-if="data.credit&&(data.credit.scoreStart||data.credit.scoreEnd)"
-                        class="pb20 tagId"
-                    >
-                        <el-col :span="3.5" class="fw600">诚信综合评价：</el-col>
-                        <el-col :span="20">
-                            <template>
-                                <!-- 评价类型 -->
-                                <div class="fx-box" v-if="data.credit.creditType">
-                                    <div :span="1" class="fw600">评价类型：</div>
-                                    <div>{{data.credit.creditType}}</div>
-                                </div>
-                                <!-- 评价省份 -->
-                                <div class="fx-box" v-if="data.credit.province">
-                                    <div :span="1" class="fw600">评价省份：</div>
-                                    <div>{{data.credit.province}}</div>
-                                </div>
-                                <!-- 评价年份等级 -->
-                                <div class="fx-box" v-if="data.credit.evaluateYear">
-                                    <div :span="1" class="fw600">评价年份等级：</div>
-                                    <div>{{data.credit.evaluateYear}}</div>
-                                </div>
-                                <!-- 等级评分-->
-                                <div
-                                    class="fx-box"
-                                    v-if="data.credit.scoreStart||data.credit.scoreEnd"
-                                >
-                                    <div :span="1">综合得分：</div>
-                                    <div>
-                                        <template
-                                            v-if="!data.credit.scoreStart||data.credit.scoreStart==''"
-                                        >小于{{data.credit.scoreEnd}}分</template>
-                                        <template
-                                            v-else-if="!data.credit.scoreEnd||data.credit.scoreEnd==''"
-                                        >大于{{data.credit.scoreStart}}分</template>
-                                        <template>大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
-                                    </div>
-                                </div>
-                            </template>
-                            <!-- <template v-else> -->
-                                <!-- 申请类型 -->
-                                <!-- <div class="fx-box" v-if="data.credit.creditType">
-                                    <div :span="1" class="fw600">申请类型：</div>
-                                    <div>{{data.credit.creditType}}</div>
-                                </div> -->
-                                <!-- 信用等级 -->
-                                <!-- <div class="fx-box" v-if="data.credit.levels">
-                                    <div :span="1" class="fw600">信用等级：</div>
-                                    <div>{{data.credit.levels}}</div>
-                                </div>
-                            </template> -->
-                        </el-col>
-                    </el-row>
-                </template>
+                <!-- 诚信综合评价 -->
+                <el-row
+                    v-if="data.credit&&(data.credit.scoreStart||data.credit.scoreEnd)"
+                    class="pb20 tagId"
+                >
+                    <el-col :span="3.5" class="fw600">诚信综合评价：</el-col>
+                    <el-col :span="20">
+                        <!-- 等级评分-->
+                        <div class="fx-box">
+                            <div :span="1">综合得分：</div>
+                            <div>
+                                <template
+                                    v-if="!data.credit.scoreStart||data.credit.scoreStart==''"
+                                >小于{{data.credit.scoreEnd}}分</template>
+                                <template
+                                    v-else-if="!data.credit.scoreEnd||data.credit.scoreEnd==''"
+                                >大于{{data.credit.scoreStart}}分</template>
+                                <template>大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row class="pd20">
+                    <el-col :span="2.5" class="fw600">信用要求：</el-col>
+                    <el-col :span="21">
+                        <div>处罚决定日期：</div>
+                        <div>
+                            <template v-if="!data.credit.contractStart||data.credit.contractStart==''">{{data.credit.contractEnd}}以前</template>
+                            <template v-else-if="!data.credit.contractEnd||data.credit.contractEnd==''">{{data.credit.contractStart}}以后</template>
+                            <template v-else>{{data.credit.contractStart}}到{{data.credit.contractEnd}}</template>
+                        </div>
+                    </el-col>
+                </el-row>
                 <!-- <div class="list_bottom dfcc mb20">
                     <div class="line_left mr20"></div>
                     <div class="cp drc">
@@ -134,7 +114,7 @@
                         ></i>
                     </div>
                     <div class="line_right ml20"></div>
-                </div> -->
+                </div>-->
             </div>
         </div>
     </div>
@@ -154,7 +134,7 @@ export default {
             showAll: false,
             resultNum: "",
             showArea: false,
-            loading: true,
+            loading: true
         };
     },
     watch: {
@@ -228,7 +208,7 @@ export default {
             this.loading = false;
             this.data = res.data.data.condition;
             this.$parent.total = res.data.data.condition.totals;
-            this.$emit('getArea',this.data.joinRegion);
+            this.$emit("getArea", this.data.joinRegion);
         });
         //获取search-content底下所有子元素
         var arr = [];
@@ -304,7 +284,7 @@ export default {
                 }
             }
             return tag;
-        },
+        }
     }
 };
 </script>
