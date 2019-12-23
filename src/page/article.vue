@@ -211,7 +211,7 @@
 					}
 					/*关注按钮*/
 					.attention{
-						width:55px;
+						padding: 0 7px;
 						line-height: 18px;
 						border: 1px solid #EB651B;
 						color: #EB651B;
@@ -224,7 +224,12 @@
 							margin-left: 6px;
 						}
 					}
+					.collect{
+						background: #EB651B;
+						color: #fff
+					}
 				}
+				
 				.term{
 					margin-bottom: 10px;
 					font-size: 18px;

@@ -15,8 +15,9 @@ import  navPage  from '@/components/paging';//分页组件（封装element，方
 import  enSearch from '@/components/home'//顶部搜索框
 import  logoNav from '@/components/logoNav'
 import fvip from '@/components/fvip'//无会员弹窗
-import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制
-import usercenter from '@/components/user-center'
+import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制）
+import usercenter from '@/components/user-center'//未知
+import provCity from '@/components/provCity'//省市
 import city from '@/components/bid/city'
 import allCity from '@/components/bid/allCity'
 import perpor from '@/page/perfor/perpor'
@@ -26,7 +27,7 @@ import comment from '@/page/comment/comment'
 import myInput from "@/components/customize/myInput" //输入框
 
 import {getOpenid,ThirdLogin} from "@/api/index"
-Vue.component('v-user',usercenter)
+Vue.component('v-user',usercenter)//
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
 Vue.component('logo-Nav', logoNav)
@@ -34,6 +35,7 @@ Vue.component('f-vip', fvip)
 Vue.component('v-comjump',companyJump)
 Vue.component('v-bread',publicBread)
 Vue.component('v-myInput',myInput)
+Vue.component('v-provcity',provCity)
 
 Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
 Vue.component('all-city', allCity)//用于企业市级筛选（优化后可删）
@@ -42,26 +44,6 @@ Vue.component('m-oney', money)//钱筛选组件,感觉其中逻辑不够灵活
 Vue.component('per-time', pertime)//时间筛选组件,感觉其中逻辑不够灵活
 
 Vue.component('com-ment', comment)//评论组件
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Vue.prototype.qjTipTxt='查看更多信息，请立即登录!';
 Vue.prototype.modalHelper = (function () {

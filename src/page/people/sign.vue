@@ -100,12 +100,15 @@
 				display: grid;
 				grid-template-columns: 116px 166px 116px 166px 116px 166px;
     			font-size: 14px;
-				align-items:center;
+				align-items:stretch;
+				grid-template-rows:48px auto 48px;
 				p{
 					padding-left: 30px;
 					box-sizing: border-box;
+					// padding-top: 14px;
 					line-height: 48px;
-					height: 48px;
+					height: 100%;
+					min-height: 48px;
 				}
 				.bg-color{
 					width: 116px;

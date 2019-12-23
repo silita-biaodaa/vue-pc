@@ -190,7 +190,7 @@
 					}
 					/*关注按钮*/
 					.attention{
-						width:55px;
+						padding: 0 7px;
 						line-height: 18px;
 						border: 1px solid #EB651B;
 						color: #EB651B;
@@ -200,8 +200,11 @@
 						.el-icon-plus{
 							transform: scale(0.8);
 							font-size: 12px;
-							margin-left: 6px;
 						}
+					}
+					.collect{
+						background: #EB651B;
+						color: #fff
 					}
 				}
 			}
