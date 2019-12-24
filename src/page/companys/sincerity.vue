@@ -1,12 +1,10 @@
 <template>
 	<div class="icbc">
 		<div class="ic-nav">
-			<span v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
+			<div v-for="(o,i) of navlist" class="navspan" :key="i" :class="{'ic-dark':navNum==i}" @click="navTapFn(i,o.isAjax)">
 				{{o.name}}
-				<template v-if="o.length!=0">
-					(<span>{{o.length}}</span>)
-				</template>
-			</span>
+				<span class="nav-line" v-if="navNum==i" ></span>
+			</div>
 		</div>
 		<template v-if="isajax">
 			<!-- 企业荣誉 -->
@@ -131,14 +129,23 @@
 		padding: 1px 0;
 		.ic-nav {
 			font-size: 14px;
-			color: #999;
-			margin: 15px 0 14px 23px;
+			color: #000;
 			cursor: pointer;
-			font-weight: 550;
-
+			display: flex;
+			margin-bottom: 20px;
 			.navspan {
-				border-right: 1px solid #999;
-				padding: 0 10px;
+				margin-right: 30px;
+				line-height: 38px;
+				position: relative;
+				.nav-line {
+					position: absolute;
+					height: 4px;
+					width: 30px;
+					bottom: 0;
+					left: 50%;
+					transform: translateX(-52%);
+					background-color: #FE6603;
+				}
 			}
 
 			.navspan:last-child {

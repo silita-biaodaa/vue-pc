@@ -101,7 +101,7 @@
 						{{el.证书编号}}
 					</div>
 					<div style="width:126px;">
-						{{el.证书专业 ? el.证书专业 : '/'}}
+						{{el.证书专业 ? el.证书专业 : '--'}}
 					</div>
 					<div style="width:70px;border:none">
 						{{el.等级}}
