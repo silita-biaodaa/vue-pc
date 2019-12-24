@@ -3,7 +3,7 @@
 		<div class="notice"  slot="left">
 			<div class="top-box">
 				<div class="maxw">
-					<v-bread :breadList="[{ title: '公告详情'}]"></v-bread>
+					<v-bread :breadList="[{ title: '中标'},{title:'中标详情'}]"></v-bread>
 					<h3 class="mb10">{{articles.title}}</h3>
 					<div class="dfrcb information-box mb20">
 						<div class="drc">

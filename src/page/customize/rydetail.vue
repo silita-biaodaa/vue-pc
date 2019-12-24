@@ -402,14 +402,7 @@ export default {
             })
         },
         jumpYjDetail(id){//跳转到业绩详情
-            let path=''
-            if(this.$route.query.type=='zj'){
-                path='/urban'
-            }else if(this.$route.query.type=='gl'){
-                path='/traffic'
-            }else if(this.$route.query.type=='sl'){
-                path='/irrigation'
-            }
+            let path='/urban'
             let query={
                 id: id
             }

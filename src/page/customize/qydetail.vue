@@ -147,8 +147,14 @@
                                 <thead>
                                     <td style="width:55px">序号</td>
                                     <td style="width:calc(100% - 478px)">项目名称</td>
-                                    <td style="width:100px">业绩类型</td>
-                                    <td style="width:190px">中标金额/合同金额（万元）</td>
+                                    <template v-if="$route.query.source=='chongq'">
+                                        <td style="width:100px">项目类别</td>
+                                        <td style="width:190px">项目金额（万元）</td>
+                                    </template>
+                                    <template v-else>
+                                        <td style="width:100px">业绩类型</td>
+                                        <td style="width:190px">中标金额/合同金额（万元）</td>
+                                    </template>
                                     <td style="width:120px">竣工时间</td>
                                 </thead>
                                 <tbody>
@@ -200,7 +206,7 @@
                                 <tbody>
                                     <tr v-for="(o,i) of xzList" :key="i">
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
-                                        <td>{{o.punishCode}}</td>
+                                        <td class="curpon">{{o.punishCode}}</td>
                                         <td>{{o.punishType}}</td>
                                         <td>{{o.punishDate}}</td>
                                         <td>{{o.punishOrg}}</td>
@@ -281,7 +287,7 @@ export default {
             ryData:{
                 type:'person',
                 pageNo:1,
-                pageSize:20
+                pageSize:10
             },
             ryTotal:0,
             ryList:[],
