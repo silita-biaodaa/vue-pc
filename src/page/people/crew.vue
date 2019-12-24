@@ -3,16 +3,11 @@
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="option-box">
 			<per-por :state='state' @perPor='gainPor' :address="data.province"></per-por>
-			<div class="select">
-				<el-row>
-					<el-col :span='2'>注册类别:
-					</el-col>
-					<el-col :span='22'>
-						<ul class='left pro'>
-							<li v-for='(el,i) in list' :key='i' class='left' :class="el.category == data.category ? 'current':''" @click='evalclass(el)'>{{el.category}}</li>
-						</ul>
-					</el-col>
-				</el-row>
+			<div class="select dfrb">
+				<h6>注册类别</h6>
+				<ul>
+					<li v-for='(el,i) in list' :key='i' :class="el.category == data.category ? 'current':''" @click='evalclass(el)'>{{el.category}}</li>
+				</ul>
 			</div>
 		</div>
 		<div class="total">
@@ -290,6 +285,9 @@
 </script>
 <style lang="less" scoped>
 .crew {
+	.option-box{
+		padding-bottom: 0
+	}
 	.isUnder{
 		border: 1px solid #EB651B;
 		color: #EB651B;

@@ -100,7 +100,23 @@ Vue.prototype.formatDate = function(param, type=null) {
   }
   return b;
 }
-
+//fix层防滚动
+Vue.prototype.modalHelper = (function() {
+	var scrollTop;
+	return {
+		afterOpen: function(){
+		    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+		    document.body.style.cssText += 'position:fixed;width:100%;top:-'+scrollTop+'px;';
+		},
+		beforeClose: function() {
+		    var body = document.body;
+		    body.style.position = '';
+		    var top = body.style.top;
+		    document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+		    body.style.top = '';
+		}
+	};
+})();
 /*新开页跳转*/
 Vue.prototype.openNewLink = function(path,query=null){
   const {href} = router.resolve({

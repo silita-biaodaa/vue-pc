@@ -1,26 +1,33 @@
 <template>
-	<div class="perpor">
-		<div class="select">
-			<el-row>
-				<el-col :span='2'>{{timeTxt}}:</el-col>
-				<el-col :span='6'>
-					<ul class='left pro'>
-						<li v-for='(el,i) in province' :key='i' class='left' :class="el.old == Otime ? 'current':''" @click='evalclass(el)'>{{el.name}}
-						</li>
-					</ul>
-				</el-col>
-				<el-col :span="12" class="ttt">
-					<el-date-picker v-model="defO" type="date" value-format='yyyy-MM-dd' placeholder="起始日期">
-					</el-date-picker>
-					<div class="in-line">
-
-					</div>
-					<el-date-picker v-model="defN" type="date" value-format='yyyy-MM-dd' placeholder="结束日期">
-					</el-date-picker>
-					<div class="t-btn" @click="find">确定</div>
-				</el-col>
-			</el-row>
+	<div class="select dfrb">
+		<h6>{{timeTxt}}</h6>
+		<div>
+			<ul>
+				<li v-for='(el,i) in province' :key='i' :class="el.old == Otime ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
+			</ul>
+			<div class="row drc fs14">
+				<el-date-picker class="borde fs14 mr20" v-model="defO" type="date" value-format='yyyy-MM-dd' placeholder="起始日期"></el-date-picker>
+				至
+				<el-date-picker class="borde fs14 ml20 mr20" v-model="defN" type="date" value-format='yyyy-MM-dd' placeholder="结束日期"></el-date-picker>
+				<div  class="t-btn bg-theme cp" @click="find">确定</div>
+			</div>
 		</div>
+		<!-- <el-col :span='6'>
+			<ul class='left pro'>
+				<li v-for='(el,i) in province' :key='i' class='left' :class="el.old == Otime ? 'current':''" @click='evalclass(el)'>{{el.name}}
+				</li>
+			</ul>
+		</el-col>
+		<el-col :span="12" class="ttt">
+			<el-date-picker v-model="defO" type="date" value-format='yyyy-MM-dd' placeholder="起始日期">
+			</el-date-picker>
+			<div class="in-line">
+
+			</div>
+			<el-date-picker v-model="defN" type="date" value-format='yyyy-MM-dd' placeholder="结束日期">
+			</el-date-picker>
+			<div class="t-btn" @click="find">确定</div>
+		</el-col> -->
 	</div>
 </template>
 <script>
@@ -132,11 +139,36 @@
 		}
 	}
 </script>
-<style lang="less">
-	.perpor {
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
+<style lang="less" scoped>
+	.select.dfrb>div{
+		width:calc(100% - 84px);
+		ul{
+			width:100%
+		}
+		.row{
+			.el-input{
+				width: 110px;
+				height:36px;
+				padding: 8px 10px;
+				box-sizing: border-box;
+			}
+			.el-input /deep/ input{
+				background: transparent;
+				padding: 0;
+				border: none;
+				height: auto;
+				padding-left: 20px;
+				line-height: normal
+			}
+			.el-input /deep/ .el-input__icon{
+				line-height: normal
+			}
+			.t-btn{
+				width: 60px;
+				line-height: 36px;
+				color: #fff;
+				text-align: center;
+			}
 		}
 	}
 </style>
