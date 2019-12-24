@@ -2,16 +2,14 @@
 	<div class="intell"  @keyup.enter="searchFn" >
 		<div class="in-nav new-nav">
 
-			<div>
-				<span class=" in-po" :class="pro ? 'current' : ''" @click="swpro">住建部 ({{proT}})</span>
-				<span class="m-lr">/</span>
-				<span class=" in-po" :class="water ? 'current' : ''" @click="swater">水利部 ({{waterT}})</span>
-				<span class="m-lr">/</span>
-				<span class=" in-po" :class="tra ? 'current' : ''" @click="swtra">交通部 ({{traT}})</span>
+			<div class="nav-in" >
+				<div class="in-po" :class="pro ? 'current' : ''" @click="swpro">住建部 ({{proT}}) <div class="po-b" v-if="pro" ></div> </div>
+				<div class="in-po" :class="water ? 'current' : ''" @click="swater">水利部 ({{waterT}}) <div class="po-b" v-if="water" ></div> </div>
+				<div class="in-po" :class="tra ? 'current' : ''" @click="swtra">交通部 ({{traT}}) <div class="po-b" v-if="tra" ></div> </div>
 			</div>
 
 			<div>
-				<el-input placeholder="请输入关键字搜索" suffix-icon="el-icon-search" v-model="search">
+				<el-input placeholder="请输入关键字搜索" prefix-icon="el-icon-search" v-model="search">
 				</el-input>
 			</div>
 
@@ -34,7 +32,6 @@ import traffic from '@/page/companys/traffic'
 		data() {
 			return {
 				id: '',
-				// loading: true,
 				showArr: [],
 				waterArr: [],
 				traArr: [],
@@ -155,56 +152,61 @@ import traffic from '@/page/companys/traffic'
 </script>
 <style lang="less">
 	.intell {
-		background-color: #fff;
-
-		// padding-bottom: 50px;
 		.current {
-			color: #333;
+			color: #EB651B;
 		}
-
 		.el-loading-spinner .path {
 			stroke: #FE6603;
 		}
-
 		.el-loading-spinner .el-loading-text {
 			color: #FE6603;
 		}
-
 		.in-nav {
 			font-size: 14px;
-			color: #999;
-			height: 56px;
-			line-height: 56px;
-			padding-left: 22px;
-			font-weight: 550;
-
+			color: #000;
 			.in-pdd {
 				padding: 0 5px;
 			}
-
+			.nav-in {
+				display: flex;
+			}
 			.in-po {
 				cursor: pointer;
-				// vertical-align: bottom;
+				height: 38px;
+				line-height: 38px;
+				position: relative;
+				margin-right: 30px;
+				.po-b {
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					transform: translateX(-55%);
+					background-color: #EB651B;
+					height: 4px;
+					width: 30px;
+				}
 			}
-
+			.el-input__inner {
+				background-color: #F4F4F4;
+				i {
+					color: #B6B6B6;
+				}
+			}
 			.m-lr {
 				margin: 0 5px;
 			}
 		}
-
 		.new-nav {
 			display: flex;
 			justify-content: space-between;
-			margin-right: 9px;
+			align-items: center;
+			margin-bottom: 20px;
 		}
-
 		.e-page {
 			display: flex;
 			justify-content: center;
-			// height: 150px;
 			padding-top: 50px;
 			padding-bottom: 75px;
-
 			.paging {
 				ul {
 					li {
@@ -213,7 +215,6 @@ import traffic from '@/page/companys/traffic'
 						padding: 0 8px;
 						margin-right: 5px;
 					}
-
 					.put-jump {
 						height: 30px;
 						line-height: 30px;
@@ -221,13 +222,9 @@ import traffic from '@/page/companys/traffic'
 				}
 			}
 		}
-
 		.in-tabler {
-			margin: 0 9px;
-			// border: 1px solid #f2f2f2;
-			font-size: 12px;
-			color: #333;
+			font-size: 14px;
+			color: #000;
 		}
-
 	}
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div class="bur">
-		<div class="law-nav">
+		<!-- <div class="law-nav">
 			<div class="left" style="width:54px">
 				序号
 			</div>
@@ -19,12 +19,42 @@
 			<div class="left" style="width:120px">
 				项目属地
 			</div>
-		</div>
+		</div> -->
 		<!-- 判断是否加载中 -->
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="allArr&&allArr.length>0">
-				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el)">
+					<table class="table-content">
+						<tr>
+							<td  style="width:54px">
+								序号
+							</td>
+							<td  style="width:200px">
+								项目名称
+							</td>
+							<td  style="width:140px">
+								项目类别
+							</td>
+							<td  style="width:140px">
+								合同金额
+							</td>
+							<td  style="width:120px">
+								竣工时间
+							</td>
+							<td  style="width:120px">
+								项目属地
+							</td>
+						</tr>
+						<tr v-for="(el,i) in allArr" :key="i" @click="decide(el)">
+							<td>{{(current-1)*20+(i+1)}}</td>
+							<td>{{el.proName ? el.proName: '--'}}</td>
+							<td>{{el.proType ? el.proType: '--'}}</td>
+							<td>{{el.amount ? el.amount + '万': '--'}}</td>
+							<td>{{el.buildEnd ? el.buildEnd: '--'}}</td>
+							<td>{{el.province ? el.province: '--'}}</td>
+						</tr>
+					</table>
+				<!-- <div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el)">
 					<div class="left" style="width:54px">
 						{{(current-1)*20+(i+1)}}
 					</div>
@@ -43,7 +73,7 @@
 					<div class="left" style="width:120px">
 						{{el.province ? el.province: '--'}}
 					</div>
-				</div>
+				</td> -->
 				<div class="e-page" v-if="total>20">
 					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 				</div>
@@ -151,34 +181,9 @@
 </script>
 <style lang="less">
 	.bur {
-		border: 1px solid #f2f2f2;
-
-		.law-nav {
-			height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			line-height: 40px;
-			font-size: 12px;
-			color: #333;
-			text-align: center;
-			font-weight: 550;
-		}
-
-		.law-text {
-			min-height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			font-size: 12px;
-			color: #333;
-			font-weight: 550;
-			display: flex;
-			align-items: center;
-			text-align: center;
-			cursor: pointer;
-		}
-
 		.p-10 {
 			padding: 6px 0;
 		}
-
 		.no-search {
 			width: 100%;
 			height: 500px;

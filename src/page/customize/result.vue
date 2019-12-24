@@ -18,6 +18,7 @@
                         class="pt20 pb20 pl20 pr20 result_list"
                         v-for="(item,index) in ryList"
                         :key="index"
+                        @click="jumpDetail('ry',item)"
                     >
                         <div class="mb30">
                             <span class="color-449 fw600 fs18">{{item.name}}</span>
@@ -49,6 +50,7 @@
                         class="pt20 pb20 pl20 pr20 result_list"
                         v-for="(item,index) in qyList"
                         :key="index"
+                        @click="jumpDetail('qy',item)"
                     >
                         <div class="mb30 dfrb">
                             <div class="drc">
@@ -69,14 +71,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="block text-c">
-                <el-pagination
-                    @current-change="handleCurrentChange"
-                    :current-page="1"
-                    :page-size="10"
-                    layout="total, prev, pager, next, jumper"
-                    :total="total"
-                ></el-pagination>
+            <div class="page">
+                <nav-page :all='total' :currents='pagenum' :pageSize='pagesize' @skip='handleCurrentChange'></nav-page>
             </div>
         </div>
     </div>
@@ -134,7 +130,7 @@ export default {
         },
         handleCurrentChange(val) {
             // 当前页改变的函数
-            this.pagenum = val;
+            this.pagenum = val.cur;
             if(this.$route.query.page == "qy") {
                 this.getQYlist();
             }else {
@@ -143,6 +139,24 @@ export default {
         },
         getChilren(data) {
             // console.info("data",data);
+        },
+        jumpDetail(type,el){//跳转至详情页
+            let d={
+                path:'',
+                query:{
+                    id:el.comId,
+                    n:this.$route.query.orderNo,
+                }
+            }
+            if(type=='ry'){
+                d.path='peopleDetail'
+                d.query.name=el.name
+                d.query.perid=el.perId
+            }else if(type=='qy'){
+                d.path='companyDetail'
+                d.query.source=this.$route.query.source
+            }
+            this.openNewLink(d.path,d.query)
         }
     },
     created() {

@@ -3,17 +3,17 @@
     <div class="rydetail">
         <!-- 头 -->
 		<v-head :headTxt="'重庆定制版查询系统'"></v-head>
-        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:曹长卿}]"></v-bread>
+        <v-bread :breadList="[{ title: '重庆定制版查询系统'},{title:'查询结果'},{title:basic.name}]"></v-bread>
         <!-- 基本信息 -->
         <div class="basic maxW-box">
             <div class="title">
                 <i class="iconfont iconshenfen"></i>
-                曹长卿
+                {{basic.name}}
                 <!-- <v-region :data="basic.joinRegion"></v-region> -->
             </div>
             <div class="people-box">
-                <span>身份证号：4301011966*****</span>
-                <span>性别：男</span>
+                <span>身份证号：{{basic.idCard}}</span>
+                <span>性别：{{basic.sex}}</span>
             </div>
         </div>
         <!--列表-->
@@ -57,53 +57,51 @@
                         <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
                     </div>
                     <!-- 加载中 -->
-                    <!-- <template v-if="ryIsajax"> -->
-                        <!-- <template v-if="ryList&&ryList.length>0"> -->
-                            <ul class="certificate">
-                                <li>
-                                    <div class="box">
-                                        <div>
-                                            <span>注册类别：</span>
-                                            一级注册建筑师
-                                        </div>
-                                        <div>
-                                            <span>注册专业：</span>
-                                            土建
-                                        </div>
-                                        <div></div>
-                                        <div>
-                                            <span>证书编号：</span>
-                                            192231410
-                                        </div>
-                                        <div>
-                                            <span>执业印章号：</span>
-                                            281827-007
-                                        </div>
-                                        <div>
-                                            <span>有效期：</span>
-                                            2021-11-18
-                                        </div>
-                                        <div class="company-people">
-                                            <span>注册单位：</span>
-                                            湖南耀邦建设有限公司
-                                        </div>
-                                    </div>
-                                    <div class="num">1</div>
-                                </li>
-                            </ul>
-                            <div class="page">
-                                <nav-page :all='ryTotal' :currents='ryData.pageNo' :pageSize='ryData.pageSize' @skip='ryGoto'></nav-page>
-                            </div>
-                        <!-- </template> -->
+                    <template v-if="ryIsajax">
+                        <template v-if="ryList&&ryList.length>0">
+                            <table>
+                                <thead>
+                                    <td>序号</td>
+                                    <td>注册单位</td>
+                                    <td>证书编号</td>
+                                    <td>执业印章号</td>
+                                    <td>有效期</td>
+                                    <td>注册类别</td>
+                                    <td>注册专业</td>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(o,i) of ryList" :key="i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{o.comName}}</td>
+                                        <td>{{o.certNo}}</td>
+                                        <td>{{o.sealNo}}</td>
+                                        <td>{{o.validDate}}</td>
+                                        <td class="cate">
+                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="x.joinRegion">{{x.joinRegion}}企业</span></p>
+                                        </td>
+                                        <td class="cate-key">
+                                            <div v-for="(x,y) of o.categorys" :key="y">
+                                                <template v-if="x.cateList.length>0">
+                                                    <p v-for="(a,b) of x.cateList" :key="b">{{a}}</p>
+                                                </template>
+                                                <template v-else>
+                                                    <p>&nbsp;</p>
+                                                </template>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
                         <!-- 无数据  -->
-                        <!-- <template v-else-if="ryList&&ryList.length==0">
+                        <template v-else-if="ryList&&ryList.length==0">
                             <div class="no-toast">
                                 <img src="../../assets/img/bank_card @2x.png" alt="">
                                 <span>Sorry，没有找到符合条件的证书信息</span>
                             </div>
-                        </template> -->
+                        </template>
                         <!-- 加载失败 -->
-                        <!-- <template v-else-if="!ryList">
+                        <template v-else-if="!ryList">
                             <div class="ajax-erroe">
                                 <img src="../../assets/img/pic-zoudiu.png" />
                                 <span @click="recoldFn">刷新</span>
@@ -112,7 +110,7 @@
                     </template>
                     <template v-else>
                         <div style="min-height:240px" v-loading="loading" element-loading-text="拼命加载中"></div>
-                    </template> -->
+                    </template>
                 </template>
                 <!-- 业绩 -->
                 <template v-else-if="tabNum=='符合要求项目'">
@@ -210,8 +208,6 @@ export default {
             yjIsajax:false,
             ryData:{
                 type:'person',
-                pageNo:1,
-                pageSize:20
             },
             ryTotal:0,
             ryList:[],
@@ -252,8 +248,10 @@ export default {
         //基本信息
         let data={
             comId:this.$route.query.id,
-            type:'detail',
-            orderNo:this.$route.query.n
+            type:'personDetail',
+            orderNo:this.$route.query.n,
+            name:this.$route.query.name,
+            perId:this.$route.query.perid
         }
         this.$http({
             method:'post',
@@ -277,6 +275,7 @@ export default {
                     this.tabNum='符合要求证书'
                     this.ryData.orderNo=this.$route.query.n;
                     this.ryData.comId=this.$route.query.id;
+                    this.ryData.name=this.$route.query.name
                     this.ryAjax();
                 }else if(this.tabList[2].num>0){
                     this.tabNum='符合要求项目'
@@ -344,8 +343,6 @@ export default {
             if(o.name=='符合要求资质'){
                 this.zzAjax(data);
             }else if(o.name=='符合要求证书'){
-                // this.ryData.orderNo=this.$route.query.n;
-                // this.ryData.comId=this.$route.query.id;
                 // this.ryAjax();
             }else if(o.name=='符合要求项目'){
                 this.yjData.orderNo=this.$route.query.n;
@@ -420,10 +417,6 @@ export default {
         },
         /*业绩 end*/
         /** 人员   start**/
-        ryGoto(val){
-            this.ryData.pageNo = val.cur
-            this.ryAjax()
-        },
         ryAjax(){
             let that=this;
             this.ryIsajax=false;
@@ -451,7 +444,6 @@ export default {
             })
         },
         ryTabFn(o,i){
-            this.ryData.pageNo=1
             this.ryTabName=o.cate
             if(o.cate=='全部'){
                 this.ryData.category=null
@@ -488,6 +480,8 @@ export default {
 @borderColor:#DDDFE4;
 @buleColor:#4494F0;
 @bgColor:#f4f4f4;
+@tag1:#F08082;
+@tag2:#46BF72;
 .maxW-box{
     width: 1020px;
     margin: 0 auto;
@@ -602,19 +596,19 @@ export default {
                     color:@buleColor
                 }
                 .cate{
-                    div{
+                    p{
                         border-bottom: 1px solid @borderColor;
                     }
-                    div:last-child{
+                    p:last-child{
                         border-bottom: none
                     }
 
                 }
                 .cate-key{
-                    p{
+                    div{
                         border-bottom: 1px solid @borderColor;
                     }
-                    p:last-child{
+                    div:last-child{
                         border-bottom: none
                     }
                 }
@@ -649,11 +643,20 @@ export default {
                     font-size:38px;
                 }
             }
+            .tag{
+                display: inline-block;
+                background: @tag1;
+                color: #fff;
+                border-radius: 4px;
+                width: 68px;
+                height: 20px;
+                text-align: center;
+                line-height: 20px;
+            }
+            .yn{
+                background: @tag2;
+            }
         }
     }
-}
-.el-pagination{
-    text-align: center;
-    margin-top: 28px;
 }
 </style>

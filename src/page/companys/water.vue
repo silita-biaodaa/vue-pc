@@ -1,41 +1,29 @@
 <template>
 	<div class="bur">
-		<div class="law-nav">
-			<div class="left" style="width:54px">序号</div>
-			<div class="left" style="width:180px">项目名称</div>
-			<div class="left" style="width:140px">施工单位</div>
-			<div class="left" style="width:120px">合同金额</div>
-			<div class="left" style="width:70px">业绩级别</div>
-			<div class="left" style="width:90px">完工日期</div>
-			<div class="left" style="width:120px">项目属地</div>
-		</div>
 		<!-- 判断是否加载中 -->
 		<template v-if="isajax">
 			<!-- 有数据 -->
 			<template v-if="allArr&&allArr.length>0">
-				<div class="law-text" v-for="(el,i) in allArr" :key="i" @click="decide(el)">
-					<div class="left" style="width:54px">
-						{{(current-1)*20+(i+1)}}
-					</div>
-					<div class="left p-10" style="width:180px">
-						{{el.proName ? el.proName: '--'}}
-					</div>
-					<div class="left" style="width:140px">
-						{{el.comName ? el.comName: '--'}}
-					</div>
-					<div class="left" style="width:120px">
-						{{el.amount ? el.amount : '--'}}
-					</div>
-					<div class="left" style="width:70px">
-						{{el.proType ? el.proType: '--'}}
-					</div>
-					<div class="left" style="width:90px">
-						{{el.build ? el.build: '--'}}
-					</div>
-					<div class="left" style="width:120px">
-						{{el.proWhere ? el.proWhere: '--'}}
-					</div>
-				</div>
+					<table class="table-content">
+						<tr>
+							<td style="width:54px">序号</td>
+							<td style="width:180px">项目名称</td>
+							<td style="width:140px">施工单位</td>
+							<td style="width:120px">合同金额</td>
+							<td style="width:70px">业绩级别</td>
+							<td style="width:90px">完工日期</td>
+							<td style="width:120px">项目属地</td>
+						</tr>
+						<tr v-for="(el,i) in allArr" :key="i" @click="decide(el)">
+							<td>{{(current-1)*20+(i+1)}}</td>
+							<td>{{el.proName ? el.proName: '--'}}</td>
+							<td>{{el.comName ? el.comName: '--'}}</td>
+							<td>{{el.amount ? el.amount : '--'}}</td>
+							<td>{{el.proType ? el.proType: '--'}}</td>
+							<td>{{el.build ? el.build: '--'}}</td>
+							<td>{{el.proWhere ? el.proWhere: '--'}}</td>
+						</tr>
+					</table>
 				<div class="e-page" v-if="total>20">
 					<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 				</div>
@@ -143,30 +131,6 @@
 </script>
 <style lang="less">
 	.bur {
-		border: 1px solid #f2f2f2;
-
-		.law-nav {
-			height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			line-height: 40px;
-			font-size: 12px;
-			color: #333;
-			text-align: center;
-			font-weight: 550;
-		}
-
-		.law-text {
-			min-height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			font-size: 12px;
-			color: #333;
-			font-weight: 550;
-			display: flex;
-			align-items: center;
-			text-align: center;
-			cursor: pointer;
-		}
-
 		.no-search {
 			width: 100%;
 			height: 500px;
