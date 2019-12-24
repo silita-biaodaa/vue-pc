@@ -110,7 +110,7 @@
                                 v-if="isoptType"
                             >
                                 <el-col>
-                                    <span class="mr20">多个资质之间的关系：</span>
+                                    <span class="mr20">多个关键字之间的关系：</span>
                                     <span
                                         class="cp mr20 color-5a5"
                                         @click="handleClickZZ(1)"
@@ -218,7 +218,7 @@
                                 class="flex-center drc color-150 fs14 mb20"
                                 :class="{'hide':data.projectSource !== 'chongq'}"
                             >
-                                <div>中标公示：</div>
+                                <div class="fw600">中标公示</div>
                                 <el-col :span="22">
                                     <i class="iconfont iconjingshi fs16 ml10 mr10 color-ffc"></i>
                                     <span class="fs14">注：中标公示、施工许可、竣工验收备案分为三个模块，单独查询。</span>
@@ -247,7 +247,7 @@
                                 class="fs14 mb20 flex-center drc color-150"
                                 :class="{'hide':data.projectSource !== 'chongq'}"
                             >
-                                <div>施工许可：</div>
+                                <div class="fw600">施工许可</div>
                             </el-row>
                             <!-- 项目状态 -->
                             <el-row
@@ -270,7 +270,7 @@
                                 class="fs14 mb20 flex-center drc color-150"
                                 :class="{'hide':data.projectSource !== 'chongq'}"
                             >
-                                <div>竣工验收备案：</div>
+                                <div class="fw600">竣工验收备案</div>
                             </el-row>
                             <!-- 面积 -->
                             <el-row
@@ -458,7 +458,7 @@
             </div>
         </div>
         <!-- 承上启下 -->
-        <div class="totalBox dfrcb fs14">
+        <div class="totalBox dfrcb fs14" :class="{'btnFixed': showFixed}">
             <div class="drc">
                 <div class="bottom_img ml40">
                     <i class="iconfont iconwancheng"></i>
@@ -810,7 +810,8 @@ export default {
             isNoSee: true,
             isoptType: false,
             pkid: "", //查询id;
-            chongq: true
+            chongq: true,
+            showFixed: false, //是否固定在某一位置;
         };
     },
     watch: {
@@ -1106,11 +1107,18 @@ export default {
             } else {
                 this.$alert("请至少筛选人员，资质，业绩中的一项");
             }
-        }
-        // handleInput(e) {
-        //     console.info(e);
-        //     this.e = (e.) || null
-        // },
+        },
+        handleScroll() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            if(scrollTop > 750) {
+                this.showFixed = false;
+            }else {
+                this.showFixed = true;
+            }
+        },
+    },
+    mounted() {
+        window.addEventListener("scroll", this.handleScroll);
     },
     created() {
         this.companyCount();
@@ -1237,6 +1245,14 @@ export default {
             border: none;
             color: @whiteColor;
         }
+    }
+    .btnFixed {
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 0;
+        z-index: 10;
+        left:50%;
+        transform:translate(-50%,0);
     }
 }
 </style>

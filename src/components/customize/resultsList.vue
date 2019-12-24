@@ -20,7 +20,7 @@
                     <el-col :span="21">{{data.regisAddress}}</el-col>
                 </el-row>
                 <el-row
-                    v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''&&data.joinRegion !== 'all_in'"
+                    v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''"
                     class="pb20 tagId"
                 >
                     <el-col :span="2.5" class="fw600">选择地区：</el-col>
@@ -30,13 +30,13 @@
                     <el-col :span="2.5" class="fw600">资质要求：</el-col>
                     <el-col :span="21">
                         <p v-for="(o,i) of qualList" :key="i">{{o.name}}</p>
-                    </el-col>
-                </el-row>
-                <el-row v-if="qualList.length>1" class="pb20 tagId">
-                    <el-col :span="2.5" class="fw600">资质关系：</el-col>
-                    <el-col :span="21">
-                        <template v-if="data.rangeType=='or'">满足任意一个</template>
-                        <template v-else-if="data.rangeType=='and'">满足所有</template>
+                        <el-row v-if="data.qualCode.type">
+                            <el-col :span="2.5">资质关系：</el-col>
+                            <el-col :span="21">
+                                <template v-if="data.qualCode.type == 'or'">满足任意一个资质条件</template>
+                                <template v-else-if="data.qualCode.type == 'and'">满足所有资质条件</template>
+                            </el-col>
+                        </el-row>
                     </el-col>
                 </el-row>
                 <el-row v-if="peopleList.length>0" class="pb20 tagId">
@@ -88,7 +88,7 @@
                                 <template
                                     v-else-if="!data.credit.scoreEnd||data.credit.scoreEnd==''"
                                 >大于{{data.credit.scoreStart}}分</template>
-                                <template>大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
+                                <template v-if="data.credit.scoreEnd && data.credit.scoreStart">大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
                             </div>
                         </div>
                     </el-col>
