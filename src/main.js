@@ -40,7 +40,7 @@ Vue.component('v-icon',svgIcon)
 // Vue.component('v-provcity',provCity)
 
 Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
-Vue.component('all-city', allCity)//用于企业市级筛选（优化后可删）
+Vue.component('all-city', provCity)//用于企业市级筛选（优化后可删）
 Vue.component('per-por', perpor)//地区组件可把其与市级筛选合并，多个组件无意义（优化后可删）
 Vue.component('m-oney', money)//钱筛选组件,感觉其中逻辑不够灵活
 Vue.component('per-time', pertime)//时间筛选组件,感觉其中逻辑不够灵活

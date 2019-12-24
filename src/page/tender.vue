@@ -2,40 +2,27 @@
 	<div class="tender">
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="option-box">
-			<div class="select dfrb bor-b">
-				<div>省级区域</div>
+			<div class="select dfrb bor-b mb20">
+				<h6>省级区域</h6>
 				<ul>
 					<li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
 				</ul>
 			</div>
 			<c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
-			<div class="select">
-				<el-row>
-					<el-col :span="2" class="t-5">中标金额:
-					</el-col>
-					<el-col :span="14">
-						<ul class='pro'>
-							<li v-for='(el,i) in sums' :key='i' class='left l-30' :class="el.s==data.projSumStart? 'current':''" @click='evalsum(el)'>{{el.name}}</li>
-						</ul>
-					</el-col>
-					<el-col :span="8" class="ttt">
-						<el-input placeholder="最低价" v-model="data.low" clearable>
-						</el-input>
-						<div class="in-line">
-						</div>
-						<el-input placeholder="最高价" v-model="data.high" clearable>
-						</el-input>
-						<div class="t-btn" @click='fade'>
-							确定
-						</div>
-					</el-col>
-				</el-row>
+			<div class="select dfrb">
+				<h6>中标金额</h6>
+				<div>
+					<ul>
+						<li v-for='(el,i) in sums' :key='i' :class="el.s==data.projSumStart? 'current':''" @click='evalsum(el)'>{{el.name}}</li>
+					</ul>
+					<div class="row drc fs14">
+						<input placeholder="最低价" class="bg-f4f borde fs14 mr20" v-model="data.low" clearable type="text"/>
+						至
+						<input placeholder="最高价" class="bg-f4f borde fs14 ml20 mr20" v-model="data.high" clearable type="text"/>
+						<div class="t-btn bg-theme cp" @click='fade'>确定</div>
+					</div>
+				</div>
 			</div>
-			<!-- <div class="select cc-btn ">
-          <div class="c-sure"  @click="gainList" >
-             查询
-          </div>
-        </div> -->
 		</div>
 		<div class="total">
 			共找到<span>{{total}}</span>条中标公告
@@ -218,7 +205,7 @@
 			},
 			evalsum(el) {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee') == 'false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
@@ -264,7 +251,7 @@
 				if (this.rank == 0) {
 					queryList(data).then(res => {
 						if (res.code == 1) {
-							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee') == 'false') {
 								res.data.forEach(el => {
 									if (el.oneName) {
 										if (el.oneName.indexOf('公司') == -1) {
@@ -312,7 +299,7 @@
 					data.projSumEnd = data.high;
 					queryList(data).then(res => {
 						if (res.code == 1) {
-							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee') == 'false') {
 								res.data.forEach(el => {
 									if (el.oneName) {
 										if (el.oneName.indexOf('公司') == -1) {
@@ -353,7 +340,7 @@
 			},
 			fade() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
-					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+					if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee') == 'false') {
 						this.svip = true
 						this.modalHelper.afterOpen();
 					} else {
@@ -486,7 +473,26 @@
 <style lang="less" scoped>
 	.tender {
 		width: 100%;
-
+		.select.dfrb>div{
+			width:calc(100% - 84px);
+			ul{
+				width:100%
+			}
+			.row{
+				input{
+					width: 108px;
+					height:36px;
+					padding: 8px 10px;
+					box-sizing: border-box;
+				}
+				.t-btn{
+					width: 60px;
+					line-height: 36px;
+					color: #fff;
+					text-align: center;
+				}
+			}
+		}
 		// .el-loading-spinner .path {
 		// 	stroke: #FE6603;
 		// }

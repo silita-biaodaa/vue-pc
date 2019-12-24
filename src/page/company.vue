@@ -3,29 +3,23 @@
 		<en-search @vague='entitle' :title="data.keyWord" :all='total' @company='entitle'></en-search>
 		<div class="option-box">
 			<all-city :city='last' :type="1" @Cnext='eval'></all-city>
-			<div class="select" v-if="data.regisAddress!=''">
-				<el-row>
-					<el-col :span="2">备案地区：</el-col>
-					<el-col :span="14">
-						<div class='left c-isbei' v-for="(el,i) in recordList" :key='i' :class="el.code==data.joinRegion?'current':''" @click='isBeiFn(el)'>{{el.name}}</div>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b mb20" v-if="data.regisAddress!=''">
+				<h6>备案地区</h6>
+				<ul>
+					<li v-for="(el,i) in recordList" :key='i' :class="el.code==data.joinRegion?'current':''" @click='isBeiFn(el)'>{{el.name}}</li>
+				</ul>
 			</div>
-			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1">
-				<el-row>
-					<el-col :span="2" >荣誉类别：</el-col>
-					<el-col :span="14">
-						<div class='left c-isbei' v-for="(el,i) in honoraryList" :key='i' :class="el.istap?'current':''" @click='honorCateFn(el)'>{{el.name}}</div>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b mb20" v-if="data.regisAddress.indexOf('湖南省')>-1">
+				<h6>荣誉类别</h6>
+				<ul>
+					<li v-for="(el,i) in honoraryList" :key='i' :class="el.istap?'current':''" @click='honorCateFn(el)'>{{el.name}}</li>
+				</ul>
 			</div>
-			<div class="select" v-if="data.regisAddress.indexOf('湖南省')>-1&&honoraryList[0].istap">
-				<el-row>
-					<el-col :span="2">等&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级：</el-col>
-					<el-col :span="14">
-						<div class='left c-isbei' v-for="(el,i) in levelList" :key='i' :class="el.istap?'current':''" @click='levelFn(el)'>{{el.name}}</div>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b mb20" v-if="data.regisAddress.indexOf('湖南省')>-1&&honoraryList[0].istap">
+				<h6>认证等级</h6>
+				<ul>
+					<li v-for="(el,i) in levelList" :key='i' :class="el.istap?'current':''" @click='levelFn(el)'>{{el.name}}</li>
+				</ul>
 			</div>
 			<!-- 资质 -->
 			<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :type='data.rangeType' :zztype='data.qualCode'></v-screenzz>
@@ -554,51 +548,5 @@
 <style lang="less" scoped>
 	.company {
 		width: 100%;
-		.select {
-			font-size: 16px;
-			margin-bottom: 10px;
-			.el-checkbox-button__inner {
-				border: none;
-				margin-bottom: 12px;
-				font-size: 15px;
-				padding: 5px 10px;
-				color: #000;
-			}
-
-			.el-checkbox-button.is-checked .el-checkbox-button__inner {
-				color: #000;
-				background-color: #FE6603;
-				border-color: #FE6603;
-				box-shadow: -1px 0 0 0 #fff;
-			}
-
-			.el-checkbox-button:first-child .el-checkbox-button__inner {
-				border-radius: 0;
-			}
-			.el-select {
-				width: 225px;
-				margin-right: 10px;
-			}
-
-			.isSerach {
-				opacity: .8;
-				cursor: wait;
-			}
-			.current {
-				background-color: #FE6603 !important;
-				color: #fff !important;
-			}
-			.c-isbei{
-				height: 25px;
-				line-height: 25px;
-				text-align: center;
-				font-size: 14px;
-				margin-right: 5px;
-				margin-bottom: 6px;
-				cursor: pointer;
-				padding: 0 9px;
-				color: #666;
-			}
-		}
 	}
 </style>

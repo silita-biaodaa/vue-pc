@@ -1,15 +1,15 @@
 <template>
 	<div class="provCity">
-		<div class="select dfrb bor-b">
+		<div class="select dfrb bor-b mb20">
             <div>省级区域</div>
             <ul>
-                <li v-for='(el,i) in areas' :key='i' :class="el.code==area? 'current':''" @click='areaTap(el)'>{{el.areaShortName}}</li>
+                <li v-for='(el,i) in areas' :key='i' :class="el.name==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
             </ul>
 		</div>
-		<div class="select dfrb bor-b" v-if="list.length>0&&iscity">
+		<div class="select dfrb bor-b mb20">
             <div>市级区域</div>
             <ul>
-                <li v-for='(el,i) in list' :key='i' :class="str.indexOf(el.name)>-1?'current':'' " @click="cityTap(el)">{{el.name}}</li>
+                <li v-for='(el,i) in list' :key='i' :class="cstr.indexOf(el.name) == -1 ? '' : 'current'" @click="level(el)">{{el.name}}</li>
             </ul>
 		</div>
 	</div>
@@ -18,141 +18,137 @@
 	export default {
 		data() {
 			return {
-                areas:[],
-                area:'',
-                list:[],
-                str:'全部',
-                cityName:[]
+                areas: [],
+				area: '',
+				list: [],
+				cstr: '全部',
+				all: [],
+				allt: true
 			}
 		},
 		props: {
-            source:{
-                default:''
-            },
-            isall:{//是否有全部
-                default:false
-            },
-            iscity:{//是否有市区
-                default:false
-            },
-            address:{
-                default:''
-            },
-            type:{
-                default:'gg'
-            }
+			city: '',
 		},
 		watch: {
+			city() {
+				this.area = this.city.source
+				this.areas.forEach(el => {
+					if (el.name == this.area) {
+						this.list = el.data
+					}
+				})
+			}
 		},
 		methods: {
-            areaTap(el){//省级选择
-                this.area=el.code;
-                if(el.code==''){
-                    this.list=[]
-                }else{
-                    el.data.unshift({
-                        name:'全部',
-                        istap:true
-                    })
-                    this.list=el.data;
-                }
-                this.returnFn();
-            },
-            cityTap(el){//市级选择
-                if(el.name=='全部'){
-                    this.str='全部'
-                    this.cityName=[]
-                }else{
-                    if(this.str=='全部'){
-                        if(this.type=='gg'){//公告
-                            this.cityName.push(el.code)
-                        }else{
-                            this.cityName.push(el.name)
-                        }
-                    }else{
-                        if(this.type=='gg'){//公告
-                            if(this.cityName.indexOf(el.code)>-1){//重复选中delete
-                                this.cityName.splice(this.cityName.indexOf(el.code), 1)
-                            }else{//add
-                                if(this.cityName.length==3){
-                                    this.$confirm('最多只能选择三个市级', '提示', {
-                                        type: 'warning',
-                                        showCancelButton: false,
-                                        showConfirmButton: false
-                                    })
-                                    return
-                                }else{
-                                    this.cityName.push(el.code)
-                                }
-                            }
-                        }else{
-                            if(this.cityName.indexOf(el.name)>-1){//重复选中delete
-                                this.cityName.splice(this.cityName.indexOf(el.name), 1)
-                            }else{//add
-                                if(this.cityName.length==3){
-                                    this.$confirm('最多只能选择三个市级', '提示', {
-                                        type: 'warning',
-                                        showCancelButton: false,
-                                        showConfirmButton: false
-                                    })
-                                    return
-                                }else{
-                                    this.cityName.push(el.name)
-                                }
-                            }
-                        }
-                    }
-                    this.str=this.cityName.join(',');
-                }
-                this.returnFn();
-            },
-            returnFn(){
-                if(this.str=='全部'){
-                    this.$emit('returnAddress',this.area)
-                }else{
-                    let str=this.area+'||'+this.str
-                    this.$emit('returnAddress',str)
-                }
-            }
+			// 获取地区
+			gainFilter() { // 对传进来的数据解析，是否包含市级下面地区
+				if (this.city.source.indexOf("||") == -1) {
+					this.area = (this.city.source == '' ? '全部' : this.city.source)
+					if (this.area == '全部') {
+						this.allt = false
+					} else {
+						this.allt = true
+					}
+				} else {
+					let arr = this.city.source.split('||')
+					this.area = arr[0]
+					this.cstr = arr[1]
+					this.all = arr[1].split(',')
+				}
+			},
+			eval(el) {
+				// sessionStorage.setItem('address',el.name);
+				this.area = el.name
+				this.all=[];
+				this.cstr='全部'
+				if (this.area == '全部') {
+					this.allt = false
+					this.$emit('Cnext', {
+						cur: ''
+					})
+				} else {
+					for (let x of el.data) {
+						x.i = false;
+					}
+					this.list = el.data
+					this.allt = true
+					this.$emit('Cnext', {
+						cur: this.area
+					})
+				}
+			},
+			marry() {
+				this.areas.forEach(el => {
+					if (el.name != '全部') {
+						el.data.unshift({
+							name: '全部',
+							i: true
+						})
+						if (el.name == this.area) {
+							this.list = el.data
+						}
+					}
+
+				})
+			},
+			level(el) {
+				if(!this.$parent.isajax){
+					return false
+				}
+				if (el.name == '全部') {
+					this.all = []
+					this.cstr = '全部'
+					this.$emit('Cnext', {
+						cur: this.area
+					})
+				} else {
+					if (this.all.indexOf(el.name) == -1) {
+						if (this.all.length >= 3) {
+							this.$confirm('最多只能选择三个市级', '提示', {
+								type: 'warning',
+								showCancelButton: false,
+								showConfirmButton: false
+							})
+							return
+						} else {
+							this.all.push(el.name)
+							this.cstr = this.all.join(',')
+							this.$emit('Cnext', {
+								cur: (this.area + '||' + this.cstr)
+							})
+						}
+					} else {
+						this.all.splice(this.all.indexOf(el.name), 1)
+						this.cstr = this.all.join(',')
+						if (this.all.length == 0) {
+							this.all = []
+							this.cstr = '全部'
+							this.$emit('Cnext', {
+								cur: this.area
+							})
+						} else {
+							this.$emit('Cnext', {
+								cur: (this.area + '||' + this.cstr)
+							})
+						}
+
+					}
+				}
+			}
 		},
 		created() {
-            let data = JSON.parse(localStorage.getItem('filter'));
-            if(this.isall){//如果有全部则添加全部
-                data.area.unshift({
-                    areaShortName: '全部',
-                    code:''
-                })
-            }
-            this.areas = data.area;
-            if(this.source!=''){//如果有省份则用定位省份
-                this.area=this.source
-            }
-            if (this.address.indexOf('||') > -1) { //刷新保存功能 省市还原
-                let arr = this.address.split('||');
-                this.area = arr[0];
-                this.str = arr[1];
-                this.cityName=arr[1].join(',')
-            } else {
-                this.area = this.address;
-            }
-
-            if(this.area!=''){
-                for(let x of data.area){
-                    if(x.code.indexOf(this.area)>-1){
-                        x.data.unshift({
-                            name:'全部',
-                            istap:true
-                        })
-                        this.list=x.data
-                        break
-                    }
-                }
-            }
+			let data = JSON.parse(localStorage.getItem('filter'));
+			this.gainFilter()
+			this.areas = data.area;
+			this.areas.unshift({
+                name: '全部',
+                areaShortName:'全部'
+			})
+			this.marry()
 		},
 		mounted() {
 
 		},
-		components: {}
 	}
 </script>
 <style lang="less" scoped>
