@@ -107,7 +107,7 @@ export default {
         },
         chongq: { //是否是重庆;
             type: Boolean,
-            default: ""
+            default: false
         }
     },
     watch:{

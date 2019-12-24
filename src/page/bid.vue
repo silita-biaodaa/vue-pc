@@ -6,34 +6,24 @@
 			<div class="select dfrb bor-b">
 				<div>省级区域</div>
 				<ul>
-					<li v-for='(el,i) in areas' :key='i' class='left bid-p' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
+					<li v-for='(el,i) in areas' :key='i' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
 				</ul>
 			</div>
 			<c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
-			<div class="select">
-				<el-row>
-					<el-col :span='2'>
-						类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型:
-					</el-col>
-					<el-col :span='22'>
-						<ul class='left pro'>
-							<li v-for='(el,i) in projectTypes' :key='"1"+i' class='left' :class="el.projectType == data.projectType ? 'current':''"
-							 @click='evalclass(el)'>{{el.name}}</li>
-						</ul>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b">
+				<div>招标类型</div>
+				<ul>
+					<li v-for='(el,i) in projectTypes' :key='"1"+i' :class="el.projectType == data.projectType ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
+				</ul>
 			</div>
-			<div class="select">
-				<el-row>
-					<el-col :span='2'>
-						评标办法:
-					</el-col>
-					<el-col :span='22'>
-						<ul class='pro'>
-							<li v-for="(el,i) in pbModes" :key="'2'+i" class="left" :class="{'current':el.active}" @click="pbmodeFn(i)">{{el.name}}</li>
-						</ul>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b">
+				<div>评标办法</div>
+				<ul class="checkbox">
+					<li v-for="(el,i) in pbModes" :key="'2'+i" @click="pbmodeFn(i)" class="drc">
+						<v-icon :iconClass="el.active?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+						<span>{{el.name}}</span>
+					</li>
+				</ul>
 			</div>
 			<v-screenzz :qualList='companyQuals' @contentChange='screenzzFn' :bid='true' :zztype='data.zzType'></v-screenzz>
 		</div>
