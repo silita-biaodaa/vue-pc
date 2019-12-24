@@ -314,6 +314,7 @@
 					padding: 5px 20px;
 					border: 1px solid #DDDFE4;
 					margin-left: 40px;
+					font-weight: 550;
 				}
 			}
 			table {

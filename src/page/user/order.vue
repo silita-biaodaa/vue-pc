@@ -82,11 +82,11 @@
 			    </div>
 				<div>
 				<!-- 专查 -->
-				<div v-if="el.report&&(el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查')">
+				<div v-if="el.report&&(el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查' || el.report.repTitle =='重庆企业专查' )">
 					<div class="ta-list">
 						<div class="list-vip">
 							<div class="left" style="width:230px;textAlign:left">
-								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : '水利') }}系统专查·综合查询
+								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : (el.report.repTitle =='水利专查' ? '水利' : '重庆企业专查')) }}系统专查·综合查询
 								</div>
 								<div style="fontSize:12px" class="m-6">
 									订单编号:{{el.orderNo}}
@@ -397,37 +397,6 @@ import countTime from '@/components/countTime'
 					}
 				})
 			},
-			// gainWin() {
-			// 	orderList({
-			// 		pageSize: '100',
-			// 		pageNo: '1',
-			// 		orderStatus: '9',
-			// 		channelNo: ''
-			// 	}).then(res => {
-			// 		if (res.code == 1) {
-			// 			this.win = res.data
-			// 			setTimeout(() => {
-			// 				this.allList = this.win.concat(this.feat)
-			// 				if (this.allList.length == 0) {
-			// 					this.noShow = false
-			// 				} else {
-			// 					this.noShow = true
-			// 				}
-			// 			}, 100);
-
-			// 		} else {
-			// 			this.win = []
-			// 			setTimeout(() => {
-			// 				this.allList = this.win.concat(this.feat)
-			// 				if (this.allList.length == 0) {
-			// 					this.noShow = false
-			// 				} else {
-			// 					this.noShow = true
-			// 				}
-			// 			}, 100);
-			// 		}
-			// 	})
-			// },
 			type(val) {
 				this.allList = []
 				if (val == '') {
@@ -470,6 +439,11 @@ import countTime from '@/components/countTime'
 						 }
 					 }
 				}
+					if (this.allList.length == 0) {
+						this.noShow = false
+					} else {
+						this.noShow = true
+					}
 			},
 			Ctype(val) {
 				this.allList = []
@@ -531,6 +505,11 @@ import countTime from '@/components/countTime'
 						 }
 					 }
 				}
+					if (this.allList.length == 0) {
+						this.noShow = false
+					} else {
+						this.noShow = true
+					}
 			},
 			resend(el) {
 				if (el.orderStatus == '1') {

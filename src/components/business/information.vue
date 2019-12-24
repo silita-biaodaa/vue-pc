@@ -125,7 +125,7 @@ export default {
     box-sizing: border-box;
     .ic-line{
         font-size: 12px;
-        color:#333;
+        color:#000;
         font-weight: 550;
         min-height: 40px;
         background-color: #F4F4F4;

@@ -131,6 +131,9 @@
 </script>
 <style lang="less">
 	.bur {
+		.table-content {
+        width: 844px;
+    }  
 		.no-search {
 			width: 100%;
 			height: 500px;

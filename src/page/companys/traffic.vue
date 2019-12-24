@@ -132,29 +132,9 @@
 </script>
 <style lang="less">
 	.bur {
-		border: 1px solid #f2f2f2;
-
-		.law-nav {
-			height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			line-height: 40px;
-			font-size: 12px;
-			color: #333;
-			text-align: center;
-			font-weight: 550;
-		}
-
-		.law-text {
-			min-height: 40px;
-			border-bottom: 1px solid #f2f2f2;
-			font-size: 12px;
-			color: #333;
-			font-weight: 550;
-			display: flex;
-			align-items: center;
-			text-align: center;
-		}
-
+		.table-content {
+        width: 844px;
+    }  
 		.no-search {
 			width: 100%;
 			height: 500px;

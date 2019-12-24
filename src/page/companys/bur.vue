@@ -184,6 +184,9 @@
 		.p-10 {
 			padding: 6px 0;
 		}
+		.table-content {
+        width: 844px;
+    }  
 		.no-search {
 			width: 100%;
 			height: 500px;

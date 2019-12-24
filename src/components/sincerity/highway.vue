@@ -3,28 +3,24 @@
     <!-- 主要人员 -->
     <div class="honor">
         <div class="ic-basic">
-            <div class="list-nav">
-                <div style="width:72px" >序号</div>
-                <div style="width:175px">评价年度</div>
-                <div style="width:175px">信用等级</div>
-                <div style="width:175px">评价省份</div>
-                <div style="width:175px" >企业属地</div>
-            </div>
             <!-- 有数据 -->
             <template v-if="data&&data.length>0">
-                <div class="list-co" v-for="(el,i) in data" :key="i" >
-                    <div style="width:72px">{{i+1}}</div>
-                    <div style="width:175px">
-                        <span>{{el.years}}</span>
-                    </div>
-                    <div style="width:175px">
-                        <span>{{el.level}}</span>
-                    </div>
-                    <div style="width:175px">
-                        <span>{{el.issueProvince}}</span>
-                    </div>
-                    <div style="width:175px">{{el.regisAddress}}</div>
-                </div>
+                 <table class="table-content">
+						<tr>
+							<td style="width:72px" >序号</td>
+                            <td style="width:175px">评价年度</td>
+                            <td style="width:175px">信用等级</td>
+                            <td style="width:175px">评价省份</td>
+                            <td style="width:175px" >企业属地</td>
+						</tr>
+						<tr v-for="(el,i) in data" :key="i">
+							<td>{{i+1}}</td>
+							<td >{{el.years}}</td>
+							<td>{{el.level}}</td>
+							<td>{{el.issueProvince}}</td>
+                            <td>{{el.regisAddress}}</td>
+						</tr>
+					</table>
             </template>
             <!-- 无数据 -->
             <template v-else-if="data&&data.length==0">
@@ -91,33 +87,10 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .ic-basic {
-    margin: 0 10px 15px 10px; 
-    border: 1px solid #f2f2f2;
     box-sizing: border-box;
-    .list-nav {
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        font-size: 12px;
-        display: flex;
-        justify-content: space-between;
-        color:#333;
-        border-bottom: 1px solid #f2f2f2;
-    }
-    .list-co {
-        color: #333;
-        text-align: center;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        padding: 5px 0;
-        box-sizing: border-box; 
-        border-bottom: 1px solid #f2f2f2;
-        justify-content: space-between;
-        font-weight: 550;
-    }
-
+    .table-content {
+        width: 844px;
+    }  
 }
 .position{
     width: 200px;

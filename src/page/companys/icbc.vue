@@ -149,7 +149,6 @@
 			color: #000;
 			margin: 15px 0 14px ;
 			cursor: pointer;
-			font-weight: 550;
 			display: flex;
 			.navspan {
 				line-height: 32px;
