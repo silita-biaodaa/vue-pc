@@ -634,9 +634,9 @@
 
 <style lang="less">
 	@import './assets/iconfont.css';
-	@import './base/base.less';
-	@import './style/common.css';
 	@import './style/publicCSS';
+	@import './style/common.css';
+	@import './base/base.less';
 body{
 	width: 100% !important;
 }

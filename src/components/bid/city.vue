@@ -1,16 +1,10 @@
 <template>
 	<div class="city">
-		<div class="select">
-			<el-row>
-				<el-col :span='2'>市&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp级:
-				</el-col>
-				<el-col :span='22'>
-					<ul class='left pro'>
-						<li v-for='(el,i) in city' :key='i' class='left' :class="el.i  ? 'current':''" @click='evalclass(el)'>{{el.name}}
-						</li>
-					</ul>
-				</el-col>
-			</el-row>
+		<div class="select dfrb bor-b">
+            <div>市级区域</div>
+            <ul>
+                <li v-for='(el,i) in city' :key='i' :class="el.i?'current':'' " @click="evalclass(el)">{{el.name}}</li>
+            </ul>
 		</div>
 	</div>
 </template>
@@ -99,30 +93,30 @@
 	}
 </script>
 <style lang="less" scoped>
-	.city {
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
-
-			.pro {
-				li {
-					margin-right: 5px;
-					text-align: center;
-					margin-bottom: 6px;
-					cursor: pointer;
-					color: #666;
-				}
-
-				.bid-p {
-					padding: 2px 9px;
-					color: #666;
-				}
-
-				.current {
-					background-color: #FE6603;
-					color: #fff;
-				}
-			}
+.select{
+	div{
+		width: 64px;
+		font-weight: 600;
+		color: #150000;
+	}
+	ul{
+		width: calc(100% - 84px);
+		margin-top: 2px;
+		display: flex;
+		padding-bottom: 6px;
+		flex-wrap: wrap;
+		li{
+			min-width: 42px;
+			margin-right: 40px;
+			margin-bottom: 14px;
+			font-size: 14px;
+			color: #5A5A5A;
+			cursor: pointer;
+		}
+		.current{
+			color: #EB651B;
+			font-weight: 600
 		}
 	}
+}
 </style>

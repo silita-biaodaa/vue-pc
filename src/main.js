@@ -25,6 +25,7 @@ import money from '@/page/perfor/money'
 import pertime from '@/page/perfor/pertime'
 import comment from '@/page/comment/comment'
 import myInput from "@/components/customize/myInput" //输入框
+import svgIcon from '@/components/svg-icon'//多色图标
 
 import {getOpenid,ThirdLogin} from "@/api/index"
 Vue.component('v-user',usercenter)//
@@ -35,7 +36,8 @@ Vue.component('f-vip', fvip)
 Vue.component('v-comjump',companyJump)
 Vue.component('v-bread',publicBread)
 Vue.component('v-myInput',myInput)
-Vue.component('v-provcity',provCity)
+Vue.component('v-icon',svgIcon)
+// Vue.component('v-provcity',provCity)
 
 Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
 Vue.component('all-city', allCity)//用于企业市级筛选（优化后可删）
