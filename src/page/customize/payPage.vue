@@ -16,7 +16,7 @@
                         <i class="iconfont iconwancheng color-eb6"></i>
                         <div class="ml10">
                             共为您找到
-                            <span class="fs28 color-eb6 fw600 ml10 mr10">{{total}}名</span>符合要求的人员
+                            <span class="fs28 color-eb6 fw600 ml10 mr10">{{total}}名</span>符合要求的{{this.$route.query.page =='qy'?'企业':'人员'}}
                         </div>
                     </div>
                     <div class="drc openVip">
@@ -84,6 +84,7 @@ export default {
             comPrice: 0,
             isVip: false,
             total: 0,
+            page: "",
         };
     },
     watch: {

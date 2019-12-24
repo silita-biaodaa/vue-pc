@@ -104,6 +104,10 @@ export default {
         },
         query:{//是否综合查询
             default:false
+        },
+        chongq: { //是否是重庆;
+            type: Boolean,
+            default: ""
         }
     },
     watch:{
@@ -479,6 +483,9 @@ export default {
 </script>
 <style lang="less">
 @import "../style/publicCSS";
+.el-checkbox {
+    color: @textColor !important;
+}
 .el-checkbox__input.is-checked+.el-checkbox__label {
     color: @textColor !important;
 }

@@ -50,9 +50,12 @@
                         v-for="(item,index) in qyList"
                         :key="index"
                     >
-                        <div class="mb30 drc">
-                            <span class="fw600 fs18">{{item.comName}}</span>
-                            <div class="ml20 text-c list_logo" :class="{'logo_color': item.joinRegion == '渝内'}">{{item.joinRegion == '渝内'?'渝内':'入渝'}}</div>
+                        <div class="mb30 dfrb">
+                            <div class="drc">
+                                <span class="fw600 fs18">{{item.comName}}</span>
+                                <div class="ml20 text-c list_logo" :class="{'logo_color': item.joinRegion == '渝内'}">{{item.joinRegion == '渝内'?'渝内':'入渝'}}</div>
+                            </div>
+                            <div class="fs14" v-if="item.scope !== null">企业诚信评价综合得分：{{item.scope}}</div>
                         </div>
                         <div class="dfrcb fs14">
                             <span>法人：{{item.legalPerson}}</span>

@@ -76,9 +76,9 @@
             </div>
         </div>
         <!-- 符合业绩条件的数量 -->
-        <div class="fx-box" v-if="project.proCount">
+        <div class="fx-box drc" v-if="project.proCount">
             <el-col :span="1">符合业绩条件的数量：</el-col>
-            <div>{{project.proCount}}</div>
+            <div class="number">{{project.proCount}}</div>
         </div>
     </div>
 </template>
@@ -136,9 +136,12 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-// .fx-box{
-//     display:flex;
-// }
+@import "../../style/publicCSS";
+.fx-box{
+    .number {
+        margin-top: 3px;
+    }
+}
 .el-col-1{
     width: auto;
 }

@@ -99,6 +99,10 @@ export default {
     props:{
         qualList:{
             type:Array
+        },
+        chongq: { //是否是重庆;
+            type: Boolean,
+            default: ""
         }
     },
     watch:{

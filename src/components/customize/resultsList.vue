@@ -93,14 +93,14 @@
                         </div>
                     </el-col>
                 </el-row>
-                <el-row class="pd20">
+                <el-row class="pb20" v-if="data.credit&&(data.credit.punishStart||data.credit.punishEnd)">
                     <el-col :span="2.5" class="fw600">信用要求：</el-col>
-                    <el-col :span="21">
+                    <el-col :span="21" class="drc">
                         <div>处罚决定日期：</div>
                         <div>
-                            <template v-if="!data.credit.contractStart||data.credit.contractStart==''">{{data.credit.contractEnd}}以前</template>
-                            <template v-else-if="!data.credit.contractEnd||data.credit.contractEnd==''">{{data.credit.contractStart}}以后</template>
-                            <template v-else>{{data.credit.contractStart}}到{{data.credit.contractEnd}}</template>
+                            <template v-if="!data.credit.punishStart||data.credit.punishStart==''">{{data.credit.punishEnd}}以前</template>
+                            <template v-else-if="!data.credit.punishEnd||data.credit.punishEnd==''">{{data.credit.punishStart}}以后</template>
+                            <template v-else>{{data.credit.punishStart}}到{{data.credit.punishEnd}}</template>
                         </div>
                     </el-col>
                 </el-row>

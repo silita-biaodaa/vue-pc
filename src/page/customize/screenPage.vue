@@ -14,16 +14,37 @@
                     <div class="mb20 drc">
                         <span class="color-150 fs16 fw600">选择地区</span>
                         <ul class="drc color-5a5 fs14">
-                            <li class="ml20 mr20 cp" v-for="(item,index) in areaList" :key="index" :class="{'activeZZ':data.joinRegion == item.id}" @click="selectArea(item)">{{item.value}}</li>
+                            <li
+                                class="ml20 mr20 cp"
+                                v-for="(item,index) in areaList"
+                                :key="index"
+                                :class="{'activeZZ':data.joinRegion == item.id}"
+                                @click="selectArea(item)"
+                            >{{item.value}}</li>
                         </ul>
                     </div>
                 </div>
                 <!-- 资质要求 -->
-                <v-screenZZ @contentChange="getCodeZZ" :qualList="codeZZ.comQua" @recordZZ="getRecordZZ" :query="true" :chongq="true"></v-screenZZ>
+                <v-screenZZ
+                    @contentChange="getCodeZZ"
+                    :qualList="codeZZ.comQua"
+                    @recordZZ="getRecordZZ"
+                    :query="true"
+                    :chongq="chongq"
+                ></v-screenZZ>
                 <!-- 人员要求 -->
-                <v-screenRY @contentChange="getCodeRY" :qualList='peopleList' @recordRY="getRecordRY" :chongq="true"></v-screenRY>
+                <v-screenRY
+                    @contentChange="getCodeRY"
+                    :qualList="peopleList"
+                    @recordRY="getRecordRY"
+                    :chongq="chongq"
+                ></v-screenRY>
                 <!-- 业绩要求 -->
-                <el-row class="pt20" type="flex" :class="{'require': current == 1 && data.projectSource == 'all'}">
+                <el-row
+                    class="pt20"
+                    type="flex"
+                    :class="{'require': current == 1 && data.projectSource == 'all'}"
+                >
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>
                     <el-col :span="22">
                         <el-row class="mb20">
@@ -61,9 +82,21 @@
                             </el-col>
                             <el-col :span="11" :class="{'hide':data.projectSource !== 'all'}">
                                 <ul class="drc">
-                                    <li class="cp fs14 color-5a5 mr15" v-for="(item,index) in selectList" :key="index" @click="handleSelect(item)" :class="{'activeZZ': item.id == data.project.opt}">
-                                        <i class="iconfont icondanxuan-daixuan" :class="{'hide': item.id == data.project.opt}"></i>
-                                        <i class="iconfont icondanxuan-xuanzhong hide" :class="{'block': item.id == data.project.opt}"></i>
+                                    <li
+                                        class="cp fs14 color-5a5 mr15"
+                                        v-for="(item,index) in selectList"
+                                        :key="index"
+                                        @click="handleSelect(item)"
+                                        :class="{'activeZZ': item.id == data.project.opt}"
+                                    >
+                                        <i
+                                            class="iconfont icondanxuan-daixuan"
+                                            :class="{'hide': item.id == data.project.opt}"
+                                        ></i>
+                                        <i
+                                            class="iconfont icondanxuan-xuanzhong hide"
+                                            :class="{'block': item.id == data.project.opt}"
+                                        ></i>
                                         <span>{{item.content}}</span>
                                     </li>
                                 </ul>
@@ -71,59 +104,120 @@
                         </el-row>
                         <!-- 资质条件筛选 -->
                         <div>
-                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}" v-if="isoptType">
+                            <el-row
+                                class="fs14 mb40"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                                v-if="isoptType"
+                            >
                                 <el-col>
                                     <span class="mr20">多个资质之间的关系：</span>
-                                    <span class="cp mr20 color-5a5" @click="handleClickZZ(1)" :class="{activeZZ : currentZZ == 1}">满足任意一个</span>
-                                    <span class="cp ml20 color-5a5" @click="handleClickZZ(2)" :class="{activeZZ : currentZZ == 2}">满足所有</span>
+                                    <span
+                                        class="cp mr20 color-5a5"
+                                        @click="handleClickZZ(1)"
+                                        :class="{activeZZ : currentZZ == 1}"
+                                    >满足任意一个</span>
+                                    <span
+                                        class="cp ml20 color-5a5"
+                                        @click="handleClickZZ(2)"
+                                        :class="{activeZZ : currentZZ == 2}"
+                                    >满足所有</span>
                                 </el-col>
                             </el-row>
                             <!-- 业绩子项 -->
-                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row
+                                class="fs14 mb40"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                            >
                                 <el-col>
                                     <ul class="dfrcsw">
                                         <li class="mr20">业绩所含子项：</li>
-                                        <li class="mr40 cp color-5a5" v-for="(el,i) in itemList" :key='i' :class="el.istap?'activeZZ':''" @click="itemFn(el)">{{el.areaShortName}}</li>
+                                        <li
+                                            class="mr40 cp color-5a5"
+                                            v-for="(el,i) in itemList"
+                                            :key="i"
+                                            :class="el.istap?'activeZZ':''"
+                                            @click="itemFn(el)"
+                                        >{{el.areaShortName}}</li>
                                     </ul>
                                 </el-col>
                             </el-row>
                             <!-- 项目属地 -->
-                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row
+                                class="fs14 mb40"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                            >
                                 <el-col>
                                     <ul class="dfrcsw">
                                         <li class="mr20 mb15">项目属地：</li>
-                                        <li class="mr40 cp color-5a5 mb15" v-for="(el,i) in projectList" :key='i' :class="el.istap?'activeZZ':''" @click="projectTap(el)">{{el.areaShortName}}</li>
+                                        <li
+                                            class="mr40 cp color-5a5 mb15"
+                                            v-for="(el,i) in projectList"
+                                            :key="i"
+                                            :class="el.istap?'activeZZ':''"
+                                            @click="projectTap(el)"
+                                        >{{el.areaShortName}}</li>
                                     </ul>
                                 </el-col>
                             </el-row>
                             <!-- 工程用途 -->
-                            <el-row class="fs14 mb25" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row
+                                class="fs14 mb25"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                            >
                                 <el-col>
                                     <ul class="dfrcsw">
                                         <li class="mr20 mb15">工程用途：</li>
-                                        <li class="mr40 cp color-5a5 mb15" v-for="(el,i) in purposeList" :key='i' :class="el.istap?'activeZZ':''" @click="purposeTap(el)">{{el.areaShortName}}</li>
+                                        <li
+                                            class="mr40 cp color-5a5 mb15"
+                                            v-for="(el,i) in purposeList"
+                                            :key="i"
+                                            :class="el.istap?'activeZZ':''"
+                                            @click="purposeTap(el)"
+                                        >{{el.areaShortName}}</li>
                                     </ul>
                                 </el-col>
                             </el-row>
                             <!-- 业绩类型 -->
-                            <el-row class="fs14 mb40" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row
+                                class="fs14 mb40"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                            >
                                 <el-col>
                                     <ul class="dfrcsw">
                                         <li class="mr20">业绩类型：</li>
-                                        <li class="mr40 cp color-5a5" v-for="(el,i) in yjtypeList" :key='i' :class="el.istap?'activeZZ':''" @click="typeTap(el)">{{el.areaShortName}}</li>
+                                        <li
+                                            class="mr40 cp color-5a5"
+                                            v-for="(el,i) in yjtypeList"
+                                            :key="i"
+                                            :class="el.istap?'activeZZ':''"
+                                            @click="typeTap(el)"
+                                        >{{el.areaShortName}}</li>
                                     </ul>
                                 </el-col>
                             </el-row>
                             <!-- 中标金额/合同金额 -->
                             <el-row class="flex-center drc color-150 fs14 mb20">
                                 <div>中标/合同金额：</div>
-                                <!-- <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" minLength="1" maxlength="8" @input="data.project.amountStart=data.project.amountStart.replace(/[^\d.]/g,'')" style="width: 20%;"></el-input> -->
-                                <v-myInput :point="2" :max="99999" placeholder="请输入金额" v-model.number="data.project.amountStart"></v-myInput>
-                                    &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最高价（万元）" v-model="data.project.amountEnd" type="number" style="width: 20%"></el-input>
+                                <el-input placeholder="最低价（万元）" v-model="data.project.amountStart" minLength="1" maxlength="8" @input="data.project.amountStart=data.project.amountStart.replace(/[^\d.]/g,'')" style="width: 20%;"></el-input>
+                                <!-- <v-myInput
+                                    :point="2"
+                                    :max="99999"
+                                    placeholder="请输入金额"
+                                    v-model.number="data.project.amountStart"
+                                ></v-myInput> -->
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <el-input
+                                    placeholder="最高价（万元）"
+                                    v-model="data.project.amountEnd"
+                                    @input="data.project.amountEnd=data.project.amountEnd.replace(/[^\d.]/g,'')"
+                                    style="width: 20%"
+                                ></el-input>
                             </el-row>
                             <!-- 中标公示 -->
-                            <el-row class="flex-center drc color-150 fs14 mb20" :class="{'hide':data.projectSource !== 'chongq'}">
+                            <el-row
+                                class="flex-center drc color-150 fs14 mb20"
+                                :class="{'hide':data.projectSource !== 'chongq'}"
+                            >
                                 <div>中标公示：</div>
                                 <el-col :span="22">
                                     <i class="iconfont iconjingshi fs16 ml10 mr10 color-ffc"></i>
@@ -134,62 +228,123 @@
                             <el-row class="fs14 mb20 flex-center drc color-150">
                                 <div>{{data.projectSource == 'all'?'中标/合同签订日期：':'中标日期：'}}</div>
                                 <div>
-                                    <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.contractStart" type="date" placeholder="起始日期"></el-date-picker>
-                                        &nbsp;&nbsp;至&nbsp;&nbsp;
-                                    <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.contractEnd" type="date" placeholder="结束日期"></el-date-picker>
+                                    <el-date-picker
+                                        value-format="yyyy-MM-dd"
+                                        v-model="data.project.contractStart"
+                                        type="date"
+                                        placeholder="起始日期"
+                                    ></el-date-picker>&nbsp;&nbsp;至&nbsp;&nbsp;
+                                    <el-date-picker
+                                        value-format="yyyy-MM-dd"
+                                        v-model="data.project.contractEnd"
+                                        type="date"
+                                        placeholder="结束日期"
+                                    ></el-date-picker>
                                 </div>
                             </el-row>
                             <!-- 施工许可 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                            <el-row
+                                class="fs14 mb20 flex-center drc color-150"
+                                :class="{'hide':data.projectSource !== 'chongq'}"
+                            >
                                 <div>施工许可：</div>
                             </el-row>
                             <!-- 项目状态 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                            <el-row
+                                class="fs14 mb20 flex-center drc color-150"
+                                :class="{'hide':data.projectSource !== 'chongq'}"
+                            >
                                 <ul class="dfrcsw">
                                     <li class="mr20">项目状态：</li>
-                                    <li class="mr40 cp color-5a5" v-for="(el,i) in stateList" :key='i' :class="el.istap?'activeZZ':''" @click="stateTap(el)">{{el.areaShortName}}</li>
+                                    <li
+                                        class="mr40 cp color-5a5"
+                                        v-for="(el,i) in stateList"
+                                        :key="i"
+                                        :class="el.istap?'activeZZ':''"
+                                        @click="stateTap(el)"
+                                    >{{el.areaShortName}}</li>
                                 </ul>
                             </el-row>
                             <!-- 竣工验收备案： -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                            <el-row
+                                class="fs14 mb20 flex-center drc color-150"
+                                :class="{'hide':data.projectSource !== 'chongq'}"
+                            >
                                 <div>竣工验收备案：</div>
                             </el-row>
                             <!-- 面积 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'chongq'}">
+                            <el-row
+                                class="fs14 mb20 flex-center drc color-150"
+                                :class="{'hide':data.projectSource !== 'chongq'}"
+                            >
                                 <div>面积（平方米）：</div>
-                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;"></el-input>
-                                    &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;"></el-input>
+                                <el-input
+                                    placeholder="最小面积（㎡）"
+                                    v-model="data.project.areaStart"
+                                    style="width: 20%;"
+                                ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
+                                <el-input
+                                    placeholder="最大面积（㎡）"
+                                    v-model="data.project.areaEnd"
+                                    style="width: 20%;"
+                                ></el-input>
                             </el-row>
                             <!-- 竣工验收日期 -->
                             <el-row class="fs14 mb20 flex-center drc color-150">
                                 <div>竣工验收日期：</div>
-                                <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeStart" type="date" placeholder="起始日期"></el-date-picker>
-                                    &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-date-picker value-format="yyyy-MM-dd" v-model="data.project.completeEnd" type="date" placeholder="结束日期"></el-date-picker>
+                                <el-date-picker
+                                    value-format="yyyy-MM-dd"
+                                    v-model="data.project.completeStart"
+                                    type="date"
+                                    placeholder="起始日期"
+                                ></el-date-picker>&nbsp;&nbsp;至&nbsp;&nbsp;
+                                <el-date-picker
+                                    value-format="yyyy-MM-dd"
+                                    v-model="data.project.completeEnd"
+                                    type="date"
+                                    placeholder="结束日期"
+                                ></el-date-picker>
                             </el-row>
                             <!-- 面积 -->
-                            <el-row class="fs14 mb20 flex-center drc color-150" :class="{'hide':data.projectSource !== 'all'}">
+                            <el-row
+                                class="fs14 mb20 flex-center drc color-150"
+                                :class="{'hide':data.projectSource !== 'all'}"
+                            >
                                 <div>面积（平方米）：</div>
-                                <el-input placeholder="最小面积（㎡）" v-model="data.project.areaStart" style="width: 20%;"></el-input>
-                                    &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input placeholder="最大面积（㎡）" v-model="data.project.areaEnd" style="width: 20%;"></el-input>
+                                <el-input
+                                    placeholder="最小面积（㎡）"
+                                    v-model="data.project.areaStart"
+                                    style="width: 20%;"
+                                ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
+                                <el-input
+                                    placeholder="最大面积（㎡）"
+                                    v-model="data.project.areaEnd"
+                                    style="width: 20%;"
+                                ></el-input>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
                             <el-row class="fs14 flex-center drc color-150" v-if="isyj">
                                 <div>符合业绩条件的数量：</div>
-                                <el-input-number v-model="data.project.proCount" :min="1" size="mini"></el-input-number>
+                                <el-input-number
+                                    v-model="data.project.proCount"
+                                    :min="1"
+                                    size="mini"
+                                ></el-input-number>
                             </el-row>
                         </div>
                     </el-col>
                 </el-row>
                 <!-- 信用要求 -->
-                <el-row class="pt20 pb20 require" type="flex" :class="{'hide': current !== 1 || data.projectSource !== 'all'}">
+                <el-row
+                    class="pt20 pb20 require"
+                    type="flex"
+                    :class="{'hide': current !== 1 || data.projectSource !== 'all'}"
+                >
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">信用要求</el-col>
                     <el-col :span="16">
                         <!-- <el-row class="mb20"> -->
-                            <!-- 信息来源 -->
-                            <!-- <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
+                        <!-- 信息来源 -->
+                        <!-- <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
                                 信息来源：
                                 <el-input
                                     placeholder="请输入内容"
@@ -198,8 +353,8 @@
                                     style="width:50%"
                                     class="ml10"
                                 >
-                                </el-input> -->
-                                <!-- <el-select
+                        </el-input>-->
+                        <!-- <el-select
                                     v-model="data.credit.creditSource"
                                     placeholder="请选择"
                                     style="width:50%"
@@ -213,12 +368,12 @@
                                         :label="item.value"
                                         :value="item.id"
                                     ></el-option>
-                                </el-select> -->
-                            <!-- </el-col> -->
+                        </el-select>-->
+                        <!-- </el-col> -->
                         <!-- </el-row> -->
-                        <!-- <el-row class="mb20"> -->
+                        <el-row class="mb20">
                             <!-- 处罚类别 -->
-                            <!-- <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
+                            <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
                                 处罚类别：
                                 <el-select
                                     v-model="data.credit.punishType"
@@ -235,8 +390,8 @@
                                         :value="item.value"
                                     ></el-option>
                                 </el-select>
-                            </el-col> -->
-                        <!-- </el-row> -->
+                            </el-col>
+                        </el-row>
                         <!-- 关键字 -->
                         <el-row class="drc mb20">
                             <el-col :span="13" class="fs14 color-150" v-if="this.data.credit">
@@ -254,27 +409,50 @@
                         <!-- 处罚决定日期 -->
                         <el-row class="fs14 mb20 flex-center drc color-150" v-if="this.data.credit">
                             <div>处罚决定日期：</div>
-                            <el-date-picker value-format="yyyy-MM-dd" v-model="data.credit.punishStart" type="date" placeholder="起始日期"></el-date-picker>
-                                &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <el-date-picker value-format="yyyy-MM-dd" v-model="data.credit.punishEnd" type="date" placeholder="结束日期"></el-date-picker>
+                            <el-date-picker
+                                value-format="yyyy-MM-dd"
+                                v-model="data.credit.punishStart"
+                                type="date"
+                                placeholder="起始日期"
+                            ></el-date-picker>&nbsp;&nbsp;至&nbsp;&nbsp;
+                            <el-date-picker
+                                value-format="yyyy-MM-dd"
+                                v-model="data.credit.punishEnd"
+                                type="date"
+                                placeholder="结束日期"
+                            ></el-date-picker>
                         </el-row>
                         <!-- 符合业绩条件的数量 -->
                         <!-- <el-row class="fs14 flex-center drc color-150">
                             <div>符合信用条件的数量：</div>
                             <el-input-number v-model="data.credit.creCount" :min="1" size="mini"></el-input-number>
-                        </el-row> -->
+                        </el-row>-->
                     </el-col>
                     <el-col :span="6" class="text-r" v-if="this.data.credit">
-                        <el-checkbox v-model="data.credit.creditQuery" @change="getCreditQuery"  class="fs14 color-150">仅查询无行政处罚的企业</el-checkbox>
+                        <el-checkbox
+                            v-model="data.credit.creditQuery"
+                            @change="getCreditQuery"
+                            class="fs14 color-150"
+                        >仅查询无行政处罚的企业</el-checkbox>
                     </el-col>
                 </el-row>
-                <el-row :class="{'hide': current !== 1 || data.projectSource !== 'all'}" v-if="this.data.credit">
+                <el-row
+                    :class="{'hide': current !== 1 || data.projectSource !== 'all'}"
+                    v-if="this.data.credit"
+                >
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
-                        <el-input placeholder="最低分" v-model="data.credit.scoreStart" style="width: 20%;"></el-input>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                        <el-input placeholder="最高分" v-model="data.credit.scoreEnd" style="width: 20%"></el-input>
+                        <el-input
+                            placeholder="最低分"
+                            v-model="data.credit.scoreStart"
+                            style="width: 20%;"
+                        ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
+                        <el-input
+                            placeholder="最高分"
+                            v-model="data.credit.scoreEnd"
+                            style="width: 20%"
+                        ></el-input>
                     </el-col>
                 </el-row>
             </div>
@@ -286,7 +464,7 @@
                     <i class="iconfont iconwancheng"></i>
                 </div>
                 <p class="ml20">
-                    共为您找到符合企业
+                    共为您找到
                     <span>
                         <span v-if="total">
                             <span class="fw600 fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+</span>
@@ -294,9 +472,13 @@
                         </span>
                         <span class="fw600 fs24" v-else>0</span>
                     </span>
-                    家
+                    个符合要求的{{current == '1'?'企业':'人员'}}
                 </p>
-                <button class="info_btn fs18 cp color-eb6 bg-fff" @click="jump" :class="total==0||isNoSee?'notJump':''">查看详情</button>
+                <button
+                    class="info_btn fs18 cp color-eb6 bg-fff"
+                    @click="jump"
+                    :class="total==0||isNoSee?'notJump':''"
+                >查看详情</button>
             </div>
             <div class="link_fun mr40">
                 <p class="up mb5 pb5">服务电话：0731-85076077</p>
@@ -308,8 +490,8 @@
 <script>
 import publicBread from "@/components/customize/publicBread";
 import head3 from "@/components/head3";
-import screenZZ from '@/components/screenZZ'
-import screenRY from '@/components/zhuancha/screenRY'
+import screenZZ from "@/components/screenZZ";
+import screenRY from "@/components/zhuancha/screenRY";
 import { screenConut, personConut } from "@/api/index";
 export default {
     components: {
@@ -330,16 +512,16 @@ export default {
             areaList: [
                 {
                     value: "渝内企业",
-                    id: "in",
+                    id: "in"
                 },
                 {
                     value: "入渝企业",
-                    id: "enter",
+                    id: "enter"
                 },
                 {
                     value: "渝内+入渝企业",
-                    id: "all_in",
-                },
+                    id: "all_in"
+                }
             ],
             typeLists: [
                 {
@@ -351,142 +533,184 @@ export default {
                     value: "重庆建设工程信息网"
                 }
             ],
-            itemList:[//业绩所含子项
+            itemList: [
+                //业绩所含子项
                 {
-                    areaShortName:'招投标',
-                    istap:false,
-                },{
-                    areaShortName:'施工图审查',
-                    istap:false,
-                },{
-                    areaShortName:'合同备案',
-                    istap:false,
-                },{
-                    areaShortName:'施工许可证',
-                    istap:false,
-                },{
-                    areaShortName:'竣工验收',
-                    istap:false,
+                    areaShortName: "招投标",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工图审查",
+                    istap: false
+                },
+                {
+                    areaShortName: "合同备案",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工许可证",
+                    istap: false
+                },
+                {
+                    areaShortName: "竣工验收",
+                    istap: false
                 }
             ],
-            purposeList:[//工程用途
+            purposeList: [
+                //工程用途
                 {
-                    areaShortName:'不限',
-                    istap:true,
-                },{
-                    areaShortName:'公共建筑',
-                    istap:false,
-                },{
-                    areaShortName:'公共建筑配套工程',
-                    istap:false,
-                },{
-                    areaShortName:'办公建筑',
-                    istap:false,
-                },{
-                    areaShortName:'居住建筑',
-                    istap:false,
-                },{
-                    areaShortName:'居住建筑配套工程',
-                    istap:false,
-                },{
-                    areaShortName:'工业建筑',
-                    istap:false,
-                },{
-                    areaShortName:'工业建筑配套工程',
-                    istap:false,
-                },{
-                    areaShortName:'商业建筑',
-                    istap:false,
-                },{
-                    areaShortName:'商住楼',
-                    istap:false,
-                },{
-                    areaShortName:'农业建筑',
-                    istap:false,
-                },{
-                    areaShortName:'农业建筑配套工程',
-                    istap:false,
-                },{
-                    areaShortName:'交通运输类',
-                    istap:false,
-                },{
-                    areaShortName:'公共交通',
-                    istap:false,
-                },{
-                    areaShortName:'旅游建筑',
-                    istap:false,
-                },{
-                    areaShortName:'科教文卫建筑',
-                    istap:false,
-                },{
-                    areaShortName:'给水',
-                    istap:false,
-                },{
-                    areaShortName:'排水',
-                    istap:false,
-                },{
-                    areaShortName:'道路',
-                    istap:false,
-                },{
-                    areaShortName:'桥隧',
-                    istap:false,
-                },{
-                    areaShortName:'环境园林',
-                    istap:false,
-                },{
-                    areaShortName:'风景园林',
-                    istap:false,
-                },{
-                    areaShortName:'热力',
-                    istap:false,
-                },{
-                    areaShortName:'燃气',
-                    istap:false,
-                },{
-                    areaShortName:'通信建筑',
-                    istap:false,
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "公共建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "公共建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "办公建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "居住建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "居住建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "工业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "工业建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "商业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "商住楼",
+                    istap: false
+                },
+                {
+                    areaShortName: "农业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "农业建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "交通运输类",
+                    istap: false
+                },
+                {
+                    areaShortName: "公共交通",
+                    istap: false
+                },
+                {
+                    areaShortName: "旅游建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "科教文卫建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "给水",
+                    istap: false
+                },
+                {
+                    areaShortName: "排水",
+                    istap: false
+                },
+                {
+                    areaShortName: "道路",
+                    istap: false
+                },
+                {
+                    areaShortName: "桥隧",
+                    istap: false
+                },
+                {
+                    areaShortName: "环境园林",
+                    istap: false
+                },
+                {
+                    areaShortName: "风景园林",
+                    istap: false
+                },
+                {
+                    areaShortName: "热力",
+                    istap: false
+                },
+                {
+                    areaShortName: "燃气",
+                    istap: false
+                },
+                {
+                    areaShortName: "通信建筑",
+                    istap: false
                 }
             ],
-            yjtypeList:[//业绩类型
+            yjtypeList: [
+                //业绩类型
                 {
-                    areaShortName:'不限',
-                    istap:true,
-                },{
-                    areaShortName:'施工',
-                    istap:false,
-                },{
-                    areaShortName:'设计',
-                    istap:false,
-                },{
-                    areaShortName:'勘察',
-                    istap:false,
-                },{
-                    areaShortName:'监理',
-                    istap:false,
-                },{
-                    areaShortName:'施工设计一体化',
-                    istap:false,
-                },{
-                    areaShortName:'劳务',
-                    istap:false,
-                },{
-                    areaShortName:'项目管理',
-                    istap:false,
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "施工",
+                    istap: false
+                },
+                {
+                    areaShortName: "设计",
+                    istap: false
+                },
+                {
+                    areaShortName: "勘察",
+                    istap: false
+                },
+                {
+                    areaShortName: "监理",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工设计一体化",
+                    istap: false
+                },
+                {
+                    areaShortName: "劳务",
+                    istap: false
+                },
+                {
+                    areaShortName: "项目管理",
+                    istap: false
                 }
             ],
-            stateList:[//业绩所含子项
+            stateList: [
+                //业绩所含子项
                 {
-                    areaShortName:'不限',
-                    istap:true,
-                },{
-                    areaShortName:'项目在建',
-                    istap:false,
-                },{
-                    areaShortName:'项目竣工',
-                    istap:false,
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "项目在建",
+                    istap: false
+                },
+                {
+                    areaShortName: "项目竣工",
+                    istap: false
                 }
             ],
-            selectList: [//选择查询条件
+            selectList: [
+                //选择查询条件
                 {
                     id: "title",
                     content: "根据标题搜索"
@@ -498,9 +722,10 @@ export default {
                 {
                     id: "title_and_scope",
                     content: "根据标题和规模搜索"
-                },
+                }
             ],
-            punishList: [//处罚类别
+            punishList: [
+                //处罚类别
                 {
                     id: "0",
                     value: "全部"
@@ -532,46 +757,48 @@ export default {
                 {
                     id: "7",
                     value: "其他"
-                },
+                }
             ],
-            data:{
-                qualCode:"",//资质
-                regisAddress:"重庆市",
-                joinRegion: "all_in",//选择地区
-                project:{
-                    opt:"title",//搜索类型
+            data: {
+                qualCode: "", //资质
+                regisAddress: "重庆市",
+                joinRegion: "all_in", //选择地区
+                project: {
+                    opt: "title", //搜索类型
                     optType: "or",
-                    keywords:"",//搜索关键字
-                    childProject:"",//业务所含子项
-                    proWhere:"",//项目属地
-                    proUse:"",//工程用途
-                    proType:"",//业绩类型
-                    amountStart:null,//最低价
-                    amountEnd:null,//最高价
-                    contractStart:"",//起始日期
-                    contractEnd:"",//结束日期
-                    completeStart:"",//竣工起始日期
-                    completeEnd:"",//竣工结束日期
-                    areaStart:null,//最小面积
-                    areaEnd:null,//最大面积
-                    proCount:1,//符合业绩条件的数量
+                    keywords: "", //搜索关键字
+                    childProject: "", //业务所含子项
+                    proState: "", //项目状态
+                    proWhere: "", //项目属地
+                    proUse: "", //工程用途
+                    proType: "", //业绩类型
+                    amountStart: null, //最低价
+                    amountEnd: null, //最高价
+                    contractStart: "", //起始日期
+                    contractEnd: "", //结束日期
+                    completeStart: "", //竣工起始日期
+                    completeEnd: "", //竣工结束日期
+                    areaStart: null, //最小面积
+                    areaEnd: null, //最大面积
+                    proCount: 1 //符合业绩条件的数量
                 },
-                credit: {//信用筛选
+                credit: {
+                    //信用筛选
                     // creditSource: "信用中国-行政处罚", //信用来源
-                    // punishType: "", //处罚类别
+                    punishType: "", //处罚类别
                     creditKeyword: "", //信用关键字
                     punishStart: "", //处罚开始日期
                     punishEnd: "", //处罚结束日期
                     scoreStart: "", //综合开始得分
-                    scoreEnd: "",//综合结束得分
-                    creditQuery: "", //是否查询
+                    scoreEnd: "", //综合结束得分
+                    creditQuery: "not" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
-                person:[], //人员
+                person: [], //人员
                 zhuanchaType: "",
                 qualRecord: "", //资质备案
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
-                personRecord: "not",//人员备案
+                personRecord: "not", //人员备案
                 zhuanchaType: "company"
             },
             checked: false,
@@ -583,88 +810,110 @@ export default {
             isNoSee: true,
             isoptType: false,
             pkid: "", //查询id;
+            chongq: true
         };
     },
     watch: {
-        'data.project':{
-            deep:true,
-            handler(newval,oldVal){
-                if(newval.keywords!=''||newval.opt!='title'||newval.childProject
-                    ||newval.proWhere||newval.proUse||newval.proType||newval.amountStart
-                    ||newval.amountEnd||newval.contractStart||newval.contractEnd||newval.completeStart
-                    ||newval.completeEnd||newval.areaStart||newval.areaEnd){//如果筛选了业绩，则显示符合业绩数量
-                        this.isyj=true;
-                }else{
-                    this.isyj=false;
+        "data.project": {
+            deep: true,
+            handler(newval, oldVal) {
+                if (
+                    newval.keywords != "" ||
+                    newval.opt != "title" ||
+                    newval.childProject ||
+                    newval.proWhere ||
+                    newval.proUse ||
+                    newval.proType ||
+                    newval.amountStart ||
+                    newval.amountEnd ||
+                    newval.contractStart ||
+                    newval.contractEnd ||
+                    newval.completeStart ||
+                    newval.completeEnd ||
+                    newval.areaStart ||
+                    newval.areaEnd ||
+                    newval.proState ||
+                    newval.creditQuery
+                ) {
+                    //如果筛选了业绩，则显示符合业绩数量
+                    this.isyj = true;
+                } else {
+                    this.isyj = false;
                     this.data.project.proCount = 0;
                 }
-                let arr = newval.keywords.split(' ');
-                if(arr.length>1){
-                    this.isoptType=true
-                }else{
-                    this.isoptType=false
+                let arr = newval.keywords.split(" ");
+                if (arr.length > 1) {
+                    this.isoptType = true;
+                } else {
+                    this.isoptType = false;
                 }
             }
         },
-        data:{
-            deep:true,
-            handler(newVal,oldVal){
-                if(JSON.stringify(newVal)==this.dataStr){
-                    this.isNoSee=true;
-                    return
+        data: {
+            deep: true,
+            handler(newVal, oldVal) {
+                if (JSON.stringify(newVal) == this.dataStr) {
+                    this.isNoSee = true;
+                    return;
                 }
-                this.isNoSee=false;
+                this.isNoSee = false;
                 this.companyCount();
             }
         },
-        inject: ['reload'],
+        inject: ["reload"]
     },
     methods: {
         companyCount() {
-            let data=JSON.parse(JSON.stringify(this.data));
-            if(data.project.keywords&&data.project.keywords!=''){
-                data.project.keywords=data.project.keywords.replace(/ /g,',');
-            }else{
-                data.project.opt=''
+            if (this.data.punishType == "全部") {
+                data.project.punishType = "";
             }
-            if(!this.isoptType){
-                data.project.optType=''
+            let data = JSON.parse(JSON.stringify(this.data));
+            if (data.project.keywords && data.project.keywords != "") {
+                data.project.keywords = data.project.keywords.replace(
+                    / /g,
+                    ","
+                );
+            } else {
+                data.project.opt = "";
             }
-            if(!this.isyj){
-                data.project.proCount=''
+            if (!this.isoptType) {
+                data.project.optType = "";
             }
-            data.project=this.filterParams(data.project);
+            if (!this.isyj) {
+                data.project.proCount = "";
+            }
+            data.project = this.filterParams(data.project);
             data.credit = this.filterParams(data.credit);
             data = this.filterParams(data);
-            if(this.current == 1) {
+            if (this.current == 1) {
                 screenConut(data).then(res => {
-                    if(res.code == '1') {
-                        const {count, pkid } = res.data;
+                    if (res.code == "1") {
+                        const { count, pkid } = res.data;
                         this.total = count;
                         this.pkid = pkid;
-                    }else {
+                    } else {
                         console.info(res.code);
                     }
-                })
-            }else {
+                });
+            } else {
                 this.data.zhuanchaType = "person";
                 data.project.proCount = 1;
                 //深拷贝不影响this.data的值;
-                let creditList = JSON.parse(JSON.stringify(this.data)) ;
+                let creditList = JSON.parse(JSON.stringify(this.data));
                 for (let i in creditList) {
-                    if(i == "credit") {
+                    if (i == "credit") {
                         delete creditList[i];
                     }
                 }
                 personConut(creditList).then(res => {
-                    if(res.code == '1') {
-                        const {count, pkid } = res.data;
+                    if (res.code == "1") {
+                        const { count, pkid } = res.data;
                         this.total = count;
                         this.pkid = pkid;
-                    }else {
+                    } else {
                         console.info(res.code);
                     }
-                })
+                });
             }
         },
         //从子组件获取值;
@@ -675,152 +924,207 @@ export default {
             this.data.person = data;
         },
         getRecordZZ(data) {
-            if(data) {
+            if (data) {
                 this.data.qualRecord = "yes";
-            }else {
+            } else {
                 this.data.qualRecord = "not";
             }
         },
         getRecordRY(data) {
-            if(data) {
+            if (data) {
                 this.data.personRecord = "yes";
-            }else {
+            } else {
                 this.data.personRecord = "not";
             }
         },
-        getCreditQuery () {
-            
-        },
+        getCreditQuery() {},
         // getCodeRY
         handleClick(index) {
             this.current = index;
             this.companyCount();
         },
-        handleClickZZ (index) {
+        handleClickZZ(index) {
             this.currentZZ = index;
-            if(index == 1) {
+            if (index == 1) {
                 this.data.project.optType = "or";
-            }else {
+            } else {
                 this.data.project.optType = "and";
             }
         },
-        handleSelect (data) {
+        handleSelect(data) {
             this.data.project.opt = data.id;
         },
         changetable() {
+            if (this.data.projectSource == "chongq") {
+                this.data = {
+                    qualCode: "", //资质
+                    regisAddress: "重庆市",
+                    joinRegion: "all_in", //选择地区
+                    project: {
+                        opt: "title", //搜索类型
+                        optType: "or",
+                        keywords: "", //搜索关键字
+                        childProject: "", //业务所含子项
+                        proWhere: "", //项目属地
+                        proState: "", //项目状态
+                        proUse: "", //工程用途
+                        proType: "", //业绩类型
+                        amountStart: null, //最低价
+                        amountEnd: null, //最高价
+                        contractStart: "", //起始日期
+                        contractEnd: "", //结束日期
+                        completeStart: "", //竣工起始日期
+                        completeEnd: "", //竣工结束日期
+                        areaStart: null, //最小面积
+                        areaEnd: null, //最大面积
+                        proCount: 1 //符合业绩条件的数量
+                    },
+                    credit: {
+                        //信用筛选
+                        // creditSource: "信用中国-行政处罚", //信用来源
+                        punishType: "", //处罚类别
+                        creditKeyword: "", //信用关键字
+                        punishStart: "", //处罚开始日期
+                        punishEnd: "", //处罚结束日期
+                        scoreStart: "", //综合开始得分
+                        scoreEnd: "", //综合结束得分
+                        creditQuery: "not" //是否查询
+                        // creCount: 1, //符合信用的数量
+                    },
+                    person: [], //人员
+                    zhuanchaType: "",
+                    qualRecord: "", //资质备案
+                    projectSource: "chongq", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
+                    personRecord: "not", //人员备案
+                    zhuanchaType: "company"
+                };
+            }
         },
-        backSelect(arr){//选不限时，其他取消选择
-            for(let x of arr){
-                if(x.areaShortName!='不限'){
-                    x.istap=false
+        backSelect(arr) {
+            //选不限时，其他取消选择
+            for (let x of arr) {
+                if (x.areaShortName != "不限") {
+                    x.istap = false;
                 }
             }
         },
-        selectFn(el,arr){//选择
-            if(el.areaShortName=='不限'){
-                el.istap=true
-                this.backSelect(arr)
-            }else{
-                el.istap=!el.istap
-                if(this.forInLength(arr)){
-                    arr[0].istap=true
-                }else{
-                    arr[0].istap=false
+        selectFn(el, arr) {
+            //选择
+            if (el.areaShortName == "不限") {
+                el.istap = true;
+                this.backSelect(arr);
+            } else {
+                el.istap = !el.istap;
+                if (this.forInLength(arr)) {
+                    arr[0].istap = true;
+                } else {
+                    arr[0].istap = false;
                 }
             }
         },
-        forInLength(arr){//其他都没选，自动选不限
-            let a=[];
-            for(let x of arr){
-                if(x.istap){
+        forInLength(arr) {
+            //其他都没选，自动选不限
+            let a = [];
+            for (let x of arr) {
+                if (x.istap) {
                     a.push(x.areaShortName);
                 }
             }
-            if(a.length == 0){
+            if (a.length == 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },
-        forArrStr(arr){//从数组中取出对应值拼接
-            let a=[];
-            let str=''
-            for(let x of arr){
-                if(x.istap){
-                    if(x.areaShortName=='不限'){
-                        str=null
-                        return str
+        forArrStr(arr) {
+            //从数组中取出对应值拼接
+            let a = [];
+            let str = "";
+            for (let x of arr) {
+                if (x.istap) {
+                    if (x.areaShortName == "不限") {
+                        str = null;
+                        return str;
                     }
-                    a.push(x.areaShortName)
+                    a.push(x.areaShortName);
                 }
             }
-            str=a.join(',')
-            return str
+            str = a.join(",");
+            return str;
         },
-        selectArea (item) {
+        selectArea(item) {
             this.data.joinRegion = item.id;
         },
-        itemFn(el){//业绩所含子项
-            el.istap=!el.istap;
-            this.data.project.childProject=this.forArrStr(this.itemList);
+        itemFn(el) {
+            //业绩所含子项
+            el.istap = !el.istap;
+            this.data.project.childProject = this.forArrStr(this.itemList);
         },
-        projectTap(el){//项目属地
-            this.selectFn(el,this.projectList);
-            this.data.project.proWhere=this.forArrStr(this.projectList);
+        projectTap(el) {
+            //项目属地
+            this.selectFn(el, this.projectList);
+            this.data.project.proWhere = this.forArrStr(this.projectList);
         },
-        purposeTap(el){//工程用途
-            this.selectFn(el,this.purposeList)
-            this.data.project.proUse=this.forArrStr(this.purposeList);
+        purposeTap(el) {
+            //工程用途
+            this.selectFn(el, this.purposeList);
+            this.data.project.proUse = this.forArrStr(this.purposeList);
         },
-        typeTap(el){//业绩类型
-            this.selectFn(el,this.yjtypeList);
-            this.data.project.proType=this.forArrStr(this.yjtypeList);
+        typeTap(el) {
+            //业绩类型
+            this.selectFn(el, this.yjtypeList);
+            this.data.project.proType = this.forArrStr(this.yjtypeList);
         },
-        stateTap(el) {//项目状态
-            this.selectFn(el,this.stateList);
+        stateTap(el) {
+            //项目状态
+            this.selectFn(el, this.stateList);
+             this.data.project.proState = this.forArrStr(this.stateList);
         },
-        jump(){
-            if(this.total==0||this.isNoSee){
-                return false
+        jump() {
+            if (this.total == 0 || this.isNoSee) {
+                return false;
             }
-            if(this.isyj||this.data.qualCode!=''||this.data.person.length>0){
+            if (
+                this.isyj ||
+                this.data.qualCode != "" ||
+                this.data.person.length > 0
+            ) {
                 var page = "";
-                if(this.current == 1) {
-                    page = "qy"
-                }else {
+                if (this.current == 1) {
+                    page = "qy";
+                } else {
                     page = "ry";
                 }
                 this.$router.push({
-                        path:'/payPage',
-                        query: {
-                            pkid: this.pkid,
-                            page: page,
-                            source: this.data.projectSource,
-                        }
-                    })
-            }else{
-                this.$alert('请至少筛选人员，资质，业绩中的一项')
+                    path: "/payPage",
+                    query: {
+                        pkid: this.pkid,
+                        page: page,
+                        source: this.data.projectSource
+                    }
+                });
+            } else {
+                this.$alert("请至少筛选人员，资质，业绩中的一项");
             }
-            
-        },
+        }
         // handleInput(e) {
         //     console.info(e);
         //     this.e = (e.) || null
         // },
     },
-    created () {
+    created() {
         this.companyCount();
-        this.codeZZ = JSON.parse(localStorage.getItem('filter'));
-        let data = JSON.parse(localStorage.getItem('filter'));
-        let ryData=JSON.parse(localStorage.getItem('people'));
-        this.peopleList=ryData;
-        for(let x of data.area){
-            x.istap = false
+        this.codeZZ = JSON.parse(localStorage.getItem("filter"));
+        let data = JSON.parse(localStorage.getItem("filter"));
+        let ryData = JSON.parse(localStorage.getItem("people"));
+        this.peopleList = ryData;
+        for (let x of data.area) {
+            x.istap = false;
         }
         data.area.unshift({
-            areaShortName:'不限',
-            istap:true,
-        })
+            areaShortName: "不限",
+            istap: true
+        });
         this.projectList = data.area;
     }
 };
@@ -922,12 +1226,12 @@ export default {
         .info_btn {
             width: 193px;
             height: 48px;
-            border-radius:8px;
+            border-radius: 8px;
             border: 1px solid @themeColor;
             margin-left: 60px;
         }
         .notJump {
-            background: #CCC;
+            background: #ccc;
             cursor: not-allowed;
             opacity: 0.8;
             border: none;
