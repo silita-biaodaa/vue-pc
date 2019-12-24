@@ -66,7 +66,7 @@
 					</dd>
 				</dl>
 				<div class="page">
-					<nav-page :all='total' :currents='data.pageNo'></nav-page>
+					<nav-page :all='total' :currents='data.pageNo'  @skip='Goto'></nav-page>
 				</div>
 			</template>
 			<!-- 无数据  -->
