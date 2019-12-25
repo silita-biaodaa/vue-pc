@@ -319,6 +319,7 @@
 					border: 1px solid #DDDFE4;
 					margin-left: 40px;
 					font-weight: 550;
+					cursor: pointer;
 				}
 			}
 			table {

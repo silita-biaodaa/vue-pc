@@ -140,6 +140,7 @@
 			align-items: center;
 			.e-wei {
 				font-size: 14px;
+				font-weight: 550;
 			}
 			.el-input__inner {
 				background-color: #F4F4F4;
