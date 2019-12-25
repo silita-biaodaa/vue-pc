@@ -283,6 +283,9 @@
 		},
 	}
 </script>
+<style lang="less">
+@import "../../base/element";
+</style>
 <style lang="less" scoped>
 .crew {
 	.option-box{

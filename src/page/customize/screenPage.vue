@@ -908,9 +908,9 @@ export default {
             if (data.qualCode == "") {
                 data.qualRecord = "";
             }
-            if(data.person.length = 0) {
-                data.personRecord = "";
-            }
+            // if (data.person.length = 0) {
+            //     data.personRecord = "";
+            // }
             // if(data.credit !== undefined) {
             //     if(data.credit.creditQuery) {
             //         data.credit.creditQuery = "yes";

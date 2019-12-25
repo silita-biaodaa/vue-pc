@@ -166,6 +166,7 @@ export default {
             this.isshow=false;
             this.seachTxt='';
             let arr=o.quaCode.split('-');
+            console.info('o.quaCode',o);
             if(this.listIsIn()){
                 let x=this.listIsIn();
                 for(let y of this.qualList){
@@ -482,21 +483,8 @@ export default {
 }
 </script>
 <style lang="less">
-@import "../style/publicCSS";
-.el-checkbox {
-    color: @textColor !important;
-}
-.el-checkbox__input.is-checked+.el-checkbox__label {
-    color: @textColor !important;
-}
-.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-    background-color:  @themeColor !important;
-    border-color: @themeColor !important;
-}
-.el-checkbox__input.is-focus .el-checkbox__inner, .el-checkbox__inner:hover {
-    color: @themeColor !important;
-    border-color: @themeColor !important;
-}
+@import "../base/element";
+
 </style>
 <style lang="less" scoped>
 @import "../style/publicCSS";
