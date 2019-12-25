@@ -3,11 +3,19 @@
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="option-box">
 			<per-por :state='state' @perPor='gainPor' :address="data.province"></per-por>
-			<div class="select dfrb">
-				<h6>注册类别</h6>
-				<ul>
-					<li v-for='(el,i) in list' :key='i' :class="el.category == data.category ? 'current':''" @click='evalclass(el)'>{{el.category}}</li>
-				</ul>
+			<div class="select drc mb20">
+				<h6 class="fs16 mr20">注册类别</h6>
+				<div>
+					<el-select placeholder="请选择证书类别" clearable v-model="categoryData.one.cateName"  @change="oneChangeFn">
+						<el-option v-for="item in categoryData.one.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
+					</el-select>
+					<el-select placeholder="请选择证书等级/专业" clearable v-model="categoryData.two.cateName"  v-if="categoryData.two.list&&categoryData.two.list.length>0"   @change="twoChangeFn">
+						<el-option v-for="item in categoryData.two.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
+					</el-select>
+					<el-select placeholder="请选择证书专业" clearable multiple collapse-tags v-model="categoryData.three.cateName" @change="threeChangeFn" v-if="categoryData.three.list&&categoryData.three.list.length>0">
+						<el-option v-for="item in categoryData.three.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
+					</el-select>
+				</div>
 			</div>
 		</div>
 		<div class="total">
@@ -72,6 +80,7 @@
 		getJsonData,
 		Person
 	} from '@/api/index'
+	import screenRY from "@/components/zhuancha/screenRY";
 	export default {
 		data() {
 			return {
@@ -83,7 +92,7 @@
 				svip: false,
 				data: {
 					keyWord: '',
-					category: '全部',
+					category: '',
 					pageNo: 1,
 					pageSize: 20,
 					province: '',
@@ -91,11 +100,30 @@
 				},
 				searchType: 0,
 				serach: '',
+				categoryData:{
+					one:{
+						cateName:'',
+						list:[]
+					},
+					two:{
+						cateName:'',
+						list:[]
+					},
+					three:{
+						cateName:'',
+						list:[]
+					}
+				}
 			}
 		},
 		inject: ['reload'],
+		components:{
+			"v-screenry": screenRY,
+		},
 		created() {
 			this.serach = localStorage.getItem('title') ? localStorage.getItem('title') : ''
+			let ryData = JSON.parse(localStorage.getItem("people"));
+        	this.categoryData.one.list = ryData;
 			this.gainDetail();
 			//如果是刷新操作，则复现上次
 			if (sessionStorage.getItem('peopleSerach')) {
@@ -106,8 +134,40 @@
 				} else {
 					this.searchType = 0
 				}
-				if (data.category == '') {
-					data.category = '全部'
+				if (data.category&&data.category != '') {
+					if(data.category.indexOf('/')>-1){//有/代表二三级
+						let arr=data.category.split('/');
+						for(let x of ryData){
+							for(let y of x.list){
+								if(y.cateName==arr[0]){
+									this.categoryData.one.cateName=x.cateName
+									this.categoryData.two.list=x.list
+									this.categoryData.two.cateName=y.cateName
+									this.categoryData.three.list=y.list
+									this.categoryData.three.cateName=arr[1].split(',')
+									break
+								}
+							}
+							break
+						}
+					}else{//无/代表一级或者二级
+						for(let x of ryData){
+							if(data.category==x.cateName){
+								this.categoryData.one.cateName=x.cateName
+								break
+							}else{
+								for(let y of x.list){
+									if(y.cateName==data.category){
+										this.categoryData.one.cateName=x.cateName
+										this.categoryData.two.list=x.list
+										this.categoryData.two.cateName=y.cateName
+										this.categoryData.three.list=y.list
+										break
+									}
+								}
+							}
+						}
+					}
 				}
 				this.state={
 					source:data.province
@@ -120,6 +180,55 @@
 			state: '',
 		},
 		methods: {
+			oneChangeFn(){
+				let o=this.categoryData;
+				o.two.list=[];
+				o.three.list=[];
+				o.two.cateName='';
+				o.three.cateName='';
+				for(let x of o.one.list){
+					if(x.cateName==o.one.cateName){
+						if(x.list){
+							o.two.list=x.list
+							break
+						}else{
+							this.data.category=x.cateName
+							break
+						}
+					}
+				}
+			},
+			twoChangeFn(){
+				let o=this.categoryData;
+				o.three.cateName=[];
+				o.three.list=[];
+				for(let x of o.two.list){
+					if(x.cateName==o.two.cateName){
+						o.three.list=x.list
+						this.data.category=o.two.cateName
+						break
+					}
+				}
+			},
+			threeChangeFn(){
+				let o=this.categoryData;
+				let arr=[];
+				arr[0]=o.two.cateName;
+				arr[1]=o.three.cateName;
+				
+				if(o.three.cateName.length==0){
+					this.data.category=o.two.cateName;
+				}else{
+					this.data.category=arr.join('/');
+				}
+			},
+			screenryFn(val){
+				this.data.category=val;
+				this.person = [];
+				this.isajax = false;
+				this.data.pageNo = 1
+				this.gainList()
+			},
 			closeload(val) {
 				this.svip = val.cur
 			},
@@ -159,8 +268,6 @@
 					this.data.comName = ''
 				}
 				let data = JSON.parse(JSON.stringify(this.data));
-				data.category = data.category == '全部' ? '' : data.category;
-
 				Person(data).then(res => {
 					if (res.code == 1) {
 						this.total = res.total
@@ -276,6 +383,12 @@
 				handler(val, old) {
 					sessionStorage.setItem('peopleSerach', JSON.stringify(val));
 				}
+			},
+			'data.category':function(val,old){
+				this.person = [];
+				this.isajax = false;
+				this.data.pageNo = 1
+				this.gainList()
 			}
 		},
 		beforeDestroy() {
@@ -289,7 +402,9 @@
 <style lang="less" scoped>
 .crew {
 	.option-box{
-		padding-bottom: 0
+		padding-bottom: 0;
+		.select.drc{
+		}
 	}
 	.isUnder{
 		border: 1px solid #EB651B;

@@ -341,7 +341,7 @@
 					font-weight: 550;
 					border-bottom: 1px solid #DDDFE4;
 					i {
-						font-size: 30px;
+						font-size: 28px;
 						cursor: pointer;
 					}
 				}

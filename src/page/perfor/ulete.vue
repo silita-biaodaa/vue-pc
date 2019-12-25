@@ -399,21 +399,21 @@
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
-					font-size: 20px;
+					font-size: 18px;
 					color: #150000;
 					font-weight: 550;
 					padding: 0 30px;
 					border-bottom: 1px solid #DDDFE4;
 					overflow: hidden;
 					i {
-						font-size: 30px;
+						font-size: 28px;
 						cursor: pointer;
 					}
 				}
 				.ur-main {
 					height: 60px;
 					line-height: 60px;
-					font-size: 18px;
+					font-size: 14px;
 					color: #000;
 					font-weight: 550;
 				}
