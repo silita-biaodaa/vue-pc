@@ -1,5 +1,5 @@
 <template>
-	<div class="home">
+	<div class="home bg-f4f">
 		<en-search></en-search>
 		<!-- 专查 -->
 		<ul class="query-box">
@@ -194,7 +194,6 @@
 <style lang="less">
 @import "../style/publicCSS";
 .home {
-	background-color: #FAFAFA;
 	// 平台公示/行业资讯
 	.ptgs-hyzx{
 		background: #fff;
@@ -237,7 +236,7 @@
 				}
 				.time{
 					color: #999;
-					margin: 10px 0 20px;
+					margin: 10px 0;
 				}
 				.remark{
 					color: #5A5A5A;
