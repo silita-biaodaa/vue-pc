@@ -223,6 +223,15 @@ export default {
             this.loading = false;
             this.data = res.data.data.condition;
             this.$parent.total = res.data.data.condition.totals;
+            this.$router.push({
+                path:this.$route.path,
+                query:{
+                    orderNo:this.$route.query.orderNo,
+                    page:this.$route.query.page,
+                    pkid:this.$route.query.pkid,
+                    source:res.data.data.condition.projectSource
+                }
+            })
             this.$emit("getArea", this.data.joinRegion);
         });
         //获取search-content底下所有子元素

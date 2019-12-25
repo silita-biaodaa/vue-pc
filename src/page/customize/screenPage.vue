@@ -1144,7 +1144,6 @@ export default {
                     query: {
                         pkid: this.pkid,
                         page: page,
-                        source: this.data.projectSource
                     }
                 });
             } else {
@@ -1165,30 +1164,13 @@ export default {
                 document.documentElement.scrollTop ||
                 document.body.scrollTop;
             var height = document.body.offsetHeight;
-            if (this.data.projectSource == "chongq") {
-                if (this.current == 1) {
-                    if (scrollTop > 200) {
-                        this.showFixed = false;
-                    } else {
-                        this.showFixed = true;
-                    }
-                } else if (this.current == 2) {
-                    this.showFixed = false;
-                }
-            } else {
-                if (this.current == 1) {
-                    if (scrollTop > 370) {
-                        this.showFixed = false;
-                    } else {
-                        this.showFixed = true;
-                    }
-                } else if (this.current == 2) {
-                    if (scrollTop > 300) {
-                        this.showFixed = false;
-                    } else {
-                        this.showFixed = true;
-                    }
-                }
+            let ckh=window.innerHeight;//窗口高度
+            let h=height-503;//实际高度 503=40(fix的margin)+128(fix层高度)+335(底部高度)
+            console.log(height)
+            if(h-ckh>scrollTop){
+                this.showFixed = true;
+            }else{
+                this.showFixed = false;
             }
         }
     },
@@ -1218,6 +1200,8 @@ export default {
 <style lang="less" scoped>
 @import "../../style/publicCSS";
 .screenPage {
+    position: relative;
+    padding-bottom:168px;
     .screenPage_body {
         width: 1020px;
         margin: 0 auto;
@@ -1264,9 +1248,12 @@ export default {
         padding-bottom: 0 !important;
     }
     .totalBox {
+        position: absolute;
         width: 1020px;
         height: 128px;
-        margin: 20px auto 40px;
+        bottom: 40px;
+        transform: translateX(-50%);
+        left: 50%;
         background-color: @lightOrangeColor;
         .bottom_img {
             i {
@@ -1300,10 +1287,6 @@ export default {
     .btnFixed {
         position: fixed;
         bottom: 0;
-        margin-bottom: 0;
-        z-index: 10;
-        left: 50%;
-        transform: translate(-50%, 0);
     }
 }
 </style>

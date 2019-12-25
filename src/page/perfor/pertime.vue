@@ -147,7 +147,7 @@
 		}
 		.row{
 			.el-input{
-				width: 110px;
+				width: 115px;
 				height:36px;
 				padding: 8px 10px;
 				box-sizing: border-box;

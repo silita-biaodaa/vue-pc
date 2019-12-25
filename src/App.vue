@@ -781,8 +781,8 @@ body{
 					border-right: 1px solid #fff;
 					font-size: 26px;
 					width: 100%;
-					height: 35px;
-					line-height: 35px;
+					height: 20px;
+					line-height: 20px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -804,6 +804,9 @@ body{
 			}
 			.current {
 				background-color: #FF8E4F;
+			}
+			.current div{
+				border-color: transparent
 			}
 		}
 	}

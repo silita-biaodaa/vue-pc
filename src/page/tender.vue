@@ -16,9 +16,9 @@
 						<li v-for='(el,i) in sums' :key='i' :class="el.s==data.projSumStart? 'current':''" @click='evalsum(el)'>{{el.name}}</li>
 					</ul>
 					<div class="row drc fs14">
-						<input placeholder="最低价" class="bg-f4f borde fs14 mr20" v-model="data.low" clearable type="text"/>
+						<input placeholder="最低价（万元）" class="bg-f4f borde fs14 mr20" v-model="data.low" clearable type="text"/>
 						至
-						<input placeholder="最高价" class="bg-f4f borde fs14 ml20 mr20" v-model="data.high" clearable type="text"/>
+						<input placeholder="最高价（万元）" class="bg-f4f borde fs14 ml20 mr20" v-model="data.high" clearable type="text"/>
 						<div class="t-btn bg-theme cp" @click='fade'>确定</div>
 					</div>
 				</div>
@@ -480,7 +480,7 @@
 			}
 			.row{
 				input{
-					width: 108px;
+					width: 115px;
 					height:36px;
 					padding: 8px 10px;
 					box-sizing: border-box;
