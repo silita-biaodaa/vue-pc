@@ -40,7 +40,7 @@ Vue.component('v-icon',svgIcon)
 // Vue.component('v-provcity',provCity)
 
 Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
-Vue.component('all-city', allCity)//用于企业市级筛选（优化后可删）
+Vue.component('all-city', provCity)//用于企业市级筛选（优化后可删）
 Vue.component('per-por', perpor)//地区组件可把其与市级筛选合并，多个组件无意义（优化后可删）
 Vue.component('m-oney', money)//钱筛选组件,感觉其中逻辑不够灵活
 Vue.component('per-time', pertime)//时间筛选组件,感觉其中逻辑不够灵活
@@ -100,7 +100,23 @@ Vue.prototype.formatDate = function(param, type=null) {
   }
   return b;
 }
-
+//fix层防滚动
+Vue.prototype.modalHelper = (function() {
+	var scrollTop;
+	return {
+		afterOpen: function(){
+		    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+		    document.body.style.cssText += 'position:fixed;width:100%;top:-'+scrollTop+'px;';
+		},
+		beforeClose: function() {
+		    var body = document.body;
+		    body.style.position = '';
+		    var top = body.style.top;
+		    document.body.scrollTop = document.documentElement.scrollTop = -parseInt(top);
+		    body.style.top = '';
+		}
+	};
+})();
 /*新开页跳转*/
 Vue.prototype.openNewLink = function(path,query=null){
   const {href} = router.resolve({

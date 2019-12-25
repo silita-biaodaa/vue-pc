@@ -1,15 +1,9 @@
 <template>
-	<div class="perpor">
-		<div class="select">
-			<el-row>
-				<el-col :span='2'>省&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp份:</el-col>
-				<el-col :span='22'>
-					<ul class='left pro'>
-						<li v-for='(el,i) in province' :key='i' class='left' :class="el.name == area ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
-					</ul>
-				</el-col>
-			</el-row>
-		</div>
+	<div class="select dfrb bor-b mb20">
+		<h6>省级区域</h6>
+		<ul>
+			<li v-for='(el,i) in province' :key='i' :class="el.name == area ? 'current':''" @click='evalclass(el)'>{{el.areaShortName}}</li>
+		</ul>
 	</div>
 </template>
 <script>
@@ -59,7 +53,8 @@
 			this.province = data.area;
 			if (!(this.$route.fullPath == '/crew')) {
 				this.province.unshift({
-					name: '全部'
+					name: '全部',
+					areaShortName:'全部'
 				})
 			}
 		},

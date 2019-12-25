@@ -1,23 +1,18 @@
 <template>
 	<div class="money">
-		<div class="select">
-			<el-row>
-				<el-col :span='2'>投资总额:</el-col>
-				<el-col :span='9'>
-					<ul class='left pro'>
-						<li v-for='(el,i) in range' :key='i' class='left' :class="el.min == min ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
-					</ul>
-				</el-col>
-				<el-col :span='10' class="ttt">
-					<el-input placeholder="最低价(万)" v-model="low" @clear='allmon' clearable>
-					</el-input>
-					<div class="in-line">
-					</div>
-					<el-input placeholder="最高价(万)" v-model="high" @clear='allmon' clearable>
-					</el-input>
-					<div class="t-btn" @click='fade'>确定</div>
-				</el-col>
-			</el-row>
+		<div class="select dfrb bor-b mb20">
+			<h6>投资总额</h6>
+			<div>
+				<ul>
+					<li v-for='(el,i) in range' :key='i' :class="el.min==min? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
+				</ul>
+				<div class="row drc fs14  mb20">
+					<input placeholder="最低价（万元）" class="bg-f4f borde fs14 mr20" v-model="low" clearable type="text"/>
+					至
+					<input placeholder="最高价（万元）" class="bg-f4f borde fs14 ml20 mr20" v-model="high" clearable type="text"/>
+					<div class="t-btn bg-theme cp" @click='fade'>确定</div>
+				</div>
+			</div>
 		</div>
 		<f-vip @toChildEvent='closeload' v-if='svip'></f-vip>
 	</div>
@@ -108,34 +103,26 @@
 		},
 	}
 </script>
-<style lang="less">
-	.money {
-		.select {
-			font-size: 16px;
-			margin-bottom: 12px;
-
-			.pro {
-				li {
-					padding: 2px 9px;
-					height: 20px;
-					text-align: center;
-					line-height: 20px;
-					margin-bottom: 6px;
-					cursor: pointer;
-					color: #666;
-				}
-
-				.bid-p {
-					padding: 2px 9px;
-					color: #666;
-				}
-
-				.current {
-					background-color: #FE6603;
-					color: #fff;
-				}
+<style lang="less" scoped>
+	.select.dfrb>div{
+		width:calc(100% - 84px);
+		ul{
+			width:100%
+		}
+		.row{
+			input{
+				width: 110px;
+				height:36px;
+				padding: 8px 10px;
+				box-sizing: border-box;
+			}
+			.t-btn{
+				width: 60px;
+				line-height: 36px;
+				color: #fff;
+				text-align: center;
 			}
 		}
-
 	}
+
 </style>

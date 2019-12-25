@@ -15,7 +15,7 @@
                         </div>
                     </li>
                     <li
-                        class="pt20 pb20 pl20 pr20 result_list"
+                        class="pt20 pb20 pl20 pr20 result_list cp"
                         v-for="(item,index) in ryList"
                         :key="index"
                         @click="jumpDetail('ry',item)"
@@ -47,7 +47,7 @@
                         </div>
                     </li>
                     <li
-                        class="pt20 pb20 pl20 pr20 result_list"
+                        class="pt20 pb20 pl20 pr20 result_list cp"
                         v-for="(item,index) in qyList"
                         :key="index"
                         @click="jumpDetail('qy',item)"

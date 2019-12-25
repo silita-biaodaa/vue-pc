@@ -2,17 +2,12 @@
 	<div class="perlist">
 		<div class="option-box">
 			<per-por :state='data.area' @perPor='gainPor'></per-por>
-			<div class="select">
-				<el-row>
-					<el-col :span='2'>项目类别:
-					</el-col>
-					<el-col :span='22'>
-						<ul class='left pro'>
-							<li v-for='(el,i) in classif' :key='i' class='left' :class="el.value == data.proType ? 'current':''" @click='levelif(el)'>{{el.name}}
-							</li>
-						</ul>
-					</el-col>
-				</el-row>
+			<div class="select dfrb bor-b mb20">
+				<h6>项目类别</h6>
+				<ul>
+					<li v-for='(el,i) in classif' :key='i' :class="el.value == data.proType ? 'current':''" @click='levelif(el)'>{{el.name}}
+					</li>
+				</ul>
 			</div>
 			<m-oney @amount='gainMon'></m-oney>
 			<per-time @time='gaintime'></per-time>

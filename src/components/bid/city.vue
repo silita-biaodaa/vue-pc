@@ -1,6 +1,6 @@
 <template>
 	<div class="city">
-		<div class="select dfrb bor-b">
+		<div class="select dfrb bor-b  mb20">
             <div>市级区域</div>
             <ul>
                 <li v-for='(el,i) in city' :key='i' :class="el.i?'current':'' " @click="evalclass(el)">{{el.name}}</li>

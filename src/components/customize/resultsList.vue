@@ -26,23 +26,35 @@
                     <el-col :span="2.5" class="fw600">选择地区：</el-col>
                     <el-col :span="21">{{data.joinRegion | joinRegion(data.regisAddress) }}</el-col>
                 </el-row>
-                <el-row v-if="qualList.length>0" class="pb20 tagId">
+                <el-row v-if="qualList.length>0 || data.qualRecord == 'yes'" class="pb20 tagId">
                     <el-col :span="2.5" class="fw600">资质要求：</el-col>
                     <el-col :span="21">
                         <p v-for="(o,i) of qualList" :key="i">{{o.name}}</p>
-                        <el-row v-if="data.qualCode.type">
+                        <el-row v-if="qualList.length>0" class="drc">
                             <el-col :span="2.5">资质关系：</el-col>
                             <el-col :span="21">
-                                <template v-if="data.qualCode.type == 'or'">满足任意一个资质条件</template>
-                                <template v-else-if="data.qualCode.type == 'and'">满足所有资质条件</template>
+                                <template v-if="data.rangeType=='or'">满足任意一个</template>
+                                <template v-else-if="data.rangeType=='and'">满足所有</template>
+                            </el-col>
+                        </el-row>
+                        <el-row v-if="data.qualRecord == 'yes'">
+                            <el-col>
+                                <el-col :span="2.5">查询条件-仅查询备案资质</el-col>
+                                <el-col :span="21"></el-col>
                             </el-col>
                         </el-row>
                     </el-col>
                 </el-row>
-                <el-row v-if="peopleList.length>0" class="pb20 tagId">
+                <el-row v-if="peopleList.length>0 || data.personRecord == 'yes'" class="pb20 tagId">
                     <el-col :span="2.5" class="fw600">人员要求：</el-col>
                     <el-col :span="21">
                         <p v-for="(o,i) of peopleList" :key="i">{{o.name}}</p>
+                        <el-row v-if="data.personRecord == 'yes'">
+                            <el-col>
+                                <el-col :span="2.5">查询条件-仅查询备案资质</el-col>
+                                <el-col :span="21"></el-col>
+                            </el-col>
+                        </el-row>
                     </el-col>
                 </el-row>
                 <!-- 业绩 -->
@@ -93,14 +105,17 @@
                         </div>
                     </el-col>
                 </el-row>
-                <el-row class="pb20" v-if="data.credit&&(data.credit.punishStart||data.credit.punishEnd)">
+                <el-row class="pb20" v-if="data.credit&&(data.credit.punishStart||data.credit.punishEnd||data.credit.creditQuery||data.credit.punishType)">
                     <el-col :span="2.5" class="fw600">信用要求：</el-col>
-                    <el-col :span="21" class="drc">
-                        <div>处罚决定日期：</div>
-                        <div>
-                            <template v-if="!data.credit.punishStart||data.credit.punishStart==''">{{data.credit.punishEnd}}以前</template>
-                            <template v-else-if="!data.credit.punishEnd||data.credit.punishEnd==''">{{data.credit.punishStart}}以后</template>
-                            <template v-else>{{data.credit.punishStart}}到{{data.credit.punishEnd}}</template>
+                    <el-col :span="21">
+                        <div v-if="data.credit.creditQuery == 'yes'">
+                            <div>查询条件-仅查询备案资质</div>
+                        </div>
+                        <div v-if="data.credit.punishType">
+                            <div>处罚类别：{{data.credit.punishType}}</div>
+                        </div>
+                        <div v-if="data.credit.creditKeyword">
+                            <div>关键字：{{data.credit.creditKeyword}}</div>
                         </div>
                     </el-col>
                 </el-row>
@@ -143,7 +158,7 @@ export default {
             deep: true,
             handler(newV, oldV) {
                 if (newV.qualCode && newV.qualCode != "") {
-                    let arr = newV.qualCode.str.split(",");
+                    let arr=newV.qualCode.split(',');
                     let arr1 = [];
                     for (let x of arr) {
                         let data = {

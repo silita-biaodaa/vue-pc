@@ -29,7 +29,7 @@
             </div>
         </div>
         <!-- 增加条件 -->
-        <div class="spacing-box mb20 mt20 dfrcb">
+        <div class="spacing-box mt20 dfrcb">
             <div class="btn" @click="addFn">
                 <i class='el-icon-plus'></i>增加条件
             </div>
@@ -39,7 +39,7 @@
         </div>
         <!-- <div class="spacing-box red" v-else>资质最多只可添加3条</div> -->
         <!-- 资质关系 -->
-        <div class="rela" v-if="!bid&&lengthList.length>1">
+        <div class="rela mt20" v-if="!bid&&lengthList.length>1">
             <div class="color-5a5 fs14">
                 <span>多个资质之间的关系：</span>
                 <span v-for="(el,i) in rela" class="text-c mr20 ml20 cp" :class="el.key == rangeType? 'current':''"  :key='i' @click='relaFn(el)'>{{el.name}}</span>

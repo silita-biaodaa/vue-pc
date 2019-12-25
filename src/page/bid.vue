@@ -3,21 +3,21 @@
 
 		<en-search @vague='entitle' :title="serach" @company="companyFn"></en-search>
 		<div class="option-box">
-			<div class="select dfrb bor-b">
-				<div>省级区域</div>
+			<div class="select dfrb bor-b mb20">
+				<h6>省级区域</h6>
 				<ul>
 					<li v-for='(el,i) in areas' :key='i' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
 				</ul>
 			</div>
 			<c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
-			<div class="select dfrb bor-b">
-				<div>招标类型</div>
+			<div class="select dfrb bor-b mb20">
+				<h6>招标类型</h6>
 				<ul>
 					<li v-for='(el,i) in projectTypes' :key='"1"+i' :class="el.projectType == data.projectType ? 'current':''" @click='evalclass(el)'>{{el.name}}</li>
 				</ul>
 			</div>
-			<div class="select dfrb bor-b">
-				<div>评标办法</div>
+			<div class="select dfrb bor-b mb20">
+				<h6>评标办法</h6>
 				<ul class="checkbox">
 					<li v-for="(el,i) in pbModes" :key="'2'+i" @click="pbmodeFn(i)" class="drc">
 						<v-icon :iconClass="el.active?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
