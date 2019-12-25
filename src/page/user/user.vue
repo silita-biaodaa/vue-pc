@@ -55,9 +55,10 @@
 					</div>
 				</div>
 				<div class="user-tab">
-					<div class="tab" v-for="(el,i) in tab" :key="i" :class="el.i ? 'current' : '' " @click='jumpto(el)'>
-						<i class="iconfont" :class="el.icon" ></i>
-						{{el.name}}
+					<div class="tab dfcc" v-for="(el,i) in tab" :key="i" :class="el.i ? 'current' : '' " @click='jumpto(el)'>
+						<!-- <i class="iconfont" :class="el.icon" ></i> -->
+						<v-icon :iconClass="el.i?el.icon1:el.icon"></v-icon>
+						<span>{{el.name}}</span>
 					</div>
 				</div>
 			</div>
@@ -79,33 +80,39 @@
 						name: '个人信息',
 						to: 'pDet',
 						i: true,
-						icon:'icongerenxinxi'
+						icon:'icongerenxinxi',
+						icon1:'icongerenxinxi1'
 					},
 					{
 						name: '我的消息',
 						to: 'info',
 						i: false,
-						icon:'iconwodexiaoxi'
+						icon:'iconwodexiaoxi',
+						icon1:'iconwodexiaoxi1'
 					},
 					{
 						name: '我的关注',
 						to: 'fcoll',
 						i: false,
-						icon:'iconwodeguanzhu1'
+						icon:'iconwodeguanzhu1',
+						icon1:'iconwodeguanzhu'
 					}, {
 						name: '修改密码',
 						to: 'root',
 						i: false,
-						icon:'iconxiugaimima1'
+						icon:'iconxiugaimima1',
+						icon1:'iconxiugaimima',
 					}, {
 						name: '我的订单',
 						to: 'order',
 						i: false,
-						icon:'iconwodedingdan1'
+						icon:'iconwodedingdan1',
+						icon1:'iconwodedingdan'
 					}, {
 						name: '退出登录',
 						i: false,
-						icon:'icontuichudenglu1'
+						icon:'icontuichudenglu1',
+						icon1:'icontuichudenglu'
 					}
 				],
 				name: '个人信息',
@@ -409,7 +416,11 @@
 						background-color: #FFEEE5;
 						position: relative;
 						cursor: pointer;
-						i {
+						// i {
+						// 	font-size: 22px;
+						// 	margin-right: 20px;
+						// }
+						/deep/ .svg-icon{
 							font-size: 22px;
 							margin-right: 20px;
 						}
