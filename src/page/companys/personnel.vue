@@ -4,19 +4,30 @@
 			<div class="left law-wei">
 				注册人员（{{this.total}}）
 			</div>
-			<div class="law-year left">
+			<!-- <div class="law-year left">
+			
+			</div> -->
+			<div class="right law-w">
+				<el-input placeholder="输入关键字，查找资质" prefix-icon="el-icon-search" @change="newList" @keyup.enter="newList" v-model="search">
+				</el-input>
+			</div>
+		</div>
+		<div class="law-select" >
 				<el-select v-model="mold" clearable placeholder="选择注册类别" @change="newList">
 					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
 					</el-option>
 				</el-select>
-			</div>
-			<div class="right law-w">
-				<el-input placeholder="请输入人员姓名" suffix-icon="el-icon-search" @change="newList" @keyup.enter="newList" v-model="search">
-				</el-input>
-			</div>
+				<el-select v-model="mold" clearable placeholder="请选择证书等级" @change="newList">
+					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
+					</el-option>
+				</el-select>
+				<el-select v-model="mold" clearable placeholder="请选择证书专业" @change="newList">
+					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
+					</el-option>
+				</el-select>
 		</div>
 		<div v-show="!result">
-			<div class="law-list">
+			<!-- <div class="law-list">
 				<div class="law-nav">
 					<div class="left" style="width:52px">序号</div>
 					<div class="left" style="width:80px">姓名</div>
@@ -39,7 +50,32 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
+				<table class="table-content">
+						<tr>
+							<td  style="width:52px">序号</td>
+							<td  style="width:80px">姓名</td>
+							<td  style="width:130px">注册类别</td>
+							<td  style="width:140px">证书编号</td>
+							<td  style="width:150px">专业</td>
+							<td  style="width:130px">有效日期</td>
+							<td  style="width:90px">操作 </td>
+						</tr>
+						<tr v-for="(el,i) in lawList" :key="i" >
+							<td>{{(current-1)*20+(i+1)}}</td>
+							<td @click="toPer(el)" class="tb-name" >{{el.name}}</td>
+							<td>{{el.category}}</td>
+							<td>{{el.certNo}}</td>
+							<td>{{el.major}}</td>
+							<td>{{el.validDate}}</td>
+							<td>
+									<div class="crew-btn" @click.stop="jumpya(el)" v-if="el.isUnder">
+										押证
+									</div>
+							</td>
+
+						</tr>
+					</table>
 			<div class="law-page">
 				<nav-page :all='total' :currents='current' @skip='Goto'></nav-page>
 			</div>
@@ -209,77 +245,56 @@
 		.el-loading-spinner .el-loading-text {
 			color: #FE6603;
 		}
-
+		.law-select {
+			display: flex;
+			margin: 10px 0 20px;
+			.el-select {
+				width: 200px;
+				margin-right: 12px;
+			}
+		}
 		.law-search {
 			height: 56px;
 			line-height: 56px;
 			padding: 0 12px;
 			font-size: 14px;
 			color: #333;
-
 			.law-wei {
 				font-weight: 550;
 				margin-right: 25px;
 			}
+			.law-w {
+				.el-input__inner {
+					background-color: #F4F4F4;
+					i {
+						color: #B6B6B6;
+					}
+				}
 
-			.law-year {}
-
-		}
-
-		.law-list {
-			border: 1px solid #f2f2f2;
-
-			.law-nav {
-				height: 40px;
-				border-bottom: 1px solid #f2f2f2;
-				line-height: 40px;
-				font-size: 12px;
-				color: #333;
-				text-align: center;
-				font-weight: 550;
 			}
-
-			.law-text {
-				min-height: 40px;
-				border-bottom: 1px solid #f2f2f2;
-				font-size: 12px;
-				color: #333;
-				text-align: center;
-				font-weight: 550;
-				display: flex;
-				align-items: center;
-				box-sizing: border-box;
-				cursor: pointer;
-
-				.law-pdd {
-					padding: 10px 20px;
-					box-sizing: border-box;
-				}
-
-				.law-cen {
-					display: flex;
-					justify-content: center;
-				}
-
+		}
 				.crew-btn {
-					width: 60px;
-					line-height: 22px;
+					width: 56px;
+					line-height: 28px;
 					border: 1px solid rgba(254, 102, 3, 1);
-					font-size: 12px;
-					border-radius: 5px;
+					font-size: 14px;
+					border-radius: 8px;
 					color: #FE6603;
 					text-align: center;
+					margin: 0 auto;
 				}
-			}
-		}
-
+				.table-content {
+					width: 844px;
+					.tb-name {
+						color: #4494F0;
+						text-decoration: underline;
+					}
+				}
 		.law-page {
-			// height: 200px;
 			display: flex;
 			justify-content: center;
 			padding-top: 50px;
 			padding-bottom: 75px;
-
 			.paging {
 				ul {
 					li {
