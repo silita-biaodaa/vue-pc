@@ -346,13 +346,13 @@
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
-					font-size: 20px;
+					font-size: 18px;
 					color: #150000;
 					padding: 0 30px;
 					border-bottom: 1px solid #DDDFE4;
 					font-weight: 550;
 					i {
-						font-size: 30px;
+						font-size: 28px;
 						cursor: pointer;
 					}
 				}
@@ -362,42 +362,6 @@
 					font-size: 14px;
 					color: #000;
 					font-weight: 550;
-				}
-				.ur-main {
-					height: 60px;
-					line-height: 60px;
-					text-align: center;
-					font-size: 18px;
-					color: #FE6603;
-				}
-
-				.main-table {
-					min-height: 45px;
-					display: flex;
-					flex-direction: row;
-					font-size: 14px;
-					color: #999;
-					border: 1px solid #F2F2F2;
-					background-color: #fafdff;
-
-					.bor {
-						border-right: 1px solid #F2F2F2;
-						padding: 5px 6px;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						text-align: center;
-					}
-				}
-
-				.main-no {
-					height: 45px;
-					line-height: 45px;
-					font-size: 14px;
-					color: #999;
-					text-align: center;
-					border: 1px solid #DDDFE4;
-
 				}
 
 				.show-del {

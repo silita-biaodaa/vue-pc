@@ -395,12 +395,12 @@
 					display: flex;
 					justify-content: space-between;
 					font-size: 18px;
-					color: #000000;
+					color: #150000;
 					font-weight: 550;
 					padding: 10px 30px;
 					border-bottom: 1px solid #DDDFE4;
 					i {
-						font-size: 30px;
+						font-size: 28px;
 						cursor: pointer;
 					}
 				}
@@ -433,7 +433,7 @@
 					height: 45px;
 					line-height: 45px;
 					font-size: 14px;
-					color: #999;
+					color: #000;
 					text-align: center;
 					border: 1px solid #DDDFE4;
 				}
@@ -450,7 +450,7 @@
 						box-sizing: border-box;
 						padding: 5px 0;
 						border-right: 1px solid #DDDFE4;
-						text-align: center;
+						// text-align: center;
 					}
 					.new-text {
 						justify-content: flex-start;

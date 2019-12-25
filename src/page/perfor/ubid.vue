@@ -216,7 +216,7 @@
 						<div style="width:250px;fontWeight: 550" class="bor">
 							安全证书编号
 						</div>
-						<div style="width:125px;fontWeight: 550">
+						<div style="width:125px;fontWeight: 550;color:#000">
 							状态
 						</div>
 					</div>
@@ -234,7 +234,7 @@
 						<div style="width:250px;" class="bor">
 							{{el.safeNo}}
 						</div>
-						<div style="width:125px;">
+						<div style="width:125px;color:#000">
 							{{el.status}}
 						</div>
 					</div>
@@ -408,13 +408,13 @@
 					line-height: 60px;
 					display: flex;
 					justify-content: space-between;
-					font-size: 20px;
+					font-size: 18px;
 					color: #150000;
 					padding: 0 30px;
 					font-weight: 550;
 					border-bottom: 1px solid #DDDFE4;
 					i {
-						font-size: 30px;
+						font-size: 28px;
 						cursor: pointer;
 					}
 				}
@@ -423,7 +423,7 @@
 					line-height: 60px;
 					font-weight: 550;
 					text-align: left !important;
-					font-size: 18px;
+					font-size: 14px;
 					color: #000;
 				}
 				.main-table {
@@ -445,7 +445,7 @@
 					height: 45px;
 					line-height: 45px;
 					font-size: 14px;
-					color: #999;
+					color: #000;
 					text-align: center;
 					border: 1px solid #DDDFE4;
 
