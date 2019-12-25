@@ -124,9 +124,8 @@ export default {
     border: 1px solid #DDDFE4;
     box-sizing: border-box;
     .ic-line{
-        font-size: 12px;
+        font-size: 14px;
         color:#000;
-        font-weight: 550;
         min-height: 40px;
         background-color: #F4F4F4;
         display: flex;
@@ -136,6 +135,7 @@ export default {
         .line-f {
             background-color: #F4F4F4;
             display: flex;
+            font-weight: 550;
             align-items: center;
             justify-content: center;
             border-right: 1px solid #DDDFE4;

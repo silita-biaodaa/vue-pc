@@ -295,6 +295,7 @@
 				line-height: 48px;
 				.com-name {
 					font-size: 34px;
+					font-weight: 550;
 					i {
 						font-size: 34px;
 						margin-right: 12px;
