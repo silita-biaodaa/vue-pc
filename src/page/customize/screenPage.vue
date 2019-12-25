@@ -140,9 +140,7 @@
                                                 class="fs14"
                                                 :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"
                                             ></v-icon>
-                                            <span
-                                                :class="el.istap?'activeZZ':''"
-                                            >{{el.areaShortName}}</span>
+                                            <span>{{el.areaShortName}}</span>
                                         </li>
                                     </ul>
                                 </el-col>
@@ -165,9 +163,7 @@
                                                 class="fs14"
                                                 :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"
                                             ></v-icon>
-                                            <span
-                                                :class="el.istap?'activeZZ':''"
-                                            >{{el.areaShortName}}</span>
+                                            <span>{{el.areaShortName}}</span>
                                         </li>
                                     </ul>
                                 </el-col>
@@ -190,9 +186,7 @@
                                                 class="fs14"
                                                 :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"
                                             ></v-icon>
-                                            <span
-                                                :class="el.istap?'activeZZ':''"
-                                            >{{el.areaShortName}}</span>
+                                            <span>{{el.areaShortName}}</span>
                                         </li>
                                     </ul>
                                 </el-col>
@@ -215,9 +209,7 @@
                                                 class="fs14"
                                                 :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"
                                             ></v-icon>
-                                            <span
-                                                :class="el.istap?'activeZZ':''"
-                                            >{{el.areaShortName}}</span>
+                                            <span>{{el.areaShortName}}</span>
                                         </li>
                                     </ul>
                                 </el-col>
@@ -300,7 +292,7 @@
                                             class="fs14"
                                             :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"
                                         ></v-icon>
-                                        <span :class="el.istap?'activeZZ':''">{{el.areaShortName}}</span>
+                                        <span>{{el.areaShortName}}</span>
                                     </li>
                                 </ul>
                             </el-row>
@@ -497,12 +489,12 @@
                     共为您找到
                     <span>
                         <span v-if="total">
-                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+</span>
-                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-else>{{total}}</span>
+                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+{{current == '1'?'家':'个'}}</span>
+                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-else>{{total}}{{current == '1'?'家':'个'}}</span>
                         </span>
                         <span class="fw600 fs24" v-else>0</span>
                     </span>
-                    个符合要求的{{current == '1'?'企业':'人员'}}
+                    符合要求的{{current == '1'?'企业':'人员'}}
                 </p>
                 <button
                     class="info_btn fs18 cp color-eb6 bg-fff"
@@ -822,7 +814,7 @@ export default {
                     punishEnd: "", //处罚结束日期
                     scoreStart: "", //综合开始得分
                     scoreEnd: "", //综合结束得分
-                    creditQuery: "not" //是否查询
+                    creditQuery: "" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
                 person: [], //人员
@@ -913,13 +905,19 @@ export default {
             if (!this.isyj) {
                 data.project.proCount = "";
             }
-            if(data.credit !== undefined) {
-                if(data.credit.creditQuery) {
-                    data.credit.creditQuery = "yes";
-                }else if(data.credit.creditQuery = false) {
-                    data.credit.creditQuery = "not";
-                }
+            if (data.qualCode == "") {
+                data.qualRecord = "";
             }
+            if(data.person.length = 0) {
+                data.personRecord = "";
+            }
+            // if(data.credit !== undefined) {
+            //     if(data.credit.creditQuery) {
+            //         data.credit.creditQuery = "yes";
+            //     }else if(data.credit.creditQuery = false) {
+            //         data.credit.creditQuery = "not";
+            //     }
+            // }
             if (data.credit.punishType == "全部") {
                 data.credit.punishType = "";
             }
@@ -982,7 +980,6 @@ export default {
         //切换初始化数据;
         clearData() {
             this.data = {
-                qualCode: "", //资质
                 regisAddress: "重庆市",
                 joinRegion: "all_in", //选择地区
                 project: {
@@ -1016,7 +1013,6 @@ export default {
                     creditQuery: "" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
-                person: [], //人员
                 zhuanchaType: "",
                 qualRecord: "", //资质备案
                 projectSource: "chongq", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;

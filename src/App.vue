@@ -85,13 +85,15 @@
 		<!-- 底部 -->
 		<div class="footer color-b6b" v-if="exploit">
 			<div class="footer_content dfrb">
-				<div class="text-c logo_img fs14">
-					<img src="./assets/img/pic-erweima.png" alt="">
-					<div class="mt30">扫一扫，下载APP</div>
-				</div>
-				<div class="text-c logo_img fs14">
-					<img src="./assets/img/accounts.png" alt="">
-					<div class="mt30">关注公众号</div>
+				<div class="dr">
+					<div class="text-c logo_img fs14 mr40">
+						<img src="./assets/img/pic-erweima.png" alt="">
+						<div class="mt30">扫一扫，下载APP</div>
+					</div>
+					<div class="text-c logo_img fs14">
+						<img src="./assets/img/accounts.png" alt="">
+						<div class="mt30">关注公众号</div>
+					</div>
 				</div>
 				<div class="fs14">
 					<div class="fs16 color-fff mb30">联系我们</div>
@@ -104,7 +106,7 @@
 						</ul>
 						<ul>
 							<li>工作时间</li>
-							<li>8：30-19：30</li>
+							<li>8：30-17：30</li>
 							<li>地址</li>
 							<li>湖南省长沙市岳麓区杜鹃路768号金峰壹号院</li>
 						</ul>
@@ -114,7 +116,7 @@
 					<img src="./assets/img/logo.png">
 				</div>
 			</div>
-			<div class="footer_mark text-c fs14">© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1</div>
+			<div class="footer_mark mt25 text-c fs14">© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1</div>
 		</div>
 		<!--右侧悬浮-->
 		<div class="fix-right" v-if="$route.name!='error'">
@@ -808,7 +810,7 @@ body{
 	/*底部样式*/
 	.footer {
 		background-color: @pinkColor;
-		padding: 70px 0 30px 0;
+		padding: 60px 0 40px 0;
 		.footer_content {
 			width: 1020px;
 			margin: 0 auto;
@@ -824,7 +826,6 @@ body{
 		}
 		.footer_mark {
 			min-width: 1020px;
-			margin-top: 80px;
 		}
 	}
 }

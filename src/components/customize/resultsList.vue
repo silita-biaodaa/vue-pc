@@ -33,8 +33,8 @@
                         <el-row v-if="qualList.length>0" class="drc">
                             <el-col :span="2.5">资质关系：</el-col>
                             <el-col :span="21">
-                                <template v-if="data.rangeType=='or'">满足任意一个</template>
-                                <template v-else-if="data.rangeType=='and'">满足所有</template>
+                                <template v-if="data.rangeType=='or'">满足任意一个资质条件</template>
+                                <template v-else-if="data.rangeType=='and'">满足所有资质条件</template>
                             </el-col>
                         </el-row>
                         <el-row v-if="data.qualRecord == 'yes'">
