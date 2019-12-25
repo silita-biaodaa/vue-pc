@@ -4,7 +4,7 @@
         <div class="pop-main" >
            <div class="pop-title pop-line"  >
               <p style="fontWeight: 550" >重庆机场专用快速路工程南段寸滩长江大桥（K2 600-K4 200)BT融资建设总承包项目</p>
-              <i class="iconfont iconshanchu" style="color:#DDDFE4;" @click="chqpop" ></i>
+              <i class="iconfont iconshanchu" style="color:#DDDFE4;" @click="closePop" ></i>
            </div>
            <div class="pop-title" style="height:59px;font-size:14px;"  >
               <p>中标公告</p>
@@ -104,6 +104,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        closePop() {
+            this.$emit('closePop', { cur: '' })
+        }
     }
 }
 </script>

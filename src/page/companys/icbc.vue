@@ -147,7 +147,7 @@
 		.ic-nav {
 			font-size: 14px;
 			color: #000;
-			margin: 15px 0 14px ;
+			margin-bottom: 15px;
 			cursor: pointer;
 			display: flex;
 			.navspan {

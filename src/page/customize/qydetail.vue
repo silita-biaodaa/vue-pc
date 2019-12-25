@@ -16,9 +16,9 @@
                 <div>
                     <p class="bg">统一社会信用代码</p>
                     <p>{{basic.creditCode}}</p>
-                    <template v-if="basic.principal">
+                    <template v-if="basic.leader">
                         <p class="bg">在渝负责人</p>
-                        <p>{{basic.principal}}</p>
+                        <p>{{basic.leader}}</p>
                     </template>
                 </div>
                 <div>
@@ -95,7 +95,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(o,i) of ryList" :key="i">
-                                        <td>{{(ryData.pageNo-1)*20+i+1}}</td>
+                                        <td>{{(ryData.pageNo-1)*10+i+1}}</td>
                                         <td class="curpon" @click="jumpRyDetail(o)">{{o.name}}</td>
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
@@ -160,8 +160,14 @@
                                 <tbody>
                                     <tr v-for="(o,i) of yjList" :key="i">
                                         <td>{{(yjData.pageNo-1)*20+i+1}}</td>
-                                        <td class="curpon" @click="jumpYjDetail(o.proId)">{{o.proName}}</td>
-                                        <td>{{o.type}}</td>
+                                        <td class="curpon" @click="jumpYjDetail(o)">{{o.proName}}</td>
+                                        <template v-if="$route.query.source=='chongq'">
+                                            <td>{{o.proType}}</td>
+                                        </template>
+                                        <template v-else>
+                                            <td>{{o.type}}</td>
+                                        </template>
+                                        
                                         <td>{{o.amount}}</td>
                                         <td>{{o.buildEnd?formatDate(o.buildEnd):''}}</td>
                                     </tr>
@@ -206,7 +212,7 @@
                                 <tbody>
                                     <tr v-for="(o,i) of xzList" :key="i">
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
-                                        <td class="curpon">{{o.punishCode}}</td>
+                                        <td class="curpon" @click="openPop(o)" >{{o.punishCode}}</td>
                                         <td>{{o.punishType}}</td>
                                         <td>{{o.punishDate}}</td>
                                         <td>{{o.punishOrg}}</td>
@@ -235,11 +241,19 @@
                 </template>
             </div>
         </div>
+        <v-pun v-if="ispun" @closePop='closeIs' :obj='Pundata'  ></v-pun>
+        <v-bid v-if="isbid" @closePop='closeIs' :obj='bidata' ></v-bid>
+        <v-comple v-if="iscom" @closePop='closeIs' :obj='comdata' ></v-comple>
+        <v-cons v-if="iscon" @closePop='closeIs' :obj='condata' ></v-cons>
     </div>
 </template>
 <script>
 import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
+import punishpop from '@/components/cqpop/punishpop'
+import bidpop from '@/components/cqpop/bidpop'
+import complepop from '@/components/cqpop/complepop'
+import conspop from '@/components/cqpop/conspop'
 export default {
     name: 'qydetail', // 结构名称
     data() {
@@ -300,7 +314,15 @@ export default {
             xzList:[],
             xzIsajax:false,
             xzTotal:0,
-            data:{}
+            data:{},
+            ispun:false, // 弹窗控制处罚
+            isbid:false, // 弹窗控制中标
+            iscom:false, // 弹窗控制竣工
+            iscon:false, // 弹窗控制施工
+            bidata:{},
+            comdata:{},
+            condata:{},
+            Pundata:{}
 
         }
     },
@@ -310,7 +332,11 @@ export default {
     },
     components:{
         'v-head': heads,
-        'v-region':joinRegion
+        'v-region':joinRegion,
+        'v-pun':punishpop,
+        'v-bid':bidpop,
+        'v-comple':complepop,
+        'v-cons':conspop
     },
     computed:{
     },
@@ -409,6 +435,17 @@ export default {
         recoldFn() {
             this.reload();
         },
+        // 弹窗开启
+        openPop(o) {
+            this.Pundata = o
+            this.ispun = true
+        },
+        closeIs() {
+             this.ispun = false
+             this.isbid = false
+             this.iscom = false
+             this.iscon = false
+        },
         jumpCompanyAll(){//跳到企业完整信息
             const {href} = this.$router.resolve({
                 path: '/introduce/icbc',
@@ -491,8 +528,26 @@ export default {
                 that.yjIsajax=true
             })
         },
-        jumpYjDetail(id){//跳转到业绩详情
-            
+        jumpYjDetail(el){//跳转到业绩详情
+            if(this.$route.query.source=='all'){//查全国
+                let path='/urban'
+                let query={
+                    id: el.id
+                }
+                this.openNewLink(path,query)
+            }else{
+                if(el.proType == '施工许可') {
+                    this.condata = el
+                    this.iscon = true
+                } else if(el.proType == '竣工验收备案') {
+                    this.comdata = el
+                    this.iscom = true
+                } else {
+                    this.bidata = el
+                    this.isbid = true
+                }
+
+            }
         },
         /*业绩 end*/
         /** 人员   start**/

@@ -4,7 +4,7 @@
         <div class="pop-main" >
            <div class="pop-title pop-line"  >
               <p style="fontWeight: 550" >重庆机场专用快速路工程南段寸滩长江大桥（K2 600-K4 200)BT融资建设总承包项目</p>
-              <i class="iconfont iconshanchu" style="color:#DDDFE4;" @click="chqpop" ></i>
+              <i class="iconfont iconshanchu" style="color:#DDDFE4;" @click="closePop" ></i>
            </div>
            <div class="pop-title" style="height:59px;font-size:14px;"  >
               <p>施工许可</p>
@@ -13,7 +13,7 @@
                 查看数据来源
               </div>
            </div>
-           <table  cellspacing="0" >
+           <table  cellspacing="0">
              <tr>
                <td width='192' class="td-title" >工程名称</td>
                <td colspan='3' >重庆机场专用快速路工程南段寸滩长江大桥（K2 600-K4 200）BT融资建设总承包项目</td>
@@ -107,6 +107,9 @@ export default {
     },
     props: {
         // 集成父级参数
+        obj:{
+          	default: {}
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -137,6 +140,22 @@ export default {
     },
     methods: {
         // 方法 集合
+        closePop() {
+            this.$emit('closePop', { cur: '' })
+        },
+        gainNew() {
+           let that=this;
+            this.$http({
+                method:'post',
+                url:'/chongq/company/project/detail',
+                data:{
+                   pkid:'',
+                   tabType:'build'
+                }
+            }).then(res =>{
+              
+            })
+        }
     }
 }
 </script>

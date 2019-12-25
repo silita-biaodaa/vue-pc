@@ -115,9 +115,9 @@ Vue.prototype.chqtable = function (path, query = null) {
   window.open(href, '_blank')
 }
 
-Vue.prototype.chqpop = function (path, query = null) {
-  this.$emit('closePop', { cur: '' })
-}
+// Vue.prototype.chqpop = function (path, query = null) {
+//   this.$emit('closePop', { cur: '' })
+// }
 /*对象中如果有值为空则删除该属性*/
 Vue.prototype.filterParams=function(obj){
   let _newPar = {};
