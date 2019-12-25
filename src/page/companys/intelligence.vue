@@ -113,9 +113,8 @@
 		.in-nav {
 			font-size: 14px;
 			color: #000;
-			height: 28px;
-			line-height: 28px;
-			font-weight: 550;
+			height: 32px;
+			line-height: 32px;
 			margin-bottom: 20px;
 			.in-pdd {
 				padding: 0 5px;
@@ -131,7 +130,7 @@
 				left: 50%;
 				transform: translateX(-50%);
 				width: 30px;
-				height: 2px;
+				height: 4px;
 				background-color: #EB651B;
 			}
 		}

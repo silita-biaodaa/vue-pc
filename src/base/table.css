@@ -14,8 +14,8 @@
   position: absolute;
   left: 50%;
   padding-bottom: 30px;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 150px;
+  transform: translatex(-50%);
   z-index: 99999;
 }
 .chq-pop .pop-main .pop-title {
@@ -38,7 +38,9 @@
 .chq-pop .pop-main table {
   margin: 0 30px;
   width: 920px;
-  border: 1px solid #dddfe4;
+  max-height: 400px;
+  display: inline-block;
+  overflow: auto;
   border-collapse: collapse;
 }
 .chq-pop .pop-main table td {

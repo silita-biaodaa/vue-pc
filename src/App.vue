@@ -875,6 +875,9 @@ body{
 		.iconfont{
 			font-size: 22px;
 		}
+		.iconhuidaodingbu{
+			font-size: 14px
+		}
 		/*二维码*/
 		.qrcode-box{
 			position: absolute;

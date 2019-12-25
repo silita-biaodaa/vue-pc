@@ -198,7 +198,7 @@
 	width: 100%;
 }
 	.wdetail {
-		min-height: calc(~"100vh - 195px");
+		min-height: calc(~"100vh - 475px");
 		overflow: hidden;
 		width: 1020px;
 		box-sizing: border-box;

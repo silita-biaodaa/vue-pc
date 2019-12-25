@@ -18,7 +18,7 @@
 							<i class="iconfont iconpinglun"></i>
 							<span>评论数量：{{allC}}</span>
 						</div>
-						<div class="attention drc" :class="iscollect ? 'collect' : ''" @click="gaincollect">
+						<div class="attention drc cp" :class="iscollect ? 'collect' : ''" @click="gaincollect">
 							<i class="el-icon-plus"></i>{{collect}}
 						</div>
 					</div>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="main">
 				<div class="maxw">
-					<div class="link bor-b dfrb mb20">
+					<div class="link bor-b dfrb mb20" ref="position">
 						<span class="fs18 fw600">原文</span>
 						<span class="color-449 txt-un cp fs14" @click="text">访问原文出处>></span>
 					</div>
@@ -45,14 +45,16 @@
 					<com-ment id="divId" :type="'zhaobiao'" ref="comment"></com-ment>
 				</div>
 				<!-- 相关公告 -->
-				<div class="positionBox" v-if="list.length>0">
-					<h6 class="fs18 mb10">相关公告({{list.length}})</h6>
-					<dl>
-						<dd v-for="(o,i) in list" :key="i" @click="jumpNotice(o)" class="pt20 pb20" :class="{'bor-b':i!=list.length-1}">
-							<p class="cp">{{i+1}}、{{o.title}}</p>
-						</dd>
-					</dl>
-				</div>
+				<happy-scroll resize hide-vertical  v-if="list.length>0">
+					<div class="positionBox">
+						<h6 class="fs18 mb10">相关公告({{list.length}})</h6>
+						<dl>
+							<dd v-for="(o,i) in list" :key="i" @click="jumpNotice(o)" class="pt20 pb20" :class="{'bor-b':i!=list.length-1}">
+								<p class="cp">{{i+1}}、{{o.title}}</p>
+							</dd>
+						</dl>
+					</div>
+				</happy-scroll>
 			</div>
 		</div>
 	</v-maxw>
@@ -256,10 +258,14 @@
 			.link{
 				line-height: 65px;
 			}
-			.positionBox{
+			/deep/ .happy-scroll{
 				position: absolute;
 				top: 20px;
 				left: 790px;
+				width: 230px;
+			}
+			.positionBox{
+				width: 230px;
 			}
 		}
 	}

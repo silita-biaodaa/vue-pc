@@ -119,13 +119,12 @@
 			color: #FE6603;
 		}
 		.law-search {
-			height: 56px;
-			line-height: 56px;
-			padding: 0 12px;
+			height: 32px;
+			line-height: 32px;
 			font-size: 14px;
-			color: #333;
+			color: #000;
+			margin-bottom: 10px;
 			.law-wei {
-				font-weight: 550;
 				margin-right: 25px;
 			}
 			.law-year {

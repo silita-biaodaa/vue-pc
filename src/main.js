@@ -4,6 +4,9 @@ import App from './App'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
+import { HappyScroll } from 'vue-happy-scroll'
+import 'vue-happy-scroll/docs/happy-scroll.css'
+
 import sha1 from 'sha1'
 Vue.prototype.$sha1 = sha1;
 import router from './router'
@@ -37,6 +40,7 @@ Vue.component('v-comjump',companyJump)
 Vue.component('v-bread',publicBread)
 Vue.component('v-myInput',myInput)
 Vue.component('v-icon',svgIcon)
+Vue.component('happy-scroll', HappyScroll)//滚动条组件
 // Vue.component('v-provcity',provCity)
 
 Vue.component('c-ity', city)//用于招中标市级筛选（优化后可删）
@@ -131,9 +135,9 @@ Vue.prototype.chqtable = function (path, query = null) {
   window.open(href, '_blank')
 }
 
-Vue.prototype.chqpop = function (path, query = null) {
-  this.$emit('closePop', { cur: '' })
-}
+// Vue.prototype.chqpop = function (path, query = null) {
+//   this.$emit('closePop', { cur: '' })
+// }
 /*对象中如果有值为空则删除该属性*/
 Vue.prototype.filterParams=function(obj){
   let _newPar = {};

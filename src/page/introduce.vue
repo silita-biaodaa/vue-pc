@@ -285,6 +285,9 @@
 	.introduce {
 		width: 1020px;
 		margin: 0 auto 20px;
+		.user-tab {
+			padding-top: 8px;
+		}
 		.com-head {
 			.com-title {
 				display: flex;
