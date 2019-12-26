@@ -2,7 +2,7 @@
     <div class="result">
         <v-head3 :headTxt="titleList"></v-head3>
         <div class="result_body">
-            <v-publicBread :breadList="breadList"></v-publicBread>
+            <v-bread :breadList="breadList"></v-bread>
             <v-result @getArea="getChilren"></v-result>
             <!-- 人员查询结果 -->
             <div class="result_content mt35" v-if="this.$route.query.page == 'ry'">
@@ -80,13 +80,11 @@
 <script>
 import resultsList from "@/components/customize/resultsList";
 import head3 from "@/components/head3";
-import publicBread from "@/components/customize/publicBread";
 import { screenList, personList } from "@/api/index";
 export default {
     components: {
         "v-result": resultsList,
         "v-head3": head3,
-        "v-publicBread": publicBread
     },
     data() {
         return {

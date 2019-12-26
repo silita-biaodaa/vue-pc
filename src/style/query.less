@@ -1,3 +1,4 @@
+@import "../style/publicCSS.less";
 @color:#FE6603;
 .maxW-box{
     width: 1020px;
@@ -12,23 +13,15 @@
 }
 .condition{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-}
-.condition>div{
-    margin-right: 5px;
-    margin-bottom: 6px;
-    height: 25px;
-    line-height: 25px;
-    cursor: pointer;
-    padding: 0 9px;
-    color: #666;
 }
 
 
 
 .condition>.current{
-    background-color: @color;
-    color: #fff;
+    color: @themeColor;
+    font-weight: 600;
 }
 .el-input-number--mini{
     width: 90px;
@@ -63,7 +56,6 @@
 
 
 .ZJquery{
-    padding-bottom: 80px;
     h1{
         text-align: center;
     }
@@ -77,18 +69,13 @@ body .el-icon-loading{
 body .el-loading-spinner .el-loading-text{
     color:@color
 }
-// body .el-loading-spinner .path{
-//     stroke:@color
-// }
 .el-row{
-    margin-bottom: 10px;
     .flex{
         display: flex;
         align-items: center;
     }
 }
 .bottom-bor{
-    margin-bottom: 10px;
     background: #fff;
     .el-col-1{
         width: auto;
@@ -96,8 +83,8 @@ body .el-loading-spinner .el-loading-text{
 }
 
 .select{
-    // background-color: #fff;
-    font-size: 16px;
+    border: 1px solid @initColor;
+    padding: 20px;
     box-sizing: border-box;
     margin: 0 auto;
     .el-input{
@@ -113,63 +100,60 @@ body .el-loading-spinner .el-loading-text{
     }
 }
 .totalBox{
-    background: #fff;
-    margin-bottom: 20px;
+    background: @lightOrangeColor;
+    margin: 20px 0 40px;
     padding-left: 10px;
     box-sizing: border-box;
-    height: 104px;
     display: flex;
     justify-content: space-between;
+    .bottom_img {
+        i {
+            color: @themeColor;
+            font-size: 48px;
+        }
+    }
     .leftl{
         display: flex;
         align-items: center;
         p{
-            margin-left:18px;
+            margin-left:21px;
             margin-right: 60px;
-            color: #ccc;
             span{
-                color:@color;
+                color:@themeColor;
+                font-size: 24px;
+                margin: 0 10px;
             }
         }
         img{
             width: 30px;
         }
         .btn{
-            width: 120px;
-            line-height: 36px;
+            width: 193px;
+            line-height: 48px;
             border-radius: 8px;
-            color: #fff;
+            font-size: 18px;
+            color: @themeColor;
             outline: none;
-            background: @color;
+            background: #fff;
+            border: 1px solid @themeColor;
             cursor: pointer;
         }
         .ban{
+            color: #fff;
             background: #CCC;
+            border: 1px solid #ccc;
             cursor: not-allowed;
             opacity: .8;
         }
     }
     .rightr{
-        width:272px;
         p{
-            font-size: 18px;
             text-align: center;
         }
         .up{
-            color: @color;
-            padding: 18px 0 5px;
-            border-bottom: 2px solid @color;
-            margin-bottom: 11px
-        }
-        .down{
-            color: #8ABAD0;
+            border-bottom: 1px solid #000;
         }
     }
-    // p{
-    //     line-height: 40px;
-    //     font-size: 16px;
-    //     color: #999;
-    // }
 }
 .queryList .list{
     padding: 10px;
@@ -185,11 +169,9 @@ body .el-loading-spinner .el-loading-text{
     .top{
         cursor: pointer;
         display: flex;
-        // justify-content: space-between;
         h5{
             font-size: 18px;
             color: #000;
-            // font-weight: normal;
             margin-right: 12px;
         }
         .right-label{
@@ -203,9 +185,6 @@ body .el-loading-spinner .el-loading-text{
         p{
             margin-right: 80px;
         }
-        // font{
-        //     color: #FE6603;
-        // }
     }
 }
 
@@ -230,7 +209,6 @@ body .el-loading-spinner .el-loading-text{
             font-size: 18px;
             color: #333;
             font-weight: bold;
-            // align-items: center;
             margin-bottom: 15px;
             img{
                 width: 30px;
@@ -241,16 +219,6 @@ body .el-loading-spinner .el-loading-text{
             .joinRegion{
                 margin-left: 10px
             }
-            // .tag{
-            //     display: inline-block;
-            //     font-size: 12px;
-            //     margin-left: 10px;
-            //     padding: 2px 5px;
-            //     text-align: center;
-            //     background: #E3E6FD;
-            //     color: #3A76F0;
-            //     font-weight: normal;
-            // }
         }
         .basic-box{
             border: 1px solid rgb(228, 228, 228);
@@ -351,4 +319,10 @@ body .el-loading-spinner .el-loading-text{
 .flex-center{
     display: flex;
     align-items: center
+}
+.btnLine {
+    border-bottom: 1px solid @initColor;
+}
+.item_list {
+    
 }

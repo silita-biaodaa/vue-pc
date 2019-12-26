@@ -14,22 +14,6 @@ export default {
             default: ""
         },
     },
-    data() {
-        return {
-            // parentsList: "",
-        }
-    },
-    methods: {
-        // getInfo() {
-        //     this.parentsList = this.breadList;
-        // }
-    },
-    created() {
-        // setTimeout(() => {
-        //     this.getInfo();
-        // }, 580);
-        
-    },
     mounted () {
         
     }

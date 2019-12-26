@@ -6,12 +6,13 @@
         <div class="ZJquery_content">
             <v-publicBread :breadList="breadList"></v-publicBread>
             <!-- 筛选 -->
-            <div class="select maxW-box">
+            <div class="select maxW-box mb20">
                 <div class="bottom-bor">
                     <el-row>
-                        <el-col :span="2">企业地区：</el-col>
+                        <el-col :span="2" class="fw600 fs16 color-150">企业地区</el-col>
                         <el-col :span="22" class="condition">
                             <div
+                                class="fs14 cp mr40 mb15 color-5a5"
                                 v-for="(el,i) in addressList"
                                 :key="i"
                                 :class="el.istap?'current':''"
@@ -31,28 +32,47 @@
                 <!-- 人员 -->
                 <v-screenry class="bottom-bor" :qualList="peopleList" @contentChange="screenryFn"></v-screenry>
                 <!-- 业绩要求 -->
-                <el-row class="yj bottom-bor">
-                    <el-col :span="2" style="line-height: 40px;">业绩要求：</el-col>
-                    <el-col :span="22">
+                <el-row class="yj bottom-bor pt20 pb20 btnLine">
+                    <el-col :span="2" style="line-height: 40px;" class="fw600 fs16 color-150">业绩要求</el-col>
+                    <el-col :span="22" class="fs14">
                         <!-- 项目关键字 -->
-                        <el-row class="flex-center">
+                        <el-row class="flex-center mb20">
                             <el-col :span="1">项目关键字：</el-col>
                             <el-input
                                 placeholder="请输入内容,多个关键字用空格隔开"
                                 v-model="data.project.keywords"
                             ></el-input>
-                            <el-radio-group v-model="data.project.opt">
+                            <!-- <el-radio-group v-model="data.project.opt">
                                 <el-radio label="title">根据标题搜索</el-radio>
                                 <el-radio label="scope">根据主要工程量搜索</el-radio>
                                 <el-radio label="title_and_scope">根据标题和主要工程量搜索</el-radio>
-                            </el-radio-group>
+                            </el-radio-group> -->
+                            <ul class="drc">
+                                <li
+                                    class="cp fs14 color-5a5 mr15"
+                                    v-for="(item,index) in selectList"
+                                    :key="index"
+                                    @click="handleSelect(item)"
+                                    :class="{'activeZZ': item.id == data.project.opt}"
+                                >
+                                    <i
+                                        class="iconfont icondanxuan-daixuan"
+                                        :class="{'hide': item.id == data.project.opt}"
+                                    ></i>
+                                    <i
+                                        class="iconfont icondanxuan-xuanzhong hide"
+                                        :class="{'block': item.id == data.project.opt}"
+                                    ></i>
+                                    <span>{{item.content}}</span>
+                                </li>
+                            </ul>
                         </el-row>
                         <!-- 多个关键词之间的关系 -->
-                        <el-row v-if="isoptType">
-                            <el-col :span="1">多个关键词之间的关系：</el-col>
+                        <el-row v-if="isoptType" class="mb40">
+                            <el-col :span="1" class="mr20">多个关键词之间的关系：</el-col>
                             <div class="condition">
                                 <div
-                                    class="item"
+                                    class="item mr40 color-5a5 cp"
                                     v-for="(el,i) in optGxList"
                                     :key="i"
                                     :class="el.code==data.project.optType?'current':''"
@@ -61,11 +81,11 @@
                             </div>
                         </el-row>
                         <!-- 项目属地 -->
-                        <el-row>
-                            <el-col :span="1">项目属地：</el-col>
+                        <el-row class="mb25">
+                            <el-col :span="1" class="mr20">项目属地：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(el,i) of areasList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -74,11 +94,11 @@
                             </div>
                         </el-row>
                         <!-- 建设状态 -->
-                        <el-row>
-                            <el-col :span="1">建设状态：</el-col>
+                        <el-row class="mb20">
+                            <el-col :span="1" class="mr20">建设状态：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(el,i) of proBuildList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -88,10 +108,10 @@
                         </el-row>
                         <!-- 项目类型 -->
                         <el-row>
-                            <el-col :span="1">项目类型：</el-col>
+                            <el-col :span="1" class="mr20">项目类型：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(el,i) of typeList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -100,14 +120,14 @@
                             </div>
                         </el-row>
                         <!-- 项目金额 -->
-                        <el-row class="flex-center">
-                            <el-col :span="1">中标金额/合同金额：</el-col>
+                        <el-row class="flex-center mb20">
+                            <el-col :span="1" class="mr20">中标金额/合同金额：</el-col>
                             <el-input
                                 placeholder="最低价（万元）"
                                 v-model="data.project.amountStart"
                                 class="inputW"
                                 @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
-                            ></el-input>——
+                            ></el-input>至
                             <el-input
                                 placeholder="最高价（万元）"
                                 v-model="data.project.amountEnd"
@@ -117,14 +137,14 @@
                         </el-row>
                         <!-- 竣工验收日期 -->
                         <el-row class="flex-center">
-                            <el-col :span="1">竣工验收日期：</el-col>
+                            <el-col :span="1" class="mr20">竣工验收日期：</el-col>
                             <el-date-picker
                                 value-format="yyyy-MM-dd"
                                 v-model="data.project.completeStart"
                                 type="date"
                                 placeholder="起始日期"
                                 class="inputW"
-                            ></el-date-picker>——
+                            ></el-date-picker>至
                             <el-date-picker
                                 value-format="yyyy-MM-dd"
                                 v-model="data.project.completeEnd"
@@ -136,15 +156,15 @@
                     </el-col>
                 </el-row>
                 <!--  -->
-                <el-row class="bottom-bor">
-                    <el-col :span="2">信用等级：</el-col>
+                <el-row class="bottom-bor pt20 fs14">
+                    <el-col :span="2" class="fw600 fs16 color-150">信用等级</el-col>
                     <el-col :span="22">
                         <!-- 评价类型 -->
-                        <el-row>
-                            <el-col :span="1">评价类型：</el-col>
+                        <el-row class="mb25">
+                            <el-col :span="1" class="mr20">评价类型：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(el,i) of creditTypeList"
                                     :key="'a'+i"
                                     :class="data.credit.creditType==el?'current':''"
@@ -153,11 +173,11 @@
                             </div>
                         </el-row>
                         <!-- 评价省份 -->
-                        <el-row v-if="data.credit.creditType=='施工'||data.credit.creditType=='设计'">
-                            <el-col :span="1">评价省份：</el-col>
+                        <el-row v-if="data.credit.creditType=='施工'||data.credit.creditType=='设计'" class="mb25">
+                            <el-col :span="1" class="mr20">评价省份：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(el,i) of pjareasList"
                                     :key="'a'+i"
                                     :class="el.code==data.credit.province?'current':''"
@@ -166,11 +186,11 @@
                             </div>
                         </el-row>
                         <!-- 年份评分 -->
-                        <el-row v-for="(el,i) of evaluateList" :key="'a'+i">
-                            <el-col :span="1">{{el.year}}年度：</el-col>
+                        <el-row v-for="(el,i) of evaluateList" :key="'a'+i" class="mb25">
+                            <el-col :span="1" class="mr20">{{el.year}}年度：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas"
+                                    class="areas mr40 mb15 color-5a5 cp"
                                     v-for="(x,y) of el.list"
                                     :key="'a'+y"
                                     :class="x.istap?'current':''"
@@ -180,13 +200,13 @@
                         </el-row>
                         <!-- 评分 -->
                         <el-row class="flex-center">
-                            <el-col :span="1">等级评分：</el-col>
+                            <el-col :span="1" class="mr20">等级评分：</el-col>
                             <el-input
                                 placeholder="最低分(小数)"
                                 v-model="data.credit.scoreStart"
                                 class="inputW"
                                 @keyup.native="returnInt(0)"
-                            ></el-input>——
+                            ></el-input>至
                             <el-input
                                 placeholder="最高分(小数)"
                                 v-model="data.credit.scoreEnd"
@@ -194,11 +214,14 @@
                                 @keyup.native="returnInt(1)"
                             ></el-input>
                             <div class="rule">
-                                <span class="color-font">评分规则？</span>
+                                <div class="color-449">
+                                    <span>评分规则?</span>
+                                    <i class="iconfont iconjieshi fs12"></i>
+                                </div>
                                 <div class="rule-box">
-                                    <h5>评分规则</h5>
+                                    <div class="fs14 fw600 text-c mb10">评分规则</div>
                                     <ul>
-                                        <li v-for="(el,i) of ruleList" :key="i">
+                                        <li class="btnLine fs14 color-5a5 pl20" v-for="(el,i) of ruleList" :key="i">
                                             <span>{{el.year}}：</span>
                                             <div>
                                                 <span>
@@ -219,25 +242,27 @@
                 </el-row>
             </div>
             <!-- 承上启下 -->
-            <div class="totalBox maxW-box">
+            <div class="totalBox pl40 pr40 pt40 pb40 maxW-box">
                 <div class="leftl">
-                    <img src="../../assets/img/icon-chg.png" />
+                    <div class="bottom_img">
+                        <i class="iconfont iconwancheng"></i>
+                    </div>
                     <p>
-                        共为您找到符合企业
+                        共为您找到
                         <span>
                             <template v-if="total">
-                                <template v-if="total==5000">5000+</template>
-                                <template v-else>{{total}}</template>
+                                <template v-if="total==5000">5000+家</template>
+                                <template v-else>{{total}}家</template>
                             </template>
-                            <template v-else>0</template>
+                            <template v-else>0家</template>
                         </span>
-                        家
+                        符合要求企业
                     </p>
                     <button class="btn" :class="total==0||isNoSee?'ban':''" @click="jump">查看详情</button>
                 </div>
-                <div class="rightr">
-                    <p class="up">服务电话：0731-85076077</p>
-                    <p class="down">付费后可下载数据报告</p>
+                <div class="rightr fs14">
+                    <p class="up mb5 pb5">服务电话：0731-85076077</p>
+                    <p class="down">多数据联动查询</p>
                 </div>
             </div>
         </div>
@@ -273,6 +298,21 @@ export default {
             proBuildList: [], //建设状态
             creditTypeList: ["施工", "设计", "监理"],
             evaluateList: [], //评价年份等级
+            selectList: [
+                //选择查询条件
+                {
+                    id: "title",
+                    content: "根据标题搜索"
+                },
+                {
+                    id: "scope",
+                    content: "根据规模搜索"
+                },
+                {
+                    id: "title_and_scope",
+                    content: "根据标题和规模搜索"
+                }
+            ],
             data: {
                 qualCode: "", //资质
                 rangeType: "", //资质关系
@@ -514,6 +554,9 @@ export default {
             }
             this.evaluateList = arr;
         },
+        handleSelect(data) {
+            this.data.project.opt = data.id;
+        },
         screenzzFn(val) {
             //接受资质变化抛出的值
             this.data.qualCode = val.str;
@@ -733,31 +776,24 @@ export default {
             display: none;
             position: absolute;
             background: #fff;
-            width: 520px;
-            height: 200px;
-            bottom: calc(-100% + 40px);
+            width: 340px;
+            bottom: calc(-100% + 55px);
             transform: translateX(-50%);
-            left: 50%;
+            left: 260%;
             border-radius: 5px;
-            box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.1);
-            h5 {
-                line-height: 52px;
-                font-size: 16px;
-                text-align: center;
-                border-bottom: 1px solid #f2f2f2;
-            }
+            box-shadow:0px 0px 7px 0px rgba(0,0,0,0.13);
+            padding: 10px 20px 15px;
             ul {
-                height: 147px;
-                padding: 20px 40px;
                 box-sizing: border-box;
+                border-top: 1px solid @initColor;
+                border-left: 1px solid @initColor;
+                border-right: 1px solid @initColor;
                 li {
-                    height: calc(100% / 3);
+                    height: 36px;
                     display: flex;
                     align-items: center;
-                    font-size: 16px;
                     div {
                         width: calc((100% / 3) * 2);
-                        // flex-grow:2;
                         display: flex;
                         justify-content: space-between;
                         span {
@@ -772,10 +808,24 @@ export default {
                     }
                 }
             }
+            .arrow {
+                position: absolute;
+                top:5px;
+                right:-16px; /* 圆角的位置需要细心调试哦 */
+                width:0;
+                height:0;
+                font-size:0;
+                border:solid 8px;
+                border-color:#4D4948 #4D4948 #4D4948 #F8C301;
+            }
         }
     }
     .rule:hover .rule-box {
         display: block;
+    }
+    .activeZZ {
+        color: @themeColor;
+        font-weight: 600;
     }
 }
 </style>

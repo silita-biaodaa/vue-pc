@@ -510,14 +510,12 @@
     </div>
 </template>
 <script>
-import publicBread from "@/components/customize/publicBread";
 import head3 from "@/components/head3";
 import screenZZ from "@/components/screenZZ";
 import screenRY from "@/components/zhuancha/screenRY";
 import { screenConut, personConut } from "@/api/index";
 export default {
     components: {
-        "v-bread": publicBread,
         "v-head3": head3,
         "v-screenZZ": screenZZ,
         "v-screenRY": screenRY

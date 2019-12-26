@@ -105,10 +105,6 @@ export default {
         query:{//是否综合查询
             default:false
         },
-        chongq: { //是否是重庆;
-            type: Boolean,
-            default: false
-        }
     },
     watch:{
         seachTxt(val,oldVal){
