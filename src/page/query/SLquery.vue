@@ -18,7 +18,10 @@
                                     :key="i"
                                     :class="el.istap?'current':''"
                                     @click="addressFn(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </el-col>
                         </el-row>
                     </div>
@@ -42,6 +45,7 @@
                                 <el-input
                                     placeholder="请输入内容,多个关键字用空格隔开"
                                     v-model="data.project.keywords"
+                                    class="element_search"
                                 ></el-input>
                                 <ul class="drc condition">
                                     <li
@@ -66,9 +70,9 @@
                             <!-- 多个关键词之间的关系 -->
                             <el-row v-if="isoptType" class="mb40">
                                 <el-col :span="1">多个关键词之间的关系：</el-col>
-                                <div class="condition">
+                                <div class="condition color-5a5 cp">
                                     <div
-                                        class="item mr40"
+                                        class="item mr20 ml20"
                                         v-for="(el,i) in optGxList"
                                         :key="i"
                                         :class="el.code==data.project.optType?'current':''"
@@ -86,11 +90,14 @@
                                         :key="'a'+i"
                                         :class="el.istap?'current':''"
                                         @click="areaTap(el)"
-                                    >{{el.areaShortName}}</div>
+                                    >
+                                        <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                        <span>{{el.areaShortName}}</span>
+                                    </div>
                                 </div>
                             </el-row>
                             <!-- 项目状态 -->
-                            <el-row>
+                            <el-row class="mb5">
                                 <el-col :span="1">项目状态：</el-col>
                                 <div class="condition">
                                     <div
@@ -99,7 +106,10 @@
                                         :key="'a'+i"
                                         :class="data.project.proState==el.code?'current':''"
                                         @click="proStateTap(el)"
-                                    >{{el.name}}</div>
+                                    >
+                                        <v-icon class="fs14" :iconClass="data.project.proState==el.code?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                        <span>{{el.name}}</span>
+                                    </div>
                                 </div>
                             </el-row>
                             <!-- 项目金额 -->
@@ -108,13 +118,13 @@
                                 <el-input
                                     placeholder="最低价（万元）"
                                     v-model="data.project.amountStart"
-                                    class="inputW"
+                                    class="inputW element_search"
                                     @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
                                 ></el-input>至
                                 <el-input
                                     placeholder="最高价（万元）"
                                     v-model="data.project.amountEnd"
-                                    class="inputW r"
+                                    class="inputW r element_search"
                                     @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"
                                 ></el-input>
                             </el-row>
@@ -152,7 +162,10 @@
                                         :key="'a'+i"
                                         :class="el.istap?'current':''"
                                         @click="applyTap(el)"
-                                    >{{el.areaShortName}}</div>
+                                    >
+                                        <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                        <span>{{el.areaShortName}}</span>
+                                    </div>
                                 </div>
                             </el-row>
                             <!-- 信用等级 -->
@@ -165,7 +178,10 @@
                                         :key="'a'+i"
                                         :class="el.istap?'current':''"
                                         @click="levelsTap(el)"
-                                    >{{el.areaShortName}}</div>
+                                    >
+                                        <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                        <span>{{el.areaShortName}}</span>
+                                    </div>
                                 </div>
                             </el-row>
                         </el-col>

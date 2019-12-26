@@ -26,9 +26,9 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box">
+            <div class="list-box" :style="tabNum=='企业资质'?'padding-bottom: 50px;':''">
                 <!-- 资质 -->
-                <template v-if="tabNum=='符合要求资质'" style="padding-bottom: 50px;">
+                <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
                         <span v-for="(o,i) of conditionList" :key="i" :class="conditionName==o.name?'current':''" @click="conditionFn(o,i)">{{o.name}}({{o.num}})</span>
                     </div>
@@ -328,15 +328,19 @@ export default {
             this.reload();
         },
         jumpCompanyAll(){//跳到人员完整信息
-            const {href} = this.$router.resolve({
-                path: '/introduce/icbc',
-                query: {
-                    id:this.basic.comId,
-                    name:this.basic.comName,
-                    source:this.basic.regisAddress
-                }
-            })
-            window.open(href, '_blank', )
+            let data= {
+                certNo: this.basic.certNo,
+                comId: this.basic.comId,
+                comName: this.basic.comName,
+                idCard: this.basic.idCard,
+                sex: this.basic.sex,
+                tabCode: this.basic.tabCode,
+                name: this.basic.name,
+                innerid: this.basic.innerid,
+                sealNo:this.basic.sealNo
+            }
+            sessionStorage.setItem('peopleData',JSON.stringify(data));
+            this.openNewLink('/personnel/sign')
         },
         tabFn(o,i){//tab切换
             this.tabNum=o.name;
@@ -446,21 +450,21 @@ export default {
             this.ryTotal=0;
             this.ryAjax();
         },
-        jumpRyDetail(el){//跳转到人员详情
-            let data= {
-                certNo: el.certNo,
-                comId: el.comId,
-                comName: el.comName,
-                idCard: el.idCard,
-                sex: el.sex,
-                tabCode: el.tabCode,
-                name: el.name,
-                innerid: el.innerid,
-                sealNo:el.sealNo
-            }
-            sessionStorage.setItem('peopleData',JSON.stringify(data));
-            this.openNewLink('/personnel')
-        },
+        // jumpRyDetail(el){//跳转到人员详情
+        //     let data= {
+        //         certNo: el.certNo,
+        //         comId: el.comId,
+        //         comName: el.comName,
+        //         idCard: el.idCard,
+        //         sex: el.sex,
+        //         tabCode: el.tabCode,
+        //         name: el.name,
+        //         innerid: el.innerid,
+        //         sealNo:el.sealNo
+        //     }
+        //     sessionStorage.setItem('peopleData',JSON.stringify(data));
+        //     this.openNewLink('/personnel')
+        // },
         /** 人员  end**/
     }
 
@@ -553,6 +557,7 @@ export default {
             font-size: 14px;
             .condition{
                 min-height: 48px;
+                padding: 14px 0;
                 padding-left: 30px;
                 display: flex;
                 flex-wrap: wrap;

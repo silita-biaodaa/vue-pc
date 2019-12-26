@@ -7,7 +7,7 @@
             <v-publicBread :breadList="breadList"></v-publicBread>
             <!-- 筛选 -->
             <div class="select maxW-box mb20">
-                <div class="bottom-bor">
+                <div class="bottom-bor btnLine pb5">
                     <el-row>
                         <el-col :span="2" class="fw600 fs16 color-150">企业地区</el-col>
                         <el-col :span="22" class="condition">
@@ -17,7 +17,10 @@
                                 :key="i"
                                 :class="el.istap?'current':''"
                                 @click="addressFn(el)"
-                            >{{el.areaShortName}}</div>
+                            >
+                                <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                <span>{{el.areaShortName}}</span>
+                            </div>
                         </el-col>
                     </el-row>
                 </div>
@@ -41,12 +44,8 @@
                             <el-input
                                 placeholder="请输入内容,多个关键字用空格隔开"
                                 v-model="data.project.keywords"
+                                class="element_search"
                             ></el-input>
-                            <!-- <el-radio-group v-model="data.project.opt">
-                                <el-radio label="title">根据标题搜索</el-radio>
-                                <el-radio label="scope">根据主要工程量搜索</el-radio>
-                                <el-radio label="title_and_scope">根据标题和主要工程量搜索</el-radio>
-                            </el-radio-group> -->
                             <ul class="drc">
                                 <li
                                     class="cp fs14 color-5a5 mr15"
@@ -72,7 +71,7 @@
                             <el-col :span="1" class="mr20">多个关键词之间的关系：</el-col>
                             <div class="condition">
                                 <div
-                                    class="item mr40 color-5a5 cp"
+                                    class="item color-5a5 cp mr20 ml20"
                                     v-for="(el,i) in optGxList"
                                     :key="i"
                                     :class="el.code==data.project.optType?'current':''"
@@ -90,7 +89,10 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="areaTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 建设状态 -->
@@ -103,11 +105,14 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="proBuildTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 项目类型 -->
-                        <el-row>
+                        <el-row class="mb5">
                             <el-col :span="1" class="mr20">项目类型：</el-col>
                             <div class="condition">
                                 <div
@@ -116,7 +121,10 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="typeTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 项目金额 -->
@@ -125,13 +133,13 @@
                             <el-input
                                 placeholder="最低价（万元）"
                                 v-model="data.project.amountStart"
-                                class="inputW"
+                                class="inputW element_search"
                                 @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
                             ></el-input>至
                             <el-input
                                 placeholder="最高价（万元）"
                                 v-model="data.project.amountEnd"
-                                class="inputW r"
+                                class="inputW r element_search"
                                 @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"
                             ></el-input>
                         </el-row>
@@ -195,7 +203,9 @@
                                     :key="'a'+y"
                                     :class="x.istap?'current':''"
                                     @click="yearTap(el,x)"
-                                >{{x.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="x.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{x.areaShortName}}</span></div>
                             </div>
                         </el-row>
                         <!-- 评分 -->
@@ -204,13 +214,13 @@
                             <el-input
                                 placeholder="最低分(小数)"
                                 v-model="data.credit.scoreStart"
-                                class="inputW"
+                                class="inputW element_search"
                                 @keyup.native="returnInt(0)"
                             ></el-input>至
                             <el-input
                                 placeholder="最高分(小数)"
                                 v-model="data.credit.scoreEnd"
-                                class="inputW r"
+                                class="inputW r element_search"
                                 @keyup.native="returnInt(1)"
                             ></el-input>
                             <div class="rule">
