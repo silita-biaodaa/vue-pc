@@ -147,18 +147,15 @@
 					background-color: #FE6603;
 				}
 			}
-
 			.navspan:last-child {
 				border-right: none;
 			}
 		}
-
 		.ic-dark {
 			color: #FE6603;
+			font-weight: 550;
 		}
-
 	}
-
 	.f-color {
 		background-color: #fff;
 

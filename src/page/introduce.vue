@@ -295,6 +295,7 @@
 				line-height: 48px;
 				.com-name {
 					font-size: 34px;
+					font-weight: 550;
 					i {
 						font-size: 34px;
 						margin-right: 12px;
@@ -318,6 +319,7 @@
 					border: 1px solid #DDDFE4;
 					margin-left: 40px;
 					font-weight: 550;
+					cursor: pointer;
 				}
 			}
 			table {

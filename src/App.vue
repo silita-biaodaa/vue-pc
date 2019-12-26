@@ -778,11 +778,11 @@ body{
 				align-items: center;
 				justify-content: center;
 				div {
-					border-right: 1px solid #fff;
+					border-left: 1px solid #fff;
 					font-size: 26px;
 					width: 100%;
-					height: 35px;
-					line-height: 35px;
+					height: 20px;
+					line-height: 20px;
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -795,7 +795,7 @@ body{
 					}
 				}
 			}
-			li:last-child div {
+			li:first-child div {
 				border: none;
 			}
 			li:hover,
@@ -804,6 +804,12 @@ body{
 			}
 			.current {
 				background-color: #FF8E4F;
+			}
+			.current div{
+				border-color: transparent
+			}
+			.current+li div{
+				border-color: transparent
 			}
 		}
 	}

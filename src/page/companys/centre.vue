@@ -154,6 +154,7 @@ import traffic from '@/page/companys/traffic'
 	.intell {
 		.current {
 			color: #EB651B;
+			font-weight: 550;
 		}
 		.el-loading-spinner .path {
 			stroke: #FE6603;

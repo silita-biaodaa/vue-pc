@@ -81,7 +81,7 @@
 						等级
 					</div>
 				</div>
-				<div class="people-dea" v-for="(el,i) in detail.mainPersons" :key="i">
+				<div class="people-dea" v-for="(el,i) in detail.mainPersons" :key="i" :class=" (i + 1) == detail.mainPersons.length ? 'no-bottom' : ''" >
 					<div style="width:80px;">
 						{{el.姓名}}
 					</div>
@@ -143,7 +143,7 @@
 						颁奖时间
 					</div>
 				</div>
-				<div class="people-dea" v-for="(el,i) in detail.proPrizes" :key="i">
+				<div class="people-dea" v-for="(el,i) in detail.proPrizes" :key="i" :class=" (i + 1) == detail.proPrizes.length ? 'no-bottom' : ''" >
 					<div style="width:225px;">
 						{{el.奖项名称}}
 					</div>
@@ -334,6 +334,10 @@
 					color: #999;
 				}
 			}
+			
 		}
+		.no-bottom {
+				border-bottom: none !important;
+			}
 	}
 </style>

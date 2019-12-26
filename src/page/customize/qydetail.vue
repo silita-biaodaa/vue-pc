@@ -51,7 +51,7 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box">
+            <div class="list-box" style="padding-bottom: 50px;">
                 <!-- 资质 -->
                 <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
@@ -214,7 +214,7 @@
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
                                         <td class="curpon" @click="openPop(o)" >{{o.punishCode}}</td>
                                         <td>{{o.punishType}}</td>
-                                        <td>{{o.punishDate}}</td>
+                                        <td>{{o.punishDate.join('T')[0]}}</td>
                                         <td>{{o.punishOrg}}</td>
                                     </tr>
                                 </tbody>

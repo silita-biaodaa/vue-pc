@@ -8,19 +8,41 @@
 				<li v-for="(el,i) in list" class="mt20" :key="i">
 					<div class="num fw600 fs14 mb10">证书{{i+1}}</div>
 					<div class="box">
-						<p class="bg-color borde">注册类别</p>
-						<p class="zclb borde">{{el.category}}</p>
-						<p class="bg-color borde">注册专业</p>
-						<p class="borde">{{el.major}}</p>
-						<p class="bg-color borde">证书编号</p>
-						<p class=" borde">{{el.certNo}}</p>
-						<p class="bg-color borde">执业印章号</p>
-						<p class=" borde">{{el.sealNo}}</p>
-						<p class="bg-color borde">有效期</p>
-						<p class=" borde">{{el.validDate}}</p>
-						<p class="bg-color borde">注册单位</p>
+						<p class="bg-color borde">
+							<span>注册类别</span>
+						</p>
+						<p class="zclb borde">
+							<span>{{el.category}}</span>
+						</p>
+						<p class="bg-color borde">
+							<span>注册专业</span>
+						</p>
+						<p class="borde">
+							<span>{{el.major}}</span>
+						</p>
+						<p class="bg-color borde">
+							<span>证书编号</span>
+						</p>
+						<p class=" borde">
+							<span>{{el.certNo}}</span>
+						</p>
+						<p class="bg-color borde">
+							<span>执业印章号</span>
+						</p>
+						<p class=" borde">
+							<span>{{el.sealNo}}</span>
+						</p>
+						<p class="bg-color borde">
+							<span>有效期</span>
+						</p>
+						<p class=" borde">
+							<span>{{el.validDate}}</span>
+						</p>
+						<p class="bg-color borde">
+							<span>注册单位</span>
+						</p>
 						<p class="company-people borde">
-							<v-comjump :name="el.comName"></v-comjump>
+							<span><v-comjump :name="el.comName"></v-comjump></span>
 						</p>
 					</div>
 				</li>
@@ -103,18 +125,29 @@
 				align-items:stretch;
 				grid-template-rows:48px auto 48px;
 				p{
-					padding-left: 30px;
 					box-sizing: border-box;
-					// padding-top: 14px;
-					line-height: 48px;
 					height: 100%;
 					min-height: 48px;
+					// position: relative;
+					span{
+						position: relative;
+						transform: translate(0,-50%);
+						top: 50%;
+						left: 20px;
+						display: block;
+						width: calc(100% - 40px)
+					}
 				}
 				.bg-color{
 					width: 116px;
 					text-align: center;
 					padding-left: 0;
 					font-weight: 600;
+					span{
+						transform: translate(-50%,-50%);
+						left: 50%;
+						width: 100%;
+					}
 				}
 				.company-people{
 					grid-column-start: 2;

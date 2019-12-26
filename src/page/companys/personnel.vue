@@ -254,9 +254,9 @@
 			}
 		}
 		.law-search {
-			height: 56px;
-			line-height: 56px;
-			padding: 0 12px;
+			height: 48px;
+			line-height: 48px;
+			// padding: 0 12px;
 			font-size: 14px;
 			color: #333;
 			.law-wei {

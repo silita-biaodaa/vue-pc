@@ -354,6 +354,25 @@ import countTime from '@/components/countTime'
 				}else if(el.report.zhuanchaType=='shuili'){
 					query.type='sl'
 					this.openNewLink('/queryList',query)
+				} else if(el.report.zhuanchaType=='company'){
+				    this.$router.replace({
+                path: "/result",
+                query: {
+                    pkid: el.report.pkid,
+                    orderNo: el.orderNo,
+                    page: 'qy',
+                }
+            });
+				} else if(el.report.zhuanchaType=='person'){
+					 this.$router.replace({
+                path: "/result",
+                query: {
+                    pkid: el.report.pkid,
+                    orderNo: el.orderNo,
+                    page: 'ry',
+                }
+            });
+					
 				}
 			},
 			timeOutFn(el){//判断是否超过24小时

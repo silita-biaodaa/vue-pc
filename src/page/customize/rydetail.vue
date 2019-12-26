@@ -28,7 +28,7 @@
             </div>
             <div class="list-box">
                 <!-- 资质 -->
-                <template v-if="tabNum=='符合要求资质'">
+                <template v-if="tabNum=='符合要求资质'" style="padding-bottom: 50px;">
                     <div class="condition">
                         <span v-for="(o,i) of conditionList" :key="i" :class="conditionName==o.name?'current':''" @click="conditionFn(o,i)">{{o.name}}({{o.num}})</span>
                     </div>
