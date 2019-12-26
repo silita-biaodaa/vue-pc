@@ -131,8 +131,7 @@ Vue.prototype.openNewLink = function(path,query=null){
 }
 
 Vue.prototype.chqtable = function (path, query = null) {
-  let href = 'https://www.baidu.com/'
-  window.open(href, '_blank')
+  window.open(path, '_blank')
 }
 
 // Vue.prototype.chqpop = function (path, query = null) {

@@ -170,7 +170,7 @@
 		}
 		.ic-dark {
 			font-weight: 550;
-			color: #FE6603;
+			color: #EB651B;
 		}
 	}
 	.f-color {

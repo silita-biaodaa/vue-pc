@@ -143,16 +143,16 @@
 						企业主体信息
 					</div>
 					<div class="main-table">
-						<div style="width:205px;" class="bor">
+						<div style="width:205px;" class="bor cure">
 							涉及单位
 						</div>
-						<div style="width:310px;" class="bor">
+						<div style="width:310px;" class="bor cure">
 							企业名称
 						</div>
-						<div style="width:300px;" class="bor">
+						<div style="width:300px;" class="bor cure">
 							统一社会信用代码
 						</div>
-						<div style="width:150px;border:none" class="bor">
+						<div style="width:150px;border:none" class="bor cure">
 							所在省份
 						</div>
 					</div>
@@ -179,19 +179,19 @@
 						从业人员信息
 					</div>
 					<div class="main-table">
-						<div style="width:205px;" class="bor">
+						<div style="width:205px;" class="bor cure">
 							担任角色
 						</div>
-						<div style="width:110px;" class="bor">
+						<div style="width:110px;" class="bor cure">
 							姓名
 						</div>
-						<div style="width:300px;" class="bor">
+						<div style="width:300px;" class="bor cure">
 							证件号码
 						</div>
-						<div style="width:150px;" class="bor">
+						<div style="width:150px;" class="bor cure">
 							注册类型及等级
 						</div>
-						<div style="width:200px;border:none" class="bor">
+						<div style="width:200px;border:none" class="bor cure">
 							执业印章号
 						</div>
 					</div>
@@ -422,7 +422,7 @@
 					display: flex;
 					flex-direction: row;
 					font-size: 14px;
-					color: #999;
+					color: #000;
 					border: 1px solid #DDDFE4;
 					background-color: #F4F4F4;
 					.bor {
@@ -432,6 +432,9 @@
 						align-items: center;
 						justify-content: center;
 						text-align: center;
+					}
+					.cure {
+						font-weight: 550;
 					}
 				}
 				.main-no {

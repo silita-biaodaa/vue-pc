@@ -51,7 +51,7 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box" style="padding-bottom: 50px;">
+            <div class="list-box"  :style="tabNum=='企业资质'||tabNum=='行政处罚'?'padding-bottom: 50px;':''">
                 <!-- 资质 -->
                 <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
@@ -214,7 +214,7 @@
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
                                         <td class="curpon" @click="openPop(o)" >{{o.punishCode}}</td>
                                         <td>{{o.punishType}}</td>
-                                        <td>{{o.punishDate.join('T')[0]}}</td>
+                                        <td>{{o.punishDate.split('T')[0]}}</td>
                                         <td>{{o.punishOrg}}</td>
                                     </tr>
                                 </tbody>
@@ -319,9 +319,9 @@ export default {
             isbid:false, // 弹窗控制中标
             iscom:false, // 弹窗控制竣工
             iscon:false, // 弹窗控制施工
-            bidata:{},
-            comdata:{},
-            condata:{},
+            bidata:'',
+            comdata:'',
+            condata:'',
             Pundata:{}
 
         }
@@ -445,6 +445,7 @@ export default {
              this.isbid = false
              this.iscom = false
              this.iscon = false
+             this.modalHelper.beforeClose()
         },
         jumpCompanyAll(){//跳到企业完整信息
             const {href} = this.$router.resolve({
@@ -537,16 +538,16 @@ export default {
                 this.openNewLink(path,query)
             }else{
                 if(el.proType == '施工许可') {
-                    this.condata = el
+                    this.condata = el.proId
                     this.iscon = true
                 } else if(el.proType == '竣工验收备案') {
-                    this.comdata = el
+                    this.comdata = el.proId
                     this.iscom = true
                 } else {
-                    this.bidata = el
+                    this.bidata = el.proId
                     this.isbid = true
                 }
-
+                this.modalHelper.afterOpen()
             }
         },
         /*业绩 end*/

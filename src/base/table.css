@@ -11,10 +11,10 @@
   width: 980px;
   background: #ffffff;
   border-radius: 12px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   padding-bottom: 30px;
-  top: 150px;
+  top: 10%;
   transform: translatex(-50%);
   z-index: 99999;
 }

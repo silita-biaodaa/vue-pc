@@ -237,7 +237,7 @@
                         <td colspan="2">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td rowspan="4">单位缴费基数</td>
+                        <td class="bg" rowspan="4">单位缴费基数</td>
                         <td colspan="3">单位参加城镇职工基本养老保险缴费基数</td>
                         <td colspan="3">{{data.socialSecurity[0].totalWagesSo110}}</td>
                     </tr>
@@ -254,7 +254,7 @@
                         <td colspan="3">{{data.socialSecurity[0].totalPaymentSo510}}</td>
                     </tr>
                     <tr>
-                        <td rowspan="5">本期实际缴费基数</td>
+                        <td class="bg" rowspan="5">本期实际缴费基数</td>
                         <td colspan="3">参加城镇职工基本养老保险本期实际缴费基数</td>
                         <td colspan="3">{{data.socialSecurity[0].totalPaymentSo110}}</td>
                     </tr>
@@ -275,7 +275,7 @@
                         <td colspan="3">{{data.socialSecurity[0].totalPaymentSo510}}</td>
                     </tr>
                     <tr>
-                        <td rowspan="5">单位累计欠缴金额</td>
+                        <td class="bg" rowspan="5">单位累计欠缴金额</td>
                         <td colspan="3">单位参加城镇职工基本养老保险累计欠缴金额</td>
                         <td colspan="3">{{data.socialSecurity[0].unpaidSocialInsSo110}}</td>
                     </tr>
@@ -413,6 +413,7 @@ h5{
     }
 }
 table{
+    border-color: #DDDFE4;
     border-collapse: collapse;
     width: 100%;
     td{
@@ -424,7 +425,7 @@ table{
     }
     .bg {
         background-color: #F4F4F4;
-        
+        font-weight: 550;
     }
 }
 .four{

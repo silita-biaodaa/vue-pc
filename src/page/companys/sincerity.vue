@@ -152,7 +152,7 @@
 			}
 		}
 		.ic-dark {
-			color: #FE6603;
+			color: #EB651B;
 			font-weight: 550;
 		}
 	}

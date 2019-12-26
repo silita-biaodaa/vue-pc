@@ -42,7 +42,7 @@
 				  </tr>
 					<tr>
 						 <td width='220' class="ur-title" >联系方式</td>
-						 <td  colspan='3' >{{details.phone == 'NULL-' ? '' : details.phone}} <a v-if="isVip" style="marginLeft:30px;" > <i  class="iconfont iconVIPbiaozhi" ></i> VIP用户可见</a> </td>
+						 <td  colspan='3' >{{details.phone == 'NULL-' ? '' : details.phone}} <a v-if="isVip" style="marginLeft:30px;" @click="jumpVip" > <i   class="iconfont iconVIPbiaozhi" ></i> VIP用户可见</a> </td>
 				  </tr>			 
 				</table>
 		</div>
@@ -249,6 +249,11 @@
 					path: '/download'
 				})
 				window.open(href, '_blank')
+			},
+			jumpVip() {
+				this.$router.push({
+					path: '/buy'
+				})
 			},
 			updateFn() { //更新
 				if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {

@@ -151,7 +151,7 @@ export default {
             min-width: 150px;
             justify-content: center;
             min-height: 40px;
-            box-sizing: border-box;
+            font-weight: 550;
         }
         .line-r {
             padding-left: 40px;
@@ -164,8 +164,9 @@ export default {
         .min-h {
             background: #fff;
             min-height: 40px;
+            width: 100%;
             box-sizing: border-box;
-            padding: 16px 15px 15px 40px;
+            padding: 15px 16px 16px 40px;
             border-left: 1px solid #DDDFE4;
         }
     }
