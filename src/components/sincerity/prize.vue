@@ -14,7 +14,7 @@
 						</tr>
 						<tr v-for="(el,i) in data" :key="i">
 							<td>{{i+1}}</td>
-							<td style="cursor: pointer;" @click="seeDetail(el)" >{{el.projName}}</td>
+							<td style="cursor: pointer;"  class="blur-bt"  @click="seeDetail(el)" >{{el.projName}}</td>
 							<td>{{el.awardName}}</td>
 							<td>{{el.issued}}</td>
 						</tr>
@@ -29,13 +29,13 @@
             </template>
         </div>
         <!-- 弹窗 -->
-        <v-pop v-if="mask">
-            <v-prize-detail :data="detail"></v-prize-detail>
-        </v-pop>
+        <!-- <v-pop > -->
+            <v-prize-detail :data="detail" v-if="mask" ></v-prize-detail>
+        <!-- </v-pop> -->
     </div>
 </template>
 <script>
-import popup from '@/components/popup'
+// import popup from '@/components/popup'
 import prizeDetail from '@/components/sincerity/prizeDetail'
 export default {
     name: 'prize', // 基本信息
@@ -56,7 +56,7 @@ export default {
         },
     },
     components:{
-        'v-pop':popup,
+        // 'v-pop':popup,
         'v-prize-detail':prizeDetail
     },
     beforeCreate() {
@@ -121,6 +121,10 @@ export default {
     box-sizing: border-box;
       .table-content {
         width: 844px;
+        .blur-bt {
+            color: #4494F0;
+            text-decoration: underline;
+        }
     }
 
 }

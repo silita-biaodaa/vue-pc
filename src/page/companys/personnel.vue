@@ -17,40 +17,16 @@
 					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
 					</el-option>
 				</el-select>
-				<el-select v-model="mold" clearable placeholder="请选择证书等级" @change="newList">
+				<!-- <el-select v-model="mold" clearable placeholder="请选择证书等级" @change="newList">
 					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
 					</el-option>
 				</el-select>
 				<el-select v-model="mold" clearable placeholder="请选择证书专业" @change="newList">
 					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
 					</el-option>
-				</el-select>
+				</el-select> -->
 		</div>
 		<div v-show="!result">
-			<!-- <div class="law-list">
-				<div class="law-nav">
-					<div class="left" style="width:52px">序号</div>
-					<div class="left" style="width:80px">姓名</div>
-					<div class="left" style="width:140px">注册类别</div>
-					<div class="left" style="width:150px">证书编号</div>
-					<div class="left" style="width:160px">专业</div>
-					<div class="left" style="width:100px">有效日期</div>
-					<div class="left" style="width:90px"> </div>
-				</div>
-				<div class="law-text" v-for="(el,i) in lawList" :key="i" @click="toPer(el)">
-					<div class="left" style="width:52px">{{(current-1)*20+(i+1)}}</div>
-					<div class="left" style="width:80px">{{el.name}}</div>
-					<div class="left" style="width:140px">{{el.category}}</div>
-					<div class="left" style="width:150px">{{el.certNo}}</div>
-					<div class="left" style="width:160px">{{el.major}}</div>
-					<div class="left" style="width:100px">{{el.validDate}}</div>
-					<div class="left law-cen" style="width:90px">
-						<div class="crew-btn" @click.stop="jumpya(el)" v-if="el.isUnder">
-							押证
-						</div>
-					</div>
-				</div>
-			</div> -->
 				<table class="table-content">
 						<tr>
 							<td  style="width:52px">序号</td>

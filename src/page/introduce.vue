@@ -42,7 +42,7 @@
 				  </tr>
 					<tr>
 						 <td width='220' class="ur-title" >联系方式</td>
-						 <td  colspan='3' >{{details.phone == 'NULL-' ? '' : details.phone}} <a v-if="svip" style="marginLeft:30px;" > <i  class="iconfont iconVIPbiaozhi" ></i> VIP用户可见</a> </td>
+						 <td  colspan='3' >{{details.phone == 'NULL-' ? '' : details.phone}} <a v-if="isVip" style="marginLeft:30px;" > <i  class="iconfont iconVIPbiaozhi" ></i> VIP用户可见</a> </td>
 				  </tr>			 
 				</table>
 		</div>
@@ -117,7 +117,8 @@
 				title: '',
 				source: '',
 				collect: '关注',
-				iscollect: false
+				iscollect: false,
+				isVip:false
 			}
 		},
 		watch: {
@@ -201,15 +202,20 @@
 						} else {
 							this.collect = '关注'
 						}
-						// var arr = []
-						// if (this.details.phone) {
-						// 	arr = this.details.phone.split(';')
-						// 	if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
-						// 		this.details.phone = this.resetPhone(arr[0])
-						// 	} else {
-						// 		this.details.phone = arr[0]
-						// 	}
-						// }
+						var arr = []
+						var str = []
+						if (this.details.phone) {
+							arr = this.details.phone.split(';')
+							if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+								this.isVip = true
+								for (const i of arr) {
+									str.push(this.resetPhone(i))
+								}
+								this.details.phone = str.join(';')
+							} else {
+								this.isVip = false
+							}
+						}
 					}
 				});
 			},
