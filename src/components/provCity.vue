@@ -167,7 +167,7 @@
             flex-wrap: wrap;
             li{
                 min-width: 42px;
-                margin-right: 40px;
+                margin-right: 30px;
                 margin-bottom: 14px;
                 font-size: 14px;
                 color: #5A5A5A;
