@@ -18,18 +18,24 @@
                                 :key="i"
                                 :class="el.code==data.regisAddress?'current':''"
                                 @click="addressFn(el)"
-                            >{{el.areaShortName}}</div>
+                            >
+                                <v-icon class="fs14" :iconClass="el.code==data.regisAddress?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                <span>{{el.areaShortName}}</span>
+                            </div>
                         </el-col>
                     </el-row>
-                    <el-row v-if="data.regisAddress!=''">
-                        <el-col :span="2">备案地区：</el-col>
+                    <el-row class="btnLine pt20 pb5" v-if="data.regisAddress!=''">
+                        <el-col :span="2" class="fs16 fw600 color-150">备案地区：</el-col>
                         <el-col :span="22" class="condition">
                             <div
+                                class="cp mr40 mb15 color-5a5"
                                 v-for="(el,i) in recordList"
                                 :key="i"
                                 :class="el.code==data.joinRegion?'current':''"
                                 @click="isBeiFn(el)"
-                            >{{el.name}}</div>
+                            >
+                                {{el.name}}
+                            </div>
                         </el-col>
                     </el-row>
                 </div>
@@ -51,6 +57,7 @@
                         <el-row class="flex-center mb20">
                             <el-col :span="1">项目关键字：</el-col>
                             <el-input
+                                class="element_search"
                                 placeholder="请输入内容,多个关键字用空格隔开"
                                 v-model="data.project.keywords"
                             ></el-input>
@@ -77,9 +84,9 @@
                         <!-- 多个关键词之间的关系 -->
                         <el-row v-if="isoptType" class="mb40">
                             <el-col :span="1">多个关键词之间的关系：</el-col>
-                            <div class="condition ml40">
+                            <div class="condition color-5a5 cp">
                                 <div
-                                    class="item"
+                                    class="item mr20 ml20"
                                     v-for="(el,i) in optGxList"
                                     :key="i"
                                     :class="el.code==data.project.optType?'current':''"
@@ -97,7 +104,10 @@
                                     :key="i"
                                     :class="el.istap?'current':''"
                                     @click="itemFn(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 项目属地 -->
@@ -110,7 +120,10 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="areaTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 工程用途 -->
@@ -123,11 +136,14 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="purposeTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 业绩类型 -->
-                        <el-row>
+                        <el-row class="mb5">
                             <el-col :span="1">业绩类型：</el-col>
                             <div class="condition">
                                 <div
@@ -136,7 +152,10 @@
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
                                     @click="typeTap(el)"
-                                >{{el.areaShortName}}</div>
+                                >
+                                    <v-icon class="fs14" :iconClass="el.istap?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
+                                    <span>{{el.areaShortName}}</span>
+                                </div>
                             </div>
                         </el-row>
                         <!-- 中标金额/合同金额 -->
@@ -145,13 +164,13 @@
                             <el-input
                                 placeholder="最低价（万元）"
                                 v-model="data.project.amountStart"
-                                class="inputW"
+                                class="inputW element_search"
                                 @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
                             ></el-input>至
                             <el-input
                                 placeholder="最高价（万元）"
                                 v-model="data.project.amountEnd"
-                                class="inputW r"
+                                class="inputW r element_search"
                                 @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"
                             ></el-input>
                         </el-row>
@@ -197,13 +216,13 @@
                             <el-input
                                 placeholder="最小面积（㎡）"
                                 v-model="data.project.areaStart"
-                                class="inputW"
+                                class="inputW element_search"
                                 @keyup.native="data.project.areaStart=data.project.areaStart.replace(/\D/g,'')"
                             ></el-input>至
                             <el-input
                                 placeholder="最大面积（㎡）"
                                 v-model="data.project.areaEnd"
-                                class="inputW r"
+                                class="inputW r element_search"
                                 @keyup.native="data.project.areaEnd=data.project.areaEnd.replace(/\D/g,'')"
                             ></el-input>
                         </el-row>

@@ -75,6 +75,7 @@
                                     clearable
                                     v-model="data.project.keywords"
                                     style="width:75%"
+                                    class="element_search"
                                 >
                                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                                 </el-input>
@@ -224,6 +225,7 @@
                                     maxlength="8"
                                     @input="data.project.amountStart=data.project.amountStart.replace(/[^\d.]/g,'')"
                                     style="width: 20%;"
+                                    class="element_search"
                                 ></el-input>
                                 <!-- <v-myInput
                                     :point="2"
@@ -237,6 +239,7 @@
                                     v-model="data.project.amountEnd"
                                     @input="data.project.amountEnd=data.project.amountEnd.replace(/[^\d.]/g,'')"
                                     style="width: 20%"
+                                    class="element_search"
                                 ></el-input>
                             </el-row>
                             <!-- 中标公示 -->
@@ -313,11 +316,13 @@
                                     placeholder="最小面积（㎡）"
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
+                                    class="element_search"
                                 ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input
                                     placeholder="最大面积（㎡）"
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
+                                    class="element_search"
                                 ></el-input>
                             </el-row>
                             <!-- 竣工验收日期 -->
@@ -346,11 +351,13 @@
                                     placeholder="最小面积（㎡）"
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
+                                    class="element_search"
                                 ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input
                                     placeholder="最大面积（㎡）"
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
+                                    class="element_search"
                                 ></el-input>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
@@ -429,6 +436,7 @@
                                     v-model="data.credit.creditKeyword"
                                     style="width:75%"
                                     :disabled="disabled ? true:false"
+                                    class="element_search"
                                 >
                                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                                 </el-input>
@@ -469,11 +477,13 @@
                             placeholder="最低分"
                             v-model="data.credit.scoreStart"
                             style="width: 20%;"
+                            class="element_search"
                         ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                         <el-input
                             placeholder="最高分"
                             v-model="data.credit.scoreEnd"
                             style="width: 20%"
+                            class="element_search"
                         ></el-input>
                     </el-col>
                 </el-row>

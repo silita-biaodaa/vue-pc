@@ -3,6 +3,7 @@
         <div class="search-b">
             <span class="fs16 color-150 fw600 mr20">资质要求</span>
             <el-input
+                class="element_search"
                 placeholder="请输入关键字，查找资质"
                 prefix-icon="el-icon-search"
                 v-model="seachTxt">
