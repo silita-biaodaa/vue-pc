@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from '@/page/index'
 import Bid from '@/page/bid'
 import Tender from '@/page/tender'
-import Faith from '@/page/faith'
 import Article from '@/page/article'
 import Company from '@/page/company'
 import Notice from '@/page/notice'
@@ -28,8 +27,6 @@ import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
 import Download from '@/page/Download'
 
-import zhong from '@/page/zong/zhong'
-import hlist from '@/page/zong/home'
 import logo from '@/page/logo'
 import enroll from '@/page/enroll'
 import protocol from '@/page/protocol'
@@ -100,7 +97,8 @@ import queryList from '@/page/query/queryList'//查询结果列表
 import queryDetail from '@/page/query/queryDetail'//查询结果详情
 import queryPay from '@/page/query/queryPay'//查询支付页
 //重庆专查
-import qyDetail from '@/page/customize/qydetail'//企业详情页
+// import companyDetail from '@/page/customize/qydetail.vue'//企业详情页
+import companyDetail from '@/page/cqqyDetail'
 import ryDetail from '@/page/customize/rydetail'//人员详情页
 //404
 import error from'@/page/404'
@@ -299,16 +297,6 @@ export default new Router({
       path: '/download', // 下载页面
       component: Download,
       name: 'download'
-    },
-    {
-      path: '/zhong',
-      component: zhong,
-      name: 'zhong'
-    },
-    {
-      path: '/dalist',
-      component: hlist,
-      name: 'dalist'
     },
     {
       path: '/logo',   // 登录
@@ -673,7 +661,7 @@ export default new Router({
     },{//重庆专查企业详情
       path:'/companyDetail',
       name:'companyDetail',
-      component:qyDetail
+      component:companyDetail
     },{//重庆专查人员详情
       path:'/peopleDetail',
       name:'peopleDetail',
