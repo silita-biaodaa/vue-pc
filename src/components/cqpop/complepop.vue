@@ -26,7 +26,7 @@
 
 
               <tr>
-               <td width='192' class="td-title" >等级备案号</td>
+               <td width='192' class="td-title" >备案登记号</td>
                <td >{{object.sectionCode}}</td>
                <td width='192' class="td-title" >备案日期</td>
                <td  >{{object.issued}}</td>
@@ -36,12 +36,12 @@
                <td width='192' class="td-title" >工程地址</td>
                <td >{{object.projAddress}}</td>
                <td width='192' class="td-title" >工程规模（面积)</td>
-               <td  >{{object.area}}</td>
+               <td  >{{object.area}}<span v-if="object.area" >㎡</span></td>
              </tr>
 
               <tr>
                <td width='192' class="td-title" >工程规模（价格)</td>
-               <td >{{object.amount}}</td>
+               <td >{{object.amount}}万元</td>
                <td width='192' class="td-title" >主体结构类型</td>
                <td  >{{object.projType}}</td>
              </tr>
@@ -148,7 +148,9 @@ export default {
                 }
             }).then(res =>{
                 if(res.data.code == 1) {
-                  that.object = res.data.data       
+                  that.object = res.data.data   
+                  let time = new Date(that.object.ended).getTime()
+                  that.object.ended = that.formatDate(time)   
               }
             })
         }
