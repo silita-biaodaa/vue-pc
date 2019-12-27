@@ -21,12 +21,12 @@
                     <p>{{basic.legalPerson}}</p>
                 </div>
                 <div>
-                    <p class="bg">电话</p>
-                    <p>{{basic.phone}}</p>
-                </div>
-                <div>
                     <p class="bg">企业经营地址</p>
                     <p>{{basic.comAddress}}</p>
+                </div>
+                <div>
+                    <p class="bg">联系方式</p>
+                    <p>{{basic.phone}}</p>
                 </div>
             </div>
         </div>
