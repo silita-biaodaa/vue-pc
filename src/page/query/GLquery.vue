@@ -12,7 +12,7 @@
                         <el-col :span="2" class="fw600 fs16 color-150">企业地区</el-col>
                         <el-col :span="22" class="condition">
                             <div
-                                class="fs14 cp mr40 mb15 color-5a5"
+                                class="fs14 cp mr30 mb15 color-5a5"
                                 v-for="(el,i) in addressList"
                                 :key="i"
                                 :class="el.istap?'current':''"
@@ -84,7 +84,7 @@
                             <el-col :span="1" class="mr20">项目属地：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(el,i) of areasList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -100,7 +100,7 @@
                             <el-col :span="1" class="mr20">建设状态：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(el,i) of proBuildList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -116,7 +116,7 @@
                             <el-col :span="1" class="mr20">项目类型：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(el,i) of typeList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -172,7 +172,7 @@
                             <el-col :span="1" class="mr20">评价类型：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(el,i) of creditTypeList"
                                     :key="'a'+i"
                                     :class="data.credit.creditType==el?'current':''"
@@ -185,7 +185,7 @@
                             <el-col :span="1" class="mr20">评价省份：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(el,i) of pjareasList"
                                     :key="'a'+i"
                                     :class="el.code==data.credit.province?'current':''"
@@ -198,7 +198,7 @@
                             <el-col :span="1" class="mr20">{{el.year}}年度：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas mr40 mb15 color-5a5 cp"
+                                    class="areas mr30 mb15 color-5a5 cp"
                                     v-for="(x,y) of el.list"
                                     :key="'a'+y"
                                     :class="x.istap?'current':''"
@@ -225,7 +225,7 @@
                             ></el-input>
                             <div class="rule">
                                 <div class="color-449">
-                                    <span>评分规则?</span>
+                                    <span>评分规则</span>
                                     <i class="iconfont iconjieshi fs12"></i>
                                 </div>
                                 <div class="rule-box">
@@ -252,7 +252,7 @@
                 </el-row>
             </div>
             <!-- 承上启下 -->
-            <div class="totalBox pl40 pr40 pt40 pb40 maxW-box">
+            <div class="totalBox pl40 pr40 pt40 pb40 maxW-box" :class="{'btnFixed': showFixed}">
                 <div class="leftl">
                     <div class="bottom_img">
                         <i class="iconfont iconwancheng"></i>
@@ -371,7 +371,8 @@ export default {
             ],
             id: null,
             dataStr: "",
-            isNoSee: true
+            isNoSee: true,
+            showFixed: true,
         };
     },
     watch: {
@@ -491,7 +492,7 @@ export default {
         // console.group('挂载前状态  ===============》beforeMount');
     },
     mounted() {
-        // console.group('挂载结束状态===============》mounted');
+        window.addEventListener("scroll", this.handleScroll);
     },
     beforeUpdate() {
         // console.group('更新前状态  ===============》beforeUpdate');
@@ -758,6 +759,22 @@ export default {
             } else {
                 this.$alert("请至少筛选人员，资质，业绩,信用等级中的一项");
             }
+        },
+        //滑动是否查看详情浮动;
+        handleScroll() {
+            var scrollTop =
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop;
+            var height = document.body.offsetHeight;
+            let ckh=window.innerHeight;//窗口高度
+            console.log(height);
+            let h=height-503;//实际高度 503=40(fix的margin)+128(fix层高度)+335(底部高度)
+            if(h-ckh>scrollTop){
+                this.showFixed = true;
+            }else{
+                this.showFixed = false;
+            }
         }
     }
 };
@@ -767,8 +784,10 @@ export default {
 @import "../../style/query.less";
 @import "../../style/publicCSS.less";
 .ZJquery_content {
+    position: relative;
     width: 1020px;
     margin: 0 auto;
+    padding-bottom: 168px;
     .select {
         border: 1px solid @initColor;
         padding: 20px;
@@ -836,6 +855,11 @@ export default {
     .activeZZ {
         color: @themeColor;
         font-weight: 600;
+    }
+    .btnFixed {
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
     }
 }
 </style>

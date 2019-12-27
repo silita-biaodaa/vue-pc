@@ -132,7 +132,7 @@
                                     <ul class="dfrcsw">
                                         <li class="mr20">业绩所含子项：</li>
                                         <li
-                                            class="mr40 cp color-5a5"
+                                            class="mr30 cp color-5a5"
                                             v-for="(el,i) in itemList"
                                             :key="i"
                                             @click="itemFn(el)"
@@ -155,7 +155,7 @@
                                     <ul class="dfrcsw">
                                         <li class="mr20 mb15">项目属地：</li>
                                         <li
-                                            class="mr40 cp color-5a5 mb15"
+                                            class="mr30 cp color-5a5 mb15"
                                             v-for="(el,i) in projectList"
                                             :key="i"
                                             @click="projectTap(el)"
@@ -178,7 +178,7 @@
                                     <ul class="dfrcsw">
                                         <li class="mr20 mb15">工程用途：</li>
                                         <li
-                                            class="mr40 cp color-5a5 mb15"
+                                            class="mr30 cp color-5a5 mb15"
                                             v-for="(el,i) in purposeList"
                                             :key="i"
                                             @click="purposeTap(el)"
@@ -201,7 +201,7 @@
                                     <ul class="dfrcsw">
                                         <li class="mr20">业绩类型：</li>
                                         <li
-                                            class="mr40 cp color-5a5"
+                                            class="mr30 cp color-5a5"
                                             v-for="(el,i) in yjtypeList"
                                             :key="i"
                                             @click="typeTap(el)"
@@ -286,7 +286,7 @@
                                 <ul class="dfrcsw">
                                     <li class="mr20">项目状态：</li>
                                     <li
-                                        class="mr40 cp color-5a5"
+                                        class="mr30 cp color-5a5"
                                         v-for="(el,i) in stateList"
                                         :key="i"
                                         @click="stateTap(el)"
@@ -512,7 +512,7 @@
                     :class="total==0||isNoSee?'notJump':''"
                 >查看详情</button>
             </div>
-            <div class="link_fun mr40">
+            <div class="link_fun mr30">
                 <p class="up mb5 pb5">服务电话：0731-85076077</p>
                 <p class="down text-c">多数据联动查询</p>
             </div>
@@ -1211,7 +1211,6 @@ export default {
             var height = document.body.offsetHeight;
             let ckh=window.innerHeight;//窗口高度
             let h=height-503;//实际高度 503=40(fix的margin)+128(fix层高度)+335(底部高度)
-            console.log(height)
             if(h-ckh>scrollTop){
                 this.showFixed = true;
             }else{
@@ -1332,6 +1331,7 @@ export default {
     .btnFixed {
         position: fixed;
         bottom: 0;
+        z-index: 10;
     }
 }
 </style>

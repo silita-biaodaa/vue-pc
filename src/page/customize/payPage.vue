@@ -205,7 +205,7 @@ export default {
         },
         jumpOrder() {
             this.$router.push({
-                path: "/order"
+                path: "user/order"
             })
         }
     }

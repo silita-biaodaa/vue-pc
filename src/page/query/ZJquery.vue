@@ -13,7 +13,7 @@
                         <el-col :span="2" class="fs16 fw600 color-150">企业地区</el-col>
                         <el-col :span="22" class="condition">
                             <div
-                                class="cp mr40 mb15 color-5a5"
+                                class="cp mr30 mb15 color-5a5"
                                 v-for="(el,i) in addressList"
                                 :key="i"
                                 :class="el.code==data.regisAddress?'current':''"
@@ -28,7 +28,7 @@
                         <el-col :span="2" class="fs16 fw600 color-150">备案地区：</el-col>
                         <el-col :span="22" class="condition">
                             <div
-                                class="cp mr40 mb15 color-5a5"
+                                class="cp mr30 mb15 color-5a5"
                                 v-for="(el,i) in recordList"
                                 :key="i"
                                 :class="el.code==data.joinRegion?'current':''"
@@ -99,7 +99,7 @@
                             <el-col :span="1">业绩所含子项：</el-col>
                             <div class="condition mb25">
                                 <div
-                                    class="item cp mr40 mb15 color-5a5"
+                                    class="item cp mr30 mb15 color-5a5"
                                     v-for="(el,i) in itemList"
                                     :key="i"
                                     :class="el.istap?'current':''"
@@ -115,7 +115,7 @@
                             <el-col :span="1">项目属地：</el-col>
                             <div class="condition mb25">
                                 <div
-                                    class="areas cp mr40 mb15 color-5a5"
+                                    class="areas cp mr30 mb15 color-5a5"
                                     v-for="(el,i) of areasList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -131,7 +131,7 @@
                             <el-col :span="1">工程用途：</el-col>
                             <div class="condition mb25">
                                 <div
-                                    class="areas cp mr40 mb15 color-5a5"
+                                    class="areas cp mr30 mb15 color-5a5"
                                     v-for="(el,i) of purposeList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -147,7 +147,7 @@
                             <el-col :span="1">业绩类型：</el-col>
                             <div class="condition">
                                 <div
-                                    class="areas cp mr40 mb15 color-5a5"
+                                    class="areas cp mr30 mb15 color-5a5"
                                     v-for="(el,i) of typeList"
                                     :key="'a'+i"
                                     :class="el.istap?'current':''"
@@ -235,7 +235,7 @@
                 </el-row>
             </div>
             <!-- 承上启下 -->
-            <div class="totalBox maxW-box pl40 pr40 pt40 pb40">
+            <div class="totalBox maxW-box pl40 pr40 pt40 pb40" :class="{'btnFixed': showFixed}">
                 <div class="leftl">
                     <div class="bottom_img">
                         <i class="iconfont iconwancheng"></i>
@@ -508,7 +508,8 @@ export default {
             isoptType: false,
             id: null,
             dataStr: "",
-            isNoSee: true
+            isNoSee: true,
+            showFixed: true
         };
     },
     watch: {
@@ -606,7 +607,7 @@ export default {
         // console.group('挂载前状态  ===============》beforeMount');
     },
     mounted() {
-        // console.group('挂载结束状态===============》mounted');
+        window.addEventListener("scroll", this.handleScroll);
     },
     beforeUpdate() {
         // console.group('更新前状态  ===============》beforeUpdate');
@@ -789,6 +790,21 @@ export default {
             } else {
                 this.$alert("请至少筛选人员，资质，业绩中的一项");
             }
+        },
+        //滑动是否查看详情浮动;
+        handleScroll() {
+            var scrollTop =
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop;
+            var height = document.body.offsetHeight;
+            let ckh=window.innerHeight;//窗口高度
+            let h=height-503;//实际高度 503=40(fix的margin)+128(fix层高度)+335(底部高度)
+            if(h-ckh>scrollTop){
+                this.showFixed = true;
+            }else{
+                this.showFixed = false;
+            }
         }
     }
 };
@@ -798,9 +814,16 @@ export default {
 @import "../../style/query.less";
 @import "../../style/publicCSS";
 .ZJquery {
+    position: relative;
+    padding-bottom: 168px;
     .ZJquery_body {
         width: 1020px;
         margin: 0 auto;
+    }
+    .btnFixed {
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
     }
 }
 </style>

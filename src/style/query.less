@@ -86,7 +86,7 @@ body .el-loading-spinner .el-loading-text{
     border: 1px solid @initColor;
     padding: 20px;
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     .el-input{
         width:250px;
         margin-right: 15px;
@@ -101,11 +101,11 @@ body .el-loading-spinner .el-loading-text{
 }
 .totalBox{
     background: @lightOrangeColor;
-    margin: 20px 0 40px;
     padding-left: 10px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    position: absolute;
     .bottom_img {
         i {
             color: @themeColor;
@@ -156,14 +156,14 @@ body .el-loading-spinner .el-loading-text{
     }
 }
 .queryList .list{
-    padding: 10px;
     background-color: #fff;
     box-sizing: border-box;
-    margin-bottom: 160px;
+    border: 1px solid @initColor;
+    width: 1020px;
+    margin: 20px auto 40px;
     li{
         min-height: 80px;
-        border-bottom: 1px solid #f0f0f0;
-        padding: 15px;
+        border-top: 1px solid @initColor;
         box-sizing: border-box;
     }
     .top{
@@ -172,7 +172,7 @@ body .el-loading-spinner .el-loading-text{
         h5{
             font-size: 18px;
             color: #000;
-            margin-right: 12px;
+            margin-right: 20px;
         }
         .right-label{
             max-width:575px;
@@ -322,7 +322,4 @@ body .el-loading-spinner .el-loading-text{
 }
 .btnLine {
     border-bottom: 1px solid @initColor;
-}
-.item_list {
-    
 }

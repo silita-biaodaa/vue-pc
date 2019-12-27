@@ -3,36 +3,34 @@
     <div class="queryCondition">
         <!-- 查询条件 -->
         <div class="search-box">
-            <h4>
-                <span>您的查询条件为：</span>
-            </h4>
-            <div class="search-content">
-                <el-row v-if="data.regisAddress&&data.regisAddress!=''">
-                    <el-col :span="2">企业地区：</el-col>
-                    <el-col :span="22">{{data.regisAddress}}</el-col>
+            <div class="fs18 mb10">您的查询条件为：</div>
+            <div class="search-content fs18" v-loading="loading">
+                <el-row class="mb20" v-if="data.regisAddress&&data.regisAddress!=''">
+                    <el-col :span="2.5" class="fw600">企业地区：</el-col>
+                    <el-col :span="21">{{data.regisAddress}}</el-col>
                 </el-row>
-                <el-row v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''">
-                    <el-col :span="2">备案地区：</el-col>
-                    <el-col :span="22">
+                <el-row class="mb20" v-if="data.regisAddress&&data.joinRegion&&data.regisAddress!=''">
+                    <el-col :span="2.5" class="fw600">备案地区：</el-col>
+                    <el-col :span="21">
                         {{data.joinRegion | joinRegion(data.regisAddress) }}
                     </el-col>
                 </el-row>
-                <el-row v-if="qualList.length>0">
-                    <el-col :span="2">资质要求：</el-col>
-                    <el-col :span="22">
+                <el-row class="mb20" v-if="qualList.length>0">
+                    <el-col :span="2.5" class="fw600">资质要求：</el-col>
+                    <el-col :span="21">
                         <p v-for="(o,i) of qualList" :key="i">{{o.name}}</p>
                     </el-col>
                 </el-row>
-                <el-row v-if="qualList.length>1">
-                    <el-col :span="2">资质关系：</el-col>
-                    <el-col :span="22">
+                <el-row class="mb20" v-if="qualList.length>1">
+                    <el-col :span="2.5" class="fw600">资质关系：</el-col>
+                    <el-col :span="21">
                         <template v-if="data.rangeType=='or'">满足任意一个</template>
                         <template v-else-if="data.rangeType=='and'">满足所有</template>
                     </el-col>
                 </el-row>
-                <el-row v-if="peopleList.length>0">
-                    <el-col :span="2">人员要求：</el-col>
-                    <el-col :span="22">
+                <el-row class="mb20" v-if="peopleList.length>0">
+                    <el-col :span="2.5" class="fw600">人员要求：</el-col>
+                    <el-col :span="21">
                         <p v-for="(o,i) of peopleList" :key="i">{{o.name}}</p>
                     </el-col>
                 </el-row>
@@ -45,9 +43,11 @@
                 (data.project.completeStart||data.project.completeEnd)||
                 (data.project.contractStart||data.project.contractEnd)||
                 (data.project.areaStart||data.project.areaEnd))
-                ">
-                    <el-col :span="2">业绩要求：</el-col>
-                    <el-col :span="22">
+                "
+                 class="mb20"
+                >
+                    <el-col :span="2.5" class="fw600">业绩要求：</el-col>
+                    <el-col :span="21">
                         <template v-if="$route.query.type=='zj'">
                             <v-zjyj :project="data.project"></v-zjyj>
                         </template>
@@ -61,9 +61,9 @@
                 </el-row>
                 <!-- 信用等级 -->
                 <template v-if="$route.query.type!='zj'">
-                    <el-row v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)">
-                        <el-col :span="2">信用等级：</el-col>
-                        <el-col :span="22">
+                    <el-row class="mb20" v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)">
+                        <el-col :span="2.5" class="fw600">信用等级：</el-col>
+                        <el-col :span="21">
                             <template v-if="$route.query.type=='gl'">
                                 <!-- 评价类型 -->
                                 <div class="fx-box" v-if="data.credit.creditType">
@@ -121,6 +121,7 @@ export default {
             data:{},
             qualList:[],
             peopleList:[],
+            loading: true
         }
     },
     watch: {
@@ -196,6 +197,7 @@ export default {
                 pkid:this.$route.query.id
             }
         }).then(res =>{
+            this.loading = false;
             this.data=res.data.data.condition
             this.$parent.total=res.data.data.condition.totals
             // let data=this.data;
@@ -262,13 +264,18 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
+@import "../../style/publicCSS";
 .search-box{
     background: #fff;
     width: 1020px;
     box-sizing: border-box;
-    margin:0 auto 10px;
-    padding:26px 16px;
+    margin:0 auto;
     font-size: 14px;
+    .search-content {
+        border: 1px solid @initColor;
+        padding: 20px 20px 0;
+        min-height: 70px;
+    }
     h4{
         color: #333;
         font-size: 18px;

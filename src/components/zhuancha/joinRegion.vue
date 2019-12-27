@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="joinRegion">
-        <span class="label r-delta" v-for="(x,y) in data" :key="y" :style="colorFn(x,y)">{{x}}</span>
+        <span class="r-delta internal fs14" v-for="(x,y) in data" :key="y" :class="{'external': x.includes('内')}">{{x}}</span>
     </div>
 </template>
 <script>
@@ -35,22 +35,27 @@ export default {
     },
     methods: {
         // 方法 集合
-        colorFn(o,i){
-            return 'background:'+this.colorList[i%4].bgcolor+';color:'+this.colorList[i%4].color
-        }
-    }
+    },
 
 }
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.label{
+.internal,.external {
     display: inline-block;
-    padding: 3px 5px;
+    width: 52px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 4px;
     text-align: center;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
+}
+.internal {
+    color: #F08082;
+    border: 1px solid #F08082;
+}
+.external {
+    color: #46BF72;
+    border: 1px solid #46BF72;
 }
 </style>

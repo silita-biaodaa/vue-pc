@@ -169,7 +169,7 @@ export default {
 <style lang="less" scoped>
 @import "../../style/publicCSS";
 .result {
-    min-height: calc(100vh - 390px);
+    min-height: calc(100vh - 335px);
     .result_body {
         width: 1020px;
         margin: 0 auto;
