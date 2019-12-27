@@ -51,7 +51,7 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box"  :style="tabNum=='企业资质'||tabNum=='行政处罚'?'padding-bottom: 50px;':''">
+            <div class="list-box"  :style="tabNum=='符合要求资质'||tabNum=='行政处罚'?'padding-bottom: 50px;':''">
                 <!-- 资质 -->
                 <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
