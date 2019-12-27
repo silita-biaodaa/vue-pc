@@ -966,6 +966,43 @@ export default {
         //从子组件获取值;
         getCodeZZ(data) {
             this.data.qualCode = data.str;
+            let arr=data.str.split(',');
+            let arr1=[];
+            let qual=this.codeZZ.comQua;
+            for(let x of arr){
+                let str=''//承载每级name的str
+                for(let y of qual){
+                    if(x.indexOf('/')>-1){//二三级
+                        let a=x.split('/')
+                        for(let z of y.data){
+                            if(z.code==a[0]){//二级匹配
+                                str=z.name
+                                for(let o of z.data){
+                                    if(o.code==a[1]){//三级匹配
+                                        str+='/'+o.name
+                                        break
+                                    }
+                                }
+                                break
+                            }
+                        }
+                    }else{//一级或二级
+                        if(x==y.code){//一级匹配
+                            str=y.name
+                            break
+                        }else{
+                            for(let z of y.data){
+                                if(x==z.code){//二级匹配
+                                    str=z.name
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+                arr1.push(str)
+            }
+            this.data.qualName=arr1.join(',')
             this.data.rangeType = data.type;
         },
         getCodeRY(data) {
