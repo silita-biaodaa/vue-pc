@@ -435,6 +435,7 @@ export default {
         openPop(o) {
             this.Pundata = o
             this.ispun = true
+            this.modalHelper.afterOpen()
         },
         closeIs() {
              this.ispun = false

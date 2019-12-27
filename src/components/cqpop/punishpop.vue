@@ -67,8 +67,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        console.log(this.obj);
-        
+        this.gainTime()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -95,6 +94,10 @@ export default {
         // 方法 集合
         closePop() {
             this.$emit('closePop', { cur: '' })
+        },
+        gainTime() {
+             let time = new Date(this.obj.punishDate).getTime()
+             this.obj.punishDate = this.formatDate(time)   
         }
     }
 }
