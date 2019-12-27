@@ -400,65 +400,6 @@ export default {
         getRecordZZ() {
             this.$emit('recordZZ',this.checkedZZ);
         },
-        //比对code获取name
-        getName(data) {
-            let listZZ = JSON.parse(localStorage.getItem("filter")).comQua;
-            // console.info('listZZ',listZZ);
-            //是否有多级资质
-            if(data.str !== "") {
-                if(data.str.indexOf(',') > -1) {
-                    let arr1 = data.str.split(',');
-                    console.info('arr1',arr1);
-                    for(let i of arr1) {
-                        console.info('i',i);
-                        if(i.indexOf('/') > -1) {
-                            let arr2 = i.split('/');
-                            console.info('arr2',arr2);
-                        }
-                    }
-                    // if(data.str.indexOf('/') > -1) {
-                    //     let arr = data.str.split(',');
-                    //     // let i = arr.split('/');
-                    //     console.info('arr',arr);
-                    // }
-                }else {
-                    console.info(2222);
-                }
-            }
-        //     if(data.category.indexOf('/')>-1){//有/代表二三级
-		// 				let arr=data.category.split('/');
-		// 				for(let x of ryData){
-		// 					for(let y of x.list){
-		// 						if(y.cateName==arr[0]){
-		// 							this.categoryData.one.cateName=x.cateName
-		// 							this.categoryData.two.list=x.list
-		// 							this.categoryData.two.cateName=y.cateName
-		// 							this.categoryData.three.list=y.list
-		// 							this.categoryData.three.cateName=arr[1].split(',')
-		// 							break
-		// 						}
-		// 					}
-		// 					break
-		// 				}
-		// 			}else{//无/代表一级或者二级
-		// 				for(let x of ryData){
-		// 					if(data.category==x.cateName){
-		// 						this.categoryData.one.cateName=x.cateName
-		// 						break
-		// 					}else{
-		// 						for(let y of x.list){
-		// 							if(y.cateName==data.category){
-		// 								this.categoryData.one.cateName=x.cateName
-		// 								this.categoryData.two.list=x.list
-		// 								this.categoryData.two.cateName=y.cateName
-		// 								this.categoryData.three.list=y.list
-		// 								break
-		// 							}
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-        }
     },
     // mounted(){
     //     this.arrRead()
