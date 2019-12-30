@@ -77,7 +77,7 @@
                             <div class="list_address">地址：{{item.comAddress}}</div>
                             <div class="drc color-449 cp">
                                 <i class="iconfont iconchakan"></i>
-                                <div class="ml5">查看符合业绩详情</div>
+                                <div class="ml5">查看符合要求详情</div>
                             </div>
                         </div>
                     </li>

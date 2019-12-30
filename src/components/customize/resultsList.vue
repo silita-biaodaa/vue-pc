@@ -30,7 +30,7 @@
                     <el-col :span="2.5" class="fw600">资质要求：</el-col>
                     <el-col :span="21">
                         <p v-for="(o,i) of qualList" :key="i">{{o.name}}</p>
-                        <el-row v-if="qualList.length>0" class="drc">
+                        <el-row v-if="qualList.length>1" class="drc">
                             <el-col :span="2.5">资质关系：</el-col>
                             <el-col :span="21">
                                 <template v-if="data.rangeType=='or'">满足任意一个资质条件</template>
@@ -81,7 +81,7 @@
                     <el-col :span="2.5" class="fw600">信用要求：</el-col>
                     <el-col :span="21">
                         <div v-if="data.credit.creditQuery == 'yes'">
-                            <div>查询条件-仅查询备案资质</div>
+                            <div>查询条件-仅查询无行政处罚的企业</div>
                         </div>
                         <div v-if="data.credit.punishType">
                             <div>处罚类别：{{data.credit.punishType}}</div>
@@ -93,7 +93,7 @@
                 </el-row>
                 <!-- 诚信综合评价 -->
                 <el-row
-                    v-if="data.credit&&(data.credit.scoreStart||data.credit.scoreEnd)"
+                    v-if="data.scoreStart||data.scoreEnd"
                     class="pb20 tagId"
                 >
                     <el-col :span="3.5" class="fw600">诚信综合评价：</el-col>
@@ -103,12 +103,12 @@
                             <div :span="1">综合得分：</div>
                             <div>
                                 <template
-                                    v-if="!data.credit.scoreStart||data.credit.scoreStart==''"
-                                >小于{{data.credit.scoreEnd}}分</template>
+                                    v-if="!data.scoreStart||data.scoreStart==''"
+                                >小于{{data.scoreEnd}}分</template>
                                 <template
-                                    v-else-if="!data.credit.scoreEnd||data.credit.scoreEnd==''"
-                                >大于{{data.credit.scoreStart}}分</template>
-                                <template v-if="data.credit.scoreEnd && data.credit.scoreStart">大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
+                                    v-else-if="!data.scoreEnd||data.scoreEnd==''"
+                                >大于{{data.scoreStart}}分</template>
+                                <template v-if="data.scoreEnd && data.scoreStart">大于{{data.scoreStart}}小于{{data.scoreEnd}}分</template>
                             </div>
                         </div>
                     </el-col>

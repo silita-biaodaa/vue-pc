@@ -474,19 +474,19 @@
                         >仅查询无行政处罚的企业</el-checkbox>
                     </el-col>
                 </el-row>
-                <el-row :class="{'hide': current !== 1}" v-if="this.data.credit">
+                <el-row :class="{'hide': current !== 1}">
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
                         <el-input
                             placeholder="最低分"
-                            v-model="data.credit.scoreStart"
+                            v-model="data.scoreStart"
                             style="width: 20%;"
                             class="element_search"
                         ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                         <el-input
                             placeholder="最高分"
-                            v-model="data.credit.scoreEnd"
+                            v-model="data.scoreEnd"
                             style="width: 20%"
                             class="element_search"
                         ></el-input>
@@ -826,8 +826,6 @@ export default {
                     creditKeyword: "", //信用关键字
                     punishStart: "", //处罚开始日期
                     punishEnd: "", //处罚结束日期
-                    scoreStart: "", //综合开始得分
-                    scoreEnd: "", //综合结束得分
                     creditQuery: "" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
@@ -836,7 +834,9 @@ export default {
                 qualRecord: "", //资质备案
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "not", //人员备案
-                zhuanchaType: "company"
+                zhuanchaType: "company",
+                scoreStart: "", //综合开始得分
+                scoreEnd: "", //综合结束得分
             },
             checked: false,
             checkList: [],
@@ -1069,8 +1069,6 @@ export default {
                     creditKeyword: "", //信用关键字
                     punishStart: "", //处罚开始日期
                     punishEnd: "", //处罚结束日期
-                    scoreStart: "", //综合开始得分
-                    scoreEnd: "", //综合结束得分
                     creditQuery: "" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
@@ -1079,7 +1077,9 @@ export default {
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "not", //人员备案
                 person: [], //人员
-                zhuanchaType: "company"
+                zhuanchaType: "company",
+                scoreStart: "", //综合开始得分
+                scoreEnd: "", //综合结束得分
             };
         },
         handleClick(index) {
