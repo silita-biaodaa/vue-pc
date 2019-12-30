@@ -873,8 +873,7 @@ export default {
                     newval.areaEnd ||
                     newval.proState ||
                     newval.creditQuery ||
-                    newval.rangeType || 
-                    newval.current
+                    newval.rangeType
                 ) {
                     //如果筛选了业绩，则显示符合业绩数量
                     this.isyj = true;
@@ -923,16 +922,6 @@ export default {
             if (data.qualCode == "") {
                 data.qualRecord = "";
             }
-            // if (data.person.length = 0) {
-            //     data.personRecord = "";
-            // }
-            // if(data.credit ) {
-            //     // if(data.credit.creditQuery) {
-            //     //     data.credit.creditQuery = "yes";
-            //     // }else if(data.credit.creditQuery = false) {
-            //     //     data.credit.creditQuery = "not";
-            //     // }
-            // }
             if (data.credit.punishType == "全部") {
                 data.credit.punishType = "";
             }
@@ -954,6 +943,9 @@ export default {
                 data.project.proCount = 1;
                 //深拷贝不影响this.data的值;
                 let creditList = JSON.parse(JSON.stringify(this.data));
+                creditList.project = this.filterParams(creditList.project);
+                creditList.credit = this.filterParams(creditList.credit);
+                creditList = this.filterParams(creditList);
                 for (let i in creditList) {
                     if (i == "credit") {
                         delete creditList[i];
