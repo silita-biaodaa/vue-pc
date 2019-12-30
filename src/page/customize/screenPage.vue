@@ -1069,7 +1069,7 @@ export default {
                 },
                 zhuanchaType: "",
                 qualRecord: "", //资质备案
-                projectSource: "chongq", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
+                projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "not", //人员备案
                 person: [], //人员
                 zhuanchaType: "company"
@@ -1098,9 +1098,9 @@ export default {
         },
         changetable() {
             // this.$forceUpdate()
-            if (this.data.projectSource == "chongq") {
-                this.clearData();
-            }
+            // if (this.data.projectSource == "chongq") {
+            //     this.clearData();
+            // }
         },
         backSelect(arr) {
             //选不限时，其他取消选择

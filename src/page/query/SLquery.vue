@@ -208,7 +208,7 @@
                     </div>
                     <div class="rightr fs14">
                         <p class="up mb5 pb5">服务电话：0731-85076077</p>
-                        <p class="down">付费后可下载数据报告</p>
+                        <p class="down">多数据联动查询</p>
                     </div>
                 </div>
             </div>
