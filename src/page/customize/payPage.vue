@@ -180,7 +180,15 @@ export default {
                     that.payed = true;
                     clearTimeout(that.t);
                     // setTimeout(() => {
-                    this.jumpList()
+                    that.$router.replace({
+                        name: "result",
+                        query: {
+                            pkid: this.$route.query.pkid,
+                            orderNo: this.orderNo,
+                            page: this.$route.query.page,
+                            source: this.$route.query.source,
+                        }
+                    });
                     // }, 1000);
                 } else {
                     that.t = setTimeout(that.getOrderNo, 1000);

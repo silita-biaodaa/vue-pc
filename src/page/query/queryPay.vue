@@ -203,8 +203,16 @@ export default {
                     that.payed = true;
                     clearTimeout(that.t);
                     // setTimeout(() => {
-                        return this.jumpList();
+                        // return this.jumpList();
                     // }, 1000);
+                    that.$router.replace({
+                        name: "queryList",
+                        query: {
+                            type: this.$route.query.type,
+                            n: this.orderNo,
+                            id: this.$route.query.id
+                        }
+                    });
                 } else {
                     that.t = setTimeout(that.getOrderNo, 1000);
                 }
@@ -228,6 +236,9 @@ export default {
         jumpOrder() {
             this.$router.replace({
                 name: "order",
+                query:{
+                    d:1
+                }
             })
         },
     },

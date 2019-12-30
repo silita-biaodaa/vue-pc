@@ -860,7 +860,9 @@ export default {
             handler(newVal,oldVal){
                 if(this.current==1){
                     if(this.data.credit.creditKeyword||this.data.credit.punishEnd||this.data.credit.punishStart||this.data.credit.punishType){
-                        this.data.credit.creditQuery='not'
+                        if(this.data.credit.creditQuery==''){
+                            this.data.credit.creditQuery='not'
+                        }
                     }else{
                         if(this.data.credit.creditQuery=='not'){
                             this.data.credit.creditQuery='' 
