@@ -13,7 +13,7 @@
                             <i class="iconfont iconxiazai"></i>
                             <div class="ml5">
                                 <template v-if="reportPath">
-                                    <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                                    <a :download="reportPath" :href="reportPath">下载报告</a>
                                 </template>
                                 <template v-else>
                                     <span @click="downTap">下载报告</span>
@@ -51,7 +51,7 @@
                             <i class="iconfont iconxiazai"></i>
                             <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载报告</a> -->
                             <template v-if="reportPath">
-                                <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                                <a :download="reportPath" :href="reportPath">下载报告</a>
                             </template>
                             <template v-else>
                                 <span @click="downTap">下载报告</span>
@@ -125,7 +125,7 @@ export default {
                     const { total, data } = res;
                     this.qyList = data;
                     this.total = total;
-                    this.reportPath=reportPath
+                    this.reportPath=res.reportPath
                 }
             })
         },
@@ -140,7 +140,7 @@ export default {
                     const { total, data } = res;
                     this.ryList = data;
                     this.total = total;
-                    this.reportPath=reportPath;
+                    this.reportPath=res.reportPath
                 }
             })
         },
@@ -196,6 +196,10 @@ export default {
         border: 1px solid @initColor;
         .result_num {
             padding: 14px 20px;
+            a{
+                text-decoration:none;
+				color: #4494F0;
+            }
         }
         .result_list {
             border-top: 1px solid @initColor;
