@@ -106,6 +106,9 @@ export default {
         query:{//是否综合查询
             default:false
         },
+        toParent: {
+            type: String
+        }
     },
     watch:{
         seachTxt(val,oldVal){
@@ -121,7 +124,33 @@ export default {
             this.length0=false
             this.isshow=true
             this.seachFn(val);
-        }
+        },
+        toParent(newVal, oldVal) {
+            this.lengthList = [
+                {
+                    one:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    two:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    three:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    str:''//记录选择的值
+                }
+            ];
+            this.lengthList[0].one.list=this.qualList
+            this.lengthList.str = "";
+            this.searchList = [];
+        },
+        handler(newVal, oldVal) {
+            console.info('value changed 2', newVal)
+        },
+        deep: true
     },
     methods: {
         seachFn(val){//资质查询
@@ -333,7 +362,6 @@ export default {
                 type:this.rangeType,//资质关系
                 str:arr.join(','),//多条资质一个str
             }
-            this.getName(data);
             this.$emit('contentChange',data);
         },
         addFn(){//增加条件

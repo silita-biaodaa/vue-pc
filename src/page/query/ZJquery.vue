@@ -25,7 +25,7 @@
                         </el-col>
                     </el-row>
                     <el-row class="btnLine pt20 pb5" v-if="data.regisAddress!=''">
-                        <el-col :span="2" class="fs16 fw600 color-150">备案地区：</el-col>
+                        <el-col :span="2" class="fs16 fw600 color-150">备案地区</el-col>
                         <el-col :span="22" class="condition">
                             <div
                                 class="cp mr30 mb15 color-5a5"

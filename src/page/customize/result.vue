@@ -26,7 +26,7 @@
                         </div>
                         <div class="dfrcb fs14">
                             <span>证书数量：{{item.certCount}}</span>
-                            <div class="list_info">{{item.certMessage}}</div>
+                            <div class="list_info">证书信息：{{item.certMessage}}</div>
                             <div class="drc color-449 cp">
                                 <i class="iconfont iconchakan"></i>
                                 <div class="ml5">查看符合业绩详情</div>
@@ -39,7 +39,7 @@
             <div class="result_content mt20" v-if="this.$route.query.page == 'qy'">
                 <ul>
                     <li class="dfrcb result_num fs14 bg-f4f">
-                        <div class="fw600">共找到{{total}}名企业</div>
+                        <div class="fw600">共找到{{total}}家企业</div>
                         <div class="drc color-449 cp">
                             <i class="iconfont iconxiazai"></i>
                             <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载报告</a> -->

@@ -136,7 +136,7 @@ export default {
                         stdCode: stdCode,
                         ip: localStorage.getItem("uip"),
                         tradeType: "NATIVE",
-                        pkid: that.$route.query.id * 1,
+                        pkid: that.$route.query.pkid * 1,
                         zhuanchaType: "zhuancha"
                     }
                 }).then(r => {

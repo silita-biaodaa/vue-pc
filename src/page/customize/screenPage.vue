@@ -34,6 +34,7 @@
                     @recordZZ="getRecordZZ"
                     :query="true"
                     :chongq="chongq"
+                    :toParent="reChildren"
                 ></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY
@@ -41,12 +42,13 @@
                     :qualList="peopleList"
                     @recordRY="getRecordRY"
                     :chongq="chongq"
+                    :toParent="reChildren"
                 ></v-screenRY>
                 <!-- 业绩要求 -->
                 <el-row class="pt20" type="flex" :class="{'require': current == 1}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>
                     <el-col :span="22">
-                        <el-row class="mb20">
+                        <el-row class="mb20" :class="{'hide': current == 2}">
                             <!-- 业绩来源 -->
                             <el-col :span="18" class="fs14 color-150">
                                 业绩来源：
@@ -64,6 +66,12 @@
                                         :value="item.id"
                                     ></el-option>
                                 </el-select>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mb20" :class="{'hide': current !== 2}">
+                            <el-col :span="13" class="fs14 color-150 drc">
+                                业绩来源：
+                                <el-input placeholder="全国建筑市场监管公共服务平台" style="width:75%" disabled class="element_search ml5"></el-input>
                             </el-col>
                         </el-row>
                         <!-- 项目关键字 -->
@@ -499,10 +507,10 @@
                     共为您找到
                     <span>
                         <span v-if="total">
-                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+{{current == '1'?'家':'个'}}</span>
-                            <span class="fw600 fs24 ml10 mr10 color-eb6" v-else>{{total}}{{current == '1'?'家':'个'}}</span>
+                            <span class="fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+{{current == '1'?'家':'个'}}</span>
+                            <span class="fs24 ml10 mr10 color-eb6" v-else>{{total}}{{current == '1'?'家':'个'}}</span>
                         </span>
-                        <span class="fw600 fs24" v-else>0</span>
+                        <span class="fs24" v-else>0</span>
                     </span>
                     符合要求的{{current == '1'?'企业':'人员'}}
                 </p>
@@ -539,6 +547,7 @@ export default {
             firmAlias: "",
             selectTab: "0", //选择id
             projectList: "", //项目属地
+            reChildren: "", //是否需要刷新子组件;
             areaList: [
                 {
                     value: "渝内企业",
@@ -867,7 +876,8 @@ export default {
                     newval.areaEnd ||
                     newval.proState ||
                     newval.creditQuery ||
-                    newval.rangeType
+                    newval.rangeType || 
+                    newval.current
                 ) {
                     //如果筛选了业绩，则显示符合业绩数量
                     this.isyj = true;
@@ -919,12 +929,12 @@ export default {
             // if (data.person.length = 0) {
             //     data.personRecord = "";
             // }
-            // if(data.credit !== undefined) {
-            //     if(data.credit.creditQuery) {
-            //         data.credit.creditQuery = "yes";
-            //     }else if(data.credit.creditQuery = false) {
-            //         data.credit.creditQuery = "not";
-            //     }
+            // if(data.credit ) {
+            //     // if(data.credit.creditQuery) {
+            //     //     data.credit.creditQuery = "yes";
+            //     // }else if(data.credit.creditQuery = false) {
+            //     //     data.credit.creditQuery = "not";
+            //     // }
             // }
             if (data.credit.punishType == "全部") {
                 data.credit.punishType = "";
@@ -1002,11 +1012,12 @@ export default {
                 }
                 arr1.push(str)
             }
-            this.data.qualName=arr1.join(',')
             this.data.rangeType = data.type;
+            this.$set(this.data,'qualName',arr1.join(','))
+           
         },
         getCodeRY(data) {
-            this.data.person = data;
+            this.$set(this.data,'person',data)
         },
         getRecordZZ(data) {
             if (data) {
@@ -1060,17 +1071,19 @@ export default {
                 },
                 zhuanchaType: "",
                 qualRecord: "", //资质备案
-                projectSource: "chongq", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
+                projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "", //人员备案
                 zhuanchaType: "company"
             };
         },
         handleClick(index) {
             this.current = index;
-            this.companyCount();
             if (index == 2) {
+                this.reChildren = "ry";
                 this.showFixed = false;
                 this.clearData();
+            }else {
+                this.reChildren = "qy";
             }
         },
         handleClickZZ(index) {

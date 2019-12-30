@@ -100,8 +100,38 @@ export default {
         qualList:{
             type:Array
         },
+        toParent: {
+            type: String
+        }
     },
     watch:{
+        toParent(newVal, oldVal) {
+            this.lengthList = [
+                {
+                    one:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    two:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    three:{
+                        list:[],//用作显示
+                        code:'',
+                    },
+                    str:''//记录选择的值
+                }
+            ];
+            this.lengthList[0].one.list = this.qualList
+            this.lengthList.str = "";
+            this.lengthList.num = "";
+            this.lengthList.type = "";
+        },
+        handler(newVal, oldVal) {
+            console.info('value changed 2', newVal)
+        },
+        deep: true
     },
     methods: {
         forInList(arr){
