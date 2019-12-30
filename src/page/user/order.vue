@@ -82,12 +82,13 @@
 			    </div>
 				<div>
 				<!-- 专查 -->
-				<div v-if="el.report&&(el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查' || el.report.repTitle =='重庆企业专查' )">
+				<div v-if="el.report&&(el.report.repTitle == '公路专查' || el.report.repTitle =='住建专查' || el.report.repTitle =='水利专查' || el.report.repTitle =='重庆企业专查' || el.report.repTitle =='重庆人员专查' )">
 					<div class="ta-list">
 						<div class="list-vip">
 							<div class="left" style="width:230px;textAlign:left">
-								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路专查' ? '公路系统专查' : (el.report.repTitle =='住建专查' ? '住建系统专查' : (el.report.repTitle =='水利专查' ? '水利系统专查' : '重庆企业专查')) }}·综合查询
+								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle | Retitle }}·综合查询
 								</div>
+								<!--  == '公路专查' ? '公路系统专查' : (el.report.repTitle =='住建专查' ? '住建系统专查' : (el.report.repTitle =='水利专查' ? '水利系统专查' : '重庆企业专查'))  -->
 								<div style="fontSize:12px" class="m-6">
 									订单编号:{{el.orderNo}}
 								</div>
@@ -132,8 +133,8 @@
 									报告格式: &nbspEXCEL
 								</div>
 							</div>
-							<div class="left" style="width:100px;color:#039E3B" v-show="el.orderStatus != '1'  ">
-							 	{{el.report.reportPath | nopath }}
+							<div class="left" style="width:100px;color:#039E3B" v-show="el.orderStatus != '1' ">
+								{{el.report.reportPath | nopath }}
 							</div>
 							<div class="left report-down" style="width:300px;" v-if="el.report.reportPath">
 								<span  v-if="timeOutFn(el)" @click="regenerateFn(el)">重新生成</span>
@@ -254,6 +255,19 @@ import countTime from '@/components/countTime'
 			}
 		},
 		filters: {
+			Retitle(val) {
+				if(val == '公路专查') {
+					return '公路系统专查'
+				} else if(val == '住建专查') {
+						return '住建系统专查'
+				} else if(val == '水利专查') {
+						return '水利系统专查'
+				} else if(val == '重庆企业专查') {
+						return '重庆企业专查'
+				} else if(val == '重庆人员专查') {
+						return '重庆人员专查'
+				}
+			},
 			status(val) {
 				if (val == 1) {
 					return '未支付'
