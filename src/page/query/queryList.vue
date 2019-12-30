@@ -15,7 +15,7 @@
                     <i class="iconfont iconxiazai"></i>
                     <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载报告</a> -->
                     <template v-if="reportPath">
-                        <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                        <a :download="reportPath" :href="reportPath">下载报告</a>
                     </template>
                     <template v-else>
                         <span @click="downTap">下载报告</span>
@@ -139,6 +139,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        downTap(){
+            this.$alert('报告正在生成中...')
+        },
         Goto(val) {
             this.data.pageNo = val.cur;
             this.ajax();
@@ -160,6 +163,7 @@ export default {
                     if (res.data.code == 1) {
                         that.list = res.data.data;
                         that.total = res.data.total;
+                        this.reportPath=res.reportPath
                     }
                 })
                 .catch(req => {
