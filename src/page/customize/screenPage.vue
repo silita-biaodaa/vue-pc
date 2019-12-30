@@ -54,7 +54,6 @@
                                     v-model="data.projectSource"
                                     placeholder="请选择"
                                     style="width:50%"
-                                    @change="changetable"
                                     class="ml10"
                                 >
                                     <el-option

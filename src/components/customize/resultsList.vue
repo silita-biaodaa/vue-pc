@@ -75,12 +75,20 @@
                         <template>
                             <v-zjyj :project="data.project"></v-zjyj>
                         </template>
-                        <!-- <template>
-                            <v-glyj :project="data.project"></v-glyj>
-                        </template>-->
-                        <!-- <template>
-                            <v-slyj :project="data.project"></v-slyj>
-                        </template>-->
+                    </el-col>
+                </el-row>
+                <el-row class="pb20" v-if="data.credit&&(data.credit.punishStart||data.credit.punishEnd||data.credit.creditQuery||data.credit.punishType)">
+                    <el-col :span="2.5" class="fw600">信用要求：</el-col>
+                    <el-col :span="21">
+                        <div v-if="data.credit.creditQuery == 'yes'">
+                            <div>查询条件-仅查询备案资质</div>
+                        </div>
+                        <div v-if="data.credit.punishType">
+                            <div>处罚类别：{{data.credit.punishType}}</div>
+                        </div>
+                        <div v-if="data.credit.creditKeyword">
+                            <div>关键字：{{data.credit.creditKeyword}}</div>
+                        </div>
                     </el-col>
                 </el-row>
                 <!-- 诚信综合评价 -->
@@ -102,20 +110,6 @@
                                 >大于{{data.credit.scoreStart}}分</template>
                                 <template v-if="data.credit.scoreEnd && data.credit.scoreStart">大于{{data.credit.scoreStart}}小于{{data.credit.scoreEnd}}分</template>
                             </div>
-                        </div>
-                    </el-col>
-                </el-row>
-                <el-row class="pb20" v-if="data.credit&&(data.credit.punishStart||data.credit.punishEnd||data.credit.creditQuery||data.credit.punishType)">
-                    <el-col :span="2.5" class="fw600">信用要求：</el-col>
-                    <el-col :span="21">
-                        <div v-if="data.credit.creditQuery == 'yes'">
-                            <div>查询条件-仅查询备案资质</div>
-                        </div>
-                        <div v-if="data.credit.punishType">
-                            <div>处罚类别：{{data.credit.punishType}}</div>
-                        </div>
-                        <div v-if="data.credit.creditKeyword">
-                            <div>关键字：{{data.credit.creditKeyword}}</div>
                         </div>
                     </el-col>
                 </el-row>
