@@ -106,23 +106,25 @@ export default {
     },
     watch:{
         toParent(newVal, oldVal) {
-            this.lengthList = [
+            this.lengthList =[
                 {
                     one:{
                         list:[],//用作显示
-                        code:'',
+                        cateName:'',//code值
                     },
                     two:{
                         list:[],//用作显示
-                        code:'',
+                        cateName:'',
                     },
                     three:{
                         list:[],//用作显示
-                        code:'',
+                        cateName:'',
                     },
-                    str:''//记录选择的值
+                    num:1,//人员数量
+                    type:0,//是否一人多证 0为不是，1为是
+                    str:''
                 }
-            ];
+            ]
             this.lengthList[0].one.list = this.qualList
             this.lengthList.str = "";
             this.lengthList.num = "";

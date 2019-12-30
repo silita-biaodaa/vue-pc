@@ -33,7 +33,6 @@
                     :qualList="codeZZ.comQua"
                     @recordZZ="getRecordZZ"
                     :query="true"
-                    :chongq="chongq"
                     :toParent="reChildren"
                 ></v-screenZZ>
                 <!-- 人员要求 -->
@@ -41,7 +40,6 @@
                     @contentChange="getCodeRY"
                     :qualList="peopleList"
                     @recordRY="getRecordRY"
-                    :chongq="chongq"
                     :toParent="reChildren"
                 ></v-screenRY>
                 <!-- 业绩要求 -->
@@ -1071,8 +1069,9 @@ export default {
                 },
                 zhuanchaType: "",
                 qualRecord: "", //资质备案
-                projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
-                personRecord: "", //人员备案
+                projectSource: "chongq", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
+                personRecord: "not", //人员备案
+                person: [], //人员
                 zhuanchaType: "company"
             };
         },
@@ -1098,6 +1097,7 @@ export default {
             this.data.project.opt = data.id;
         },
         changetable() {
+            // this.$forceUpdate()
             if (this.data.projectSource == "chongq") {
                 this.clearData();
             }
