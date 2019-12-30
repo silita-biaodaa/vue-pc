@@ -88,15 +88,15 @@
 				<div class="dr">
 					<div class="text-c logo_img fs14 mr40">
 						<img src="./assets/img/pic-erweima.png" alt="">
-						<div class="mt30">扫一扫，下载APP</div>
+						<div class="mt10">扫一扫，下载APP</div>
 					</div>
 					<div class="text-c logo_img fs14">
 						<img src="./assets/img/accounts.png" alt="">
-						<div class="mt30">关注公众号</div>
+						<div class="mt10">关注公众号</div>
 					</div>
 				</div>
 				<div class="fs14">
-					<div class="fs16 color-fff mb30">联系我们</div>
+					<div class="fs16 color-fff mb25">联系我们</div>
 					<div class="drc">
 						<ul class="mr40">
 							<li>联系电话</li>
@@ -816,7 +816,7 @@ body{
 	/*底部样式*/
 	.footer {
 		background-color: @pinkColor;
-		padding: 60px 0 40px 0;
+		padding: 32px 0 10px 0;
 		.footer_content {
 			width: 1020px;
 			margin: 0 auto;
@@ -827,7 +827,7 @@ body{
 				}
 			}
 			ul>li {
-				margin-bottom: 16px;
+				margin-bottom: 10px;
 			}
 		}
 		.footer_mark {

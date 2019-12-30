@@ -192,6 +192,7 @@
 			gainDetail() {
 				this.id = this.$route.query.id
 				let dataParam = JSON.stringify({});
+				let Nnm = 0
 				getJsonData("/company/" + this.id).then(res => {
 					if (res.code == 1) {
 						this.$route.query.source=res.data.regisAddress
@@ -284,6 +285,7 @@
 		created() {
 			this.source = this.$route.query.source
 			this.title = this.$route.query.name
+
 			this.gainDetail()
 			this.gainNav()
 			this.deploy()

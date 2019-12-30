@@ -61,7 +61,7 @@
 						<span v-for="(el,i) in navs" :key="i" :class="el.i  ? 'p-color' : '' " @click="jump(el)">{{el.name}} <span v-if="el.to">({{el.all}})</span>
 						</span>
 					</div>
-					<div class="ub-nav ub-form"  >
+					<div class="ub-nav ub-form"  @click="chqtable(detail.url)" >
 						<i class="iconfont iconchakan" ></i> 查看数据来源
 					</div>
 				</div>
