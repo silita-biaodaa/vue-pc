@@ -179,9 +179,9 @@ export default {
                 if (state == "SUCCESS") {
                     that.payed = true;
                     clearTimeout(that.t);
-                    setTimeout(() => {
-                        return this.jumpList();
-                    }, 1000);
+                    // setTimeout(() => {
+                    this.jumpList()
+                    // }, 1000);
                 } else {
                     that.t = setTimeout(that.getOrderNo, 1000);
                 }
@@ -189,7 +189,7 @@ export default {
         },
         jumpList() {
             this.$router.replace({
-                path: "/result",
+                name: "result",
                 query: {
                     pkid: this.$route.query.pkid,
                     orderNo: this.orderNo,
@@ -200,12 +200,12 @@ export default {
         },
         jumpVip() {
             this.$router.replace({
-                path: "/buy"
+                name: "buy"
             });
         },
         jumpOrder() {
-            this.$router.push({
-                path: "user/order"
+            this.$router.replace({
+                name: "order"
             })
         }
     }

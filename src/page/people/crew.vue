@@ -186,6 +186,7 @@
 				o.three.list=[];
 				o.two.cateName='';
 				o.three.cateName='';
+				this.data.category='';
 				for(let x of o.one.list){
 					if(x.cateName==o.one.cateName){
 						if(x.list){

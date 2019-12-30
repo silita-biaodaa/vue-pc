@@ -333,7 +333,7 @@ export default {
             id: null,
             dataStr: "",
             isNoSee: true,
-            showFixed: true,
+            showFixed: false,
         };
     },
     watch: {

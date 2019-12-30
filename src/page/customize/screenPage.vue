@@ -413,7 +413,7 @@
                         <!-- </el-row> -->
                         <el-row class="mb20">
                             <!-- 处罚类别 -->
-                            <el-col :span="18" class="fs14 color-150" v-if="this.data.credit">
+                            <el-col :span="18" class="fs14 color-150">
                                 处罚类别：
                                 <el-select
                                     v-model="data.credit.punishType"
@@ -434,7 +434,7 @@
                         </el-row>
                         <!-- 关键字 -->
                         <el-row class="drc mb20">
-                            <el-col :span="13" class="fs14 color-150" v-if="this.data.credit">
+                            <el-col :span="13" class="fs14 color-150">
                                 关键字：
                                 <el-input
                                     placeholder="请输入关键字"
@@ -449,7 +449,7 @@
                             </el-col>
                         </el-row>
                         <!-- 处罚决定日期 -->
-                        <el-row class="fs14 mb20 flex-center drc color-150" v-if="this.data.credit">
+                        <el-row class="fs14 mb20 flex-center drc color-150">
                             <div>处罚决定日期：</div>
                             <el-date-picker
                                 value-format="yyyy-MM-dd"
@@ -467,9 +467,9 @@
                             ></el-date-picker>
                         </el-row>
                     </el-col>
-                    <el-col :span="6" class="text-r" v-if="this.data.credit">
+                    <el-col :span="6" class="text-r">
                         <el-checkbox
-                            v-model="data.credit.creditQuery"
+                            v-model="iscreditQuery"
                             class="fs14 color-150"
                             @change="isDisable"
                         >仅查询无行政处罚的企业</el-checkbox>
@@ -849,11 +849,26 @@ export default {
             isoptType: false,
             pkid: "", //查询id;
             chongq: true,
-            showFixed: true, //是否固定在某一位置;
+            showFixed: false, //是否固定在某一位置;
             disabled: false, //信用是否禁止筛选
+            iscreditQuery:false,//是否查询有行政处罚企业
         };
     },
     watch: {
+        "data.credit":{
+            deep: true,
+            handler(newVal,oldVal){
+                if(this.current==1){
+                    if(this.data.credit.creditKeyword||this.data.credit.punishEnd||this.data.credit.punishStart||this.data.credit.punishType){
+                        this.data.credit.creditQuery='not'
+                    }else{
+                        if(this.data.credit.creditQuery=='not'){
+                            this.data.credit.creditQuery='' 
+                        }
+                    }
+                }
+            }
+        },
         "data.project": {
             deep: true,
             handler(newval, oldVal) {
@@ -902,7 +917,6 @@ export default {
                 this.companyCount();
             }
         },
-        inject: ["reload"]
     },
     methods: {
         companyCount() {
@@ -1209,10 +1223,12 @@ export default {
             }
         },
         isDisable() {
-            if(this.data.credit.creditQuery) {
+            if(this.iscreditQuery) {
                 this.disabled = true;
+                this.data.credit.creditQuery='yes'
             }else {
                 this.disabled = false;
+                this.data.credit.creditQuery='not'
             }
         },
         //滑动是否查看详情浮动;

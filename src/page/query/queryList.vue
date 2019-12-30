@@ -23,7 +23,7 @@
                     <!-- 有数据 -->
                     <template v-if="list&&list.length>0">
                         <ul>
-                            <li v-for="(o,i) of list" :key="'list'+i" @click="jumpDetail(o.comId)">
+                            <li v-for="(o,i) of list" class="cp" :key="'list'+i" @click="jumpDetail(o.comId)">
                                 <div class="top">
                                     <h5>{{o.comName}}</h5>
                                     <div
