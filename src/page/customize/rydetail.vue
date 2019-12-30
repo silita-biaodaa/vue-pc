@@ -26,7 +26,7 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box" :style="tabNum=='企业资质'?'padding-bottom: 50px;':''">
+            <div class="list-box" :style="tabNum=='符合要求资质'?'padding-bottom: 50px;':''">
                 <!-- 资质 -->
                 <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
@@ -53,11 +53,11 @@
                 </template>
                 <!-- 人员 -->
                 <template v-else-if="tabNum=='符合要求证书'">
-                    <div class="condition">
-                        <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
-                    </div>
                     <!-- 加载中 -->
                     <template v-if="ryIsajax">
+                        <div class="condition">
+                            <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
+                        </div>
                         <template v-if="ryList&&ryList.length>0">
                             <table>
                                 <thead>
@@ -273,9 +273,9 @@ export default {
                     this.zzAjax(data);
                 }else if(this.tabList[1].num>0){
                     this.tabNum='符合要求证书'
-                    this.ryData.orderNo=this.$route.query.n;
-                    this.ryData.comId=this.$route.query.id;
-                    this.ryData.name=this.$route.query.name
+                    // this.ryData.orderNo=this.$route.query.n;
+                    // this.ryData.comId=this.$route.query.id;
+                    // this.ryData.name=this.$route.query.name
                     this.ryAjax();
                 }else if(this.tabList[2].num>0){
                     this.tabNum='符合要求项目'
@@ -347,7 +347,7 @@ export default {
             if(o.name=='符合要求资质'){
                 this.zzAjax(data);
             }else if(o.name=='符合要求证书'){
-                // this.ryAjax();
+                this.ryAjax();
             }else if(o.name=='符合要求项目'){
                 this.yjData.orderNo=this.$route.query.n;
                 this.yjData.comId=this.$route.query.id;
@@ -415,6 +415,9 @@ export default {
         /*业绩 end*/
         /** 人员   start**/
         ryAjax(){
+            this.ryData.orderNo=this.$route.query.n;
+            this.ryData.comId=this.$route.query.id;
+            this.ryData.name=this.$route.query.name
             let that=this;
             this.ryIsajax=false;
             this.ryList=[];
