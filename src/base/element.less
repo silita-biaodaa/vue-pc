@@ -32,8 +32,12 @@
 }
 #app .el-icon-arrow-up,
 #app .el-icon-arrow-down {
-    font-size: 12px;
-    transform: scale(0.6);
+    font-size: @subContentSize;
+    transform: scale(0.6) rotateZ(180deg);
+}
+.el-select .el-input .el-select__caret.is-reverse {
+    font-size: @subContentSize;
+    transform: scale(0.6) rotateZ(0) !important;
 }
 .el-select .el-input .el-select__caret {
     color: @darkColor !important;
