@@ -945,7 +945,7 @@ body .el-loading-spinner .el-loading-text {
 }
 
 #app.excom .content {
-	min-height: calc(100vh - 478px);
+	min-height: calc(100vh - 248px);
 	padding-top: 88px;
 }
 </style>

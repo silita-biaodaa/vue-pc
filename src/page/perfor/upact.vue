@@ -56,7 +56,7 @@
 			<div class="ur-pop">
 				<div class="ur-title">
 					<div>
-						{{titles}}
+						{{titles}} - 合同备案
 					</div>
 					<div>
 						<i class="el-icon-close" @click="close"></i>

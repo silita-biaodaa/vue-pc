@@ -61,7 +61,7 @@
 			<div class="ur-pop">
 				<div class="ur-title">
 					<div>
-						{{titles}}
+						{{titles}} - 招投标
 					</div>
 					<div>
 						<i class="el-icon-close" @click="close"></i>
