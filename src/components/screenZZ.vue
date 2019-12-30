@@ -125,6 +125,7 @@ export default {
             this.isshow=true
             this.seachFn(val);
         },
+        //监听父组件清除值;
         toParent(newVal, oldVal) {
             this.lengthList = [
                 {
