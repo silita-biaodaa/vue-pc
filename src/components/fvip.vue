@@ -5,7 +5,7 @@
     <div class="vip-btn"  @click.stop="jumbuy" >
 
     </div>
-     <i class="el-icon-circle-close-outline"  @click="close" ></i>
+     <i class="el-icon-circle-close"  @click="close" ></i>
   </div>
 </div>
 </template>
