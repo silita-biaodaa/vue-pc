@@ -188,6 +188,7 @@ import publicBread from "@/components/customize/publicBread";
 				font-weight: 550;
 				border: 1px solid #DDDFE4;
 				background-color: #F4F4F4;
+				border-bottom: none;
 				font-size: 14px;
 				div {
 					height: 100%;

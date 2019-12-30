@@ -11,7 +11,14 @@
                         <div class="fw600">共找到{{total}}名人员</div>
                         <div class="drc color-449 cp">
                             <i class="iconfont iconxiazai"></i>
-                            <div class="ml5">下载报告</div>
+                            <div class="ml5">
+                                <template v-if="reportPath">
+                                    <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                                </template>
+                                <template v-else>
+                                    <span @click="downTap">下载报告</span>
+                                </template>
+                            </div>
                         </div>
                     </li>
                     <li
@@ -43,7 +50,12 @@
                         <div class="drc color-449 cp">
                             <i class="iconfont iconxiazai"></i>
                             <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载报告</a> -->
-                            <div class="ml5">下载报告</div>
+                            <template v-if="reportPath">
+                                <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                            </template>
+                            <template v-else>
+                                <span @click="downTap">下载报告</span>
+                            </template>
                         </div>
                     </li>
                     <li
@@ -95,9 +107,13 @@ export default {
             pagesize: 10, // 当前页面条数
             pagenum: 1, //当前页面数
             total: null,
+            reportPath:null,//下载链接
         };
     },
     methods: {
+        downTap(){
+            this.$alert('报告正在生成中...')
+        },
         getQYlist() {
             let params = {
                 orderNo: this.$route.query.orderNo,
@@ -109,6 +125,7 @@ export default {
                     const { total, data } = res;
                     this.qyList = data;
                     this.total = total;
+                    this.reportPath=reportPath
                 }
             })
         },
@@ -123,6 +140,7 @@ export default {
                     const { total, data } = res;
                     this.ryList = data;
                     this.total = total;
+                    this.reportPath=reportPath;
                 }
             })
         },

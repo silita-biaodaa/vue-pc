@@ -497,7 +497,7 @@ export default {
                         this.conditionList.push(obj)
                     }
                 }
-                this.tabList[0].num=res.data.data.length
+                // this.tabList[0].num=res.data.data.length
                 this.conditionList[0].num=num
                 this.list=arr;
                 this.allList=arr;
@@ -645,7 +645,7 @@ export default {
 }
 .cqqyDetail{
     background: #fff;
-    min-height: calc(100vh - 80px);
+    // min-height: calc(100vh - 80px);
     //基本信息
     .basic{
         margin-bottom: 40px;

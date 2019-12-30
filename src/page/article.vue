@@ -19,7 +19,12 @@
 							<span>评论数量：{{allC}}</span>
 						</div>
 						<div class="attention drc cp" :class="iscollect ? 'collect' : ''" @click="gaincollect">
-							<i class="el-icon-plus"></i>{{collect}}
+							<template v-if="!iscollect">
+								<i class="el-icon-plus"></i>{{collect}}
+							</template>
+							<template v-else>
+								{{collect}}
+							</template>
 						</div>
 					</div>
 					<div class="term dfrcb">
@@ -267,7 +272,7 @@
 						.el-icon-plus{
 							transform: scale(0.8);
 							font-size: 12px;
-							margin-left: 6px;
+							// margin-left: 6px;
 						}
 					}
 					.collect{

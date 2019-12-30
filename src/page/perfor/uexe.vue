@@ -50,7 +50,7 @@
 			<div class="ur-pop">
 				<div class="ur-title">
 					<div>
-						{{titles}}
+						{{titles}} - 施工图审查
 					</div>
 					<div>
 						<i class="el-icon-close" @click="close"></i>

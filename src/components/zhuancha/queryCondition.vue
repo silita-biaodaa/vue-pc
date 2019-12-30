@@ -61,7 +61,7 @@
                 </el-row>
                 <!-- 信用等级 -->
                 <template v-if="$route.query.type!='zj'">
-                    <el-row class="mb20" v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.creditType||data.credit.levels)">
+                    <el-row class="mb20" v-if="data.credit&&(data.credit.creditType||data.credit.province||data.credit.evaluateYear||data.credit.scoreStart||data.credit.scoreEnd||data.credit.levels)">
                         <el-col :span="2.5" class="fw600">信用等级：</el-col>
                         <el-col :span="21">
                             <template v-if="$route.query.type=='gl'">
@@ -200,6 +200,12 @@ export default {
             this.loading = false;
             this.data=res.data.data.condition
             this.$parent.total=res.data.data.condition.totals
+            if(this.$route.query.type=='gl'){
+                if(this.data.credit.evaluateYear){
+                    console.log(this.data.credit.evaluateYear)
+                }
+            }
+            
             // let data=this.data;
             // if(data.project&&((data.project.keywords||data.project.opt!='title'||data.project.optType!='or')||
             //     data.project.proUse||data.project.proState||
