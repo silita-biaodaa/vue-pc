@@ -8,7 +8,7 @@
             <div class="result_content mt35" v-if="this.$route.query.page == 'ry'">
                 <ul>
                     <li class="dfrcb result_num fs14 bg-f4f">
-                        <div class="fw600">共找到{{total}}名人员</div>
+                        <div class="fw600 ahead">共找到{{total}}名人员</div>
                         <div class="drc color-449 cp">
                             <i class="iconfont iconxiazai"></i>
                             <div class="ml5">
@@ -72,9 +72,9 @@
                             <div class="fs14" v-if="item.scope !== null">企业诚信评价综合得分：{{item.scope}}</div>
                         </div>
                         <div class="dfrcb fs14">
-                            <span>法人：{{item.legalPerson}}</span>
-                            <div>电话：{{item.phone}}</div>
-                            <div class="list_address">地址：{{item.comAddress}}</div>
+                            <span class="ahead">法人：{{item.legalPerson}}</span>
+                            <div class="phone">电话：{{item.phone}}</div>
+                            <div class="list_address ellipsis_one">地址：{{item.comAddress}}</div>
                             <div class="drc color-449 cp">
                                 <i class="iconfont iconchakan"></i>
                                 <div class="ml5">查看符合要求详情</div>
@@ -229,6 +229,13 @@ export default {
         width: 100%;
         margin-top: 43px;
         padding-bottom: 20px;
+    }
+    .ahead {
+        display: inline-block;
+        width: 100px;
+    }
+    .phone {
+        width: 150px;
     }
 }
 </style>

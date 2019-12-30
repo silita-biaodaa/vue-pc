@@ -228,21 +228,19 @@
                                     v-model="data.project.amountStart"
                                     minlength="1"
                                     maxlength="8"
-                                    @input="data.project.amountStart=data.project.amountStart.replace(/[^\d.]/g,'')"
+                                    @input="dataFormat()"
                                     style="width: 20%;"
                                     class="element_search"
                                 ></el-input>
                                 <!-- <v-myInput
-                                    :point="2"
-                                    :max="99999"
                                     placeholder="请输入金额"
                                     v-model.number="data.project.amountStart"
-                                ></v-myInput>-->
+                                ></v-myInput> -->
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input
                                     placeholder="最高价（万元）"
                                     v-model="data.project.amountEnd"
-                                    @input="data.project.amountEnd=data.project.amountEnd.replace(/[^\d.]/g,'')"
+                                    @input="dataFormat1()"
                                     style="width: 20%"
                                     class="element_search"
                                 ></el-input>
@@ -322,12 +320,14 @@
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
                                     class="element_search"
+                                    @input="dataFormat2()"
                                 ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input
                                     placeholder="最大面积（㎡）"
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
                                     class="element_search"
+                                    @input="dataFormat3()"
                                 ></el-input>
                             </el-row>
                             <!-- 竣工验收日期 -->
@@ -357,12 +357,14 @@
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
                                     class="element_search"
+                                    @input="dataFormat2()"
                                 ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                                 <el-input
                                     placeholder="最大面积（㎡）"
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
                                     class="element_search"
+                                    @input="dataFormat3()"
                                 ></el-input>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
@@ -483,12 +485,14 @@
                             v-model="data.scoreStart"
                             style="width: 20%;"
                             class="element_search"
+                            @input="dataFormat4()"
                         ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
                         <el-input
                             placeholder="最高分"
                             v-model="data.scoreEnd"
                             style="width: 20%"
                             class="element_search"
+                            @input="dataFormat5()"
                         ></el-input>
                     </el-col>
                 </el-row>
@@ -1237,6 +1241,114 @@ export default {
                 this.showFixed = true;
             }else{
                 this.showFixed = false;
+            }
+        },
+        dataFormat(){
+            this.data.project.amountStart=this.data.project.amountStart.replace(/[^\d.]/g,"");
+            this.data.project.amountStart=this.data.project.amountStart.replace(/\.+/ ,".");
+            if(this.data.project.amountStart.charAt(0)=="0"&&this.data.project.amountStart.charAt(1)!="."&&this.data.project.amountStart.length>=2){
+                this.data.project.amountStart=this.data.project.amountStart.replace(/0/ ,"")
+            }
+            var index=this.data.project.amountStart.indexOf('.');
+            var lastIndex=this.data.project.amountStart.lastIndexOf('.')
+            if(index==0){
+                this.data.project.amountStart=this.data.project.amountStart.replace(/\./ ,"")
+            }
+            if(index>=1){
+                this.data.project.amountStart=this.data.project.amountStart.substring(0,index+3)
+            }
+            if(index!=lastIndex){
+                this.data.project.amountStart=this.data.project.amountStart.substring(0,index+2)
+            }
+        },
+        dataFormat1(){
+            this.data.project.amountEnd=this.data.project.amountEnd.replace(/[^\d.]/g,"");
+            this.data.project.amountEnd=this.data.project.amountEnd.replace(/\.+/ ,".");
+            if(this.data.project.amountEnd.charAt(0)=="0"&&this.data.project.amountEnd.charAt(1)!="."&&this.data.project.amountEnd.length>=2){
+                this.data.project.amountEnd=this.data.project.amountEnd.replace(/0/ ,"")
+            }
+            var index=this.data.project.amountEnd.indexOf('.');
+            var lastIndex=this.data.project.amountEnd.lastIndexOf('.')
+            if(index==0){
+                this.data.project.amountEnd=this.data.project.amountEnd.replace(/\./ ,"")
+            }
+            if(index>=1){
+                this.data.project.amountEnd=this.data.project.amountEnd.substring(0,index+3)
+            }
+            if(index!=lastIndex){
+                this.data.project.amountEnd=this.data.project.amountEnd.substring(0,index+2)
+            }
+        },
+        dataFormat2(){
+            this.data.project.areaStart=this.data.project.areaStart.replace(/[^\d.]/g,"");
+            this.data.project.areaStart=this.data.project.areaStart.replace(/\.+/ ,".");
+            if(this.data.project.areaStart.charAt(0)=="0"&&this.data.project.areaStart.charAt(1)!="."&&this.data.project.areaStart.length>=2){
+                this.data.project.areaStart=this.data.project.areaStart.replace(/0/ ,"")
+            }
+            var index=this.data.project.areaStart.indexOf('.');
+            var lastIndex=this.data.project.areaStart.lastIndexOf('.')
+            if(index==0){
+                this.data.project.areaStart=this.data.project.areaStart.replace(/\./ ,"")
+            }
+            if(index>=1){
+                this.data.project.areaStart=this.data.project.areaStart.substring(0,index+3)
+            }
+            if(index!=lastIndex){
+                this.data.project.areaStart=this.data.project.areaStart.substring(0,index+2)
+            }
+        },
+        dataFormat3(){
+            this.data.project.areaEnd=this.data.project.areaEnd.replace(/[^\d.]/g,"");
+            this.data.project.areaEnd=this.data.project.areaEnd.replace(/\.+/ ,".");
+            if(this.data.project.areaEnd.charAt(0)=="0"&&this.data.project.areaEnd.charAt(1)!="."&&this.data.project.areaEnd.length>=2){
+                this.data.project.areaEnd=this.data.project.areaEnd.replace(/0/ ,"")
+            }
+            var index=this.data.project.areaEnd.indexOf('.');
+            var lastIndex=this.data.project.areaEnd.lastIndexOf('.')
+            if(index==0){
+                this.data.project.areaEnd=this.data.project.areaEnd.replace(/\./ ,"")
+            }
+            if(index>=1){
+                this.data.project.areaEnd=this.data.project.areaEnd.substring(0,index+3)
+            }
+            if(index!=lastIndex){
+                this.data.project.areaEnd=this.data.project.areaEnd.substring(0,index+2)
+            }
+        },
+        dataFormat4(){
+            this.data.scoreStart=this.data.scoreStart.replace(/[^\d.]/g,"");
+            this.data.scoreStart=this.data.scoreStart.replace(/\.+/ ,".");
+            if(this.data.scoreStart.charAt(0)=="0"&&this.data.scoreStart.charAt(1)!="."&&this.data.scoreStart.length>=2){
+                this.data.scoreStart=this.data.scoreStart.replace(/0/ ,"");
+            }
+            var index=this.data.scoreStart.indexOf('.');
+            var lastIndex=this.data.scoreStart.lastIndexOf('.');
+            if(index==0){
+                this.data.scoreStart=this.data.scoreStart.replace(/\./ ,"");
+            }
+            if(index>=1){
+                this.data.scoreStart=this.data.scoreStart.substring(0,index+3);
+            }
+            if(index!=lastIndex){
+                this.data.scoreStart=this.data.scoreStart.substring(0,index+2);
+            }
+        },
+        dataFormat5(){
+            this.data.project.scoreEnd=this.data.scoreEnd.replace(/[^\d.]/g,"");
+            this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/\.+/ ,".");
+            if(this.data.project.scoreEnd.charAt(0)=="0"&&this.data.project.scoreEnd.charAt(1)!="."&&this.data.project.scoreEnd.length>=2){
+                this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/0/ ,"")
+            }
+            var index=this.data.project.scoreEnd.indexOf('.');
+            var lastIndex=this.data.project.scoreEnd.lastIndexOf('.')
+            if(index==0){
+                this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/\./ ,"")
+            }
+            if(index>=1){
+                this.data.project.scoreEnd=this.data.project.scoreEnd.substring(0,index+3)
+            }
+            if(index!=lastIndex){
+                this.data.project.scoreEnd=this.data.project.scoreEnd.substring(0,index+2)
             }
         }
     },
