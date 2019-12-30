@@ -132,8 +132,8 @@
 									报告格式: &nbspEXCEL
 								</div>
 							</div>
-							<div class="left" style="width:100px;color:#039E3B" v-show="el.orderStatus != '1'">
-								{{el.report.reportPath | nopath }}
+							<div class="left" style="width:100px;color:#039E3B" v-show="el.orderStatus != '1'  ">
+							 	{{el.report.reportPath | nopath }}
 							</div>
 							<div class="left report-down" style="width:300px;" v-if="el.report.reportPath">
 								<span  v-if="timeOutFn(el)" @click="regenerateFn(el)">重新生成</span>
@@ -337,6 +337,8 @@ import countTime from '@/components/countTime'
 					this.openNewLink('/ZJquery')
 				}else if(el.report.zhuanchaType=='shuili'){
 					this.openNewLink('/SLquery')
+				} else {
+					this.openNewLink('/screenPage')
 				}
 			},
 			jumpQueryList(el){
