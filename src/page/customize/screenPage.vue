@@ -1334,7 +1334,7 @@ export default {
             }
         },
         dataFormat5(){
-            this.data.project.scoreEnd=this.data.scoreEnd.replace(/[^\d.]/g,"");
+            this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/[^\d.]/g,"");
             this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/\.+/ ,".");
             if(this.data.project.scoreEnd.charAt(0)=="0"&&this.data.project.scoreEnd.charAt(1)!="."&&this.data.project.scoreEnd.length>=2){
                 this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/0/ ,"")
