@@ -1094,6 +1094,7 @@ export default {
                 this.clearData();
             }else {
                 this.reChildren = "qy";
+                this.clearData();
             }
         },
         handleClickZZ(index) {
