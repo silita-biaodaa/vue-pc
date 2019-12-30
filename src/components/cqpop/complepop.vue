@@ -53,13 +53,6 @@
                <td  >{{object.days}}</td>
              </tr>
 
-              <!-- <tr>
-               <td width='192' class="td-title" >等级备案号</td>
-               <td >{{object.projName}}</td>
-               <td width='192' class="td-title" >备案日期</td>
-               <td  >{{object.projName}}</td>
-             </tr> -->
-
               <tr>
                <td width='192' class="td-title" >建设单位</td>
                <td colspan='3' >{{object.proOrg}}</td>

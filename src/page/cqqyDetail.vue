@@ -435,6 +435,7 @@ export default {
         openPop(o) {
             this.Pundata = o
             this.ispun = true
+            this.modalHelper.afterOpen()
         },
         closeIs() {
              this.ispun = false
@@ -529,7 +530,7 @@ export default {
             if(this.$route.query.source=='all'){//查全国
                 let path='/urban'
                 let query={
-                    id: el.id
+                    id: el.proId
                 }
                 this.openNewLink(path,query)
             }else{

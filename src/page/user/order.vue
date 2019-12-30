@@ -86,7 +86,7 @@
 					<div class="ta-list">
 						<div class="list-vip">
 							<div class="left" style="width:230px;textAlign:left">
-								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路专查' ? '公路' : (el.report.repTitle =='住建专查' ? '住建' : (el.report.repTitle =='水利专查' ? '水利' : '重庆企业专查')) }}系统专查·综合查询
+								<div style="fontSize:16px;color:#000;" class="m-6">{{el.report.repTitle == '公路系统专查' ? '公路' : (el.report.repTitle =='住建系统专查' ? '住建' : (el.report.repTitle =='水利专查' ? '水利系统专查' : '重庆企业专查')) }}·综合查询
 								</div>
 								<div style="fontSize:12px" class="m-6">
 									订单编号:{{el.orderNo}}
