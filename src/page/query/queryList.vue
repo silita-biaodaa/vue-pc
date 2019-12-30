@@ -11,9 +11,15 @@
                 <div class="fw600">
                     共找到{{total}}家企业
                 </div>
-                <div class="downLoad">
-                    请前往
-                    <span class="myorder cp" @click="openNewLink('/user/order')">我的订单</span>下载报告
+                <div class="drc color-449 cp">
+                    <i class="iconfont iconxiazai"></i>
+                    <!-- <a :download="el.report.reportPath" :href="el.report.reportPath">下载报告</a> -->
+                    <template v-if="reportPath">
+                        <a :download="reportPath" :href="el.report.reportPath">下载报告</a>
+                    </template>
+                    <template v-else>
+                        <span @click="downTap">下载报告</span>
+                    </template>
                 </div>
             </div>
             <!-- 列表 -->
@@ -103,7 +109,8 @@ export default {
                 pageNo: 1,
                 pageSize: 10,
                 orderNo: null
-            }
+            },
+            reportPath:null,//下载链接
         };
     },
     watch: {
@@ -190,9 +197,6 @@ export default {
         margin: 0 auto;
         box-sizing: border-box;
         background: @orangeColor;
-        span {
-            color: @color;
-        }
     }
     li {
         padding: 20px;
@@ -205,7 +209,7 @@ export default {
                 white-space: nowrap;
             }
             .phone {
-                width: 142px;
+                width: 150px;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
