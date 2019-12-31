@@ -67,7 +67,7 @@
              </tr>
              <tr>
                <td width='192' class="td-title" >施工单位</td>
-               <td colspan='3' >{{object.bOrg}}</td>
+               <td colspan='3' >{{object.borg}}</td>
              </tr>
                <tr>
                <td width='192' class="td-title" >监理单位</td>

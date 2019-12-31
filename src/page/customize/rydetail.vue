@@ -26,7 +26,7 @@
                     </ul>
                 </template>
             </div>
-            <div class="list-box" :style="tabNum=='符合要求资质'?'padding-bottom: 50px;':''">
+            <div class="list-box" :style="tabNum=='符合要求资质'||tabNum=='符合要求证书'?'padding-bottom: 50px;':''">
                 <!-- 资质 -->
                 <template v-if="tabNum=='符合要求资质'">
                     <div class="condition">
@@ -44,7 +44,7 @@
                             <tr v-for="(o,i) of list" :key="i">
                                 <td>{{i+1}}</td>
                                 <td>{{o.qualType}}</td>
-                                <td>{{o.qualName}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="o.joinRegion">{{o.joinRegion}}企业</span></td>
+                                <td>{{o.qualName}}<span class="tag ml10 fs12" :class="o.joinRegion=='入渝'?'':'yn'" v-if="o.joinRegion">{{o.joinRegion}}企业</span></td>
                                 <td>{{o.certOrg}}</td>
                                 <td>{{o.validDate}}</td>
                             </tr>
@@ -55,17 +55,17 @@
                 <template v-else-if="tabNum=='符合要求证书'">
                     <!-- 加载中 -->
                     <template v-if="ryIsajax">
-                        <div class="condition">
+                        <!-- <div class="condition">
                             <span v-for="(o,i) of ryConditionList" :key="i" :class="ryTabName==o.cate?'current':''" @click="ryTabFn(o,i)">{{o.cate}}({{o.count}})</span>
-                        </div>
+                        </div> -->
                         <template v-if="ryList&&ryList.length>0">
                             <table>
                                 <thead>
                                     <td>序号</td>
                                     <td>注册单位</td>
-                                    <td>证书编号</td>
-                                    <td>执业印章号</td>
-                                    <td>有效期</td>
+                                    <!-- <td>证书编号</td> -->
+                                    <!-- <td>执业印章号</td> -->
+                                    <!-- <td>有效期</td> -->
                                     <td>注册类别</td>
                                     <td>注册专业</td>
                                 </thead>
@@ -73,9 +73,9 @@
                                     <tr v-for="(o,i) of ryList" :key="i">
                                         <td>{{i+1}}</td>
                                         <td>{{o.comName}}</td>
-                                        <td>{{o.certNo}}</td>
-                                        <td>{{o.sealNo}}</td>
-                                        <td>{{o.validDate}}</td>
+                                        <!-- <td>{{o.certNo}}</td> -->
+                                        <!-- <td>{{o.sealNo}}</td> -->
+                                        <!-- <td>{{o.validDate}}</td> -->
                                         <td class="cate">
                                             <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="x.joinRegion">{{x.joinRegion}}企业</span></p>
                                         </td>
