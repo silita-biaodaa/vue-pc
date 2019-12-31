@@ -37,9 +37,6 @@ export default {
 			this.$emit('input',event.target.value);
 		}
     },
-    created() {
-        console.info('this',this.$parent);
-    }
 
 }
 </script>

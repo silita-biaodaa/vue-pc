@@ -845,7 +845,7 @@ export default {
                 person: [], //人员
                 qualRecord: "", //资质备案
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
-                personRecord: "not", //人员备案
+                personRecord: "", //人员备案
                 zhuanchaType: "company", //企业或者人员查询;
                 scoreStart: "", //综合开始得分
                 scoreEnd: "", //综合结束得分
@@ -951,9 +951,15 @@ export default {
             if (data.qualCode == "") {
                 data.qualRecord = "";
             }
+            if(data.person.length == 0) {
+                data.personRecord = "";
+            }
             data.project = this.filterParams(data.project);
             data.credit = this.filterParams(data.credit);
             data = this.filterParams(data);
+            // if(!data.person) {
+            //     data.personRecord = "";
+            // }
             if (this.current == 1) {
                 //企业综合查询
                 screenConut(data).then(res => {
@@ -1357,13 +1363,13 @@ export default {
             this.current = index;
             if (index == 2) {
                 this.reChildren = "ry";
-                this.data.zhuanchaType = "person";
                 this.showFixed = false;
                 this.clearData();
+                this.data.zhuanchaType = "person";
             }else {
                 this.reChildren = "qy";
-                this.data.zhuanchaType = "company";
                 this.clearData();
+                this.data.zhuanchaType = "company";
             }
         },
         handleClickZZ(index) {
@@ -1463,8 +1469,8 @@ export default {
             }
             if (
                 this.isyj ||
-                this.data.qualCode != "" ||
-                this.data.person.length > 0
+                this.data.qualCode ||
+                this.data.person.length > 0 
             ) {
                 var page = "";
                 if (this.current == 1) {
