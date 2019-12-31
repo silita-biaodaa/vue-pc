@@ -214,7 +214,7 @@
                                         <td>{{(xzData.pageNo-1)*20+i+1}}</td>
                                         <td class="curpon" @click="openPop(o)" >{{o.punishCode}}</td>
                                         <td>{{o.punishType}}</td>
-                                        <td>{{o.punishDate.split('T')[0]}}</td>
+                                        <td>{{o.punishDates}}</td>
                                         <td>{{o.punishOrg}}</td>
                                     </tr>
                                 </tbody>
