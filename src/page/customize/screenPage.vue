@@ -76,7 +76,7 @@
                             <el-col :span="13" class="fs14 color-150">
                                 {{data.projectSource !== 'all' ? '项目名称：':'项目关键字：'}}
                                 <el-input
-                                    placeholder="例如：公建业绩、道路，多个关键字用空格隔开"
+                                    placeholder="请输入内容，多个关键字用空格隔开"
                                     clearable
                                     v-model="data.project.keywords"
                                     style="width:75%"
@@ -223,27 +223,19 @@
                             <!-- 中标金额/合同金额 -->
                             <el-row class="flex-center drc color-150 fs14 mb20">
                                 <div>中标/合同金额：</div>
-                                <el-input
-                                    placeholder="最低价（万元）"
+                                <v-myInput
                                     v-model="data.project.amountStart"
-                                    minlength="1"
-                                    maxlength="8"
-                                    @input="dataFormat()"
                                     style="width: 20%;"
                                     class="element_search"
-                                ></el-input>
-                                <!-- <v-myInput
-                                    placeholder="请输入金额"
-                                    v-model.number="data.project.amountStart"
-                                ></v-myInput> -->
+                                    :placeholder="placeholder0"
+                                ></v-myInput>
                                 &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input
-                                    placeholder="最高价（万元）"
+                                <v-myInput
                                     v-model="data.project.amountEnd"
-                                    @input="dataFormat1()"
-                                    style="width: 20%"
+                                    style="width: 20%;"
                                     class="element_search"
-                                ></el-input>
+                                    :placeholder="placeholder1"
+                                ></v-myInput>
                             </el-row>
                             <!-- 中标公示 -->
                             <el-row
@@ -315,20 +307,19 @@
                                 :class="{'hide':data.projectSource !== 'chongq'}"
                             >
                                 <div>面积（平方米）：</div>
-                                <el-input
-                                    placeholder="最小面积（㎡）"
+                                <v-myInput
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
                                     class="element_search"
-                                    @input="dataFormat2()"
-                                ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input
-                                    placeholder="最大面积（㎡）"
+                                    :placeholder="placeholder2"
+                                ></v-myInput>
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <v-myInput
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
                                     class="element_search"
-                                    @input="dataFormat3()"
-                                ></el-input>
+                                    :placeholder="placeholder3"
+                                ></v-myInput>
                             </el-row>
                             <!-- 竣工验收日期 -->
                             <el-row class="fs14 mb20 flex-center drc color-150">
@@ -352,20 +343,19 @@
                                 :class="{'hide':data.projectSource !== 'all'}"
                             >
                                 <div>面积（平方米）：</div>
-                                <el-input
-                                    placeholder="最小面积（㎡）"
+                                <v-myInput
                                     v-model="data.project.areaStart"
                                     style="width: 20%;"
                                     class="element_search"
-                                    @input="dataFormat2()"
-                                ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
-                                <el-input
-                                    placeholder="最大面积（㎡）"
+                                    :placeholder="placeholder2"
+                                ></v-myInput>
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <v-myInput
                                     v-model="data.project.areaEnd"
                                     style="width: 20%;"
                                     class="element_search"
-                                    @input="dataFormat3()"
-                                ></el-input>
+                                    :placeholder="placeholder3"
+                                ></v-myInput>
                             </el-row>
                             <!-- 符合业绩条件的数量 -->
                             <el-row class="fs14 flex-center drc color-150 mb20" v-if="isyj">
@@ -480,20 +470,19 @@
                     <el-col class="evaluation fs16 color-150 fw600">诚信综合评价</el-col>
                     <el-col class="drc scores" :span="18">
                         <div class="fs14 color-150">综合得分：</div>
-                        <el-input
-                            placeholder="最低分"
+                        <v-myInput
                             v-model="data.scoreStart"
                             style="width: 20%;"
                             class="element_search"
-                            @input="dataFormat4()"
-                        ></el-input>&nbsp;&nbsp;至&nbsp;&nbsp;
-                        <el-input
-                            placeholder="最高分"
+                            :placeholder="placeholder4"
+                        ></v-myInput>
+                        &nbsp;&nbsp;至&nbsp;&nbsp;
+                        <v-myInput
                             v-model="data.scoreEnd"
-                            style="width: 20%"
+                            style="width: 20%;"
                             class="element_search"
-                            @input="dataFormat5()"
-                        ></el-input>
+                            :placeholder="placeholder5"
+                        ></v-myInput>
                     </el-col>
                 </el-row>
             </div>
@@ -549,6 +538,12 @@ export default {
             selectTab: "0", //选择id
             projectList: "", //项目属地
             reChildren: "", //是否需要刷新子组件;
+            placeholder0: "最低价（万元）",
+            placeholder1: "最高价（万元）",
+            placeholder2: "最小面积（㎡）",
+            placeholder3: "最大面积（㎡）",
+            placeholder4: "最低分",
+            placeholder5: "最高分",
             areaList: [
                 {
                     value: "渝内企业",
@@ -1108,12 +1103,6 @@ export default {
         handleSelect(data) {
             this.data.project.opt = data.id;
         },
-        changetable() {
-            // this.$forceUpdate()
-            // if (this.data.projectSource == "chongq") {
-            //     this.clearData();
-            // }
-        },
         backSelect(arr) {
             //选不限时，其他取消选择
             for (let x of arr) {
@@ -1223,10 +1212,10 @@ export default {
         isDisable() {
             if(this.iscreditQuery) {
                 this.disabled = true;
-                this.data.credit.creditQuery='yes'
+                this.data.credit.creditQuery='yes';
             }else {
                 this.disabled = false;
-                this.data.credit.creditQuery='not'
+                this.data.credit.creditQuery='not';
             }
         },
         //滑动是否查看详情浮动;
@@ -1244,114 +1233,6 @@ export default {
                 this.showFixed = false;
             }
         },
-        dataFormat(){
-            this.data.project.amountStart=this.data.project.amountStart.replace(/[^\d.]/g,"");
-            this.data.project.amountStart=this.data.project.amountStart.replace(/\.+/ ,".");
-            if(this.data.project.amountStart.charAt(0)=="0"&&this.data.project.amountStart.charAt(1)!="."&&this.data.project.amountStart.length>=2){
-                this.data.project.amountStart=this.data.project.amountStart.replace(/0/ ,"")
-            }
-            var index=this.data.project.amountStart.indexOf('.');
-            var lastIndex=this.data.project.amountStart.lastIndexOf('.')
-            if(index==0){
-                this.data.project.amountStart=this.data.project.amountStart.replace(/\./ ,"")
-            }
-            if(index>=1){
-                this.data.project.amountStart=this.data.project.amountStart.substring(0,index+3)
-            }
-            if(index!=lastIndex){
-                this.data.project.amountStart=this.data.project.amountStart.substring(0,index+2)
-            }
-        },
-        dataFormat1(){
-            this.data.project.amountEnd=this.data.project.amountEnd.replace(/[^\d.]/g,"");
-            this.data.project.amountEnd=this.data.project.amountEnd.replace(/\.+/ ,".");
-            if(this.data.project.amountEnd.charAt(0)=="0"&&this.data.project.amountEnd.charAt(1)!="."&&this.data.project.amountEnd.length>=2){
-                this.data.project.amountEnd=this.data.project.amountEnd.replace(/0/ ,"")
-            }
-            var index=this.data.project.amountEnd.indexOf('.');
-            var lastIndex=this.data.project.amountEnd.lastIndexOf('.')
-            if(index==0){
-                this.data.project.amountEnd=this.data.project.amountEnd.replace(/\./ ,"")
-            }
-            if(index>=1){
-                this.data.project.amountEnd=this.data.project.amountEnd.substring(0,index+3)
-            }
-            if(index!=lastIndex){
-                this.data.project.amountEnd=this.data.project.amountEnd.substring(0,index+2)
-            }
-        },
-        dataFormat2(){
-            this.data.project.areaStart=this.data.project.areaStart.replace(/[^\d.]/g,"");
-            this.data.project.areaStart=this.data.project.areaStart.replace(/\.+/ ,".");
-            if(this.data.project.areaStart.charAt(0)=="0"&&this.data.project.areaStart.charAt(1)!="."&&this.data.project.areaStart.length>=2){
-                this.data.project.areaStart=this.data.project.areaStart.replace(/0/ ,"")
-            }
-            var index=this.data.project.areaStart.indexOf('.');
-            var lastIndex=this.data.project.areaStart.lastIndexOf('.')
-            if(index==0){
-                this.data.project.areaStart=this.data.project.areaStart.replace(/\./ ,"")
-            }
-            if(index>=1){
-                this.data.project.areaStart=this.data.project.areaStart.substring(0,index+3)
-            }
-            if(index!=lastIndex){
-                this.data.project.areaStart=this.data.project.areaStart.substring(0,index+2)
-            }
-        },
-        dataFormat3(){
-            this.data.project.areaEnd=this.data.project.areaEnd.replace(/[^\d.]/g,"");
-            this.data.project.areaEnd=this.data.project.areaEnd.replace(/\.+/ ,".");
-            if(this.data.project.areaEnd.charAt(0)=="0"&&this.data.project.areaEnd.charAt(1)!="."&&this.data.project.areaEnd.length>=2){
-                this.data.project.areaEnd=this.data.project.areaEnd.replace(/0/ ,"")
-            }
-            var index=this.data.project.areaEnd.indexOf('.');
-            var lastIndex=this.data.project.areaEnd.lastIndexOf('.')
-            if(index==0){
-                this.data.project.areaEnd=this.data.project.areaEnd.replace(/\./ ,"")
-            }
-            if(index>=1){
-                this.data.project.areaEnd=this.data.project.areaEnd.substring(0,index+3)
-            }
-            if(index!=lastIndex){
-                this.data.project.areaEnd=this.data.project.areaEnd.substring(0,index+2)
-            }
-        },
-        dataFormat4(){
-            this.data.scoreStart=this.data.scoreStart.replace(/[^\d.]/g,"");
-            this.data.scoreStart=this.data.scoreStart.replace(/\.+/ ,".");
-            if(this.data.scoreStart.charAt(0)=="0"&&this.data.scoreStart.charAt(1)!="."&&this.data.scoreStart.length>=2){
-                this.data.scoreStart=this.data.scoreStart.replace(/0/ ,"");
-            }
-            var index=this.data.scoreStart.indexOf('.');
-            var lastIndex=this.data.scoreStart.lastIndexOf('.');
-            if(index==0){
-                this.data.scoreStart=this.data.scoreStart.replace(/\./ ,"");
-            }
-            if(index>=1){
-                this.data.scoreStart=this.data.scoreStart.substring(0,index+3);
-            }
-            if(index!=lastIndex){
-                this.data.scoreStart=this.data.scoreStart.substring(0,index+2);
-            }
-        },
-        dataFormat5(){
-            this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/[^\d.]/g,"");
-            this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/\.+/ ,".");
-            if(this.data.project.scoreEnd.charAt(0)=="0"&&this.data.project.scoreEnd.charAt(1)!="."&&this.data.project.scoreEnd.length>=2){
-                this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/0/ ,"")
-            }
-            var index=this.data.project.scoreEnd.indexOf('.');
-            var lastIndex=this.data.project.scoreEnd.lastIndexOf('.')
-            if(index==0){
-                this.data.project.scoreEnd=this.data.project.scoreEnd.replace(/\./ ,"")
-            }
-            if(index>=1){
-                this.data.project.scoreEnd=this.data.project.scoreEnd.substring(0,index+3)
-            }
-            if(index!=lastIndex){
-                this.data.project.scoreEnd=this.data.project.scoreEnd.substring(0,index+2)
-            }
-        }
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll);

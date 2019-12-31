@@ -130,18 +130,19 @@
                         <!-- 项目金额 -->
                         <el-row class="flex-center mb20">
                             <el-col :span="1" class="mr20">中标金额/合同金额：</el-col>
-                            <el-input
-                                placeholder="最低价（万元）"
+                            <v-myInput
                                 v-model="data.project.amountStart"
-                                class="inputW element_search"
-                                @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
-                            ></el-input>至
-                            <el-input
-                                placeholder="最高价（万元）"
+                                style="width: 20%;"
+                                class="element_search"
+                                :placeholder="placeholder0"
+                            ></v-myInput>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <v-myInput
                                 v-model="data.project.amountEnd"
-                                class="inputW r element_search"
-                                @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"
-                            ></el-input>
+                                style="width: 20%;"
+                                class="element_search"
+                                :placeholder="placeholder1"
+                            ></v-myInput>
                         </el-row>
                         <!-- 竣工验收日期 -->
                         <el-row class="flex-center">
@@ -211,18 +212,19 @@
                         <!-- 评分 -->
                         <el-row class="flex-center">
                             <el-col :span="1" class="mr20">等级评分：</el-col>
-                            <el-input
-                                placeholder="最低分(小数)"
-                                v-model="data.credit.scoreStart"
-                                class="inputW element_search"
-                                @keyup.native="returnInt(0)"
-                            ></el-input>至
-                            <el-input
-                                placeholder="最高分(小数)"
-                                v-model="data.credit.scoreEnd"
-                                class="inputW r element_search"
-                                @keyup.native="returnInt(1)"
-                            ></el-input>
+                            <v-myInput
+                                v-model="data.scoreStart"
+                                style="width: 20%;"
+                                class="element_search"
+                                :placeholder="placeholder4"
+                            ></v-myInput>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <v-myInput
+                                v-model="data.scoreEnd"
+                                style="width: 20%;"
+                                class="element_search"
+                                :placeholder="placeholder5"
+                            ></v-myInput>
                             <div class="rule">
                                 <div class="color-449">
                                     <span>评分规则</span>
@@ -288,6 +290,12 @@ export default {
     data() {
         return {
             breadList: [{ title: "公路信息综合查询系统" }],
+            placeholder0: "最低价（万元）",
+            placeholder1: "最高价（万元）",
+            placeholder2: "最小面积（㎡）",
+            placeholder3: "最大面积（㎡）",
+            placeholder4: "最低分",
+            placeholder5: "最高分",
             // 数据模型
             optGxList: [
                 {
