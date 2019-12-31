@@ -34,6 +34,7 @@
                     @recordZZ="getRecordZZ"
                     :query="true"
                     :toParent="reChildren"
+                    :class="{'hide': current !==1}"
                 ></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY
@@ -41,7 +42,25 @@
                     :qualList="peopleList"
                     @recordRY="getRecordRY"
                     :toParent="reChildren"
+                    :class="{'hide': current !==1}"
                 ></v-screenRY>
+                <!-- 人员要求 -->
+                <v-screenRY
+                    @contentChange="getCodeRY"
+                    :qualList="peopleList"
+                    @recordRY="getRecordRY"
+                    :toParent="reChildren"
+                    :class="{'hide': current !==2}"
+                ></v-screenRY>
+                 <!-- 资质要求 -->
+                <v-screenZZ
+                    @contentChange="getCodeZZ"
+                    :qualList="codeZZ.comQua"
+                    @recordZZ="getRecordZZ"
+                    :query="true"
+                    :toParent="reChildren"
+                    :class="{'hide': current !==2}"
+                ></v-screenZZ>
                 <!-- 业绩要求 -->
                 <el-row class="pt20" type="flex" :class="{'require': current == 1}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>
@@ -500,7 +519,7 @@
                             <span class="fs24 ml10 mr10 color-eb6" v-if="total==5000">5000+{{current == '1'?'家':'个'}}</span>
                             <span class="fs24 ml10 mr10 color-eb6" v-else>{{total}}{{current == '1'?'家':'个'}}</span>
                         </span>
-                        <span class="fs24" v-else>0</span>
+                        <span class="fs24 color-eb6" v-else>0{{current == '1'?'家':'个'}}</span>
                     </span>
                     符合要求的{{current == '1'?'企业':'人员'}}
                 </p>
