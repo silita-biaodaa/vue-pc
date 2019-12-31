@@ -34,7 +34,7 @@
                     @recordZZ="getRecordZZ"
                     :query="true"
                     :toParent="reChildren"
-                    :class="{'hide': current !==1}"
+					:class="{'hide': current !==1}"
                 ></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY
@@ -43,8 +43,7 @@
                     @recordRY="getRecordRY"
                     :toParent="reChildren"
                     :class="{'hide': current !==1}"
-                ></v-screenRY>
-                <!-- 人员要求 -->
+                ></v-screenRY>                <!-- 人员要求 -->
                 <v-screenRY
                     @contentChange="getCodeRY"
                     :qualList="peopleList"
@@ -781,10 +780,6 @@ export default {
             punishList: [
                 //处罚类别
                 {
-                    id: "0",
-                    value: "全部"
-                },
-                {
                     id: "1",
                     value: "罚款"
                 },
@@ -955,9 +950,6 @@ export default {
             }
             if (data.qualCode == "") {
                 data.qualRecord = "";
-            }
-            if (data.credit.punishType == "全部") {
-                data.credit.punishType = "";
             }
             data.project = this.filterParams(data.project);
             data.credit = this.filterParams(data.credit);

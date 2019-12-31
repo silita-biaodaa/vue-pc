@@ -613,7 +613,7 @@ export default {
 }
 .queryDetail{
     background: #fff;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 248px);
     //基本信息
     .basic{
         margin-bottom: 40px;
