@@ -51,7 +51,7 @@
                         <p v-for="(o,i) of peopleList" :key="i">{{o.name}}</p>
                         <el-row v-if="data.personRecord == 'yes'">
                             <el-col>
-                                <el-col :span="2.5">查询条件-仅查询备案资质</el-col>
+                                <el-col :span="2.5">查询条件-仅查询备案人员</el-col>
                                 <el-col :span="21"></el-col>
                             </el-col>
                         </el-row>
