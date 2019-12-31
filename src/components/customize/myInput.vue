@@ -1,12 +1,15 @@
 <template>
-    <el-input type="text" :value="value" @input="input"></el-input>
+    <el-input type="text" :value="value" @input="input" :placeholder="placeholder"></el-input>
 </template>
 <script>
 export default {
     props: {
 		value: {
 			default: ""
-		}
+        },
+        placeholder: {
+            type: String
+        }
 	},
 	data(){
 		return{
@@ -15,8 +18,7 @@ export default {
 	},
 	methods:{
 		input(){
-            event.target.value=event.target.value.replace(/\D^./,"");
-            event.target.value=event.target.value.replace(/[^u4e00-u9fa5w]/g,"");
+            event.target.value=event.target.value.replace(/[^\d.]/g,"");
             event.target.value=event.target.value.replace(/\.+/ ,".");
             if(event.target.value.charAt(0)=="0"&&event.target.value.charAt(1)!="."&&event.target.value.length>=2){
                 event.target.value=event.target.value.replace(/0/ ,"")
@@ -34,7 +36,10 @@ export default {
             }
 			this.$emit('input',event.target.value);
 		}
-	}
+    },
+    created() {
+        console.info('this',this.$parent);
+    }
 
 }
 </script>

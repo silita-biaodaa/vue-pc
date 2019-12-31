@@ -115,18 +115,19 @@
                             <!-- 项目金额 -->
                             <el-row class="flex-center mb20">
                                 <el-col :span="1">项目金额：</el-col>
-                                <el-input
-                                    placeholder="最低价（万元）"
+                                <v-myInput
                                     v-model="data.project.amountStart"
-                                    class="inputW element_search"
-                                    @keyup.native="data.project.amountStart=data.project.amountStart.replace(/\D/g,'')"
-                                ></el-input>至
-                                <el-input
-                                    placeholder="最高价（万元）"
+                                    style="width: 20%;"
+                                    class="element_search"
+                                    :placeholder="placeholder0"
+                                ></v-myInput>
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <v-myInput
                                     v-model="data.project.amountEnd"
-                                    class="inputW r element_search"
-                                    @keyup.native="data.project.amountEnd=data.project.amountEnd.replace(/\D/g,'')"
-                                ></el-input>
+                                    style="width: 20%;"
+                                    class="element_search"
+                                    :placeholder="placeholder1"
+                                ></v-myInput>
                             </el-row>
                             <!-- 竣工验收日期 -->
                             <el-row class="flex-center">
@@ -225,6 +226,8 @@ export default {
         return {
             // 数据模型
             breadList: [{ title: "水利信息综合查询" }], //面包屑列表,以对象形式添加;
+            placeholder0: "最低价（万元）",
+            placeholder1: "最高价（万元）",
             optGxList: [
                 {
                     name: "满足任意一个",
