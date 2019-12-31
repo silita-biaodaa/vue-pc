@@ -147,6 +147,16 @@ export default {
             this.lengthList[0].one.list=this.qualList
             this.lengthList.str = "";
             this.searchList = [];
+            this.rela = [
+                {
+                    name: '满足任意一个资质条件',
+                    key: 'or'
+                },
+                {
+                    name: '满足所有资质条件',
+                    key: 'and'
+                }
+            ]
         },
         handler(newVal, oldVal) {
             console.info('value changed 2', newVal)

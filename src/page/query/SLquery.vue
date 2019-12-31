@@ -225,7 +225,7 @@ export default {
     data() {
         return {
             // 数据模型
-            breadList: [{ title: "水利信息综合查询" }], //面包屑列表,以对象形式添加;
+            breadList: [{ title: "水利信息专查" }], //面包屑列表,以对象形式添加;
             placeholder0: "最低价（万元）",
             placeholder1: "最高价（万元）",
             optGxList: [

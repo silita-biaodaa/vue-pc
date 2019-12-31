@@ -289,7 +289,7 @@ export default {
     name: "ZJquery", // 结构名称
     data() {
         return {
-            breadList: [{ title: "公路信息综合查询系统" }],
+            breadList: [{ title: "公路信息专查" }],
             placeholder0: "最低价（万元）",
             placeholder1: "最高价（万元）",
             placeholder2: "最小面积（㎡）",

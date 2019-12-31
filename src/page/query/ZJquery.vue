@@ -19,8 +19,8 @@
                                 :class="el.code==data.regisAddress?'current':''"
                                 @click="addressFn(el)"
                             >
-                                <v-icon class="fs14" :iconClass="el.code==data.regisAddress?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon>
-                                <span>{{el.areaShortName}}</span>
+                                <!-- <v-icon class="fs14" :iconClass="el.code==data.regisAddress?'iconduoxuan-xuanzhong':'iconduoxuan-daixuan'"></v-icon> -->
+                                {{el.areaShortName}}
                             </div>
                         </el-col>
                     </el-row>
@@ -273,7 +273,7 @@ export default {
     data() {
         return {
             // 数据模型
-            breadList: [{ title: "住建信息综合查询" }], //面包屑列表,以对象形式添加;
+            breadList: [{ title: "住建信息专查" }], //面包屑列表,以对象形式添加;
             placeholder0: "最低价（万元）",
             placeholder1: "最高价（万元）",
             placeholder2: "最小面积（㎡）",

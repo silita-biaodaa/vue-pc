@@ -298,5 +298,7 @@ export default {
 }
 .fx-box{
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 </style>

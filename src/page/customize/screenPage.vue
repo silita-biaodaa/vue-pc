@@ -848,11 +848,10 @@ export default {
                     // creCount: 1, //符合信用的数量
                 },
                 person: [], //人员
-                zhuanchaType: "",
                 qualRecord: "", //资质备案
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "not", //人员备案
-                zhuanchaType: "company",
+                zhuanchaType: "company", //企业或者人员查询;
                 scoreStart: "", //综合开始得分
                 scoreEnd: "", //综合结束得分
             },
@@ -937,6 +936,7 @@ export default {
         },
     },
     methods: {
+        //查询接口
         companyCount() {
             let data = JSON.parse(JSON.stringify(this.data));
             if (data.project.keywords && data.project.keywords != "") {
@@ -963,6 +963,7 @@ export default {
             data.credit = this.filterParams(data.credit);
             data = this.filterParams(data);
             if (this.current == 1) {
+                //企业综合查询
                 screenConut(data).then(res => {
                     if (res.code == "1") {
                         const { count, pkid } = res.data;
@@ -973,6 +974,7 @@ export default {
                     }
                 });
             } else {
+                //人员综合查询
                 this.data.zhuanchaType = "person";
                 data.project.proCount = 1;
                 //深拷贝不影响this.data的值;
@@ -1036,9 +1038,11 @@ export default {
                 arr1.push(str)
             }
             this.data.rangeType = data.type;
+            this.companyCount();
             this.$set(this.data,'qualName',arr1.join(','))
            
         },
+        //set赋值;
         getCodeRY(data) {
             this.$set(this.data,'person',data)
         },
@@ -1058,6 +1062,265 @@ export default {
         },
         //切换初始化数据;
         clearData() {
+            let data = JSON.parse(localStorage.getItem("filter"));
+            for (let x of data.area) {
+                x.istap = false;
+            }
+            data.area.unshift({
+                areaShortName: "不限",
+                istap: true
+            });
+            this.projectList = data.area;
+            this.areaList = [
+                {
+                    value: "渝内企业",
+                    id: "in"
+                },
+                {
+                    value: "入渝企业",
+                    id: "enter"
+                },
+                {
+                    value: "渝内+入渝企业",
+                    id: "all_in"
+                }
+            ],
+            this.typeLists = [
+                {
+                    id: "all",
+                    value: "全国建筑市场监管公共服务平台"
+                },
+                {
+                    id: "chongq",
+                    value: "重庆建设工程信息网"
+                }
+            ],
+            this.itemList = [
+                //业绩所含子项
+                {
+                    areaShortName: "招投标",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工图审查",
+                    istap: false
+                },
+                {
+                    areaShortName: "合同备案",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工许可证",
+                    istap: false
+                },
+                {
+                    areaShortName: "竣工验收",
+                    istap: false
+                }
+            ],
+            this.purposeList = [
+                //工程用途
+                {
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "公共建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "公共建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "办公建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "居住建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "居住建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "工业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "工业建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "商业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "商住楼",
+                    istap: false
+                },
+                {
+                    areaShortName: "农业建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "农业建筑配套工程",
+                    istap: false
+                },
+                {
+                    areaShortName: "交通运输类",
+                    istap: false
+                },
+                {
+                    areaShortName: "公共交通",
+                    istap: false
+                },
+                {
+                    areaShortName: "旅游建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "科教文卫建筑",
+                    istap: false
+                },
+                {
+                    areaShortName: "给水",
+                    istap: false
+                },
+                {
+                    areaShortName: "排水",
+                    istap: false
+                },
+                {
+                    areaShortName: "道路",
+                    istap: false
+                },
+                {
+                    areaShortName: "桥隧",
+                    istap: false
+                },
+                {
+                    areaShortName: "环境园林",
+                    istap: false
+                },
+                {
+                    areaShortName: "风景园林",
+                    istap: false
+                },
+                {
+                    areaShortName: "热力",
+                    istap: false
+                },
+                {
+                    areaShortName: "燃气",
+                    istap: false
+                },
+                {
+                    areaShortName: "通信建筑",
+                    istap: false
+                }
+            ],
+            this.yjtypeList = [
+                //业绩类型
+                {
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "施工",
+                    istap: false
+                },
+                {
+                    areaShortName: "设计",
+                    istap: false
+                },
+                {
+                    areaShortName: "勘察",
+                    istap: false
+                },
+                {
+                    areaShortName: "监理",
+                    istap: false
+                },
+                {
+                    areaShortName: "施工设计一体化",
+                    istap: false
+                },
+                {
+                    areaShortName: "劳务",
+                    istap: false
+                },
+                {
+                    areaShortName: "项目管理",
+                    istap: false
+                }
+            ],
+            this.stateList = [
+                //业绩所含子项
+                {
+                    areaShortName: "不限",
+                    istap: true
+                },
+                {
+                    areaShortName: "项目在建",
+                    istap: false
+                },
+                {
+                    areaShortName: "项目竣工",
+                    istap: false
+                }
+            ],
+            this.selectList = [
+                //选择查询条件
+                {
+                    id: "title",
+                    content: "根据标题搜索"
+                },
+                {
+                    id: "scope",
+                    content: "根据规模搜索"
+                },
+                {
+                    id: "title_and_scope",
+                    content: "根据标题和规模搜索"
+                }
+            ],
+            this.punishList = [
+                //处罚类别
+                {
+                    id: "0",
+                    value: "全部"
+                },
+                {
+                    id: "1",
+                    value: "罚款"
+                },
+                {
+                    id: "2",
+                    value: "行政拘留"
+                },
+                {
+                    id: "3",
+                    value: "警告"
+                },
+                {
+                    id: "4",
+                    value: "没收违法所得、没收非法财物"
+                },
+                {
+                    id: "5",
+                    value: "暂扣或者吊销许可证、暂扣或者吊销执照"
+                },
+                {
+                    id: "6",
+                    value: "责令停产停业"
+                },
+                {
+                    id: "7",
+                    value: "其他"
+                }
+            ],
             this.data = {
                 regisAddress: "重庆市",
                 joinRegion: "all_in", //选择地区
@@ -1090,12 +1353,10 @@ export default {
                     creditQuery: "" //是否查询
                     // creCount: 1, //符合信用的数量
                 },
-                zhuanchaType: "",
                 qualRecord: "", //资质备案
                 projectSource: "all", //业绩来源 //全国资质与重庆资质筛选框,all为全国,chongq为重庆;
                 personRecord: "not", //人员备案
-                person: [], //人员
-                zhuanchaType: "company",
+                person: [], //人员列表
                 scoreStart: "", //综合开始得分
                 scoreEnd: "", //综合结束得分
             };
@@ -1104,10 +1365,12 @@ export default {
             this.current = index;
             if (index == 2) {
                 this.reChildren = "ry";
+                this.data.zhuanchaType = "person";
                 this.showFixed = false;
                 this.clearData();
             }else {
                 this.reChildren = "qy";
+                this.data.zhuanchaType = "company";
                 this.clearData();
             }
         },
