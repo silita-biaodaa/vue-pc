@@ -171,7 +171,7 @@
 							{{el.province}}
 						</div>
 					</div>
-					<div class="main-no" v-show="noPeo">
+					<div class="main-no" v-show="noPeoL">
 						暂无数据
 					</div>
 

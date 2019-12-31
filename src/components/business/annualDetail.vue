@@ -6,7 +6,6 @@
        <p>{{data.comName}}{{data.year}}年度报告</p>
         <i class="el-icon-close" @click="closeFn" ></i>
     </div>
-    <happy-scroll resize hide-vertical>
         <div class="annualDetail">
             <div class="box">
                 <h6>企业基本信息</h6>
@@ -298,8 +297,6 @@
                 </table>
             </div>
         </div>
-    </happy-scroll>    
-    
   </div> 
  </div>  
 </template>

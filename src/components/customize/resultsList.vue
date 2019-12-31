@@ -83,6 +83,9 @@
                         <div v-if="data.credit.creditQuery == 'yes'">
                             <div>查询条件-仅查询无行政处罚的企业</div>
                         </div>
+                        <div v-else>
+                            <div>查询条件-仅查询有行政处罚的企业</div>
+                        </div>
                         <div v-if="data.credit.punishType">
                             <div>处罚类别：{{data.credit.punishType}}</div>
                         </div>

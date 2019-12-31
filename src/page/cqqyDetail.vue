@@ -69,7 +69,7 @@
                             <tr v-for="(o,i) of list" :key="i">
                                 <td>{{i+1}}</td>
                                 <td>{{o.qualType}}</td>
-                                <td>{{o.qualName}}</td>
+                                <td>{{o.qualName}}<span class="tag ml10 fs12" :class="o.joinRegion=='入渝'?'':'yn'" v-if="o.joinRegion">{{o.joinRegion}}企业</span></td>
                                 <td>{{o.certOrg}}</td>
                                 <td>{{o.validDate}}</td>
                             </tr>
@@ -645,7 +645,7 @@ export default {
 }
 .cqqyDetail{
     background: #fff;
-    // min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 248px);
     //基本信息
     .basic{
         margin-bottom: 40px;

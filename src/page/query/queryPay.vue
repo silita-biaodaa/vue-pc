@@ -29,7 +29,7 @@
                     </div>
                     <div class="mb40">
                         <span>本次支付金额：</span>
-                        <span class="color-eb6">¥{{isVip?comPrice:vipPrice}}</span>
+                        <span class="color-eb6">¥{{isVip?vipPrice:comPrice}}</span>
                         <span>微信扫码支付成功后即可查看详情</span>
                     </div>
                 </div>

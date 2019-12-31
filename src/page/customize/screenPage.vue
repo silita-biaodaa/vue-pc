@@ -34,6 +34,7 @@
                     @recordZZ="getRecordZZ"
                     :query="true"
                     :toParent="reChildren"
+                    :class="{'hide': current !== 1}"
                 ></v-screenZZ>
                 <!-- 人员要求 -->
                 <v-screenRY
@@ -41,7 +42,25 @@
                     :qualList="peopleList"
                     @recordRY="getRecordRY"
                     :toParent="reChildren"
+                    :class="{'hide': current !== 1}"
                 ></v-screenRY>
+                <!-- 人员要求 -->
+                <v-screenRY
+                    @contentChange="getCodeRY"
+                    :qualList="peopleList"
+                    @recordRY="getRecordRY"
+                    :toParent="reChildren"
+                    :class="{'hide': current !== 2}"
+                ></v-screenRY>
+                <!-- 资质要求 -->
+                <v-screenZZ
+                    @contentChange="getCodeZZ"
+                    :qualList="codeZZ.comQua"
+                    @recordZZ="getRecordZZ"
+                    :query="true"
+                    :toParent="reChildren"
+                    :class="{'hide': current !== 2}"
+                ></v-screenZZ>
                 <!-- 业绩要求 -->
                 <el-row class="pt20" type="flex" :class="{'require': current == 1}">
                     <el-col :span="2" class="fs16 color-150 fw600 mt10">业绩要求</el-col>
@@ -767,10 +786,6 @@ export default {
             punishList: [
                 //处罚类别
                 {
-                    id: "0",
-                    value: "全部"
-                },
-                {
                     id: "1",
                     value: "罚款"
                 },
@@ -941,9 +956,6 @@ export default {
             }
             if (data.qualCode == "") {
                 data.qualRecord = "";
-            }
-            if (data.credit.punishType == "全部") {
-                data.credit.punishType = "";
             }
             data.project = this.filterParams(data.project);
             data.credit = this.filterParams(data.credit);

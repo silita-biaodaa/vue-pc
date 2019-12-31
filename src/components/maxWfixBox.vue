@@ -2,7 +2,7 @@
 <template>
     <div class="maxWfixBox">
         <!-- list.length>0?'isshow':'' -->
-        <div class="box" :class="{'isshow':list.length>0,'no-notice':type!='notice','notice':type=='notice'}">
+        <div class="box" :class="{'isshow':list.length>0,'noshow':list.length==0,'no-notice':type!='notice','notice':type=='notice'}">
             <slot name="left" style="width:750px"></slot>
             <!-- 平台公示 -->
             <template v-if="type=='publicity'">
@@ -63,9 +63,21 @@ export default {
         // console.group('创建完毕状态===============》created');
         let that=this;
         if(this.type=='notice'){//相关公告
-            setTimeout(() => {
-                that.list=this.$parent.list
-            }, 1000);
+            // setTimeout(() => {
+            //     that.list=this.$parent.list
+            // }, 1000);
+            this.$http({
+                method:'post',
+                url:'/newnocite/correlation/list',
+                data:{
+                    source:this.$route.query.source,
+                    ntId:this.$route.query.id,
+                }
+            }).then(res =>{
+                if(res.data.code==1){
+					that.list=res.data.data
+                }
+            })
         }else if(this.type=='publicity'){//平台公示
             this.$http({
                 method:'post',
@@ -192,6 +204,13 @@ export default {
     padding-right: 40px;
     box-sizing: border-box;
 }
+// .notice.noshow /deep/ .main .maxw{
+//     width: 1020px;
+//     border-right: none
+// }
+// .notice.noshow /deep/ .main .maxw>div{
+//     padding-right:0;
+// }
 /*公告end*/
 .fix-box{
     width: 260px;
