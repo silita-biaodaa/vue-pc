@@ -8,8 +8,7 @@
 			
 			</div> -->
 			<div class="right law-w">
-				<el-input placeholder="输入关键字，查找资质" prefix-icon="el-icon-search" @change="newList" @keyup.enter="newList" v-model="search">
-				</el-input>
+				
 			</div>
 		</div>
 		<div class="law-select" >
@@ -25,6 +24,11 @@
 					<el-option v-for="item in options" :key="item.category" :label="item.category" :value="item.category">
 					</el-option>
 				</el-select> -->
+				<div class="right-put" >
+					<el-input placeholder="输入关键字，查找人员" prefix-icon="el-icon-search" @change="newList" @keyup.enter="newList" v-model="search">
+				</el-input>
+				</div>
+				
 		</div>
 		<div v-show="!result">
 				<table class="table-content">
@@ -223,7 +227,11 @@
 		}
 		.law-select {
 			display: flex;
+			justify-content: space-between;
 			margin: 10px 0 20px;
+			.right-put {
+				width: 200px;
+			}
 			.el-select {
 				width: 200px;
 				margin-right: 12px;
