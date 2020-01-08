@@ -118,7 +118,7 @@
 				isshow: false,
 				current: 1,
 				comList: [],
-				avatar: require('../../assets/img/icon-toux.png@2x.png'),
+				avatar: require('../../assets/img/pic-toux.png@2x.png'),
 				source: '',
 				s: null,
 				total: 0,

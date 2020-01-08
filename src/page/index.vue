@@ -91,7 +91,6 @@
 		queryList,
 		companyList
 	} from '@/api/index'
-	let moment = require("moment");
 	export default {
 		data() {
 			return {

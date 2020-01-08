@@ -4,7 +4,7 @@
         <div class="top-text" >
             <div class="top-left" >
             <div class="img-bor" :class="headTxt==''?'rightNone':''">
-                <img src="../assets/img/pic-guanywm.png@2x.png" alt=""  @click="jumps" >
+                <img src="../assets/img/uselogo.png" alt=""  @click="jumps" >
             </div>
                 {{headTxt}}
             </div>
@@ -121,7 +121,7 @@ export default {
             localStorage.removeItem('valid')
             localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
             this.$router.replace({
-                path: '/home',
+                path: '/',
             })
         },
          gainCo() {
@@ -172,6 +172,9 @@ export default {
                 border-right: 1px solid #fff;
                 padding-right: 10px;
                 margin-right: 10px;
+                img{
+                    height: 100%;
+                }
             }
             .rightNone{
                 border-right: none

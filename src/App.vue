@@ -469,7 +469,7 @@
 				localStorage.removeItem('valid')
 				localStorage.removeItem('0658544ac523fca9ec78a5f607fdd7ee')
 				this.$router.replace({
-					path: '/home',
+					path: '/',
 					query: {
 						t: Date.now()
 					}

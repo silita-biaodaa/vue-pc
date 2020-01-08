@@ -1,7 +1,7 @@
 <template>
     <div class="l-search" @keydown.13="searchFn">
         <div class="app-fff">
-            <div class="logo left" @click="$router.push('/home')"></div>
+            <div class="logo left" @click="$router.push('/')"></div>
             <div class="bor">
                 <ul class="search">
                     <li
@@ -100,7 +100,7 @@ export default {
     methods: {
         clearFn() {
             this.$refs.iput.focus();
-            if (this.$route.path == "/home") {
+            if (this.$route.path == "/") {
                 return false;
             }
             this.searchFn();
@@ -113,7 +113,7 @@ export default {
             this.way = el.to;
         },
         mapping() {
-            if (this.$route.fullPath == "/home") {
+            if (this.$route.fullPath == "/") {
                 this.way = "/bid";
             } else {
                 this.way = this.$route.fullPath;

@@ -4,7 +4,7 @@
 		<div class="logo-img">
 			<div class="logo-center">
 				<div class="logo-code">
-					<img src="../assets/img/logoerwei.png" alt="" class="code-img">
+					<img src="../assets/img/pic-erweima.png" alt="" class="code-img">
 					<img src="../assets/img/logofont.png" alt="">
 				</div>
 				<div class="l-enter">
@@ -157,7 +157,7 @@
 			},
 			towechat() {
 				let appid = 'wxcfaea301018d9721';
-				let url = encodeURIComponent('http://www.biaodaa.com/#/home');
+				let url = encodeURIComponent('http://www.biaodaa.com/#/');
 				let uri = this.weixinauth(appid, url);
 				window.open(uri)
 			},

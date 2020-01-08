@@ -115,13 +115,14 @@ import payPage from '@/page/customize/payPage' //支付页面
 Vue.use(Router)
 
 export default new Router({
+  // mode:'history',
   routes: [
+    // {
+    //   path: '/',
+    //   redirect: '/home'
+    // },
     {
-      path: '/',
-      redirect: '/home'
-    },
-    {
-      path:'/home',
+      path:'/',
       name: 'home',
       component:Home,
       meta: {

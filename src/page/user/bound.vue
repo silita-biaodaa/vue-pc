@@ -97,7 +97,7 @@
 						sessionStorage.setItem('xtoken', res.data.xtoken);
 						localStorage.setItem('Bname', res.data.nikeName);
 						localStorage.setItem('0658544ac523fca9ec78a5f607fdd7ee', res.data.isVip);
-						this.$router.push('/home');
+						this.$router.push('/');
 					} else if (res.code == 202) {
 						this.msg = '验证码失效或错误'
 						this.error = true

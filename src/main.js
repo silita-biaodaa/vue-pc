@@ -205,7 +205,7 @@ router.beforeEach((to, from, next) => {
     //   return false
     // }
     //首页
-    if(to.path=='/home'){
+    if(to.path=='/'){
       if(getCode('code')){
         getOpenid({
           code:getCode('code')

@@ -4,7 +4,7 @@
   <div class="logo-img">
     <div class="logo-center">
         <div class="logo-code" >
-           <img src="../assets/img/logoerwei.png" alt="" class="code-img">
+           <img src="../assets/img/pic-erweima.png" alt="" class="code-img">
            <img src="../assets/img/logofont.png" alt="">
         </div>
         <div class="l-enter">
@@ -112,7 +112,7 @@ export default {
             localStorage.setItem('Bname',name)
             localStorage.setItem('Xtoken',token)
             localStorage.setItem('isFirst',res.data.isFirst)
-            this.$router.push('/home')
+            this.$router.push('/')
           } else if( res.code == 202) {
               this.error = true
               this.msg = '验证码失效或错误'

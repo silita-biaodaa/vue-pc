@@ -140,7 +140,7 @@
 				loading: true,
 				isajax: false,
 				noList: false,
-				avatar: require('../../assets/img/icon-toux.png@2x.png'),
+				avatar: require('../../assets/img/pic-toux.png@2x.png'),
 				a: ''
 			}
 		},

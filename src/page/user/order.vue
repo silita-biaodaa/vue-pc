@@ -208,7 +208,6 @@
 	} from '@/api/index'
 import { setTimeout, clearTimeout, setInterval, clearInterval } from 'timers';
 import countTime from '@/components/countTime'
-	let moment = require("moment");
 	export default {
 		data() {
 			return {
@@ -289,7 +288,7 @@ import countTime from '@/components/countTime'
 				if (val == '') {
 					return
 				} else {
-					return moment(val).format('YYYY-MM-DD HH:mm:ss')
+					return this.formatDate(val,1)
 				}
 
 			},

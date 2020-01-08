@@ -46,7 +46,6 @@
 	import {
 		history
 	} from '@/api/index';
-	let moment = require("moment");
 	export default {
 		data() {
 			return {
@@ -83,7 +82,7 @@
 							el.pAth = false
 						}
 						var date = new Date(el.payDate.replace(/-/g, '/'));
-						el.date = moment(date).format('YYYY年MM月DD日')
+						el.date = this.formatDate(date)
 						if (el.projSource = 'project') {
 							el.projSource = '全国建筑市场监管公共服务平台'
 						} else if (el.projSource = 'shuili') {

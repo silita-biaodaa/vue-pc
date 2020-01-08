@@ -11,9 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "element-ui": "^2.4.11",
-    "moment": "^2.23.0",
     "qrcodejs2": "^0.0.2",
     "sha1": "^1.1.1",
     "vue": "^2.5.2",

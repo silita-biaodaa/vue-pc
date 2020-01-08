@@ -12,7 +12,7 @@
 					<el-select placeholder="请选择证书等级/专业" clearable v-model="categoryData.two.cateName"  v-if="categoryData.two.list&&categoryData.two.list.length>0"   @change="twoChangeFn">
 						<el-option v-for="item in categoryData.two.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
 					</el-select>
-					<el-select placeholder="请选择证书专业" clearable multiple collapse-tags v-model="categoryData.three.cateName" @change="threeChangeFn" v-if="categoryData.three.list&&categoryData.three.list.length>0">
+					<el-select placeholder="请选择证书专业" collapse-tags v-model="categoryData.three.cateName" @change="threeChangeFn" v-if="categoryData.three.list&&categoryData.three.list.length>0">
 						<el-option v-for="item in categoryData.three.list" :key="item.cateName" :label="item.cateName" :value="item.cateName"></el-option>
 					</el-select>
 				</div>
@@ -144,7 +144,7 @@
 									this.categoryData.two.list=x.list
 									this.categoryData.two.cateName=y.cateName
 									this.categoryData.three.list=y.list
-									this.categoryData.three.cateName=arr[1].split(',')
+									this.categoryData.three.cateName=arr[1]
 									break
 								}
 							}

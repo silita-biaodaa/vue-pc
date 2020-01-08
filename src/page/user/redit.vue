@@ -148,7 +148,7 @@
 				noList: false,
 				allArr: [],
 				allChe: true,
-				avatar: require('../../assets/img/icon-toux.png@2x.png'),
+				avatar: require('../../assets/img/pic-toux.png@2x.png'),
 			}
 		},
 		inject: ['reload'],
