@@ -47,7 +47,6 @@
     </div>
 </template>
 <script>
-import canvas1 from "@/components/bannerCanvas";
 export default {
     data() {
         return {
@@ -560,9 +559,6 @@ export default {
             this.select = newVal;
         }
     },
-    components: {
-        "v-canvas": canvas1
-    }
 };
 </script>
 <style lang="less" >

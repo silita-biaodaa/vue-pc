@@ -103,7 +103,7 @@
 							</div>
 
 							<div class="left" style="width:160px;">
-								{{el.updateTime ? el.updateTime : el.createTime | times }}
+								{{el.updateTime ? times(el.updateTime) : times(el.createTime) }}
 							</div>
 
 							<div class="left" style="width:100px;">
@@ -284,14 +284,6 @@ import countTime from '@/components/countTime'
 					return '非支付成功'
 				}
 			},
-			times(val) {
-				if (val == '') {
-					return
-				} else {
-					return this.formatDate(val,1)
-				}
-
-			},
 			nopath(val) {
 				if (val == null) {
 					return '生成中'
@@ -312,6 +304,14 @@ import countTime from '@/components/countTime'
 			}
 		},
 		methods: {
+			times(val) {
+				let that=this;
+				if (val == '') {
+					return
+				} else {
+					return that.formatDate(val,1)
+				}
+			},
 			regenerateFn(el){//重新生成
 				el.report.reportPath=null
 				let that=this;

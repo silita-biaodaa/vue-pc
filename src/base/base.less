@@ -131,8 +131,8 @@ body .el-radio__input.is-checked+.el-radio__label{
             box-sizing: border-box;
         }
         .current {
-            border-color: #EB651B;
-            color: #EB651B;
+            border-color: @themeColor;
+            color: @themeColor;
             font-weight: 600;
         }
     }
@@ -166,8 +166,15 @@ body .el-radio__input.is-checked+.el-radio__label{
             cursor: pointer;
         }
         .current{
-            color: #EB651B;
+            color: @themeColor;
             font-weight: 600
         }
     }
+}
+
+
+
+body .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+    background-color: @themeColor;
+    border-color: @themeColor;
 }

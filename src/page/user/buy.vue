@@ -397,7 +397,12 @@
 		},
 		methods: {
 			jumpen() {
-				this.$router.push('/enroll')
+				this.$router.push({
+					path:'/logo',
+					query:{
+						type:2
+					}
+				})
 			},
 			selarea(el) {
 				this.source = el.name

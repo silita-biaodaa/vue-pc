@@ -225,6 +225,7 @@
 			width: 1020px;
 			margin: 40px auto 0;
 			padding: 0 20px;
+			height: 695px;
 			box-sizing: border-box;
 			li{
 				padding: 20px 0;
@@ -267,6 +268,7 @@
 			border: 1px solid transparent;
 			.img-box{
 				overflow: hidden;
+				height: 109px;
 				img{
 					width: 100%;
 				}

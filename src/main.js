@@ -13,10 +13,10 @@ import router from './router'
 import funcom from './util/util'
 Vue.prototype.funcom = funcom
 Vue.config.productionTip = false
+Vue.config.devtools = true;
 import  companyJump  from '@/components/companyJump';//点击跳转企业详情组件（包含接口查询）
 import  navPage  from '@/components/paging';//分页组件（封装element，方便统一控制）
 import  enSearch from '@/components/home'//顶部搜索框
-import  logoNav from '@/components/logoNav'
 import fvip from '@/components/fvip'//无会员弹窗
 import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制）
 import usercenter from '@/components/user-center'//未知
@@ -34,7 +34,6 @@ import {getOpenid,ThirdLogin} from "@/api/index"
 Vue.component('v-user',usercenter)//
 Vue.component('nav-page', navPage)
 Vue.component('en-search', enSearch)
-Vue.component('logo-Nav', logoNav)
 Vue.component('f-vip', fvip)
 Vue.component('v-comjump',companyJump)
 Vue.component('v-bread',publicBread)

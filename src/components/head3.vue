@@ -100,7 +100,12 @@ export default {
             this.$router.push('/logo')
         },
         toenroll() {
-            this.$router.push('/enroll')
+            this.$router.push({
+                path:'/logo',
+                query:{
+                    type:2
+                }
+            })
         },
         user() {
             this.$router.push('/user')

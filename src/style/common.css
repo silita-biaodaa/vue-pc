@@ -76,7 +76,7 @@ figcaption:focus {
 .right {
   float: right;
 }
-.logo .e-ipt .el-input__inner {
+/* .logo .el-input__inner {
   border: none;
   padding: 0 20px;
 }
@@ -111,7 +111,7 @@ figcaption:focus {
   color: #999;
   padding-left: 5px;
   font-size: 12px;
-}
+} */
 .d-bto {
   width: 100%;
   text-align: center;

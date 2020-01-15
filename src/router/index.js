@@ -27,10 +27,8 @@ import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
 import Download from '@/page/Download'
 
-import logo from '@/page/logo'
-import enroll from '@/page/enroll'
+import logo from '@/page/login'
 import protocol from '@/page/protocol'
-import find from '@/page/user/find'
 import bound from '@/page/user/bound'
 import info from '@/page/user/info'
 // import buy from '@/page/user/buy'
@@ -305,20 +303,10 @@ export default new Router({
       component:logo
     },
     {
-      path: '/enroll',  // 注册
-      name:'enroll',
-      component: enroll
-    },
-    {
       path: '/protocol',  // 注册协议
       name: 'protocol',
       component: protocol
     },
-     {
-       path: '/find',  // 找回密码
-       name:'find',
-       component: find
-     },
       {
         path: '/bound',  // 绑定手机
         name: 'bound',

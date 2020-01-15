@@ -440,7 +440,12 @@
 				this.$router.push('/logo')
 			},
 			jumpen() {
-				this.$router.push('/enroll')
+				this.$router.push({
+					path:'/logo',
+					query:{
+						type:2
+					}
+				})
 			},
 			judges() {
 				if (sessionStorage.getItem('xtoken') || localStorage.getItem('Xtoken')) {
@@ -600,7 +605,7 @@
 			},
 			// 底部是否消失
 			exploit() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' ||this.$route.name=='error') {
+				if (this.$route.name == 'download' || this.$route.name == 'logo' ||this.$route.name=='error') {
 					return false
 				} else {
 					return true
@@ -608,8 +613,7 @@
 			},
 			// 顶部是否消失
 			excom() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'enroll' || this.$route.name ==
-					'find' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
+				if (this.$route.name == 'download' || this.$route.name == 'logo' || this.$route.name == 'pDet' || this.$route.name == 'root' || this.$route.name == 'fcoll' || this.$route.name ==
 					'bound' || this.$route.name == 'about' || this.$route.name == 'order' || this.$route.name == 'buy' || this.$route.name ==
 					'info' || this.$route.name == 'dwDetail'|| this.$route.name == 'hdDetail'||this.$route.name=='feedback'||this.$route.name==
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
