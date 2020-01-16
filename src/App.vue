@@ -605,7 +605,7 @@
 			},
 			// 底部是否消失
 			exploit() {
-				if (this.$route.name == 'download' || this.$route.name == 'logo' ||this.$route.name=='error') {
+				if (this.$route.name == 'download' || this.$route.name == 'logo' ||this.$route.name=='error' ||this.$route.name=='feedback') {
 					return false
 				} else {
 					return true

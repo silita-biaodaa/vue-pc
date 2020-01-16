@@ -2,36 +2,35 @@
 <template>
 	<div class="feedback">
         <v-head :headTxt="'意见反馈'"></v-head>
-        <div class="box">
-            <img src="../assets/img/feedback.png"/>
-            <div class="main">
-                <div class="main-box">
-                    <span>意见类别：</span>
-                    <div>
-                        <p v-for="(o,i) of btnList" :key="i" :class="o==btnNum?'active':''" @click="btnNum=o">
-                            <em>{{o}}</em>
-                            <i class="el-icon-check"></i>
-                        </p>
+        <section>
+            <div class="box">
+                <img src="../assets/img/feedback.png" class="mb40"/>
+                <div class="main">
+                    <div class="mb40">
+                        <h5>意见类别</h5>
+                        <div class="select-box dr">
+                            <p class="borde" v-for="(o,i) of btnList" :key="i" :class="o==btnNum?'active':''" @click="btnNum=o">{{o}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="main-box" style="margin:18px 0 24px">
-                    <span>反馈内容：</span>
-                    <div>
+                    <div class="mb40">
+                        <h5>反馈内容</h5>
                         <textarea 
+                            class="borde"
                             placeholder="请简述您在使用时遇到的问题或意见建议（最多500字），我们将不断改进~"
                             maxlength="500"
                             minlength='15'
                             v-model="remark"
                         ></textarea>
                     </div>
+                    <div class="mb40">
+                        <h5>联系电话</h5>
+                        <input class="borde" type="text" v-model="tel" placeholder="请留下您的联系方式，以便我们将处理结果及时告知您~"/>
+                    </div>
                 </div>
-                <div class="main-box">
-                    <span>联系电话：</span>
-                    <input type="type" v-model="tel" placeholder="请留下您的联系方式，以便我们将处理结果及时告知您~"/>
-                </div>
+                <button @click="upData" :class="isTap?'ban':''">{{btnTxt}}</button>
             </div>
-            <button @click="upData" :class="isTap?'ban':''">{{btnTxt}}</button>
-        </div>
+            <div class="bottom">© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1</div>
+        </section>
 	</div>
 </template>
 <script>
@@ -105,104 +104,110 @@
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style lang='less' scoped>
 .feedback{
-    .box{
-        width: 1020px;
-        margin: 0 auto 48px;
-        text-align: center;
-        img{
-            width: 100%;
-            display: block;
-            margin-bottom: 10px;
+    section{
+        min-height: calc(100vh - 58px);
+        background: url("../assets/img/feedback-bg.png") no-repeat;
+        background-size: 100% 100%;
+        position: relative;
+        padding-bottom: 22px;
+        .box{
+            // position: absolute;
+            // transform: translateX(-50%);
+            // top: 40px;
+            // left: 50%;
+            // text-align: center;
+            width: 1020px;
+            margin: 40px auto 0;
+            img{
+                width: 100%;
+                display: block;
+            }
+            .main{
+                margin-bottom: 60px;
+                text-align: left;
+                .mb40{
+                    h5{
+                        font-size: 18px;
+                        margin-bottom: 20px;
+                    }
+                    .select-box{
+                        p{
+                            padding: 0 20px;
+                            line-height: 32px;
+                            font-size: 18px;
+                            border-radius: 32px;
+                            margin-right: 30px;
+                        }
+                        .active{
+                            background: #EB651B;
+                            border-color: #EB651B;
+                            color: #fff;
+                        }
+                    }
+                    textarea{
+                        background: #F4F4F4;
+                        border-radius: 4px;
+                        width: 100%;
+                        height: 200px;
+                        box-sizing: border-box;
+                        padding: 10px;
+                        resize:none;
+                        font-size: 14px;
+                    }
+                    input{
+                        font-size: 14px;
+                        background: #F4F4F4;
+                        border-radius: 4px;
+                        line-height: 46px;
+                        width:374px;
+                        padding:0 10px;
+                    }
+                }
+            }
+            button{
+                width:340px;
+                line-height: 48px;
+                background: #150000;
+                border-radius: 4px;
+                text-align: center;
+                color: #fff;
+                display: block;
+                margin: 0 auto 135px;
+            }
+            .ban{
+                opacity: .8;
+                background: #999;
+                cursor: no-drop;
+            } 
         }
-        .main{
-            padding: 36px 10px;
-            background: #fff;
-            box-sizing: border-box;
-            box-shadow:4px 2px 10px 0px rgba(0, 0, 0, 0.1);
-            .main-box{
-                display:flex;
-                align-items: flex-start;
-                span{
-                    display: inline-block;
-                    padding-top: 7px;
-                    font-size: 14px;
-                    margin-right: 14px;
-                }
-                p{
-                    width: 128px;
-                    line-height: 30px;
-                    text-align: center;
-                    margin-right: 16px;
-                    display: inline-block;
-                    font-size: 12px;
-                    border: 1px solid #999;
-                    color: #666;
-                    position: relative;
-                    cursor: pointer;
-                    em{
-                        font-style: normal;
-                    }
-                    .el-icon-check{
-                        position: absolute;
-                        color: #fff;
-                        right: 0;
-                        z-index: 1;
-                        top: 0;
-                    }
-                }
-                .active{
-                    border-color: #FE6603;
-                    color: #FE6603;
-                }
-                .active:after{
-                    content: '';
-                    width: 0;
-                    height: 0;
-                    border-top: 22px solid #FE6603;
-                    border-left:22px solid transparent;
+        .bottom{
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+        }
+    }
+    @media screen and (min-width:1921px){
+        .feedback{
+            section{
+                height: calc(100vh - 58px);
+                padding-bottom: 0;
+                .box{
                     position: absolute;
-                    top: 0;
-                    right: 0;
+                    transform: translateX(-50%);
+                    top: 40px;
+                    left: 50%;
+                    margin: 0;
                 }
-
-                textarea{
-                    width:886px;
-                    height: 212px;
-                    outline: none;
-                    border: 1px solid #999;
-                    border-radius: 3px;
-                    padding: 16px 18px;
-                    box-sizing: border-box;
-                    resize:none;
-                    color: #666;
-                }
-
-                input{
-                    padding: 10px 16px;
-                    color: #666;
-                    outline: none;
-                    border: 1px solid #999;
-                    box-sizing: border-box;
-                    border-radius: 3px;
-                    width:362px;
-                    height: 30px;
+                .bottom{
+                    position: absolute;
+                    bottom: 22px;
+                    font-size: 14px;
+                    color: #999;
+                    transform: translateX(-50%);
+                    left: 50%;
                 }
             }
         }
-        button{
-            margin-top: 64px;
-            width: 180px;
-            line-height: 34px;
-            color: #fff;
-            border-radius: 10px;
-            background: #FE6603;
-            cursor: pointer;
-        }
-        .ban{
-            opacity: .8;
-            background: #999;
-            cursor: no-drop;
-        } 
     }
 }
 </style>
