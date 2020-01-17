@@ -191,7 +191,7 @@
 					channel: '1003',
 					clientVersion: '3.0'
 				}).then(res => {
-					this.loading = false;
+					this.dldata.loading = false;
 					if (res.code == 1) {
 						that.$http({
 							method:'post',
@@ -230,7 +230,7 @@
                         });
 					}
 				}).catch(req => {
-					that.loading = false;
+					that.dldata.loading = false;
 					that.$alert('您的网络不稳定，请重新登录');
                 })
             },
@@ -263,6 +263,7 @@
                 if(this.zcdata.checked) {
                     this.zcdata.loading = true;
                     memberRegister({verifyCode:this.zcdata.note.trim(),phoneNo:this.zcdata.mobile.trim(),channel:'1003',clientVersion:'3.0',loginPwd:sha1(this.zcdata.password.trim())}).then( res => {
+                        this.zcdata.loading = false;
                         if(res.code == 1) {
                             this.$notify({
                                 title: '成功',
@@ -375,6 +376,7 @@
 					phoneNo: this.zhmmdata.mobile.trim(),
 					channel: '1003'
 				}).then(res => {
+                    this.zhmmcata.loading = false;
 					if (res.code == 1) {
                         this.$notify({
                             title: '成功',
@@ -549,5 +551,25 @@
         }
     }
 }
-
+@media screen and (max-width:1919px){
+    .logo{
+        .main{
+            min-height: calc(100vh - 58px);
+            height: 100%;
+            padding-top: 100px;
+            padding-bottom: 22px;
+            box-sizing: border-box;
+            .box{
+                position: static;
+                transform: translateX(0);
+                margin:0 auto 135px;
+            }
+            .bottom{
+                position: static;
+                transform: translateX(0);
+                text-align: center
+            }
+        }
+    }
+}
 </style>

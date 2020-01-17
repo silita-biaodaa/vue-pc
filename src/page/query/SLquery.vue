@@ -219,7 +219,6 @@
 <script>
 import screenZZ from "@/components/screenZZ";
 import screenRY from "@/components/zhuancha/screenRY";
-import heads from "@/components/head3";
 export default {
     name: "ZJquery", // 结构名称
     data() {
@@ -386,7 +385,6 @@ export default {
     components: {
         "v-screenzz": screenZZ,
         "v-screenry": screenRY,
-        "v-head": heads
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

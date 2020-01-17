@@ -1,6 +1,6 @@
 <template>
     <div class="screenPage">
-        <v-head3 :headTxt="titleList"></v-head3>
+        <v-head :headTxt="titleList"></v-head>
         <div class="screenPage_body">
             <v-bread :breadList="breadList"></v-bread>
             <!-- 企业人员筛选 -->
@@ -536,13 +536,11 @@
     </div>
 </template>
 <script>
-import head3 from "@/components/head3";
 import screenZZ from "@/components/screenZZ";
 import screenRY from "@/components/zhuancha/screenRY";
 import { screenConut, personConut } from "@/api/index";
 export default {
     components: {
-        "v-head3": head3,
         "v-screenZZ": screenZZ,
         "v-screenRY": screenRY
     },

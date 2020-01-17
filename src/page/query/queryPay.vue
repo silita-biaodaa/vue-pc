@@ -54,7 +54,6 @@
     </div>
 </template>
 <script>
-import heads from "@/components/head3";
 import queryCondition from "@/components/zhuancha/queryCondition";
 import QRCode from "qrcodejs2";
 import { setTimeout, clearTimeout } from "timers";
@@ -243,7 +242,6 @@ export default {
         },
     },
     components: {
-        "v-head": heads,
         "v-query": queryCondition
     }
 };

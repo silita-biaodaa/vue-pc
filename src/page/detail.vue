@@ -42,7 +42,6 @@
 	</div>
 </template>
 <script>
-    import heads from '@/components/head3'
 	export default {
 		name: 'detail', // 结构名称
 		data() {
@@ -59,7 +58,6 @@
 			// 集成父级参数
         },
         components: {
-            'v-head': heads,
 		},
 		created() {
             // console.group('创建完毕状态===============》created');

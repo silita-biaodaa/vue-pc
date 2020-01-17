@@ -248,7 +248,6 @@
     </div>
 </template>
 <script>
-import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
 import punishpop from '@/components/cqpop/punishpop'
 import bidpop from '@/components/cqpop/bidpop'
@@ -327,7 +326,6 @@ export default {
     },
     inject: ['reload'],
     components:{
-        'v-head': heads,
         'v-region':joinRegion,
         'v-pun':punishpop,
         'v-bid':bidpop,

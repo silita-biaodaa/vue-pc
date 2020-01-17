@@ -8,7 +8,6 @@
 </div>
 </template>
 <script>
-import heads from '@/components/head3'
 export default {
   data () {
     return {
@@ -16,7 +15,6 @@ export default {
     }
   },
  components: {
-    'v-head':heads,
   }
 }
 </script>

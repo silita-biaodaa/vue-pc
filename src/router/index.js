@@ -25,15 +25,16 @@ const Good = resolve => require(['@/page/companys/sincerity'], resolve)
 import Centre from '@/page/companys/centre'
 import Achievement from '@/page/companys/achievement'
 import Conform from '@/page/conform'
-import Download from '@/page/Download'
+// import Download from '@/page/Download'
 
 import logo from '@/page/login'
 import protocol from '@/page/protocol'
 import bound from '@/page/user/bound'
 import info from '@/page/user/info'
 // import buy from '@/page/user/buy'
-const buy = resolve => require(['@/page/user/buy'], resolve)
-
+const buy = resolve => require(['@/page/user/openVip'], resolve) //会员服务
+const about = resolve => require(['@/page/About'], resolve) //关于我们
+const Download = resolve => require(['@/page/Download'], resolve) //下载APP
 
 import user from '@/page/user/user'
 import order from '@/page/user/order'
@@ -41,7 +42,7 @@ import pDet from '@/components/pdet'
 import root from '@/components/root'
 import fcoll from '@/components/collect'
  
-import about from '@/page/About'    // 关于我们
+// import about from '@/page/About'    // 关于我们
 
 // import synth from '@/page/synth/synth'    // 综合查询
 // import result from '@/page/synth/result'    // 综合查询

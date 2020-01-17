@@ -283,7 +283,6 @@
 <script>
 import screenZZ from "@/components/screenZZ";
 import screenRY from "@/components/zhuancha/screenRY";
-import heads from "@/components/head3";
 import publicBread from "@/components/customize/publicBread";
 export default {
     name: "ZJquery", // 结构名称
@@ -428,7 +427,6 @@ export default {
     components: {
         "v-screenzz": screenZZ,
         "v-screenry": screenRY,
-        "v-head": heads,
         "v-publicBread": publicBread
     },
     beforeCreate() {

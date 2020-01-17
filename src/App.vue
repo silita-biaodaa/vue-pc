@@ -119,7 +119,7 @@
 			<div class="footer_mark mt25 text-c fs14">© 2017 思利他, Inc. All rights reserved . 湘ICP备17019911号-1</div>
 		</div>
 		<!--右侧悬浮-->
-		<div class="fix-right" v-if="$route.name!='error'">
+		<div class="fix-right" v-if="$route.name!='error'&&$route.name!='logo'">
 			<div class="block qrbox">
 				<div class="box">
 					<i class="iconfont iconAPPxiazai"></i>

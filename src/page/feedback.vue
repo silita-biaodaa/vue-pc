@@ -9,7 +9,7 @@
                     <div class="mb40">
                         <h5>意见类别</h5>
                         <div class="select-box dr">
-                            <p class="borde" v-for="(o,i) of btnList" :key="i" :class="o==btnNum?'active':''" @click="btnNum=o">{{o}}</p>
+                            <p class="borde cp" v-for="(o,i) of btnList" :key="i" :class="o==btnNum?'active':''" @click="btnNum=o">{{o}}</p>
                         </div>
                     </div>
                     <div class="mb40">
@@ -34,7 +34,6 @@
 	</div>
 </template>
 <script>
-    import heads from '@/components/head3'
 	export default {
 		name: 'feedback', // 结构名称
 		data() {
@@ -55,7 +54,6 @@
 			// 集成父级参数
         },
         components: {
-			'v-head': heads,
 		},
 		created() {
 			// console.group('创建完毕状态===============》created');

@@ -163,7 +163,6 @@
     </div>
 </template>
 <script>
-import heads from '@/components/head3'
 import joinRegion from '@/components/zhuancha/joinRegion'
 export default {
     name: 'rydetail', // 结构名称
@@ -229,7 +228,6 @@ export default {
         // 监控集合
     },
     components:{
-        'v-head': heads,
         'v-region':joinRegion
     },
     computed:{

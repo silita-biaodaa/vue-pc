@@ -16,7 +16,6 @@
     </div>
 </template>
 <script>
-import heads from '@/components/head3'
 export default {
     name: 'novice', // 结构名称
     data() {
@@ -45,7 +44,6 @@ export default {
         // 集成父级参数
     },
     components: {
-        'v-head': heads,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

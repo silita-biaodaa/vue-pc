@@ -18,11 +18,12 @@ import  companyJump  from '@/components/companyJump';//点击跳转企业详情�
 import  navPage  from '@/components/paging';//分页组件（封装element，方便统一控制）
 import  enSearch from '@/components/home'//顶部搜索框
 import fvip from '@/components/fvip'//无会员弹窗
+import head3 from "@/components/head3"//公共头2
 import publicBread from "@/components/customize/publicBread";//面包屑（封装element，方便统一控制）
 import usercenter from '@/components/user-center'//未知
 import provCity from '@/components/provCity'//省市
 import city from '@/components/bid/city'
-import allCity from '@/components/bid/allCity'
+// import allCity from '@/components/bid/allCity'
 import perpor from '@/page/perfor/perpor'
 import money from '@/page/perfor/money'
 import pertime from '@/page/perfor/pertime'
@@ -39,6 +40,7 @@ Vue.component('v-comjump',companyJump)
 Vue.component('v-bread',publicBread)
 Vue.component('v-myInput',myInput)
 Vue.component('v-icon',svgIcon)
+Vue.component('v-head',head3)
 Vue.component('happy-scroll', HappyScroll)//滚动条组件
 // Vue.component('v-provcity',provCity)
 
@@ -290,6 +292,16 @@ new Vue({
           data:{}
       }).then(res =>{
         localStorage.setItem('proType',JSON.stringify(res.data.data));
+      })
+
+      this.$http({
+        method:'post',
+        url:'/vip/queryFeeStandard',
+        data:{
+          channel: '1003'
+        }
+      }).then(res =>{
+        sessionStorage.setItem('vipdata',JSON.stringify(res.data.data))
       })
     // }
     // if(localStorage.getItem('Xtoken') && localStorage.getItem('Xtoken')!='' ){

@@ -17,7 +17,6 @@
     </div>
 </template>
 <script>
-import heads from "@/components/head3";
 export default {
     data() {
         return {};
@@ -27,7 +26,6 @@ export default {
         // this.gain()
     },
     components: {
-        "v-head": heads
     }
 };
 </script>

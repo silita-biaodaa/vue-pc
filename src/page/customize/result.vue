@@ -1,6 +1,6 @@
 <template>
     <div class="result">
-        <v-head3 :headTxt="titleList"></v-head3>
+        <v-head :headTxt="titleList"></v-head>
         <div class="result_body">
             <v-bread :breadList="breadList"></v-bread>
             <v-result @getArea="getChilren"></v-result>
@@ -91,12 +91,10 @@
 </template>
 <script>
 import resultsList from "@/components/customize/resultsList";
-import head3 from "@/components/head3";
 import { screenList, personList } from "@/api/index";
 export default {
     components: {
         "v-result": resultsList,
-        "v-head3": head3,
     },
     data() {
         return {

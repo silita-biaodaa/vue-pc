@@ -85,16 +85,12 @@
 	</div>
 </template>
 <script>
-	import heads from '@/components/head3'
 	export default {
 		data() {
 			return {}
 		},
 		methods: {},
 		created() {},
-		components: {
-			'v-head': heads,
-		}
 	}
 </script>
 <style lang="less" scoped>

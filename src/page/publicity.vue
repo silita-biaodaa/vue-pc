@@ -44,7 +44,6 @@
 	</div>
 </template>
 <script>
-    import heads from '@/components/head3'
     import maxWfixBox from '@/components/maxWfixBox'
 	export default {
 		name: 'publicity', // 结构名称
@@ -65,7 +64,6 @@
 			// 集成父级参数
         },
         components: {
-            'v-head': heads,
             'v-maxw':maxWfixBox
 		},
 		created() {

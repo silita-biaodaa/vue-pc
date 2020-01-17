@@ -86,7 +86,6 @@
 </template>
 <script>
 import paging from "@/components/paging";
-import heads from "@/components/head3";
 import joinRegion from "@/components/zhuancha/joinRegion";
 import queryCondition from "@/components/zhuancha/queryCondition";
 export default {
@@ -130,7 +129,6 @@ export default {
     },
     components: {
         "v-page": paging,
-        "v-head": heads,
         "v-region": joinRegion,
         "v-query": queryCondition
     },
