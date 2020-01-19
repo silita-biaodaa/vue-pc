@@ -103,11 +103,12 @@
 <style lang='less' scoped>
 .feedback{
     section{
-        min-height: calc(100vh - 58px);
+        min-height: calc(100vh - 98px);
         background: url("../assets/img/feedback-bg.png") no-repeat;
         background-size: 100% 100%;
         position: relative;
         padding-bottom: 22px;
+        box-sizing: border-box;
         .box{
             // position: absolute;
             // transform: translateX(-50%);
@@ -184,26 +185,26 @@
             text-align: center;
         }
     }
-    @media screen and (min-width:1921px){
-        .feedback{
-            section{
-                height: calc(100vh - 58px);
-                padding-bottom: 0;
-                .box{
-                    position: absolute;
-                    transform: translateX(-50%);
-                    top: 40px;
-                    left: 50%;
-                    margin: 0;
-                }
-                .bottom{
-                    position: absolute;
-                    bottom: 22px;
-                    font-size: 14px;
-                    color: #999;
-                    transform: translateX(-50%);
-                    left: 50%;
-                }
+}
+@media screen and (min-width:1921px){
+    .feedback{
+        section{
+            height: calc(100vh - 58px);
+            padding-bottom: 0;
+            .box{
+                position: absolute;
+                transform: translateX(-50%);
+                top: 40px;
+                left: 50%;
+                margin: 0;
+            }
+            .bottom{
+                position: absolute;
+                bottom: 22px;
+                font-size: 14px;
+                color: #999;
+                transform: translateX(-50%);
+                left: 50%;
             }
         }
     }

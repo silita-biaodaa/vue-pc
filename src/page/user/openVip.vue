@@ -388,22 +388,11 @@
 						text-align: center;
 						border-radius: 28px;
 					}
+					button:hover{
+						box-shadow:0px 0px 13px 0px rgba(0,0,0,0.23);
+					}
 				}
 			}
-			// .active{
-			// 	transform: scale(1.2);
-			// 	box-shadow:0px 0px 13px 0px rgba(0,0,0,0.23);
-			// 	h5{
-			// 		background: #fff;
-			// 		border: none
-			// 	}
-			// 	.pb30{
-			// 		border: none;
-			// 	}
-			// 	.btn-box{
-			// 		border: none
-			// 	}
-			// }
 			li:hover{
 				z-index: 99;
 				transform: scale(1.2);
