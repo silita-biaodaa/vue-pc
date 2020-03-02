@@ -67,4 +67,24 @@ export default {
         }
     }
 }
+@media screen and (max-height:870px){
+    .download{
+        .main{
+            height: 100%;
+            padding-top: 100px;
+            padding-bottom: 22px;
+            box-sizing: border-box;
+            .box{
+                margin: 0 auto 100px;
+                position: static;
+                transform: translate(0,0);
+            }
+            .bottom{
+                position: static;
+                transform: translateX(0);
+                text-align: center
+            }
+        }
+    }
+}
 </style>

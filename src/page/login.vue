@@ -11,31 +11,34 @@
             <div class="box">
                 <!-- 登录 -->
                 <template v-if="tabNum==1">
-                    <h4 class="mb20 color-150 fs18">登录</h4>
-                    <div class="ipt-box mb20">
-                        <h5 class="mb10 color-150 fs14 fw500">账号</h5>
-                        <el-input v-model="dldata.mobile" placeholder="请输入您的手机号"></el-input>
-                    </div>
-                    <div class="ipt-box mb10">
-                        <h5 class="mb10 color-150 fs14 fw500">登陆密码</h5>
-                        <el-input v-model="dldata.password" type="password" placeholder="请输入登录密码"></el-input>
-                    </div>
-                    <div class="dfrb mb40">
-                        <div>
-                            <el-checkbox v-model="dldata.checked" class="fs14">15天免登录</el-checkbox>
+                    <from @keydown.13="login">
+                        <h4 class="mb20 color-150 fs18">登录</h4>
+                        <div class="ipt-box mb20">
+                            <h5 class="mb10 color-150 fs14 fw500">账号</h5>
+                            <el-input v-model="dldata.mobile" placeholder="请输入您的手机号"></el-input>
                         </div>
-                        <span class="color-449 txt-un fs14 cp" @click="tabNum=3">忘记密码? </span>
-                    </div>
-                    <template v-if="!dldata.loading">
-                        <div class="btn mb20 fs18 cp" @click="login">登录</div>
-                    </template>
-                    <template v-else>
-                        <div class="btn mb20 fs18 cp ban">正在登录...</div>
-                    </template>
-                    <img src="../assets/img/wx.png" class="wximg cp" @click="towechat"/>
-                    <p class="fs14">
-                        没有账号？<span class="color-449 txt-un cp" @click="tabNum=2">马上注册</span>
-                    </p>
+                        <div class="ipt-box mb10">
+                            <h5 class="mb10 color-150 fs14 fw500">登陆密码</h5>
+                            <el-input v-model="dldata.password" type="password" placeholder="请输入登录密码"></el-input>
+                        </div>
+                        <div class="dfrb mb40">
+                            <div>
+                                <el-checkbox v-model="dldata.checked" class="fs14">15天免登录</el-checkbox>
+                            </div>
+                            <span class="color-449 txt-un fs14 cp" @click="tabNum=3">忘记密码? </span>
+                        </div>
+                        <template v-if="!dldata.loading">
+                            <div class="btn mb20 fs18 cp" @click="login">登录</div>
+                        </template>
+                        <template v-else>
+                            <div class="btn mb20 fs18 cp ban">正在登录...</div>
+                        </template>
+                        <img src="../assets/img/wx.png" class="wximg cp" @click="towechat"/>
+                        <p class="fs14">
+                            没有账号？<span class="color-449 txt-un cp" @click="tabNum=2">马上注册</span>
+                        </p>
+                    </from>
+                    
                 </template>
                 <!-- 注册 -->
                 <template v-else-if="tabNum==2">
