@@ -24,7 +24,7 @@
 		<div class="user-text">
 			<div class="text-nav">
 				<div class='user-news'>
-					<el-upload action="http://pre.biaodaa.com/userCenter/updateHeadPortrait" :on-success="upLoadFn" auto-upload
+					<el-upload accept="image/png,image/jpeg" action="/userCenter/updateHeadPortrait" :on-success="upLoadFn" auto-upload
 					 :show-file-list="false">
 						<template v-if="userData.imageUrl">
 							<img :src="userData.imageUrl" alt="">

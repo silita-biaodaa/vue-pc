@@ -161,6 +161,10 @@
 				</div>
 			</div>
 		</div>
+		<!--左侧悬浮-->
+		<div class="fix-left cp" @click="jump('/dataCusto')">
+			<img src="./assets/img/fix-l.png"/>
+		</div>
 	</div>
 </template>
 
@@ -619,7 +623,7 @@
 					'publicity'||this.$route.name=='information'||this.$route.name=='detail'||this.$route.name=='novice'||this.$route.name=='error'
 					||this.$route.name=='ZJquery'||this.$route.name=='queryList'||this.$route.name=='queryDetail'||this.$route.name=='GLquery'
 					||this.$route.name=='SLquery'||this.$route.name=='queryPay'||this.$route.name=='cjDetail'||this.$route.name=='screenPage'||this.$route.name=='result'
-					||this.$route.name=='companyDetail'||this.$route.name=='peopleDetail'|| this.$route.name == 'payPage'
+					||this.$route.name=='companyDetail'||this.$route.name=='peopleDetail'|| this.$route.name == 'payPage' || this.$route.name=='dataCusto'
 				) {
 					return false
 				} else {
@@ -860,6 +864,14 @@ body{
 		color: #fff;
 		border-radius: 3px;
 	}
+}
+/*左侧悬浮*/
+.fix-left{
+	position: fixed;
+	left: 0;
+	transform: translateY(-50%);
+	top: 50%;
+	z-index: 999;
 }
 /*右侧悬浮*/
 .fix-right{

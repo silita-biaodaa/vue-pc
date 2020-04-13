@@ -161,7 +161,7 @@ export default {
                     if (res.data.code == 1) {
                         that.list = res.data.data;
                         that.total = res.data.total;
-                        this.reportPath=res.reportPath
+                        this.reportPath=res.data.reportPath
                     }
                 })
                 .catch(req => {
@@ -189,6 +189,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 @import "../../style/query.less";
+
 .list {
     .t-tit {
         height: 60px;
@@ -222,6 +223,10 @@ export default {
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+        }
+        a{
+            text-decoration: none;
+            color: #4494f0;
         }
     }
 }

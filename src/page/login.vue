@@ -372,14 +372,14 @@
                     });
 					return
                 }
-                this.zhmmcata.loading = true;
+                this.zhmmdata.loading = true;
                 updatePwd({
 					loginPwd: sha1(this.zhmmdata.password1.trim()),
 					verifyCode: this.zhmmdata.note.trim(),
 					phoneNo: this.zhmmdata.mobile.trim(),
 					channel: '1003'
 				}).then(res => {
-                    this.zhmmcata.loading = false;
+                    this.zhmmdata.loading = false;
 					if (res.code == 1) {
                         this.$notify({
                             title: '成功',

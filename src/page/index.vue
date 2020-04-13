@@ -57,7 +57,7 @@
 			</li>
 		</ul>
 		<!-- 广告图 -->
-		<div class="poster-box"></div>
+		<div class="poster-box cp" @click="openNewLink('/dataCusto')"></div>
 		<!-- 平台公示/行业资讯 -->
 		<div class="ptgs-hyzx">
 			<h4>
@@ -302,7 +302,7 @@
 	//广告图
 	.poster-box{
 		width: 1020px;
-		height: 160px;
+    	height: 160px;
 		margin: 0 auto 40px;
 		background: url(../assets/img/gg.png);
 		background-size: 100% 100%;

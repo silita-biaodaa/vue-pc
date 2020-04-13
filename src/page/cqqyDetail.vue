@@ -69,7 +69,7 @@
                             <tr v-for="(o,i) of list" :key="i">
                                 <td>{{i+1}}</td>
                                 <td>{{o.qualType}}</td>
-                                <td>{{o.qualName}}<span class="tag ml10 fs12" :class="o.joinRegion=='入渝'?'':'yn'" v-if="o.joinRegion">{{o.joinRegion}}企业</span></td>
+                                <td>{{o.qualName}}<span class="tag ml10 fs12" :class="o.joinRegion=='入渝'?'':'yn'" v-if="o.joinRegion">{{o.joinRegion}}</span></td>
                                 <td>{{o.certOrg}}</td>
                                 <td>{{o.validDate}}</td>
                             </tr>
@@ -100,7 +100,7 @@
                                         <td>{{o.idCard}}</td>
                                         <td>{{o.num}}</td>
                                         <td class="cate">
-                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="x.joinRegion">{{x.joinRegion}}企业</span></p>
+                                            <p v-for="(x,y) of o.categorys" :key="y" :style="{lineHeight:(x.cateList.length==0?1:x.cateList.length)*48+'px'}">{{x.cateKey}}<span class="tag ml10 fs12" :class="x.joinRegion=='入渝'?'':'yn'" v-if="x.joinRegion">{{x.joinRegion}}</span></p>
                                         </td>
                                         <td class="cate-key">
                                             <div v-for="(x,y) of o.categorys" :key="y">

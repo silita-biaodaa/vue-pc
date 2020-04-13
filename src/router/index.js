@@ -99,6 +99,7 @@ import queryPay from '@/page/query/queryPay'//查询支付页
 // import companyDetail from '@/page/customize/qydetail.vue'//企业详情页
 import companyDetail from '@/page/cqqyDetail'
 import ryDetail from '@/page/customize/rydetail'//人员详情页
+import dataCusto from '@/page/dataCusto'//数据定制页
 //404
 import error from'@/page/404'
 // escort
@@ -676,6 +677,11 @@ export default new Router({
       path: '/payPage',
       name: 'payPage',
       component: payPage,
+    },
+    {//数据定制
+      path:'/dataCusto',
+      name:'dataCusto',
+      component:dataCusto
     }
   ],
   scrollBehavior (to, from, savedPosition) {
