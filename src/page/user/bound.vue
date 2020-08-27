@@ -60,7 +60,7 @@
 					this.msg = '请输入手机号'
 					return false
 				}
-				if (!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
+				if (!(repPhone.test(this.mobile.trim()))) {
 					this.msg = '请输入正确的手机号'
 					return this.error = true
 				}
@@ -113,7 +113,7 @@
 					this.msg = '请输入手机号'
 					return false
 				}
-				if (!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.mobile.trim()))) {
+				if (!(repPhone.test(this.mobile.trim()))) {
 					this.error = true
 					this.msg = '请输入正确的手机号'
 					return false

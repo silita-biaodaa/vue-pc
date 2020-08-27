@@ -71,7 +71,7 @@ export default {
           this.fhint = '请输入手机号'
           return this.erip = true
        }
-       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.iphone))) {
+       if(!(repPhone.test(this.iphone))) {
          this.fhint = '请输入正确的手机号'
          return this.erip = true
        }
@@ -106,7 +106,7 @@ export default {
           this.fhint = '请输入手机号'
           return this.erip = true
        }
-       if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.iphone))) {
+       if(!(repPhone.test(this.iphone))) {
         this.fhint = '请输入正确的手机号'
          return this.erip = true
        }

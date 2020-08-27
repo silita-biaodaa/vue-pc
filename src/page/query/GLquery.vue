@@ -213,14 +213,14 @@
                         <el-row class="flex-center">
                             <el-col :span="1" class="mr20">等级评分：</el-col>
                             <v-myInput
-                                v-model="data.scoreStart"
+                                v-model="data.credit.scoreStart"
                                 style="width: 20%;"
                                 class="element_search"
                                 :placeholder="placeholder4"
                             ></v-myInput>
                             &nbsp;&nbsp;至&nbsp;&nbsp;
                             <v-myInput
-                                v-model="data.scoreEnd"
+                                v-model="data.credit.scoreEnd"
                                 style="width: 20%;"
                                 class="element_search"
                                 :placeholder="placeholder5"

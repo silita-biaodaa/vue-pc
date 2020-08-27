@@ -6,18 +6,19 @@
             <!-- 有数据 -->
             <template v-if="data&&data.length>0">
                 <table class="table-content">
-						<tr>
+                        <tr>
 							<td style="width:72px" >序号</td>
                             <td style="width:250px">不良类型</td>
                             <td >项目名称</td>
                             <td style="width:150px">评定时间</td>
+                            <!-- <td>内容</td> -->
 						</tr>
-						<tr v-for="(el,i) in data" :key="i">
+						<tr v-for="(el,i) in data" :key="i" :title="el.remark">
 							<td>{{i+1}}</td>
 							<td >{{el.review}}</td>
 							<td>{{el.projName}}</td>
 							<td>{{el.issued}}</td>
-                            <td>{{el.remark}}</td>
+                            <!-- <td>{{el.remark}}</td> -->
 						</tr>
 				</table>
             </template>

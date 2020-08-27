@@ -9,7 +9,7 @@
 					<li v-for='(el,i) in areas' :key='i' :class="el.code==area? 'current':''" @click='eval(el)'>{{el.areaShortName}}</li>
 				</ul>
 			</div>
-			<c-ity @nextC='gainC' v-show='Scity' :citystr="city"></c-ity>
+			<c-ity @nextC='gainC' v-show='Scity' :citystr="city" :sf="area"></c-ity>
 			<div class="select dfrb bor-b mb20">
 				<h6>招标类型</h6>
 				<ul>
@@ -149,7 +149,7 @@
 		inject: ['reload'],
 		watch: {
 			state(val) {
-				if (val.source == '湖南省') {
+				if (val.source == '湖南省'||val.source=='广东省') {
 					this.Scity = true
 				} else {
 					this.Scity = false
@@ -240,7 +240,7 @@
 					if (res.data.code == 1) {
 						//  this.loading = false
 						that.total = res.data.total
-						if (localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
+						if (!localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')||localStorage.getItem('0658544ac523fca9ec78a5f607fdd7ee')=='false') {
 							for (let x of res.data.data) {
 								if (x.certificate) {
 									x.certificate = x.certificate.replace(/特|一|二|三|四|五|甲|乙|丙|丁/g, '*')
@@ -380,7 +380,7 @@
 				}
 			},
 			eval(el) {
-				if (el.name == '湖南省') {
+				if (el.name == '湖南省'||el.name=='广东省') {
 					this.Scity = true
 				} else {
 					this.Scity = false
@@ -453,7 +453,7 @@
 				}
 			},
 			SHcity() {
-				if (this.area == 'hunan') {
+				if (this.area == 'hunan'||this.area=='guangd') {
 					this.Scity = true
 				} else {
 					this.Scity = false

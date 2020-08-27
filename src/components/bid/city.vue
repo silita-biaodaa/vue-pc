@@ -13,11 +13,25 @@
 		data() {
 			return {
 				city: [],
-				citys: []
+				citys: [],
+				hunan:[],
+				guangd:[],
 			}
 		},
 		props: {
-			citystr: ''
+			citystr: '',
+			sf:{
+				default:'hunan'
+			}
+		},
+		watch:{
+			sf(val,old){
+				if(val=='hunan'){
+					this.city=JSON.parse(JSON.stringify(this.hunan))
+				}else if(val=='guangd'){
+					this.city=JSON.parse(JSON.stringify(this.guangd))
+				}
+			}
 		},
 		methods: {
 			evalclass(el) {
@@ -68,6 +82,11 @@
 		},
 		created() {
 			let data = JSON.parse(localStorage.getItem('filter'));
+			if(this.sf=='hunan'){
+				this.city = data.area[13].data;
+			}else if(this.sf=='guangd'){
+				this.city = data.area[5].data;
+			}
 			for (let x of data.area[13].data) {
 				x.i = false;
 			}
@@ -76,7 +95,16 @@
 				code: '',
 				i: true
 			})
-			this.city = data.area[13].data;
+			for (let x of data.area[5].data) {
+				x.i = false;
+			}
+			data.area[5].data.unshift({
+				name: '全部',
+				code: '',
+				i: true
+			})
+			this.hunan=data.area[13].data;
+			this.guangd=data.area[5].data;
 			if (this.citystr != '') {
 				this.city[0].i = false;
 				let arr = this.citystr.split(',');

@@ -204,7 +204,7 @@
 				}
 			},
 			isphone() {
-				if (!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.iphone.trim()))) {
+				if (!(repPhone.test(this.iphone.trim()))) {
 					this.isshow = true
 					this.msg = '请输入正确的手机号码格式'
 				} else {

@@ -456,19 +456,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        returnInt(i) {
-            //匹配小于1的保留一位的正小数
-            let t = /^(0|0\.[1-9])$/;
-            if (i == 0) {
-                if (!t.test(this.data.credit.scoreStart * 1)) {
-                    this.data.credit.scoreStart = "";
-                }
-            } else if (i == 1) {
-                if (!t.test(this.data.credit.scoreEnd * 1)) {
-                    this.data.credit.scoreEnd = "";
-                }
-            }
-        },
         addressFn(el) {
             this.selectFn(el, this.addressList, "全国");
             this.data.regisAddress = this.forArrStr(this.addressList, "全国");
