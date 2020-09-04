@@ -20,7 +20,7 @@
 							<td >{{el.section ? el.section: '--'}}</td>
 							<td >{{el.comName ? el.comName: '--'}}</td>
 							<td >{{el.amount ? el.amount + '万' : '--'}}</td>
-							<td >{{el.build ? el.build: '--'}}</td>
+							<td >{{el.buildEnd ? el.buildEnd: '--'}}</td>
 							<td >{{el.proWhere ? el.proWhere: '--'}}</td>
 						</tr>
 					</table>

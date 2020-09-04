@@ -168,7 +168,7 @@
 							中标单位组织机构代码
 						</div>
 						<div class="show-text " style="width:291px;border:none">
-							{{debid.provZhongbiaoCode}}
+							{{debid.zhongbiaoCompanyCode}}
 						</div>
 					</div>
 					<div class="show-del">

@@ -85,13 +85,13 @@
 							实际造价（万元）
 						</div>
 						<div class="show-text" style="width:293px;">
-							{{debid.cost ?  debid.cost + '万元' : '' }}
+							{{debid.cost ?  debid.cost : '' }}
 						</div>
 						<div class="show-text blur" style="width:207px;">
 							实际面积（平方米）
 						</div>
 						<div class="show-text " style="width:291px;border:none">
-							{{debid.area ?  debid.area + '万元' : '' }}
+							{{debid.area ?  debid.area : '' }}
 						</div>
 					</div>
 					<div class="show-del">
